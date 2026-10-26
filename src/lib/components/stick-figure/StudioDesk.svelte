@@ -10,12 +10,15 @@
   let {
     height,
     layer,
+    mugs = true,
     seats,
     unit,
     width,
   }: {
     height: number;
     layer: "behind" | "front";
+    /** A mug by each host's near hand, unless the set has its own cups on the desk. */
+    mugs?: boolean;
     seats: StageFrame["seats"];
     /** Stage px per rig unit. */
     unit: number;
@@ -147,7 +150,7 @@
           fill={dx < 0 ? "#e05a4f" : "#5fd3c8"}
         />
       {/each}
-      {#each seats as seat, index (index)}
+      {#each mugs ? seats : [] as seat, index (index)}
         {@const x = seat.x / unit + seat.facing * 15}
         {@const mug = index % 2 ? "#f4f1ea" : "#d9675b"}
         <rect x={x - 2.4} y={TOP - 8} width="4.8" height="5.4" rx="1" fill={mug} />

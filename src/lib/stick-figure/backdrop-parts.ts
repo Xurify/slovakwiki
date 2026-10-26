@@ -85,7 +85,7 @@ export const PARTS = {
     tree: { ground: 250, planter: true, x: 902 },
   },
   kitchen: {
-    clock: { hand: 10, r: 18, ticks: false, x: 520, y: 70 },
+    clock: { hand: 10, r: 18, ticks: false, x: 496, y: 70 },
   },
   registration: {
     clock: { hand: 12, r: 24, ticks: true, x: 300, y: 72 },

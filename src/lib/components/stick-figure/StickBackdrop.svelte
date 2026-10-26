@@ -1,5 +1,7 @@
 <script lang="ts">
-  import type { Component } from "svelte";
+  import { untrack, type Component } from "svelte";
+  import { cubicInOut } from "svelte/easing";
+  import { Tween } from "svelte/motion";
 
   import {
     BACKDROP_HEIGHT,
@@ -29,10 +31,12 @@
   let {
     board,
     class: className = "",
+    door = false,
     found = [],
     height = 0,
     hint,
     lit = [],
+    minutes = 0,
     mood = DAYTIME,
     onpick,
     picked,
@@ -45,12 +49,16 @@
     /** A line to chalk on the classroom board. */
     board?: string;
     class?: string;
+    /** The door stands open: someone is coming in. */
+    door?: boolean;
     /** Things found in a game, ringed in green for the rest of it. */
     found?: readonly string[];
     /** The drawn size in px, once measured, so the slice can sit anywhere along it. */
     height?: number;
     /** Things to light up, named in the line playing: an id, or one copy's litKey. */
     lit?: readonly string[];
+    /** How far the story has skipped ahead: the clock's hands run on that far. */
+    minutes?: number;
     /** Time of day and weather, from the dialogue or picked in the lab. */
     mood?: SceneMood;
     /** Makes each thing a button that reports its id. */
@@ -65,7 +73,7 @@
   /** Each place's drawing; every one takes the same props and uses what it needs. */
   const DRAWINGS: Record<
     StageSetting,
-    Component<{ board?: string; hour: number; tram: TramState }>
+    Component<{ board?: string; hour: number; open?: boolean; tram: TramState }>
   > = {
     cafe: Cafe,
     classroom: Classroom,
@@ -99,7 +107,16 @@
     const y = BACKDROP_HEIGHT - shown.height;
     return { box: `${x} ${y} ${shown.width} ${shown.height}`, ratio: "none" };
   });
-  const hour = $derived(clockHour(mood));
+  /** The clock's hands sweep on over a skip ahead rather than jump. */
+  const hour = new Tween(
+    untrack(() => clockHour(mood) + minutes / 60),
+    { duration: 1200, easing: cubicInOut },
+  );
+  $effect(() => {
+    const to = clockHour(mood) + minutes / 60;
+    // A new scene or a jump back sets the clock; only going on runs it round.
+    void hour.set(to, { duration: to > hour.current ? 1200 : 0 });
+  });
   const Drawing = $derived(DRAWINGS[setting]);
   const things = $derived(thingsIn(PLACES[setting].things, setting, mood));
   /** Which thing the Tab key lands on: the last one focused, so leaving and coming back keeps the place. */
@@ -149,7 +166,7 @@
       <SkyLayer {mood} {setting} />
     {/if}
 
-    <Drawing {board} {hour} {tram} />
+    <Drawing {board} hour={hour.current} open={door} {tram} />
 
     <MoodLayer {mood} {setting} />
     <StageLight />

@@ -1,11 +1,11 @@
 import type { Headwear } from "./dress";
 
 /** What a place has underfoot: pavement and cobbles, floorboards, a carpet, a path or grass. */
-export type Ground = "stone" | "wood" | "carpet" | "soil";
+export type Ground = "stone" | "wood" | "carpet" | "soil" | "tile";
 import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
 import type { AmbienceLayer } from "./ambience";
 import { PARTS, benchBox, clockBox, lampBox, plantBox, treeBox } from "./backdrop-parts";
-import type { SetObject } from "./acts";
+import type { SetPlan } from "./acts";
 import type { Point } from "./rig";
 import type { SetPiece } from "./set-pieces";
 import { isFair, type SceneMood } from "./scene-mood";
@@ -74,10 +74,122 @@ export interface Place {
   furniture?: readonly Furniture[];
   /**
    * What the cast works at and with, for scenes acted from cues: the
-   * surfaces at the cast's scale, and every object with where it starts.
+   * surfaces at the cast's scale, every object with where it starts, and
+   * the spots people stand at.
    */
-  set?: { objects: readonly SetObject[]; pieces: readonly SetPiece[] };
+  set?: PlaceSet;
 }
+
+export type PlaceSet = Omit<SetPlan, "pieces"> & { pieces: readonly SetPiece[] };
+
+/** Where each seat's bowl stands on the kitchen table, from its middle. */
+const PLACE_DX = { l: -54, bl: -24, br: 24, r: 54 } as const;
+
+/**
+ * Mária's kitchen, against the tiles on the right: the counter with the sink
+ * (the big pot in the open cupboard under it) and the board, the stove, and
+ * past it a short side counter where Mária cooks, the salt and the spoon
+ * crock at her hand and the utensil rail over it. The towel hangs at the
+ * counter's end, a step from the sink. The table under the window is laid for
+ * four: Anna's place at the left end, Lucia's and Marek's behind it, Mária's
+ * at the right end. Rig units from each piece's middle; a cast of three
+ * draws one rig unit about 1.375 backdrop units wide.
+ *
+ * Who works where keeps people about 45 rig units apart, a natural gap
+ * between two people at a counter: the sink, the board, the stove's left,
+ * and the side counter. Nobody idles in front of the towel or the end
+ * chair's back, where a resting hand would seem to hold it.
+ */
+const KITCHEN_SET: PlaceSet = {
+  pieces: [
+    { id: "counter", kind: "counter", x: 600, width: 110, sink: -20 },
+    {
+      id: "cupboard",
+      kind: "ledge",
+      at: { piece: "counter", dx: -24 },
+      width: 30,
+      height: 12,
+    },
+    // Under the worktop's lip at the counter's end.
+    { id: "hook", kind: "rail", at: { piece: "counter", dx: -53 }, width: 4, height: 41 },
+    { id: "stove", kind: "stove", at: { piece: "counter", dx: 74 } },
+    { id: "side", kind: "counter", at: { piece: "stove", dx: 37 }, width: 36 },
+    // Under the wall cupboards, out of a tall pot's way.
+    { id: "rail", kind: "rail", at: { piece: "side", dx: 0 }, width: 30, height: 92 },
+    { id: "table", kind: "table", x: 392, width: 128, front: true },
+  ],
+  objects: [
+    { id: "pot", kind: "pot", start: { where: { on: "cupboard", dx: 0 } } },
+    { id: "lid", kind: "lid", start: { where: { on: "rail", dx: -6 } } },
+    { id: "ladle", kind: "ladle", start: { where: { on: "rail", dx: 9 } } },
+    { id: "towel", kind: "towel", start: { where: { on: "hook", dx: 0 } } },
+    { id: "board", kind: "board", start: { where: { on: "counter", dx: 24 } } },
+    { id: "carrot", kind: "carrot", start: { where: { in: "board", dx: -2 } } },
+    { id: "knife", kind: "knife", start: { where: { on: "counter", dx: 40 } } },
+    {
+      id: "jug",
+      kind: "jug",
+      start: { where: { on: "counter", dx: 49 }, fill: "water" },
+    },
+    { id: "salt", kind: "salt", start: { where: { on: "side", dx: -9 } } },
+    { id: "crock", kind: "crock", start: { where: { on: "side", dx: 11 } } },
+    { id: "spoon", kind: "spoon", start: { where: { in: "crock" } } },
+    ...(["l", "bl", "br", "r"] as const).flatMap((seat) => [
+      {
+        id: `bowl-${seat}`,
+        kind: "bowl" as const,
+        start: { where: { on: "table", dx: PLACE_DX[seat] } },
+      },
+      {
+        id: `spoon-${seat}`,
+        kind: "cutlery" as const,
+        start: {
+          where: { on: "table", dx: PLACE_DX[seat] + (PLACE_DX[seat] < 0 ? 12 : -12) },
+        },
+      },
+    ]),
+  ],
+  spots: {
+    door: { x: 226, facing: 1 },
+    // A step in from the door, short of the end chair's back.
+    inside: { x: 246, facing: 1 },
+    // By the table, where the guests stand about and talk, a step apart.
+    middle: { x: 438, facing: 1 },
+    chat: { x: 500, facing: -1 },
+    // Out of the cooks' way at the table's end, watching.
+    aside: { x: 470, facing: 1 },
+    // Round the counter's end, to set something on it.
+    "counter-end": { piece: "counter", dx: -68, facing: 1 },
+    // Facing the towel, a step back from the sink.
+    "by-towel": { piece: "counter", dx: -44, facing: -1 },
+    sink: { piece: "counter", dx: -34, facing: 1 },
+    // Where the pot comes out of the cupboard under the sink.
+    cupboard: { piece: "counter", dx: -36, facing: 1 },
+    board: { piece: "counter", dx: 10, facing: 1 },
+    // A step back from the board, to watch someone show how.
+    "board-back": { piece: "counter", dx: -4, facing: 1 },
+    // Across the board from whoever is at it, to show them.
+    "board-across": { piece: "counter", dx: 42, facing: -1 },
+    // At the stove from the counter's side.
+    "pot-left": { piece: "stove", dx: -20, facing: 1 },
+    // Mária's place, at the side counter by the stove, facing the room.
+    cook: { piece: "side", dx: -10, facing: -1 },
+    "seat-l": { chair: 0 },
+    "seat-bl": { chair: 1 },
+    "seat-br": { chair: 2 },
+    "seat-r": { chair: 3 },
+  },
+  places: {
+    basin: { piece: "counter", dx: -20 },
+    hob: { piece: "stove", dx: 2 },
+    "board-place": { piece: "counter", dx: 24 },
+    "knife-place": { piece: "counter", dx: 40 },
+    "jug-place": { piece: "counter", dx: 49 },
+    "salt-place": { piece: "side", dx: -9 },
+    phone: { piece: "table", dx: 4 },
+  },
+  door: "door",
+};
 
 /** The park's afternoon sun, which a line can point at and Find it can ask for. */
 const PARK_SUN = { x: 562, y: 36 };
@@ -168,42 +280,35 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     glass: { height: 100, width: 130, x: 106, y: 54 },
   },
   kitchen: {
-    ground: "wood",
+    // At home people are in slippers on the kitchen tiles: a soft pat and shuffle.
+    ground: "tile",
     label: "In the kitchen",
     outdoors: false,
     things: [
       drawn(WORDS.dvere, [190, 40, 72, 186]),
       drawn(WORDS.chladnicka, [280, 66, 56, 160]),
-      drawn(WORDS.okno, [372, 54, 104, 80]),
+      drawn(WORDS.okno, [352, 54, 104, 80]),
       drawn(WORDS.hodiny, clockBox(PARTS.kitchen.clock)),
-      // The sink, pot and stove are the set's, at the cast's scale: these boxes fit a cast of three or more (StickSet.svelte).
-      drawn(WORDS.umyvadlo, [570, 190, 40, 22]),
-      drawn(WORDS.hrniec, [721, 186, 33, 23]),
-      drawn(WORDS.sporak, [706, 209, 52, 69]),
+      // The sink, pot and stove are the set's, at the cast's scale: these boxes fit a cast of three or
+      // more (StickSet.svelte), whose floor is at y 280, in front of the wall's foot.
+      drawn(WORDS.umyvadlo, [556, 212, 34, 12]),
+      drawn(WORDS.hrniec, [683, 196, 44, 24]),
+      drawn(WORDS.sporak, [676, 219, 52, 61]),
     ],
     sounds: ["hum"],
     // The cook works at the stove end; guests eat at the table by the window.
     staff: ["maria"],
-    // At the counter, the cook nearest the stove.
-    post: 621,
+    // At the counter, the cook at the side counter by the stove.
+    post: 618,
+    // Round the table: one at each end, two behind it.
     furniture: [
-      { kind: "chair", x: 360, facing: 1 },
-      { kind: "table", x: 440 },
-      { kind: "chair", x: 520, facing: -1 },
+      { kind: "chair", x: 287, facing: 1 },
+      { kind: "chair", x: 357, facing: 1 },
+      { kind: "chair", x: 427, facing: -1 },
+      { kind: "chair", x: 497, facing: -1 },
     ],
-    glass: { height: 64, width: 88, x: 380, y: 62 },
-    set: {
-      pieces: [
-        { id: "counter", kind: "counter", x: 600 },
-        { id: "stove", kind: "stove", x: 732 },
-      ],
-      objects: [
-        { id: "pot", kind: "pot", start: { where: { on: "stove", dx: 4 }, heat: 1 } },
-        { id: "lid", kind: "lid", start: { where: { in: "pot" } } },
-        { id: "crock", kind: "crock", start: { where: { on: "stove", dx: -12 } } },
-        { id: "spoon", kind: "spoon", start: { where: { in: "crock" } } },
-      ],
-    },
+    glass: { height: 64, width: 88, x: 360, y: 62 },
+    set: KITCHEN_SET,
   },
   market: {
     ground: "stone",
@@ -309,6 +414,27 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     atMarks: true,
     desk: true,
     headwear: "headphones",
+    set: {
+      pieces: [
+        // StudioDesk.svelte draws it, between the hosts' seats.
+        { id: "desk", kind: "desk", front: true },
+        { id: "corner", kind: "floor", x: PARTS.studio.plant.x },
+      ],
+      objects: [
+        { id: "plant", kind: "plant", start: { where: { on: "corner", dx: 0 } } },
+        // In front of the pot: the gap to the desk's end is too narrow for it.
+        {
+          id: "can",
+          kind: "can",
+          start: { where: { on: "corner", dx: -15 }, fill: "water" },
+        },
+      ],
+      spots: {
+        plant: { piece: "corner", dx: -32, facing: 1 },
+        "desk-left": { chair: 0 },
+        "desk-right": { chair: 1 },
+      },
+    },
   },
 };
 

@@ -5,6 +5,7 @@ import type { Cue } from "./acts";
 import baseline from "./episode-checks.baseline.json";
 import { checkCues, checkEpisode, type Finding } from "./episode-checks";
 import { PLACES } from "./places";
+import { stageFrame } from "./stage-frame";
 
 /** A finding's key in the baseline: episode, segment, line and rule. */
 function keyOf(slug: string, finding: Finding): string {
@@ -41,7 +42,8 @@ describe("episodes against the failure classes", () => {
 });
 
 describe("cues against the set", () => {
-  const KITCHEN = PLACES.kitchen.set!.objects;
+  const KITCHEN = PLACES.kitchen.set!;
+  const FRAME = stageFrame(["anna", "marek", "maria"], {}, "kitchen", [], 960, 480);
   /** A segment of lines said by `who`, each with its cues. */
   const segment = (who: "maria" | "marek", ...acts: Cue[][]) => ({
     chapter: {
@@ -53,41 +55,46 @@ describe("cues against the set", () => {
   const rules = (findings: Finding[]) =>
     findings.map(({ rule, level }) => `${level} ${rule}`);
 
-  it("flags reaching into the pot from across the room, as with Tu máš vodu", () => {
+  it("flags reaching into the crock at the stove end from the sink, as with Tu máš vodu", () => {
     const { chapter, lines } = segment("marek", [
-      { do: "go", to: "counter" },
+      { do: "go", to: "sink" },
       { do: "take", what: "spoon" },
     ]);
-    expect(rules(checkCues(chapter, lines, KITCHEN))).toEqual([
+    expect(rules(checkCues(chapter, lines, KITCHEN, FRAME))).toEqual([
       "error space/out-of-reach",
     ]);
   });
 
-  it("lets someone reach what is at the spot they walked to, or beside the cook there", () => {
+  it("lets someone reach what is by the spot they walked to", () => {
     const { chapter, lines } = segment(
       "marek",
       [
-        { do: "go", to: "stove" },
+        { do: "go", to: "cook" },
         { do: "take", what: "spoon" },
       ],
       [
-        { who: "maria", do: "go", to: "stove" },
-        { do: "go", to: "maria" },
-        { do: "take", what: "lid" },
+        { who: "maria", do: "go", to: "board-across" },
+        { who: "maria", do: "take", what: "knife" },
       ],
     );
-    expect(checkCues(chapter, lines, KITCHEN)).toEqual([]);
+    expect(checkCues(chapter, lines, KITCHEN, FRAME)).toEqual([]);
   });
 
-  it("asks about a guest reaching from their mark, and trusts the cook at her post", () => {
-    const guest = segment("marek", [{ do: "take", what: "spoon" }]);
-    const cook = segment("maria", [{ do: "take", what: "spoon" }]);
-    expect(
-      rules(checkCues(guest.chapter, guest.lines, KITCHEN, undefined, ["maria"])),
-    ).toEqual(["review space/out-of-reach"]);
-    expect(checkCues(cook.chapter, cook.lines, KITCHEN, undefined, ["maria"])).toEqual(
-      [],
+  it("flags stopping at someone's elbow, but not once they have moved off", () => {
+    const { chapter, lines } = segment(
+      "marek",
+      [
+        { who: "anna", do: "go", to: "board" },
+        { do: "go", to: "board-back" },
+      ],
+      [
+        { who: "anna", do: "go", to: "pot-left" },
+        { do: "go", to: "board" },
+      ],
     );
+    expect(rules(checkCues(chapter, lines, KITCHEN, FRAME))).toEqual([
+      "error space/crowded",
+    ]);
   });
 
   it("flags a card from nowhere and a hand-over of what nobody holds", () => {
@@ -96,7 +103,7 @@ describe("cues against the set", () => {
       [{ do: "take", what: "card" }],
       [{ do: "give", what: "spoon", to: "anna" }],
     );
-    expect(rules(checkCues(chapter, lines, KITCHEN))).toEqual([
+    expect(rules(checkCues(chapter, lines, KITCHEN, FRAME))).toEqual([
       "error props/impossible-cue",
       "error props/impossible-cue",
     ]);

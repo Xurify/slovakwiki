@@ -246,6 +246,14 @@ describe("planLine", () => {
     expect(first("Je ešte skoro ráno.", "[pause] Je ešte skoro ráno.")).toBe("tell");
   });
 
+  it("says a hello into a phone without waving it at the room", () => {
+    const gestures = (phone: boolean) =>
+      planLine("To je ona! Ahoj, Lucia!", { phone }).beats.map((beat) => beat.gesture);
+
+    expect(gestures(false)).toContain("wave");
+    expect(gestures(true)).not.toContain("wave");
+  });
+
   it("lets the author override a sentence's gesture", () => {
     const plan = planLine("Teší ma. Odkiaľ ste?", { gestures: ["wave"] });
 

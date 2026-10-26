@@ -460,11 +460,10 @@ export function cues(): { ctx: AudioContext; noise: AudioBuffer } | undefined {
 }
 
 /**
- * Footsteps for a walk of `steps` steps, `stepMs` apart: a soft heel and
- * the scuff of a sole on each footfall, duller on a floor than on paving.
- * Plays on its own, background sound or not, unless sound is off.
+ * What a footfall sounds like on each ground: the thud of the heel, the
+ * scuff of the sole, any click of the surface, and how much of the top end
+ * the floor lets through. Indoors a step is soft, felt more than heard.
  */
-/** What a footfall sounds like on each ground: the thud of the heel, the scuff of the sole, and any click of the surface. */
 const GROUND_STEPS: Record<
   Ground,
   {
@@ -475,47 +474,64 @@ const GROUND_STEPS: Record<
     sole: number;
     soleHz: number;
     soleDecay: number;
+    /** Above this the step is rolled off, so nothing in it is sharp. */
+    toneHz: number;
   }
 > = {
-  // Pavement and cobbles: a hard, bright footfall with a click to it.
+  // Pavement and cobbles: a firm, bright footfall with a click to it.
   stone: {
-    click: 0.3,
-    heel: 0.45,
+    click: 0.22,
+    heel: 0.4,
     heelHz: 115,
     heelDecay: 0.08,
-    sole: 0.4,
-    soleHz: 1900,
+    sole: 0.3,
+    soleHz: 1700,
     soleDecay: 0.07,
+    toneHz: 3600,
   },
-  // Boards: a hollow knock that rings a little.
+  // Boards: a low, short knock.
   wood: {
-    click: 0.1,
-    heel: 0.6,
-    heelHz: 160,
-    heelDecay: 0.12,
-    sole: 0.25,
-    soleHz: 750,
-    soleDecay: 0.07,
+    click: 0.05,
+    heel: 0.4,
+    heelHz: 125,
+    heelDecay: 0.09,
+    sole: 0.18,
+    soleHz: 700,
+    soleDecay: 0.06,
+    toneHz: 1800,
   },
   // Carpet swallows the click; a soft thud and a brush.
   carpet: {
     click: 0,
-    heel: 0.35,
-    heelHz: 90,
-    heelDecay: 0.08,
-    sole: 0.15,
-    soleHz: 500,
+    heel: 0.28,
+    heelHz: 85,
+    heelDecay: 0.07,
+    sole: 0.12,
+    soleHz: 480,
     soleDecay: 0.06,
+    toneHz: 1200,
   },
   // A path or grass: little heel, a longer crunch.
   soil: {
     click: 0,
-    heel: 0.3,
+    heel: 0.25,
     heelHz: 100,
     heelDecay: 0.08,
-    sole: 0.4,
-    soleHz: 1200,
+    sole: 0.32,
+    soleHz: 1100,
     soleDecay: 0.12,
+    toneHz: 2800,
+  },
+  // Slippers on kitchen tiles: hardly a heel, a light pat and a shuffle.
+  tile: {
+    click: 0.04,
+    heel: 0.18,
+    heelHz: 110,
+    heelDecay: 0.05,
+    sole: 0.2,
+    soleHz: 1000,
+    soleDecay: 0.1,
+    toneHz: 2200,
   },
 };
 
@@ -574,12 +590,17 @@ export function playSteps(
         : base;
 
   const { ctx, noise } = kit;
-  const out = cueOut(ctx, 0.3, steps * stepMs + 500);
+  const level = cueOut(ctx, 0.24, steps * stepMs + 500);
+  const out = ctx.createBiquadFilter();
+  out.type = "lowpass";
+  out.frequency.value = sound.toneHz;
+  out.Q.value = 0.5;
+  out.connect(level);
 
   for (let step = 0; step < steps; step += 1) {
     // The heel lands at the widest stride, halfway through each step.
     const at = ctx.currentTime + ((step + 0.5) * stepMs) / 1000 + between(-0.01, 0.01);
-    const level = between(0.6, 1);
+    const loud = between(0.6, 1);
 
     const heel = ctx.createOscillator();
     const heelGain = ctx.createGain();
@@ -589,7 +610,8 @@ export function playSteps(
       at + sound.heelDecay,
     );
     heelGain.gain.setValueAtTime(0.0001, at);
-    heelGain.gain.exponentialRampToValueAtTime(sound.heel * level, at + 0.004);
+    // A rounded onset: a footfall, not a tap on the microphone.
+    heelGain.gain.exponentialRampToValueAtTime(sound.heel * loud, at + 0.012);
     heelGain.gain.exponentialRampToValueAtTime(0.0001, at + sound.heelDecay + 0.01);
     heel.connect(heelGain).connect(out);
     heel.start(at);
@@ -600,10 +622,10 @@ export function playSteps(
     const filter = ctx.createBiquadFilter();
     filter.type = "bandpass";
     filter.frequency.value = sound.soleHz * between(0.85, 1.15);
-    filter.Q.value = 1.2;
+    filter.Q.value = 0.8;
     const soleGain = ctx.createGain();
     soleGain.gain.setValueAtTime(0.0001, at);
-    soleGain.gain.exponentialRampToValueAtTime(sound.sole * level, at + 0.006);
+    soleGain.gain.exponentialRampToValueAtTime(sound.sole * loud, at + 0.016);
     soleGain.gain.exponentialRampToValueAtTime(0.0001, at + sound.soleDecay);
     sole.connect(filter).connect(soleGain).connect(out);
     sole.start(at, Math.random(), sound.soleDecay + 0.01);
@@ -618,7 +640,7 @@ export function playSteps(
       bright.Q.value = 2;
       const clickGain = ctx.createGain();
       clickGain.gain.setValueAtTime(0.0001, at);
-      clickGain.gain.exponentialRampToValueAtTime(sound.click * level, at + 0.002);
+      clickGain.gain.exponentialRampToValueAtTime(sound.click * loud, at + 0.003);
       clickGain.gain.exponentialRampToValueAtTime(0.0001, at + 0.025);
       click.connect(bright).connect(clickGain).connect(out);
       click.start(at, Math.random(), 0.03);

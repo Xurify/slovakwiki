@@ -1,4 +1,4 @@
-import { isActed, worlds, type World } from "./acts";
+import { WIDE, setUp, startWorld, worlds, type World } from "./acts";
 import { audioHash } from "$lib/catalog/audio/core";
 import { hasAudioClip } from "$lib/catalog/audio/manifest";
 import { resolveDictionaryAudioSrc } from "$lib/catalog/audio/resolve-server";
@@ -21,7 +21,7 @@ import {
   type LessonSceneArtId,
 } from "$lib/lesson-story/story-settings";
 import { RAIN_AND_TRAM, WEATHER_TODAY } from "./dev-scenes";
-import { PLACES } from "./places";
+import { PLACES, type PlaceSet } from "./places";
 import { dayTalks } from "./scene-day";
 import { directScene, type DirectedLine } from "./scene-direction";
 import { findAsker, findSayings } from "./scene-find";
@@ -153,22 +153,25 @@ export function episodeStages(episode: ListeningEpisode): {
 } {
   const order = episode.speakers.map(characterIdForSpeaker);
   let said: string[] = [];
-  /** The set as the last segment in the same place left it: the soup still on the stove. */
-  let world: World | undefined;
+  /** Each place's set as the last segment there left it: the soup still on the stove, the plant still yellow. */
+  const left = new Map<string, World>();
   const scenes = Object.fromEntries(
     episode.chapters.map((chapter, index) => {
       const setting = chapter.stage ?? "studio";
       const previous = episode.chapters[index - 1];
-      if ((previous?.stage ?? "studio") !== setting) {
-        said = [];
-        world = undefined;
-      }
+      if ((previous?.stage ?? "studio") !== setting) said = [];
       const before = said;
       said = [...said, ...chapter.lines.map((line) => line.slovak)];
       const lines = sceneLines(chapter.lines).map(directedLine);
       const set = PLACES[setting].set;
-      const start = world;
-      if (set && isActed(lines)) world = worlds(lines, set.objects, start).at(-1);
+      // Each segment starts on a wide shot, whatever the last one ended on.
+      const start = set
+        ? setUp(
+            { ...(left.get(setting) ?? startWorld(set.objects)), camera: WIDE },
+            chapter.setup,
+          )
+        : undefined;
+      if (set && start) left.set(setting, playedThrough(lines, set, start));
       return [
         chapter.id,
         {
@@ -191,6 +194,16 @@ export function episodeStages(episode: ListeningEpisode): {
   );
 
   return { scenes, thingWords };
+}
+
+/** The world once a segment's cues have played; a cue that cannot be played (the episode checks name it) leaves it as it was. */
+function playedThrough(lines: DirectedLine[], set: PlaceSet, start: World): World {
+  try {
+    return worlds(lines, set, start).at(-1) ?? start;
+  } catch (error) {
+    console.error(error);
+    return start;
+  }
 }
 
 function prototypeScene(

@@ -21,12 +21,15 @@
     part = "face",
     pose = REST_POSE,
     turn,
+    round = 1,
   }: {
     characterId: LessonCharacterId;
     part?: "back" | "face";
     pose?: StickPose;
     /** How far the features sit toward the facing side: a three-quarter view on stage, 0 for a portrait. */
     turn?: number;
+    /** How far round to the side the body is, 1 side-on and 0 facing the front halfway through a turn. */
+    round?: number;
   } = $props();
 
   const look = $derived(LOOKS[characterId]);
@@ -44,7 +47,7 @@
     duration: () => (prefersReducedMotion.current ? 0 : TURN_MS),
     easing: cubicInOut,
   });
-  const aside = $derived(turning.current);
+  const aside = $derived(turning.current * round);
   const eyeX = $derived(aside + pose.look * 2);
   const noseX = $derived(32 + aside * 1.15 + pose.look * 0.8);
   const mouthX = $derived(32 + aside * 0.9 + pose.look * 1.2);

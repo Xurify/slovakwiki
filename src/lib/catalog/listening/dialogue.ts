@@ -1,5 +1,6 @@
 import { markedText, type MarkedPart } from "$lib/learning/marked-text";
 import type { DialogueTurn } from "$lib/learning/types";
+import type { Cue } from "$lib/stick-figure/acts";
 
 /**
  * Writing a podcast line for the ear. A line is its parts: words, a marked
@@ -120,4 +121,25 @@ export function afterThinking(turn: DialogueTurn): DialogueTurn {
 /** A guess at something not yet shown: none of the speaker's sentences brings a prop out. */
 export function guess(sentences: number): null[] {
   return Array.from({ length: sentences }, () => null);
+}
+
+/**
+ * A segment's lines with their stage directions: `acts` maps a line's id,
+ * without the episode's prefix, to what the cast does while it plays. The
+ * staging reads as its own script beside the dialogue. A key that names no
+ * line throws, so a renamed line cannot quietly lose its staging.
+ */
+export function staged(
+  prefix: string,
+  lines: DialogueTurn[],
+  acts: Record<string, Cue[]>,
+): DialogueTurn[] {
+  const ids = new Set(lines.map((turn) => turn.id));
+  for (const id of Object.keys(acts)) {
+    if (!ids.has(`${prefix}${id}`)) throw new Error(`Staging for "${id}": no such line`);
+  }
+  return lines.map((turn) => {
+    const act = acts[turn.id.slice(prefix.length)];
+    return act ? { ...turn, act } : turn;
+  });
 }

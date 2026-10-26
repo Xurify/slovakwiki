@@ -3,7 +3,12 @@ import type { ListeningEpisode } from "$lib/catalog/listening/types";
 import { directScene } from "$lib/stick-figure/scene-direction";
 import { episodeStages } from "$lib/stick-figure/scene-sources";
 import { blockingBefore, startLine } from "$lib/stick-figure/stage-blocking";
-import { stageFrame, stageX, walkOns } from "$lib/stick-figure/stage-frame";
+import {
+  stageFrame,
+  stageX,
+  walkOns,
+  type StageFrame,
+} from "$lib/stick-figure/stage-frame";
 import {
   foldLine,
   lineSentences,
@@ -17,12 +22,21 @@ import {
   applyCue,
   cueActor,
   isActed,
+  opening,
   startWorld,
   type ActedLine,
-  type SetObject,
+  type Cue,
   type World,
 } from "$lib/stick-figure/acts";
-import { PLACES } from "$lib/stick-figure/places";
+import { PLACES, type PlaceSet } from "$lib/stick-figure/places";
+import { STICK_BOX } from "$lib/stick-figure/rig";
+import {
+  objectBase,
+  placePieces,
+  spotAt,
+  surfaceAt,
+  type SetGeometry,
+} from "$lib/stick-figure/set-pieces";
 import type { StageSetting } from "$lib/stick-figure/stage-setting";
 
 /** A set shows a place when its id is listed or its label names it: the park is drawn as `default`. */
@@ -122,16 +136,6 @@ export function checkEpisode(episode: ListeningEpisode): Finding[] {
     const scene = scenes[chapter.id];
     const setting = scene.setting;
     const acted = isActed(scene.lines);
-    if (acted)
-      findings.push(
-        ...checkCues(
-          chapter,
-          scene.lines,
-          PLACES[setting].set?.objects ?? [],
-          scene.world,
-          PLACES[setting].staff,
-        ),
-      );
     const direction = directScene(scene.lines, setting, scene.order);
     const stagings = direction.lines.map((line) => line.staging);
     const speakers = scene.lines.map((line) => line.characterId);
@@ -143,6 +147,10 @@ export function checkEpisode(episode: ListeningEpisode): Finding[] {
       WIDTH,
       HEIGHT,
     );
+    if (acted) {
+      const set = PLACES[setting].set ?? { pieces: [], objects: [] };
+      findings.push(...checkCues(chapter, scene.lines, set, frame, scene.world));
+    }
     const at = (index: number) => {
       const turn = chapter.lines[index];
       return { chapter: chapter.id, line: turn.id, slovak: turn.slovak };
@@ -366,69 +374,66 @@ export function checkEpisode(episode: ListeningEpisode): Finding[] {
   return findings;
 }
 
-/** The spot an object sits at: its own `on`, or the spot of what it is in. */
-function spotOf(world: World, id: string, depth = 0): string | undefined {
-  const where = world.objects[id]?.where;
-  if (!where || depth > 4) return undefined;
-  if ("on" in where) return where.on;
-  if ("in" in where) return spotOf(world, where.in, depth + 1);
-  return undefined;
-}
-
-/** Verbs done with the hands on something in the set, which the doer must be at. */
-const HANDS_ON = new Set(["take", "dip", "put"]);
+/** How far from where they stand someone reaches what they work on, in rig units: an arm, a lean, half the thing. */
+const ARM = 36;
+/**
+ * Closer than this, in rig units, two people standing still crowd each other
+ * (one's resting hand on the other's sleeve); side by side at a counter they
+ * stand about 45 apart.
+ */
+const ELBOW_ROOM = 30;
+/** Verbs that leave someone standing or sitting somewhere new. */
+const MOVES = new Set<Cue["do"]>(["go", "enter", "sit"]);
 
 /**
  * Replays an acted segment's cues: a cue that cannot happen (taking what the
- * set lacks, giving what is not held) is an error, and so is reaching for
- * something at a spot of the set from another spot nobody walked away from.
+ * set lacks, giving what is not held) is an error, and so is working on
+ * something out of reach of where the cues have the doer stand, as the
+ * stage lays the set out on `frame`.
  */
 export function checkCues(
   chapter: Pick<ListeningEpisode["chapters"][number], "id" | "lines">,
   lines: readonly ActedLine[],
-  objects: readonly SetObject[],
+  set: PlaceSet,
+  frame: StageFrame,
   start?: World,
-  staff: readonly LessonCharacterId[] = [],
 ): Finding[] {
   const findings: Finding[] = [];
-  let world = start ?? startWorld(objects);
+  const unit = frame.figureWidth / STICK_BOX.width;
+  const castX = (x: number) => stageX(frame, { x, y: 0 }) / unit;
+  const { seats } = frame;
+  const desk = seats.length
+    ? (seats[0].x + seats[seats.length - 1].x) / 2 / unit
+    : frame.width / 2 / unit;
+  const placed = placePieces(set.pieces, (piece) =>
+    piece.x !== undefined ? castX(piece.x) : piece.kind === "desk" ? desk : undefined,
+  );
+  const geometry: SetGeometry = { pieces: set.pieces, pieceX: (id) => placed.get(id) };
+
+  /** Where `who` stands: their spot, their chair, their seat at the desk, or their mark. */
+  const standsAt = (world: World, who: LessonCharacterId): number | undefined => {
+    const spot = world.spots[who];
+    if (spot) {
+      const at = set.spots?.[spot];
+      if (at && "chair" in at) return seats[at.chair] && seats[at.chair].x / unit;
+      return spotAt(set, geometry, spot, castX)?.x;
+    }
+    const index = frame.cast.indexOf(who);
+    if (frame.desk && index !== -1) return seats[index] && seats[index].x / unit;
+    const mark = frame.marks[who];
+    return mark === undefined ? undefined : (mark + frame.figureWidth / 2) / unit;
+  };
+
+  let world = opening(lines, start ?? startWorld(set.objects));
   lines.forEach((line, index) => {
     const turn = chapter.lines[index];
     const at = { chapter: chapter.id, line: turn.id, slovak: turn.slovak };
     for (const cue of line.act ?? []) {
       const who = cueActor(cue, line.characterId);
       if (!who) continue;
-      if (HANDS_ON.has(cue.do)) {
-        const target = cue.do === "take" ? cue.what : cue.to;
-        // An object sits at a spot; `to` may also name the spot itself ("counter").
-        const spot = !target
-          ? undefined
-          : world.objects[target]
-            ? spotOf(world, target)
-            : cue.do === "take"
-              ? undefined
-              : target;
-        // Beside someone is wherever they stand.
-        const beside = world.spots[who];
-        const standing = (beside && world.spots[beside as LessonCharacterId]) ?? beside;
-        if (spot && standing && standing !== spot && standing !== target) {
-          findings.push({
-            rule: "space/out-of-reach",
-            level: "error",
-            ...at,
-            message: `${who} cues "${cue.do} ${cue.what ?? ""}" at the ${spot} while standing at the ${standing}; a "go" cue must take them there first.`,
-          });
-        } else if (spot && !standing && !staff.includes(who)) {
-          findings.push({
-            rule: "space/out-of-reach",
-            level: "review",
-            ...at,
-            message: `${who} cues "${cue.do} ${cue.what ?? ""}" at the ${spot} from their mark. Is it in reach, or should a "go" cue come first?`,
-          });
-        }
-      }
+      let after: World;
       try {
-        world = applyCue(world, who, cue);
+        after = applyCue(world, who, cue, set);
       } catch (error) {
         if (!(error instanceof CueError)) throw error;
         findings.push({
@@ -437,8 +442,73 @@ export function checkCues(
           ...at,
           message: error.message,
         });
+        continue;
       }
+      const target = workedOn(world, after, cue, set, geometry);
+      const from = standsAt(world, who);
+      if (target !== undefined && from !== undefined && Math.abs(target - from) > ARM) {
+        const spot = world.spots[who] ?? "their mark";
+        findings.push({
+          rule: "space/out-of-reach",
+          level: "error",
+          ...at,
+          message: `${who} cues "${cue.do} ${cue.what ?? cue.to ?? ""}" ${Math.round(Math.abs(target - from))} rig units from where they stand (${spot}); a "go" cue must take them closer.`,
+        });
+      }
+      const there =
+        MOVES.has(cue.do) && after.spots[who] ? standsAt(after, who) : undefined;
+      for (const other of there === undefined ? [] : frame.cast) {
+        if (other === who || !after.spots[other] || after.out?.includes(other)) continue;
+        const near = standsAt(after, other);
+        if (near === undefined || Math.abs(near - there!) >= ELBOW_ROOM) continue;
+        findings.push({
+          rule: "space/crowded",
+          level: "error",
+          ...at,
+          message: `${who} stops ${Math.round(Math.abs(near - there!))} rig units from ${other} (${after.spots[other]}); side by side people stand about 45 apart. Move ${other} off first, earlier in the cue list, or pick another spot.`,
+        });
+      }
+      world = after;
     }
   });
   return findings;
+}
+
+/** The x of what a cue's hands work on, in cast units: what is taken, where it is put, what is poured into. */
+function workedOn(
+  world: World,
+  after: World,
+  cue: Cue,
+  set: PlaceSet,
+  geometry: SetGeometry,
+): number | undefined {
+  const base = (state: World, id: string | undefined) =>
+    id ? objectBase(state, id, geometry)?.x : undefined;
+  const place = (name: string) => {
+    const at = set.places?.[name];
+    return at ? surfaceAt(geometry, at.piece, at.dx)?.x : undefined;
+  };
+  switch (cue.do) {
+    case "take":
+      return base(world, cue.what);
+    case "put":
+      return base(after, cue.what);
+    case "dip":
+    case "pour":
+    case "shake":
+    case "dry":
+      return base(world, cue.to);
+    case "ladle":
+      return base(world, cue.from);
+    case "peel":
+    case "chop":
+      return base(world, cue.what);
+    case "switch":
+      return cue.what ? geometry.pieceX(cue.what) : undefined;
+    case "wash":
+    case "fill":
+      return place(cue.to ?? "basin");
+    default:
+      return undefined;
+  }
 }

@@ -65,13 +65,14 @@ export function reachFor(
   return { rearRaise, rearBend: nearest(bend, pose.rearBend) };
 }
 
-/** Where a figure's mouth is in rig space, on `pose`: just in front of the face, under the nose. */
+/** Where a figure's lips are in rig space, on `pose`, as StickHead draws them on the face. */
 export function mouthOf(pose: StickPose, sit = 0): Point {
   const { head, headAngle } = solveRig(pose, sit);
   const angle = headAngle * RAD;
-  // Measured on StickHead: the lips sit 7 units ahead of the head's centre and 5 below it.
-  const ahead = 8;
-  const below = 5;
+  // StickHead draws the mouth at x 32 + 2.6 * 0.9 + look * 1.2 and about y 37
+  // of its 64-unit space, centred on 32, 29, and the figure scales that by 0.82.
+  const ahead = (2.6 * 0.9 + pose.look * 1.2) * 0.82;
+  const below = 6.6;
   return {
     x: head.x + Math.cos(angle) * ahead - Math.sin(angle) * below,
     y: head.y + Math.sin(angle) * ahead + Math.cos(angle) * below,

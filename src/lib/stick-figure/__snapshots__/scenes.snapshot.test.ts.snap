@@ -4623,7 +4623,6 @@ exports[`every scene, directed > podcast podcast-imperative-game 1`] = `
         "beats": [
           "100 tell",
           "3750 muse",
-          "5259 point → hodiny",
           "6300 stress",
         ],
         "ms": 8250,
@@ -5071,23 +5070,16 @@ exports[`every scene, directed > podcast podcast-imperative-intro 1`] = `
       },
     },
     {
-      "held": {
-        "marek": "cup",
-      },
       "line": "marek: Dobre, dobre. Pijem.",
       "plan": {
         "beats": [
-          "0 show",
+          "0 nod",
           "1400 tell",
         ],
         "ms": 2000,
         "sentences": "0-945 1400-1750",
         "words": "0-419 526-945 1400-1750",
       },
-      "props": [
-        "cup",
-        undefined,
-      ],
       "staging": {
         "addressee": "anna",
         "facing": {
@@ -5097,9 +5089,6 @@ exports[`every scene, directed > podcast podcast-imperative-intro 1`] = `
       },
     },
     {
-      "held": {
-        "marek": "cup",
-      },
       "line": "anna: Počuli ste? Pi, nezaspi… Samé rozkazy. A práve o tom je dnešná epizóda.",
       "plan": {
         "beats": [
@@ -5119,7 +5108,6 @@ exports[`every scene, directed > podcast podcast-imperative-intro 1`] = `
           "anna": 1,
           "marek": -1,
         },
-        "looksAt": "marek",
         "reactions": [
           {
             "at": 0.5,
@@ -5131,19 +5119,13 @@ exports[`every scene, directed > podcast podcast-imperative-intro 1`] = `
       },
     },
     {
-      "handed": {
-        "anna": "cup",
-      },
-      "held": {
-        "marek": "cup",
-      },
       "line": "marek: Hm… Rozkazy. Tak ja mám jeden pre teba: pozri sa na našu rastlinku. Je celá žltá!",
       "plan": {
         "beats": [
           "100 think",
           "1000 tell",
           "2700 tell",
-          "5419 point → rastlina",
+          "5300 muse",
           "6550 stress",
         ],
         "ms": 7950,
@@ -5156,21 +5138,9 @@ exports[`every scene, directed > podcast podcast-imperative-intro 1`] = `
           "anna": 1,
           "marek": -1,
         },
-        "gives": "anna",
-        "reactions": [
-          {
-            "at": 0.8,
-            "characterId": "anna",
-            "gesture": "show",
-            "sentence": 3,
-          },
-        ],
       },
     },
     {
-      "held": {
-        "anna": "cup",
-      },
       "line": "anna: Lebo ju nikto nepolieva. Marek, tento týždeň si na rade ty.",
       "plan": {
         "beats": [
@@ -5187,13 +5157,9 @@ exports[`every scene, directed > podcast podcast-imperative-intro 1`] = `
           "anna": 1,
           "marek": -1,
         },
-        "looksAt": "marek",
       },
     },
     {
-      "held": {
-        "anna": "cup",
-      },
       "line": "marek: Ja? Aha… no jasné.",
       "plan": {
         "beats": [
@@ -5223,9 +5189,6 @@ exports[`every scene, directed > podcast podcast-imperative-intro 1`] = `
       },
     },
     {
-      "held": {
-        "anna": "cup",
-      },
       "line": "anna: Tak ju hneď polej, chudinku.",
       "plan": {
         "beats": [
@@ -5241,13 +5204,9 @@ exports[`every scene, directed > podcast podcast-imperative-intro 1`] = `
           "anna": 1,
           "marek": -1,
         },
-        "looksAt": "marek",
       },
     },
     {
-      "held": {
-        "anna": "cup",
-      },
       "line": "marek: Polejem, polejem. Hneď po nahrávaní, sľubujem!",
       "plan": {
         "beats": [
@@ -5267,9 +5226,6 @@ exports[`every scene, directed > podcast podcast-imperative-intro 1`] = `
       },
     },
     {
-      "held": {
-        "anna": "cup",
-      },
       "line": "anna: Uvidíme. Inak, dnes večer ideme k pani Márii.",
       "plan": {
         "beats": [
@@ -5286,13 +5242,9 @@ exports[`every scene, directed > podcast podcast-imperative-intro 1`] = `
           "anna": 1,
           "marek": -1,
         },
-        "looksAt": "marek",
       },
     },
     {
-      "held": {
-        "anna": "cup",
-      },
       "line": "marek: Jaj, hej! Ukáže nám, ako robí tú svoju polievku. A príde aj Lucia, nie?",
       "plan": {
         "beats": [
@@ -5322,9 +5274,6 @@ exports[`every scene, directed > podcast podcast-imperative-intro 1`] = `
       },
     },
     {
-      "held": {
-        "anna": "cup",
-      },
       "line": "anna: Príde. Ale asi zase bude meškať.",
       "plan": {
         "beats": [
@@ -5341,7 +5290,6 @@ exports[`every scene, directed > podcast podcast-imperative-intro 1`] = `
           "anna": 1,
           "marek": -1,
         },
-        "looksAt": "marek",
         "reactions": [
           {
             "at": 1,
@@ -5353,15 +5301,11 @@ exports[`every scene, directed > podcast podcast-imperative-intro 1`] = `
       },
     },
     {
-      "held": {
-        "anna": "cup",
-      },
       "line": "marek: A Mária v kuchyni stále len rozkazuje. Zoberieme so sebou mikrofón, tak počúvajte!",
       "plan": {
         "beats": [
           "50 tell",
           "3450 stress",
-          "4381 point → mikrofon",
         ],
         "ms": 6250,
         "sentences": "50-2384 3450-6050",
@@ -5409,10 +5353,6 @@ exports[`every scene, directed > podcast podcast-imperative-kitchen 1`] = `
       },
       "staging": {
         "addressee": "anna",
-        "enter": {
-          "characterId": "anna",
-          "from": -1,
-        },
         "facing": {
           "anna": 1,
           "marek": 1,
@@ -5454,10 +5394,6 @@ exports[`every scene, directed > podcast podcast-imperative-kitchen 1`] = `
       },
       "staging": {
         "addressee": "anna",
-        "enter": {
-          "characterId": "marek",
-          "from": -1,
-        },
         "facing": {
           "anna": 1,
           "marek": 1,
@@ -5556,7 +5492,6 @@ exports[`every scene, directed > podcast podcast-imperative-kitchen 1`] = `
         "beats": [
           "0 tell",
           "3400 tell",
-          "4493 point → hrniec",
         ],
         "ms": 5950,
         "sentences": "0-2144 3400-5750",
@@ -5583,7 +5518,7 @@ exports[`every scene, directed > podcast podcast-imperative-kitchen 1`] = `
       "line": "marek: Tento? No ten je ale ťažký!",
       "plan": {
         "beats": [
-          "50 point → hrniec (near)",
+          "50 ask",
           "1400 stress",
         ],
         "ms": 3200,
@@ -5612,8 +5547,8 @@ exports[`every scene, directed > podcast podcast-imperative-kitchen 1`] = `
       "line": "maria: Hej, ten. Nalej do neho vodu a daj ho na sporák.",
       "plan": {
         "beats": [
-          "192 point → hrniec",
-          "3094 point → sporak",
+          "50 tell",
+          "1300 tell",
         ],
         "ms": 3950,
         "sentences": "50-624 1300-3750",
@@ -5689,7 +5624,6 @@ exports[`every scene, directed > podcast podcast-imperative-kitchen 1`] = `
       "plan": {
         "beats": [
           "0 tell",
-          "1069 point → hrniec",
           "2850 tell",
           "5100 stress",
         ],
@@ -5992,7 +5926,7 @@ exports[`every scene, directed > podcast podcast-imperative-outro 1`] = `
       "plan": {
         "beats": [
           "100 sigh",
-          "1768 point → rastlina",
+          "1768 ask",
           "4150 tell",
         ],
         "ms": 7050,
@@ -6020,7 +5954,7 @@ exports[`every scene, directed > podcast podcast-imperative-outro 1`] = `
       "line": "marek: Jaj, rastlinka! Už idem!",
       "plan": {
         "beats": [
-          "181 point → rastlina",
+          "50 stress",
           "2100 stress",
         ],
         "ms": 3050,
@@ -6039,7 +5973,7 @@ exports[`every scene, directed > podcast podcast-imperative-outro 1`] = `
       "line": "marek: Prepáč, rastlinka. Tu máš vodu. A nezaspi!",
       "plan": {
         "beats": [
-          "404 point → rastlina",
+          "50 apologize",
           "2500 point",
           "4050 stress",
         ],
@@ -6068,7 +6002,6 @@ exports[`every scene, directed > podcast podcast-imperative-outro 1`] = `
       "plan": {
         "beats": [
           "50 chuckle",
-          "1843 point → rastlina",
           "3967 stress",
           "6567 tell",
           "10150 wave",
@@ -6079,7 +6012,6 @@ exports[`every scene, directed > podcast podcast-imperative-outro 1`] = `
       },
       "staging": {
         "addressee": "marek",
-        "exit": -1,
         "facing": {
           "anna": 1,
           "marek": -1,
@@ -6334,10 +6266,6 @@ exports[`every scene, directed > podcast podcast-imperative-table 1`] = `
             "sentence": 1,
           },
         ],
-        "sit": [
-          "anna",
-          "marek",
-        ],
       },
     },
     {
@@ -6360,31 +6288,19 @@ exports[`every scene, directed > podcast podcast-imperative-table 1`] = `
       },
     },
     {
-      "held": {
-        "marek": "phone",
-      },
       "line": "marek: Počkajte, zvoní mi telefón… To je ona! Ahoj, Lucia!",
       "plan": {
         "beats": [
-          "50 show",
+          "50 think",
           "2300 stress",
-          "3950 wave",
+          "3950 tell",
         ],
         "ms": 5200,
         "sentences": "50-2017 2300-3093 3950-5050",
         "words": "50-665 767-1208 1208-1392 1392-2017 2300-2507 2507-2714 2714-3093 3950-4410 4538-5050",
       },
-      "props": [
-        "phone",
-        undefined,
-        undefined,
-      ],
       "staging": {
         "addressee": "anna",
-        "approach": {
-          "characterId": "anna",
-          "toward": 1,
-        },
         "facing": {
           "anna": 1,
           "marek": -1,
@@ -6393,9 +6309,6 @@ exports[`every scene, directed > podcast podcast-imperative-table 1`] = `
       },
     },
     {
-      "held": {
-        "marek": "phone",
-      },
       "line": "lucia: Ahoj! Prepáčte, ešte som v práci. Asi neprídem. Nečakajte na mňa, pokojne jedzte.",
       "plan": {
         "beats": [
@@ -6413,9 +6326,6 @@ exports[`every scene, directed > podcast podcast-imperative-table 1`] = `
       },
     },
     {
-      "held": {
-        "marek": "phone",
-      },
       "line": "marek: Nie, nie, príď! Polievka je výborná.",
       "plan": {
         "beats": [
@@ -6435,9 +6345,6 @@ exports[`every scene, directed > podcast podcast-imperative-table 1`] = `
       },
     },
     {
-      "held": {
-        "marek": "phone",
-      },
       "line": "maria: Nech príde. Polievky je dosť.",
       "plan": {
         "beats": [
@@ -6458,14 +6365,10 @@ exports[`every scene, directed > podcast podcast-imperative-table 1`] = `
       },
     },
     {
-      "held": {
-        "marek": "phone",
-      },
       "line": "lucia: Dobre, tak som tam o pol hodiny. Čau!",
       "plan": {
         "beats": [
           "0 nod",
-          "1258 point → hodiny",
           "2950 wave",
         ],
         "ms": 3550,
@@ -6477,14 +6380,11 @@ exports[`every scene, directed > podcast podcast-imperative-table 1`] = `
       },
     },
     {
-      "held": {
-        "marek": "phone",
-      },
       "line": "marek: Čau! Príde o pol hodiny.",
       "plan": {
         "beats": [
-          "0 wave",
-          "2024 point → hodiny",
+          "0 tell",
+          "1600 tell",
         ],
         "ms": 2800,
         "sentences": "0-323 1600-2650",

@@ -129,10 +129,13 @@ const chuckling = {
 const sighIn = { bob: -1.6, tilt: -5, brow: 0.4, lean: -1, look: 0 };
 /** …then out, everything dropping: fond exasperation. */
 const sighOut = { bob: 1.2, nod: 2.2, tilt: 3, brow: -0.6, lean: 1, look: -0.4 };
-/** A hand up to the mouth and the head back: still half asleep. */
+/**
+ * The near hand up over the mouth and the head back: still half asleep. The
+ * far arm's raise swings it backwards, so it could never reach the mouth.
+ */
 const yawning = {
-  rearRaise: 62,
-  rearBend: -128,
+  leadRaise: 130,
+  leadBend: 126,
   tilt: -8,
   brow: -0.4,
   look: -0.6,

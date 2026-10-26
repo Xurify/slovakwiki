@@ -15,15 +15,18 @@
   import { LOOKS } from "$lib/stick-figure/looks";
   import type { Held } from "$lib/stick-figure/props";
   import type { Emote } from "$lib/stick-figure/act-motions";
-  import type { ObjectKind } from "$lib/stick-figure/acts";
+  import type { Effect } from "$lib/stick-figure/act-motions";
   import { mouthOf } from "$lib/stick-figure/reach";
   import { OBJECT_SIZE } from "$lib/stick-figure/set-pieces";
   import StickHead from "./StickHead.svelte";
-  import StickSetObject from "./StickSetObject.svelte";
+  import StickSetObject, { type ObjectLook } from "./StickSetObject.svelte";
   import StickHeld from "./StickHeld.svelte";
   import StickPicture from "./StickPicture.svelte";
   import StickProp from "./StickProp.svelte";
   import StickTorso from "./StickTorso.svelte";
+  import { cubicInOut } from "svelte/easing";
+  import { prefersReducedMotion, Tween } from "svelte/motion";
+  import { untrack } from "svelte";
 
   let {
     characterId,
@@ -64,11 +67,32 @@
     emote?: Emote;
   } = $props();
 
-  interface InHand {
-    full?: boolean;
-    heat?: number;
-    kind: ObjectKind;
+  interface InHand extends ObjectLook {
     turn?: number;
+    /** Water, salt or peel coming off it while a cue pours, shakes or peels. */
+    effect?: Effect["kind"];
+  }
+
+  /** Where water, salt or peel leaves each kind, in its own drawing's space. */
+  const TIP: Partial<Record<InHand["kind"], Point>> = {
+    jug: { x: 7, y: -12 },
+    can: { x: 14, y: -12 },
+    ladle: { x: 0, y: -17 },
+    salt: { x: 0, y: -9 },
+    knife: { x: 5, y: -1 },
+  };
+
+  /** Where the tip of an object held at `at` is, turned `turn` degrees, in the figure's space. */
+  function tipOf(at: Point, object: InHand): Point {
+    const tip = TIP[object.kind] ?? { x: 0, y: 0 };
+    const { grip } = OBJECT_SIZE[object.kind];
+    const x = tip.x - grip.x;
+    const y = tip.y + grip.y;
+    const angle = ((object.turn ?? 0) * Math.PI) / 180;
+    return {
+      x: at.x + x * Math.cos(angle) - y * Math.sin(angle),
+      y: at.y + x * Math.sin(angle) + y * Math.cos(angle),
+    };
   }
 
   /**
@@ -85,9 +109,36 @@
     };
   }
   /** Most of the way up, the phone has changed hands to the one at the ear. */
-  const phoneAtEar = $derived(call > 0.5 && held?.id === "phone");
+  const phoneAtEar = $derived(
+    call > 0.5 && (held?.id === "phone" || hands.rear?.kind === "phone"),
+  );
 
   const rig = $derived(solveRig(atEar(pose, call), sit));
+  /** The lead hand up at the lips with something in it: a spoon to taste, a cup to drink. */
+  const leadAtMouth = $derived.by(() => {
+    if (!hands.lead) return false;
+    const lips = mouthOf(pose, sit);
+    const at = rig.leadArm.end;
+    return Math.hypot(at.x - lips.x, at.y - lips.y) < 15;
+  });
+
+  // A turn comes round through the front, as a person does: the face slides
+  // to the middle as the body narrows a little, the figure changes sides
+  // while it faces the front, where the swap hardly shows, and comes round
+  // the other way. A flip through edge-on read as a paper cut-out.
+  const turning = new Tween<number>(
+    untrack(() => facing),
+    { easing: cubicInOut },
+  );
+  $effect(() => {
+    void turning.set(facing, {
+      delay: turnDelay,
+      duration: prefersReducedMotion.current ? 0 : TURN_MS,
+    });
+  });
+  const side = $derived(turning.current >= 0 ? 1 : -1);
+  /** 1 side-on, 0 facing the front mid-turn. */
+  const round = $derived(Math.min(1, Math.abs(turning.current)));
   /**
    * From the near cup over the crown to the far one: half an ellipse round
    * the head whose top sits `lift` above the hair, so the band hugs the
@@ -137,13 +188,59 @@
 {/snippet}
 
 {#snippet inHand(at: Point, object: InHand)}
+  {@const { grip } = OBJECT_SIZE[object.kind]}
   <g
-    transform="translate({n(at.x)} {n(at.y)}) rotate({n(
-      object.turn ?? 0,
-    )}) translate(0 {OBJECT_SIZE[object.kind].grip})"
+    transform="translate({n(at.x)} {n(at.y)}) rotate({n(object.turn ?? 0)}) translate({n(
+      -grip.x,
+    )} {n(grip.y)})"
   >
-    <StickSetObject kind={object.kind} full={object.full} heat={object.heat} />
+    <StickSetObject {...object} carried={object.kind === "pot"} />
   </g>
+  {#if object.effect}
+    {@const tip = tipOf(at, object)}
+    {#if object.effect === "stream"}
+      <path
+        d="M{n(tip.x)} {n(tip.y)}v16"
+        class="animate-pour {object.kind === 'ladle'
+          ? 'stroke-scene-carrot'
+          : 'stroke-scene-sky'}"
+        stroke-width="1.5"
+        stroke-dasharray="2.5 1.5"
+      />
+    {:else if object.effect === "salt"}
+      <path
+        d="M{n(tip.x)} {n(tip.y + 1)}v12M{n(tip.x + 1.2)} {n(tip.y + 2)}v10"
+        class="animate-pour stroke-white"
+        stroke-width="0.8"
+        stroke-dasharray="0.2 2"
+      />
+    {:else}
+      <path
+        d="M{n(tip.x)} {n(tip.y + 1)}v10"
+        class="animate-pour stroke-scene-honey"
+        stroke-width="0.9"
+        stroke-dasharray="1.4 3"
+      />
+    {/if}
+  {/if}
+{/snippet}
+
+{#snippet leadSide()}
+  {@render arm(rig.leadShoulder, rig.leadArm)}
+
+  {#if robot}
+    {@render joint(rig.rearArm.joint, 1.5)}
+    {@render joint(rig.leadArm.joint, 1.5)}
+  {/if}
+
+  {#if held && !phoneAtEar}
+    <StickHeld {held} {rig} />
+  {/if}
+  {#if hands.lead}
+    {@render inHand(rig.leadArm.end, hands.lead)}
+  {/if}
+
+  {@render hand(rig.leadArm.end)}
 {/snippet}
 
 {#snippet leg(limb: StickLimb)}
@@ -168,17 +265,11 @@
   stroke-linejoin="round"
   aria-hidden="true"
 >
-  <!-- A turn is a flip through edge-on, like a paper cut-out, slowing into and out of it. -->
-  <g
-    class="transition-transform ease-in-out"
-    style:transform="scaleX({facing})"
-    style:transition-duration="{TURN_MS}ms"
-    style:transition-delay="{turnDelay}ms"
-  >
+  <g transform="scale({n(side * (0.88 + 0.12 * round))} 1)">
     <ellipse cx="0" cy={GROUND_Y + 0.5} rx="15" ry="2.2" class="fill-portrait-ink/15" />
 
     <g transform={headTransform}>
-      <StickHead {characterId} part="back" {pose} turn={front ? 0 : undefined} />
+      <StickHead {characterId} part="back" {pose} turn={front ? 0 : undefined} {round} />
 
       {#if dress.headwear === "headphones"}
         <!-- The far cup, behind the head in the three-quarter view. -->
@@ -203,7 +294,7 @@
     </g>
 
     {@render arm(rig.rearShoulder, rig.rearArm)}
-    {#if hands.rear}
+    {#if hands.rear && !phoneAtEar}
       {@render inHand(rig.rearArm.end, hands.rear)}
     {/if}
     {@render hand(rig.rearArm.end)}
@@ -226,24 +317,12 @@
       <StickTorso {characterId} scarf={dress.scarf} />
     </g>
 
-    {@render arm(rig.leadShoulder, rig.leadArm)}
-
-    {#if robot}
-      {@render joint(rig.rearArm.joint, 1.5)}
-      {@render joint(rig.leadArm.joint, 1.5)}
+    {#if !leadAtMouth}
+      {@render leadSide()}
     {/if}
-
-    {#if held && !phoneAtEar}
-      <StickHeld {held} {rig} />
-    {/if}
-    {#if hands.lead}
-      {@render inHand(rig.leadArm.end, hands.lead)}
-    {/if}
-
-    {@render hand(rig.leadArm.end)}
 
     <g transform={headTransform}>
-      <StickHead {characterId} {pose} turn={front ? 0 : undefined} />
+      <StickHead {characterId} {pose} turn={front ? 0 : undefined} {round} />
 
       {#if dress.headwear === "headphones"}
         <!-- Closed-back studio headphones in the head's own 64-unit space: a padded band over the hair, a deep cup over the near ear. -->
@@ -301,9 +380,14 @@
       {/if}
     </g>
 
+    {#if leadAtMouth}
+      <!-- At the lips the near arm and what it holds are in front of the face: the spoon goes in, not behind the cheek. -->
+      {@render leadSide()}
+    {/if}
+
     {#if emote}
       {@const mouth = mouthOf(pose, sit)}
-      <g transform="translate({n(mouth.x + 2)} {n(mouth.y)})">
+      <g transform="translate({n(mouth.x + 8.5)} {n(mouth.y - 1)})">
         <!-- A CSS animation's transform would replace the attribute's, so it rises in a group of its own. -->
         <g class="animate-rise">
           {#if emote === "hot"}
@@ -311,6 +395,13 @@
             <path
               d="M1 -2q2-1.5 4 0t4 0M1.5 1q2-1.5 4 0t4 0M1 4q2-1.5 4 0t4 0"
               class="stroke-scene-red"
+              stroke-width="0.9"
+            />
+          {:else if emote === "sniff"}
+            <!-- The smell of the soup, drifting up to the nose. -->
+            <path
+              d="M12 -2q-2-1.5-4 0t-4 0M13 -5.5q-2-1.5-4 0t-4 0"
+              class="stroke-scene-honey"
               stroke-width="0.9"
             />
           {:else}
@@ -334,7 +425,7 @@
   </g>
 
   {#if picture}
-    <g transform="translate({n(rig.head.x * facing)} 4)">
+    <g transform="translate({n(rig.head.x * side)} 4)">
       <g class="animate-rise">
         <path
           d="M-17 -13h34a5 5 0 0 1 5 5v15a5 5 0 0 1-5 5h-13l-4 5-4-5h-13a5 5 0 0 1-5-5v-15a5 5 0 0 1 5-5Z"

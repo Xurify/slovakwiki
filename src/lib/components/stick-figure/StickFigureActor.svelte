@@ -17,14 +17,20 @@
   import type { Dress } from "$lib/stick-figure/dress";
   import type { Held } from "$lib/stick-figure/props";
   import { walkPose } from "$lib/stick-figure/walk";
-  import type { Emote } from "$lib/stick-figure/act-motions";
-  import type { ObjectKind } from "$lib/stick-figure/acts";
+  import type { Effect, Emote } from "$lib/stick-figure/act-motions";
   import StickFigure from "./StickFigure.svelte";
+  import type { ObjectLook } from "./StickSetObject.svelte";
 
   /** Sitting down or getting up takes about as long as a step and a half. */
   const SIT_MS = 600;
   /** Bringing the phone up to the ear, or down. */
   const PHONE_MS = 400;
+  const RESTING_ARMS = {
+    leadRaise: REST_POSE.leadRaise,
+    leadBend: REST_POSE.leadBend,
+    rearRaise: REST_POSE.rearRaise,
+    rearBend: REST_POSE.rearBend,
+  };
 
   let {
     characterId,
@@ -83,9 +89,7 @@
       };
     };
     /** Objects of the set in each hand. */
-    hands?: Partial<
-      Record<"lead" | "rear", { full?: boolean; heat?: number; kind: ObjectKind }>
-    >;
+    hands?: Partial<Record<"lead" | "rear", ObjectLook & { effect?: Effect["kind"] }>>;
   } = $props();
 
   let turn = $state<Partial<Record<"lead" | "rear", number>>>({});
@@ -190,9 +194,11 @@
 
     const walked = now - walkStartedAt;
     const walking = walked < walkMs && !reducedMotion;
-    const body = next?.pose ?? REST_POSE;
-    const stepping = walking ? walkPose(body, walked, walkMs) : body;
     const acting = doing && now < doing.until;
+    const talked = next?.pose ?? REST_POSE;
+    // Busy hands do not talk: a beat would swing the can that is pouring, or the hand the cue leaves alone.
+    const body = acting ? { ...talked, ...RESTING_ARMS } : talked;
+    const stepping = walking ? walkPose(body, walked, walkMs) : body;
     const acted = acting ? doing.sample(now, stepping, sitting.current) : undefined;
     pose = acted?.pose ?? stepping;
     turn = acted?.turn ?? {};

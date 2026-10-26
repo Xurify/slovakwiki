@@ -27,7 +27,13 @@
   import { turnDelays, type TurnDelays } from "$lib/stick-figure/turns";
   import type { SpeechClock } from "$lib/stick-figure/performance";
   import { REST_POSE, easeInOut, lerpPose, type StickPose } from "$lib/stick-figure/pose";
-  import { GROUND_Y, STICK_BOX, solveRig, type Point } from "$lib/stick-figure/rig";
+  import {
+    GROUND_Y,
+    SEAT_Y,
+    STICK_BOX,
+    solveRig,
+    type Point,
+  } from "$lib/stick-figure/rig";
   import type { DirectedLine, SceneDirection } from "$lib/stick-figure/scene-direction";
   import {
     aimAt,
@@ -43,7 +49,7 @@
     thingCenter,
     thingWithDemonstrative,
   } from "$lib/stick-figure/thing-words";
-  import { dressFor } from "$lib/stick-figure/dress";
+  import { dressFor, type Dress } from "$lib/stick-figure/dress";
   import type { Held } from "$lib/stick-figure/props";
   import { DAYTIME, type SceneMood } from "$lib/stick-figure/scene-mood";
   import {
@@ -58,6 +64,7 @@
     beside,
     markOf,
     offStage,
+    onSeat,
     stageFrame,
     stageX,
     standing,
@@ -75,17 +82,24 @@
   import StickFigureActor from "./StickFigureActor.svelte";
   import StickFurniture from "./StickFurniture.svelte";
   import StickSet from "./StickSet.svelte";
+  import type { ObjectLook } from "./StickSetObject.svelte";
   import {
+    CARRYING,
     sampleMotion,
+    type Effect,
     type Motion,
     type Surroundings,
   } from "$lib/stick-figure/act-motions";
   import {
-    isActed,
-    worlds,
+    HEAVY,
     WIDE,
+    applyCue,
+    contents,
     heldBy as heldIn,
-    type CameraShot,
+    isActed,
+    startWorld,
+    worlds,
+    type Cue,
     type World,
   } from "$lib/stick-figure/acts";
   import {
@@ -96,7 +110,16 @@
     type ScheduledCue,
   } from "$lib/stick-figure/act-schedule";
   import { playFoley } from "$lib/stick-figure/foley";
-  import { objectGrip, spotX, type SetGeometry } from "$lib/stick-figure/set-pieces";
+  import type { Hand } from "$lib/stick-figure/reach";
+  import {
+    OBJECT_SIZE,
+    objectBase,
+    objectGrip,
+    placePieces,
+    spotAt,
+    surfaceAt,
+    type SetGeometry,
+  } from "$lib/stick-figure/set-pieces";
   import { foldLine } from "$lib/stick-figure/slovak-text";
   import StudioDesk from "./StudioDesk.svelte";
 
@@ -133,6 +156,9 @@
   } = $props();
 
   const LIT_MS = 1600;
+  /** Sitting down takes as long as StickFigureActor makes it. */
+  const SIT_MS = 600;
+  const WALKING = new Set<Cue["do"]>(["go", "enter", "sit"]);
   /** Long enough to read a short line said in a bubble. */
   const BUBBLE_MS = 2800;
   const CARD_WIDTH = 220;
@@ -149,6 +175,8 @@
   let offsets = $state<Offsets>({});
   let seated = $state<Blocking["seated"]>({});
   let walks = $state<Partial<Record<LessonCharacterId, { cue: number; ms: number }>>>({});
+  /** Who is on the move: drawn over whoever stands still, as they pass behind their back. */
+  let striding = $state<LessonCharacterId[]>([]);
   /** The line whose props are in hand: the one playing, or the last one played. */
   let heldAt = $state(-1);
   /** A line that gave something away and has ended, so it is in the new hand. */
@@ -178,6 +206,10 @@
   let spoken = { at: 0, durationMs: 0, rate: 1 };
 
   const resting = $derived(restFacing(direction.cast));
+  /** The place's set, drawn whenever it has one. */
+  const set = $derived(PLACES[setting].set);
+  /** Acted from cues: then where anyone stands and what they hold comes from the cues alone. */
+  const acted = $derived(isActed(lines));
   const stagings = $derived(direction.lines.map(({ staging }) => staging));
   const holding = $derived(
     (handedAt === heldAt ? direction.lines[heldAt]?.handed : undefined) ??
@@ -222,22 +254,36 @@
   const sitting = $derived(seatedFacings(seated, frame));
   const pickedThing = $derived(things.find((thing) => thing.id === picked));
 
-  /** The place's set, when the scene is acted from cues: then what anyone holds comes from them alone. */
-  const set = $derived(isActed(lines) ? PLACES[setting].set : undefined);
-  /** The world before each line, and after the last. */
-  const acted = $derived.by(() => {
+  /** The world before each line, and after the last; a scene nobody acts keeps the one it starts with. */
+  const actedWorlds = $derived.by((): World[] | undefined => {
     if (!set) return undefined;
+    const first = start ?? startWorld(set.objects);
+    if (!acted) return [first];
     try {
-      return worlds(lines, set.objects, start);
+      return worlds(lines, set, first);
     } catch (error) {
       console.error(error);
-      return undefined;
+      return [first];
     }
   });
-  let world = $state<World>();
-  let shot = $state<CameraShot>(WIDE);
+  let world = $state.raw<World>();
+  const shot = $derived(world?.camera ?? WIDE);
   /** What each figure does on cue right now. */
-  let acts = $state<Partial<Record<LessonCharacterId, NonNullable<ActorAct>>>>({});
+  let acts = $state.raw<Partial<Record<LessonCharacterId, Act>>>({});
+  /** Pieces whose tap runs, and what pours from a hand: water from a jug, salt. */
+  let running = $state<string[]>([]);
+  let pouring = $state<
+    Partial<Record<LessonCharacterId, Partial<Record<Hand, Effect["kind"]>>>>
+  >({});
+  /** Who has swung round on their chair to do something: back to the chair's way once it is done. */
+  let turned = $state<CastFacing>({});
+  /** The lights down while the story skips ahead. */
+  let dimmed = $state(false);
+  let doorOpen = $state(false);
+  /** Who has not come in yet. */
+  let outside = $state<LessonCharacterId[]>([]);
+  /** In the doorway, the hall dark behind them. */
+  let shaded = $state<LessonCharacterId[]>([]);
   /** When each figure is done with the cues it is on. */
   let busy: Partial<Record<LessonCharacterId, number>> = {};
   /** The cues of the line on stage, once started before its voice. */
@@ -247,9 +293,15 @@
   let actTimers: number[] = [];
   /** How long a motion takes to take over from the one before it. */
   const TAKE_OVER_MS = 260;
+  /** From the door opening to the one coming in standing in it. */
+  const DOOR_MS = 700;
+  /** How long the door takes to swing open before whoever is behind it shows. */
+  const DOOR_OPENING_MS = 180;
   /** Bumped when the stage stops or jumps, so cues still on the clock let go. */
   let actToken = 0;
   type ActorAct = ComponentProps<typeof StickFigureActor>["doing"];
+  /** A motion running on a figure; `line` ones let go when the line is over. */
+  type Act = NonNullable<ActorAct> & { line?: boolean };
 
   /** Px per rig unit: how big the cast is drawn. */
   const unit = $derived(frame.figureWidth / STICK_BOX.width);
@@ -264,13 +316,41 @@
       height: stageHeight / unit,
     };
   });
+
+  /** A backdrop x in cast units. */
+  function castX(x: number): number {
+    return unit ? stageX(frame, { x, y: 0 }) / unit : 0;
+  }
+
+  function castY(y: number): number {
+    const at = backdropToStage(
+      { x: 0, y },
+      stageWidth,
+      stageHeight,
+      backdropAlign(setting),
+    );
+    return unit ? castView.y + at.y / unit : 0;
+  }
+
+  /** Each piece's middle in cast units: the studio desk's between its seats. */
+  const pieceXs = $derived.by(() => {
+    if (!set || !unit) return new Map<string, number>();
+    const { seats } = frame;
+    const desk = seats.length
+      ? (seats[0].x + seats[seats.length - 1].x) / 2 / unit
+      : stageWidth / 2 / unit;
+    return placePieces(set.pieces, (piece) =>
+      piece.x !== undefined ? castX(piece.x) : piece.kind === "desk" ? desk : undefined,
+    );
+  });
   const geometry = $derived<SetGeometry>({
     pieces: set?.pieces ?? [],
-    pieceX: (id) => {
-      const piece = set?.pieces.find((candidate) => candidate.id === id);
-      return piece && unit ? stageX(frame, { x: piece.x, y: 0 }) / unit : undefined;
-    },
+    pieceX: (id) => pieceXs.get(id),
   });
+
+  function facingOf(id: LessonCharacterId): Facing {
+    return turned[id] ?? sitting[id] ?? facings[id] ?? resting[id] ?? 1;
+  }
 
   /** A figure's left edge in cast units, where it stands now. */
   function castLeft(id: LessonCharacterId): number {
@@ -278,13 +358,7 @@
   }
 
   function toRig(id: LessonCharacterId, point: Point): Point {
-    const facing = facings[id] ?? resting[id] ?? 1;
-    return { x: (point.x - castLeft(id) + STICK_BOX.x) * facing, y: point.y };
-  }
-
-  function toCast(id: LessonCharacterId, point: Point): Point {
-    const facing = facings[id] ?? resting[id] ?? 1;
-    return { x: castLeft(id) + point.x * facing - STICK_BOX.x, y: point.y };
+    return { x: (point.x - castLeft(id) + STICK_BOX.x) * facingOf(id), y: point.y };
   }
 
   /** Where a figure's middle stands, in cast units. */
@@ -292,139 +366,335 @@
     return castLeft(id) - STICK_BOX.x;
   }
 
-  function surroundings(id: LessonCharacterId): Surroundings {
+  function isCast(name: string | undefined): name is LessonCharacterId {
+    return direction.cast.includes(name as LessonCharacterId);
+  }
+
+  /**
+   * A named point of the stage in cast units: an object (its grip, top or
+   * base), a place or piece of the set, a person's head, a spot, or a thing
+   * of the backdrop.
+   */
+  function castPoint(
+    name: string,
+    as: "grip" | "top" | "base",
+    facing: Facing,
+  ): Point | undefined {
+    const state = world?.objects[name];
+    if (world && state) {
+      if (as === "grip") return objectGrip(world, name, geometry, facing);
+      const base = objectBase(world, name, geometry);
+      if (!base) return undefined;
+      return as === "top" ? { x: base.x, y: base.y - OBJECT_SIZE[state.kind].top } : base;
+    }
+    const place = set?.places?.[name];
+    if (place) return surfaceAt(geometry, place.piece, place.dx);
+    const piece = surfaceAt(geometry, name);
+    if (piece) return piece;
+    if (isCast(name)) return { x: castMiddle(name), y: 50 };
+    const chair = set?.spots?.[name];
+    if (chair && "chair" in chair) {
+      const seat = frame.seats[chair.chair];
+      return seat && { x: seat.x / unit, y: SEAT_Y };
+    }
+    const spot = set && spotAt(set, geometry, name, castX);
+    if (spot) return { x: spot.x, y: 84 };
+    const thing = things.find((candidate) => candidate.id === name);
+    const box = thing && thingBoxes(thing)[0];
+    if (!box) return undefined;
+    const centre = boxCenter(box);
+    return { x: castX(centre.x), y: castY(centre.y) };
+  }
+
+  function surroundings(id: LessonCharacterId, landing?: ScheduledCue): Surroundings {
     return {
-      objectAt: (object) => {
-        const at = world && set && objectGrip(world, object, set.objects, geometry);
-        return at ? toRig(id, at) : undefined;
+      pointOf: (name, as = "grip") => {
+        const at = castPoint(name, as, facingOf(id));
+        return at && toRig(id, at);
       },
       meetWith: (other) => {
-        // Chest high, a little short of halfway: each reaches, neither has to step in.
+        // Chest high, halfway: each reaches, neither has to step in.
         const x = (castMiddle(id) + castMiddle(other)) / 2;
         return toRig(id, { x, y: 76 });
+      },
+      landing: () => {
+        const what = landing?.cue.what;
+        const at = what && objectGrip(landing.after, what, geometry, facingOf(id));
+        return at ? toRig(id, at) : undefined;
       },
     };
   }
 
-  /** Figure widths from `id`'s mark to where they stand for `to`: a piece of the set, or beside someone. */
-  function offsetFor(
+  /** Where `id` stands for spot `to`, in figure widths from their mark, the way they face there, and the chair if it is one. */
+  function spotOf(
     id: LessonCharacterId,
     to: string,
-  ): { offset: number; facing: Facing } {
-    const x = spotX(geometry, to);
-    if (x !== undefined) {
+  ): { offset: number; facing: Facing; chair?: number } | undefined {
+    const spot = set?.spots?.[to];
+    if (spot && "chair" in spot) {
+      const chair = frame.seats[spot.chair];
+      return chair
+        ? { offset: onSeat(frame, id, chair.x), facing: chair.facing, chair: spot.chair }
+        : undefined;
+    }
+    const at = set && spotAt(set, geometry, to, castX);
+    if (at) {
       const mark = markOf(frame, id);
       return {
-        offset: (x * unit - (mark.left + mark.width / 2)) / mark.width,
-        facing: 1,
+        offset: (at.x * unit - (mark.left + mark.width / 2)) / mark.width,
+        facing: at.facing,
       };
     }
-    const other = to as LessonCharacterId;
-    const toward: Facing =
-      castMiddle(other) > castMiddle(id)
-        ? 1
-        : castMiddle(other) < castMiddle(id)
-          ? -1
-          : 1;
-    return { offset: beside(frame, id, other, toward, offsets, 0.62), facing: toward };
+    if (!isCast(to)) return undefined;
+    const toward: Facing = castMiddle(to) >= castMiddle(id) ? 1 : -1;
+    return { offset: beside(frame, id, to, toward, offsets, 0.62), facing: toward };
   }
 
-  function walkMsFor(id: LessonCharacterId, to: string): number {
-    const { offset } = offsetFor(id, to);
-    const from = offsets[id] ?? 0;
-    return Math.abs(offset - from) < 0.05 ? 0 : walkDuration(stepsFor(offset - from));
+  /** How long `go`, `enter` or `sit` takes `id`, from where `before` has them. */
+  function walkMsFor(id: LessonCharacterId, cue: Cue, before: World): number {
+    const was = before.spots[id];
+    const from =
+      cue.do === "enter"
+        ? spotOf(id, set?.door ?? "door")?.offset
+        : ((was ? spotOf(id, was)?.offset : undefined) ?? offsets[id] ?? 0);
+    const to = cue.to ? spotOf(id, cue.to)?.offset : undefined;
+    const walk =
+      from === undefined || to === undefined || Math.abs(to - from) < 0.05
+        ? 0
+        : walkDuration(stepsFor(to - from));
+    return walk + (cue.do === "enter" ? DOOR_MS : 0) + (cue.do === "sit" ? SIT_MS : 0);
   }
 
-  /** Which way to face to reach `target`: an object, a piece, or a person. */
+  /** Which way `id` turns to reach `target`: an object, a piece, a person, a thing. */
   function faceToward(
     id: LessonCharacterId,
     target: string | undefined,
   ): Facing | undefined {
     if (!target) return undefined;
-    const object = world && set && objectGrip(world, target, set.objects, geometry);
-    const x =
-      object?.x ??
-      geometry.pieceX(target) ??
-      (direction.cast.includes(target as LessonCharacterId)
-        ? castMiddle(target as LessonCharacterId)
-        : undefined);
+    const x = castPoint(target, "base", facingOf(id))?.x;
     if (x === undefined) return undefined;
     const middle = castMiddle(id);
-    if (Math.abs(x - middle) < 2) return undefined;
+    // Right by their feet (the towel at the counter's end), nobody turns round for it.
+    if (Math.abs(x - middle) < 6) return undefined;
     return x > middle ? 1 : -1;
   }
 
-  function startCue(item: ScheduledCue, token: number): void {
-    if (token !== actToken) return;
+  /** Run `then` in `ms`, unless the stage stops or jumps first. */
+  function later(ms: number, then: () => void): void {
+    const token = actToken;
+    actTimers.push(
+      window.setTimeout(
+        () => {
+          if (token === actToken) then();
+        },
+        Math.max(0, ms),
+      ),
+    );
+  }
+
+  /** Walk `id` to spot `to`, facing the way they go, then the way the spot does; onto its chair for `sit`. */
+  function walkToSpot(id: LessonCharacterId, to: string | undefined, sit = false): void {
+    const at = to ? spotOf(id, to) : undefined;
+    if (!at) return;
+    const from = offsets[id] ?? 0;
+    const moves = Math.abs(at.offset - from) > 0.05;
+    if (moves) facings = { ...facings, [id]: at.offset > from ? 1 : -1 };
+    walkTo(id, at.offset);
+    later(moves ? walkDuration(stepsFor(at.offset - from)) : 0, () => {
+      facings = { ...facings, [id]: at.facing };
+      if (sit && at.chair !== undefined) seated = { ...seated, [id]: at.chair };
+    });
+  }
+
+  /** In through the door: it opens, they stand in it, and walk on to `to`. */
+  function comeIn(id: LessonCharacterId, to: string | undefined): void {
+    const door = set?.door ?? "door";
+    const at = spotOf(id, door);
+    doorOpen = true;
+    playFoley("door");
+    const { [id]: _, ...still } = walks;
+    walks = still;
+    if (at) {
+      offsets = { ...offsets, [id]: at.offset };
+      facings = { ...facings, [id]: at.facing };
+    }
+    // The door swings open first; then they are in the doorway, in the hall's
+    // shadow, and come out of it as they step into the room.
+    shaded = [...shaded, id];
+    later(DOOR_OPENING_MS, () => {
+      outside = outside.filter((other) => other !== id);
+    });
+    later(DOOR_MS, () => {
+      shaded = shaded.filter((other) => other !== id);
+      if (to && to !== door) walkToSpot(id, to);
+    });
+    later(DOOR_MS * 2.4, () => {
+      doorOpen = false;
+    });
+  }
+
+  function startCue(item: ScheduledCue): void {
     const { cue, who, motion } = item;
 
-    if (cue.do === "camera") {
-      shot = item.after.camera;
+    // In the dark it simply happens: nobody is seen doing it.
+    if (cue.on === "dark") {
+      takeEffect(item);
+      if (acts[who]) acts = { ...acts, [who]: undefined };
+      placeSpots(world ?? item.after, [who]);
+      if (carrying(who)) carry(who);
       return;
     }
-    if (cue.do === "go") {
-      const { offset, facing } = offsetFor(who, cue.to ?? "");
-      walkTo(who, offset);
-      const ms = walks[who]?.ms ?? 0;
-      actTimers.push(
-        window.setTimeout(() => {
-          if (token === actToken) facings = { ...facings, [who]: facing };
-        }, ms),
-      );
-      return;
+    switch (cue.do) {
+      case "camera":
+        return;
+      case "enter":
+        comeIn(who, cue.to);
+        return;
+      case "go":
+        walkToSpot(who, cue.to);
+        return;
+      case "sit":
+        walkToSpot(who, cue.to, true);
+        return;
+      case "face": {
+        const face = faceToward(who, cue.to);
+        if (face) facings = { ...facings, [who]: face };
+        return;
+      }
+      case "skip":
+        dimmed = true;
+        later(motion.ms, () => {
+          dimmed = false;
+        });
+        break;
+      case "stand": {
+        const { [who]: _, ...rest } = seated;
+        seated = rest;
+        unturn(who);
+        break;
+      }
     }
 
     const face = faceToward(who, motion.face ?? cue.what);
-    if (face) facings = { ...facings, [who]: face };
-    perform(who, motion, item.start);
-    for (const { at, id } of motion.sounds ?? []) {
-      actTimers.push(window.setTimeout(() => token === actToken && playFoley(id), at));
+    if (face && seated[who] !== undefined) turned = { ...turned, [who]: face };
+    else if (face) facings = { ...facings, [who]: face };
+    perform(who, motion, item.start, item);
+    for (const { at, id } of motion.sounds ?? []) later(at, () => playFoley(id));
+    for (const effect of motion.effects ?? []) {
+      later(effect.from, () => showEffect(who, effect, true));
+      later(effect.until, () => showEffect(who, effect, false));
     }
   }
 
-  function perform(id: LessonCharacterId, motion: Motion, start: number): void {
-    const around = surroundings(id);
+  function showEffect(id: LessonCharacterId, effect: Effect, on: boolean): void {
+    if (effect.kind === "tap") {
+      const piece = set?.places?.[effect.piece ?? ""]?.piece ?? effect.piece ?? "";
+      const at = running.indexOf(piece);
+      running = on ? [...running, piece] : at === -1 ? running : running.toSpliced(at, 1);
+      return;
+    }
+    if (!effect.hand) return;
+    pouring = {
+      ...pouring,
+      [id]: { ...pouring[id], [effect.hand]: on ? effect.kind : undefined },
+    };
+  }
+
+  /** The world as `item` leaves it, played on the world as it is now: other people's cues may have come between. */
+  function takeEffect(item: ScheduledCue): void {
+    try {
+      world = applyCue(world ?? item.before, item.who, item.cue, set);
+    } catch {
+      world = item.after;
+    }
+  }
+
+  function perform(
+    id: LessonCharacterId,
+    motion: Motion,
+    start: number,
+    item?: ScheduledCue,
+  ): void {
+    const around = surroundings(id, item);
     // A new motion takes over from the one still going over a moment, so a spoon held out is handed over from where it is, not from a dropped arm.
     const previous = acts[id];
     const from = previous && performance.now() < previous.until ? previous : undefined;
-    acts = {
-      ...acts,
-      [id]: {
-        until: motion.hold ? Number.POSITIVE_INFINITY : start + motion.ms,
-        sample: (now: number, base: StickPose, sit: number) => {
-          const next = sampleMotion(motion, now - start, base, around, sit);
-          // Over the motion's first move, so a hand already out goes straight to its next mark.
-          const t = (now - start) / Math.max(TAKE_OVER_MS, motion.keys[1]?.at ?? 0);
-          if (!from || t >= 1) return next;
-          const was = from.sample(now, base, sit);
-          return {
-            ...next,
-            pose: lerpPose(was.pose, next.pose, easeInOut(Math.max(0, t))),
-          };
-        },
+    const act: Act = {
+      line: motion.hold === "line",
+      until: motion.hold ? Number.POSITIVE_INFINITY : start + motion.ms,
+      sample: (now: number, base: StickPose, sit: number) => {
+        const next = sampleMotion(motion, now - start, base, around, sit);
+        // Over the motion's first move, so a hand already out goes straight to its next mark.
+        const t = (now - start) / Math.max(TAKE_OVER_MS, motion.keys[1]?.at ?? 0);
+        if (!from || t >= 1) return next;
+        const was = from.sample(now, base, sit);
+        return {
+          ...next,
+          pose: lerpPose(was.pose, next.pose, easeInOut(Math.max(0, t))),
+        };
       },
     };
+    acts = { ...acts, [id]: act };
+    // Done: still holding the pot, the arms stay on its handles; turned on a chair, back round.
+    if (!motion.hold) {
+      later(start + motion.ms - performance.now(), () => {
+        if (acts[id] !== act) return;
+        if (carrying(id)) carry(id);
+        unturn(id);
+      });
+    }
+  }
+
+  /** Whether `id` has something heavy in both hands. */
+  function carrying(id: LessonCharacterId): boolean {
+    if (!world) return false;
+    return Object.values(world.objects).some(
+      ({ kind, where }) => "hand" in where && where.hand === id && HEAVY.includes(kind),
+    );
+  }
+
+  function carry(id: LessonCharacterId): void {
+    perform(
+      id,
+      {
+        ms: 1,
+        hold: true,
+        keys: [
+          { at: 0, ...CARRYING },
+          { at: 1, ...CARRYING },
+        ],
+      },
+      performance.now(),
+    );
+  }
+
+  /** Let go of what is held while the line is said: folded arms, a lean in. */
+  function release(): void {
+    for (const [id, act] of Object.entries(acts) as Array<
+      [LessonCharacterId, Act | undefined]
+    >) {
+      if (act?.line)
+        perform(id, { ms: 500, keys: [{ at: 0 }, { at: 500 }] }, performance.now());
+    }
+  }
+
+  function unturn(id: LessonCharacterId): void {
+    if (turned[id] === undefined) return;
+    const { [id]: _, ...rest } = turned;
+    turned = rest;
   }
 
   /** Run cues on the clock: each starts on time and changes the world as it takes effect. */
   function runCues(items: readonly ScheduledCue[]): void {
-    const token = actToken;
     const now = performance.now();
     for (const item of items) {
-      actTimers.push(window.setTimeout(() => startCue(item, token), item.start - now));
-      const takes = item.cue.do === "go" ? 0 : (item.motion.takes ?? item.motion.ms);
-      actTimers.push(
-        window.setTimeout(
-          () => {
-            if (token === actToken) world = item.after;
-          },
-          item.start + takes - now,
-        ),
-      );
-      if (item.cue.do !== "camera") {
-        busy[item.who] = Math.max(busy[item.who] ?? 0, item.end);
-        if (!item.motion.hold) actsEnd = Math.max(actsEnd, item.end);
-      }
+      later(item.start - now, () => startCue(item));
+      if (item.cue.on === "dark" || item.partner) continue;
+      const takes = WALKING.has(item.cue.do) ? 0 : (item.motion.takes ?? item.motion.ms);
+      later(item.start + takes - now, () => takeEffect(item));
+      if (item.cue.do === "camera") continue;
+      busy[item.who] = Math.max(busy[item.who] ?? 0, item.end);
+      actsEnd = Math.max(actsEnd, item.motion.hold ? item.start + takes : item.end);
     }
   }
 
@@ -434,27 +704,106 @@
     actTimers = [];
     busy = {};
     actsEnd = 0;
+    running = [];
+    pouring = {};
+    dimmed = false;
+    doorOpen = false;
   }
 
-  /** What a figure has in each hand, from the set. */
-  function handsOf(id: LessonCharacterId) {
-    if (!world || !set) return {};
+  /** What a figure has in each hand: a pot carried in both is drawn once, in the lead hand. */
+  function handsOf(
+    id: LessonCharacterId,
+  ): ComponentProps<typeof StickFigureActor>["hands"] {
+    if (!world) return {};
     const held = heldIn(world, id);
-    const drawn = (object: string | undefined) => {
-      const kind = set?.objects.find((candidate) => candidate.id === object)?.kind;
-      const state = object ? world?.objects[object] : undefined;
-      return kind && state ? { kind, full: state.full, heat: state.heat } : undefined;
+    const look = (hand: Hand) => {
+      const object = held[hand];
+      if (!object || (hand === "rear" && held.lead === object)) return undefined;
+      return { ...lookOf(object), effect: pouring[id]?.[hand] };
     };
-    return { lead: drawn(held.lead), rear: drawn(held.rear) };
+    return { lead: look("lead"), rear: look("rear") };
   }
+
+  /** How an object looks, with what lies in or on it: the carrots on the board. */
+  function lookOf(id: string): ObjectLook {
+    const state = world!.objects[id];
+    const inside = contents(world!, id);
+    return {
+      kind: state.kind,
+      fill: state.fill,
+      heat: state.heat,
+      cut: state.cut,
+      wilt: state.wilt,
+      ...(state.kind === "pot"
+        ? {
+            open: !inside.some((other) => world!.objects[other]?.kind === "lid"),
+            bits: inside.some((other) => world!.objects[other]?.kind === "carrot"),
+          }
+        : {}),
+      on: inside.flatMap((other) => {
+        const where = world!.objects[other].where;
+        return state.kind === "board" && "in" in where
+          ? [{ ...lookOf(other), dx: where.dx ?? 0, dy: -OBJECT_SIZE.board.top }]
+          : [];
+      }),
+    };
+  }
+
+  /** On the phone: holding one with a call on. */
+  function onCall(id: LessonCharacterId): boolean {
+    return Object.values(world?.objects ?? {}).some(
+      ({ call, where }) => call && "hand" in where && where.hand === id,
+    );
+  }
+
+  /** What `id` wears: a host whose headphones are off is bareheaded. */
+  function dressOf(id: LessonCharacterId): Dress {
+    const off = Object.values(world?.objects ?? {}).some(
+      ({ kind, of, where }) =>
+        kind === "headphones" && of === id && !("wear" in where && where.wear === id),
+    );
+    return off ? { ...dress, headwear: undefined } : dress;
+  }
+
+  /** The clock the lights stay on while the story skips ahead, in stage px. */
+  const spotlight = $derived.by(() => {
+    const clock = things.find((thing) => thing.id === "hodiny");
+    const box = clock && thingBoxes(clock)[0];
+    if (!box || !measured) return undefined;
+    const centre = backdropToStage(
+      boxCenter(box),
+      stageWidth,
+      stageHeight,
+      backdropAlign(setting),
+    );
+    const edge = backdropToStage(
+      { x: box.x + box.width, y: box.y },
+      stageWidth,
+      stageHeight,
+      backdropAlign(setting),
+    );
+    return { ...centre, r: Math.max(18, edge.x - centre.x + 6) };
+  });
 
   /** The camera's move: framing whoever it is on, never past the stage's edges. */
   const camera = $derived.by(() => {
     if (!shot.on || !measured || shot.zoom <= 1) return "none";
-    const mark = standing(markOf(frame, shot.on), offsets[shot.on]);
     const zoom = shot.zoom;
-    const x = mark.left + mark.width / 2;
-    const y = mark.top + mark.width * 0.45;
+    let x: number;
+    let y: number;
+    if (isCast(shot.on)) {
+      const mark = standing(markOf(frame, shot.on), offsets[shot.on]);
+      x = mark.left + mark.width / 2;
+      y = mark.top + mark.width * 0.45;
+    } else {
+      // A part of the set: its middle, at the height of the cast's heads.
+      const at = set && spotAt(set, geometry, shot.on, castX);
+      const middle = at?.x ?? geometry.pieceX(shot.on);
+      if (middle === undefined) return "none";
+      const mark = markOf(frame, direction.cast[0]);
+      x = middle * unit;
+      y = mark.top + mark.width * 0.45;
+    }
     const tx = Math.min(0, Math.max(stageWidth * (1 - zoom), stageWidth / 2 - x * zoom));
     const ty = Math.min(
       0,
@@ -474,18 +823,31 @@
     if (count === 0) return 0;
 
     const cues = line.act.slice(0, count);
-    const ms = leadTime(cues, line.characterId, world, walkMsFor);
-    const at = performance.now();
-    const times: LineTimes = {
-      lead: at,
-      speech: at + ms,
-      end: at + ms,
-      word: () => undefined,
-    };
-    const items = scheduleCues(cues, line.characterId, world, times, walkMsFor, busy);
-    leading = { index, at, cues: items };
-    runCues(items);
-    return ms;
+    try {
+      const ms = leadTime(cues, line.characterId, world, walkMsFor, set);
+      const at = performance.now();
+      const times: LineTimes = {
+        lead: at,
+        speech: at + ms,
+        end: at + ms,
+        word: () => undefined,
+      };
+      const items = scheduleCues(
+        cues,
+        line.characterId,
+        world,
+        times,
+        walkMsFor,
+        busy,
+        set,
+      );
+      leading = { index, at, cues: items };
+      runCues(items);
+      return ms;
+    } catch (error) {
+      console.error(error);
+      return 0;
+    }
   }
 
   /** When everything the line's cues do is done: the next line waits for it. */
@@ -510,14 +872,27 @@
     };
   }
 
-  /** Who walks somewhere: the stage puts them on that spot when seeking past it. */
-  function placeSpots(spots: World["spots"]): void {
-    for (const [id, to] of Object.entries(spots) as Array<[LessonCharacterId, string]>) {
-      if (!direction.cast.includes(id) || !to) continue;
-      const { offset, facing } = offsetFor(id, to);
-      offsets = { ...offsets, [id]: offset };
-      facings = { ...facings, [id]: facing };
+  /** Put `ids` (everyone, unless given) where `world` has them: on their spot, on its chair if they sit. */
+  function placeSpots(
+    world: World,
+    ids: readonly LessonCharacterId[] = direction.cast,
+  ): void {
+    for (const id of ids) {
+      const to = world.spots[id];
+      const at = to ? spotOf(id, to) : undefined;
+      if (!at) continue;
+      // Put there, not walked there: the last walk's transition would slide them across the room.
+      const { [id]: _walk, ...still } = walks;
+      walks = still;
+      offsets = { ...offsets, [id]: at.offset };
+      facings = { ...facings, [id]: at.facing };
+      const { [id]: _, ...rest } = seated;
+      seated =
+        world.seated?.includes(id) && at.chair !== undefined
+          ? { ...rest, [id]: at.chair }
+          : rest;
     }
+    outside = world.out ?? [];
   }
 
   /**
@@ -581,6 +956,8 @@
     walkCount += 1;
     walks = { ...walks, [id]: { cue: walkCount, ms } };
     offsets = { ...offsets, [id]: offset };
+    striding = [...striding.filter((other) => other !== id), id];
+    later(ms, () => (striding = striding.filter((other) => other !== id)));
     // Reduced motion puts the figure there at once, so nobody waits on the walk.
     if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       walkEndsAt[id] = performance.now() + ms;
@@ -589,6 +966,19 @@
         shoes: LOOKS[id].shoes,
       });
     }
+  }
+
+  /** Who turns to the one talking: in an acted scene, only those not at a spot of the set and not busy with a cue. */
+  function turning(facing: CastFacing | undefined): CastFacing {
+    if (!acted || !facing) return facing ?? {};
+    const now = performance.now();
+    return Object.fromEntries(
+      Object.entries(facing).filter(
+        ([id]) =>
+          !world?.spots[id as LessonCharacterId] &&
+          (busy[id as LessonCharacterId] ?? 0) < now,
+      ),
+    );
   }
 
   function blocking(): Blocking {
@@ -644,6 +1034,7 @@
     aboard = placed.aboard;
     walks = {};
     walkEndsAt = {};
+    striding = [];
     heldAt = index - 1;
     handedAt = index - 1;
     board = boardBefore(index);
@@ -651,9 +1042,13 @@
     clearActs();
     leading = undefined;
     acts = {};
-    world = acted?.[index];
-    shot = world?.camera ?? WIDE;
-    if (world) placeSpots(world.spots);
+    turned = {};
+    world = actedWorlds?.[Math.min(index, actedWorlds.length - 1)];
+    outside = [];
+    shaded = [];
+    if (!world) return;
+    placeSpots(world);
+    for (const id of direction.cast) if (carrying(id)) carry(id);
   }
 
   /** Stage px of what a point aims at, as everyone stands now. */
@@ -907,7 +1302,7 @@
         : null;
     front = staging?.audience && speaker ? speaker : undefined;
     turns = turnDelays(direction.cast, speaker);
-    facings = { ...facings, ...staging?.facing };
+    facings = { ...facings, ...turning(staging?.facing) };
     // Aimed from where the speaker stands before anyone walks this line.
     const aimed =
       speaker && plan
@@ -930,17 +1325,21 @@
         end: now + (plan?.durationMs ?? 1600) / rate,
         word: wordTimes(index, now, rate),
       };
-      const start = worldAfterLeading(index) ?? world;
-      runCues(
-        scheduleCues(
-          line.act.slice(skip),
-          line.characterId,
-          start,
-          times,
-          walkMsFor,
-          busy,
-        ),
-      );
+      try {
+        runCues(
+          scheduleCues(
+            line.act.slice(skip),
+            line.characterId,
+            worldAfterLeading(index) ?? world,
+            times,
+            walkMsFor,
+            busy,
+            set,
+          ),
+        );
+      } catch (error) {
+        console.error(error);
+      }
     }
 
     for (const reaction of staging?.reactions ?? []) {
@@ -959,15 +1358,13 @@
       if (staging) block(endLine(blocking(), staging, speaker, frame));
       if (staging?.boards) foldUmbrellas();
       if (stagings[index + 1]?.arrives) playTramCue();
-      // The next line waits for what this one's cues are still doing.
-      const left = actsLeft();
-      if (left > 0) {
-        actTimers.push(
-          window.setTimeout(() => {
-            if (token === playToken) onDone?.();
-          }, left),
-        );
-      } else onDone?.();
+      release();
+      // The next line waits for what this one's cues are still doing, then starts from the world they leave.
+      later(actsLeft(), () => {
+        if (token !== playToken) return;
+        if (acted) world = actedWorlds?.[index + 1] ?? world;
+        onDone?.();
+      });
     };
 
     const src = take?.src ?? line.src;
@@ -1022,12 +1419,14 @@
     bind:clientHeight={stageHeight}
   >
     <div
-      class="absolute inset-0 origin-top-left transition-transform duration-900 ease-in-out"
+      class="absolute inset-0 isolate origin-top-left transition-transform duration-900 ease-in-out"
       style:transform={camera}
     >
       <StickBackdrop
         class="absolute inset-0 size-full"
         {board}
+        door={doorOpen}
+        minutes={world?.minutes ?? 0}
         {found}
         height={stageHeight}
         hint={onthing ? undefined : "Show the word"}
@@ -1044,7 +1443,7 @@
       <!-- Unmeasured, the server's render and the first frame would draw the cast tiny in a corner. -->
       {#if measured}
         {#if set && world}
-          <StickSet {geometry} objects={set.objects} view={castView} {world} />
+          <StickSet {geometry} layer="behind" {running} view={castView} {world} />
         {/if}
         {#each PLACES[setting].furniture ?? [] as piece, index (index)}
           <div
@@ -1067,46 +1466,67 @@
         {/if}
         {#each direction.cast as characterId (characterId)}
           <div
-            class="pointer-events-none absolute transition-transform ease-linear"
+            class="pointer-events-none absolute transition-[transform,opacity,filter] ease-linear"
             style:bottom="{FLOOR}px"
             style:left="{frame.marks[characterId] ?? 0}px"
             style:width="{frame.figureWidth}px"
             style:transform="translateX({(offsets[characterId] ?? 0) * 100}%)"
-            style:transition-duration="{walks[characterId]?.ms ?? 0}ms"
+            style:transition-duration="{walks[characterId]?.ms ?? 0}ms, 140ms, 600ms"
+            style:opacity={outside.includes(characterId) ? 0 : 1}
+            style:filter={shaded.includes(characterId) ? "brightness(0.7)" : "none"}
+            style:z-index={striding.includes(characterId) ? 2 : 1}
           >
             <StickFigureActor
               {characterId}
               {clock}
               cue={actors[characterId]?.cue ?? 0}
-              facing={sitting[characterId] ??
-                facings[characterId] ??
-                resting[characterId] ??
-                1}
+              facing={facingOf(characterId)}
               front={front === characterId}
               onbeat={onBeat}
               plan={actors[characterId]?.plan}
-              held={set ? undefined : heldBy(characterId)}
+              held={acted ? undefined : heldBy(characterId)}
               doing={acts[characterId]}
               hands={handsOf(characterId)}
               seated={seated[characterId] !== undefined}
-              onCall={direction.lines[heldAt]?.call === characterId}
-              {dress}
+              onCall={acted
+                ? onCall(characterId)
+                : direction.lines[heldAt]?.call === characterId}
+              dress={dressOf(characterId)}
               talking={actors[characterId]?.talking ?? false}
               turnDelay={turns[characterId] ?? 0}
               walk={walks[characterId]}
             />
           </div>
         {/each}
-        {#if frame.desk}
-          <StudioDesk
-            height={stageHeight}
-            layer="front"
-            seats={frame.seats}
-            {unit}
-            width={stageWidth}
-          />
-        {/if}
+        <div class="pointer-events-none absolute inset-0 z-3">
+          {#if frame.desk}
+            <StudioDesk
+              height={stageHeight}
+              layer="front"
+              mugs={!Object.values(world?.objects ?? {}).some(
+                ({ kind }) => kind === "cup",
+              )}
+              seats={frame.seats}
+              {unit}
+              width={stageWidth}
+            />
+          {/if}
+          {#if set && world}
+            <StickSet {geometry} layer="front" {running} view={castView} {world} />
+          {/if}
+        </div>
       {/if}
+
+      <!-- The lights go down while the story skips ahead, all but a pool on the clock as its hands run on.
+           Inside the camera, so the pool stays on the clock however close the shot is. -->
+      <div
+        class="pointer-events-none absolute inset-0 z-4 transition-opacity duration-700 ease-in-out"
+        style:opacity={dimmed ? 1 : 0}
+        style:background={spotlight
+          ? `radial-gradient(circle at ${spotlight.x}px ${spotlight.y}px, transparent ${spotlight.r}px, rgb(15 23 42 / 0.86) ${spotlight.r + 14}px)`
+          : "rgb(15 23 42 / 0.86)"}
+        aria-hidden="true"
+      ></div>
     </div>
 
     {#if bubble}

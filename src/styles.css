@@ -33,6 +33,40 @@
   --animate-fall: fall 1s linear infinite;
   /* Steam off a hot pot or spoon: each wisp sets its own duration and delay. Held still, it hangs there. */
   --animate-steam: steam 2s ease-out infinite;
+  /* Water running from a tap, a jug or a can, and salt falling: dashes slide down the stream. */
+  --animate-pour: pour 0.35s linear infinite;
+  /* A gas flame, never quite still. */
+  --animate-flicker: flicker 0.4s ease-in-out infinite alternate;
+  /* A lid lifted by the boil and dropped again. */
+  --animate-rattle: rattle 0.7s ease-in-out infinite;
+
+  @keyframes pour {
+    to {
+      stroke-dashoffset: -4;
+    }
+  }
+
+  @keyframes flicker {
+    to {
+      transform: scaleY(0.75);
+    }
+  }
+
+  @keyframes rattle {
+    0%,
+    60%,
+    100% {
+      transform: none;
+    }
+
+    20% {
+      transform: translateY(-1.2px) rotate(-3deg);
+    }
+
+    40% {
+      transform: translateY(-0.4px) rotate(2deg);
+    }
+  }
 
   @keyframes steam {
     from {

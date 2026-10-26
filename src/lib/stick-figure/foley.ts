@@ -38,7 +38,7 @@ export function playFoley(id: FoleyId): void {
     }
   };
 
-  /** Filtered noise with a shaped loudness: breath, a sip, a hiss. */
+  /** Filtered noise with a shaped loudness: breath, a sip, a hiss, running water. */
   const air = (
     type: BiquadFilterType,
     from: number,
@@ -46,21 +46,39 @@ export function playFoley(id: FoleyId): void {
     level: number,
     length: number,
     attack = 0.05,
+    at = 0,
   ) => {
+    const start = now + at;
     const source = ctx.createBufferSource();
     source.buffer = noise;
     const filter = ctx.createBiquadFilter();
     filter.type = type;
     filter.Q.value = type === "bandpass" ? 3 : 0.7;
-    filter.frequency.setValueAtTime(from, now);
-    filter.frequency.exponentialRampToValueAtTime(to, now + length);
+    filter.frequency.setValueAtTime(from, start);
+    filter.frequency.exponentialRampToValueAtTime(to, start + length);
     const gain = ctx.createGain();
-    gain.gain.setValueAtTime(0.0001, now);
-    gain.gain.exponentialRampToValueAtTime(level, now + attack);
-    gain.gain.setValueAtTime(level, now + length * 0.6);
-    gain.gain.exponentialRampToValueAtTime(0.0001, now + length);
+    gain.gain.setValueAtTime(0.0001, start);
+    gain.gain.exponentialRampToValueAtTime(level, start + attack);
+    gain.gain.setValueAtTime(level, start + length * 0.6);
+    gain.gain.exponentialRampToValueAtTime(0.0001, start + length);
     source.connect(filter).connect(gain).connect(out);
-    source.start(now, Math.random(), length + 0.05);
+    // The noise buffer is two seconds long: start early enough in it to last.
+    source.start(start, Math.random() * Math.max(0, 1.9 - length), length + 0.05);
+  };
+
+  /** A blow on something solid: a knuckle on a door, a knife on a board, a pot set down. */
+  const thump = (from: number, to: number, level: number, length: number, at = 0) => {
+    const start = now + at;
+    const tone = ctx.createOscillator();
+    const gain = ctx.createGain();
+    tone.frequency.setValueAtTime(from, start);
+    tone.frequency.exponentialRampToValueAtTime(to, start + length * 0.8);
+    gain.gain.setValueAtTime(0.0001, start);
+    gain.gain.exponentialRampToValueAtTime(level, start + 0.004);
+    gain.gain.exponentialRampToValueAtTime(0.0001, start + length);
+    tone.connect(gain).connect(out);
+    tone.start(start);
+    tone.stop(start + length + 0.02);
   };
 
   switch (id) {
@@ -80,20 +98,70 @@ export function playFoley(id: FoleyId): void {
     case "steam":
       air("highpass", 2500, 4200, 0.25, 1.1, 0.15);
       break;
-    case "hop": {
-      const thud = ctx.createOscillator();
-      const gain = ctx.createGain();
-      thud.frequency.setValueAtTime(140, now);
-      thud.frequency.exponentialRampToValueAtTime(60, now + 0.1);
-      gain.gain.setValueAtTime(0.0001, now);
-      gain.gain.exponentialRampToValueAtTime(0.5, now + 0.005);
-      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.13);
-      thud.connect(gain).connect(out);
-      thud.start(now);
-      thud.stop(now + 0.15);
+    case "hop":
+      thump(140, 60, 0.5, 0.13);
       break;
-    }
+    case "knock":
+      for (const at of [0, 0.19, 0.38]) {
+        thump(190, 95, 0.55, 0.1, at);
+        air("bandpass", 1600, 1200, 0.12, 0.04, 0.003, at);
+      }
+      break;
+    case "door":
+      ring([1900, 2700], 0.06, 0.06);
+      air("bandpass", 420, 260, 0.08, 0.7, 0.2, 0.05);
+      break;
+    case "tap":
+      air("bandpass", 2600, 2300, 0.16, 1.9, 0.08);
+      break;
+    case "fill":
+      // A vessel filling sounds higher as it fills.
+      air("bandpass", 650, 1500, 0.2, 1.7, 0.1);
+      break;
+    case "pour":
+      air("bandpass", 1300, 1700, 0.16, 1.4, 0.08);
+      break;
+    case "chop":
+      thump(420, 160, 0.35, 0.05);
+      air("highpass", 3500, 3000, 0.08, 0.03, 0.002);
+      break;
+    case "peel":
+      air("highpass", 3000, 5200, 0.1, 0.16, 0.02);
+      break;
+    case "salt":
+      for (const at of [0, 0.06, 0.12]) air("highpass", 6000, 6500, 0.1, 0.04, 0.003, at);
+      break;
+    case "splash":
+      air("bandpass", 900, 450, 0.28, 0.32, 0.01);
+      break;
+    case "plop":
+      for (const at of [0, 0.09, 0.17]) {
+        thump(700, 220, 0.18, 0.08, at);
+        air("bandpass", 800, 500, 0.1, 0.12, 0.01, at);
+      }
+      break;
+    case "gas":
+      ring([3200], 0.08, 0.03);
+      air("lowpass", 700, 1300, 0.22, 0.5, 0.04, 0.05);
+      break;
+    case "keys":
+      for (const at of [0, 0.07, 0.13]) ring([3300, 4700, 6100], 0.06, 0.25, at);
+      break;
+    case "chair":
+      air("bandpass", 320, 210, 0.16, 0.35, 0.05);
+      thump(120, 70, 0.25, 0.1, 0.3);
+      break;
+    case "thud":
+      thump(110, 60, 0.4, 0.14);
+      break;
+    case "sniff":
+      air("highpass", 1800, 2600, 0.22, 0.28, 0.12);
+      air("highpass", 1800, 2600, 0.22, 0.32, 0.12, 0.38);
+      break;
+    case "rattle":
+      for (const at of [0, 0.12, 0.27, 0.4]) ring([480, 1130], 0.06, 0.12, at);
+      break;
   }
 
-  window.setTimeout(() => out.disconnect(), 1500);
+  window.setTimeout(() => out.disconnect(), 2600);
 }
