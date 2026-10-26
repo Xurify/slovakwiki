@@ -203,28 +203,34 @@
     </header>
 
     <nav
-      class="sticky top-(--header-height) z-10 mt-6 flex gap-5 overflow-x-auto border-y border-slate-200 bg-canvas/95 backdrop-blur-sm scrollbar-none"
+      class="sticky top-(--header-height) z-10 mt-6 border-y border-slate-200 bg-canvas/95 backdrop-blur-sm"
       aria-label="On this page"
     >
-      {#if multiSense}
-        {#each senseViews as sense (sense.entry.slug)}
-          <a class={contentsLinkClass} href="#{senseSectionId(sense.entry.category)}">
-            {sense.entry.category}
-          </a>
-        {/each}
-      {/if}
-
-      {#each mainContents as item (item.href)}
-        {#if !(multiSense && item.href === "#meaning")}
-          <a class={contentsLinkClass} href={item.href}>{item.label}</a>
+      <!-- Below lg the links overflow; the fade says the strip scrolls, and the
+           end padding lets the last link clear it. -->
+      <div
+        class="flex gap-5 overflow-x-auto scrollbar-none max-lg:pr-8 max-lg:mask-r-from-[calc(100%-2rem)]"
+      >
+        {#if multiSense}
+          {#each senseViews as sense (sense.entry.slug)}
+            <a class={contentsLinkClass} href="#{senseSectionId(sense.entry.category)}">
+              {sense.entry.category}
+            </a>
+          {/each}
         {/if}
-      {/each}
 
-      <span class="ml-auto" aria-hidden="true"></span>
+        {#each mainContents as item (item.href)}
+          {#if !(multiSense && item.href === "#meaning")}
+            <a class={contentsLinkClass} href={item.href}>{item.label}</a>
+          {/if}
+        {/each}
 
-      {#each railContents as item (item.href)}
-        <a class={contentsLinkClass} href={item.href}>{item.label}</a>
-      {/each}
+        <span class="ml-auto" aria-hidden="true"></span>
+
+        {#each railContents as item (item.href)}
+          <a class={contentsLinkClass} href={item.href}>{item.label}</a>
+        {/each}
+      </div>
     </nav>
 
     <div

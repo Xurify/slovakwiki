@@ -4,7 +4,7 @@
 
   /**
    * One example sentence: audio host (or a bullet), Slovak with the lemma
-   * highlighted, English below, and the Tatoeba credit on hover.
+   * highlighted, English below, and the Tatoeba credit beside it.
    */
   let {
     example,
@@ -57,7 +57,7 @@
 
   {#if example.note === "Tatoeba" && example.tatoebaId}
     <a
-      class="pt-1 text-xs tabular-nums text-slate-500 no-underline opacity-0 transition-opacity group-hover/row:opacity-100 hover:text-blue-800 focus-visible:opacity-100 max-[560px]:col-start-2 max-[560px]:pt-1.5 max-[560px]:opacity-100"
+      class="pt-1 text-xs tabular-nums text-slate-500 no-underline transition-colors duration-150 ease-out hover:text-blue-800 max-[560px]:col-start-2 max-[560px]:pt-1.5"
       href={`https://tatoeba.org/sentences/show/${example.tatoebaId}`}
       rel="noopener noreferrer"
       target="_blank"
