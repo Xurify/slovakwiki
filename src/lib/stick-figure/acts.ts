@@ -277,11 +277,13 @@ export function heldBy(
 
 /** Carried in both hands: a big pot, full or not. */
 export const HEAVY: readonly ObjectKind[] = ["pot"];
+/** Held in both hands though not heavy: a board of chopped carrots, carried level, as people do. One end in one hand read as a paddle. */
+export const TWO_HANDED: readonly ObjectKind[] = [...HEAVY, "board"];
 /**
  * Kept in the other hand, out of the way, so the working hand stays free: a
  * lid off the pot, a bowl to ladle into, a phone (at the ear on a call).
  */
-const OFF_HAND: readonly ObjectKind[] = ["lid", "bowl", "board", "phone"];
+const OFF_HAND: readonly ObjectKind[] = ["lid", "bowl", "phone"];
 
 /** The hand a person takes something in: the lead one unless it is full, or the thing is one held aside. */
 export function freeHand(
@@ -291,7 +293,8 @@ export function freeHand(
 ): Hand | undefined {
   const held = heldBy(world, who);
   const kind = what ? world.objects[what]?.kind : undefined;
-  if (kind && HEAVY.includes(kind)) return held.lead || held.rear ? undefined : "lead";
+  if (kind && TWO_HANDED.includes(kind))
+    return held.lead || held.rear ? undefined : "lead";
   const order: Hand[] =
     kind && OFF_HAND.includes(kind) ? ["rear", "lead"] : ["lead", "rear"];
   return order.find((hand) => !held[hand]);
@@ -439,7 +442,7 @@ export function applyCue(
       }
       const hand = freeHand(world, who, what);
       if (!hand) throw new CueError(`${who} take ${what}: hands are full`);
-      const both = HEAVY.includes(object.kind);
+      const both = TWO_HANDED.includes(object.kind);
       return setObject(world, what, {
         where: { hand: who, side: hand, ...(both ? { both } : {}) },
       });

@@ -150,6 +150,16 @@ const FAR_HAND: Point = { x: -2 * OBJECT_SIZE.pot.grip.x, y: 0 };
 export const PAIR: Point = { x: -2 * OBJECT_SIZE.headphones.grip.x, y: 0 };
 /** Against the belly, elbows bent, where both hands carry a pot: the arms cannot hold it further out. */
 export const CARRY: Point = { x: 24, y: 79 };
+/**
+ * A board held level in front of the waist: the near end in one hand, the
+ * other under its middle. A hand's width apart, both fists sat at the near end
+ * and it read as held like a paddle.
+ */
+const BOARD_PAIR: Point = { x: 11, y: 0.5 };
+export const BOARD_CARRYING: Omit<MotionKey, "at"> = {
+  lead: { at: { x: 9, y: 82 } },
+  both: BOARD_PAIR,
+};
 
 function hands(hand: Hand, target: Target | undefined): Pick<MotionKey, Hand> {
   return hand === "lead" ? { lead: target } : { rear: target };
@@ -208,6 +218,34 @@ export function motionFor(
       if (where && "wear" in where) return { motion: offHeadMotion() };
       const into = freeHand(world, who, what) ?? "lead";
       if (heavy) return { motion: liftMotion(what, sinkAt(plan, where)) };
+      if (object?.kind === "board") {
+        // Both hands on it, then up level to the waist.
+        return {
+          motion: {
+            ms: 1000,
+            face: what,
+            takes: REACHED + 100,
+            hold: true,
+            sounds: [{ at: REACHED + 60, id: soundOf(object.kind) }],
+            keys: [
+              { at: 0 },
+              {
+                at: REACHED,
+                lead: { to: what, dy: -3 },
+                both: BOARD_PAIR,
+                body: { lean: 4 },
+              },
+              {
+                at: REACHED + 120,
+                lead: { to: what },
+                both: BOARD_PAIR,
+                body: { lean: 4 },
+              },
+              { at: 1000, ...BOARD_CARRYING },
+            ],
+          },
+        };
+      }
       return {
         motion: {
           ms: 900,
@@ -253,6 +291,28 @@ export function motionFor(
               { at: 600, lead: where, both: PAIR, body: { lean: 4 } },
               { at: 750, lead: where, both: PAIR, body: { lean: 3 } },
               { at: 1100 },
+            ],
+          },
+        };
+      }
+      if (object?.kind === "board") {
+        return {
+          motion: {
+            ms: 1000,
+            face: to,
+            takes: 560,
+            sounds: [{ at: 540, id: soundOf(object.kind) }],
+            keys: [
+              { at: 0, ...BOARD_CARRYING },
+              {
+                at: 420,
+                lead: { ...where, dy: -3 },
+                both: BOARD_PAIR,
+                body: { lean: 4 },
+              },
+              { at: 560, lead: where, both: BOARD_PAIR, body: { lean: 4 } },
+              { at: 700, lead: where, both: BOARD_PAIR, body: { lean: 3 } },
+              { at: 1000 },
             ],
           },
         };
@@ -452,32 +512,44 @@ export function motionFor(
           face: sink,
           keys,
           sounds: [{ at: 420, id: "tap" }],
-          effects: [{ kind: "tap", from: 450, until: 2500, piece: sink }],
+          // Off as the hand gets back to the tap, not before: water stopping under rubbing hands read as washing in nothing.
+          effects: [{ kind: "tap", from: 450, until: 2560, piece: sink }],
         },
       };
     }
     case "dry": {
       const keys: MotionKey[] = [{ at: 0 }];
       // Both hands in the towel, rubbing up and down against each other, far enough to be seen.
+      // In its upper half, where a hanging towel is taken: down at its hem, a standing person crouched to it.
       for (let at = 350, rub = 0; at <= 1500; at += 190, rub += 1) {
         keys.push({
           at,
-          lead: { to, as: "base", dx: 2, dy: rub % 2 ? 0 : 7 },
-          rear: { to, as: "base", dx: -2, dy: rub % 2 ? 7 : 0 },
-          body: { lean: 6, bob: rub % 2 ? 0.5 : 0 },
+          lead: { to, as: "top", dx: 2, dy: rub % 2 ? 3 : 8 },
+          rear: { to, as: "top", dx: -2, dy: rub % 2 ? 8 : 3 },
+          body: { lean: 5, bob: rub % 2 ? 0.5 : 0 },
         });
       }
-      keys.push({ at: 1800 });
-      return { motion: { ms: 1800, face: to, keys } };
+      keys.push({
+        at: 1700,
+        ...hands("lead", { up: { x: 10, y: 22 } }),
+        body: { lean: 2 },
+      });
+      keys.push({ at: 2000 });
+      return { motion: { ms: 2000, face: to, keys } };
     }
     case "peel": {
       // The carrot steadied by its top, strokes of the knife along it, peel falling.
+      // The blade lies on the carrot, its tip drawn from the steadying hand to the far end: aimed by the hand, it rode a hand's width above.
+      const blade = (dx: number, turn: number) => ({
+        ...hands(hand, { to: what, as: "top" as const, ...aim("knife", turn, dx, -0.6) }),
+        turn: { [hand]: turn },
+      });
       const keys: MotionKey[] = [
         { at: 0 },
         {
           at: 380,
           rear: { to: what, dx: -6, dy: -1 },
-          ...hands(hand, { to: what, dx: -2, dy: -2 }),
+          ...blade(-1, -8),
           body: { lean: 6 },
         },
       ];
@@ -486,15 +558,13 @@ export function motionFor(
           {
             at,
             rear: { to: what, dx: -6, dy: -1 },
-            ...hands(hand, { to: what, dx: -2, dy: -2 }),
-            turn: { [hand]: -15 },
+            ...blade(-1, -8),
             body: { lean: 7, tilt: 5 },
           },
           {
             at: at + 200,
             rear: { to: what, dx: -6, dy: -1 },
-            ...hands(hand, { to: what, dx: 6, dy: -1 }),
-            turn: { [hand]: -15 },
+            ...blade(7, -3),
             body: { lean: 7, tilt: 5 },
           },
         );
@@ -507,7 +577,16 @@ export function motionFor(
           takes: 2000,
           keys,
           sounds: [600, 930, 1260, 1590, 1920].map((at) => ({ at, id: "peel" as const })),
-          effects: [{ kind: "peel", from: 600, until: 2300, hand }],
+          // Onto the board the carrot lies on, not through it.
+          effects: [
+            {
+              kind: "peel",
+              from: 600,
+              until: 2300,
+              hand,
+              to: object && "in" in object.where ? object.where.in : undefined,
+            },
+          ],
         },
       };
     }
@@ -515,32 +594,36 @@ export function motionFor(
       const small = to === "small";
       const step = small ? 150 : 420;
       const count = small ? 12 : 4;
+      // Seen side on, the blade comes straight down through the carrot to the board, handle up, moving along it a slice at a time.
+      // Held out level, the blade came down on the empty board past the carrot.
+      const blade = (along: number, dy: number) => ({
+        ...hands(hand, { to: what, as: "top" as const, ...aim("knife", 90, along, dy) }),
+        turn: { [hand]: 90 },
+      });
       const keys: MotionKey[] = [
         { at: 0 },
         {
           at: 380,
           rear: { to: what, dx: -6, dy: -1 },
-          ...hands(hand, { to: what, dx: -1, dy: -10 }),
+          ...blade(-1, -7),
           body: { lean: 6 },
         },
       ];
       const sounds: Motion["sounds"] = [];
       for (let index = 0; index < count; index += 1) {
         const at = 450 + index * step;
-        const along = small ? -2 + (index % 6) * 1.6 : -3 + index * 2.6;
+        const along = small ? -1 + (index % 6) * 1.4 : -1 + index * 2.2;
         keys.push(
           {
             at,
             rear: { to: what, dx: -7, dy: -1 },
-            ...hands(hand, { to: what, dx: along, dy: -9 }),
-            turn: { [hand]: 20 },
+            ...blade(along, -6),
             body: { lean: 7, tilt: 6 },
           },
           {
             at: at + step * 0.45,
             rear: { to: what, dx: -7, dy: -1 },
-            ...hands(hand, { to: what, dx: along, dy: -1 }),
-            turn: { [hand]: 20 },
+            ...blade(along, 2.6),
             body: { lean: 7, tilt: 6 },
           },
         );
@@ -581,14 +664,24 @@ export function motionFor(
       // A board only tips enough for the pieces to slide off its far end; a can's long spout needs less than a jug's lip.
       const tilt = board ? 22 : kind === "can" ? 40 : 70;
       // The spout just over the near side of the opening, so the jug itself stays outside the pot, at the chest rather than the face.
+      // A board stays in both hands, the other one under it tipping with it.
       const spout = (turn: number, dy: number) => ({
         ...hands(hand, { to, as: "top", ...aim(kind, turn, -2, dy) }),
         turn: { [hand]: turn },
+        ...(board
+          ? {
+              both: {
+                x: BOARD_PAIR.x * Math.cos((turn * Math.PI) / 180),
+                y: BOARD_PAIR.y + BOARD_PAIR.x * Math.sin((turn * Math.PI) / 180),
+              },
+            }
+          : {}),
       });
       const high = board ? -2 : -4;
       // Over the rim, not over the pot: a board held out leans the cook less than a jug does.
       const lean = board ? 2 : 6;
-      const ms = board ? 1800 : 2600;
+      // Off a board, long enough to see the pieces slide along it and drop in.
+      const ms = board ? 2400 : 2600;
       return {
         motion: {
           ms,
@@ -596,7 +689,7 @@ export function motionFor(
           takes: ms - 700,
           contacts: [{ hand, tip: "over", to, from: 900, until: ms - 600 }],
           keys: [
-            { at: 0 },
+            board ? { at: 0, ...BOARD_CARRYING } : { at: 0 },
             { at: 600, ...spout(tilt * 0.3, high - 4), body: { lean: lean - 1 } },
             { at: 900, ...spout(tilt, high), body: { lean } },
             // Tipped further as it empties, the spout kept where it was.
@@ -606,12 +699,15 @@ export function motionFor(
               body: { lean: lean + 0.5 },
             },
             { at: ms - 300, ...spout(tilt * 0.3, high - 4), body: { lean: lean - 2 } },
-            { at: ms },
+            board ? { at: ms, ...BOARD_CARRYING } : { at: ms },
           ],
           sounds: [{ at: 900, id: board ? "plop" : "pour" }],
-          effects: board
-            ? []
-            : [{ kind: "stream", from: 900, until: ms - 600, hand, to }],
+          // Off a board, the pieces are seen sliding off its end and dropping in, until they are in the pot.
+          effects: [
+            board
+              ? { kind: "stream", from: 950, until: ms - 680, hand, to }
+              : { kind: "stream", from: 900, until: ms - 600, hand, to },
+          ],
         },
       };
     }
@@ -627,14 +723,15 @@ export function motionFor(
         { at: 450, ...over(150, -3, -7), body: { lean: 4 } },
       ];
       const flicks: number[] = [];
-      for (let at = 650, flick = 0; at + 230 <= 3000; at += 230, flick += 1) {
+      // A flick big enough to see at full speed: up and back, then down and over with the wrist, the body giving with it.
+      for (let at = 650, flick = 0; at + 240 <= 3000; at += 240, flick += 1) {
         // Wandering a little over the pot, as a hand does salting.
         const dx = [-3, -1, -4, -2][flick % 4];
-        keys.push({ at, ...over(148, dx, -6.5), body: { lean: 4, brow: 0.3 } });
+        keys.push({ at, ...over(138, dx - 1, -9), body: { lean: 3.6, brow: 0.3 } });
         keys.push({
           at: at + 110,
-          ...over(170, dx + 1, -3.5),
-          body: { lean: 4.6, bob: 0.5, brow: 0.4 },
+          ...over(176, dx + 1.5, -3),
+          body: { lean: 4.8, bob: 1, brow: 0.4 },
         });
         flicks.push(at + 110);
       }
@@ -656,13 +753,16 @@ export function motionFor(
             { hand, tip: "over", to, from: 650, until: flicks[flicks.length - 1] },
           ],
           sounds: flicks.map((at) => ({ at, id: "salt" as const })),
-          effects: flicks.map((at) => ({
-            kind: "salt" as const,
-            from: at - 30,
-            until: at + 230,
-            hand,
-            to,
-          })),
+          // One fall of grains for the whole salting: one per flick, overlapping, switched each other off.
+          effects: [
+            {
+              kind: "salt" as const,
+              from: flicks[0] - 30,
+              until: flicks[flicks.length - 1] + 230,
+              hand,
+              to,
+            },
+          ],
         },
       };
     }

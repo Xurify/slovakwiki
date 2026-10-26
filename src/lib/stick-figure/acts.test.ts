@@ -26,21 +26,21 @@ describe("the world the cues leave", () => {
     expect(heldBy(after[3], "marek")).toEqual({ lead: "spoon" });
   });
 
-  it("takes a board in the other hand, out of the way", () => {
-    const [, after] = worlds(
-      [
-        {
-          characterId: "anna",
-          act: [
-            { do: "take", what: "board" },
-            { do: "take", what: "knife" },
-          ],
-        },
-      ],
-      KITCHEN,
-    );
-
-    expect(heldBy(after, "anna")).toEqual({ lead: "knife", rear: "board" });
+  it("carries a board in both hands, so nothing else fits", () => {
+    expect(() =>
+      worlds(
+        [
+          {
+            characterId: "anna",
+            act: [
+              { do: "take", what: "board" },
+              { do: "take", what: "knife" },
+            ],
+          },
+        ],
+        KITCHEN,
+      ),
+    ).toThrow(CueError);
   });
 
   it("refuses an object the set does not have, so nothing comes from nowhere", () => {

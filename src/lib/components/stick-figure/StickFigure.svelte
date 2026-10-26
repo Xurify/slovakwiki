@@ -273,13 +273,14 @@
         class="stroke-portrait-ink/35"
         stroke-width="2.6"
       />
+      <!-- Off a board it is chopped carrot sliding off, in pieces rather than a stream. -->
       <path
         d="M{n(tip.x)} {n(tip.y)}v{n(fall)}"
-        class="animate-pour {object.kind === 'ladle'
+        class="animate-pour {object.kind === 'ladle' || object.kind === 'board'
           ? 'stroke-scene-carrot'
           : 'stroke-scene-water'}"
-        stroke-width="1.7"
-        stroke-dasharray="3 1"
+        stroke-width={object.kind === "board" ? 2.2 : 1.7}
+        stroke-dasharray={object.kind === "board" ? "1.6 2.4" : "3 1"}
       />
     {:else if object.effect === "salt"}
       <!-- A pinch from each flick, the grains spreading a little as they fall, outlined so white salt shows against white tiles. -->
@@ -326,8 +327,8 @@
   {:else if hands.lead}
     {@render inHand(rig.leadArm.end, hands.lead, "lead")}
   {/if}
-  <!-- The other hand on the pot's near handle, round from behind the body: drawn under the pot, it was not seen holding it. -->
-  {#if hands.lead?.kind === "pot"}
+  <!-- The other hand on the pot's near handle or the board's far end, round from behind the body: drawn under it, it was not seen holding it. -->
+  {#if hands.lead?.kind === "pot" || hands.lead?.kind === "board"}
     {@render hand(rig.rearArm.end)}
   {/if}
 

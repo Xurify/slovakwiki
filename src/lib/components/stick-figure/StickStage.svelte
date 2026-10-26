@@ -78,6 +78,7 @@
   import StickSet from "./StickSet.svelte";
   import type { ObjectLook } from "./StickSetObject.svelte";
   import {
+    BOARD_CARRYING,
     CARRYING,
     CLOSE_DOOR,
     sampleMotion,
@@ -86,7 +87,7 @@
     type Surroundings,
   } from "$lib/stick-figure/act-motions";
   import {
-    HEAVY,
+    TWO_HANDED,
     WIDE,
     applyCue,
     contents,
@@ -95,6 +96,7 @@
     startWorld,
     worlds,
     type Cue,
+    type ObjectKind,
     type World,
   } from "$lib/stick-figure/acts";
   import {
@@ -753,23 +755,25 @@
     }
   }
 
-  /** Whether `id` has something heavy in both hands. */
-  function carrying(id: LessonCharacterId): boolean {
-    if (!world) return false;
-    return Object.values(world.objects).some(
-      ({ kind, where }) => "hand" in where && where.hand === id && HEAVY.includes(kind),
-    );
+  /** What `id` holds in both hands, if anything. */
+  function carrying(id: LessonCharacterId): ObjectKind | undefined {
+    if (!world) return undefined;
+    return Object.values(world.objects).find(
+      ({ kind, where }) =>
+        "hand" in where && where.hand === id && TWO_HANDED.includes(kind),
+    )?.kind;
   }
 
   function carry(id: LessonCharacterId): void {
+    const hold = carrying(id) === "board" ? BOARD_CARRYING : CARRYING;
     perform(
       id,
       {
         ms: 1,
         hold: true,
         keys: [
-          { at: 0, ...CARRYING },
-          { at: 1, ...CARRYING },
+          { at: 0, ...hold },
+          { at: 1, ...hold },
         ],
       },
       performance.now(),
@@ -834,7 +838,12 @@
       return {
         ...lookOf(object),
         effect: pours?.kind,
-        lands: pours?.to ? openingFor(id, pours.to)?.rim : undefined,
+        sliding: pours?.kind === "stream",
+        // Into an opening at its rim; onto a board or worktop at its top.
+        lands: pours?.to
+          ? (openingFor(id, pours.to)?.rim ??
+            surroundings(id).pointOf(pours.to, "top")?.y)
+          : undefined,
         sunk: into ? openingFor(id, into) : undefined,
       };
     };

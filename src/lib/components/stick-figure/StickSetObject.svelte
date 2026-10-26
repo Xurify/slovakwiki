@@ -20,6 +20,8 @@
     hang?: boolean;
     /** What lies on it, carried with it: the carrots on a board. `dx`, `dy` from its base. */
     on?: Array<ObjectLook & { dx: number; dy: number }>;
+    /** Tipped to pour: what lies on it slides off its far end. */
+    sliding?: boolean;
   }
 </script>
 
@@ -42,6 +44,7 @@
     on = [],
     open,
     rattle = false,
+    sliding = false,
     wilt = 0,
   }: ObjectLook = $props();
 
@@ -442,7 +445,9 @@
   {/if}
   {#each on as { dx, dy, ...look }, index (index)}
     <g transform="translate({dx} {dy})">
-      <Self {...look} />
+      <g class={sliding ? "animate-slide-off" : undefined}>
+        <Self {...look} />
+      </g>
     </g>
   {/each}
 </g>

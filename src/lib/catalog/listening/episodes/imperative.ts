@@ -595,13 +595,14 @@ const KITCHEN_ACTS: Record<string, Cue[]> = {
     { do: "go", to: "cook" },
     { who: "anna", do: "go", to: "board" },
   ],
-  // Anna tips the carrots in from the stove's side, then Marek comes over for the salt.
+  // Anna tips the carrots in from the stove's side, then Marek comes over for the salt, and she steps back to give him room.
   "maria-salt": [
     { who: "anna", do: "take", what: "board", on: "hoď" },
     { who: "anna", do: "go", to: "pot-left" },
     { who: "anna", do: "pour", what: "board", to: "pot" },
     { who: "anna", do: "go", to: "board" },
     { who: "anna", do: "put", what: "board", to: "board-place" },
+    { who: "anna", do: "go", to: "board-back" },
     { do: "take", what: "salt", on: "soľ" },
     // Not on his name: Anna is still at the pot then.
     { who: "marek", do: "go", to: "pot-left", on: "soľ" },
