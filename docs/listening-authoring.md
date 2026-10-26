@@ -20,10 +20,25 @@ A listening episode is a short podcast in simple Slovak for one grammar topic: t
 - [ ] Give the listener time where a person would take it: a beat between two clues, before a quiz sentence, between a verdict and its reason. Put `PAUSE` in the line's parts; the text skips it and the clip says `[pause]` there. Eleven v4 makes a pause only inside a line (about a second); at its start or end it makes next to none. When someone has to think before they answer, as in a guessing game, let them say so: `"Hm… ", PAUSE, …`, or say the clues back: `"Žlté a ťažké… ", PAUSE, …`.
 - [ ] A segment that moves to another place says so before it goes and when it gets there: the last line of the one before is `Poďme na trh!`, the first line of the next is `Teraz sme na trhu.` The stage fades in on the new place and its sound, the break's sting plays, and the first line waits a moment, but only words tell the listener where they are.
 - [ ] A guessing game is played the way people play it: a wrong guess first (`Zelené a sladké… hruška?`), a second clue in answer (`Nie, hruška nie. Je to okrúhle.`), and a glad word when the guess is right (`Správne!`, `Presne tak!`, `Výborne!`), not a flat `Áno`. The guesser asks for the next thing (`A druhá vec?`); she cannot point at what is still in the bag.
-- [ ] Where the listener is asked to decide, as in a quiz, say so (`Hádajte s nami!`) and give them time: wrap the answer in `afterThinking(line(…))`, and the player waits two seconds before it. Let the listener play along: wrap the question in `rightOrWrong(line(…), "wrong")`, and the player stops after it until they pick, then plays the verdict. Asks belong after the listener has heard the forms, never in the first two segments. A pause at the start of a clip would make next to none. A line's feeling fits its moment: a `SIGH` before `Marek!` when he has lost the keys again. Listen back to every directed line.
+- [ ] Where the listener is asked to decide, as in a quiz, say so (`Hádajte s nami!`) and give them time: wrap the answer in `afterThinking(line(…))`, and the player waits two seconds before it. The game the listener plays is section 2b. A pause at the start of a clip would make next to none. A line's feeling fits its moment: a `SIGH` before `Marek!` when he has lost the keys again. Listen back to every directed line.
 - [ ] A clue has the shape a person gives it, one part per breath, with a `PAUSE` between the parts: `Je to žlté… je to ťažké… a vnútri je papier.` Where the text trails off, put `STOP` (`…` in the text, a full stop in the clip): Eleven reads an ellipsis as trailing off, and a line directed `[slowly]` came out as a drawn-out whisper. Do not direct a line slowly; the pauses set the pace.
 - [ ] Ids start with `podcast-<slug>-` and say what they hold: `podcast-demonstratives-marek-car-key`. `validateListeningEpisodes` checks prefixes and uniqueness.
 - [ ] `vocabulary`: 4–6 words to listen for, Slovak and English only. They show as tap-to-hear chips above the player, read by the guide voice; grammar notes belong on the grammar page.
+
+## 2b. The game at the end: the listener plays
+
+Every show episode ends on a game the listener plays, and it comes after the forms, never in the first two segments. The default is **Pomôžte Marekovi**: a host is set a short test, asks the listeners for help, and says whatever form they pick. Reference: the `quiz` chapter of `demonstratives.ts`. These are decisions, not suggestions:
+
+- [ ] The listener chooses what a host says, and the story follows the choice. A right-or-wrong verdict on a host's sentence (`rightOrWrong`) is the fallback for a topic with no forms to pick between.
+- [ ] Three asks, each on one word. The other host gives the word (`Prvé slovo: dievča. Tá, alebo to?`); no sentence about something the stage does not show (`ten muž tam`) and no prop from nowhere.
+- [ ] A reason for the test and for the help, said aloud: the host teases (`malá skúška pre Mareka`), Marek panics (`Tieto slovíčka mi nikdy nejdú do hlavy`), and somebody says how the listener helps (`Vy vyberiete, Marek povie.`).
+- [ ] The asking line is wrapped in `listenerPicks(line(…), { prompt: "Čo má Marek povedať?", choices, answerId, judge: "Anna" })`. The labels are the phrase with the form (`To dievča`), the English is the same for every choice so it gives nothing away, and `judge` is whoever gives the verdict, so the card marks the pick when she speaks and not when Marek echoes it.
+- [ ] Each branch is wrapped in `onPath(line(…), { ask, picks })`. Every ask has three branches: each choice, and `NO_PICK` for a listener who lets Marek answer or has Play along off. On `NO_PICK` Marek answers alone, always right, without "again" (`Nikto? Tak tie deti.`): the listener may have picked before.
+- [ ] Marek echoes the pick before he says it (`Tak tí, hovoríte? Tí deti.`), so the listener hears their choice was used.
+- [ ] Every branch gets a reaction, the right ones too (`Vedel som to! — Ty? Veď si sa ich pýtal.`), and the wrong ones each get a different joke. A verdict is said teasing, like a friend, and its reason is one short sentence, not a list of forms.
+- [ ] After a joke, a bridge and a beat before the next word (`No dobre.`, `wait: BEAT_MS`).
+- [ ] The ending reads the listener's real score: one Anna line and one Marek reply per score (`{ score: [n] }`), plus `{ unaided: true }` for a listener who picked nothing. Each has its own joke that fits the mechanic (a wrong pick was a choice, not sleep). Then the outro.
+- [ ] Walk every path before the critics do: each pick at each ask, and each ending. `listener-path.test.ts` shows how; `validateListeningEpisodes` checks that each branch names a real ask and choice.
 
 ## 3. Write the checks
 
@@ -55,4 +70,6 @@ Each of these went out in the first episode and had to be fixed. Read a script a
 - **Directed slowly, or trailing off on an ellipsis.** A drawn-out whisper. `STOP` and `PAUSE`, never `[slowly]`.
 - **A feeling that does not fit.** `Marek!` said flat when he has lost the keys again. A `SIGH` before it. Say how every directed line should feel, and listen back.
 - **A pause at the start of a clip.** It makes next to none; the player waits instead (`wait` on the line).
+- **A game that is a lecture.** Anna answered a right pick with `Tie deti, tie ženy. Tí muži, tí chlapci.` One short reason, then a reaction.
+- **A branch that only fits one path.** `Zase nič?` when the listener had picked the first time. Read each branch line on every path that reaches it.
 - **The mouth on the wrong word.** The vowel track was aligned on the line without its pauses. `bun scripts/audio/lipsync.ts -- --only "…"` scores a clip; under 80% is wrong.

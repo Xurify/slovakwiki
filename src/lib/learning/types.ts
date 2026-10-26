@@ -28,8 +28,18 @@ export interface DialogueSayChoices {
 export interface ListenerAsk {
   answerId: string;
   choices: Array<{ english: string; id: string; label: string }>;
+  /** Whose line marks the pick right or wrong; the line straight after the ask unless set. */
+  judge?: string;
   prompt: string;
 }
+
+/**
+ * The listener's answers a podcast line plays on: the pick at an asking line
+ * ("none" when they let the host answer), how many asks in the segment went
+ * right once they picked at least once, or `unaided` when they picked none.
+ */
+export type ListenerPath =
+  { ask: string; picks: string[] } | { score: number[] } | { unaided: true };
 
 export interface DialogueTurn {
   /** Podcast only: the listener answers this line before the next one plays. */
@@ -66,6 +76,8 @@ export interface DialogueTurn {
   to?: string;
   /** Silence before the line, ms: a moment for the listener to decide before the answer comes. */
   wait?: number;
+  /** Podcast only: the line plays only on this path through the listener's answers. */
+  when?: ListenerPath;
 }
 
 export interface LessonTrack {

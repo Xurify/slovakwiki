@@ -23,6 +23,7 @@
   import { hasPendingStoryAudio, primeStoryAudio } from "$lib/lesson-story/story-audio";
   import { focusUnlessTyping } from "$lib/listening/focus";
   import { LinePlayer } from "$lib/listening/line-player.svelte";
+  import { nextOnPath, onPath } from "$lib/listening/listener-path";
   import type { StagedScene } from "$lib/stick-figure/scene-line";
   import { cx } from "$lib/ui/classes";
 
@@ -100,7 +101,8 @@
   const player = new LinePlayer(lines, audioSrcs, {
     stage: () => sceneStage,
     holdsAfter: (index) => playAlong && Boolean(lines[index]?.ask),
-    isLast: (index) => index === lines.length - 1,
+    isLast: (index) => nextOnPath(lines, picks, index) === undefined,
+    next: (index) => nextOnPath(lines, picks, index),
     onRunEnd: () => {
       const first = !listened;
       listened = true;
@@ -116,11 +118,28 @@
     },
   });
 
-  /** The asking line whose card shows: held for an answer, or answered while the answer plays. */
+  /** The asking line whose card shows: held for an answer, or answered until the next ask. */
   const askAt = $derived.by(() => {
     if (player.held) return lines[player.cursor]?.ask ? player.cursor : -1;
-    const before = lines[player.cursor - 1];
-    return before?.ask && picks[before.id] ? player.cursor - 1 : -1;
+    for (let index = player.cursor - 1; index >= 0; index -= 1) {
+      const line = lines[index]!;
+      if (line.ask) return picks[line.id] ? index : -1;
+    }
+    return -1;
+  });
+  /** The lines this listener's answers lead through, in order. */
+  const path = $derived(
+    lines
+      .map((line, index) => ({ index, line }))
+      .filter(({ line }) => onPath(line, lines, picks)),
+  );
+  /** The transcript stops at the next question still to come, so it never gives the answer away. */
+  const shownPath = $derived.by(() => {
+    if (listened) return path;
+    const ahead = path.findIndex(
+      ({ index, line }) => line.ask && index >= player.cursor && !(line.id in picks),
+    );
+    return ahead < 0 ? path : path.slice(0, ahead + 1);
   });
   const askLine = $derived(askAt >= 0 ? lines[askAt] : undefined);
 
@@ -137,7 +156,14 @@
   });
 
   $effect(() => {
-    if (askLine && player.speaking && player.cursor === askAt + 1) {
+    const judge = askLine?.ask?.judge;
+    const speaker = lines[player.cursor]?.speaker;
+    if (
+      askLine &&
+      player.speaking &&
+      player.cursor > askAt &&
+      (!judge || speaker === judge)
+    ) {
       revealedFor = askLine.id;
     }
   });
@@ -169,7 +195,8 @@
 
   const status = $derived.by(() => {
     const line = player.line;
-    const position = `line ${player.cursor + 1} of ${lines.length}`;
+    const step = path.findIndex(({ index }) => index === player.cursor);
+    const position = `line ${step + 1} of ${path.length}`;
     if (player.speaking && line)
       return `${episodeSpeakerName(line.speaker)} · ${position}`;
     if (player.held) return `Your turn · ${position}`;
@@ -273,7 +300,10 @@
   ]);
 
   function togglePlay(): void {
-    const atEnd = listened && !player.playing && player.cursor === lines.length - 1;
+    const atEnd =
+      listened &&
+      !player.playing &&
+      nextOnPath(lines, picks, player.cursor) === undefined;
     if (atEnd) player.playFrom(0);
     else player.toggle();
   }
@@ -360,7 +390,7 @@
   {/if}
 
   {#if askLine?.ask}
-    {@const answerer = lines[askAt + 1]?.speaker}
+    {@const answerer = lines[nextOnPath(lines, picks, askAt) ?? -1]?.speaker}
 
     {#key askLine.id}
       <ListenerAsk
@@ -419,12 +449,12 @@
     </div>
 
     <ol class="m-0 mt-2 flex list-none gap-1 p-0" aria-label="Lines">
-      {#each lines as line, index (line.id)}
+      {#each path as { index, line }, step (line.id)}
         <li class="flex-1">
           <button
             class="block w-full cursor-pointer border-0 bg-transparent px-0 py-2"
             type="button"
-            aria-label="Play line {index + 1} of {lines.length}, {episodeSpeakerName(
+            aria-label="Play line {step + 1} of {path.length}, {episodeSpeakerName(
               line.speaker,
             )}"
             aria-current={index === player.cursor && stage !== "idle"
@@ -531,10 +561,10 @@
   {#if textOpen}
     <div class="border-t border-slate-200/70">
       <ol class="m-0 list-none p-0" aria-label="Transcript">
-        {#each lines as line, index (line.id)}
+        {#each shownPath as { index, line }, step (line.id)}
           <EpisodeLine
             {line}
-            number={index + 1}
+            number={step + 1}
             current={(player.playing || stage === "listening") && player.cursor === index}
             playing={player.playing && player.cursor === index}
             dimmed={player.playing && player.cursor !== index}

@@ -1,5 +1,7 @@
 import { markedText, type MarkedPart } from "$lib/learning/marked-text";
-import type { DialogueTurn } from "$lib/learning/types";
+import type { DialogueTurn, ListenerAsk, ListenerPath } from "$lib/learning/types";
+
+export { NO_PICK } from "$lib/listening/listener-path";
 
 /**
  * Writing a podcast line for the ear. A line is its parts: words, a marked
@@ -117,6 +119,16 @@ export function rightOrWrong(
       answerId,
     },
   };
+}
+
+/** A line the listener answers in the host's place: the lines after it can go by their pick. */
+export function listenerPicks(turn: DialogueTurn, ask: ListenerAsk): DialogueTurn {
+  return { ...turn, ask };
+}
+
+/** A line that plays only on some paths through the listener's picks. */
+export function onPath(turn: DialogueTurn, when: ListenerPath): DialogueTurn {
+  return { ...turn, when };
 }
 
 /** A guess at something not yet shown: none of the speaker's sentences brings a prop out. */

@@ -26,6 +26,8 @@ export interface LinePlayerOptions {
   /** The line puts a question to the listener: the run holds after it until `answered`. */
   holdsAfter?: (index: number) => boolean;
   isLast: (index: number) => boolean;
+  /** The line after `index`, where some lines are on another path; the following one unless set. */
+  next?: (index: number) => number | undefined;
   onRunEnd: (index: number) => void;
   /** The stage to play each line on, once there is one; the clip alone until then. */
   stage?: () => LineStage | undefined;
@@ -155,7 +157,8 @@ export class LinePlayer {
     this.#gap = window.setTimeout(() => {
       this.#gap = 0;
       if (mine !== this.#epoch || !this.playing) return;
-      this.playFrom(this.cursor + 1);
+      const next = this.#next(this.cursor);
+      if (next !== undefined) this.playFrom(next);
     }, ANSWER_BEAT_MS);
   }
 
@@ -186,14 +189,21 @@ export class LinePlayer {
       return;
     }
 
+    const next = this.#next(index);
+    if (next === undefined) return;
     this.#gap = window.setTimeout(
       () => {
         this.#gap = 0;
         if (mine !== this.#epoch || !this.playing) return;
-        this.playFrom(index + 1);
+        this.playFrom(next);
       },
-      LINE_GAP_MS + (this.#lines[index + 1]?.wait ?? 0),
+      LINE_GAP_MS + (this.#lines[next]?.wait ?? 0),
     );
+  }
+
+  #next(index: number): number | undefined {
+    if (this.#options.next) return this.#options.next(index);
+    return index + 1 < this.#lines.length ? index + 1 : undefined;
   }
 
   /** Safe on the server too, where destroy runs after a render and there is no window. */
