@@ -322,12 +322,12 @@ export const grammarEntries: GrammarTopic[] = [
       rowLabel: "Person",
       columns: ["Masculine", "Feminine"],
       rows: [
-        { label: "ja (I)", cells: ["robil som", "robila som"] },
-        { label: "ty (you, informal)", cells: ["robil si", "robila si"] },
-        { label: "on / ona (he, she)", cells: ["robil", "robila"] },
-        { label: "my (we)", cells: ["robili sme", "robili sme"] },
-        { label: "vy (you, formal or plural)", cells: ["robili ste", "robili ste"] },
-        { label: "oni / ony (they)", cells: ["robili", "robili"] },
+        { label: "ja (I)", cells: ["robi[l] som", "robi[la] som"] },
+        { label: "ty (you, informal)", cells: ["robi[l] si", "robi[la] si"] },
+        { label: "on / ona (he, she)", cells: ["robi[l]", "robi[la]"] },
+        { label: "my (we)", cells: ["robi[li] sme", "robi[li] sme"] },
+        { label: "vy (you, formal or plural)", cells: ["robi[li] ste", "robi[li] ste"] },
+        { label: "oni / ony (they)", cells: ["robi[li]", "robi[li]"] },
       ],
     },
     morePatterns: [
@@ -336,12 +336,12 @@ export const grammarEntries: GrammarTopic[] = [
         rowLabel: "Meaning",
         columns: ["Infinitive", "-l form"],
         rows: [
-          { label: "do", cells: ["robiť", "robil"] },
-          { label: "read", cells: ["čítať", "čítal"] },
-          { label: "work", cells: ["pracovať", "pracoval"] },
-          { label: "drink", cells: ["piť", "pil"] },
-          { label: "see", cells: ["vidieť", "videl"] },
-          { label: "want", cells: ["chcieť", "chcel"] },
+          { label: "do", cells: ["robi[ť]", "robi[l]"] },
+          { label: "read", cells: ["číta[ť]", "číta[l]"] },
+          { label: "work", cells: ["pracova[ť]", "pracova[l]"] },
+          { label: "drink", cells: ["pi[ť]", "pi[l]"] },
+          { label: "see", cells: ["vid[ieť]", "vid[el]"] },
+          { label: "want", cells: ["chc[ieť]", "chc[el]"] },
         ],
       },
       {
@@ -349,12 +349,12 @@ export const grammarEntries: GrammarTopic[] = [
         rowLabel: "Meaning",
         columns: ["Infinitive", "Masculine", "Feminine"],
         rows: [
-          { label: "go", cells: ["ísť", "išiel", "išla"] },
-          { label: "come", cells: ["prísť", "prišiel", "prišla"] },
-          { label: "eat", cells: ["jesť", "jedol", "jedla"] },
-          { label: "can, be able", cells: ["môcť", "mohol", "mohla"] },
-          { label: "carry", cells: ["niesť", "niesol", "niesla"] },
-          { label: "forget", cells: ["zabudnúť", "zabudol", "zabudla"] },
+          { label: "go", cells: ["ís[ť]", "iš[iel]", "iš[la]"] },
+          { label: "come", cells: ["prís[ť]", "priš[iel]", "priš[la]"] },
+          { label: "eat", cells: ["jes[ť]", "jed[ol]", "jed[la]"] },
+          { label: "can, be able", cells: ["môc[ť]", "moh[ol]", "moh[la]"] },
+          { label: "carry", cells: ["nies[ť]", "nies[ol]", "nies[la]"] },
+          { label: "forget", cells: ["zabudnú[ť]", "zabud[ol]", "zabud[la]"] },
         ],
         examples: [
           {
@@ -382,6 +382,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "I was tired.",
               when: "a man says it",
+              why: "Masculine: **bol**, **-ý**",
             },
             {
               slovak: markedText([
@@ -392,6 +393,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "I was tired.",
               when: "a woman says it",
+              why: "Feminine: **bola**, **-á**",
             },
           ],
         },
@@ -406,11 +408,13 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "Yesterday I worked.",
               when: "you did",
+              why: "**Som** marks I",
             },
             {
               slovak: markedText(["Včera ", { role: "contrast", text: "pracoval" }, "."]),
               english: "Yesterday he worked.",
               when: "he did",
+              why: "No **som**: he",
             },
           ],
         },
@@ -423,12 +427,14 @@ export const grammarEntries: GrammarTopic[] = [
               slovak: markedText(["Kde ", { role: "contrast", text: "si bol" }, "?"]),
               english: "Where were you?",
               when: "a friend",
+              why: "**Ty**: **si bol**",
             },
             {
               at: "formal",
               slovak: markedText(["Kde ", { role: "contrast", text: "ste boli" }, "?"]),
               english: "Where were you?",
               when: "a stranger, or more than one person",
+              why: "**Vy**: **ste boli**",
             },
           ],
         },
@@ -612,12 +618,14 @@ export const grammarEntries: GrammarTopic[] = [
               slovak: markedText([{ role: "contrast", text: "Píšem" }, " e-mail."]),
               english: "I am writing an email.",
               when: "right now",
+              why: "Imperfective: in progress",
             },
             {
               at: "done",
               slovak: markedText([{ role: "contrast", text: "Napíšem" }, " e-mail."]),
               english: "I will write an email.",
               when: "later, and it gets done",
+              why: "Perfective present: future, done",
             },
           ],
         },
@@ -634,6 +642,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "In the evening I will be cooking soup.",
               when: "how you'll spend the evening",
+              why: "Imperfective: the activity",
             },
             {
               at: "done",
@@ -644,6 +653,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "In the evening I will cook soup.",
               when: "the soup will be ready",
+              why: "Perfective: the result",
             },
           ],
         },
@@ -659,6 +669,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "I walk to the shop.",
               when: "every time",
+              why: "**Chodiť**: a habit",
             },
             {
               at: "now",
@@ -668,6 +679,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "I am walking to the shop.",
               when: "on your way now",
+              why: "**Ísť**: one trip, now",
             },
           ],
         },
@@ -686,6 +698,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "In the evening I was writing a letter.",
               when: "how the evening went",
+              why: "Imperfective: the process",
             },
             {
               at: "done",
@@ -696,6 +709,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "In the evening I wrote the letter.",
               when: "the letter is finished",
+              why: "Perfective: the result",
             },
           ],
         },
@@ -706,6 +720,7 @@ export const grammarEntries: GrammarTopic[] = [
               slovak: markedText([{ role: "contrast", text: "Čítal" }, " si tú knihu?"]),
               english: "Have you read that book?",
               when: "ever, even a page",
+              why: "Imperfective: any reading",
             },
             {
               slovak: markedText([
@@ -714,6 +729,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "Have you finished that book?",
               when: "all of it, to the end",
+              why: "Perfective: to the end",
             },
           ],
         },
@@ -729,6 +745,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "I called my mom every Sunday.",
               when: "every Sunday",
+              why: "Imperfective: again and again",
             },
             {
               at: "done",
@@ -739,6 +756,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "On Sunday I called my mom.",
               when: "once, last Sunday",
+              why: "Perfective: once",
             },
           ],
         },
@@ -814,11 +832,11 @@ export const grammarEntries: GrammarTopic[] = [
         rowLabel: "Meaning",
         columns: ["Imperfective", "Perfective"],
         rows: [
-          { label: "write", cells: ["budem písať", "napíšem"] },
-          { label: "read", cells: ["budem čítať", "prečítam"] },
-          { label: "cook", cells: ["budem variť", "uvarím"] },
-          { label: "call", cells: ["budem volať", "zavolám"] },
-          { label: "buy", cells: ["budem kupovať", "kúpim"] },
+          { label: "write", cells: ["[budem] písať", "[na]píšem"] },
+          { label: "read", cells: ["[budem] čítať", "[pre]čítam"] },
+          { label: "cook", cells: ["[budem] variť", "[u]varím"] },
+          { label: "call", cells: ["[budem] volať", "[za]volám"] },
+          { label: "buy", cells: ["[budem] kupovať", "kúpim"] },
         ],
         examples: [
           {
@@ -840,9 +858,9 @@ export const grammarEntries: GrammarTopic[] = [
         columns: ["Infinitive", "Future (I will)"],
         rows: [
           { label: "go", cells: ["ísť", "pôjdem"] },
-          { label: "carry", cells: ["niesť", "ponesiem"] },
-          { label: "fly", cells: ["letieť", "poletím"] },
-          { label: "run", cells: ["bežať", "pobežím"] },
+          { label: "carry", cells: ["niesť", "[po]nesiem"] },
+          { label: "fly", cells: ["letieť", "[po]letím"] },
+          { label: "run", cells: ["bežať", "[po]bežím"] },
         ],
         examples: [
           {
@@ -872,6 +890,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "At the weekend I'll be reading that book.",
               when: "how you'll spend the weekend",
+              why: "**Budem** + imperfective",
             },
             {
               at: "done",
@@ -882,6 +901,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "I'll read that book over the weekend.",
               when: "the book will be finished",
+              why: "Perfective present: future",
             },
           ],
         },
@@ -898,6 +918,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "I'll call you every day.",
               when: "again and again",
+              why: "**Budem** + imperfective",
             },
             {
               at: "done",
@@ -908,6 +929,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "I'll call you tomorrow.",
               when: "once, tomorrow",
+              why: "Perfective present: future",
             },
           ],
         },
@@ -1135,10 +1157,10 @@ export const grammarEntries: GrammarTopic[] = [
         rowLabel: "Place",
         columns: ["Where? (kde)", "Where to? (kam)", "Where from? (odkiaľ)"],
         rows: [
-          { label: "the shop", cells: ["v obchode", "do obchodu", "z obchodu"] },
-          { label: "the post office", cells: ["na pošte", "na poštu", "z pošty"] },
-          { label: "the doctor", cells: ["u lekára", "k lekárovi", "od lekára"] },
-          { label: "home", cells: ["doma", "domov", "z domu"] },
+          { label: "the shop", cells: ["v obchod[e]", "do obchod[u]", "z obchod[u]"] },
+          { label: "the post office", cells: ["na pošt[e]", "na pošt[u]", "z pošt[y]"] },
+          { label: "the doctor", cells: ["u lekár[a]", "k lekár[ovi]", "od lekár[a]"] },
+          { label: "home", cells: ["doma", "domov", "z dom[u]"] },
           { label: "here", cells: ["tu", "sem", "odtiaľto"] },
         ],
         examples: [
@@ -1198,6 +1220,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "Today I'm going to school by bus.",
               when: "today, this one trip",
+              why: "**Ísť**: one trip",
             },
             {
               at: "habit",
@@ -1208,6 +1231,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "I go to school by bus.",
               when: "every day",
+              why: "**Chodiť**: a habit",
             },
           ],
         },
@@ -1222,6 +1246,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "Tomorrow I'm flying to London.",
               when: "one flight",
+              why: "**Letieť**: one flight",
             },
             {
               slovak: markedText([
@@ -1231,6 +1256,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "I often fly to London.",
               when: "often, there and back",
+              why: "**Lietať**: again and again",
             },
           ],
         },
@@ -1245,6 +1271,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "Yesterday I was at the cinema.",
               when: "you went and came back",
+              why: "**Byť v** + locative: where you were",
             },
             {
               slovak: markedText([
@@ -1254,6 +1281,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "Yesterday I went to the cinema.",
               when: "the trip there is the point",
+              why: "**Ísť do** + genitive: where you headed",
             },
           ],
         },
@@ -1389,6 +1417,7 @@ export const grammarEntries: GrammarTopic[] = [
               slovak: markedText([{ role: "contrast", text: "Zavolaj" }, " mi zajtra."]),
               english: "Call me tomorrow.",
               when: "a friend",
+              why: "**Ty** form",
             },
             {
               at: "formal",
@@ -1398,6 +1427,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "Call me tomorrow.",
               when: "a stranger, or more than one person",
+              why: "**Vy** form: **-te**",
             },
           ],
         },
@@ -1408,11 +1438,13 @@ export const grammarEntries: GrammarTopic[] = [
               slovak: markedText([{ role: "contrast", text: "Zatvor" }, " okno."]),
               english: "Close the window.",
               when: "one request: perfective",
+              why: "**zatvoriť** → **zatvor**",
             },
             {
               slovak: markedText([{ role: "contrast", text: "Nezatváraj" }, " okno."]),
               english: "Don't close the window.",
               when: "don't: imperfective",
+              why: "**ne-** + **zatváraj**",
             },
           ],
         },
@@ -1426,6 +1458,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "Don't call me after ten.",
               when: "a rule: imperfective",
+              why: "**ne-** + **volaj**",
             },
             {
               slovak: markedText([
@@ -1434,6 +1467,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "Don't forget to call me.",
               when: "a warning: perfective",
+              why: "**ne-** + **zabudni**",
             },
           ],
         },
@@ -1486,15 +1520,15 @@ export const grammarEntries: GrammarTopic[] = [
       rowLabel: "Person",
       columns: ["Masculine", "Feminine"],
       rows: [
-        { label: "ja (I)", cells: ["robil by som", "robila by som"] },
-        { label: "ty (you, informal)", cells: ["robil by si", "robila by si"] },
-        { label: "on / ona (he, she)", cells: ["robil by", "robila by"] },
-        { label: "my (we)", cells: ["robili by sme", "robili by sme"] },
+        { label: "ja (I)", cells: ["robi[l] by som", "robi[la] by som"] },
+        { label: "ty (you, informal)", cells: ["robi[l] by si", "robi[la] by si"] },
+        { label: "on / ona (he, she)", cells: ["robi[l] by", "robi[la] by"] },
+        { label: "my (we)", cells: ["robi[li] by sme", "robi[li] by sme"] },
         {
           label: "vy (you, formal or plural)",
-          cells: ["robili by ste", "robili by ste"],
+          cells: ["robi[li] by ste", "robi[li] by ste"],
         },
-        { label: "oni / ony (they)", cells: ["robili by", "robili by"] },
+        { label: "oni / ony (they)", cells: ["robi[li] by", "robi[li] by"] },
       ],
     },
     morePatterns: [
@@ -1554,6 +1588,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "If I have time, I'll come.",
               when: "it may really happen",
+              why: "**Ak** + future: real",
             },
             {
               slovak: markedText([
@@ -1564,6 +1599,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "If I had time, I would come.",
               when: "you don't have time, but imagine",
+              why: "**Keby**, **-l** form, **by**: imagined",
             },
           ],
         },
@@ -1574,11 +1610,13 @@ export const grammarEntries: GrammarTopic[] = [
               slovak: markedText([{ role: "contrast", text: "Chcem" }, " kávu."]),
               english: "I want a coffee.",
               when: "direct, a little blunt",
+              why: "Plain present",
             },
             {
               slovak: markedText([{ role: "contrast", text: "Chcel by som" }, " kávu."]),
               english: "I'd like a coffee.",
               when: "polite",
+              why: "**-l** form + **by som**",
             },
           ],
         },
@@ -1589,6 +1627,7 @@ export const grammarEntries: GrammarTopic[] = [
               slovak: markedText([{ role: "contrast", text: "Môžete" }, " mi pomôcť?"]),
               english: "Can you help me?",
               when: "a plain question",
+              why: "Plain present",
             },
             {
               slovak: markedText([
@@ -1597,6 +1636,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "Could you help me?",
               when: "softer, more polite",
+              why: "**-li** form + **by ste**",
             },
           ],
         },
@@ -1716,11 +1756,13 @@ export const grammarEntries: GrammarTopic[] = [
               slovak: markedText(["Umyl som ", { role: "contrast", text: "auto" }, "."]),
               english: "I washed the car.",
               when: "something else",
+              why: "An object: **auto**",
             },
             {
               slovak: markedText(["Umyl som ", { role: "contrast", text: "sa" }, "."]),
               english: "I washed.",
               when: "yourself",
+              why: "**Sa**: yourself",
             },
             {
               slovak: markedText([
@@ -1730,6 +1772,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "I washed my hands.",
               when: "a part of you",
+              why: "**Si**: for yourself",
             },
           ],
         },
@@ -1744,11 +1787,13 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "I woke the child.",
               when: "you woke someone else",
+              why: "An object: **dieťa**",
             },
             {
               slovak: markedText(["Zobudil som ", { role: "contrast", text: "sa" }, "."]),
               english: "I woke up.",
               when: "you woke up yourself",
+              why: "**Sa**: yourself",
             },
           ],
         },
@@ -1759,11 +1804,13 @@ export const grammarEntries: GrammarTopic[] = [
               slovak: markedText(["Volám ", { role: "contrast", text: "mame" }, "."]),
               english: "I'm calling mom.",
               when: "on the phone",
+              why: "**Volať** + dative: **mame**",
             },
             {
               slovak: markedText(["Volám ", { role: "contrast", text: "sa" }, " Anna."]),
               english: "My name is Anna.",
               when: "your name",
+              why: "**Volať sa**: to be called",
             },
           ],
         },
@@ -2080,6 +2127,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "I like this shirt.",
               when: "in your hand, or on you",
+              why: "**tá** + **-to**",
             },
             {
               at: "them",
@@ -2092,6 +2140,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "I like that shirt.",
               when: "on them, or one you both know",
+              why: "The base form",
             },
             {
               at: "far",
@@ -2104,6 +2153,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "I like that shirt over there.",
               when: "across the shop",
+              why: "**tam-** + **tá**",
             },
           ],
         },
@@ -2123,6 +2173,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "This weekend was amazing.",
               when: "the one just ending",
+              why: "**ten** + **-to**",
             },
             {
               at: "before",
@@ -2132,6 +2183,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "That weekend was amazing.",
               when: "one in the past",
+              why: "The base form",
             },
           ],
         },
@@ -2152,6 +2204,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "Read this book.",
               when: "you're holding it out",
+              why: "**tú** + **-to**",
             },
             {
               at: "them",
@@ -2164,6 +2217,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "Read that book.",
               when: "they're holding it, or you talked about it",
+              why: "The base form",
             },
             {
               at: "far",
@@ -2176,6 +2230,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "Read that book over there.",
               when: "on a shelf across the room",
+              why: "**tam-** + **tú**",
             },
           ],
         },
@@ -2197,6 +2252,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "These shoes are comfortable.",
               when: "you're wearing them",
+              why: "**tie** + **-to**",
             },
             {
               at: "them",
@@ -2208,6 +2264,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "Those shoes are comfortable.",
               when: "they're wearing them",
+              why: "The base form",
             },
             {
               at: "far",
@@ -2219,6 +2276,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "Those shoes over there are comfortable.",
               when: "on a shelf across the shop",
+              why: "**tam-** + **tie**",
             },
           ],
         },
@@ -2241,6 +2299,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "These people are waiting for the bus.",
               when: "right next to you",
+              why: "**tí** + **-to**",
             },
             {
               at: "them",
@@ -2252,6 +2311,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "Those people are waiting for the bus.",
               when: "the ones you talked about",
+              why: "The base form",
             },
             {
               at: "far",
@@ -2263,6 +2323,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "Those people over there are waiting for the bus.",
               when: "at the stop across the street",
+              why: "**tam-** + **tí**",
             },
           ],
         },
@@ -2286,6 +2347,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "I'm afraid of this dog.",
               when: "at your feet",
+              why: "**toho** + **-to** → **tohto**",
             },
             {
               at: "them",
@@ -2298,6 +2360,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "I'm afraid of that dog.",
               when: "the one you talked about",
+              why: "The base form",
             },
             {
               at: "far",
@@ -2310,6 +2373,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "I'm afraid of that dog over there.",
               when: "behind a fence down the street",
+              why: "**tam-** + **toho**",
             },
           ],
         },
@@ -2330,6 +2394,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "Help these children.",
               when: "standing with you",
+              why: "**tým** + **-to**",
             },
             {
               at: "them",
@@ -2342,6 +2407,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "Help those children.",
               when: "the ones you talked about",
+              why: "The base form",
             },
             {
               at: "far",
@@ -2354,6 +2420,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "Help those children over there.",
               when: "across the playground",
+              why: "**tam-** + **tým**",
             },
           ],
         },
@@ -2377,6 +2444,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "I live in this house.",
               when: "you're standing in front of it",
+              why: "**tom** + **-to**",
             },
             {
               at: "them",
@@ -2389,6 +2457,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "I live in that house.",
               when: "the one you talked about",
+              why: "The base form",
             },
             {
               at: "far",
@@ -2401,6 +2470,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "I live in that house over there.",
               when: "further down the street",
+              why: "**tam-** + **tom**",
             },
           ],
         },
@@ -2421,6 +2491,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "I work with these people.",
               when: "sitting around you",
+              why: "**tými** + **-to**",
             },
             {
               at: "them",
@@ -2433,6 +2504,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "I work with those people.",
               when: "the ones you talked about",
+              why: "The base form",
             },
             {
               at: "far",
@@ -2445,6 +2517,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "I work with those people over there.",
               when: "across the room",
+              why: "**tam-** + **tými**",
             },
           ],
         },
@@ -2525,13 +2598,16 @@ export const grammarEntries: GrammarTopic[] = [
       columns: ["my", "your (ty)", "our", "your (vy)"],
       rows: [
         { label: "Masculine", cells: ["môj", "tvoj", "náš", "váš"] },
-        { label: "Feminine", cells: ["moja", "tvoja", "naša", "vaša"] },
-        { label: "Neuter", cells: ["moje", "tvoje", "naše", "vaše"] },
+        { label: "Feminine", cells: ["moj[a]", "tvoj[a]", "naš[a]", "vaš[a]"] },
+        { label: "Neuter", cells: ["moj[e]", "tvoj[e]", "naš[e]", "vaš[e]"] },
         {
           label: "Masculine nouns for people, plural",
-          cells: ["moji", "tvoji", "naši", "vaši"],
+          cells: ["moj[i]", "tvoj[i]", "naš[i]", "vaš[i]"],
         },
-        { label: "Every other plural", cells: ["moje", "tvoje", "naše", "vaše"] },
+        {
+          label: "Every other plural",
+          cells: ["moj[e]", "tvoj[e]", "naš[e]", "vaš[e]"],
+        },
       ],
     },
     morePatterns: [
@@ -2542,10 +2618,10 @@ export const grammarEntries: GrammarTopic[] = [
         rowLabel: "Case",
         columns: ["Masculine and neuter", "Feminine", "Plural"],
         rows: [
-          { label: "Genitive (of, from)", cells: ["môjho", "mojej", "mojich"] },
-          { label: "Dative (to)", cells: ["môjmu", "mojej", "mojim"] },
-          { label: "Locative (in, about)", cells: ["mojom", "mojej", "mojich"] },
-          { label: "Instrumental (with)", cells: ["mojím", "mojou", "mojimi"] },
+          { label: "Genitive (of, from)", cells: ["môj[ho]", "moj[ej]", "moj[ich]"] },
+          { label: "Dative (to)", cells: ["môj[mu]", "moj[ej]", "moj[im]"] },
+          { label: "Locative (in, about)", cells: ["moj[om]", "moj[ej]", "moj[ich]"] },
+          { label: "Instrumental (with)", cells: ["moj[ím]", "moj[ou]", "moj[imi]"] },
         ],
         examples: [
           {
@@ -2573,12 +2649,12 @@ export const grammarEntries: GrammarTopic[] = [
       {
         label: "Jeho, jej, ich never change",
         lines: [
-          "jeho brat · his brother",
-          "jeho sestra · his sister",
-          "jeho auto · his car",
-          "s jeho bratom · with his brother",
-          "jej deti · her children",
-          "ich dom · their house",
+          "[jeho] brat · his brother",
+          "[jeho] sestra · his sister",
+          "[jeho] auto · his car",
+          "s [jeho] bratom · with his brother",
+          "[jej] deti · her children",
+          "[ich] dom · their house",
         ],
         examples: [
           {
@@ -2621,6 +2697,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "Is this your suitcase?",
               when: "a friend",
+              why: "**Ty** → **tvoj**",
             },
             {
               at: "formal",
@@ -2631,6 +2708,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "Is this your suitcase?",
               when: "a stranger, or more than one person",
+              why: "**Vy** → **váš**",
             },
           ],
         },
@@ -2651,6 +2729,7 @@ export const grammarEntries: GrammarTopic[] = [
               at: "his",
               english: "Do you know his sister?",
               when: "Peter's",
+              why: "Owner is a man: **jeho**",
             },
             {
               slovak: markedText([
@@ -2663,6 +2742,7 @@ export const grammarEntries: GrammarTopic[] = [
               at: "hers",
               english: "Do you know her sister?",
               when: "Eva's",
+              why: "Owner is a woman: **jej**",
             },
           ],
         },
@@ -2684,6 +2764,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "Anna is looking for her keys.",
               when: "Anna's own",
+              why: "Subject's own: **svoj**",
             },
             {
               at: "other",
@@ -2696,6 +2777,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "Anna is looking for her keys.",
               when: "another woman's",
+              why: "Someone else's: **jej**",
             },
           ],
         },
@@ -2719,6 +2801,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "Tom is calling his mom.",
               when: "Tom's own",
+              why: "Subject's own: **svoj**",
             },
             {
               at: "other",
@@ -2731,6 +2814,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "Tom is calling his mom.",
               when: "another man's",
+              why: "Someone else's: **jeho**",
             },
           ],
         },
@@ -2752,6 +2836,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "Eva is going to the cinema with her brother.",
               when: "Eva's own",
+              why: "Subject's own: **svoj**",
             },
             {
               at: "other",
@@ -2764,6 +2849,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "Eva is going to the cinema with her brother.",
               when: "another woman's",
+              why: "Someone else's: **jej**",
             },
           ],
         },
@@ -2869,9 +2955,9 @@ export const grammarEntries: GrammarTopic[] = [
       rowLabel: "Meaning",
       columns: ["ty · informal", "vy · formal or plural"],
       rows: [
-        { label: "you are", cells: ["si", "ste"] },
-        { label: "you have", cells: ["máš", "máte"] },
-        { label: "thank you", cells: ["ďakujem ti", "ďakujem vám"] },
+        { label: "you are", cells: ["s[i]", "s[te]"] },
+        { label: "you have", cells: ["má[š]", "má[te]"] },
+        { label: "thank you", cells: ["ďakujem [ti]", "ďakujem [vám]"] },
         { label: "sorry", cells: ["prepáč", "prepáčte"] },
       ],
     },
@@ -2889,12 +2975,14 @@ export const grammarEntries: GrammarTopic[] = [
               slovak: markedText([{ role: "contrast", text: "Máš" }, " čas?"]),
               english: "Do you have time?",
               when: "a friend, a child, family",
+              why: "**Ty**: **-š**",
             },
             {
               at: "formal",
               slovak: markedText([{ role: "contrast", text: "Máte" }, " čas?"]),
               english: "Do you have time?",
               when: "a stranger, a teacher, a colleague",
+              why: "**Vy**: **-te**",
             },
           ],
         },
@@ -2907,12 +2995,14 @@ export const grammarEntries: GrammarTopic[] = [
               slovak: markedText([{ role: "contrast", text: "Prídeš" }, " zajtra?"]),
               english: "Will you come tomorrow?",
               when: "one friend",
+              why: "**Ty**: one person, **-š**",
             },
             {
               at: "group",
               slovak: markedText([{ role: "contrast", text: "Prídete" }, " zajtra?"]),
               english: "Will you come tomorrow?",
               when: "two friends at once",
+              why: "**Vy**: more than one, **-te**",
             },
           ],
         },
@@ -3174,6 +3264,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "I will call you at three.",
               when: "3:00 on the clock",
+              why: "**O** + locative: a clock time",
             },
             {
               at: "span",
@@ -3184,6 +3275,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "I will call you in three hours.",
               when: "three hours from now",
+              why: "**O** + accusative: a span",
             },
           ],
         },

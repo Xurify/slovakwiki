@@ -122,9 +122,9 @@
         <h1 class="text-balance">Slovak for English speakers</h1>
 
         <Lead class="text-pretty">
-          A dictionary of {wordCount} words with examples, audio and every form; story lessons
-          you can finish in one sitting; practice sets; and short guides to grammar and pronunciation.
-          Free, no account — progress stays in this browser.
+          A dictionary of {wordCount} words with examples and audio, and the six cases for common
+          nouns; story lessons you can finish in one sitting; practice sets; and short guides
+          to grammar and pronunciation. Free, no account — progress stays in this browser.
         </Lead>
       </header>
 

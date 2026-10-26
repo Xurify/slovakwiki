@@ -346,7 +346,8 @@ Prettier wraps lines; **airiness is manual**. Keep markup breathable:
 
 Every PR description has a **QA** section ([template](.github/pull_request_template.md)): one link per page or part the PR changes, so review starts with a click.
 
-- **Link the Vercel preview**, not production: `https://slovakwiki-git-<branch>-xurifys-projects.vercel.app` + path, with each `/` in the branch name turned into `-` (`feat/grammar-contrast-cards` → `slovakwiki-git-feat-grammar-contrast-cards-xurifys-projects.vercel.app`). Vercel shortens long branch names; if the `vercel[bot]` comment's **Preview** link has a different host, use that host.
+- **Link the Vercel preview**, not production. Copy the host from the **Preview** link in the `vercel[bot]` comment on the PR. Do not build it from the branch name: Vercel shortens long names with a hash (`feat/ui-emphasis-and-case-tables` → `slovakwiki-git-feat-ui-emphasis-and-cas-56d0c6-xurifys-projects.vercel.app`), and a guessed host is a 404. If the bot has not commented yet, open the PR first and fill in the links once it has.
+- **Check every link before it goes in**: the path is a route under `src/pages/` (`/grammar/past-tense`, not `/grammar/tenses/past`) and the anchor is an `id` on that page. Previews sit behind Vercel login, so a reviewer finds a dead link only by clicking it.
 - **Point at the exact part**: a section anchor (`/grammar/possessives#contrasts`), a search (`/search?q=tohto`), a practice item (`/practice/possessives?at=grammar%2Fpossessive-svoj-choice`). A bare page link is only for a new page.
 - **One checkbox per link, saying what to check**: `- [ ] [Possessives — Who is the owner?](…/grammar/possessives#contrasts): five cards, case label on each, audio on every sentence`. Name the viewport or theme when the change is layout (mobile, dark).
 - **Cover every surface the diff touches**, including pages that only reuse a changed component or link to a new page.
