@@ -302,11 +302,17 @@
         stroke-dasharray="0.4 1.6"
       />
     {:else}
+      <!-- Peel coming off the blade down onto the board the carrot lies on: a fixed fall ended in mid-air, or went through the board. -->
       <path
-        d="M{n(tip.x)} {n(tip.y + 1)}v10"
+        d="M{n(tip.x)} {n(tip.y + 0.6)}v{n(fall - 0.6)}"
         class="animate-pour stroke-scene-honey"
-        stroke-width="0.9"
-        stroke-dasharray="1.4 3"
+        stroke-width="1"
+        stroke-dasharray="1 1"
+      />
+      <path
+        d="M{n(tip.x - 1.6)} {n(tip.y + fall - 0.4)}q0.8 -0.9 1.6 0t1.6 0"
+        class="stroke-scene-honey"
+        stroke-width="0.8"
       />
     {/if}
   {/if}

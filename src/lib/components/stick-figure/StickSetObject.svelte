@@ -326,18 +326,20 @@
         stroke="none"
       />
     {/if}
+  {:else if kind === "keys" && flat}
+    <circle cx="-1.6" cy="-0.8" r="1.3" fill="none" stroke-width="0.7" />
+    <path d="M-0.4 -0.7H3.2M2.2 -0.7V-0.1" class="stroke-scene-honey" stroke-width="1" />
   {:else if kind === "keys"}
-    <circle
-      cx={flat ? -1.6 : 0}
-      cy={flat ? -0.8 : -3.4}
-      r="1.3"
-      fill="none"
-      stroke-width="0.7"
+    <!-- Held by the ring, the bunch hanging below the fist: a ring with a stub of key under it hid behind the hand. -->
+    <circle cx="0" cy="-6.4" r="1.6" fill="none" stroke-width="0.7" />
+    <path
+      d="M0.5 -4.9V-0.6M0.5 -2h1.2M0.5 -0.9h0.9M-0.6 -4.9L-2.4 -1.6"
+      stroke-width="2.1"
     />
     <path
-      d={flat ? "M-0.4 -0.7H3.2M2.2 -0.7V-0.1" : "M0 -2.1V1.4M0 0.6H0.9"}
+      d="M0.5 -4.9V-0.6M0.5 -2h1.2M0.5 -0.9h0.9M-0.6 -4.9L-2.4 -1.6"
       class="stroke-scene-honey"
-      stroke-width="1"
+      stroke-width="1.1"
     />
   {:else if kind === "mic"}
     <!-- Silver, so it shows in a hand against a dark jumper or the desk mic. -->

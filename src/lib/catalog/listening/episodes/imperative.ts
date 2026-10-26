@@ -549,16 +549,15 @@ const KITCHEN_ACTS: Record<string, Cue[]> = {
     { do: "go", to: "by-towel", on: "start" },
     { do: "dry", to: "towel" },
   ],
-  // Marek takes his turn at the sink as soon as Anna is at the board, and is dry and at the cupboard by "Tento?".
+  // Marek takes his turn at the sink as soon as Anna is at the board, and is at the cupboard by "Tento?".
   "maria-peel-take-pot": [
     { who: "anna", do: "go", to: "board", on: "ošúp" },
     { who: "anna", do: "take", what: "knife" },
     { who: "anna", do: "peel", what: "carrot" },
     { do: "point", to: "carrot", on: "mrkvu" },
     { who: "marek", do: "go", to: "sink", on: "mrkvu" },
+    // He shakes his hands dry over the sink: the towel is past Anna at the board, and going to it and back he walked through her twice.
     { who: "marek", do: "wash" },
-    { who: "marek", do: "go", to: "by-towel" },
-    { who: "marek", do: "dry", to: "towel" },
     { who: "marek", do: "go", to: "cupboard" },
     { do: "point", to: "pot", on: "hrniec" },
   ],
@@ -607,15 +606,20 @@ const KITCHEN_ACTS: Record<string, Cue[]> = {
     { do: "take", what: "salt", on: "soľ" },
     // Not on his name: Anna is still at the pot then.
     { who: "marek", do: "go", to: "pot-left", on: "soľ" },
+    // A step over to him, so the salt changes hands at the chest beside the pot, not across it at head height.
+    { do: "go", to: "at-stove" },
     { do: "give", what: "salt", to: "marek" },
+    { do: "go", to: "cook" },
   ],
   "marek-a-little": [{ do: "shake", what: "salt", to: "pot", on: "start" }],
   "maria-not-a-little": [
-    { do: "take", what: "salt", on: "marek" },
+    { do: "go", to: "at-stove", on: "marek" },
+    { do: "take", what: "salt" },
     { do: "wag", on: "nesyp" },
     { who: "anna", do: "laugh", on: "preboha" },
     { who: "marek", do: "shrug", on: "toľko" },
-    { do: "put", what: "salt", to: "salt-place", on: "after" },
+    { do: "go", to: "cook", on: "after" },
+    { do: "put", what: "salt", to: "salt-place" },
     { who: "marek", do: "go", to: "aside", on: "after" },
   ],
   "anna-top-up": [

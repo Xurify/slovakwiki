@@ -37,6 +37,8 @@
   --animate-pour: pour 0.35s linear infinite;
   /* Chopped pieces sliding along a tipped board to its far end, where they drop off. */
   --animate-slide-off: slide-off 0.7s ease-in both;
+  /* Water coming up in a pot under the running tap, over as long as tapFillMotion runs it. */
+  --animate-fill-up: fill-up 2.1s ease-in-out both;
   /* A gas flame, never quite still. */
   --animate-flicker: flicker 0.4s ease-in-out infinite alternate;
   /* A lid lifted by the boil and dropped again. */
@@ -56,6 +58,13 @@
     to {
       opacity: 0;
       transform: translateX(10px);
+    }
+  }
+
+  @keyframes fill-up {
+    from {
+      opacity: 0.5;
+      transform: scale(0.2, 0.35);
     }
   }
 

@@ -208,8 +208,10 @@ export function motionFor(
       if (where && "hand" in where) {
         const giver = where.hand;
         return {
-          motion: { ...handOverMotion(freeHand(world, who, what) ?? "lead", giver) },
-          partner: { who: giver, motion: handOverMotion(where.side, who) },
+          motion: {
+            ...handOverMotion(freeHand(world, who, what) ?? "lead", giver, object?.kind),
+          },
+          partner: { who: giver, motion: handOverMotion(where.side, who, object?.kind) },
         };
       }
       if (where && "pocket" in where) {
@@ -275,12 +277,13 @@ export function motionFor(
     }
     case "give":
       return {
-        motion: handOverMotion(hand, to as LessonCharacterId),
+        motion: handOverMotion(hand, to as LessonCharacterId, object?.kind),
         partner: {
           who: to as LessonCharacterId,
           motion: handOverMotion(
             freeHand(world, to as LessonCharacterId, what) ?? "lead",
             who,
+            object?.kind,
           ),
         },
       };
@@ -372,24 +375,33 @@ export function motionFor(
         hands(hand, { to, as: "top", ...aim(kind, 160, dx, dy) });
       return {
         motion: {
-          ms: 1500,
+          ms: 1800,
           face: to,
           takes: 1000,
           sounds: [{ at: 620, id: "clink" }],
           contacts: [{ hand, tip: "in", to, from: 600, until: 1050 }],
           keys: [
             { at: 0 },
-            { at: 420, ...into(-1, -4), turn, body: { lean: 4 } },
+            // Over the pot upright first and tipped bowl down there: tipped on the way, the bowl swung out past the hip.
+            {
+              at: 300,
+              ...hands(hand, { to, as: "top", dy: -15 }),
+              turn: { [hand]: 20 },
+              body: { lean: 3 },
+            },
+            { at: 520, ...into(-1, -4), turn, body: { lean: 4 } },
             { at: 650, ...into(-3, 5), turn, body: { lean: 5 } },
             { at: 820, ...into(3, 6), turn, body: { lean: 5 } },
             { at: 1000, ...into(0, 4), turn, body: { lean: 5 } },
+            // Straight up out of the soup bowl down, and only turned up once clear of the rim: turned on the way out, the bowl swung out over the pot's side.
+            { at: 1250, ...into(0, -3), turn, body: { lean: 3 } },
             {
-              at: 1250,
-              ...hands(hand, { to, as: "top", dy: -14 }),
+              at: 1500,
+              ...hands(hand, { to, as: "top", dy: -12 }),
               turn: { [hand]: 0 },
               body: { lean: 2 },
             },
-            { at: 1500, ...hands(hand, { at: { x: 14, y: 82 } }) },
+            { at: 1800, ...hands(hand, { at: { x: 14, y: 82 } }) },
           ],
         },
       };
@@ -1429,10 +1441,16 @@ function pocketMotion(way: "in" | "out", what: string, hand: Hand = "lead"): Mot
             { at: 700, ...hands(hand, { up: { x: 12, y: 16 } }), body: { tilt: 4 } },
             { at: 1000, ...hands(hand, { up: { x: 12, y: 16 } }) },
           ]
-        : [
+        : // A glance down as the hand finds the pocket and pushes in: the head tilted with the torso, the body went over as one block.
+          [
             { at: 0 },
-            { at: 420, ...hands(hand, pocket), body: { tilt: 5 } },
-            { at: 600, ...hands(hand, pocket) },
+            {
+              at: 330,
+              ...hands(hand, { up: { x: 5, y: 22 } }),
+              body: { nod: 1, look: 0.2 },
+            },
+            { at: 500, ...hands(hand, pocket), body: { nod: 1.6, look: 0.2 } },
+            { at: 650, ...hands(hand, { up: { x: 3, y: 28.5 } }), body: { nod: 0.8 } },
             { at: 1000 },
           ],
   };
@@ -1509,8 +1527,12 @@ function offHeadMotion(): Motion {
 }
 
 /** One half of a hand-over: out to where the two hands meet, a beat there, and back. */
-function handOverMotion(hand: Hand, to: LessonCharacterId): Motion {
-  const meet = hands(hand, { meet: to });
+function handOverMotion(hand: Hand, to: LessonCharacterId, kind?: ObjectKind): Motion {
+  // A knife goes across blade down, the way it is handed safely: held out level, the blade hid behind the two fists and it read as a handshake.
+  const meet = {
+    ...hands(hand, { meet: to }),
+    ...(kind === "knife" ? { turn: { [hand]: 90 } } : {}),
+  };
   return {
     ms: 1000,
     takes: 520,
@@ -1586,9 +1608,11 @@ export function targetPoint(
     if (sit > 0.5 && around.mic?.side === 1 && aim.x > shoulder.x) {
       return { x: shoulder.x + UNDER_MIC_POINT.x, y: shoulder.y + UNDER_MIC_POINT.y };
     }
-    // Pointing across a room the arm stays about level: aimed down at a thing's foot it went into the desk or table between.
+    // Seated, a point across the room stays about level: aimed down at a thing's foot it went into the desk or table between.
+    // Standing, it goes down at a low pot or a carrot on the board: held level, it pointed at whoever stood beyond.
     const across = Math.abs(aim.x - shoulder.x);
-    const at = { x: aim.x, y: Math.min(aim.y, shoulder.y + across * POINT_DROP) };
+    const drop = sit > 0.5 ? POINT_DROP : STANDING_POINT_DROP;
+    const at = { x: aim.x, y: Math.min(aim.y, shoulder.y + Math.max(across, 1) * drop) };
     const length = Math.hypot(at.x - shoulder.x, at.y - shoulder.y) || 1;
     return {
       x: shoulder.x + ((at.x - shoulder.x) / length) * 28,
@@ -1651,6 +1675,8 @@ function clearOfMic(
 
 /** The steepest a point goes below level, as a slope: about 6 degrees. */
 const POINT_DROP = 0.1;
+/** Standing, about 60 degrees: steeper, the arm hangs down and reads as resting, not pointing. */
+const STANDING_POINT_DROP = 1.7;
 /** From a seated host's shoulder: in front of the chest, under the mic's head and short of its boom (StudioDesk). */
 const UNDER_MIC_POINT: Point = { x: 13, y: 3 };
 
