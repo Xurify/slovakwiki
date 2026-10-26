@@ -227,14 +227,13 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     label: "In the podcast studio",
     outdoors: false,
     things: [
-      drawn(WORDS.dvere, [246, 40, 82, 186]),
+      drawn(WORDS.dvere, [190, 40, 72, 186]),
       drawn(WORDS.hodiny, clockBox(PARTS.studio.clock)),
-      drawn(WORDS.stol, [450, 204, 60, 86], [24, 156, 180, 70]),
-      drawn(WORDS.pocitac, [56, 116, 68, 44]),
-      drawn(WORDS.sluchadla, [128, 130, 52, 30]),
+      drawn(WORDS.stol, [450, 204, 60, 86], [626, 170, 152, 56]),
+      drawn(WORDS.pocitac, [642, 132, 50, 38]),
+      drawn(WORDS.sluchadla, [708, 146, 44, 24]),
       drawn(WORDS.mikrofon, [429, 120, 34, 22], [497, 120, 34, 22]),
-      drawn(WORDS.okno, [660, 52, 140, 108]),
-      drawn(WORDS.reproduktor, [832, 140, 40, 86]),
+      drawn(WORDS.okno, [636, 36, 124, 88]),
       drawn(WORDS.rastlina, plantBox(PARTS.studio.plant)),
       drawn(WORDS.koberec, [210, 252, 540, 40]),
     ],
@@ -242,7 +241,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     // Podcast hosts talk into their own mics, headphones on.
     atMarks: true,
     headwear: "headphones",
-    glass: { height: 94, width: 126, x: 667, y: 59 },
+    glass: { height: 74, width: 110, x: 643, y: 43 },
   },
 };
 

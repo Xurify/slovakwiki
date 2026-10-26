@@ -3,6 +3,9 @@
   import { n } from "$lib/stick-figure/draw";
   import { LOOKS } from "$lib/stick-figure/looks";
   import { REST_POSE, type StickPose } from "$lib/stick-figure/pose";
+  import { TURN_MS } from "$lib/stick-figure/turns";
+  import { cubicInOut } from "svelte/easing";
+  import { prefersReducedMotion, Tween } from "svelte/motion";
 
   /**
    * A character's head, drawn once: in the 64×64 portrait space, the skull an
@@ -35,7 +38,13 @@
 
   // The face sits turned toward the way the figure faces (a three-quarter
   // view), so a turn reads at a glance; `look` moves the eyes on top of that.
-  const aside = $derived(turn ?? (robot ? 1.4 : 2.6));
+  // Turning to the listeners and back eases like a turn of the body; a jump
+  // of the features read as a twitch.
+  const turning = Tween.of(() => turn ?? (robot ? 1.4 : 2.6), {
+    duration: () => (prefersReducedMotion.current ? 0 : TURN_MS),
+    easing: cubicInOut,
+  });
+  const aside = $derived(turning.current);
   const eyeX = $derived(aside + pose.look * 2);
   const noseX = $derived(32 + aside * 1.15 + pose.look * 0.8);
   const mouthX = $derived(32 + aside * 0.9 + pose.look * 1.2);
