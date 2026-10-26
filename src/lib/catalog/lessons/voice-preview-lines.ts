@@ -19,6 +19,10 @@ export const VOICE_PREVIEW_LINES: Record<LessonCharacterId, VoicePreviewLine> = 
     sampleSlovak: "Nasledujúca zastávka: Hlavná stanica.",
     sampleEnglish: "Next stop: Main Station.",
   },
+  bobik: {
+    sampleSlovak: "Haf! Haf!",
+    sampleEnglish: "Woof! Woof!",
+  },
   guide: {
     sampleSlovak: "Dobrý deň.",
     sampleEnglish: "Good day.",
@@ -42,6 +46,10 @@ export const VOICE_PREVIEW_LINES: Record<LessonCharacterId, VoicePreviewLine> = 
   receptionist: {
     sampleSlovak: "Dobrý deň. Ste Alex?",
     sampleEnglish: "Good day. Are you Alex?",
+  },
+  robo: {
+    sampleSlovak: "Dobrý deň. Som Robo, váš domáci robot.",
+    sampleEnglish: "Good day. I'm Robo, your home robot.",
   },
   waiter: {
     sampleSlovak: "Dáte si kávu?",

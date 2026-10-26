@@ -3,6 +3,7 @@ import { demonstrativesEpisode } from "./episodes/demonstratives";
 import { pastTenseEpisode } from "./episodes/past-tense";
 import { possessivesEpisode } from "./episodes/possessives";
 import { tellingTimeEpisode } from "./episodes/telling-time";
+import { whatBobikSaysEpisode } from "./episodes/what-bobik-says";
 import type { ListeningChapter, ListeningEpisode } from "./types";
 
 export type { ListeningChapter, ListeningCheck, ListeningEpisode } from "./types";
@@ -12,6 +13,7 @@ export const listeningEpisodes: ListeningEpisode[] = [
   possessivesEpisode,
   tellingTimeEpisode,
   pastTenseEpisode,
+  whatBobikSaysEpisode,
 ];
 
 export const episodeBySlug = new Map(

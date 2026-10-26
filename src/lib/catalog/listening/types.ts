@@ -32,14 +32,15 @@ export interface ListeningChapter {
 }
 
 export interface EpisodeNextSteps {
-  grammarHref: string;
+  grammarHref?: string;
   lessonHref?: string;
   practiceHref?: string;
 }
 
 export interface ListeningEpisode {
   chapters: ListeningChapter[];
-  grammarSlug: string;
+  /** The grammar page the episode teaches; a story told for its own sake has none. */
+  grammarSlug?: string;
   speakers: string[];
   id: string;
   lessonId?: string;
@@ -50,6 +51,7 @@ export interface ListeningEpisode {
   slug: string;
   title: string;
   titleSk: string;
-  topic: string;
+  /** The grammar label, read as "an episode on …"; none for a story with no topic. */
+  topic?: string;
   vocabulary: KeyPhrase[];
 }

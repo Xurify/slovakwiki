@@ -10,6 +10,7 @@
  *   bun scripts/audio/lipsync.ts                      # every lesson clip on disk
  *   bun scripts/audio/lipsync.ts -- --only "Je to"    # clips whose text contains it
  *   bun scripts/audio/lipsync.ts -- --tags            # clips with a direction in their text
+ *   bun scripts/audio/lipsync.ts -- --episode past-tense  # one podcast episode's lines
  *
  * Scribe's word times are kept in tmp/scribe-words.json, so a clip is heard
  * once. Needs ELEVENLABS_API_KEY and ffmpeg.
@@ -19,7 +20,8 @@ import { existsSync } from "node:fs";
 import { mkdir } from "node:fs/promises";
 import path from "node:path";
 
-import { spokenText } from "../../src/lib/catalog/audio/core";
+import { normalizeAudioText, spokenText } from "../../src/lib/catalog/audio/core";
+import { episodeBySlug, episodeLines } from "../../src/lib/catalog/listening";
 import { alignSyllables } from "../../src/lib/stick-figure/syllable-align";
 import { slovakSyllables } from "../../src/lib/stick-figure/syllables";
 import { readJsonFile, writeFileAtomic } from "../lib/json-file";
@@ -42,6 +44,16 @@ interface HeardWord {
 const args = process.argv.slice(2).filter((arg) => arg !== "--");
 const only = args.includes("--only") ? args[args.indexOf("--only") + 1] : undefined;
 const tagsOnly = args.includes("--tags");
+const slug = args.includes("--episode") ? args[args.indexOf("--episode") + 1] : undefined;
+const episode = slug ? episodeBySlug.get(slug) : undefined;
+if (slug && !episode) throw new Error(`no episode ${slug}`);
+const episodeTexts = episode
+  ? new Set(
+      episodeLines(episode).map((line) =>
+        normalizeAudioText(line.audio?.transcript ?? line.slovak),
+      ),
+    )
+  : undefined;
 
 const manifest = await loadManifest();
 const cache = await readJsonFile<Record<string, HeardWord[]>>(CACHE_PATH, {});
@@ -54,6 +66,7 @@ for (const [hash, entry] of Object.entries(manifest)) {
   if (entry.kind !== "lesson") continue;
   if (only && !entry.text.includes(only)) continue;
   if (tagsOnly && !entry.text.includes("[")) continue;
+  if (episodeTexts && !episodeTexts.has(entry.text)) continue;
   const file = path.join(AUDIO_DIR, "lesson", `${hash}.mp3`);
   if (!existsSync(file)) continue;
 

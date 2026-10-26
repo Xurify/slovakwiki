@@ -25,6 +25,11 @@ export interface Look {
    * and the one on the chest.
    */
   robot?: { chest: string; eyes: string; light: string; smile: string };
+  /**
+   * A dog on four legs instead of the stick rig: its coat (and the coat as a
+   * stroke, for the tail), the darker ears and patch, and the collar.
+   */
+  dog?: { coat: string; collar: string; patch: string; tail: string };
   /** Wrapped round the neck in the snow, in a colour that stands off the outfit. */
   scarfClass?: string;
   shoes?: Shoes;
@@ -57,6 +62,16 @@ export const LOOKS: Readonly<Record<LessonCharacterId, Look>> = {
       light: "fill-scene-green-mid",
       smile: "stroke-emerald-300",
     },
+  },
+  bobik: {
+    crown: 18,
+    dog: {
+      coat: "fill-scene-wood",
+      collar: "stroke-scene-red",
+      patch: "fill-scene-potato",
+      tail: "stroke-scene-wood",
+    },
+    nameClass: "text-amber-800",
   },
   guide: {
     crown: 6.3,
@@ -107,6 +122,17 @@ export const LOOKS: Readonly<Record<LessonCharacterId, Look>> = {
     nameClass: "text-blue-700",
     scarfClass: "fill-scene-honey",
     sleeve: { class: "stroke-scene-blue", reach: 1.85 },
+  },
+  // Marek's home robot: a companion like the guide, in warm orange so the two never pass for one.
+  robo: {
+    crown: 6.3,
+    nameClass: "text-orange-700",
+    robot: {
+      chest: "fill-scene-carrot",
+      eyes: "fill-scene-honey",
+      light: "fill-scene-carrot",
+      smile: "stroke-scene-honey",
+    },
   },
   waiter: {
     crown: 8.6,

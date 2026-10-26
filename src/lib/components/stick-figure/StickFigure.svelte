@@ -14,6 +14,7 @@
   import { limbPath, n, sleevePath } from "$lib/stick-figure/draw";
   import { LOOKS } from "$lib/stick-figure/looks";
   import type { Held } from "$lib/stick-figure/props";
+  import StickDog from "./StickDog.svelte";
   import StickHead from "./StickHead.svelte";
   import StickHeld from "./StickHeld.svelte";
   import StickPicture from "./StickPicture.svelte";
@@ -124,113 +125,117 @@
     style:transition-duration="{TURN_MS}ms"
     style:transition-delay="{turnDelay}ms"
   >
-    <ellipse cx="0" cy={GROUND_Y + 0.5} rx="15" ry="2.2" class="fill-portrait-ink/15" />
+    {#if look.dog}
+      <StickDog {characterId} {pose} />
+    {:else}
+      <ellipse cx="0" cy={GROUND_Y + 0.5} rx="15" ry="2.2" class="fill-portrait-ink/15" />
 
-    <g transform={headTransform}>
-      <StickHead {characterId} part="back" {pose} turn={front ? 0 : undefined} />
+      <g transform={headTransform}>
+        <StickHead {characterId} part="back" {pose} turn={front ? 0 : undefined} />
 
-      {#if dress.headwear === "headphones"}
-        <!-- The far cup, behind the head in the three-quarter view. -->
-        <rect
-          x="42.9"
-          y="25.2"
-          width="6.6"
-          height="8.4"
-          rx="3.2"
-          class="fill-scene-cool stroke-portrait-ink"
-          stroke-width="1.3"
-        />
-      {:else if dress.headwear === "headset"}
-        <circle
-          cx="46.2"
-          cy="29.4"
-          r="3.4"
-          class="fill-scene-line stroke-portrait-ink"
-          stroke-width="1.2"
-        />
+        {#if dress.headwear === "headphones"}
+          <!-- The far cup, behind the head in the three-quarter view. -->
+          <rect
+            x="42.9"
+            y="25.2"
+            width="6.6"
+            height="8.4"
+            rx="3.2"
+            class="fill-scene-cool stroke-portrait-ink"
+            stroke-width="1.3"
+          />
+        {:else if dress.headwear === "headset"}
+          <circle
+            cx="46.2"
+            cy="29.4"
+            r="3.4"
+            class="fill-scene-line stroke-portrait-ink"
+            stroke-width="1.2"
+          />
+        {/if}
+      </g>
+
+      {@render arm(rig.rearShoulder, rig.rearArm)}
+      {@render hand(rig.rearArm.end)}
+      {@render leg(rig.rearLeg)}
+      {@render leg(rig.leadLeg)}
+      <path
+        d="M{n(rig.rearLeg.end.x - 1)} {n(rig.rearLeg.end.y - 1)}h5M{n(
+          rig.leadLeg.end.x - 1,
+        )} {n(rig.leadLeg.end.y - 1)}h5"
+        class="stroke-portrait-ink"
+        stroke-width="3.6"
+      />
+
+      {#if robot}
+        {@render joint(rig.rearLeg.joint, 1.6)}
+        {@render joint(rig.leadLeg.joint, 1.6)}
       {/if}
-    </g>
 
-    {@render arm(rig.rearShoulder, rig.rearArm)}
-    {@render hand(rig.rearArm.end)}
-    {@render leg(rig.rearLeg)}
-    {@render leg(rig.leadLeg)}
-    <path
-      d="M{n(rig.rearLeg.end.x - 1)} {n(rig.rearLeg.end.y - 1)}h5M{n(
-        rig.leadLeg.end.x - 1,
-      )} {n(rig.leadLeg.end.y - 1)}h5"
-      class="stroke-portrait-ink"
-      stroke-width="3.6"
-    />
+      <g transform={torsoTransform}>
+        <StickTorso {characterId} scarf={dress.scarf} />
+      </g>
 
-    {#if robot}
-      {@render joint(rig.rearLeg.joint, 1.6)}
-      {@render joint(rig.leadLeg.joint, 1.6)}
-    {/if}
+      {@render arm(rig.leadShoulder, rig.leadArm)}
 
-    <g transform={torsoTransform}>
-      <StickTorso {characterId} scarf={dress.scarf} />
-    </g>
-
-    {@render arm(rig.leadShoulder, rig.leadArm)}
-
-    {#if robot}
-      {@render joint(rig.rearArm.joint, 1.5)}
-      {@render joint(rig.leadArm.joint, 1.5)}
-    {/if}
-
-    {#if held}
-      <StickHeld {held} {rig} />
-    {/if}
-
-    {@render hand(rig.leadArm.end)}
-
-    <g transform={headTransform}>
-      <StickHead {characterId} {pose} turn={front ? 0 : undefined} />
-
-      {#if dress.headwear === "headphones"}
-        <!-- Open-back headphones in the head's own 64-unit space: a thin band over the hair, a light cup with a grille on the near ear. -->
-        <path d={headband(0.4)} class="stroke-portrait-ink" stroke-width="2" />
-        <path d={headband(0.4)} class="stroke-scene-edge" stroke-width="0.8" />
-        <rect
-          x="14.5"
-          y="25.2"
-          width="6.6"
-          height="8.4"
-          rx="3.2"
-          class="fill-scene-cool stroke-portrait-ink"
-          stroke-width="1.3"
-        />
-        <path
-          d="M16.2 27.4h3.2M16.2 29.4h3.2M16.2 31.4h3.2"
-          class="stroke-scene-line"
-          stroke-width="0.9"
-        />
-      {:else if dress.headwear === "headset"}
-        <!-- A headset: slim band, a cup on the near ear, and a boom mic curving to the mouth. -->
-        <path d={headband(0.2)} class="stroke-portrait-ink" stroke-width="1.8" />
-        <circle
-          cx="17.8"
-          cy="29.4"
-          r="3.4"
-          class="fill-scene-line stroke-portrait-ink"
-          stroke-width="1.2"
-        />
-        <circle cx="17.8" cy="29.4" r="1.4" class="fill-scene-edge" />
-        <path
-          d="M20.4 31.6C22 37.6 26.4 40.6 30.2 40.8"
-          class="stroke-portrait-ink"
-          stroke-width="1.3"
-        />
-        <circle
-          cx="31"
-          cy="40.9"
-          r="1.7"
-          class="fill-scene-line stroke-portrait-ink"
-          stroke-width="1"
-        />
+      {#if robot}
+        {@render joint(rig.rearArm.joint, 1.5)}
+        {@render joint(rig.leadArm.joint, 1.5)}
       {/if}
-    </g>
+
+      {#if held}
+        <StickHeld {held} {rig} />
+      {/if}
+
+      {@render hand(rig.leadArm.end)}
+
+      <g transform={headTransform}>
+        <StickHead {characterId} {pose} turn={front ? 0 : undefined} />
+
+        {#if dress.headwear === "headphones"}
+          <!-- Open-back headphones in the head's own 64-unit space: a thin band over the hair, a light cup with a grille on the near ear. -->
+          <path d={headband(0.4)} class="stroke-portrait-ink" stroke-width="2" />
+          <path d={headband(0.4)} class="stroke-scene-edge" stroke-width="0.8" />
+          <rect
+            x="14.5"
+            y="25.2"
+            width="6.6"
+            height="8.4"
+            rx="3.2"
+            class="fill-scene-cool stroke-portrait-ink"
+            stroke-width="1.3"
+          />
+          <path
+            d="M16.2 27.4h3.2M16.2 29.4h3.2M16.2 31.4h3.2"
+            class="stroke-scene-line"
+            stroke-width="0.9"
+          />
+        {:else if dress.headwear === "headset"}
+          <!-- A headset: slim band, a cup on the near ear, and a boom mic curving to the mouth. -->
+          <path d={headband(0.2)} class="stroke-portrait-ink" stroke-width="1.8" />
+          <circle
+            cx="17.8"
+            cy="29.4"
+            r="3.4"
+            class="fill-scene-line stroke-portrait-ink"
+            stroke-width="1.2"
+          />
+          <circle cx="17.8" cy="29.4" r="1.4" class="fill-scene-edge" />
+          <path
+            d="M20.4 31.6C22 37.6 26.4 40.6 30.2 40.8"
+            class="stroke-portrait-ink"
+            stroke-width="1.3"
+          />
+          <circle
+            cx="31"
+            cy="40.9"
+            r="1.7"
+            class="fill-scene-line stroke-portrait-ink"
+            stroke-width="1"
+          />
+        {/if}
+      </g>
+    {/if}
   </g>
 
   {#if picture}

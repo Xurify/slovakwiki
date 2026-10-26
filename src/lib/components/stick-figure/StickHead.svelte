@@ -88,6 +88,43 @@
     />
     <path d="M19.4 32.6q1.6 3.4.4 7.4" class="stroke-portrait-ink" stroke-width="1.1" />
   {/if}
+{:else if look.dog}
+  <!-- A dog's face from the front: floppy ears, a light muzzle, the nose on top. -->
+  <path
+    d="M19.6 17.6Q12.4 18.4 12.2 30.4Q13.4 36.8 17.6 35.2Q20.2 26.4 22.6 20.2Z"
+    class="{look.dog.patch} stroke-portrait-ink"
+    stroke-width="1.5"
+  />
+  <path
+    d="M44.4 17.6Q51.6 18.4 51.8 30.4Q50.6 36.8 46.4 35.2Q43.8 26.4 41.4 20.2Z"
+    class="{look.dog.patch} stroke-portrait-ink"
+    stroke-width="1.5"
+  />
+  <ellipse
+    cx="32"
+    cy="29"
+    rx="12.6"
+    ry="13.4"
+    class="{look.dog.coat} stroke-portrait-ink"
+    stroke-width="1.6"
+  />
+  <ellipse cx="32" cy="35.6" rx="7" ry="5.6" class="fill-portrait-bib" />
+  <circle cx={n(27 + eyeX * 0.4)} cy={n(eyeY - 1)} r="1.6" class="fill-portrait-ink" />
+  <circle cx={n(37 + eyeX * 0.4)} cy={n(eyeY - 1)} r="1.6" class="fill-portrait-ink" />
+  <ellipse cx="32" cy="33.2" rx="2.6" ry="1.9" class="fill-portrait-ink" />
+  {#if mouthOpen}
+    <path
+      d="M29 37Q32 {n(37.6 + pose.mouth * 3.4)} 35 37Z"
+      class="fill-scene-apple stroke-portrait-ink"
+      stroke-width="0.9"
+    />
+  {:else}
+    <path
+      d="M32 35.1v1.9M29.4 37.4q2.6 1.4 5.2 0"
+      class="stroke-portrait-ink"
+      stroke-width="1"
+    />
+  {/if}
 {:else if robot}
   <path d="M32 14.5V9" class="stroke-portrait-ink" stroke-width="1.4" />
   <circle

@@ -26,12 +26,14 @@ describe("listening episodes", () => {
     const grammarSlugs = new Set(grammarEntries.map((entry) => entry.slug));
 
     for (const episode of listeningEpisodes) {
-      expect(grammarSlugs.has(episode.grammarSlug), episode.grammarSlug).toBe(true);
+      if (episode.grammarSlug) {
+        expect(grammarSlugs.has(episode.grammarSlug), episode.grammarSlug).toBe(true);
+        expect(episodeForGrammarSlug(episode.grammarSlug)).toBe(episode);
+      }
       if (episode.lessonId) expect(lessonById.has(episode.lessonId)).toBe(true);
       if (episode.practiceSetId) {
         expect(practiceSetById.has(episode.practiceSetId)).toBe(true);
       }
-      expect(episodeForGrammarSlug(episode.grammarSlug)).toBe(episode);
       expect(episodePath(episode)).toBe(`/listening/${episode.slug}`);
     }
   });

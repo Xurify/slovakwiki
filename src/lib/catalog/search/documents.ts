@@ -205,7 +205,11 @@ export function buildSearchDocuments(): SearchDocument[] {
       title: episode.titleSk,
       summary: episode.promise,
       ...sections({
-        headword: [episode.titleSk, episode.title, episode.topic],
+        headword: [
+          episode.titleSk,
+          episode.title,
+          ...(episode.topic ? [episode.topic] : []),
+        ],
         gloss: [episode.promise, episode.level],
         body: episode.chapters.flatMap((chapter) => [chapter.titleSk, chapter.title]),
         examples: [

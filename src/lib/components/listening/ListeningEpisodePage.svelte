@@ -45,14 +45,21 @@
           <dd class="m-0 font-semibold text-slate-800">{episode.level}</dd>
         </div>
 
-        <div class="flex gap-2">
-          <dt class="text-slate-500">Grammar</dt>
-          <dd class="m-0 font-semibold">
-            <TextLink href="/grammar/{episode.grammarSlug}" lang="sk">
-              {episode.topic}
-            </TextLink>
-          </dd>
-        </div>
+        {#if episode.grammarSlug}
+          <div class="flex gap-2">
+            <dt class="text-slate-500">Grammar</dt>
+            <dd class="m-0 font-semibold">
+              <TextLink href="/grammar/{episode.grammarSlug}" lang="sk">
+                {episode.topic}
+              </TextLink>
+            </dd>
+          </div>
+        {:else}
+          <div class="flex gap-2">
+            <dt class="text-slate-500">Kind</dt>
+            <dd class="m-0 font-semibold text-slate-800">A story, no grammar topic</dd>
+          </div>
+        {/if}
       </dl>
     </header>
 
