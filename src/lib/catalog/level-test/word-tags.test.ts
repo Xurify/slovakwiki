@@ -42,6 +42,12 @@ describe("tagWord", () => {
       "piatich",
       "jedenástim",
       "traja",
+      "jedného",
+      "jednej",
+      "jednom",
+      "jedným",
+      "oboch",
+      "obom",
     ]) {
       expect(tagWord(word).class, word).toBe("numeral");
     }
@@ -101,5 +107,9 @@ describe("tagWord", () => {
     expect(tagWord("štúdia", { slug: "studium" })).toMatchObject({ lemma: "štúdium" });
     expect(tagWord("kritika", { slug: "kritik" })).toMatchObject({ lemma: "kritik" });
     expect(tagWord("rade", { slug: "kritik" })).toMatchObject({ lemma: "rada" });
+    expect(tagWord("moderne", { slug: "moderne" })).toMatchObject({
+      lemma: "moderne",
+      slug: "moderne",
+    });
   });
 });
