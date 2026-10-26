@@ -15,7 +15,7 @@
   import { limbPath, n, sleevePath } from "$lib/stick-figure/draw";
   import { LOOKS } from "$lib/stick-figure/looks";
   import type { Held } from "$lib/stick-figure/props";
-  import type { Emote } from "$lib/stick-figure/act-motions";
+  import type { Emote, Sign } from "$lib/stick-figure/act-motions";
   import type { Effect } from "$lib/stick-figure/act-motions";
   import { mouthOf } from "$lib/stick-figure/reach";
   import { OBJECT_SIZE, tipFromHand } from "$lib/stick-figure/set-pieces";
@@ -44,6 +44,7 @@
     turnDelay = 0,
     hands = {},
     emote,
+    sign = {},
   }: {
     characterId: LessonCharacterId;
     class?: string;
@@ -67,6 +68,8 @@
     hands?: Partial<Record<"lead" | "rear", InHand>>;
     /** A mark at the mouth: heat off a burnt tongue, a breath blown on a spoon. */
     emote?: Emote;
+    /** What each empty hand shows, turned `turn` degrees from pointing up: a finger wagged, a thumb up. */
+    sign?: Partial<Record<"lead" | "rear", { shape: Sign; turn: number }>>;
   } = $props();
 
   interface InHand extends ObjectLook {
@@ -205,7 +208,29 @@
   {/if}
 {/snippet}
 
-{#snippet hand(at: Point)}
+{#snippet hand(at: Point, which?: "lead" | "rear")}
+  {@const shown = which && !hands[which] ? sign[which] : undefined}
+  {#if shown}
+    <!-- Under the fist, so only what sticks out of it shows; the finger is a skin-coloured stroke inside an ink one, like the arms. -->
+    {@const d =
+      shown.shape === "finger"
+        ? "M0 -1v-5.2"
+        : shown.shape === "thumb"
+          ? "M-0.4 -1.2v-3.6"
+          : "M-1.5 -1.2l-1.6 -2.6M0 -1.8v-3M1.5 -1.2l1.6 -2.6"}
+    <g transform="translate({n(at.x)} {n(at.y)}) rotate({n(shown.turn)})">
+      <path
+        {d}
+        class="stroke-portrait-ink"
+        stroke-width={shown.shape === "thumb" ? 3.4 : 2.6}
+      />
+      <path
+        {d}
+        class={robot ? "stroke-portrait-bib" : "stroke-portrait-skin"}
+        stroke-width={shown.shape === "thumb" ? 1.6 : 1}
+      />
+    </g>
+  {/if}
   <circle
     cx={n(at.x)}
     cy={n(at.y)}
@@ -306,7 +331,7 @@
     {@render hand(rig.rearArm.end)}
   {/if}
 
-  {@render hand(rig.leadArm.end)}
+  {@render hand(rig.leadArm.end, "lead")}
 {/snippet}
 
 {#snippet leg(limb: StickLimb)}
@@ -350,7 +375,7 @@
     {#if hands.rear && !phoneAtEar}
       {@render inHand(rig.rearArm.end, hands.rear, "rear")}
     {/if}
-    {@render hand(rig.rearArm.end)}
+    {@render hand(rig.rearArm.end, "rear")}
     {@render leg(rig.rearLeg)}
     {@render leg(rig.leadLeg)}
     <path

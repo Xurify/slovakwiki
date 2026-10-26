@@ -62,9 +62,13 @@ export interface MotionKey {
   turn?: Partial<Record<Hand, number>>;
   /** A mark drawn at the mouth: heat off a burnt tongue, a breath blown out. */
   emote?: Emote;
+  /** What an empty hand shows, turned by `turn`: a bare circle could not wag a finger or give a thumbs up. */
+  sign?: Partial<Record<Hand, Sign>>;
 }
 
 export type Emote = "hot" | "blow" | "sniff";
+/** An empty hand's shape: the index finger out, the thumb up, or the fingers spread, palm up. */
+export type Sign = "finger" | "thumb" | "open";
 
 export type FoleyId =
   | "clink"
@@ -393,10 +397,12 @@ export function motionFor(
       };
     }
     case "blow": {
+      // The bowl a little in front of the lips, and the lips pursed at it: held out at arm's length, it read as looking at the spoon.
       const near = {
-        ...hands(hand, { mouth: true, dx: 20, dy: 3.5 }),
-        turn: { [hand]: -30 },
+        ...hands(hand, { mouth: true, ...aim(object?.kind ?? "spoon", -45, 6, 1.5) }),
+        turn: { [hand]: -45 },
       };
+      const pursed = { tilt: 4, nod: 0.6, round: 1, mouth: 0.3, mouthWidth: -0.4 };
       return {
         motion: {
           ms: 1500,
@@ -405,8 +411,8 @@ export function motionFor(
           keys: [
             { at: 0 },
             { at: 380, ...near, body: { tilt: 4, nod: 0.6 } },
-            { at: 450, ...near, body: { tilt: 4, nod: 0.6 }, emote: "blow" },
-            { at: 1100, ...near, body: { tilt: 4, nod: 0.6 }, emote: "blow" },
+            { at: 450, ...near, body: pursed, emote: "blow" },
+            { at: 1100, ...near, body: pursed, emote: "blow" },
             { at: 1500 },
           ],
         },
@@ -762,8 +768,9 @@ export function motionFor(
         {
           at: 110,
           ...away,
-          ...hands(fan, { mouth: true, dx: 12, dy: -0.5 }),
-          body: { lean: -6, tilt: -12, bob: -2.5, brow: 1, look: -0.4 },
+          ...hands(fan, { mouth: true, dx: 9, dy: -0.5 }),
+          sign: { [fan]: "open" },
+          body: { lean: -6, tilt: -12, bob: -2.5, brow: -0.8, look: -0.4, mouth: 0.8 },
           emote: "hot",
         },
       ];
@@ -771,12 +778,15 @@ export function motionFor(
         keys.push({
           at,
           ...away,
-          ...hands(fan, { mouth: true, dx: 12, dy: flap % 2 ? -4.5 : 1.5 }),
+          ...hands(fan, { mouth: true, dx: 9, dy: flap % 2 ? -4 : 2 }),
+          sign: { [fan]: "open" },
+          turn: { [fan]: flap % 2 ? 30 : -10 },
           body: {
             lean: -3,
             tilt: flap % 2 ? -6 : -3,
             bob: at < 1150 ? (Math.floor(flap / 2) % 2 ? -3.4 : 0.6) : 0,
-            brow: 1,
+            brow: -0.8,
+            mouth: flap % 2 ? 0.8 : 0.6,
           },
           emote: "hot",
         });
@@ -795,30 +805,46 @@ export function motionFor(
     }
     case "wag": {
       // Out in front, toward who it is for: any nearer, seen side-on, the hand reads as on the chin. Seated, the desk's microphone is out there, so nearer.
+      // Side to side is across the line of sight, so it is the finger that wags, tipping each way, more than the hand moves.
       const out = world.seated?.includes(who) ? 15 : 21;
-      const keys: MotionKey[] = [{ at: 0 }];
-      for (let at = 280, wag = 0; at <= 1100; at += 160, wag += 1) {
+      const finger = { sign: { [free]: "finger" as const } };
+      const keys: MotionKey[] = [
+        { at: 0 },
+        {
+          at: 300,
+          ...hands(free, { up: { x: out, y: -11 } }),
+          ...finger,
+          body: { brow: 0.8, nod: 0.6, tilt: -3 },
+        },
+      ];
+      for (let at = 440, wag = 0; at <= 1280; at += 140, wag += 1) {
         keys.push({
           at,
-          ...hands(free, { up: { x: out + (wag % 2 ? 2.5 : -2.5), y: -11 } }),
-          body: { brow: 0.8, nod: 0.6, tilt: -3 },
+          ...hands(free, { up: { x: out + (wag % 2 ? 1.5 : -1.5), y: -11 } }),
+          ...finger,
+          turn: { [free]: wag % 2 ? 26 : -26 },
+          body: { brow: 0.8, nod: 0.6, tilt: wag % 2 ? -4 : -2 },
         });
       }
-      keys.push({ at: 1400 });
-      return { motion: { ms: 1400, keys } };
+      keys.push({ at: 1420, ...hands(free, { up: { x: out, y: -11 } }), ...finger });
+      keys.push({ at: 1750 });
+      return { motion: { ms: 1750, keys } };
     }
     case "beckon": {
-      // A palm up, curling in twice: come in, come here.
+      // The hand out, palm up, the finger pointing at them and curling back twice: come in, come here. Without the finger, the hand read as a raised fist.
+      const finger = { sign: { [free]: "finger" as const } };
       const keys: MotionKey[] = [{ at: 0 }];
-      for (let at = 250, curl = 0; at <= 1250; at += 250, curl += 1) {
+      for (let at = 300, curl = 0; at <= 1300; at += 250, curl += 1) {
         keys.push({
           at,
-          ...hands(free, { at: curl % 2 ? { x: 12, y: 70 } : { x: 19, y: 76 } }),
+          ...hands(free, { up: curl % 2 ? { x: 13, y: 15 } : { x: 19, y: 18 } }),
+          ...finger,
+          turn: { [free]: curl % 2 ? -15 : 75 },
           body: { lean: 2, tilt: 3, brow: 0.5, look: 0.8 },
         });
       }
-      keys.push({ at: 1550 });
-      return { motion: { ms: 1550, face: to || undefined, keys } };
+      keys.push({ at: 1650 });
+      return { motion: { ms: 1650, face: to || undefined, keys } };
     }
     case "wipe": {
       // Hands wiped down the front of an apron.
@@ -836,23 +862,29 @@ export function motionFor(
       return { motion: { ms: 1350, keys } };
     }
     case "facepalm": {
-      const brow = { at: { x: 10, y: 41 } };
+      // The palm over the eyes and the head bowed into it: a hand at the hairline over a smile read as scratching the head.
+      const brow = { mouth: true as const, dx: 2, dy: -9 };
       return {
         motion: {
-          ms: 1700,
+          ms: 1900,
           keys: [
             { at: 0 },
             {
-              at: 300,
+              at: 350,
               ...hands(free, brow),
-              body: { tilt: 12, nod: 1.5, lean: 2, brow: -0.8 },
+              body: { tilt: 14, nod: 3, lean: 4, brow: -0.8, mouth: 0 },
             },
             {
               at: 1350,
               ...hands(free, brow),
-              body: { tilt: 14, nod: 1.8, lean: 2, brow: -0.8 },
+              body: { tilt: 15, nod: 3.4, lean: 5, brow: -0.8, mouth: 0 },
             },
-            { at: 1700 },
+            {
+              at: 1600,
+              ...hands(free, { up: { x: 10, y: 14 } }),
+              body: { tilt: 4, nod: 1 },
+            },
+            { at: 1900 },
           ],
         },
       };
@@ -908,26 +940,37 @@ export function motionFor(
         },
       };
     }
-    case "thumbs":
+    case "thumbs": {
+      const thumb = { sign: { [free]: "thumb" as const } };
       return {
         motion: {
-          ms: 1600,
+          ms: 1700,
           keys: [
             { at: 0 },
             {
               at: 380,
-              ...hands(free, { at: { x: 16, y: 66 } }),
+              ...hands(free, { up: { x: 15, y: 6 } }),
+              ...thumb,
               body: { brow: 0.8, nod: 0.8 },
+            },
+            // A little push forward with it, as people do.
+            {
+              at: 620,
+              ...hands(free, { up: { x: 17, y: 4 } }),
+              ...thumb,
+              body: { brow: 0.9, nod: 1.2 },
             },
             {
-              at: 1250,
-              ...hands(free, { at: { x: 16, y: 65 } }),
+              at: 1300,
+              ...hands(free, { up: { x: 16, y: 5 } }),
+              ...thumb,
               body: { brow: 0.8, nod: 0.8 },
             },
-            { at: 1600 },
+            { at: 1700 },
           ],
         },
       };
+    }
     case "sniff":
       return {
         motion: {
@@ -982,15 +1025,26 @@ export function motionFor(
         },
       };
     case "shrug": {
-      const up = {
-        lead: { at: { x: 16, y: 86 } },
-        rear: { at: { x: -10, y: 86 } },
-        body: { tilt: 8, brow: 0.9, bob: -1.5 },
-      };
+      // Elbows in, forearms out, palms up and open, and the head sinking between shoulders that cannot rise. Seated, the hands stay above the desk.
+      const drop = world.seated?.includes(who) ? 15 : 22;
+      const open = (y: number, lift: number) => ({
+        lead: { up: { x: 13, y } },
+        rear: { up: { x: -9, y } },
+        sign: { lead: "open" as const, rear: "open" as const },
+        turn: { lead: 30, rear: -30 },
+        body: { tilt: 8 * lift, brow: lift, nod: 2 * lift, mouth: 0 },
+      });
       return {
         motion: {
-          ms: 1200,
-          keys: [{ at: 0 }, { at: 350, ...up }, { at: 800, ...up }, { at: 1200 }],
+          ms: 1450,
+          keys: [
+            { at: 0 },
+            { at: 220, ...open(drop + 4, 0.5) },
+            { at: 420, ...open(drop - 1, 1) },
+            { at: 900, ...open(drop, 0.9) },
+            { at: 1150, ...open(drop + 6, 0.3) },
+            { at: 1450 },
+          ],
         },
       };
     }
@@ -1000,28 +1054,32 @@ export function motionFor(
           ms: 1100,
           keys: [
             { at: 0 },
-            { at: 250, body: { nod: 2.4, tilt: 4 } },
-            { at: 500, body: { nod: 0 } },
-            { at: 750, body: { nod: 2.2, tilt: 4 } },
+            { at: 250, body: { nod: 3.4, tilt: 2 } },
+            { at: 500, body: { nod: 0.3 } },
+            { at: 750, body: { nod: 3, tilt: 2 } },
             { at: 1100 },
           ],
         },
       };
     case "laugh": {
+      // Mouth open, head tipped back, the shoulders shaking, a hand to the belly: a still smile did not read as a laugh.
+      const belly = hands(free, { up: { x: 7, y: 25 } });
       const keys: MotionKey[] = [{ at: 0 }];
-      for (let at = 180, shake = 0; at <= 1100; at += 140, shake += 1) {
+      for (let at = 200, shake = 0; at <= 1300; at += 150, shake += 1) {
         keys.push({
           at,
+          ...belly,
           body: {
-            lean: -3,
-            tilt: shake % 2 ? -6 : -2,
-            bob: shake % 2 ? -1 : 0.5,
+            lean: -4,
+            tilt: shake % 2 ? -10 : -6,
+            bob: shake % 2 ? -1.4 : 0.6,
             brow: 0.8,
+            mouth: shake % 2 ? 0.95 : 0.6,
           },
         });
       }
-      keys.push({ at: 1400 });
-      return { motion: { ms: 1400, keys } };
+      keys.push({ at: 1650 });
+      return { motion: { ms: 1650, keys } };
     }
     case "look":
       return {
@@ -1288,6 +1346,7 @@ export interface MotionFrame {
   pose: StickPose;
   turn: Partial<Record<Hand, number>>;
   emote?: Emote;
+  sign?: Partial<Record<Hand, Sign>>;
   /** Where each hand on a target was sent: the arm falls short of it when it is out of reach. */
   aimed?: Partial<Record<Hand, Point>>;
 }
@@ -1473,7 +1532,13 @@ export function frameBetween(
     turn[hand] = lerp(a ?? 0, b ?? 0, t);
   }
 
-  return { pose, turn, emote: t < 0.5 ? from.emote : to.emote, aimed: points };
+  return {
+    pose,
+    turn,
+    emote: t < 0.5 ? from.emote : to.emote,
+    sign: t < 0.5 ? from.sign : to.sign,
+    aimed: points,
+  };
 }
 
 /**

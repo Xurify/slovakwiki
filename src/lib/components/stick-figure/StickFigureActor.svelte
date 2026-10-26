@@ -17,7 +17,7 @@
   import type { Dress } from "$lib/stick-figure/dress";
   import type { Held } from "$lib/stick-figure/props";
   import { stepMs, walkPose } from "$lib/stick-figure/walk";
-  import type { Effect, Emote } from "$lib/stick-figure/act-motions";
+  import type { Effect, Emote, Sign } from "$lib/stick-figure/act-motions";
   import type { ObjectKind } from "$lib/stick-figure/acts";
   import StickFigure from "./StickFigure.svelte";
   import type { ObjectLook } from "./StickSetObject.svelte";
@@ -37,8 +37,8 @@
    * in a cup. And a recorder, which hanging at a desk goes behind it.
    */
   const STEADY = new Set<ObjectKind>(["spoon", "ladle", "cup", "mic"]);
-  /** Between moves such a thing is held up: elbow by the side, forearm level, the hand in front of the chest. */
-  const STEADY_ARM = { raise: 16, bend: 84 };
+  /** Between moves such a thing is held up: elbow by the side, forearm a little up, the hand in front of the chest. Level, at a counter, a spoon stood on the board. */
+  const STEADY_ARM = { raise: 18, bend: 104 };
 
   let {
     characterId,
@@ -94,6 +94,7 @@
         pose: StickPose;
         turn: Partial<Record<"lead" | "rear", number>>;
         emote?: Emote;
+        sign?: Partial<Record<"lead" | "rear", Sign>>;
       };
     };
     /** Objects of the set in each hand. */
@@ -111,6 +112,7 @@
 
   let turn = $state<Partial<Record<"lead" | "rear", number>>>({});
   let emote = $state<Emote>();
+  let sign = $state<Partial<Record<"lead" | "rear", Sign>>>();
 
   let pose = $state<StickPose>(REST_POSE);
   const sitting = new Tween(0, { easing: cubicInOut });
@@ -242,6 +244,7 @@
     pose = acted?.pose ?? stepping;
     turn = acted?.turn ?? {};
     emote = acted?.emote;
+    sign = acted?.sign;
 
     frame =
       !(next?.settled ?? true) || walking || acting ? requestAnimationFrame(tick) : 0;
@@ -260,6 +263,10 @@
   call={calling.current}
   turnDelay={turned ? 0 : turnDelay}
   {emote}
+  sign={{
+    lead: sign?.lead && { shape: sign.lead, turn: turn.lead ?? 0 },
+    rear: sign?.rear && { shape: sign.rear, turn: turn.rear ?? 0 },
+  }}
   hands={{
     lead: hands.lead && { ...hands.lead, turn: turn.lead },
     rear: hands.rear && { ...hands.rear, turn: turn.rear },
