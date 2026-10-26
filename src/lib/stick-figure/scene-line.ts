@@ -1,3 +1,4 @@
+import type { CastProps } from "./props";
 import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
 import type { ListeningCheck } from "$lib/catalog/listening/types";
 import type { TextMark } from "$lib/learning/marked-text";
@@ -66,6 +67,8 @@ export interface StagedScene {
    * a time of day or a clock time told there still holds in this one.
    */
   before?: string[];
+  /** What the cast walks in holding (ListeningChapter.carrying). */
+  carried?: CastProps;
   lines: DirectedLine[];
   order?: LessonCharacterId[];
   setting: StageSetting;

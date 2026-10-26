@@ -160,6 +160,16 @@ export function episodeStages(episode: ListeningEpisode): {
         chapter.id,
         {
           ...(index > 0 && before.length > 0 ? { before } : {}),
+          ...(chapter.carrying
+            ? {
+                carried: Object.fromEntries(
+                  Object.entries(chapter.carrying).map(([speaker, prop]) => [
+                    characterIdForSpeaker(speaker),
+                    prop,
+                  ]),
+                ),
+              }
+            : {}),
           lines: sceneLines(chapter.lines).map(directedLine),
           order,
           setting,

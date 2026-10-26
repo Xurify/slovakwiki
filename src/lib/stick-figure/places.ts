@@ -151,6 +151,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       drawn(WORDS.vankus, [704, 160, 48, 44], [834, 160, 48, 44]),
       drawn(WORDS.lampa, [926, 70, 36, 172]),
       drawn(WORDS.koberec, [230, 259, 500, 36]),
+      drawn(WORDS.voditko, [282, 92, 44, 66]),
       drawn(WORDS.rastlina, plantBox(PARTS.home.plant)),
     ],
     sounds: ["hum"],

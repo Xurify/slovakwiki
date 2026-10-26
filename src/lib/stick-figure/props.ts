@@ -137,7 +137,9 @@ export function gesturesWithProps(
   const length = Math.max(props.length, gestures.length);
   return Array.from(
     { length },
-    (_, index) => gestures[index] ?? (props[index] ? "show" : undefined),
+    // A lead is taken to walk the dog, not held up to show.
+    (_, index) =>
+      gestures[index] ?? (props[index] && props[index] !== "leash" ? "show" : undefined),
   );
 }
 
@@ -172,10 +174,14 @@ export function handOver(
  * goes away when someone else joins in: Anna puts the camera away when the
  * waiter comes to take the order. A prop changes hands when its owner
  * claims it ("Áno, moje!") or its holder gives it away ("Nech sa páči."),
- * and what someone was given they keep.
+ * and what someone was given they keep. A lead stays in hand: the dog is on
+ * it. `carried` is what the cast walks in holding, from the segment before.
  */
-export function heldProps(lines: readonly HeldLine[]): CastProps[] {
-  let held: CastProps = {};
+export function heldProps(
+  lines: readonly HeldLine[],
+  carried: CastProps = {},
+): CastProps[] {
+  let held: CastProps = { ...carried };
   const shownTo: Partial<Record<LessonCharacterId, LessonCharacterId>> = {};
   const given = new Set<LessonCharacterId>();
 
@@ -191,7 +197,8 @@ export function heldProps(lines: readonly HeldLine[]): CastProps[] {
         if (
           holder === characterId ||
           shownTo[holder] === characterId ||
-          given.has(holder)
+          given.has(holder) ||
+          held[holder] === "leash"
         ) {
           kept[holder] = held[holder];
         }

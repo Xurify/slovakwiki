@@ -1,3 +1,4 @@
+import type { StickPropId } from "$lib/stick-figure/props";
 import type { DialogueTurn, KeyPhrase } from "$lib/learning/types";
 import type { StageSetting } from "$lib/stick-figure/stage-setting";
 
@@ -22,6 +23,11 @@ export interface ListeningCheck {
 }
 
 export interface ListeningChapter {
+  /**
+   * What the cast walks in holding, by speaker, where the segment goes on from
+   * the one before: Robo still has Bobík on the lead when they reach the square.
+   */
+  carrying?: Record<string, StickPropId>;
   checks: ListeningCheck[];
   id: string;
   lines: DialogueTurn[];

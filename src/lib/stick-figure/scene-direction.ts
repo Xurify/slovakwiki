@@ -111,12 +111,16 @@ export function directScene(
   lines: readonly DirectedLine[],
   setting: StageSetting,
   order?: readonly LessonCharacterId[],
+  carried: CastProps = {},
 ): SceneDirection {
   const cast = castFor(lines, setting, order);
   const { atMarks, things } = PLACES[setting];
   const read = readLines(lines, cast, things);
   const calls = callers(lines, cast);
-  const held = heldProps(read).map((props, index) => {
+  const walkingIn = Object.fromEntries(
+    Object.entries(carried).filter(([id]) => cast.includes(id as LessonCharacterId)),
+  );
+  const held = heldProps(read, walkingIn).map((props, index) => {
     const caller = calls[index];
     const withCall = caller ? { ...props, [caller]: "phone" as const } : props;
     // A robot is its own phone: it never takes one out, to call or to show.

@@ -1,5 +1,13 @@
-import type { DialogueTurn } from "$lib/learning/types";
-import { CHUCKLE, PAUSE, SIGH, STOP, lineWriter } from "../dialogue";
+import {
+  CHUCKLE,
+  EXCITED,
+  HAPPY,
+  PAUSE,
+  SIGH,
+  STOP,
+  SURPRISED,
+  lineWriter,
+} from "../dialogue";
 import type { ListeningChapter, ListeningEpisode } from "../types";
 
 /**
@@ -18,20 +26,9 @@ function card(id: string, slovak: string, english: string) {
   return line(id, "Scene", [slovak], english);
 }
 
-/**
- * Robo on the phone: Marek's side is the silence before each line. Said to
- * Marek, who is not on stage, so Bobík stays at the window instead of
- * walking over to see the phone.
- */
-function onPhone(turn: DialogueTurn, sentences: number): DialogueTurn {
-  return {
-    ...turn,
-    // Held while he talks, not held up to show: "show" on every sentence read as showing someone the screen.
-    gestures: Array.from({ length: sentences }, () => "tell" as const),
-    props: Array.from({ length: sentences }, () => "phone" as const),
-    to: "Marek",
-    wait: 1800,
-  };
+/** Marek's side of the call Robo makes, heard over the line. */
+function marekOnCall(id: string, parts: Parameters<typeof line>[2], english: string) {
+  return line(id, "Marek", parts, english, { overPhone: true });
 }
 
 const morning: ListeningChapter = {
@@ -54,7 +51,7 @@ const morning: ListeningChapter = {
     line(
       "marek-say-ty",
       "Marek",
-      ["Super, funguje! ", PAUSE, "Ahoj, Robo! Ja som Marek. Môžeš mi tykať."],
+      [EXCITED, "Super, funguje! ", PAUSE, "Ahoj, Robo! Ja som Marek. Môžeš mi tykať."],
       "Great, it works! Hi, Robo! I'm Marek. You can say ty to me.",
     ),
     line(
@@ -88,11 +85,11 @@ const morning: ListeningChapter = {
       "marek-off-to-work",
       "Marek",
       [
-        "Pozri, idem do práce. Bobík je celý deň sám. ",
+        "Pozri, musím ísť do práce. ",
         PAUSE,
-        "O dvanástej ide von. Večer dostane jesť.",
+        "Bobík je celý deň sám. O dvanástej ide von. Večer dostane jesť.",
       ],
-      "Look, I'm off to work. Bobík is alone all day. At twelve he goes out. In the evening he gets his food.",
+      "Look, I have to go to work. Bobík is alone all day. At twelve he goes out. In the evening he gets his food.",
       { to: "Robo" },
     ),
     line(
@@ -104,14 +101,14 @@ const morning: ListeningChapter = {
     line(
       "marek-where-keys",
       "Marek",
-      ["Výborne. ", PAUSE, "Kde sú moje kľúče?"],
-      "Great. Where are my keys?",
+      ["Výborne. ", PAUSE, "No nič", STOP, "Kde sú moje kľúče?"],
+      "Great. Anyway… where are my keys?",
     ),
     line("robo-in-your-hand", "Robo", ["V tvojej ruke."], "In your hand."),
     line(
       "marek-home-at-seven",
       "Marek",
-      ["Aha. ", PAUSE, "Prídem domov o siedmej. Majte sa, chlapci!"],
+      [SURPRISED, "Aha. ", PAUSE, "Prídem domov o siedmej. Majte sa, chlapci!"],
       "Oh. I'll be home at seven. Bye, boys!",
     ),
     line("bobik-woof-after-marek", "Bobík", ["Haf."], "Woof."),
@@ -213,14 +210,22 @@ const lead: ListeningChapter = {
       "Robo",
       ["Hľadám v slovníku. ", PAUSE, "Haf: zvuk psa. ", PAUSE, "To viem aj ja."],
       "I'm looking it up. Woof: the sound a dog makes. I know that myself.",
+      { gestures: ["compute"] },
     ),
     line("bobik-woof-with-lead", "Bobík", ["Haf! Haf!"], "Woof! Woof!"),
     line(
       "robo-the-lead",
       "Robo",
-      ["Čo to máš? ", PAUSE, "Vodítko! ", PAUSE, "Aha. Ty chceš von. Teraz."],
-      "What's that you've got? The lead! Oh. You want to go out. Now.",
-      { to: "Bobík" },
+      [
+        "Prečo pozeráš hore? ",
+        PAUSE,
+        "Čo tam je? Vodítko! ",
+        PAUSE,
+        "Aha. Ty chceš von. Teraz.",
+      ],
+      "Why are you looking up? What's up there? The lead! Oh. You want to go out. Now.",
+      // He points at the lead on its peg; it stays there until they go and get it.
+      { props: [null, null, null, null, null, null], to: "Bobík" },
     ),
     line("bobik-woof-yes", "Bobík", ["Haf!"], "Woof!"),
     line(
@@ -231,9 +236,17 @@ const lead: ListeningChapter = {
         PAUSE,
         "Zapisujem: tento haf znamená von. ",
         PAUSE,
-        "Poď, ideme na námestie.",
+        "Poďme po vodítko.",
       ],
-      "Change of plan. Noted: this woof means out. Come on, we're going to the square.",
+      "Change of plan. Noted: this woof means out. Let's get the lead.",
+      { props: [null, null, null] },
+    ),
+    line(
+      "robo-off-to-square",
+      "Robo",
+      ["Tak. ", PAUSE, "Ideme na námestie."],
+      "There. We're going to the square.",
+      { props: ["leash"], to: "Bobík" },
     ),
   ],
   checks: [
@@ -254,19 +267,19 @@ const lead: ListeningChapter = {
           id: "sleep",
           label: "Spať.",
           whyWrong:
-            "**Spať** means to sleep. Bobík barks and brings his lead: **ty chceš von**.",
+            "**Spať** means to sleep. Bobík barks and looks up at his lead: **ty chceš von**.",
         },
       ],
       answerId: "out",
       feedback: {
         english: "You want to go out. Now.",
-        why: "Bobík brings his **vodítko**, and Robo gets it: **ty chceš von. Teraz.**",
+        why: "Bobík looks up at his **vodítko**, and Robo gets it: **ty chceš von. Teraz.**",
       },
     },
     {
       id: `${PREFIX}check-what-bobik-has`,
-      prompt: "Čo má Bobík?",
-      promptEnglish: "What has Bobík got?",
+      prompt: "Čo je hore, kam pozerá Bobík?",
+      promptEnglish: "What is up where Bobík is looking?",
       replayLineId: `${PREFIX}robo-the-lead`,
       choices: [
         { id: "lead", label: "Vodítko." },
@@ -284,8 +297,8 @@ const lead: ListeningChapter = {
       ],
       answerId: "lead",
       feedback: {
-        english: "What's that you've got? The lead!",
-        why: "**Čo to máš? Vodítko!** A lead means a walk.",
+        english: "What's up there? The lead!",
+        why: "**Čo tam je? Vodítko!** A lead means a walk.",
       },
     },
   ],
@@ -293,6 +306,7 @@ const lead: ListeningChapter = {
 
 const square: ListeningChapter = {
   id: `${PREFIX}square`,
+  carrying: { Robo: "leash" },
   stage: "plaza",
   titleSk: "Na námestí",
   title: "On the square",
@@ -493,6 +507,7 @@ const waiting: ListeningChapter = {
         "Čakáš na Mareka.",
       ],
       "Hmm… You're sitting by the window. All evening. Watching the street. You're waiting for Marek.",
+      { gestures: ["compute"] },
     ),
     line("bobik-quiet-yes", "Bobík", ["Haf."], "Woof."),
     line(
@@ -500,41 +515,36 @@ const waiting: ListeningChapter = {
       "Robo",
       ["Rozumiem. ", PAUSE, "Volám Marekovi."],
       "I understand. I'm calling Marek.",
+      // He is the phone: nothing comes out of a pocket for Bobík to come and see.
       { props: [null, null] },
     ),
-    onPhone(
-      line(
-        "robo-phone-hi",
-        "Robo",
-        ["Ahoj, Marek. Tu je Robo. ", PAUSE, "Nie, všetko je v poriadku."],
-        "Hi, Marek. It's Robo. No, everything's fine.",
-      ),
-      3,
+    line("robo-call-hi", "Robo", ["Ahoj, Marek. Tu je Robo."], "Hi, Marek. It's Robo.", {
+      ring: "dial",
+      to: "Marek",
+    }),
+    marekOnCall(
+      "marek-call-whats-up",
+      [SURPRISED, "Robo? ", PAUSE, "Čo sa stalo? Je všetko v poriadku?"],
+      "Robo? What's happened? Is everything all right?",
     ),
-    onPhone(
-      line(
-        "robo-phone-bobik-waits",
-        "Robo",
-        ["Ale Bobík sedí pri okne. ", PAUSE, "Čaká na teba. Od siedmej."],
-        "But Bobík is sitting by the window. He's waiting for you. Since seven.",
-      ),
-      3,
+    line(
+      "robo-call-bobik-waits",
+      "Robo",
+      ["Áno. ", PAUSE, "Ale Bobík sedí pri okne. Čaká na teba. Od siedmej."],
+      "Yes. But Bobík is sitting by the window. He's waiting for you. Since seven.",
+      { to: "Marek" },
     ),
-    onPhone(
-      line(
-        "robo-phone-ill-tell-him",
-        "Robo",
-        ["Áno. ", PAUSE, "Dobre. Poviem mu."],
-        "Yes. OK. I'll tell him.",
-      ),
-      3,
+    marekOnCall(
+      "marek-call-coming",
+      [SIGH, "Ach jaj. ", PAUSE, "Bobík", STOP, "Povedz mu, že už idem domov."],
+      "Oh dear. Bobík… Tell him I'm on my way home.",
     ),
     line(
       "robo-marek-coming-home",
       "Robo",
       ["Bobík. ", PAUSE, "Marek ide domov."],
       "Bobík. Marek is coming home.",
-      { props: [null, null], to: "Bobík" },
+      { to: "Bobík" },
     ),
     line("bobik-woof-glad", "Bobík", ["Haf! Haf!"], "Woof! Woof!"),
   ],
@@ -588,7 +598,7 @@ const waiting: ListeningChapter = {
       answerId: "marek",
       feedback: {
         english: "I'm calling Marek.",
-        why: "**Volám Marekovi**: Robo tells him **Bobík čaká na teba**, and Marek comes home.",
+        why: "**Volám Marekovi**: Robo tells him **Bobík čaká na teba**, and Marek is on his way.",
       },
     },
   ],
@@ -605,9 +615,13 @@ const home: ListeningChapter = {
       "Pol deviatej večer.",
       "Half past eight in the evening.",
     ),
-    line("marek-im-home", "Marek", ["Ahoj, Bobík! Som doma!"], "Hi, Bobík! I'm home!", {
-      to: "Bobík",
-    }),
+    line(
+      "marek-im-home",
+      "Marek",
+      [EXCITED, "Ahoj, Bobík! Som doma!"],
+      "Hi, Bobík! I'm home!",
+      { to: "Bobík" },
+    ),
     line("bobik-overjoyed", "Bobík", ["Haf! Haf! Haf!"], "Woof! Woof! Woof!"),
     line(
       "marek-sorry-what-says",
@@ -629,28 +643,42 @@ const home: ListeningChapter = {
       ],
       "He's right. Change of plan. Tomorrow I'm working from home. And we'll go to the square. All three of us.",
     ),
-    line("bobik-woof-to-plan", "Bobík", ["Haf!"], "Woof!"),
-    line("marek-and-that-means", "Marek", ["A to znamená?"], "And that means?", {
-      to: "Robo",
-    }),
+    line("bobik-woof-to-plan", "Bobík", ["Haf! Haf!"], "Woof! Woof!"),
     line(
-      "robo-yes-wagging",
+      "robo-yes-and-hungry",
       "Robo",
-      ["Áno. ", PAUSE, "Vrtí chvostom."],
-      "Yes. He's wagging his tail.",
+      ["Hovorí: áno. ", PAUSE, "Vrtí chvostom. ", PAUSE, "A ešte: teraz som hladný."],
+      "He's saying: yes. He's wagging his tail. And also: now I'm hungry.",
     ),
     line(
-      "marek-how-many-languages",
+      "marek-hungry-at-last",
       "Marek",
-      ["Robo, koľko jazykov vieš?"],
-      "Robo, how many languages do you know?",
+      [HAPPY, "Hladný? ", PAUSE, "Konečne! Poď, Bobík, večera!"],
+      "Hungry? At last! Come on, Bobík, dinner!",
+      { to: "Bobík" },
+    ),
+    line("bobik-small-new-woof", "Bobík", ["Haf."], "Woof."),
+    line(
+      "robo-dont-know-this-one-yet",
+      "Robo",
+      ["Tento haf", STOP, PAUSE, "Neviem."],
+      "This woof… I don't know.",
+      { gestures: ["compute"] },
     ),
     line(
-      "robo-hundred-and-one",
-      "Robo",
-      ["Ráno sto. ", PAUSE, "Teraz stojeden."],
-      "This morning, a hundred. Now a hundred and one.",
+      "marek-work-for-tomorrow",
+      "Marek",
+      [CHUCKLE, "Tak to máš prácu na zajtra."],
+      "Then that's your job for tomorrow.",
+      { to: "Robo" },
     ),
+    line(
+      "robo-hundred-and-two",
+      "Robo",
+      ["Ráno sto jazykov. ", PAUSE, "Teraz stojeden. ", PAUSE, "Zajtra stodva."],
+      "This morning, a hundred languages. Now a hundred and one. Tomorrow, a hundred and two.",
+    ),
+    line("bobik-last-woof", "Bobík", ["Haf!"], "Woof!"),
   ],
   checks: [
     {
