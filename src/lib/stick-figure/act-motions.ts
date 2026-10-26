@@ -1223,6 +1223,7 @@ export function motionFor(
             brow: 0.8,
             mouth: shake % 2 ? 0.95 : 0.6,
             shut: shake % 2 ? 1 : 0.6,
+            look: 0.7,
           },
         });
       }
