@@ -13,6 +13,7 @@ import type { StageSetting } from "./stage-setting";
 import {
   THING_WORDS as WORDS,
   drawn,
+  onSet,
   toBox,
   twins,
   type SceneThing,
@@ -308,8 +309,29 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       // The sink, pot and stove are the set's, at the cast's scale: these boxes fit a cast of three or
       // more (StickSet.svelte), whose floor is at y 280, in front of the wall's foot.
       drawn(WORDS.umyvadlo, [556, 212, 34, 12]),
-      drawn(WORDS.hrniec, [683, 196, 44, 24]),
-      drawn(WORDS.sporak, [676, 219, 52, 61]),
+      { ...drawn(WORDS.hrniec, [683, 196, 44, 24]), of: ["pot"] },
+      { ...drawn(WORDS.sporak, [676, 219, 52, 61]), of: ["stove"] },
+      onSet(WORDS.stol, ["table"], [330, 236, 80, 30]),
+      onSet(
+        WORDS.stolicka,
+        ["chair-0", "chair-1", "chair-2", "chair-3"],
+        [280, 240, 24, 40],
+      ),
+      onSet(
+        WORDS.miska,
+        (["l", "bl", "br", "r"] as const).map((seat) => `bowl-${seat}`),
+        [340, 230, 10, 5],
+      ),
+      onSet(
+        WORDS.lyzica,
+        ["spoon", ...(["l", "bl", "br", "r"] as const).map((seat) => `spoon-${seat}`)],
+        [700, 180, 6, 20],
+      ),
+      onSet(WORDS.doska, ["board"], [620, 210, 22, 4]),
+      onSet(WORDS.mrkva, ["carrot"], [622, 206, 14, 4]),
+      onSet(WORDS.noz, ["knife"], [636, 210, 12, 3]),
+      onSet(WORDS.dzban, ["jug"], [646, 200, 10, 12]),
+      onSet(WORDS.sol, ["salt"], [728, 204, 5, 9]),
     ],
     sounds: ["hum"],
     // The cook works at the stove end; guests eat at the table by the window.
@@ -423,7 +445,16 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       // The desk and mics are drawn at the cast's scale (StudioDesk.svelte); these boxes are where they land on a wide stage.
       drawn(WORDS.stol, [285, 208, 390, 70]),
       drawn(WORDS.mikrofon, [423, 158, 28, 22], [509, 158, 28, 22]),
-      drawn(WORDS.rastlina, plantBox(PARTS.studio.plant)),
+      // The plant by the desk is the set's; the little one on the shelf is drawn with the shelf.
+      {
+        ...drawn(WORDS.rastlina, plantBox(PARTS.studio.plant), [742, 94, 22, 26]),
+        of: ["plant"],
+      },
+      onSet(WORDS.krhla, ["can"], [690, 230, 22, 18]),
+      // On the shelf, for tapping only: a line about a book means one in someone's hands, not these.
+      { ...drawn(WORDS.obraz, [686, 30, 70, 52]), quiet: true },
+      { ...drawn(WORDS.knihy, [682, 90, 52, 30]), quiet: true },
+      { ...drawn(WORDS.polica, [676, 118, 96, 8]), quiet: true },
       drawn(WORDS.koberec, [190, 256, 580, 40]),
     ],
     sounds: ["hum"],

@@ -120,6 +120,7 @@
       Record<
         "lead" | "rear",
         ObjectLook & {
+          id?: string;
           effect?: Effect["kind"];
           lands?: number;
           sunk?: { left: number; right: number; rim: number };

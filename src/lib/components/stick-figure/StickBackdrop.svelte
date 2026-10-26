@@ -11,7 +11,12 @@
   } from "$lib/stick-figure/backdrop-geometry";
   import { PLACES, backdropAlign, thingsIn } from "$lib/stick-figure/places";
   import type { StageSetting } from "$lib/stick-figure/stage-setting";
-  import { litKey, thingBoxes } from "$lib/stick-figure/thing-words";
+  import {
+    litKey,
+    thingBoxes,
+    withDrawn,
+    type ThingBox,
+  } from "$lib/stick-figure/thing-words";
   import { cx } from "$lib/ui/classes";
   import Cafe from "./backdrops/Cafe.svelte";
   import Classroom from "./backdrops/Classroom.svelte";
@@ -33,6 +38,7 @@
     board,
     class: className = "",
     door = false,
+    drawnAt = $bindable({}),
     found = [],
     height = 0,
     hint,
@@ -53,6 +59,8 @@
     class?: string;
     /** The door stands open: someone is coming in. */
     door?: boolean;
+    /** Where the set draws its things now, in backdrop units by piece or object id (withDrawn): measured here. */
+    drawnAt?: Record<string, ThingBox | null>;
     /** Things found in a game, ringed in green for the rest of it. */
     found?: readonly string[];
     /** The drawn size in px, once measured, so the slice can sit anywhere along it. */
@@ -139,7 +147,54 @@
     void swing.set(door ? AJAR : 0, { duration: door ? DOOR_OPEN_MS : DOOR_SHUT_MS });
   });
   const Drawing = $derived(DRAWINGS[setting]);
-  const things = $derived(thingsIn(PLACES[setting].things, setting, mood));
+  const things = $derived(
+    withDrawn(thingsIn(PLACES[setting].things, setting, mood), drawnAt),
+  );
+
+  let svg = $state<SVGSVGElement>();
+  const measured = $derived(PLACES[setting].things.flatMap((thing) => thing.of ?? []));
+  // The set and the cast are drawn over this svg in the same camera, so a box
+  // measured in px maps to backdrop units by this svg's own px and viewBox.
+  $effect(() => {
+    const ids = measured;
+    const own = svg;
+    if (!ids.length || !own?.parentElement || !width || !height) return;
+    const [left, top, across] = view.box.split(" ").map(Number);
+    const root = own.parentElement;
+    let frame = requestAnimationFrame(function measure() {
+      const stage = own.getBoundingClientRect();
+      const unit = across / stage.width;
+      let changed = false;
+      const next: Record<string, ThingBox | null> = {};
+      for (const id of ids) {
+        const drawn = root
+          .querySelector(`[data-set-id="${id}"]`)
+          ?.getBoundingClientRect();
+        next[id] =
+          drawn && drawn.width > 0
+            ? {
+                x: left + (drawn.left - stage.left) * unit,
+                y: top + (drawn.top - stage.top) * unit,
+                width: drawn.width * unit,
+                height: drawn.height * unit,
+              }
+            : null;
+        const was = drawnAt[id];
+        const now = next[id];
+        changed ||=
+          !was || !now
+            ? was !== now
+            : Math.abs(was.x - now.x) +
+                Math.abs(was.y - now.y) +
+                Math.abs(was.width - now.width) +
+                Math.abs(was.height - now.height) >
+              1;
+      }
+      if (changed) drawnAt = next;
+      frame = requestAnimationFrame(measure);
+    });
+    return () => cancelAnimationFrame(frame);
+  });
   /** Which thing the Tab key lands on: the last one focused, so leaving and coming back keeps the place. */
   let tabStop = $state(0);
   /** Right and Down go to the next thing, Left and Up to the one before; Home and End to the ends. */
@@ -171,6 +226,7 @@
   stands in front of them.
 -->
 <svg
+  bind:this={svg}
   class="block {className}"
   role={onpick ? "group" : undefined}
   aria-label={onpick ? `Scene: ${PLACES[setting].label}` : undefined}
@@ -193,27 +249,8 @@
     <StageLight />
   </g>
 
-  {#each boxes as { box, copy, thing } (`${thing.id}-${copy}`)}
-    {@const done = found.includes(thing.id)}
-    <rect
-      x={box.x - 5}
-      y={box.y - 5}
-      width={box.width + 10}
-      height={box.height + 10}
-      rx="8"
-      class={cx(
-        "fill-white/20 transition-opacity duration-150 ease-out",
-        done ? "stroke-emerald-500" : "stroke-blue-500",
-        done ||
-          lit.includes(thing.id) ||
-          lit.includes(litKey(thing.id, copy)) ||
-          picked === thing.id ||
-          focused === thing.id
-          ? "opacity-100"
-          : "opacity-0",
-      )}
-      stroke-width="2.5"
-    />
+  {#each boxes.filter(({ thing }) => !thing.of) as ring (`${ring.thing.id}-${ring.copy}`)}
+    {@render lightUp(ring)}
   {/each}
 
   {#if onpick}
@@ -265,3 +302,41 @@
     {/each}
   {/if}
 </svg>
+
+{#if boxes.some(({ thing }) => thing.of)}
+  <!-- The set draws its things over the backdrop, and the ring of a pot in the cupboard was hidden behind the counter. -->
+  <svg
+    class="pointer-events-none absolute inset-0 z-4 size-full"
+    viewBox={view.box}
+    preserveAspectRatio={view.ratio}
+    fill="none"
+    aria-hidden="true"
+  >
+    {#each boxes.filter(({ thing }) => thing.of) as ring (`${ring.thing.id}-${ring.copy}`)}
+      {@render lightUp(ring)}
+    {/each}
+  </svg>
+{/if}
+
+{#snippet lightUp({ box, copy, thing }: (typeof boxes)[number])}
+  {@const done = found.includes(thing.id)}
+  <rect
+    x={box.x - 5}
+    y={box.y - 5}
+    width={box.width + 10}
+    height={box.height + 10}
+    rx="8"
+    class={cx(
+      "fill-white/20 transition-opacity duration-150 ease-out",
+      done ? "stroke-emerald-500" : "stroke-blue-500",
+      done ||
+        lit.includes(thing.id) ||
+        lit.includes(litKey(thing.id, copy)) ||
+        picked === thing.id ||
+        focused === thing.id
+        ? "opacity-100"
+        : "opacity-0",
+    )}
+    stroke-width="2.5"
+  />
+{/snippet}

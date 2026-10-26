@@ -141,7 +141,7 @@
     {@const { width } = pieceSize(piece)}
     {@const top = pieceTop(piece)}
     {@const lit = world.lit?.includes(piece.id)}
-    <g transform="translate({n(x)} 0)">
+    <g transform="translate({n(x)} 0)" data-set-id={piece.id}>
       {#if piece.kind !== "rail"}
         <ellipse
           cx="0"
@@ -358,7 +358,10 @@
       </clipPath>
     {/if}
     <g clip-path={sink ? `url(#${uid}-sink-${id})` : undefined}>
-      <g transform="translate({n(at.x)} {n(at.y)}){state.turned ? ' scale(-1 1)' : ''}">
+      <g
+        transform="translate({n(at.x)} {n(at.y)}){state.turned ? ' scale(-1 1)' : ''}"
+        data-set-id={id}
+      >
         <StickSetObject
           kind={state.kind}
           fill={state.fill}

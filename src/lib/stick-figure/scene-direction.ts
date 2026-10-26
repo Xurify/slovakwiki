@@ -139,7 +139,8 @@ export function directScene(
 ): SceneDirection {
   const cast = castFor(lines, setting, order);
   const { atMarks, things } = PLACES[setting];
-  const read = readLines(lines, cast, things);
+  const pointable = things.filter((thing) => !thing.quiet);
+  const read = readLines(lines, cast, pointable);
   // Acted from cues, the cues alone move people and props: nothing comes out because a word was said.
   const acted = isActed(lines);
   const calls = acted ? [] : callers(lines, cast);
@@ -159,7 +160,7 @@ export function directScene(
       characterId && !acted
         ? linePoints(
             slovak,
-            things,
+            pointable,
             shownBy && prop ? { holder: shownBy, prop } : undefined,
             named,
           )
@@ -168,7 +169,7 @@ export function directScene(
       if (target.kind === "thing") named.push({ copy: target.copy, id: target.id });
     }
 
-    const fromWords = stageLine(read, index, cast, things, points);
+    const fromWords = stageLine(read, index, cast, pointable, points);
     const staging = acted ? actedStaging(fromWords) : fromWords;
     const { gestures, mouth, said, vowels } = lines[index];
     return {

@@ -252,7 +252,12 @@ export function checkEpisode(episode: ListeningEpisode): Finding[] {
         });
       } else if (!acted && speaker && mentions(folded, ACTING)) {
         const target = lineWords(turn.slovak)
-          .map((word) => thingNamed(foldLine(word), direction.things))
+          .map((word) =>
+            thingNamed(
+              foldLine(word),
+              direction.things.filter((thing) => !thing.quiet),
+            ),
+          )
           .find(Boolean);
         const state = startLine(
           blockingBefore(index, speakers, stagings, frame),

@@ -344,7 +344,9 @@ export function sceneThingWords(): Record<string, { href?: string; src?: string 
   for (const thing of Object.values(PLACES).flatMap((place) => place.things)) {
     if (thing.word in found) continue;
 
-    const entry = words.find((word) => word.slovak === thing.word && word.gender);
+    const entry = words.find(
+      (word) => word.slovak === (thing.lemma ?? thing.word) && word.gender,
+    );
     found[thing.word] = {
       href: entry ? dictionaryPathForLemmaId(entry.slug) : undefined,
       src: hasAudioClip(audioHash(thing.word))

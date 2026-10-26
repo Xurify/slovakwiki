@@ -77,6 +77,8 @@
   } = $props();
 
   interface InHand extends ObjectLook {
+    /** The set object's id, which the backdrop measures to box it where it is held. */
+    id?: string;
     turn?: number;
     /** Water, salt or peel coming off it while a cue pours, shakes or peels. */
     effect?: Effect["kind"];
@@ -296,6 +298,7 @@
       transform="translate({n(at.x)} {n(at.y)}) rotate({n(
         object.turn ?? 0,
       )}) translate({n(-grip.x)} {n(grip.y)})"
+      data-set-id={object.id}
     >
       <StickSetObject {...object} />
     </g>

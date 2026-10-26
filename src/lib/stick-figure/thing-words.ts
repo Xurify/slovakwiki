@@ -40,9 +40,19 @@ export interface SceneThing {
   twins?: { far: number; near: number };
   /** The nominative, as the dictionary lists it. */
   word: string;
+  /** The dictionary's headword where `word` is a plural drawn as a heap: knihy → kniha. */
+  lemma?: string;
+  /**
+   * The set's pieces or objects drawn as it, by id. The set draws at the
+   * cast's scale and things move, so its box is measured where they are
+   * drawn now: a fixed box missed the studio's plant and a carried pot.
+   */
+  of?: readonly string[];
+  /** Only tapped for its word: the cast handles it by cues, so a line naming it is not pointed at. */
+  quiet?: boolean;
 }
 
-export type ThingWord = Omit<SceneThing, "box" | "more" | "twins">;
+export type ThingWord = Omit<SceneThing, "box" | "more" | "twins" | "of" | "quiet">;
 export type Rect = [x: number, y: number, width: number, height: number];
 
 export function toBox([x, y, width, height]: Rect): ThingBox {
@@ -72,6 +82,29 @@ export function twins(
   return main === "near"
     ? { ...drawn(word, near, far), twins: { far: 1, near: 0 } }
     : { ...drawn(word, far, near), twins: { far: 0, near: 1 } };
+}
+
+/** A thing the set draws and the cast handles by cues; `main` is its box until the stage measures it. */
+export function onSet(word: ThingWord, of: readonly string[], main: Rect): SceneThing {
+  return { ...drawn(word, main), of, quiet: true };
+}
+
+/**
+ * The things with the boxes the set draws them in now, measured by id (null:
+ * not drawn). One all put away, like carrots tipped into the soup, is not
+ * there to tap.
+ */
+export function withDrawn(
+  things: readonly SceneThing[],
+  drawnAt: Readonly<Record<string, ThingBox | null>>,
+): SceneThing[] {
+  return things.flatMap((thing) => {
+    if (!thing.of?.some((id) => id in drawnAt)) return [thing];
+    const [box, ...more] = thing.of.flatMap((id) => drawnAt[id] ?? []);
+    if (!box) return [];
+    const kept = [...more, ...(thing.more ?? [])];
+    return [{ ...thing, box, more: kept.length ? kept : undefined }];
+  });
 }
 
 /** Every box a thing is drawn in, its main one first. */
@@ -138,6 +171,20 @@ export const THING_WORDS = {
     id: "dom",
     word: "dom",
   },
+  doska: {
+    english: "chopping board",
+    gender: "feminine",
+    id: "doska",
+    stems: ["dosk", "dosiek"],
+    word: "doska",
+  },
+  dzban: {
+    english: "jug",
+    gender: "masculine-inanimate",
+    id: "dzban",
+    stems: ["dzban"],
+    word: "džbán",
+  },
   rieka: {
     english: "river",
     gender: "feminine",
@@ -203,6 +250,15 @@ export const THING_WORDS = {
     stems: ["kavovar"],
     word: "kávovar",
   },
+  knihy: {
+    english: "books",
+    gender: "feminine",
+    id: "knihy",
+    lemma: "kniha",
+    plural: true,
+    stems: ["knih", "knizk"],
+    word: "knihy",
+  },
   koberec: {
     english: "rug",
     forms: ["koberec", "koberca", "koberci", "kobercom", "koberce", "kobercov"],
@@ -224,6 +280,13 @@ export const THING_WORDS = {
     id: "kopec",
     word: "kopec",
   },
+  krhla: {
+    english: "watering can",
+    gender: "feminine",
+    id: "krhla",
+    stems: ["krhl", "krhiel"],
+    word: "krhla",
+  },
   lampa: {
     english: "lamp",
     gender: "feminine",
@@ -238,12 +301,33 @@ export const THING_WORDS = {
     stems: ["lavick", "laviciek"],
     word: "lavička",
   },
+  lyzica: {
+    english: "spoon",
+    gender: "feminine",
+    id: "lyzica",
+    stems: ["lyzic", "lyzick"],
+    word: "lyžica",
+  },
   mikrofon: {
     english: "microphone",
     gender: "masculine-inanimate",
     id: "mikrofon",
     stems: ["mikrofon"],
     word: "mikrofón",
+  },
+  miska: {
+    english: "bowl",
+    gender: "feminine",
+    id: "miska",
+    stems: ["misk", "misiek"],
+    word: "miska",
+  },
+  mrkva: {
+    english: "carrot",
+    gender: "feminine",
+    id: "mrkva",
+    stems: ["mrkv", "mrkiev"],
+    word: "mrkva",
   },
   muz: {
     accusative: "muža",
@@ -252,6 +336,13 @@ export const THING_WORDS = {
     gender: "masculine-animate",
     id: "muz",
     word: "muž",
+  },
+  noz: {
+    english: "knife",
+    forms: ["noz", "noza", "nozom", "nozi", "noze", "nozov", "nozmi", "nozoch"],
+    gender: "masculine-inanimate",
+    id: "noz",
+    word: "nôž",
   },
   oblak: {
     english: "cloud",
@@ -295,6 +386,13 @@ export const THING_WORDS = {
     stems: ["pohovk", "pohoviek"],
     word: "pohovka",
   },
+  polica: {
+    english: "shelf",
+    gender: "feminine",
+    id: "polica",
+    stems: ["polic"],
+    word: "polica",
+  },
   pult: {
     english: "counter",
     forms: ["pult", "pultu", "pulte", "pultom", "pulty", "pultov"],
@@ -330,6 +428,13 @@ export const THING_WORDS = {
     id: "slnko",
     stems: ["slnk"],
     word: "slnko",
+  },
+  sol: {
+    english: "salt",
+    forms: ["sol", "soli", "solou"],
+    gender: "feminine",
+    id: "sol",
+    word: "soľ",
   },
   stanok: {
     english: "stall",

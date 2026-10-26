@@ -43,7 +43,8 @@
     litKey,
     thingBoxes,
     thingCenter,
-    thingWithDemonstrative,
+    withDrawn,
+    type ThingBox,
   } from "$lib/stick-figure/thing-words";
   import { dressFor, type Dress } from "$lib/stick-figure/dress";
   import type { Held } from "$lib/stick-figure/props";
@@ -301,13 +302,16 @@
     });
   });
   /** The scene's things as the stage shows them now: the sun only while it is out. */
-  const things = $derived(thingsIn(direction.things, setting, mood));
+  const fixedThings = $derived(thingsIn(direction.things, setting, mood));
+  /** The set's things where they are drawn now, as the backdrop measures them. */
+  let drawnAt = $state<Record<string, ThingBox | null>>({});
+  const things = $derived(withDrawn(fixedThings, drawnAt));
   const frame = $derived(
     stageFrame(
       direction.cast,
       walkOns(stagings),
       setting,
-      things,
+      fixedThings,
       stageWidth,
       stageHeight,
     ),
@@ -930,6 +934,7 @@
       const pours = pouring[id]?.[hand];
       const into = sunk[id]?.[hand];
       return {
+        id: object,
         ...lookOf(object),
         effect: pours?.kind,
         sliding: pours?.kind === "stream",
@@ -1784,6 +1789,7 @@
         class="absolute inset-0 size-full"
         {board}
         door={doorOpen}
+        bind:drawnAt
         minutes={world?.minutes ?? 0}
         skipping={dimmed}
         {found}
@@ -1818,7 +1824,10 @@
                 : 0)}px"
             style:width="{frame.figureWidth}px"
           >
-            <StickFurniture {piece} />
+            <StickFurniture
+              {piece}
+              id={piece.kind === "chair" ? `chair-${chair}` : undefined}
+            />
           </div>
         {/each}
         {#if frame.desk}
@@ -1970,7 +1979,7 @@
 
         <div class="min-w-0">
           <p class="m-0 font-serif text-lg font-semibold text-slate-900" lang="sk">
-            {thingWithDemonstrative(pickedThing)}
+            {pickedThing.word}
           </p>
           <p class="m-0 text-sm text-slate-600">{pickedThing.english}</p>
         </div>
