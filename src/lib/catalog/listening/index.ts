@@ -131,11 +131,15 @@ export function validateListeningEpisodes(): string[] {
     }
   }
 
+  const numbers = new Set<number>();
   for (const episode of listeningEpisodes) {
     claim(episode.id, episode.id);
     if (episodeBySlug.get(episode.slug) !== episode) {
       issues.push(`Duplicate slug: ${episode.slug}`);
     }
+    if (numbers.has(episode.number))
+      issues.push(`Duplicate number ${episode.number}: ${episode.id}`);
+    numbers.add(episode.number);
 
     const prefix = `podcast-${episode.slug}-`;
     const hosts = new Set(episode.speakers);

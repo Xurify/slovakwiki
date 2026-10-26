@@ -739,7 +739,7 @@ const home: ListeningChapter = {
 export const whatBobikSaysEpisode: ListeningEpisode = {
   id: "listening/what-bobik-says",
   slug: "what-bobik-says",
-  number: 5,
+  number: 6,
   level: "A1–A2",
   titleSk: "Čo hovorí Bobík?",
   title: "What is Bobík saying?",
