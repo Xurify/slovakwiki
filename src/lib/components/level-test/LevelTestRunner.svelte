@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onDestroy, onMount, tick } from "svelte";
 
+  import TextLink from "$lib/components/ui/TextLink.svelte";
   import { iconButtonClass, iconButtonToneClass } from "$lib/components/ui/system-ui";
   import { addCoverage } from "$lib/level-test/areas";
   import { gradeReadAloud } from "$lib/level-test/grade";
@@ -79,7 +80,10 @@
   let microphone = $state<MediaStream | null>(null);
   let microphoneAsked = false;
   let askingMicrophone = $state(false);
+  let skipMicrophone: (() => void) | undefined;
+  let transcribing = $state(0);
   let overlay = $state<HTMLElement>();
+  let main = $state<HTMLElement>();
 
   const picker: Picker = {
     used: new Set(),
@@ -106,7 +110,7 @@
       if (SPEAKING_KINDS.has(next.kind) && !microphoneAsked) {
         microphoneAsked = true;
         askingMicrophone = true;
-        microphone = await openMicrophone();
+        microphone = await askForMicrophone();
         askingMicrophone = false;
       }
 
@@ -123,6 +127,22 @@
     }
     index = plan.length;
     finished = true;
+  }
+
+  /** Some browsers leave the permission prompt open with no answer at all. */
+  function askForMicrophone(): Promise<MediaStream | null> {
+    return new Promise((resolve) => {
+      let settled = false;
+      skipMicrophone = () => {
+        settled = true;
+        resolve(null);
+      };
+      void openMicrophone().then((stream) => {
+        if (settled) closeMicrophone(stream);
+        else resolve(stream);
+        settled = true;
+      });
+    });
   }
 
   function updateRecord(id: string, patch: Partial<ProductionRecord>): void {
@@ -164,11 +184,14 @@
   ): Promise<void> {
     const { item, audio } = result;
     let score = 0;
+    transcribing += 1;
     try {
       const transcript = await requestTranscript(audio);
       score = gradeReadAloud(item.text, transcript.text);
     } catch {
       return;
+    } finally {
+      transcribing -= 1;
     }
     responses = [
       ...responses,
@@ -220,6 +243,15 @@
 
   $effect(() => {
     if (finished) closeMicrophone(microphone);
+  });
+
+  /** A new screen starts at its heading, unless the task focused a field itself. */
+  $effect(() => {
+    void [index, introFor, finished];
+    void tick().then(() => {
+      if (main?.contains(document.activeElement)) return;
+      main?.querySelector<HTMLElement>("h2[tabindex='-1']")?.focus();
+    });
   });
 </script>
 
@@ -287,7 +319,7 @@
     </div>
   </header>
 
-  <main class="px-6 py-10 max-[560px]:px-3 max-[560px]:py-6">
+  <main class="px-6 py-10 max-[560px]:px-3 max-[560px]:py-6" bind:this={main}>
     {#if finished}
       <LevelTestResults
         {bank}
@@ -296,6 +328,7 @@
         {capabilities}
         {responses}
         {production}
+        {transcribing}
         microphone={microphone !== null}
         onclose={onexit}
         {onretake}
@@ -348,9 +381,14 @@
         {/if}
       {/key}
     {:else if askingMicrophone}
-      <p class="m-0 py-16 text-center text-sm text-slate-600" role="status">
-        Allow the microphone when your browser asks, so the speaking tasks can record you.
-      </p>
+      <div class="grid justify-items-center gap-3 py-16 text-center">
+        <p class="m-0 text-sm text-slate-600" role="status">
+          Allow the microphone when your browser asks, so the speaking tasks can record
+          you.
+        </p>
+
+        <TextLink onclick={() => skipMicrophone?.()}>Continue without speaking</TextLink>
+      </div>
     {/if}
   </main>
 </div>

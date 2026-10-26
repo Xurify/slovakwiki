@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onDestroy } from "svelte";
+  import { onDestroy, onMount } from "svelte";
 
   import { applyAudioVolume } from "$lib/audio/volume";
 
@@ -23,15 +23,30 @@
     onfailed?: () => void;
   } = $props();
 
+  // Long enough for a slow mobile connection to start a short clip.
+  const LOAD_TIMEOUT_MS = 8000;
+
   let plays = $state(0);
   let playing = $state(false);
   let failed = $state(false);
   let audio: HTMLAudioElement | undefined;
+  let loadTimer: ReturnType<typeof setTimeout> | undefined;
 
   const left = $derived(maxPlays - plays);
   const exhausted = $derived(Number.isFinite(maxPlays) && left <= 0);
   const dim = $derived(size === "lg" ? "size-20" : size === "md" ? "size-14" : "size-10");
   const icon = $derived(size === "lg" ? "size-9" : size === "md" ? "size-7" : "size-5");
+
+  /** A clip that never gets data never errors either; give up on it. */
+  function waitForData(): void {
+    if (!playing || loadTimer !== undefined) return;
+    loadTimer = setTimeout(fail, LOAD_TIMEOUT_MS);
+  }
+
+  function stopWaiting(): void {
+    clearTimeout(loadTimer);
+    loadTimer = undefined;
+  }
 
   function play(): void {
     if (playing || exhausted) return;
@@ -43,28 +58,48 @@
       onended?.();
     };
     audio.onerror = fail;
+    audio.onstalled = waitForData;
+    audio.onwaiting = waitForData;
+    audio.oncanplay = stopWaiting;
+    audio.onplaying = stopWaiting;
     plays += 1;
     playing = true;
+    if (audio.readyState < HTMLMediaElement.HAVE_FUTURE_DATA) waitForData();
     audio.play().catch((error: unknown) => {
       playing = false;
       plays -= 1;
       // NotAllowedError is a blocked autoplay; the learner can still press play.
-      if (!(error instanceof DOMException && error.name === "NotAllowedError")) fail();
+      if (error instanceof DOMException && error.name === "NotAllowedError")
+        stopWaiting();
+      else fail();
     });
   }
 
   function fail(): void {
+    stopWaiting();
+    audio?.pause();
     playing = false;
     if (failed) return;
     failed = true;
     onfailed?.();
   }
 
-  $effect(() => {
+  // Once, on mount: a blocked autoplay must not be retried by an effect.
+  onMount(() => {
     if (autoplay) play();
   });
 
-  onDestroy(() => audio?.pause());
+  onDestroy(() => {
+    stopWaiting();
+    if (!audio) return;
+    audio.onended = null;
+    audio.onerror = null;
+    audio.onstalled = null;
+    audio.onwaiting = null;
+    audio.oncanplay = null;
+    audio.onplaying = null;
+    audio.pause();
+  });
 </script>
 
 <div class="inline-flex flex-col items-center gap-2" class:w-32={size === "lg"}>

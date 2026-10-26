@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { typedAdvance } from "./typed-advance";
+
   /**
    * A damaged word: the given start, then one box per missing letter.
    * Every box is its own input, so a learner can click any letter and fix
@@ -32,6 +34,8 @@
     Array.from({ length }, (_, index) => [...value][index] ?? ""),
   );
   let boxes = $state<HTMLInputElement[]>([]);
+  /** WebKit can follow compositionend with an input event for the same text. */
+  let composedIn: HTMLInputElement | null = null;
 
   $effect(() => {
     input = boxes[0];
@@ -65,6 +69,17 @@
 
     if (at >= length) onfilled?.();
     else focusBox(at);
+
+    const from = boxes[at - 1];
+    const active = document.activeElement;
+    if (from)
+      typedAdvance.moved(from, active instanceof HTMLInputElement ? active : null);
+  }
+
+  function clearBox(box: HTMLInputElement): void {
+    box.focus();
+    box.value = "";
+    box.dispatchEvent(new Event("input", { bubbles: true }));
   }
 
   /**
@@ -72,8 +87,14 @@
    * the caret after it instead of selecting it.
    */
   function handleBeforeInput(event: InputEvent, index: number): void {
-    if (event.inputType !== "insertText" || !event.data) return;
-    const chars = [...event.data.replace(/\s+/gu, "")];
+    const text =
+      event.inputType === "insertText"
+        ? event.data
+        : event.inputType === "insertFromPaste"
+          ? (event.data ?? event.dataTransfer?.getData("text/plain"))
+          : null;
+    if (!text) return;
+    const chars = [...text.replace(/\s+/gu, "")];
     event.preventDefault();
     if (chars.length > 0) place(chars, index);
   }
@@ -82,6 +103,10 @@
   function handleInput(event: Event, index: number): void {
     const field = event.currentTarget as HTMLInputElement;
     if ((event as InputEvent).isComposing) return;
+    if (event.type === "input" && composedIn === field) {
+      composedIn = null;
+      if (field.value === (letters[index] ?? "")) return;
+    }
     const typed = [...field.value.replace(/\s+/gu, "")];
     field.value = letters[index] ?? "";
 
@@ -98,7 +123,25 @@
     field.value = letters[index] ?? "";
   }
 
+  function handleCompositionEnd(event: CompositionEvent, index: number): void {
+    handleInput(event, index);
+    composedIn = event.currentTarget as HTMLInputElement;
+  }
+
   function handleKeydown(event: KeyboardEvent, index: number): void {
+    if (event.key !== "Backspace") {
+      typedAdvance.forget();
+    } else {
+      const typedBox = typedAdvance.backspaceTarget(
+        event.currentTarget as HTMLInputElement,
+      );
+      if (typedBox) {
+        event.preventDefault();
+        clearBox(typedBox);
+        return;
+      }
+    }
+
     if (event.key === "Backspace" && !letters[index]) {
       event.preventDefault();
       if (index === 0) {
@@ -136,7 +179,6 @@
         class="h-[1.45em] w-[1.05em] rounded-t-[3px] border-0 border-b-2 border-blue-600/70 bg-blue-50 p-0 text-center font-serif text-[1em] leading-none text-slate-900 caret-transparent outline-none transition-[background-color,border-color] duration-150 ease-out focus:border-blue-700 focus:bg-blue-100"
         bind:this={boxes[index]}
         value={letter}
-        maxlength={2}
         aria-label={`Letter ${index + 1} of ${length}`}
         autocomplete="off"
         autocapitalize="none"
@@ -147,7 +189,8 @@
         onfocus={(event) => (event.currentTarget as HTMLInputElement).select()}
         onbeforeinput={(event) => handleBeforeInput(event, index)}
         oninput={(event) => handleInput(event, index)}
-        oncompositionend={(event) => handleInput(event, index)}
+        oncompositionend={(event) => handleCompositionEnd(event, index)}
+        onpointerdown={() => typedAdvance.forget()}
         onkeydown={(event) => handleKeydown(event, index)}
       />
     {/each}

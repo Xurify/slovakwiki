@@ -73,3 +73,12 @@ export function typeIntoFocused(char: string): void {
   field.setRangeText(char, start, end, "end");
   field.dispatchEvent(new Event("input", { bubbles: true }));
 }
+
+/**
+ * Blurring the focused field ends an IME composition and commits its text,
+ * which the letter boxes only take in on compositionend.
+ */
+export function commitTyping(): void {
+  const field = document.activeElement;
+  if (field instanceof HTMLElement) field.blur();
+}

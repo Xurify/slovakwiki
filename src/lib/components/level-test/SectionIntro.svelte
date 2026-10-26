@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { eyebrowMutedClass } from "$lib/components/ui/system-ui";
   import Button from "$lib/components/ui/Button.svelte";
   import { SECTION_LABEL, planMinutes } from "$lib/level-test/plan";
   import { TASK_INFO } from "$lib/level-test/task-info";
@@ -45,10 +44,10 @@
   aria-labelledby="level-test-section"
 >
   <div class="grid gap-2">
-    <p class={eyebrowMutedClass}>Next section</p>
     <h2
       id="level-test-section"
-      class="m-0 font-serif text-2xl font-semibold text-slate-900"
+      class="m-0 font-serif text-2xl font-semibold text-slate-900 focus-visible:outline-none"
+      tabindex="-1"
     >
       {SECTION_LABEL[section]}
     </h2>

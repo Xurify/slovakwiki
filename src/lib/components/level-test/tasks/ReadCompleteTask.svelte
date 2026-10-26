@@ -9,6 +9,7 @@
   import LetterGap from "../LetterGap.svelte";
   import SlovakKeys from "../SlovakKeys.svelte";
   import TaskFrame from "../TaskFrame.svelte";
+  import { commitTyping } from "../level-test-ui";
   import type { StepDone } from "../steps";
 
   let {
@@ -54,6 +55,7 @@
   function submit(): void {
     if (done) return;
     done = true;
+    commitTyping();
     ondone({
       responses: gapIndexes.map((index) => {
         const gap = item.parts[index] as CTestGap;

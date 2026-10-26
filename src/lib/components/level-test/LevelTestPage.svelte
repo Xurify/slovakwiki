@@ -1,7 +1,6 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
 
-  import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
   import Lead from "$lib/components/ui/Lead.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import { eyebrowMutedClass, tagClass } from "$lib/components/ui/system-ui";
@@ -39,7 +38,6 @@
   <PageShell class="max-w-[1080px]">
     <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_21rem] lg:gap-x-12">
       <header class="max-w-xl lg:col-start-1">
-        <Eyebrow>Level test</Eyebrow>
         <h1 class="text-balance">Find your Slovak level</h1>
 
         <Lead class="text-pretty">
