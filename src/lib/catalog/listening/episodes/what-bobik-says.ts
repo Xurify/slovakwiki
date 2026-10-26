@@ -675,8 +675,8 @@ const home: ListeningChapter = {
     line(
       "robo-hundred-and-two",
       "Robo",
-      ["Ráno sto jazykov. ", PAUSE, "Teraz stojeden. ", PAUSE, "Zajtra stodva."],
-      "This morning, a hundred languages. Now a hundred and one. Tomorrow, a hundred and two.",
+      ["Ráno sto jazykov. ", PAUSE, "Teraz stojeden. ", PAUSE, "Zajtra stodva jazykov."],
+      "This morning, a hundred languages. Now a hundred and one. Tomorrow, a hundred and two languages.",
     ),
     line("bobik-last-woof", "Bobík", ["Haf!"], "Woof!"),
   ],
