@@ -5,7 +5,7 @@
     playAmbience,
     playPhoneCue,
     playSegmentCue,
-    stopSteps,
+    stopCues,
     type AmbiencePlayer,
   } from "$lib/stick-figure/ambience";
 
@@ -107,7 +107,12 @@
     onStart: () => void,
   ): void {
     window.clearTimeout(waiting);
-    if (index !== at + 1) stage?.place(index);
+    stage?.stop();
+    // A skip or replay puts everyone back in place: whatever walk or ring was sounding goes with it.
+    if (index !== at + 1) {
+      stopCues();
+      stage?.place(index);
+    }
     at = index;
     live = true;
     listen();
@@ -157,7 +162,7 @@
     speaking = false;
     stage?.stop();
     // A walk-off at the segment's end would go on sounding under the next segment's card.
-    stopSteps();
+    stopCues();
     hush(leaving ? HANDOVER_MS : 0);
   }
 

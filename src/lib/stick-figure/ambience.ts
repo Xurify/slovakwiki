@@ -525,20 +525,37 @@ const GROUND_STEPS: Record<
   },
 };
 
+/** The cues still sounding (footsteps, a phone, the sting), so a stage that stops or skips can silence them. */
+const sounding = new Set<GainNode>();
+
+/** An output for one cue, silenced by stopCues or let go after `ms`. */
+function cueOut(ctx: AudioContext, level: number, ms: number): GainNode {
+  const out = ctx.createGain();
+  out.gain.value = level * getAudioVolume();
+  out.connect(ctx.destination);
+  sounding.add(out);
+  window.setTimeout(() => {
+    out.disconnect();
+    sounding.delete(out);
+  }, ms);
+  return out;
+}
+
+/**
+ * Silence every cue still sounding: the stage has stopped, handed on to the
+ * next segment, or jumped to another line. Web Audio schedules a whole walk
+ * up front, so without this each skip stacks another walk on the last.
+ */
+export function stopCues(): void {
+  for (const out of sounding) out.disconnect();
+  sounding.clear();
+}
+
 /**
  * Footsteps for a walk of `steps`, one every `stepMs`, on the `ground`
  * underfoot: heels click on it, soft soles land dull, plain shoes are the
  * ground's own sound.
  */
-/** The footsteps still sounding, so a stage that stops can silence them. */
-const stepping = new Set<GainNode>();
-
-/** Silence every walk still sounding: the stage has stopped, or handed on to the next segment. */
-export function stopSteps(): void {
-  for (const out of stepping) out.disconnect();
-  stepping.clear();
-}
-
 export function playSteps(
   steps: number,
   stepMs: number,
@@ -563,10 +580,7 @@ export function playSteps(
         : base;
 
   const { ctx, noise } = kit;
-  const out = ctx.createGain();
-  out.gain.value = 0.3 * getAudioVolume();
-  out.connect(ctx.destination);
-  stepping.add(out);
+  const out = cueOut(ctx, 0.3, steps * stepMs + 500);
 
   for (let step = 0; step < steps; step += 1) {
     // The heel lands at the widest stride, halfway through each step.
@@ -616,14 +630,6 @@ export function playSteps(
       click.start(at, Math.random(), 0.03);
     }
   }
-
-  window.setTimeout(
-    () => {
-      out.disconnect();
-      stepping.delete(out);
-    },
-    steps * stepMs + 500,
-  );
 }
 
 /**
@@ -635,9 +641,7 @@ export function playSegmentCue(): void {
   const kit = cues();
   if (!kit) return;
 
-  const out = kit.ctx.createGain();
-  out.gain.value = 0.35 * getAudioVolume();
-  out.connect(kit.ctx.destination);
+  const out = cueOut(kit.ctx, 0.35, 2000);
   const strikeKit: Kit = {
     ctx: kit.ctx,
     dark: false,
@@ -648,7 +652,6 @@ export function playSegmentCue(): void {
   };
   strike(strikeKit, 659, 0.22, 1.1);
   strike(strikeKit, 988, 0.18, 1.4, 0.16);
-  window.setTimeout(() => out.disconnect(), 2000);
 }
 
 /** How long the phone sounds before the line that answers or reads it, ms. */
@@ -665,9 +668,7 @@ export function playPhoneCue(kind: "call" | "message"): void {
   if (!kit) return;
 
   const { ctx } = kit;
-  const out = ctx.createGain();
-  out.gain.value = 0.3 * getAudioVolume();
-  out.connect(ctx.destination);
+  const out = cueOut(ctx, 0.3, 3200);
   const now = ctx.currentTime;
 
   const beep = (frequency: number, at: number, length: number, level: number) => {
@@ -694,5 +695,4 @@ export function playPhoneCue(kind: "call" | "message"): void {
       }
     }
   }
-  window.setTimeout(() => out.disconnect(), 3200);
 }
