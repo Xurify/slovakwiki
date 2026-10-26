@@ -88,8 +88,10 @@ const PLACE_DX = { l: -40, bl: -18, br: 18, r: 40 } as const;
 /**
  * Mária's kitchen, against the tiles on the right: the counter with the sink
  * (the big pot in the open cupboard under it) and the board, the stove, and
- * past it a short side counter where Mária cooks, the salt and the spoon
- * crock at her hand and the utensil rail over it. The towel hangs at the
+ * past it a short side counter where Mária cooks, the salt at her hand, clear
+ * of her body so it is seen, and the rail with the spoon and ladle over it.
+ * Nothing hangs behind her head: a lid there read as a hood. The soup
+ * simmers uncovered. The towel hangs at the
  * counter's end, a step from the sink. The table under the window is laid for
  * four: Anna's place at the left end, Lucia's and Marek's behind it, Mária's
  * at the right end. Rig units from each piece's middle; a cast of three
@@ -116,14 +118,13 @@ const KITCHEN_SET: PlaceSet = {
     { id: "stove", kind: "stove", at: { piece: "counter", dx: 74 } },
     { id: "side", kind: "counter", at: { piece: "stove", dx: 37 }, width: 36 },
     // Under the wall cupboards, out of a tall pot's way.
-    { id: "rail", kind: "rail", at: { piece: "side", dx: 0 }, width: 30, height: 92 },
+    { id: "rail", kind: "rail", at: { piece: "side", dx: 0 }, width: 30, height: 88 },
     // A small table for four, so the floor between its end chair and the counter is free to stand on.
     { id: "table", kind: "table", x: 370, width: 96, front: true },
   ],
   objects: [
     { id: "pot", kind: "pot", start: { where: { on: "cupboard", dx: 0 } } },
-    { id: "lid", kind: "lid", start: { where: { on: "rail", dx: -6 } } },
-    { id: "ladle", kind: "ladle", start: { where: { on: "rail", dx: 9 } } },
+    { id: "ladle", kind: "ladle", start: { where: { on: "rail", dx: 12 } } },
     { id: "towel", kind: "towel", start: { where: { on: "hook", dx: 0 } } },
     { id: "board", kind: "board", start: { where: { on: "counter", dx: 24 } } },
     { id: "carrot", kind: "carrot", start: { where: { in: "board", dx: -2 } } },
@@ -133,9 +134,8 @@ const KITCHEN_SET: PlaceSet = {
       kind: "jug",
       start: { where: { on: "counter", dx: 49 }, fill: "water" },
     },
-    { id: "salt", kind: "salt", start: { where: { on: "side", dx: -9 } } },
-    { id: "crock", kind: "crock", start: { where: { on: "side", dx: 11 } } },
-    { id: "spoon", kind: "spoon", start: { where: { in: "crock" } } },
+    { id: "salt", kind: "salt", start: { where: { on: "side", dx: 6 } } },
+    { id: "spoon", kind: "spoon", start: { where: { on: "rail", dx: 5 } } },
     ...(["l", "bl", "br", "r"] as const).flatMap((seat) => [
       {
         id: `bowl-${seat}`,
@@ -187,7 +187,7 @@ const KITCHEN_SET: PlaceSet = {
     "board-place": { piece: "counter", dx: 24 },
     "knife-place": { piece: "counter", dx: 40 },
     "jug-place": { piece: "counter", dx: 49 },
-    "salt-place": { piece: "side", dx: -9 },
+    "salt-place": { piece: "side", dx: 6 },
     phone: { piece: "table", dx: 4 },
   },
   door: "door",

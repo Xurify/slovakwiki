@@ -621,8 +621,7 @@ const KITCHEN_ACTS: Record<string, Cue[]> = {
   "maria-cook-an-hour": [
     { who: "anna", do: "put", what: "jug", to: "jug-place", on: "start" },
     { who: "anna", do: "go", to: "board" },
-    { do: "take", what: "lid", on: "tak" },
-    { do: "put", what: "lid", to: "pot", on: "necháme" },
+    { do: "look", to: "hodiny", on: "hodinku" },
     { do: "skip", minutes: 60, on: "after" },
     { do: "camera", to: "wide", on: "dark" },
     { who: "marek", do: "go", to: "chat", on: "dark" },
@@ -630,9 +629,7 @@ const KITCHEN_ACTS: Record<string, Cue[]> = {
   ],
   "anna-smells-good": [{ do: "sniff", on: "start" }],
   "maria-soup-ready": [
-    { do: "take", what: "lid", on: "polievka" },
-    { do: "put", what: "lid", to: "rail", dx: -6 },
-    { do: "take", what: "spoon" },
+    { do: "take", what: "spoon", on: "polievka" },
     { do: "dip", what: "spoon", to: "pot" },
     // Called over, and held out to him once he is there.
     { who: "marek", do: "go", to: "pot-left", on: "marek" },
@@ -654,7 +651,7 @@ const KITCHEN_ACTS: Record<string, Cue[]> = {
     { who: "marek", do: "dip", what: "spoon", to: "pot", on: "start" },
     { who: "marek", do: "blow", what: "spoon" },
   ],
-  // The spoon goes back to the cook, who puts it in the crock.
+  // The spoon goes back to the cook, who hangs it on the rail.
   "marek-bit-salty": [
     { do: "taste", what: "spoon", on: "before" },
     { do: "thumbs", on: "výborná" },
@@ -663,7 +660,7 @@ const KITCHEN_ACTS: Record<string, Cue[]> = {
     { who: "maria", do: "facepalm", on: "slaná" },
     { do: "nod", on: "ale" },
     { do: "give", what: "spoon", to: "maria", on: "after" },
-    { who: "maria", do: "put", what: "spoon", to: "crock" },
+    { who: "maria", do: "put", what: "spoon", to: "rail", dx: 5 },
   ],
 };
 
@@ -969,8 +966,6 @@ const TABLE_ACTS: Record<string, Cue[]> = {
     { do: "stand", on: "polievku" },
     { do: "go", to: "cook" },
     { do: "switch", what: "stove", to: "off" },
-    { do: "take", what: "lid" },
-    { do: "put", what: "lid", to: "pot" },
     // Hungry, he checks how long half an hour is; the game picks up from there.
     { who: "marek", do: "look", to: "hodiny", on: "after" },
     { who: "anna", do: "laugh", on: "after" },
