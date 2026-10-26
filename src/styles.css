@@ -31,6 +31,24 @@
   --animate-rise: rise 200ms ease-out both;
   /* Rain and snow on the stage; each layer sets its own duration and --fall-x / --fall-y. */
   --animate-fall: fall 1s linear infinite;
+  /* Steam off a hot pot or spoon: each wisp sets its own duration and delay. Held still, it hangs there. */
+  --animate-steam: steam 2s ease-out infinite;
+
+  @keyframes steam {
+    from {
+      opacity: 0;
+      transform: translateY(2px) scaleX(0.8);
+    }
+
+    35% {
+      opacity: 0.9;
+    }
+
+    to {
+      opacity: 0;
+      transform: translateY(-9px) scaleX(1.4);
+    }
+  }
 
   @keyframes fall {
     to {

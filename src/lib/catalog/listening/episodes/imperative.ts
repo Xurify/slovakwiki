@@ -425,13 +425,37 @@ const kitchen: ListeningChapter = {
         " opatrný, je horúca!",
       ],
       "I'll take it. Marek, taste the soup. But be careful, it's hot!",
+      {
+        act: [
+          { do: "go", to: "stove", on: "before" },
+          { do: "take", what: "lid", on: "vezmem" },
+          { do: "take", what: "spoon", on: "Marek" },
+          { who: "marek", do: "go", to: "maria", on: "Marek" },
+          { do: "dip", what: "spoon", to: "pot" },
+          { do: "offer", what: "spoon", to: "marek", on: "Ale" },
+          { who: "marek", do: "camera", to: "marek", zoom: 1.7, on: "horúca" },
+        ],
+      },
     ),
-    line("marek-ow-hot", "Marek", [SURPRISED, "Au! ", PAUSE, "Horúca!"], "Ow! Hot!"),
+    line("marek-ow-hot", "Marek", [SURPRISED, "Au! ", PAUSE, "Horúca!"], "Ow! Hot!", {
+      act: [
+        { do: "take", what: "spoon", on: "before" },
+        { do: "taste", what: "spoon" },
+        { do: "burn", on: "Au" },
+      ],
+    }),
     line(
       "anna-is-it-good",
       "Anna",
       [CHUCKLE, "No ", mark("povedz"), ", je dobrá?"],
       "Well, tell us, is it good?",
+      {
+        act: [
+          { do: "camera", to: "wide", on: "start" },
+          { who: "maria", do: "put", what: "lid", to: "pot", on: "start" },
+          { who: "marek", do: "blow", what: "spoon", on: "povedz" },
+        ],
+      },
     ),
     line(
       "marek-call-lucia",

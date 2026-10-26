@@ -34,8 +34,11 @@
 
 <WallClock clock={PARTS.kitchen.clock} {hour} />
 
+<!-- The tiled wall the counter and stove stand against; they are the set's, drawn at the cast's scale (StickSet.svelte). -->
 {#each tiles as x (x)}
-  <rect x={x + 1} y="112" width="28" height="38" class="fill-scene-cool" />
+  {#each [110, 140, 170, 200] as y (y)}
+    <rect x={x + 1} {y} width="28" height="28" class="fill-scene-cool" />
+  {/each}
 {/each}
 <rect x="560" y="40" width="214" height="58" rx="3" class="fill-scene-wood" />
 <path d="M631 40V98M702 40V98" class="stroke-scene-line/25" stroke-width="1.6" />
@@ -43,33 +46,4 @@
   d="M620 64v12M642 64v12M713 64v12"
   class="stroke-scene-line/50"
   stroke-width="2.4"
-/>
-
-<rect x="560" y="156" width="214" height="70" class="fill-scene-wood" />
-<path d="M631 156V226M702 156V226" class="stroke-scene-line/25" stroke-width="1.6" />
-<path
-  d="M620 168h12M642 168h12M713 168h12"
-  class="stroke-scene-line/50"
-  stroke-width="2.4"
-/>
-<rect x="554" y="148" width="226" height="10" rx="2" class="fill-scene-edge" />
-
-<!-- The sink, left; the stove and its pot, right. -->
-<rect x="582" y="144" width="54" height="6" rx="2" class="fill-scene-line/40" />
-<path
-  d="M610 144V124Q610 116 618 116H624"
-  class="stroke-scene-line/70"
-  fill="none"
-  stroke-width="3"
-/>
-<rect x="684" y="142" width="80" height="7" rx="2" class="fill-scene-line/70" />
-<path d="M694 142h24M730 142h24" class="stroke-scene-red/70" stroke-width="2" />
-<path d="M698 112h46l-3 30h-40Z" class="fill-scene-line" />
-<path d="M694 112h54" class="stroke-scene-line" stroke-width="4" />
-<path d="M690 120h6M746 120h6" class="stroke-scene-line" stroke-width="3" />
-<path
-  d="M710 104q4-6 0-12M722 102q4-6 0-12M734 104q4-6 0-12"
-  class="stroke-white/80"
-  fill="none"
-  stroke-width="2"
 />

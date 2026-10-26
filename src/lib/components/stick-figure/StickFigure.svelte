@@ -14,7 +14,12 @@
   import { limbPath, n, sleevePath } from "$lib/stick-figure/draw";
   import { LOOKS } from "$lib/stick-figure/looks";
   import type { Held } from "$lib/stick-figure/props";
+  import type { Emote } from "$lib/stick-figure/act-motions";
+  import type { ObjectKind } from "$lib/stick-figure/acts";
+  import { mouthOf } from "$lib/stick-figure/reach";
+  import { OBJECT_SIZE } from "$lib/stick-figure/set-pieces";
   import StickHead from "./StickHead.svelte";
+  import StickSetObject from "./StickSetObject.svelte";
   import StickHeld from "./StickHeld.svelte";
   import StickPicture from "./StickPicture.svelte";
   import StickProp from "./StickProp.svelte";
@@ -32,6 +37,8 @@
     call = 0,
     dress = dressFor("clear"),
     turnDelay = 0,
+    hands = {},
+    emote,
   }: {
     characterId: LessonCharacterId;
     class?: string;
@@ -51,7 +58,18 @@
     dress?: Dress;
     /** Ms before a change of `facing` starts: a listener turns a beat after the speaker. */
     turnDelay?: number;
+    /** Objects of the set in each hand, turned `turn` degrees from upright. */
+    hands?: Partial<Record<"lead" | "rear", InHand>>;
+    /** A mark at the mouth: heat off a burnt tongue, a breath blown on a spoon. */
+    emote?: Emote;
   } = $props();
+
+  interface InHand {
+    full?: boolean;
+    heat?: number;
+    kind: ObjectKind;
+    turn?: number;
+  }
 
   /**
    * The rear hand at the near ear, which the three-quarter view puts on the
@@ -118,6 +136,16 @@
   />
 {/snippet}
 
+{#snippet inHand(at: Point, object: InHand)}
+  <g
+    transform="translate({n(at.x)} {n(at.y)}) rotate({n(
+      object.turn ?? 0,
+    )}) translate(0 {OBJECT_SIZE[object.kind].grip})"
+  >
+    <StickSetObject kind={object.kind} full={object.full} heat={object.heat} />
+  </g>
+{/snippet}
+
 {#snippet leg(limb: StickLimb)}
   <path d={limbPath(rig.hip, limb)} class="stroke-portrait-ink" stroke-width="3.4" />
 {/snippet}
@@ -175,6 +203,9 @@
     </g>
 
     {@render arm(rig.rearShoulder, rig.rearArm)}
+    {#if hands.rear}
+      {@render inHand(rig.rearArm.end, hands.rear)}
+    {/if}
     {@render hand(rig.rearArm.end)}
     {@render leg(rig.rearLeg)}
     {@render leg(rig.leadLeg)}
@@ -204,6 +235,9 @@
 
     {#if held && !phoneAtEar}
       <StickHeld {held} {rig} />
+    {/if}
+    {#if hands.lead}
+      {@render inHand(rig.leadArm.end, hands.lead)}
     {/if}
 
     {@render hand(rig.leadArm.end)}
@@ -254,6 +288,29 @@
         />
       {/if}
     </g>
+
+    {#if emote}
+      {@const mouth = mouthOf(pose, sit)}
+      <g transform="translate({n(mouth.x + 2)} {n(mouth.y)})">
+        <!-- A CSS animation's transform would replace the attribute's, so it rises in a group of its own. -->
+        <g class="animate-rise">
+          {#if emote === "hot"}
+            <!-- Heat off a burnt tongue: wavy lines fanning out from the open mouth. -->
+            <path
+              d="M1 -2q2-1.5 4 0t4 0M1.5 1q2-1.5 4 0t4 0M1 4q2-1.5 4 0t4 0"
+              class="stroke-scene-red"
+              stroke-width="0.9"
+            />
+          {:else}
+            <path
+              d="M1.5 -1.2h5M2.5 0.6h7M1.5 2.4h5"
+              class="stroke-scene-cool"
+              stroke-width="0.9"
+            />
+          {/if}
+        </g>
+      </g>
+    {/if}
 
     {#if phoneAtEar}
       <!-- Over the head, so the phone shows against the ear the rear arm reaches round to. -->

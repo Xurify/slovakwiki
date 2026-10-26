@@ -49,6 +49,8 @@ export const THINK_MS = 2000;
 export type Part = string | Exclude<MarkedPart, string> | Direction | typeof STOP;
 
 export interface LineOptions {
+  /** What the cast does on stage while it plays, on cue. */
+  act?: DialogueTurn["act"];
   /** A gesture per sentence on the stage, where the one read from the words is wrong. */
   gestures?: DialogueTurn["gestures"];
   /** What the speaker holds per sentence on the stage, where the words would pick wrong. */
@@ -68,7 +70,7 @@ export function lineWriter(prefix: string) {
     speaker: string,
     parts: Part[],
     english: string,
-    { gestures, overPhone, props, ring, to }: LineOptions = {},
+    { act, gestures, overPhone, props, ring, to }: LineOptions = {},
   ): DialogueTurn {
     const marked = markedText(
       parts.flatMap((part): MarkedPart[] =>
@@ -100,6 +102,7 @@ export function lineWriter(prefix: string) {
       marks: marked.marks,
       english,
       ...(said !== marked.text ? { audio: { transcript: said } } : {}),
+      ...(act ? { act } : {}),
       ...(gestures ? { gestures } : {}),
       ...(props ? { props } : {}),
       ...(to ? { to } : {}),

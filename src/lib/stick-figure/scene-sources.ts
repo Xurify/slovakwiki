@@ -1,3 +1,4 @@
+import { isActed, worlds, type World } from "./acts";
 import { audioHash } from "$lib/catalog/audio/core";
 import { hasAudioClip } from "$lib/catalog/audio/manifest";
 import { resolveDictionaryAudioSrc } from "$lib/catalog/audio/resolve-server";
@@ -40,6 +41,7 @@ export function sceneLines(turns: readonly DialogueTurn[]): SceneLine[] {
   const mouths = sceneMouthTracks([...turns]);
 
   return turns.map((turn) => ({
+    act: turn.act,
     characterId:
       dialogueSpeakerLabel(turn.speaker) === null
         ? null
@@ -110,6 +112,7 @@ export function podcastGroups(): SceneGroup[] {
 
 /** The part of a scene line the stage reads, so a page sends no more than it plays. */
 function directedLine({
+  act,
   characterId,
   gestures,
   mouth,
@@ -124,6 +127,7 @@ function directedLine({
   vowels,
 }: SceneLine): DirectedLine {
   return {
+    act,
     characterId,
     gestures,
     mouth,
@@ -149,18 +153,28 @@ export function episodeStages(episode: ListeningEpisode): {
 } {
   const order = episode.speakers.map(characterIdForSpeaker);
   let said: string[] = [];
+  /** The set as the last segment in the same place left it: the soup still on the stove. */
+  let world: World | undefined;
   const scenes = Object.fromEntries(
     episode.chapters.map((chapter, index) => {
       const setting = chapter.stage ?? "studio";
       const previous = episode.chapters[index - 1];
-      if ((previous?.stage ?? "studio") !== setting) said = [];
+      if ((previous?.stage ?? "studio") !== setting) {
+        said = [];
+        world = undefined;
+      }
       const before = said;
       said = [...said, ...chapter.lines.map((line) => line.slovak)];
+      const lines = sceneLines(chapter.lines).map(directedLine);
+      const set = PLACES[setting].set;
+      const start = world;
+      if (set && isActed(lines)) world = worlds(lines, set.objects, start).at(-1);
       return [
         chapter.id,
         {
           ...(index > 0 && before.length > 0 ? { before } : {}),
-          lines: sceneLines(chapter.lines).map(directedLine),
+          ...(start ? { world: start } : {}),
+          lines,
           order,
           setting,
         },

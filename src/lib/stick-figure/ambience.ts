@@ -449,7 +449,7 @@ export function playTramCue(): void {
 let cueContext: { ctx: AudioContext; noise: AudioBuffer } | undefined;
 
 /** One context for the short cues that follow the figures, made on first use. */
-function cues(): { ctx: AudioContext; noise: AudioBuffer } | undefined {
+export function cues(): { ctx: AudioContext; noise: AudioBuffer } | undefined {
   if (cueContext) {
     if (cueContext.ctx.state === "suspended") void cueContext.ctx.resume();
     return cueContext;

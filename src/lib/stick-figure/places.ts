@@ -5,7 +5,9 @@ export type Ground = "stone" | "wood" | "carpet" | "soil";
 import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
 import type { AmbienceLayer } from "./ambience";
 import { PARTS, benchBox, clockBox, lampBox, plantBox, treeBox } from "./backdrop-parts";
+import type { SetObject } from "./acts";
 import type { Point } from "./rig";
+import type { SetPiece } from "./set-pieces";
 import { isFair, type SceneMood } from "./scene-mood";
 import type { StageSetting } from "./stage-setting";
 import {
@@ -68,6 +70,11 @@ export interface Place {
   glass?: Glass;
   /** Chairs a line can sit someone on ("Sadnite si."), and tables. */
   furniture?: readonly Furniture[];
+  /**
+   * What the cast works at and with, for scenes acted from cues: the
+   * surfaces at the cast's scale, and every object with where it starts.
+   */
+  set?: { objects: readonly SetObject[]; pieces: readonly SetPiece[] };
 }
 
 /** The park's afternoon sun, which a line can point at and Find it can ask for. */
@@ -167,21 +174,34 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       drawn(WORDS.chladnicka, [280, 66, 56, 160]),
       drawn(WORDS.okno, [372, 54, 104, 80]),
       drawn(WORDS.hodiny, clockBox(PARTS.kitchen.clock)),
-      drawn(WORDS.umyvadlo, [582, 116, 54, 34]),
-      drawn(WORDS.hrniec, [690, 100, 62, 42]),
-      drawn(WORDS.sporak, [684, 142, 80, 84]),
+      // The sink, pot and stove are the set's, at the cast's scale: these boxes fit a cast of three or more (StickSet.svelte).
+      drawn(WORDS.umyvadlo, [570, 190, 40, 22]),
+      drawn(WORDS.hrniec, [721, 186, 33, 23]),
+      drawn(WORDS.sporak, [706, 209, 52, 69]),
     ],
     sounds: ["hum"],
     // The cook works at the stove end; guests eat at the table by the window.
     staff: ["maria"],
-    // At the counter, between the sink and the stove, where the cooking is.
-    post: 640,
+    // At the counter, the cook nearest the stove.
+    post: 621,
     furniture: [
       { kind: "chair", x: 360, facing: 1 },
       { kind: "table", x: 440 },
       { kind: "chair", x: 520, facing: -1 },
     ],
     glass: { height: 64, width: 88, x: 380, y: 62 },
+    set: {
+      pieces: [
+        { id: "counter", kind: "counter", x: 600 },
+        { id: "stove", kind: "stove", x: 732 },
+      ],
+      objects: [
+        { id: "pot", kind: "pot", start: { where: { on: "stove", dx: 4 }, heat: 1 } },
+        { id: "lid", kind: "lid", start: { where: { in: "pot" } } },
+        { id: "crock", kind: "crock", start: { where: { on: "stove", dx: -12 } } },
+        { id: "spoon", kind: "spoon", start: { where: { in: "crock" } } },
+      ],
+    },
   },
   market: {
     ground: "stone",
