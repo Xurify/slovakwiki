@@ -28,6 +28,6 @@ Reply in your message, never in a file. First the **blockers**, anything a viewe
 {"class": "I", "segment": "At the market", "t_ms": 41500, "who": "Lucia", "what": "hands the bag over, but her hand stops a hand's width short of his", "evidence": "strip 12, 41.33 to 41.83 s"}
 ```
 
-`class` is the letter of the kind of problem: A words and picture disagree, B an object's place or state, C space and the frame's edge, D dialogue, E logic and motivation, F structure and pacing, G sets and characters, H voice and delivery, I motion and contact. `t_ms` is the strip's time where it starts going wrong, in milliseconds. `what` says what is wrong and, in a few words, what it should look like.
+`class` is the letter of the kind of problem: A words and picture disagree, B an object's place or state, C space and the frame's edge, D dialogue, E logic and motivation, F structure and pacing, G sets and characters, H voice and delivery, I motion and contact, J the player and the listener's game. `t_ms` is the strip's time where it starts going wrong, in milliseconds. `what` says what is wrong and, in a few words, what it should look like.
 
 Then at most five **nits** (only seen when paused), one plain line each, and one line `Not seen: ` with the numbers of the beats your strips did not show. Nothing else, no praise.

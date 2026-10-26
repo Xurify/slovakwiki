@@ -14,6 +14,12 @@ For every frame ask:
 6. **Characters.** Does each one look and act like what they are (a robot looks like a machine, a dog acts like a dog)? Do faces and poses fit the feeling of the line, and do people turn towards whoever they talk to?
 7. **Across the segment:** do people move when the story says they move, or does everyone stand still in the same spot for the whole segment?
 
+You may also get pictures of the question card from a listener's game (`ask-1.png`, and `ask-1-hover.png` with the pointer on its quiet control). For each ask:
+
+1. Does every button's box, on hover too, start where the card's text starts, and do buttons in one row share a height?
+2. Does each control sit with the group it acts on, in the order a listener reads it, so that nothing looks left over below the rest?
+3. Does the card show only this question: no answer marked before the pick, and nothing from an earlier question?
+
 ## Output
 
 Reply in your message, never in a file. First the **blockers**, anything a first-time viewer would notice, most serious first, one JSON object per line:
@@ -22,6 +28,6 @@ Reply in your message, never in a file. First the **blockers**, anything a first
 {"class": "B", "segment": "At the market", "line": 7, "who": "Lucia", "what": "a bag is in her hand with no frame showing her take it; she should pick it up from the stall", "evidence": "line 7 frame, compared with line 6"}
 ```
 
-`class` is the letter of the kind of problem: A words and picture disagree, B an object's place or state, C space and the frame's edge, D dialogue, E logic and motivation, F structure and pacing, G sets and characters, H voice and delivery, I motion and contact. `line` is the line's number on the sheet. `what` says what is wrong and, in a few words, the fix.
+`class` is the letter of the kind of problem: A words and picture disagree, B an object's place or state, C space and the frame's edge, D dialogue, E logic and motivation, F structure and pacing, G sets and characters, H voice and delivery, I motion and contact, J the player and the listener's game. `line` is the line's number on the sheet. `what` says what is wrong and, in a few words, the fix.
 
 Then at most five **nits**, one plain line each. Nothing else, no praise.
