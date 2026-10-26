@@ -372,26 +372,22 @@ export function playAmbience(first: Ambience): AmbiencePlayer | undefined {
  * What you hear on a Bratislava platform as a tram comes in: the driver's
  * bell, the rails starting to hum, the wheels knocking over the rail joints
  * as it gets close, the motor whining down, and the brakes as it stops.
- * About four seconds; plays on its own, background sound or not.
+ * About four seconds; plays on its own, background sound or not, and
+ * stops with the stage like the other cues.
  */
 export function playTramCue(): void {
   if (getStoredSfxPreference() === "off") return;
-  const Context =
-    window.AudioContext ??
-    (window as unknown as { webkitAudioContext?: typeof AudioContext })
-      .webkitAudioContext;
-  if (!Context) return;
+  const cue = cues();
+  if (!cue) return;
 
-  const ctx = new Context();
-  const out = ctx.createGain();
-  out.gain.value = 0.5 * getAudioVolume();
-  out.connect(ctx.destination);
+  const { ctx } = cue;
+  const out = cueOut(ctx, 0.5, 4800);
   const kit: Kit = {
     ctx,
     dark: false,
     every: () => {},
     indoors: false,
-    noise: noiseBuffer(ctx),
+    noise: cue.noise,
     out,
   };
   const now = ctx.currentTime;
@@ -442,8 +438,6 @@ export function playTramCue(): void {
   brake.connect(brakeGain).connect(out);
   brake.start(now + 2.9);
   brake.stop(now + 3.6);
-
-  window.setTimeout(() => void ctx.close(), 4800);
 }
 
 let cueContext: { ctx: AudioContext; noise: AudioBuffer } | undefined;
@@ -525,20 +519,37 @@ const GROUND_STEPS: Record<
   },
 };
 
+/** The cues still sounding (footsteps, a phone, the sting, a tram), so a stage that stops or skips can silence them. */
+const sounding = new Set<GainNode>();
+
+/** An output for one cue, silenced by stopCues or let go after `ms`. */
+function cueOut(ctx: AudioContext, level: number, ms: number): GainNode {
+  const out = ctx.createGain();
+  out.gain.value = level * getAudioVolume();
+  out.connect(ctx.destination);
+  sounding.add(out);
+  window.setTimeout(() => {
+    out.disconnect();
+    sounding.delete(out);
+  }, ms);
+  return out;
+}
+
+/**
+ * Silence every cue still sounding: the stage has stopped, handed on to the
+ * next segment, or jumped to another line. Web Audio schedules a whole walk
+ * up front, so without this each skip stacks another walk on the last.
+ */
+export function stopCues(): void {
+  for (const out of sounding) out.disconnect();
+  sounding.clear();
+}
+
 /**
  * Footsteps for a walk of `steps`, one every `stepMs`, on the `ground`
  * underfoot: heels click on it, soft soles land dull, plain shoes are the
  * ground's own sound.
  */
-/** The footsteps still sounding, so a stage that stops can silence them. */
-const stepping = new Set<GainNode>();
-
-/** Silence every walk still sounding: the stage has stopped, or handed on to the next segment. */
-export function stopSteps(): void {
-  for (const out of stepping) out.disconnect();
-  stepping.clear();
-}
-
 export function playSteps(
   steps: number,
   stepMs: number,
@@ -563,10 +574,7 @@ export function playSteps(
         : base;
 
   const { ctx, noise } = kit;
-  const out = ctx.createGain();
-  out.gain.value = 0.3 * getAudioVolume();
-  out.connect(ctx.destination);
-  stepping.add(out);
+  const out = cueOut(ctx, 0.3, steps * stepMs + 500);
 
   for (let step = 0; step < steps; step += 1) {
     // The heel lands at the widest stride, halfway through each step.
@@ -616,14 +624,6 @@ export function playSteps(
       click.start(at, Math.random(), 0.03);
     }
   }
-
-  window.setTimeout(
-    () => {
-      out.disconnect();
-      stepping.delete(out);
-    },
-    steps * stepMs + 500,
-  );
 }
 
 /**
@@ -635,9 +635,7 @@ export function playSegmentCue(): void {
   const kit = cues();
   if (!kit) return;
 
-  const out = kit.ctx.createGain();
-  out.gain.value = 0.35 * getAudioVolume();
-  out.connect(kit.ctx.destination);
+  const out = cueOut(kit.ctx, 0.35, 2000);
   const strikeKit: Kit = {
     ctx: kit.ctx,
     dark: false,
@@ -648,7 +646,6 @@ export function playSegmentCue(): void {
   };
   strike(strikeKit, 659, 0.22, 1.1);
   strike(strikeKit, 988, 0.18, 1.4, 0.16);
-  window.setTimeout(() => out.disconnect(), 2000);
 }
 
 /** How long the phone sounds before the line that answers or reads it, ms. */
@@ -665,9 +662,7 @@ export function playPhoneCue(kind: "call" | "message"): void {
   if (!kit) return;
 
   const { ctx } = kit;
-  const out = ctx.createGain();
-  out.gain.value = 0.3 * getAudioVolume();
-  out.connect(ctx.destination);
+  const out = cueOut(ctx, 0.3, 3200);
   const now = ctx.currentTime;
 
   const beep = (frequency: number, at: number, length: number, level: number) => {
@@ -694,5 +689,4 @@ export function playPhoneCue(kind: "call" | "message"): void {
       }
     }
   }
-  window.setTimeout(() => out.disconnect(), 3200);
 }
