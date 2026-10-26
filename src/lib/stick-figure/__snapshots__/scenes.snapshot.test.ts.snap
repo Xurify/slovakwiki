@@ -3293,10 +3293,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-bag 1`] = `
     "dvere",
     "hodiny",
     "stol",
-    "pocitac",
-    "sluchadla",
     "mikrofon",
-    "okno",
     "rastlina",
     "koberec",
   ],
@@ -3807,10 +3804,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-intro 1`] = `
     "dvere",
     "hodiny",
     "stol",
-    "pocitac",
-    "sluchadla",
     "mikrofon",
-    "okno",
     "rastlina",
     "koberec",
   ],
@@ -4295,10 +4289,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-outro 1`] = `
     "dvere",
     "hodiny",
     "stol",
-    "pocitac",
-    "sluchadla",
     "mikrofon",
-    "okno",
     "rastlina",
     "koberec",
   ],
@@ -4594,10 +4585,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
     "dvere",
     "hodiny",
     "stol",
-    "pocitac",
-    "sluchadla",
     "mikrofon",
-    "okno",
     "rastlina",
     "koberec",
   ],
@@ -4611,6 +4599,43 @@ exports[`every scene, directed > podcast podcast-imperative-game 1`] = `
     "marek",
   ],
   "lines": [
+    {
+      "line": "anna: Je ráno a sme späť v štúdiu.",
+      "plan": {
+        "beats": [
+          "0 tell",
+        ],
+        "ms": 2350,
+        "sentences": "0-2200",
+        "words": "0-225 225-725 725-913 913-1175 1175-1475 1475-1475 1475-2200",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Včera u Márie sme počuli veľa rozkazov. Tak teraz hra!",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "3727 stress",
+        ],
+        "ms": 4800,
+        "sentences": "50-2724 3727-4500",
+        "words": "50-422 422-566 566-1091 1091-1291 1291-1807 1807-2151 2151-2724 3727-3927 3927-4299 4299-4500",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
     {
       "line": "anna: Hra je jednoduchá. Ja poviem sloveso v tvare oni, ty z neho urobíš rozkaz.",
       "plan": {
@@ -4932,90 +4957,13 @@ exports[`every scene, directed > podcast podcast-imperative-game 1`] = `
         },
       },
     },
-    {
-      "line": "marek: Ďakujem. A dnes večer ideme k Márii, však?",
-      "plan": {
-        "beats": [
-          "0 nod",
-          "2050 ask",
-        ],
-        "ms": 4400,
-        "questions": "2050-4250",
-        "sentences": "0-638 2050-4250",
-        "words": "0-638 2050-2201 2201-2444 2444-2837 2837-3352 3352-3352 3352-3907 4008-4250",
-      },
-      "staging": {
-        "addressee": "anna",
-        "facing": {
-          "anna": 1,
-          "marek": -1,
-        },
-        "reactions": [
-          {
-            "at": 0.5,
-            "characterId": "anna",
-            "gesture": "lean",
-            "sentence": 1,
-          },
-        ],
-      },
-    },
-    {
-      "line": "anna: Áno! Naučí nás variť svoju polievku.",
-      "plan": {
-        "beats": [
-          "0 nod",
-          "800 tell",
-        ],
-        "ms": 2900,
-        "sentences": "0-342 800-2700",
-        "words": "0-342 800-1277 1277-1494 1494-1832 1832-2171 2171-2700",
-      },
-      "staging": {
-        "addressee": "marek",
-        "facing": {
-          "anna": 1,
-          "marek": -1,
-        },
-        "reactions": [
-          {
-            "at": 1,
-            "characterId": "marek",
-            "gesture": "nod",
-            "sentence": 1,
-          },
-        ],
-      },
-    },
-    {
-      "line": "marek: Mňam. Tak večer poďme variť!",
-      "plan": {
-        "beats": [
-          "0 tell",
-          "950 stress",
-        ],
-        "ms": 2800,
-        "sentences": "0-303 950-2500",
-        "words": "0-303 950-1186 1186-1624 1624-2062 2062-2500",
-      },
-      "staging": {
-        "addressee": "anna",
-        "facing": {
-          "anna": 1,
-          "marek": -1,
-        },
-      },
-    },
   ],
   "setting": "studio",
   "things": [
     "dvere",
     "hodiny",
     "stol",
-    "pocitac",
-    "sluchadla",
     "mikrofon",
-    "okno",
     "rastlina",
     "koberec",
   ],
@@ -5030,19 +4978,18 @@ exports[`every scene, directed > podcast podcast-imperative-intro 1`] = `
   ],
   "lines": [
     {
-      "line": "anna: Ahojte! Toto je podcast Slovak Wiki. Ja som Anna.",
+      "line": "anna: Ahojte, vitajte v podcaste Slovak Wiki! Ja som Anna.",
       "plan": {
         "beats": [
-          "0 wave",
-          "1000 tell",
+          "50 wave",
           "3150 self",
         ],
-        "ms": 4150,
+        "ms": 4000,
         "pictures": [
-          "2001 flag-sk",
+          "1933 flag-sk",
         ],
-        "sentences": "0-564 1000-2790 3150-3950",
-        "words": "0-564 1000-1364 1364-1546 1546-2001 2001-2426 2426-2790 3150-3342 3342-3566 3566-3950",
+        "sentences": "50-2745 3150-3900",
+        "words": "50-612 716-1309 1309-1309 1309-1933 1933-2370 2370-2745 3150-3330 3330-3540 3540-3900",
       },
       "staging": {
         "addressee": "marek",
@@ -5053,53 +5000,15 @@ exports[`every scene, directed > podcast podcast-imperative-intro 1`] = `
       },
     },
     {
-      "line": "marek: A ja som Marek. Ahojte!",
-      "plan": {
-        "beats": [
-          "100 tell",
-          "1150 wave",
-        ],
-        "ms": 1900,
-        "sentences": "100-913 1150-1700",
-        "words": "100-231 231-389 389-572 572-913 1150-1700",
-      },
-      "staging": {
-        "addressee": "anna",
-        "audience": true,
-        "facing": {
-          "anna": 1,
-        },
-      },
-    },
-    {
-      "line": "anna: Dnes máme tému: rob, robte, robme.",
-      "plan": {
-        "beats": [
-          "0 tell",
-          "2600 muse",
-        ],
-        "ms": 3850,
-        "sentences": "0-3650",
-        "words": "0-376 376-1003 1003-1629 1786-2115 2271-2882 3039-3650",
-      },
-      "staging": {
-        "addressee": "marek",
-        "facing": {
-          "anna": 1,
-          "marek": -1,
-        },
-      },
-    },
-    {
-      "line": "marek: Rob, robte… Anna, je ešte skoro ráno.",
+      "line": "marek: A ja som Marek. Prepáčte, je ešte strašne skoro.",
       "plan": {
         "beats": [
           "150 yawn",
-          "2894 tell",
+          "2999 apologize",
         ],
-        "ms": 5950,
-        "sentences": "150-1247 2894-5700",
-        "words": "150-479 636-1247 2894-3458 3615-3897 3897-4461 4461-5073 5073-5700",
+        "ms": 6250,
+        "sentences": "150-1488 2999-6050",
+        "words": "150-366 366-625 625-927 927-1488 2999-3920 4064-4323 4323-4841 4841-5489 5489-6050",
       },
       "staging": {
         "addressee": "anna",
@@ -5107,18 +5016,26 @@ exports[`every scene, directed > podcast podcast-imperative-intro 1`] = `
           "anna": 1,
           "marek": -1,
         },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
       },
     },
     {
-      "line": "anna: Nespi, Marek! Pi kávu.",
+      "line": "anna: Tak pi tú kávu, Marek. A nezaspi!",
       "plan": {
         "beats": [
-          "0 stress",
-          "1300 tell",
+          "50 chuckle",
+          "2650 stress",
         ],
-        "ms": 2100,
-        "sentences": "0-919 1300-1900",
-        "words": "0-407 512-919 1300-1486 1486-1900",
+        "ms": 3700,
+        "sentences": "50-1998 2650-3400",
+        "words": "50-323 323-556 556-842 842-1361 1491-1998 2650-2806 2806-3400",
       },
       "staging": {
         "addressee": "marek",
@@ -5136,7 +5053,7 @@ exports[`every scene, directed > podcast podcast-imperative-intro 1`] = `
       "plan": {
         "beats": [
           "0 show",
-          "1400 show",
+          "1400 tell",
         ],
         "ms": 2000,
         "sentences": "0-945 1400-1750",
@@ -5144,7 +5061,7 @@ exports[`every scene, directed > podcast podcast-imperative-intro 1`] = `
       },
       "props": [
         "cup",
-        "cup",
+        undefined,
       ],
       "staging": {
         "addressee": "anna",
@@ -5158,16 +5075,86 @@ exports[`every scene, directed > podcast podcast-imperative-intro 1`] = `
       "held": {
         "marek": "cup",
       },
-      "line": "anna: A ešte jedna vec: polej, prosím, tú rastlinku. Je smädná.",
+      "line": "anna: Počuli ste? Pi, nezaspi… Samé rozkazy. A práve o tom je dnešná epizóda.",
+      "plan": {
+        "beats": [
+          "50 ask",
+          "1250 muse",
+          "2800 tell",
+          "5000 tell",
+        ],
+        "ms": 7550,
+        "questions": "50-873",
+        "sentences": "50-873 1250-2202 2800-3662 5000-7350",
+        "words": "50-643 643-873 1250-1452 1563-2202 2800-3155 3155-3662 5000-5153 5153-5590 5590-5743 5743-5956 5956-6139 6139-6607 6607-7350",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "looksAt": "marek",
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "handed": {
+        "anna": "cup",
+      },
+      "held": {
+        "marek": "cup",
+      },
+      "line": "marek: Hm… Rozkazy. Tak ja mám jeden pre teba: pozri sa na našu rastlinku. Je celá žltá!",
+      "plan": {
+        "beats": [
+          "100 think",
+          "1000 tell",
+          "2700 tell",
+          "5419 point → rastlina",
+          "6550 stress",
+        ],
+        "ms": 7950,
+        "sentences": "100-298 1000-1324 2700-6273 6550-7750",
+        "words": "100-298 1000-1324 2700-2918 2918-3105 3105-3365 3365-3770 3770-3988 3988-4362 4466-4871 4871-5058 5058-5245 5245-5619 5619-6273 6550-6770 6770-7260 7260-7750",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "gives": "anna",
+        "reactions": [
+          {
+            "at": 0.8,
+            "characterId": "anna",
+            "gesture": "show",
+            "sentence": 3,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "anna": "cup",
+      },
+      "line": "anna: Lebo ju nikto nepolieva. Marek, tento týždeň je to na tebe.",
       "plan": {
         "beats": [
           "50 tell",
-          "2187 point → rastlina",
-          "3500 tell",
+          "3100 tell",
         ],
-        "ms": 4500,
-        "sentences": "50-3266 3500-4300",
-        "words": "50-205 205-577 577-981 981-1198 1301-1705 1808-2284 2387-2614 2614-3266 3500-3725 3725-4300",
+        "ms": 5700,
+        "sentences": "50-1899 3100-5500",
+        "words": "50-444 444-641 641-1068 1068-1899 3100-3518 3625-4043 4043-4536 4536-4729 4729-4921 4921-5114 5114-5500",
       },
       "staging": {
         "addressee": "marek",
@@ -5180,17 +5167,71 @@ exports[`every scene, directed > podcast podcast-imperative-intro 1`] = `
     },
     {
       "held": {
-        "marek": "cup",
+        "anna": "cup",
       },
-      "line": "marek: Hneď. Ale najprv hra!",
+      "line": "marek: Na mne? Aha… no jasné.",
       "plan": {
         "beats": [
-          "0 tell",
-          "1200 stress",
+          "100 ask",
+          "1450 muse",
+          "2300 tell",
+        ],
+        "ms": 3300,
+        "questions": "100-534",
+        "sentences": "100-534 1450-2070 2300-3150",
+        "words": "100-300 300-534 1450-2070 2300-2551 2551-3150",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "anna": "cup",
+      },
+      "line": "anna: Tak ju hneď polej, chudinku.",
+      "plan": {
+        "beats": [
+          "100 tell",
         ],
         "ms": 2400,
-        "sentences": "0-240 1200-2250",
-        "words": "0-240 1200-1561 1561-2020 2020-2250",
+        "sentences": "100-2150",
+        "words": "100-355 355-573 573-864 864-1337 1459-2150",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "looksAt": "marek",
+      },
+    },
+    {
+      "held": {
+        "anna": "cup",
+      },
+      "line": "marek: Polejem, polejem. Hneď po nahrávaní, sľubujem!",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "2700 stress",
+        ],
+        "ms": 4800,
+        "sentences": "50-1395 2700-4650",
+        "words": "50-668 777-1395 2700-2940 2940-3120 3120-3950 4050-4650",
       },
       "staging": {
         "addressee": "anna",
@@ -5200,16 +5241,81 @@ exports[`every scene, directed > podcast podcast-imperative-intro 1`] = `
         },
       },
     },
+    {
+      "held": {
+        "anna": "cup",
+      },
+      "line": "anna: Uvidíme. Inak, dnes večer ideme k Márii.",
+      "plan": {
+        "beats": [
+          "50 chuckle",
+          "2300 tell",
+        ],
+        "ms": 4800,
+        "sentences": "50-904 2300-4650",
+        "words": "50-904 2300-2693 2803-3065 3065-3491 3491-4049 4049-4049 4049-4650",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "looksAt": "marek",
+      },
+    },
+    {
+      "held": {
+        "anna": "cup",
+      },
+      "line": "marek: Jaj, hej! Ukáže nám, ako robí tú svoju polievku. Mňam.",
+      "plan": {
+        "beats": [
+          "0 stress",
+          "903 tell",
+        ],
+        "ms": 5450,
+        "sentences": "0-533 903-3827 4904-5150",
+        "words": "0-215 318-533 903-1467 1467-1724 1826-2165 2165-2575 2575-2801 2801-3201 3201-3827 4904-5150",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "held": {
+        "anna": "cup",
+      },
+      "line": "anna: Mária v kuchyni stále len rozkazuje. Tak počúvajte!",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "3600 stress",
+        ],
+        "ms": 4750,
+        "sentences": "50-2486 3600-4500",
+        "words": "50-590 590-590 590-1121 1121-1543 1543-1749 1749-2486 3600-3789 3789-4500",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "looksAt": "marek",
+      },
+    },
   ],
   "setting": "studio",
   "things": [
     "dvere",
     "hodiny",
     "stol",
-    "pocitac",
-    "sluchadla",
     "mikrofon",
-    "okno",
     "rastlina",
     "koberec",
   ],
@@ -5225,15 +5331,15 @@ exports[`every scene, directed > podcast podcast-imperative-kitchen 1`] = `
   ],
   "lines": [
     {
-      "line": "maria: Tak. Voda vrie, zelenina je tu… ",
+      "line": "maria: Tak… mrkva, zemiaky, cibuľa… ",
       "plan": {
         "beats": [
-          "0 tell",
-          "1450 muse",
+          "50 muse",
+          "750 muse",
         ],
-        "ms": 3800,
-        "sentences": "0-262 1450-3800",
-        "words": "0-262 1450-1923 1923-2251 2382-3327 3327-3564 3564-3800",
+        "ms": 3200,
+        "sentences": "50-326 650-3050",
+        "words": "50-326 650-1197 1338-2152 2292-3050",
       },
       "staging": {
         "addressee": "anna",
@@ -5302,15 +5408,15 @@ exports[`every scene, directed > podcast podcast-imperative-kitchen 1`] = `
       },
     },
     {
-      "line": "marek: Dobrý večer! Prepáčte, už som tu.",
+      "line": "marek: Dobrý večer! Prepáčte, ešte som parkoval.",
       "plan": {
         "beats": [
           "0 wave",
           "1150 apologize",
         ],
-        "ms": 2750,
-        "sentences": "0-856 1150-2600",
-        "words": "0-449 449-856 1150-1858 1969-2168 2168-2401 2401-2600",
+        "ms": 3150,
+        "sentences": "0-783 1150-2950",
+        "words": "0-411 411-783 1150-1753 1847-2187 2187-2385 2385-2950",
       },
       "staging": {
         "addressee": "maria",
@@ -5330,15 +5436,15 @@ exports[`every scene, directed > podcast podcast-imperative-kitchen 1`] = `
       },
     },
     {
-      "line": "maria: Najprv si umyte ruky. Umývadlo je tam.",
+      "line": "maria: No, poďte, poďte. Najprv si umyte ruky, tamto pri dreze.",
       "plan": {
         "beats": [
-          "50 tell",
-          "2300 point → umyvadlo",
+          "0 tell",
+          "2450 tell",
         ],
-        "ms": 3550,
-        "sentences": "50-1372 2300-3350",
-        "words": "50-428 428-590 590-1048 1048-1372 2300-2994 2994-3158 3158-3350",
+        "ms": 5000,
+        "sentences": "0-1167 2450-4800",
+        "words": "0-181 282-674 775-1167 2450-2836 2836-3001 3001-3469 3469-3799 3891-4249 4249-4442 4442-4800",
       },
       "staging": {
         "addressee": "marek",
@@ -5350,16 +5456,16 @@ exports[`every scene, directed > podcast podcast-imperative-kitchen 1`] = `
       },
     },
     {
-      "line": "anna: Hotovo. Čo máme robiť?",
+      "line": "anna: Tak. S čím vám pomôžeme?",
       "plan": {
         "beats": [
           "50 tell",
-          "900 ask",
+          "1300 ask",
         ],
-        "ms": 1950,
-        "questions": "900-1750",
-        "sentences": "50-541 900-1750",
-        "words": "50-541 900-1058 1058-1408 1408-1750",
+        "ms": 2650,
+        "questions": "1300-2500",
+        "sentences": "50-254 1300-2500",
+        "words": "50-254 1300-1300 1845-1975 1975-2105 2105-2500",
       },
       "staging": {
         "addressee": "maria",
@@ -5379,16 +5485,16 @@ exports[`every scene, directed > podcast podcast-imperative-kitchen 1`] = `
       },
     },
     {
-      "line": "maria: Anna, nakrájaj mrkvu. A Marek… píš.",
+      "line": "maria: Anna, ošúp a nakrájaj mrkvu. A ty, Marek, zober ten veľký hrniec.",
       "plan": {
         "beats": [
           "0 tell",
-          "2400 muse",
-          "3500 tell",
+          "3400 tell",
+          "4493 point → hrniec",
         ],
-        "ms": 4200,
-        "sentences": "0-1344 2400-2778 3500-3950",
-        "words": "0-325 415-992 992-1344 2400-2505 2505-2778 3500-3950",
+        "ms": 5950,
+        "sentences": "0-2144 3400-5750",
+        "words": "0-378 484-904 904-1062 1062-1734 1734-2144 3400-3548 3548-3726 3825-4210 4308-4693 4693-4901 4901-5325 5325-5750",
       },
       "staging": {
         "addressee": "anna",
@@ -5402,22 +5508,147 @@ exports[`every scene, directed > podcast podcast-imperative-kitchen 1`] = `
             "at": 1,
             "characterId": "anna",
             "gesture": "nod",
-            "sentence": 2,
+            "sentence": 1,
           },
         ],
       },
     },
     {
-      "line": "marek: Ja mám písať? A čo?",
+      "line": "marek: Tento? No ten je ale ťažký!",
       "plan": {
         "beats": [
-          "0 self",
-          "1600 ask",
+          "50 point → hrniec (near)",
+          "1400 stress",
         ],
-        "ms": 2400,
-        "questions": "0-1165 1600-2100",
-        "sentences": "0-1165 1600-2100",
-        "words": "0-244 244-583 583-1165 1600-1827 1827-2100",
+        "ms": 3200,
+        "questions": "50-465",
+        "sentences": "50-465 1400-3000",
+        "words": "50-465 1400-1617 1617-1869 1869-2086 2086-2483 2483-3000",
+      },
+      "staging": {
+        "addressee": "maria",
+        "facing": {
+          "anna": 1,
+          "marek": 1,
+          "maria": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "maria",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "maria: Hej, ten. Napusti doň vodu a daj ho na sporák.",
+      "plan": {
+        "beats": [
+          "184 point → hrniec",
+          "2854 point → sporak",
+        ],
+        "ms": 3800,
+        "sentences": "50-611 1250-3500",
+        "words": "50-276 384-611 1250-1803 1803-2006 2006-2356 2356-2501 2501-2705 2705-2879 2879-3054 3054-3500",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": 1,
+          "maria": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Pani Mária, takto?",
+      "plan": {
+        "beats": [
+          "50 ask",
+        ],
+        "ms": 1800,
+        "questions": "50-1650",
+        "sentences": "50-1650",
+        "words": "50-461 461-1090 1204-1650",
+      },
+      "staging": {
+        "addressee": "maria",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+          "maria": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "maria",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "maria: Nie, nie, menšie kúsky. Pozri sa, takto.",
+      "plan": {
+        "beats": [
+          "0 shake",
+          "3150 point",
+        ],
+        "ms": 4500,
+        "sentences": "0-1787 3150-4300",
+        "words": "0-262 381-643 762-1275 1275-1787 3150-3573 3573-3768 3877-4300",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": 1,
+          "maria": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "maria: Marek, daj tam soľ. Ale len trošku!",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "2450 stress",
+        ],
+        "ms": 3700,
+        "sentences": "0-1252 2450-3500",
+        "words": "0-436 548-783 783-1018 1018-1252 2450-2811 2811-3041 3041-3500",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": 1,
+          "maria": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Trošku… takto?",
+      "plan": {
+        "beats": [
+          "50 muse",
+          "1900 ask",
+        ],
+        "ms": 2600,
+        "questions": "1900-2350",
+        "sentences": "50-569 1900-2350",
+        "words": "50-569 1900-2350",
       },
       "staging": {
         "addressee": "maria",
@@ -5437,17 +5668,15 @@ exports[`every scene, directed > podcast podcast-imperative-kitchen 1`] = `
       },
     },
     {
-      "line": "maria: Recept predsa! Nikde ho nemám napísaný. Píš: daj zeleninu do hrnca.",
+      "line": "maria: Marek! Preboha, to nie je trošku!",
       "plan": {
         "beats": [
-          "0 stress",
-          "1450 tell",
-          "3900 tell",
-          "5555 point → hrniec",
+          "100 sigh",
+          "2400 stress",
         ],
-        "ms": 6400,
-        "sentences": "0-890 1450-3178 3900-6250",
-        "words": "0-445 445-890 1450-1824 1824-1997 1997-2410 2410-3178 3900-4218 4345-4611 4611-5526 5526-5755 5755-6250",
+        "ms": 4900,
+        "sentences": "100-677 2400-4700",
+        "words": "100-677 2400-3185 3323-3571 3571-3874 3874-4122 4122-4700",
       },
       "staging": {
         "addressee": "marek",
@@ -5461,78 +5690,21 @@ exports[`every scene, directed > podcast podcast-imperative-kitchen 1`] = `
             "at": 1,
             "characterId": "marek",
             "gesture": "nod",
-            "sentence": 2,
+            "sentence": 1,
           },
         ],
       },
     },
     {
-      "held": {
-        "marek": "card",
-      },
-      "line": "marek: Daj zeleninu do hrnca. Dobre.",
+      "line": "anna: Nevadí. Dolejeme vodu.",
       "plan": {
         "beats": [
-          "0 show",
-          "1046 point → hrniec",
-          "2900 show",
+          "50 chuckle",
+          "2250 tell",
         ],
-        "ms": 3550,
-        "sentences": "0-1684 2900-3300",
-        "words": "0-236 236-1044 1044-1246 1246-1684 2900-3300",
-      },
-      "props": [
-        "card",
-        "card",
-      ],
-      "staging": {
-        "addressee": "maria",
-        "approach": {
-          "characterId": "maria",
-          "toward": -1,
-        },
-        "facing": {
-          "anna": 1,
-          "marek": 1,
-          "maria": -1,
-        },
-      },
-    },
-    {
-      "held": {
-        "marek": "card",
-      },
-      "line": "maria: Anna, nie tak. Rob to takto, na malé kúsky.",
-      "plan": {
-        "beats": [
-          "0 tell",
-          "2500 tell",
-        ],
-        "ms": 4900,
-        "sentences": "0-1069 2500-4600",
-        "words": "0-432 552-817 817-1069 2500-2733 2733-2933 2933-3367 3478-3678 3678-4122 4122-4600",
-      },
-      "staging": {
-        "addressee": "marek",
-        "facing": {
-          "anna": 1,
-          "marek": 1,
-          "maria": -1,
-        },
-        "looksAt": "marek",
-      },
-    },
-    {
-      "line": "anna: Aha. Pomôžte mi, prosím, s hrncom. Je ťažký.",
-      "plan": {
-        "beats": [
-          "50 tell",
-          "1650 tell",
-          "2837 point → hrniec",
-        ],
-        "ms": 4800,
-        "sentences": "50-394 1650-3439 3600-4450",
-        "words": "50-394 1650-2233 2233-2406 2501-2941 2941-2941 3037-3439 3600-3851 3851-4450",
+        "ms": 3450,
+        "sentences": "50-735 2250-3250",
+        "words": "50-735 2250-2917 2917-3250",
       },
       "staging": {
         "addressee": "maria",
@@ -5544,16 +5716,16 @@ exports[`every scene, directed > podcast podcast-imperative-kitchen 1`] = `
       },
     },
     {
-      "line": "maria: Ja ho vezmem. Marek, ochutnaj polievku. Ale buď opatrný, je horúca!",
+      "line": "maria: Tak, polievka je hotová. Marek, ochutnaj. Pozor, je horúca!",
       "plan": {
         "beats": [
-          "0 self",
-          "2200 tell",
-          "4050 stress",
+          "50 tell",
+          "2550 tell",
+          "4250 stress",
         ],
-        "ms": 6200,
-        "sentences": "0-781 2200-3506 4050-6000",
-        "words": "0-180 180-361 361-781 2200-2505 2583-3029 3029-3506 4050-4352 4352-4544 4544-5213 5304-5469 5469-6000",
+        "ms": 5850,
+        "sentences": "50-1609 2550-3566 4250-5700",
+        "words": "50-245 338-904 904-1071 1071-1609 2550-2924 3020-3566 4250-4702 4818-5027 5027-5700",
       },
       "staging": {
         "addressee": "anna",
@@ -5565,15 +5737,15 @@ exports[`every scene, directed > podcast podcast-imperative-kitchen 1`] = `
       },
     },
     {
-      "line": "marek: Au! Horúca!",
+      "line": "marek: Au! To páli!",
       "plan": {
         "beats": [
-          "100 stress",
-          "1400 stress",
+          "50 stress",
+          "1650 stress",
         ],
-        "ms": 2500,
-        "sentences": "100-319 1400-2200",
-        "words": "100-319 1400-2200",
+        "ms": 2600,
+        "sentences": "50-280 1650-2250",
+        "words": "50-280 1650-1836 1836-2250",
       },
       "staging": {
         "addressee": "maria",
@@ -5613,16 +5785,16 @@ exports[`every scene, directed > podcast podcast-imperative-kitchen 1`] = `
       },
     },
     {
-      "line": "marek: Výborná! Anna, zavolaj Lucii. Toto musí ochutnať aj ona.",
+      "line": "marek: Výborná! Trochu slaná… ale výborná.",
       "plan": {
         "beats": [
-          "100 stress",
-          "1650 tell",
-          "3350 tell",
+          "50 stress",
+          "1900 shrug",
+          "3450 tell",
         ],
-        "ms": 5150,
-        "sentences": "100-680 1650-2989 3350-4950",
-        "words": "100-680 1650-1963 2050-2545 2545-2989 3350-3663 3663-4011 4011-4507 4507-4663 4663-4950",
+        "ms": 4500,
+        "sentences": "50-766 1900-2825 3450-4300",
+        "words": "50-766 1900-2340 2340-2825 3450-3736 3736-4300",
       },
       "staging": {
         "addressee": "anna",
@@ -5736,51 +5908,60 @@ exports[`every scene, directed > podcast podcast-imperative-outro 1`] = `
       },
     },
     {
-      "handed": {
-        "anna": "cup",
-      },
-      "held": {
-        "marek": "cup",
-      },
-      "line": "marek: Rastlinka! Hneď. Prepáč, rastlinka. Tu máš vodu.",
+      "line": "marek: Rastlinka! Hneď!",
       "plan": {
         "beats": [
-          "50 point → rastlina",
-          "1250 show",
-          "2728 point → rastlina",
-          "4800 point",
+          "0 point → rastlina",
+          "1650 stress",
         ],
-        "ms": 5800,
-        "sentences": "50-691 1250-1301 2350-3579 4800-5450",
-        "words": "50-691 1250-1301 2350-2825 2928-3579 4800-4948 4948-5154 5154-5450",
+        "ms": 2500,
+        "sentences": "0-705 1650-2150",
+        "words": "0-705 1650-2150",
       },
-      "props": [
-        "cup",
-        "cup",
-        "cup",
-        undefined,
-      ],
       "staging": {
         "addressee": "anna",
         "facing": {
           "anna": 1,
           "marek": -1,
         },
-        "gives": "anna",
         "reactions": [
           {
-            "at": 0.8,
+            "at": 1,
             "characterId": "anna",
-            "gesture": "show",
-            "sentence": 3,
+            "gesture": "nod",
+            "sentence": 1,
           },
         ],
       },
     },
     {
-      "held": {
-        "anna": "cup",
+      "line": "marek: Prepáč, rastlinka. Tu máš vodu.",
+      "plan": {
+        "beats": [
+          "506 point → rastlina",
+          "2900 point",
+        ],
+        "ms": 3800,
+        "sentences": "50-1444 2900-3600",
+        "words": "50-589 706-1444 2900-3059 3059-3281 3281-3600",
       },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
       "line": "anna: A vy, milí poslucháči, nezabudnite: polejte svoje kvety! Majte sa pekne!",
       "plan": {
         "beats": [
@@ -5801,9 +5982,6 @@ exports[`every scene, directed > podcast podcast-imperative-outro 1`] = `
       },
     },
     {
-      "held": {
-        "anna": "cup",
-      },
       "line": "marek: Ahojte!",
       "plan": {
         "beats": [
@@ -5827,10 +6005,7 @@ exports[`every scene, directed > podcast podcast-imperative-outro 1`] = `
     "dvere",
     "hodiny",
     "stol",
-    "pocitac",
-    "sluchadla",
     "mikrofon",
-    "okno",
     "rastlina",
     "koberec",
   ],
@@ -5845,61 +6020,43 @@ exports[`every scene, directed > podcast podcast-imperative-quiz 1`] = `
   ],
   "lines": [
     {
-      "line": "anna: Je ráno a sme späť v štúdiu.",
+      "line": "marek: Ďakujem. A teraz ty, Anna: správne alebo nesprávne?",
       "plan": {
         "beats": [
-          "0 tell",
+          "50 nod",
+          "1650 ask",
         ],
-        "ms": 2350,
-        "sentences": "0-2200",
-        "words": "0-225 225-725 725-913 913-1175 1175-1475 1475-1475 1475-2200",
-      },
-      "staging": {
-        "addressee": "marek",
-        "facing": {
-          "anna": 1,
-          "marek": -1,
-        },
-      },
-    },
-    {
-      "line": "marek: A teraz kvíz: správne alebo nesprávne? Hádajte s nami!",
-      "plan": {
-        "beats": [
-          "50 ask",
-          "3500 stress",
-        ],
-        "ms": 4600,
-        "questions": "50-2924",
-        "sentences": "50-2924 3500-4400",
-        "words": "50-216 216-649 649-960 1071-1615 1615-2181 2181-2924 3500-4066 4066-4066 4066-4400",
+        "ms": 4900,
+        "questions": "1650-4700",
+        "sentences": "50-630 1650-4700",
+        "words": "50-630 1650-1805 1805-2208 2208-2394 2498-2870 2973-3480 3480-4007 4007-4700",
       },
       "staging": {
         "addressee": "anna",
-        "audience": true,
         "facing": {
           "anna": 1,
+          "marek": -1,
         },
         "reactions": [
           {
             "at": 0.5,
             "characterId": "anna",
             "gesture": "lean",
-            "sentence": 0,
+            "sentence": 1,
           },
         ],
       },
     },
     {
-      "line": "marek: Prvá veta: Nezatvor okno.",
+      "line": "marek: Prvá veta: Nezatvor dvere.",
       "plan": {
         "beats": [
           "100 tell",
-          "2162 point → okno",
+          "2181 point → dvere",
         ],
-        "ms": 2900,
-        "sentences": "100-2700",
-        "words": "100-475 475-813 1799-2362 2362-2700",
+        "ms": 3000,
+        "sentences": "100-2750",
+        "words": "100-479 479-819 1813-2381 2381-2750",
       },
       "staging": {
         "addressee": "anna",
@@ -5910,16 +6067,16 @@ exports[`every scene, directed > podcast podcast-imperative-quiz 1`] = `
       },
     },
     {
-      "line": "anna: Nesprávne! Správne je: Nezatváraj okno.",
+      "line": "anna: Nesprávne! Správne je: Nezatváraj dvere.",
       "plan": {
         "beats": [
           "50 shake",
-          "2000 nod",
-          "3879 point → okno",
+          "2050 nod",
+          "3817 point → dvere",
         ],
-        "ms": 4750,
-        "sentences": "50-872 2000-4550",
-        "words": "50-872 2000-2641 2641-2876 3007-4079 4079-4550",
+        "ms": 4650,
+        "sentences": "50-856 2050-4500",
+        "words": "50-856 2050-2656 2656-2879 3003-4017 4017-4500",
       },
       "staging": {
         "addressee": "marek",
@@ -6027,10 +6184,7 @@ exports[`every scene, directed > podcast podcast-imperative-quiz 1`] = `
     "dvere",
     "hodiny",
     "stol",
-    "pocitac",
-    "sluchadla",
     "mikrofon",
-    "okno",
     "rastlina",
     "koberec",
   ],
@@ -6046,32 +6200,54 @@ exports[`every scene, directed > podcast podcast-imperative-table 1`] = `
   ],
   "lines": [
     {
-      "held": {
-        "marek": "phone",
-      },
-      "line": "marek: Počkaj, mne niekto volá. To je ona! Haló? Ahoj, Lucia!",
+      "line": "maria: Tak, sadnite si. A Lucia stále nikde? Veď mala prísť.",
       "plan": {
         "beats": [
-          "150 show",
-          "2700 stress",
-          "3700 ask",
-          "4550 wave",
+          "50 tell",
+          "2300 ask",
+          "4200 tell",
         ],
-        "ms": 5550,
-        "questions": "3700-4110",
-        "sentences": "150-1672 2700-3369 3700-4110 4550-5300",
-        "words": "150-560 657-862 862-1281 1281-1672 2700-2874 2874-3049 3049-3369 3700-4110 4550-4864 4951-5300",
+        "ms": 5400,
+        "questions": "2300-3363",
+        "sentences": "50-1059 2300-3363 4200-5200",
+        "words": "50-250 345-888 888-1059 2300-2416 2416-2727 2727-3060 3060-3363 4200-4439 4439-4848 4848-5200",
       },
-      "props": [
-        "phone",
-        undefined,
-        undefined,
-        undefined,
-      ],
       "staging": {
-        "addressee": "lucia",
+        "addressee": "anna",
         "facing": {
           "anna": 1,
+          "marek": 1,
+          "maria": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+        "sit": [
+          "anna",
+          "marek",
+        ],
+      },
+    },
+    {
+      "line": "anna: Asi zase mešká.",
+      "plan": {
+        "beats": [
+          "0 shrug",
+        ],
+        "ms": 1600,
+        "sentences": "0-1600",
+        "words": "0-471 471-986 986-1600",
+      },
+      "staging": {
+        "addressee": "maria",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
           "maria": -1,
         },
       },
@@ -6080,18 +6256,49 @@ exports[`every scene, directed > podcast podcast-imperative-table 1`] = `
       "held": {
         "marek": "phone",
       },
-      "line": "lucia: Ahoj! Ste u Márie? Ja prídem neskôr. Jedzte bezo mňa.",
+      "line": "marek: Počkajte, zvoní mi telefón… To je ona! Ahoj, Lucia!",
+      "plan": {
+        "beats": [
+          "50 show",
+          "2300 stress",
+          "3950 wave",
+        ],
+        "ms": 5200,
+        "sentences": "50-2017 2300-3093 3950-5050",
+        "words": "50-665 767-1208 1208-1392 1392-2017 2300-2507 2507-2714 2714-3093 3950-4410 4538-5050",
+      },
+      "props": [
+        "phone",
+        undefined,
+        undefined,
+      ],
+      "staging": {
+        "addressee": "anna",
+        "approach": {
+          "characterId": "anna",
+          "toward": 1,
+        },
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+          "maria": -1,
+        },
+      },
+    },
+    {
+      "held": {
+        "marek": "phone",
+      },
+      "line": "lucia: Ahoj! Prepáčte, ešte som v práci. Nečakajte na mňa, pokojne jedzte.",
       "plan": {
         "beats": [
           "0 wave",
-          "750 ask",
-          "2650 self",
-          "4050 tell",
+          "900 apologize",
+          "3650 tell",
         ],
-        "ms": 5150,
-        "questions": "750-1582",
-        "sentences": "0-349 750-1582 2650-3669 4050-4950",
-        "words": "0-349 750-942 942-1079 1079-1582 2650-2817 2817-3243 3243-3669 4050-4416 4416-4753 4753-4950",
+        "ms": 5850,
+        "sentences": "0-359 900-2456 3650-5700",
+        "words": "0-359 900-1472 1562-1883 1883-2071 2071-2071 2071-2456 3650-4349 4349-4517 4517-4712 4805-5337 5337-5700",
       },
       "staging": {
         "addressee": null,
@@ -6101,15 +6308,15 @@ exports[`every scene, directed > podcast podcast-imperative-table 1`] = `
       "held": {
         "marek": "phone",
       },
-      "line": "marek: Nie, nie, príď! Mária uvarila polievku.",
+      "line": "marek: Nie, nie, príď! Polievka je výborná.",
       "plan": {
         "beats": [
           "0 shake",
-          "1206 tell",
+          "1388 tell",
         ],
-        "ms": 3300,
-        "sentences": "0-867 1206-2950",
-        "words": "0-207 302-509 603-867 1206-1725 1725-2375 2375-2950",
+        "ms": 3150,
+        "sentences": "0-998 1388-2950",
+        "words": "0-239 347-586 694-998 1388-2050 2050-2245 2245-2950",
       },
       "staging": {
         "addressee": "lucia",
@@ -6146,16 +6353,16 @@ exports[`every scene, directed > podcast podcast-imperative-table 1`] = `
       "held": {
         "marek": "phone",
       },
-      "line": "lucia: Dobre. Tak o pol hodiny. Ahoj!",
+      "line": "lucia: Dobre, tak som tam o pol hodiny. Čau!",
       "plan": {
         "beats": [
           "0 nod",
-          "1971 point → hodiny",
-          "3200 wave",
+          "1258 point → hodiny",
+          "2950 wave",
         ],
-        "ms": 3800,
-        "sentences": "0-429 1500-2807 3200-3600",
-        "words": "0-429 1500-1747 1747-1924 1924-2171 2171-2807 3200-3600",
+        "ms": 3550,
+        "sentences": "0-1990 2950-3350",
+        "words": "0-384 483-690 690-897 897-1104 1104-1251 1251-1458 1458-1990 2950-3350",
       },
       "staging": {
         "addressee": null,
@@ -6165,15 +6372,15 @@ exports[`every scene, directed > podcast podcast-imperative-table 1`] = `
       "held": {
         "marek": "phone",
       },
-      "line": "marek: Ahoj! Príde o pol hodiny.",
+      "line": "marek: Čau! Príde o pol hodiny.",
       "plan": {
         "beats": [
-          "0 wave",
-          "2122 point → hodiny",
+          "50 wave",
+          "2194 point → hodiny",
         ],
-        "ms": 3050,
-        "sentences": "0-374 1550-2850",
-        "words": "0-374 1550-1970 1970-2117 2117-2322 2322-2850",
+        "ms": 3000,
+        "sentences": "50-385 1800-2800",
+        "words": "50-385 1800-2123 2123-2236 2236-2394 2394-2800",
       },
       "staging": {
         "addressee": "lucia",
@@ -6184,40 +6391,15 @@ exports[`every scene, directed > podcast podcast-imperative-table 1`] = `
       },
     },
     {
-      "line": "maria: Výborne. Sadnite si, prosím.",
+      "line": "anna: Tak na ňu počkáme, nie?",
       "plan": {
         "beats": [
-          "0 cheer",
-          "850 tell",
+          "50 ask",
         ],
-        "ms": 2250,
-        "sentences": "0-562 850-2100",
-        "words": "0-562 850-1394 1394-1566 1661-2100",
-      },
-      "staging": {
-        "addressee": "marek",
-        "facing": {
-          "anna": 1,
-          "marek": 1,
-          "maria": -1,
-        },
-        "sit": [
-          "anna",
-          "marek",
-        ],
-      },
-    },
-    {
-      "line": "anna: Ďakujeme. Ale počkajme na Luciu, nie?",
-      "plan": {
-        "beats": [
-          "50 nod",
-          "1650 ask",
-        ],
-        "ms": 3850,
-        "questions": "1650-3700",
-        "sentences": "50-780 1650-3700",
-        "words": "50-780 1650-2020 2020-2692 2692-2893 2893-3342 3454-3700",
+        "ms": 1850,
+        "questions": "50-1650",
+        "sentences": "50-1650",
+        "words": "50-274 274-466 466-658 658-1309 1415-1650",
       },
       "staging": {
         "addressee": "maria",
@@ -6231,21 +6413,21 @@ exports[`every scene, directed > podcast podcast-imperative-table 1`] = `
             "at": 0.5,
             "characterId": "maria",
             "gesture": "lean",
-            "sentence": 1,
+            "sentence": 0,
           },
         ],
       },
     },
     {
-      "line": "maria: Dobre, dobre. Tak počkajme.",
+      "line": "maria: No dobre, počkáme. Polievku potom zohrejem.",
       "plan": {
         "beats": [
-          "0 chuckle",
-          "2100 tell",
+          "50 chuckle",
+          "2955 tell",
         ],
-        "ms": 3400,
-        "sentences": "0-1309 2100-3050",
-        "words": "0-580 729-1309 2100-2346 2346-3050",
+        "ms": 5150,
+        "sentences": "50-1646 2955-4950",
+        "words": "50-274 274-761 885-1646 2955-3716 3716-4202 4202-4950",
       },
       "staging": {
         "addressee": "anna",
@@ -7014,10 +7196,7 @@ exports[`every scene, directed > podcast podcast-past-tense-closed 1`] = `
     "dvere",
     "hodiny",
     "stol",
-    "pocitac",
-    "sluchadla",
     "mikrofon",
-    "okno",
     "rastlina",
     "koberec",
   ],
@@ -7768,10 +7947,7 @@ exports[`every scene, directed > podcast podcast-past-tense-plate 1`] = `
     "dvere",
     "hodiny",
     "stol",
-    "pocitac",
-    "sluchadla",
     "mikrofon",
-    "okno",
     "rastlina",
     "koberec",
   ],
@@ -8412,10 +8588,7 @@ exports[`every scene, directed > podcast podcast-past-tense-whodunit 1`] = `
     "dvere",
     "hodiny",
     "stol",
-    "pocitac",
-    "sluchadla",
     "mikrofon",
-    "okno",
     "rastlina",
     "koberec",
   ],
@@ -8634,10 +8807,7 @@ exports[`every scene, directed > podcast podcast-possessives-intro 1`] = `
     "dvere",
     "hodiny",
     "stol",
-    "pocitac",
-    "sluchadla",
     "mikrofon",
-    "okno",
     "rastlina",
     "koberec",
   ],
@@ -8887,10 +9057,7 @@ exports[`every scene, directed > podcast podcast-possessives-outro 1`] = `
     "dvere",
     "hodiny",
     "stol",
-    "pocitac",
-    "sluchadla",
     "mikrofon",
-    "okno",
     "rastlina",
     "koberec",
   ],
@@ -9565,10 +9732,7 @@ exports[`every scene, directed > podcast podcast-possessives-photos 1`] = `
     "dvere",
     "hodiny",
     "stol",
-    "pocitac",
-    "sluchadla",
     "mikrofon",
-    "okno",
     "rastlina",
     "koberec",
   ],
@@ -9807,10 +9971,7 @@ exports[`every scene, directed > podcast podcast-possessives-quiz 1`] = `
     "dvere",
     "hodiny",
     "stol",
-    "pocitac",
-    "sluchadla",
     "mikrofon",
-    "okno",
     "rastlina",
     "koberec",
   ],
@@ -11485,10 +11646,7 @@ exports[`every scene, directed > podcast podcast-telling-time-clock-game 1`] = `
     "dvere",
     "hodiny",
     "stol",
-    "pocitac",
-    "sluchadla",
     "mikrofon",
-    "okno",
     "rastlina",
     "koberec",
   ],
@@ -11712,10 +11870,7 @@ exports[`every scene, directed > podcast podcast-telling-time-intro 1`] = `
     "dvere",
     "hodiny",
     "stol",
-    "pocitac",
-    "sluchadla",
     "mikrofon",
-    "okno",
     "rastlina",
     "koberec",
   ],
@@ -11882,10 +12037,7 @@ exports[`every scene, directed > podcast podcast-telling-time-outro 1`] = `
     "dvere",
     "hodiny",
     "stol",
-    "pocitac",
-    "sluchadla",
     "mikrofon",
-    "okno",
     "rastlina",
     "koberec",
   ],
@@ -12128,10 +12280,7 @@ exports[`every scene, directed > podcast podcast-telling-time-quiz 1`] = `
     "dvere",
     "hodiny",
     "stol",
-    "pocitac",
-    "sluchadla",
     "mikrofon",
-    "okno",
     "rastlina",
     "koberec",
   ],

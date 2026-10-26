@@ -38,8 +38,13 @@ export interface StageFrame {
   things: readonly SceneThing[];
   /** Chairs to sit on: stage x of each seat's middle, and the way a sitter faces. */
   seats: ReadonlyArray<{ x: number; facing: Facing }>;
+  /** Everyone sits behind one desk from the start, on the seat at their own index (the podcast studio). */
+  desk: boolean;
   width: number;
 }
+
+/** Centre to centre, in figure widths, between neighbours at a desk: chairs and elbow room take more than standing to talk. */
+export const DESK_STEP = 1;
 
 /** Who walks on during the scene, and from which side; they start off it. */
 export function walkOns(
@@ -63,7 +68,7 @@ export function stageFrame(
   height: number,
 ): StageFrame {
   const align = backdropAlign(setting);
-  const { post } = PLACES[setting];
+  const { desk = false, post } = PLACES[setting];
   const at =
     post === undefined || !width
       ? undefined
@@ -76,18 +81,34 @@ export function stageFrame(
     height || undefined,
   );
 
-  const seats = (PLACES[setting].furniture ?? []).flatMap((piece) =>
-    piece.kind === "chair"
-      ? [
-          {
-            x: backdropToStage({ x: piece.x, y: 0 }, width, height, align).x,
-            facing: piece.facing ?? 1,
-          },
-        ]
-      : [],
-  );
+  const seats = desk
+    ? deskSeats(cast, marks, figureWidth)
+    : (PLACES[setting].furniture ?? []).flatMap((piece) =>
+        piece.kind === "chair"
+          ? [
+              {
+                x: backdropToStage({ x: piece.x, y: 0 }, width, height, align).x,
+                facing: piece.facing ?? 1,
+              },
+            ]
+          : [],
+      );
 
-  return { align, cast, figureWidth, height, marks, seats, things, width };
+  return { align, cast, desk, figureWidth, height, marks, seats, things, width };
+}
+
+/** One seat per figure, spread round the middle of the row, each turned to it. */
+function deskSeats(
+  cast: readonly LessonCharacterId[],
+  marks: Partial<Record<LessonCharacterId, number>>,
+  figureWidth: number,
+): StageFrame["seats"] {
+  const centres = cast.map((id) => (marks[id] ?? 0) + figureWidth / 2);
+  const middle = (Math.min(...centres) + Math.max(...centres)) / 2;
+  return cast.map((_, index) => {
+    const x = middle + (index - (cast.length - 1) / 2) * DESK_STEP * figureWidth;
+    return { x, facing: x <= middle ? 1 : -1 };
+  });
 }
 
 /** Stage x of a backdrop point. */

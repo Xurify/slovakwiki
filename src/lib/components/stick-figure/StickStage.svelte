@@ -98,6 +98,7 @@
   import { playFoley } from "$lib/stick-figure/foley";
   import { objectGrip, spotX, type SetGeometry } from "$lib/stick-figure/set-pieces";
   import { foldLine } from "$lib/stick-figure/slovak-text";
+  import StudioDesk from "./StudioDesk.svelte";
 
   interface ActorState {
     cue: number;
@@ -1052,6 +1053,15 @@
             <StickFurniture {piece} />
           </div>
         {/each}
+        {#if frame.desk}
+          <StudioDesk
+            height={stageHeight}
+            layer="behind"
+            seats={frame.seats}
+            {unit}
+            width={stageWidth}
+          />
+        {/if}
         {#each direction.cast as characterId (characterId)}
           <div
             class="pointer-events-none absolute transition-transform ease-linear"
@@ -1084,6 +1094,15 @@
             />
           </div>
         {/each}
+        {#if frame.desk}
+          <StudioDesk
+            height={stageHeight}
+            layer="front"
+            seats={frame.seats}
+            {unit}
+            width={stageWidth}
+          />
+        {/if}
       {/if}
     </div>
 

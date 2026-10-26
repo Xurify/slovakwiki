@@ -136,10 +136,15 @@
   });
 
   // After the walk's effect, so a walk to the chair this same line is counted.
+  /** Seated as the stage first places the cast (behind the studio desk), a figure is just there. */
+  let placedAt = 0;
   $effect(() => {
     const down = seated;
     untrack(() => {
-      const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      placedAt ||= performance.now();
+      const still =
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+        performance.now() - placedAt < 250;
       const walkLeft = Math.max(0, walkStartedAt + walkMs - performance.now());
       void sitting.set(down ? 1 : 0, {
         delay: down && !still ? walkLeft : 0,
