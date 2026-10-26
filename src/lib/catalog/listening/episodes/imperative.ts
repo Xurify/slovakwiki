@@ -582,21 +582,22 @@ const KITCHEN_ACTS: Record<string, Cue[]> = {
     { do: "chop", what: "carrot", on: "takto" },
     { who: "maria", do: "look", to: "carrot", on: "takto" },
   ],
-  // Anna steps back to make room at the board, and comes back to it.
+  // Anna steps back to make room at the board, and comes back to it. The
+  // knife goes down by the board rather than hand to hand: handed across, it
+  // read as a handshake, blade first.
   "maria-smaller-pieces": [
     { do: "wag", on: "nie" },
     { do: "go", to: "board-across" },
     { who: "anna", do: "go", to: "board-back", on: "kúsky" },
     { do: "take", what: "knife", on: "pozri" },
     { do: "chop", what: "carrot", to: "small" },
-    { do: "give", what: "knife", to: "anna" },
+    { do: "put", what: "knife", to: "knife-place" },
     { do: "go", to: "cook" },
     { who: "anna", do: "go", to: "board" },
   ],
   // Anna tips the carrots in from the stove's side, then Marek comes over for the salt.
   "maria-salt": [
-    { who: "anna", do: "put", what: "knife", to: "knife-place", on: "hoď" },
-    { who: "anna", do: "take", what: "board" },
+    { who: "anna", do: "take", what: "board", on: "hoď" },
     { who: "anna", do: "go", to: "pot-left" },
     { who: "anna", do: "pour", what: "board", to: "pot" },
     { who: "anna", do: "go", to: "board" },

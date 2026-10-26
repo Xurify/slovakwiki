@@ -1094,13 +1094,22 @@
         at - CHAIR_HALF * frame.figureWidth,
         at + CHAIR_HALF * frame.figureWidth,
       ]);
+    const start = middle + from * frame.figureWidth;
+    const within = ([left, right]: number[], x: number) => x > left && x < right;
     const fronts = geometry.pieces
       .filter((piece) => piece.front)
       .map((piece) => {
         const at = (geometry.pieceX(piece.id) ?? 0) * unit;
         const half = (pieceSize(piece).width / 2) * unit;
-        return [at - half, at + half];
-      });
+        return { kind: piece.kind, span: [at - half, at + half] };
+      })
+      // The studio desk's chairs are behind it: getting up from one, or going
+      // back to it, is a walk behind the desk, not round its front.
+      .filter(
+        ({ kind, span }) =>
+          kind !== "desk" || !(within(span, start) || within(span, end)),
+      )
+      .map(({ span }) => span);
     return [...chairs, ...fronts].some(([start, end]) => right > start && left < end);
   }
 
