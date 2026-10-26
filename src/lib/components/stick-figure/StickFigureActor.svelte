@@ -63,7 +63,7 @@
     /** Ms before a change of `facing` starts. */
     turnDelay?: number;
     /** Bump `cue` to take steps for `ms` while the stage moves the figure. */
-    walk?: { cue: number; ms: number };
+    walk?: { cue: number; ms: number; pace?: number };
   } = $props();
 
   let pose = $state<StickPose>(REST_POSE);
@@ -80,6 +80,8 @@
   let reducedMotion = false;
   let walkStartedAt = 0;
   let walkMs = 0;
+  /** Steps per step of a walk: above 1 a run, the legs going round that much faster. */
+  let walkPace = 1;
   let walkCue = 0;
 
   $effect(() => {
@@ -101,11 +103,12 @@
     // new cue means this figure steps, or it would walk on the spot.
     if (!walk?.cue || walk.cue === walkCue) return;
     walkCue = walk.cue;
-    const ms = walk.ms;
+    const { ms, pace = 1 } = walk;
 
     untrack(() => {
       walkStartedAt = performance.now();
       walkMs = ms;
+      walkPace = pace;
       run();
     });
   });
@@ -157,7 +160,7 @@
     const walked = now - walkStartedAt;
     const walking = walked < walkMs && !reducedMotion;
     const body = next?.pose ?? REST_POSE;
-    pose = walking ? walkPose(body, walked, walkMs) : body;
+    pose = walking ? walkPose(body, walked * walkPace, walkMs * walkPace) : body;
 
     frame = !(next?.settled ?? true) || walking ? requestAnimationFrame(tick) : 0;
   }

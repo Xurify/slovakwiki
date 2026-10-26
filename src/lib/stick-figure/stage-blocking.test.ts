@@ -93,6 +93,30 @@ describe("stage blocking", () => {
     expect(isOnStage(frame, ended, "waiter")).toBe(true);
   });
 
+  it("sends the dog off after a thrown ball and brings it back to the thrower with it", () => {
+    const lines: DirectedLine[] = [
+      { characterId: "dog", slovak: "Haf! Haf!" },
+      { characterId: "anna", slovak: "Teraz mu hoď loptičku.", props: [null] },
+      { characterId: "robot", slovak: "Hodím loptičku. Teraz!" },
+      { characterId: "anna", slovak: "Pozri, ako beží!" },
+      { characterId: "dog", slovak: "Haf!", props: ["ball"], to: "robot" },
+    ];
+    const { before, end, frame, stagings, start } = staged(lines, "default");
+
+    expect(stagings[2].throws).toEqual({ fetcher: "dog", side: 1 });
+    const thrown = end(start(before(2), 2), 2);
+    expect(isOnStage(frame, thrown, "dog")).toBe(false);
+    expect(thrown.facings.dog).toBe(1);
+
+    const back = start(before(4), 4);
+    expect(isOnStage(frame, back, "dog")).toBe(true);
+    expect(back.facings.dog).toBe(-1);
+    expect(centre(frame, back, "dog")).toBeGreaterThan(centre(frame, back, "robot"));
+    const direction = directScene(lines, "default");
+    expect(direction.lines[3].held).toEqual({});
+    expect(direction.lines[4].handed).toEqual({ robot: "ball" });
+  });
+
   it("walks the one shown something over to stand beside the speaker", () => {
     const { frame, start, stagings } = staged(
       [

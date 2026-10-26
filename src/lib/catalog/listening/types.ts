@@ -22,6 +22,8 @@ export interface ListeningCheck {
 }
 
 export interface ListeningChapter {
+  /** Who stands where, left to right, when the episode's speakers order is wrong here: whoever comes in the door stands at its end. */
+  cast?: string[];
   checks: ListeningCheck[];
   id: string;
   lines: DialogueTurn[];

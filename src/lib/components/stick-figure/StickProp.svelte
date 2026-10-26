@@ -108,5 +108,11 @@
       class="fill-portrait-ground"
       stroke="none"
     />
+  {:else if prop === "suitcase"}
+    <!-- Carried low by its handle, like the bag, but stiff and boxy. -->
+    <path d="M-3 4V1h6v3" fill="none" stroke-width="1.1" />
+    <rect x="-9" y="4" width="18" height="14" rx="1.6" class="fill-portrait-vest" />
+    <path d="M-9 8.4h18" class="stroke-white/40" stroke-width="1" />
+    <path d="M-5.4 18v1.4M5.4 18v1.4" stroke-width="1.4" />
   {/if}
 </g>

@@ -10,6 +10,9 @@ describe("sceneMood", () => {
     expect(sceneMood(["Ďakujem. Dobrú noc."]).time).toBe("day");
     expect(sceneMood(["Dobrú noc, mama."]).time).toBe("night");
     expect(sceneMood(["Dnes večer ide do kina."]).time).toBe("day");
+    expect(sceneMood(["Sobota. Šesť hodín večer."]).time).toBe("evening");
+    expect(sceneMood(["Park. Pol deviatej ráno."]).time).toBe("morning");
+    expect(sceneMood(["Príde o šiestej hodín večer."]).time).toBe("day");
   });
 
   it("hears rain and snow in any form, and nothing in words that only look alike", () => {

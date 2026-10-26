@@ -159,5 +159,30 @@ export function directScene(
     };
   });
 
+  // Whoever walks on with something carries it in, rather than it appearing in their hand as they speak.
+  directed.forEach(({ staging }, index) => {
+    const id = staging.enter?.characterId;
+    const first = read.findIndex((line, at) => at > index && line.characterId === id);
+    const prop = read[first]?.props.find(Boolean);
+    if (!id || !prop) return;
+    for (let at = index; at < first; at += 1) {
+      directed[at] = { ...directed[at], held: { ...directed[at].held, [id]: prop } };
+    }
+  });
+
+  // A thrown ball is out of the thrower's hand until the dog brings it back.
+  directed.forEach(({ staging }, index) => {
+    const thrower = read[index].characterId;
+    if (!staging.throws || !thrower) return;
+    for (
+      let at = index + 1;
+      at < directed.length && !directed[at].staging.returns;
+      at += 1
+    ) {
+      const { [thrower]: prop, ...rest } = directed[at].held;
+      if (prop === "ball") directed[at] = { ...directed[at], held: rest };
+    }
+  });
+
   return { cast, lines: directed, things };
 }

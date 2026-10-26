@@ -102,7 +102,7 @@ export function podcastGroups(): SceneGroup[] {
       id: chapter.id,
       lines: sceneLines(chapter.lines),
       name: chapter.titleSk,
-      order: episode.speakers.map(characterIdForSpeaker),
+      order: (chapter.cast ?? episode.speakers).map(characterIdForSpeaker),
       setting: chapter.stage ?? "studio",
     })),
   }));
@@ -147,7 +147,6 @@ export function episodeStages(episode: ListeningEpisode): {
   scenes: Record<string, StagedScene>;
   thingWords: Record<string, { href?: string; src?: string }>;
 } {
-  const order = episode.speakers.map(characterIdForSpeaker);
   let said: string[] = [];
   const scenes = Object.fromEntries(
     episode.chapters.map((chapter, index) => {
@@ -161,7 +160,7 @@ export function episodeStages(episode: ListeningEpisode): {
         {
           ...(index > 0 && before.length > 0 ? { before } : {}),
           lines: sceneLines(chapter.lines).map(directedLine),
-          order,
+          order: (chapter.cast ?? episode.speakers).map(characterIdForSpeaker),
           setting,
         },
       ];

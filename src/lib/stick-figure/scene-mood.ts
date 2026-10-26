@@ -104,6 +104,23 @@ export function toldHour(lines: readonly string[]): number | undefined {
   return undefined;
 }
 
+/** A told time with the part of the day after it, on a scene card: Šesť hodín večer. Pol deviatej ráno. */
+function toldTimeOfDay(folded: string): TimeOfDay | undefined {
+  const line = ` ${folded} `;
+  for (const [said] of TOLD_TIMES) {
+    for (const [part, time] of [
+      ["rano", "morning"],
+      ["vecer", "evening"],
+    ] as const) {
+      const at = line.indexOf(` ${said} ${part} `);
+      if (at < 0) continue;
+      const before = line.slice(0, at).trim().split(" ").at(-1) ?? "";
+      if (!NOT_NOW.has(before)) return time;
+    }
+  }
+  return undefined;
+}
+
 export const WEATHERS: readonly Weather[] = ["clear", "sunny", "cloudy", "rain", "snow"];
 
 /** Folded greetings that tell the time of day; Dobrý deň says nothing new. */
@@ -146,7 +163,8 @@ export function sceneMood(lines: readonly string[], upTo = lines.length - 1): Sc
       .map(
         (line) =>
           GREETING_TIMES.find(([greeting]) => opens(line, greeting))?.[1] ??
-          SAID_TIMES.find(([said]) => ` ${line} `.includes(` ${said} `))?.[1],
+          SAID_TIMES.find(([said]) => ` ${line} `.includes(` ${said} `))?.[1] ??
+          toldTimeOfDay(line),
       )
       .find(Boolean) ?? "day";
   const weather =

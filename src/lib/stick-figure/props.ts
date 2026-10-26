@@ -23,6 +23,7 @@ export const STICK_PROP_IDS = [
   "menu",
   "newspaper",
   "phone",
+  "suitcase",
   "umbrella",
 ] as const;
 
@@ -57,6 +58,7 @@ const PROP_CUES: Record<StickPropId, WordCues> = {
   menu: { words: ["menu"] },
   newspaper: { words: ["noviny", "novin", "novinach", "novinami"] },
   phone: { words: ["telefon", "telefonu", "telefonom", "mobil", "mobilu", "mobilom"] },
+  suitcase: { stems: ["kufor", "kufr"] },
   umbrella: { stems: ["dazdnik"] },
 };
 

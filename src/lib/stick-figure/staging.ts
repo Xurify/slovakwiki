@@ -5,6 +5,7 @@ import {
 import type { StickGestureId } from "./gestures";
 import type { LinePoint } from "./line-plan";
 import type { ReadLine } from "./line-reading";
+import { LOOKS } from "./looks";
 import {
   APOLOGIES,
   GOODBYES,
@@ -59,6 +60,51 @@ export interface LineStaging {
   sit?: LessonCharacterId[];
   /** Who gets up: "Vstaňte." */
   stand?: LessonCharacterId[];
+  /** The speaker throws the ball off the stage on `side` as the line ends, and the dog runs after it. */
+  throws?: { fetcher: LessonCharacterId; side: Facing };
+  /** The dog runs back on from `from` with the ball as this line starts, to the one who threw it. */
+  returns?: { characterId: LessonCharacterId; from: Facing; to: LessonCharacterId };
+}
+
+/** Folded words that throw the ball: "Hodím loptičku." */
+const THROWING = ["hodim", "hodime"];
+
+/**
+ * A throw: the speaker has the ball out and says they throw it, with a dog
+ * on stage to run after it. It goes off the near edge, so the dog runs past
+ * everyone and comes back to the thrower from the open side.
+ */
+function throwing(
+  line: ReadLine,
+  cast: readonly LessonCharacterId[],
+): LineStaging["throws"] {
+  const speaker = line.characterId;
+  if (!speaker || !cast.includes(speaker) || !line.props.includes("ball")) return;
+  if (!line.sentences.some((sentence) => mentions(sentence, THROWING))) return;
+
+  const fetcher = cast.find((id) => id !== speaker && LOOKS[id].dog);
+  if (!fetcher) return;
+  return { fetcher, side: cast.indexOf(speaker) < cast.length / 2 ? -1 : 1 };
+}
+
+/** The dog's first line since it ran after a throw brings it back. */
+function returning(
+  lines: readonly ReadLine[],
+  index: number,
+  cast: readonly LessonCharacterId[],
+): LineStaging["returns"] {
+  const id = lines[index]?.characterId;
+  if (!id) return;
+
+  for (let at = index - 1; at >= 0; at -= 1) {
+    if (lines[at].characterId === id) return;
+    const thrown = throwing(lines[at], cast);
+    const thrower = lines[at].characterId;
+    if (thrown?.fetcher === id && thrower) {
+      return { characterId: id, from: thrown.side, to: thrower };
+    }
+  }
+  return;
 }
 
 /** Folded sentence openers the one spoken to nods at. */
@@ -303,9 +349,11 @@ export function stageLine(
   const shows = line.props.some(Boolean);
   const callsOver = sentences.some((sentence) => mentions(sentence, COME_OVER));
   const shelters = sentences.some((sentence) => mentions(sentence, SHELTER));
-  // Only a neighbour walks over; anyone further would walk through someone.
+  // Only a neighbour walks over; anyone further would walk through someone. A dog runs between their legs.
   const neighbour =
-    onStage && Math.abs(cast.indexOf(addressee) - cast.indexOf(speaker)) === 1;
+    onStage &&
+    (Math.abs(cast.indexOf(addressee) - cast.indexOf(speaker)) === 1 ||
+      Boolean(LOOKS[addressee].dog));
   const lastOwnLine = !lines
     .slice(index + 1)
     .some((later) => later.characterId === speaker);
@@ -339,6 +387,8 @@ export function stageLine(
         ? true
         : undefined,
     audience: audience ? true : undefined,
+    throws: throwing(line, cast),
+    returns: returning(lines, index, cast),
     ...seating(line, speaker, calledByName(line.slovak, cast) ?? addressee, cast),
   };
 }

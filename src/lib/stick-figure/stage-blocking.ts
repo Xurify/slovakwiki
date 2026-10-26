@@ -129,6 +129,12 @@ export function startLine(
     facings[characterId] = from === 1 ? -1 : 1;
     offsets[characterId] = 0;
   }
+  if (staging.returns) {
+    const { characterId, from, to } = staging.returns;
+    const facing: Facing = from === 1 ? -1 : 1;
+    facings[characterId] = facing;
+    offsets[characterId] = beside(frame, characterId, to, facing, state.offsets);
+  }
 
   const thing = frame.things.find((candidate) => candidate.id === staging.goTo);
   const next = seat(
@@ -149,7 +155,7 @@ export function startLine(
   return { ...next, facings: { ...next.facings, ...seatedFacings(next.seated, frame) } };
 }
 
-/** As a line ends: a speaker whose part is over walks off, and everyone gets on the tram. */
+/** As a line ends: a speaker whose part is over walks off, the dog runs after a throw, and everyone gets on the tram. */
 export function endLine(
   state: Blocking,
   staging: LineStaging,
@@ -162,6 +168,14 @@ export function endLine(
       ...next,
       facings: { ...next.facings, [speaker]: staging.exit },
       offsets: { ...next.offsets, [speaker]: offStage(frame, speaker, staging.exit) },
+    };
+  }
+  if (staging.throws) {
+    const { fetcher, side } = staging.throws;
+    next = {
+      ...next,
+      facings: { ...next.facings, [fetcher]: side },
+      offsets: { ...next.offsets, [fetcher]: offStage(frame, fetcher, side) },
     };
   }
   if (staging.boards) {

@@ -202,6 +202,13 @@
 
       <g transform={dogHeadTransform}>
         <StickHead {characterId} {pose} turn={front ? 0 : undefined} />
+
+        {#if held?.id === "ball"}
+          <!-- Carried in the mouth, in the head's own 64-unit space. -->
+          <g transform="translate(37.4 43.4) scale(1.5)">
+            <StickProp prop="ball" />
+          </g>
+        {/if}
       </g>
     {:else}
       <g transform={headTransform}>
