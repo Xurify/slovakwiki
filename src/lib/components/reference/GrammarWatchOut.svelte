@@ -26,7 +26,7 @@
       "size-3.5 shrink-0 translate-y-0.5 fill-none stroke-current",
       kind === "wrong" && "text-rose-600",
       kind === "right" && "text-emerald-600",
-      kind === "tip" && "text-slate-500",
+      kind === "tip" && "text-rose-600",
     )}
     viewBox="0 0 24 24"
     stroke-width="3"
