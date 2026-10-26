@@ -37,6 +37,7 @@
     capabilities,
     responses,
     production,
+    transcribing = 0,
     microphone,
     onclose,
     onretake,
@@ -47,6 +48,8 @@
     capabilities: ScoringCapabilities;
     responses: ItemResponse[];
     production: ProductionRecord[];
+    /** Read-aloud answers still at speech-to-text; they count as pending too. */
+    transcribing?: number;
     microphone: boolean;
     onclose: () => void;
     onretake: () => void;
@@ -73,7 +76,7 @@
   };
 
   const pending = $derived(
-    production.filter((record) => record.status === "pending").length,
+    production.filter((record) => record.status === "pending").length + transcribing,
   );
   const result = $derived(computeResult(responses, production));
   const diagnosis = $derived(
@@ -156,7 +159,8 @@
           <p class={eyebrowMutedClass}>Estimated level</p>
           <h2
             id="level-test-result"
-            class="m-0 font-serif text-[clamp(3rem,10vw,4.5rem)] leading-none font-semibold text-slate-900"
+            class="m-0 font-serif text-[clamp(3rem,10vw,4.5rem)] leading-none font-semibold text-slate-900 focus-visible:outline-none"
+            tabindex="-1"
           >
             {result.overall.level}
           </h2>

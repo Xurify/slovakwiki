@@ -50,7 +50,13 @@
       {/if}
     </div>
 
-    <h2 id="level-test-heading" class={taskHeadingClass}>{heading}</h2>
+    <h2
+      id="level-test-heading"
+      class="{taskHeadingClass} focus-visible:outline-none"
+      tabindex="-1"
+    >
+      {heading}
+    </h2>
 
     <div class="mt-7">
       {@render children()}

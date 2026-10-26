@@ -9,7 +9,7 @@
   import LetterGap from "../LetterGap.svelte";
   import SlovakKeys from "../SlovakKeys.svelte";
   import TaskFrame from "../TaskFrame.svelte";
-  import { taskReadingClass } from "../level-test-ui";
+  import { commitTyping, taskReadingClass } from "../level-test-ui";
   import type { StepDone } from "../steps";
 
   let {
@@ -31,6 +31,7 @@
   function submit(): void {
     if (done) return;
     done = true;
+    commitTyping();
     ondone({
       responses: [
         adaptiveResponse(item, gradeLetters(item.missing, value), undefined, "", {

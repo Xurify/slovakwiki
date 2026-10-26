@@ -97,8 +97,12 @@
     else finish();
   }
 
-  function answerTurn(): void {
+  function keepReply(): void {
     replies = [...replies.slice(0, turn), picked];
+  }
+
+  function answerTurn(): void {
+    keepReply();
     picked = null;
     if (lastTurn) endConversation();
     else turn += 1;
@@ -107,6 +111,7 @@
   /** The shared 6:30 ran out: unanswered turns count as misses. */
   function mainTimeUp(): void {
     if (phase === "summary") return;
+    if (phase === "respond") keepReply();
     endConversation();
   }
 
@@ -197,16 +202,18 @@
           </div>
 
           <div class="ml-auto">
-            {#key turn}
+            <!-- A keyed each, not key: a clip that fails after Skip still names its own turn. -->
+            {#each [turn] as lineTurn (lineTurn)}
               <ClipButton
                 src={current.line.audio}
                 maxPlays={1}
                 size="md"
                 autoplay
                 label={`Play what ${set.partnerName} says`}
-                onfailed={() => (unplayableTurns = new Set(unplayableTurns).add(turn))}
+                onfailed={() =>
+                  (unplayableTurns = new Set(unplayableTurns).add(lineTurn))}
               />
-            {/key}
+            {/each}
           </div>
         </div>
 

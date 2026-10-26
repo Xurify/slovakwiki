@@ -33,6 +33,7 @@
   let error = $state<string | null>(null);
   let run = $state(0);
   let plan = $state<PlanStep[] | null>(null);
+  let capabilitiesLoaded: Promise<void> | undefined;
 
   const useSpeaking = $derived(speaking && microphoneSupported);
   const minutes = $derived({
@@ -43,7 +44,7 @@
   onMount(() => {
     microphoneSupported = canRecord();
     saved = readSavedResult();
-    void fetchCapabilities().then((value) => {
+    capabilitiesLoaded = fetchCapabilities().then((value) => {
       capabilities = value;
       checked = true;
     });
@@ -51,16 +52,16 @@
 
   async function start(): Promise<void> {
     error = null;
-    if (!bank) {
-      loading = true;
-      try {
-        bank = await fetchBank();
-      } catch (cause) {
-        error = cause instanceof Error ? cause.message : "Could not load the test";
-        return;
-      } finally {
-        loading = false;
-      }
+    loading = true;
+    try {
+      // The plan depends on what scoring is switched on.
+      await capabilitiesLoaded;
+      bank ??= await fetchBank();
+    } catch (cause) {
+      error = cause instanceof Error ? cause.message : "Could not load the test";
+      return;
+    } finally {
+      loading = false;
     }
     plan = buildPlan({ mode, capabilities, speaking: useSpeaking });
     run += 1;

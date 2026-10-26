@@ -25,7 +25,7 @@
   }
 
   function onKeydown(event: KeyboardEvent): void {
-    if (event.metaKey || event.ctrlKey || event.altKey) return;
+    if (event.repeat || event.metaKey || event.ctrlKey || event.altKey) return;
     const key = event.key.toLowerCase();
     if (key === "y" || key === "arrowleft") answer(true);
     if (key === "n" || key === "arrowright") answer(false);

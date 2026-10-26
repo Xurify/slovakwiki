@@ -6,7 +6,7 @@
   let { disabled = false }: { disabled?: boolean } = $props();
 </script>
 
-<div class="flex flex-wrap gap-1.5" aria-label="Slovak letters">
+<div class="flex flex-wrap gap-1.5" role="group" aria-label="Slovak letters">
   {#each SK_CHARS as char (char)}
     <!-- mousedown keeps focus in the text field the letter is meant for. -->
     <button
