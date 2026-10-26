@@ -6572,6 +6572,9 @@ exports[`every scene, directed > podcast podcast-past-tense-whodunit 1`] = `
           "anna": 1,
           "marek": -1,
         },
+        "sit": [
+          "marek",
+        ],
       },
     },
     {

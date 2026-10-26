@@ -167,3 +167,40 @@ describe("stage blocking", () => {
     expect(blockingBefore(1, ["anna", "alex"], stagings, frame).offsets).toEqual({});
   });
 });
+
+describe("sitting", () => {
+  const lines: DirectedLine[] = [
+    { characterId: "maria", slovak: "Dobrý deň. Sadnite si, prosím." },
+    { characterId: "anna", slovak: "Ďakujeme." },
+    { characterId: "marek", slovak: "Ďakujem." },
+    { characterId: "maria", slovak: "Anna, vstaň a čítaj." },
+  ];
+
+  it("sits everyone spoken to with -te on a chair of their own, facing the way it does", () => {
+    const { before, frame } = staged(lines, "classroom");
+    const state = before(1);
+    const seats = [state.seated.anna, state.seated.marek];
+
+    expect(state.seated.maria).toBeUndefined();
+    expect(new Set(seats).size).toBe(2);
+    for (const id of ["anna", "marek"] as const) {
+      const chair = frame.seats[state.seated[id]!];
+      expect(centre(frame, state, id)).toBeCloseTo(chair.x);
+      expect(state.facings[id]).toBe(chair.facing);
+    }
+  });
+
+  it("gets up only the one told to", () => {
+    const { before } = staged(lines, "classroom");
+    const state = before(4);
+
+    expect(state.seated.anna).toBeUndefined();
+    expect(state.seated.marek).toBeDefined();
+  });
+
+  it("stays standing where there is no chair", () => {
+    const { before } = staged(lines, "studio");
+
+    expect(before(1).seated).toEqual({});
+  });
+});

@@ -22,6 +22,20 @@ export interface Glass extends ThingBox {
   arch?: boolean;
 }
 
+/**
+ * A chair or table standing on the floor at `x` in the drawing. It is drawn at
+ * the cast's scale (StickFurniture.svelte), not the backdrop's, so a figure
+ * sits on the seat at any stage size. A chair's back is behind whoever sits
+ * on it, facing `facing`.
+ */
+export interface Furniture {
+  kind: "chair" | "table";
+  x: number;
+  facing?: 1 | -1;
+  /** A school desk in front of the chair. */
+  desk?: boolean;
+}
+
 /** Everything about a place the stage needs, besides its drawing (StickBackdrop.svelte). */
 export interface Place {
   /** Before a scene starts, where it is. */
@@ -52,6 +66,8 @@ export interface Place {
   headwear?: Headwear;
   /** Where rain and grey show indoors, and the way rain is heard; a room without one stays quiet. */
   glass?: Glass;
+  /** Chairs a line can sit someone on ("Sadnite si."), and tables. */
+  furniture?: readonly Furniture[];
 }
 
 /** The park's afternoon sun, which a line can point at and Find it can ask for. */
@@ -96,6 +112,12 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       drawn(WORDS.rastlina, plantBox(PARTS.classroom.plant)),
     ],
     sounds: ["hum"],
+    // The teacher stands by her desk; the pupils' desks face her, inside what a phone shows.
+    staff: ["maria"],
+    furniture: [
+      { kind: "chair", x: 200, facing: 1, desk: true },
+      { kind: "chair", x: 330, facing: 1, desk: true },
+    ],
   },
   default: {
     ground: "soil",

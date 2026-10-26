@@ -27,6 +27,7 @@
     picture,
     pose = REST_POSE,
     held,
+    sit = 0,
     dress = dressFor("clear"),
     turnDelay = 0,
   }: {
@@ -40,13 +41,15 @@
     pose?: StickPose;
     /** In the lead hand. */
     held?: Held;
+    /** 0 standing, 1 sitting on a chair. */
+    sit?: number;
     /** What the weather on them does to what they wear. */
     dress?: Dress;
     /** Ms before a change of `facing` starts: a listener turns a beat after the speaker. */
     turnDelay?: number;
   } = $props();
 
-  const rig = $derived(solveRig(pose));
+  const rig = $derived(solveRig(pose, sit));
   /**
    * From the near cup over the crown to the far one: half an ellipse round
    * the head whose top sits `lift` above the hair, so the band hugs the

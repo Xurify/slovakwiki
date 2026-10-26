@@ -36,6 +36,8 @@ export interface StageFrame {
   marks: Partial<Record<LessonCharacterId, number>>;
   /** What a line can take everyone over to. */
   things: readonly SceneThing[];
+  /** Chairs to sit on: stage x of each seat's middle, and the way a sitter faces. */
+  seats: ReadonlyArray<{ x: number; facing: Facing }>;
   width: number;
 }
 
@@ -74,7 +76,18 @@ export function stageFrame(
     height || undefined,
   );
 
-  return { align, cast, figureWidth, height, marks, things, width };
+  const seats = (PLACES[setting].furniture ?? []).flatMap((piece) =>
+    piece.kind === "chair"
+      ? [
+          {
+            x: backdropToStage({ x: piece.x, y: 0 }, width, height, align).x,
+            facing: piece.facing ?? 1,
+          },
+        ]
+      : [],
+  );
+
+  return { align, cast, figureWidth, height, marks, seats, things, width };
 }
 
 /** Stage x of a backdrop point. */
@@ -111,6 +124,14 @@ export function beside(
   const now = at[id] ?? 0;
   // Close enough already, after a walk the two made together, is close enough.
   return Math.abs(gap - now) > widths ? gap - Math.sign(gap - now) * widths : now;
+}
+
+/** Figure widths from a figure's mark to where it sits on the seat at stage x `seat`. */
+export function onSeat(frame: StageFrame, id: LessonCharacterId, seat: number): number {
+  if (!frame.width) return 0;
+
+  const mark = markOf(frame, id);
+  return (seat - (mark.left + mark.width / 2)) / mark.width;
 }
 
 /** Figure widths from a figure's mark to just past the stage edge on that side. */

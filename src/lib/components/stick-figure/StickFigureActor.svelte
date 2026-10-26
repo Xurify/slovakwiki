@@ -1,5 +1,7 @@
 <script lang="ts">
   import { untrack } from "svelte";
+  import { cubicInOut } from "svelte/easing";
+  import { Tween } from "svelte/motion";
 
   import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
   import type { LineBeat, LinePlan } from "$lib/stick-figure/line-plan";
@@ -17,6 +19,9 @@
   import { walkPose } from "$lib/stick-figure/walk";
   import StickFigure from "./StickFigure.svelte";
 
+  /** Sitting down or getting up takes about as long as a step and a half. */
+  const SIT_MS = 600;
+
   let {
     characterId,
     clock,
@@ -27,6 +32,7 @@
     plan,
     held,
     dress,
+    seated = false,
     talking = false,
     turnDelay = 0,
     walk,
@@ -45,6 +51,8 @@
     held?: Held;
     /** What the weather on them does to what they wear. */
     dress?: Dress;
+    /** On a chair: they sit once any walk there is over, and get up before walking on. */
+    seated?: boolean;
     /** True while the line `plan` belongs to plays: this figure's own, or one it reacts to. */
     talking?: boolean;
     /** Ms before a change of `facing` starts. */
@@ -54,6 +62,8 @@
   } = $props();
 
   let pose = $state<StickPose>(REST_POSE);
+  const sitting = new Tween(0, { easing: cubicInOut });
+
   let picture = $state<StickPictureId>();
   /** The way a point in flight turns the figure, when its target is behind it. */
   let turned = $state<1 | -1>();
@@ -91,6 +101,19 @@
       walkStartedAt = performance.now();
       walkMs = ms;
       run();
+    });
+  });
+
+  // After the walk's effect, so a walk to the chair this same line is counted.
+  $effect(() => {
+    const down = seated;
+    untrack(() => {
+      const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const walkLeft = Math.max(0, walkStartedAt + walkMs - performance.now());
+      void sitting.set(down ? 1 : 0, {
+        delay: down && !still ? walkLeft : 0,
+        duration: still ? 0 : SIT_MS,
+      });
     });
   });
 
@@ -134,5 +157,6 @@
   {pose}
   {held}
   {dress}
+  sit={sitting.current}
   turnDelay={turned ? 0 : turnDelay}
 />
