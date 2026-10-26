@@ -428,12 +428,13 @@ export function motionFor(
     }
     case "dry": {
       const keys: MotionKey[] = [{ at: 0 }];
+      // Both hands in the towel, rubbing up and down against each other, far enough to be seen.
       for (let at = 350, rub = 0; at <= 1500; at += 190, rub += 1) {
         keys.push({
           at,
-          lead: { to, as: "base", dx: 1, dy: rub % 2 ? 0 : 4 },
-          rear: { to, as: "base", dx: -1, dy: rub % 2 ? 4 : 0 },
-          body: { lean: 6 },
+          lead: { to, as: "base", dx: 2, dy: rub % 2 ? 0 : 7 },
+          rear: { to, as: "base", dx: -2, dy: rub % 2 ? 7 : 0 },
+          body: { lean: 6, bob: rub % 2 ? 0.5 : 0 },
         });
       }
       keys.push({ at: 1800 });
@@ -1420,15 +1421,20 @@ export function frameBetween(
   return { pose, turn, emote: t < 0.5 ? from.emote : to.emote, aimed: points };
 }
 
-/** The door pushed to behind someone just come in: a hand out flat to it, and back. */
+/**
+ * The door pushed to behind someone just come in: a hand out to its edge
+ * as it starts to swing (`takes`), riding the edge in as it shuts, and back.
+ */
 export const CLOSE_DOOR: Motion = {
-  ms: 900,
-  takes: 450,
+  ms: 1100,
+  // The swing eases in, so starting it as the hand is still on its way puts the first visible movement under the hand.
+  takes: 200,
   keys: [
     { at: 0 },
-    { at: 350, lead: { at: { x: 17, y: 76 } }, body: { lean: 4 } },
-    { at: 550, lead: { at: { x: 19, y: 76 } }, body: { lean: 5 } },
-    { at: 900 },
+    { at: 300, lead: { at: { x: 28, y: 75 } }, body: { lean: 8 } },
+    { at: 550, lead: { at: { x: 23, y: 76 } }, body: { lean: 6 } },
+    { at: 800, lead: { at: { x: 18, y: 77 } }, body: { lean: 4 } },
+    { at: 1100 },
   ],
 };
 

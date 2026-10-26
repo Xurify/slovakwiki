@@ -113,6 +113,7 @@
     handOverY,
     isSink,
     objectGrip,
+    pieceSize,
     placePieces,
     spotAt,
     stagePoint,
@@ -163,9 +164,15 @@
   /** Long enough to read a short line said in a bubble. */
   const BUBBLE_MS = 2800;
   const CARD_WIDTH = 220;
-  /** Passing someone, a walker steps a little down and grows a little, as a step nearer the camera would. */
-  const PASS_LANE = 0.06;
-  const PASS_SCALE = 1.04;
+  /**
+   * Passing someone, or the table and its chairs, a walker steps down and
+   * grows a little, as a step nearer the camera would, and is drawn over
+   * them. Less read as walking through them.
+   */
+  const PASS_LANE = 0.1;
+  const PASS_SCALE = 1.06;
+  /** Half a chair's width, in figure widths: StickFurniture draws one narrower than its box. */
+  const CHAIR_HALF = 0.22;
   /** The step back into line starts this long before the walk ends, and the lane's transition is about as long. */
   const PASS_MS = 350;
   /** Stopping beside someone, in figure widths, is not passing them: two bodies' widths, as the checks count it. */
@@ -312,8 +319,8 @@
   const TAKE_OVER_MS = 260;
   /** From the door opening to the one coming in standing in it. */
   const DOOR_MS = 700;
-  /** How long the door takes to swing open before whoever is behind it shows. */
-  const DOOR_OPENING_MS = 180;
+  /** How long the door takes to swing open past edge on (StickBackdrop swings it in 450) before whoever is behind it shows. */
+  const DOOR_OPENING_MS = 300;
   /** Bumped when the stage stops or jumps, so cues still on the clock let go. */
   let actToken = 0;
   type ActorAct = ComponentProps<typeof StickFigureActor>["doing"];
@@ -1042,7 +1049,7 @@
     offsets = { ...offsets, [id]: offset };
     striding = [...striding.filter((other) => other !== id), id];
     later(ms, () => (striding = striding.filter((other) => other !== id)));
-    if (passesSomeone(id, from, offset)) {
+    if (passesSomeone(id, from, offset) || passesFurniture(id, from, offset)) {
       passing = [...passing.filter((other) => other !== id), id];
       later(
         Math.max(0, ms - PASS_MS),
@@ -1071,6 +1078,30 @@
         ((frame.marks[other] ?? 0) - mark) / frame.figureWidth + (offsets[other] ?? 0);
       return at > left && at < right;
     });
+  }
+
+  /** Whether a walk from `from` to `to` figure widths off the mark goes past a chair or the table, which the walker passes in front of. */
+  function passesFurniture(id: LessonCharacterId, from: number, to: number): boolean {
+    const middle = (frame.marks[id] ?? 0) + frame.figureWidth / 2;
+    const left = middle + Math.min(from, to) * frame.figureWidth;
+    const right = middle + Math.max(from, to) * frame.figureWidth;
+    const end = middle + to * frame.figureWidth;
+    // Not the chair they walk up to, to sit on.
+    const chairs = (PLACES[setting].furniture ?? [])
+      .map(({ x }) => stageX(frame, { x, y: 0 }))
+      .filter((at) => Math.abs(end - at) > CHAIR_HALF * frame.figureWidth)
+      .map((at) => [
+        at - CHAIR_HALF * frame.figureWidth,
+        at + CHAIR_HALF * frame.figureWidth,
+      ]);
+    const fronts = geometry.pieces
+      .filter((piece) => piece.front)
+      .map((piece) => {
+        const at = (geometry.pieceX(piece.id) ?? 0) * unit;
+        const half = (pieceSize(piece).width / 2) * unit;
+        return [at - half, at + half];
+      });
+    return [...chairs, ...fronts].some(([start, end]) => right > start && left < end);
   }
 
   /** Who turns to the one talking: in an acted scene, only those not at a spot of the set and not busy with a cue. */
@@ -1581,8 +1612,12 @@
             style:transform="translateX({(offsets[characterId] ?? 0) * 100}%)"
             style:transition-duration="{walks[characterId]?.ms ?? 0}ms, 0ms, 600ms"
             style:opacity={outside.includes(characterId) ? 0 : 1}
-            style:filter={shaded.includes(characterId) ? "brightness(0.7)" : "none"}
-            style:z-index={striding.includes(characterId) ? 2 : 1}
+            style:filter={shaded.includes(characterId) ? "brightness(0.9)" : "none"}
+            style:z-index={passing.includes(characterId)
+              ? 4
+              : striding.includes(characterId)
+                ? 2
+                : 1}
           >
             <div
               class="origin-bottom transition-transform duration-300 ease-in-out"

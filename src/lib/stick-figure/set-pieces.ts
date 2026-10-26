@@ -28,6 +28,8 @@ export interface SetPiece {
   front?: boolean;
   /** A counter's sink, rig units from its middle: the tap over it and the open cupboard under it. A counter without one has closed doors. */
   sink?: number;
+  /** Not drawn, as what it is on draws it: the oven door's handle, which a towel hangs over. */
+  bare?: boolean;
 }
 
 /**

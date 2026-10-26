@@ -91,8 +91,9 @@ const PLACE_DX = { l: -40, bl: -18, br: 18, r: 40 } as const;
  * past it a short side counter where Mária cooks, the salt at her hand, clear
  * of her body so it is seen, and the rail with the spoon and ladle over it.
  * Nothing hangs behind her head: a lid there read as a hood. The soup
- * simmers uncovered. The towel hangs at the
- * counter's end, a step from the sink. The table under the window is laid for
+ * simmers uncovered. The towel hangs on the oven door's handle, on the far
+ * side of the sink from the room: dried there, nobody leans into whoever waits
+ * at the counter's end. The table under the window is laid for
  * four: Anna's place at the left end, Lucia's and Marek's behind it, Mária's
  * at the right end. Rig units from each piece's middle; a cast of three
  * draws one rig unit about 1.375 backdrop units wide.
@@ -113,9 +114,16 @@ const KITCHEN_SET: PlaceSet = {
       width: 30,
       height: 12,
     },
-    // Under the worktop's lip at the counter's end.
-    { id: "hook", kind: "rail", at: { piece: "counter", dx: -53 }, width: 4, height: 41 },
     { id: "stove", kind: "stove", at: { piece: "counter", dx: 74 } },
+    // The oven door's handle, which the stove draws: the towel hangs over it.
+    {
+      id: "oven-bar",
+      kind: "rail",
+      at: { piece: "stove", dx: 0 },
+      width: 24,
+      height: 35,
+      bare: true,
+    },
     { id: "side", kind: "counter", at: { piece: "stove", dx: 37 }, width: 36 },
     // Under the wall cupboards, out of a tall pot's way.
     { id: "rail", kind: "rail", at: { piece: "side", dx: 0 }, width: 30, height: 88 },
@@ -125,7 +133,7 @@ const KITCHEN_SET: PlaceSet = {
   objects: [
     { id: "pot", kind: "pot", start: { where: { on: "cupboard", dx: 0 } } },
     { id: "ladle", kind: "ladle", start: { where: { on: "rail", dx: 12 } } },
-    { id: "towel", kind: "towel", start: { where: { on: "hook", dx: 0 } } },
+    { id: "towel", kind: "towel", start: { where: { on: "oven-bar", dx: -7 } } },
     { id: "board", kind: "board", start: { where: { on: "counter", dx: 24 } } },
     { id: "carrot", kind: "carrot", start: { where: { in: "board", dx: -2 } } },
     { id: "knife", kind: "knife", start: { where: { on: "counter", dx: 40 } } },
@@ -158,12 +166,12 @@ const KITCHEN_SET: PlaceSet = {
     // Clear of the table's end chair, where the guests stand about and talk, a step apart.
     middle: { x: 498, facing: 1 },
     chat: { x: 567, facing: -1 },
-    // Out of the cooks' way past the table's end, watching, far enough from the towel for someone to dry their hands.
+    // Out of the cooks' way past the table's end, watching.
     aside: { x: 490, facing: 1 },
     // Short of the counter's end, to set something on it.
     "counter-end": { piece: "counter", dx: -80, facing: 1 },
-    // Facing the towel, a step back from the sink.
-    "by-towel": { piece: "counter", dx: -44, facing: -1 },
+    // At the stove's left, facing the towel on the oven door.
+    "by-towel": { piece: "stove", dx: -24, facing: 1 },
     sink: { piece: "counter", dx: -34, facing: 1 },
     // Where the pot comes out of the cupboard under the sink.
     cupboard: { piece: "counter", dx: -36, facing: 1 },

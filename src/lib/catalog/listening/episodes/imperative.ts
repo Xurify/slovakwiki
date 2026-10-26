@@ -539,8 +539,7 @@ const KITCHEN_ACTS: Record<string, Cue[]> = {
     { do: "point", to: "basin", on: "tam" },
     { do: "camera", to: "counter", zoom: 1.3, on: "tam" },
     { who: "marek", do: "take", what: "recorder" },
-    { who: "marek", do: "put", what: "recorder", to: "counter", dx: -52 },
-    { who: "marek", do: "go", to: "aside" },
+    { who: "marek", do: "put", what: "recorder", to: "counter", dx: -50 },
   ],
   // Drying her hands as she offers to help.
   "anna-help-with": [

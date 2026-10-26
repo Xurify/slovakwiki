@@ -44,7 +44,8 @@
         (layer === "front") === Boolean(piece.front) &&
         piece.kind !== "ledge" &&
         piece.kind !== "floor" &&
-        piece.kind !== "desk",
+        piece.kind !== "desk" &&
+        !piece.bare,
     ),
   );
 

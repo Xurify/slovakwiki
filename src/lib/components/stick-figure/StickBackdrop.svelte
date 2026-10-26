@@ -76,7 +76,7 @@
   /** Each place's drawing; every one takes the same props and uses what it needs. */
   const DRAWINGS: Record<
     StageSetting,
-    Component<{ board?: string; hour: number; open?: boolean; tram: TramState }>
+    Component<{ board?: string; hour: number; open?: number; tram: TramState }>
   > = {
     cafe: Cafe,
     classroom: Classroom,
@@ -123,6 +123,22 @@
     // Only a skip runs the hands round; a new scene, a seek or the first world just sets them.
     const run = untrack(() => skipping) && to > from;
     void hour.set(to, { duration: run ? 1200 : 0 });
+  });
+  /**
+   * The door swings rather than snaps, about as long as a door takes, and
+   * only part way: wide enough to come in by, and its edge still in reach
+   * of whoever turns back to push it to.
+   */
+  const AJAR = 0.5;
+  const swing = new Tween(
+    untrack(() => (door ? AJAR : 0)),
+    {
+      duration: 450,
+      easing: cubicInOut,
+    },
+  );
+  $effect(() => {
+    void swing.set(door ? AJAR : 0);
   });
   const Drawing = $derived(DRAWINGS[setting]);
   const things = $derived(thingsIn(PLACES[setting].things, setting, mood));
@@ -173,7 +189,7 @@
       <SkyLayer {mood} {setting} />
     {/if}
 
-    <Drawing {board} hour={hour.current} open={door} {tram} />
+    <Drawing {board} hour={hour.current} open={swing.current} {tram} />
 
     <MoodLayer {mood} {setting} />
     <StageLight />
