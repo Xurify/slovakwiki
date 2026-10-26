@@ -9,11 +9,12 @@ Every iteration in the first four episodes came from something nobody had decide
 **Story**
 
 - [ ] The grammar page (`grammarSlug`) and the forms to cover: every row and every column of its tables, other cases too, and each contrast frame. A big table is not heard cell by cell: the imperative's 13 verbs × 3 persons fit a show only as one form per row.
-- [ ] The shape: a magazine show (intro, game, places, quiz, outro, as in `demonstratives.ts`) or a radio play with scene cards and no quiz (`past-tense.ts`). A play does not say anything wrong on purpose.
+- [ ] The shape: a magazine show (intro, places, then game and quiz, outro) or a radio play with scene cards and no quiz (`past-tense.ts`). A play does not say anything wrong on purpose. A game or quiz comes after the story, once the listener has heard the forms used, never straight after the intro.
 - [ ] The thread: one object or problem from the first segment that comes back in the last line (the car key, the umbrella, the cake).
 - [ ] One line per segment saying what happens, in order, with where it is, and why the characters are there: a visit with no reason reads as confusing.
 - [ ] Fewer places, each worked out: who is there, what they want, how it starts and ends. Three thin segments and a one-word payoff read as rushed; give the ending room.
 - [ ] Every line is something that person would say then, real and natural first; the forms fit into it. Nobody knows what they could not know: someone tells them.
+- [ ] Nothing exists only to carry a form: no dictated recipe, no spoken textbook label (`rob, robte, robme`), no prop pulled out to have something to write on.
 - [ ] Speech sounds spoken: fillers where people use them (`No nič…`, `Tak…`), and a delivery that fits each line's feeling.
 - [ ] The ending has a set-up, a pause and a reaction; a good last joke is not cut short.
 
@@ -33,6 +34,8 @@ Every iteration in the first four episodes came from something nobody had decide
 - [ ] No prop appears from nowhere: it is fetched, handed over or already in view, and stays until someone moves it.
 - [ ] The camera opens close and widens as people and things come in.
 - [ ] How each change of place is said: the last line before (`Poďme na trh!`) and the first after (`Teraz sme na trhu.`), or a scene card (`Trh. Pol piatej.`).
+
+- [ ] An independent naturalness review before the person sees the script: a reviewer with no context on the episode or its grammar reads every line as a native speaker would and flags anything stiff, textbook, copied from English, illogical (a pot put on the stove before it is filled) or there only to show a form. Fix and review again until clean.
 
 ## 2. The prompt
 
