@@ -56,7 +56,9 @@
         <li class={rowClass}>
           {@render mark("tip")}
 
-          <span class="text-[0.95rem] leading-relaxed text-slate-700 sm:col-span-2">
+          <span class="hidden sm:block" aria-hidden="true"></span>
+
+          <span class="text-sm leading-snug text-slate-600 max-sm:col-span-full">
             <GrammarRichText text={item} />
           </span>
         </li>
