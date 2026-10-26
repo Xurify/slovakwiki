@@ -255,10 +255,15 @@ async function main(): Promise<void> {
   }
 
   const manifest = await loadManifest();
+  // An uploaded clip this branch has no line for may be another branch's: its entry
+  // stays until the object itself is deleted from R2.
+  const stillOnR2 = (entry: { uploadedAt?: string }, objectKey: string) =>
+    Boolean(entry.uploadedAt) && !goneFromR2.has(objectKey);
   let removedLocal = 0;
   let removedR2 = 0;
   let removedManifest = 0;
   let failed = 0;
+  const goneFromR2 = new Set<string>();
 
   await mapPool(orphans, concurrency, async (objectKey) => {
     const hash = path.basename(objectKey, ".mp3");
@@ -289,6 +294,7 @@ async function main(): Promise<void> {
           throw new Error(`R2 ${response.status}: ${detail || response.statusText}`);
         }
         removedR2 += 1;
+        goneFromR2.add(objectKey);
       } catch (error) {
         failed += 1;
         const message = error instanceof Error ? error.message : String(error);
@@ -296,7 +302,7 @@ async function main(): Promise<void> {
       }
     }
 
-    if (manifest[hash]) {
+    if (manifest[hash] && !stillOnR2(manifest[hash], objectKey)) {
       delete manifest[hash];
       removedManifest += 1;
     }
@@ -313,7 +319,7 @@ async function main(): Promise<void> {
     const entry = manifest[hash];
     if (!entry) continue;
     const key = `${entry.kind}/${hash}.mp3`;
-    if (expected.has(key)) continue;
+    if (expected.has(key) || stillOnR2(entry, key)) continue;
     delete manifest[hash];
     staleManifest += 1;
   }
