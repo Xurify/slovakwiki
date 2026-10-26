@@ -9,7 +9,6 @@
 
   let {
     current = false,
-    dimmed = false,
     line,
     number,
     onpause,
@@ -18,7 +17,6 @@
     showEnglish = false,
   }: {
     current?: boolean;
-    dimmed?: boolean;
     line: DialogueTurn;
     number: number;
     onpause: () => void;
@@ -31,9 +29,8 @@
 <li
   class={cx(
     "flex scroll-mt-28 scroll-mb-4 list-none gap-3 border-b border-l-[3px] border-slate-200/70 border-l-transparent px-4 py-3 last:border-b-0 sm:px-5",
-    "transition-[background-color,border-color,opacity] duration-150 ease-out",
+    "transition-[background-color,border-color] duration-150 ease-out",
     current && "border-l-blue-600 bg-blue-50",
-    dimmed && "opacity-55",
   )}
   aria-current={current ? "true" : undefined}
   data-line-current={current ? "" : undefined}

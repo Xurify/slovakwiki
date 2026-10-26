@@ -1,9 +1,36 @@
 import type { MarkedPart } from "$lib/learning/marked-text";
-import { PAUSE, SIGH, STOP, afterThinking, guess, lineWriter } from "../dialogue";
+import type { DialogueTurn, ListenerPath } from "$lib/learning/types";
+import {
+  CHUCKLE,
+  PAUSE,
+  SIGH,
+  STOP,
+  guess,
+  NO_PICK,
+  lineWriter,
+  listenerPicks,
+  onPath,
+  type Part,
+} from "../dialogue";
 import type { ListeningChapter, ListeningEpisode } from "../types";
 
 const PREFIX = "podcast-demonstratives-";
 const line = lineWriter(PREFIX);
+
+/** A breath before the next word in the game, so the joke before it can land. */
+const BEAT_MS = 1200;
+
+/** Anna's score and Marek's answer to it, on one path through the listener's picks. */
+function ending(
+  when: ListenerPath,
+  [annaId, annaParts, annaEnglish]: [string, Part[], string],
+  [marekId, marekParts, marekEnglish]: [string, Part[], string],
+): DialogueTurn[] {
+  return [
+    { ...onPath(line(annaId, "Anna", annaParts, annaEnglish), when), wait: BEAT_MS },
+    onPath(line(marekId, "Marek", marekParts, marekEnglish), when),
+  ];
+}
 
 /** A demonstrative, the episode's topic, lit in the transcript. */
 function mark(text: string): Exclude<MarkedPart, string> {
@@ -603,8 +630,8 @@ const home: ListeningChapter = {
 
 const quiz: ListeningChapter = {
   id: `${PREFIX}quiz`,
-  titleSk: "Správne alebo nesprávne?",
-  title: "Right or wrong? Marek takes the test",
+  titleSk: "Pomôžte Marekovi",
+  title: "Help Marek: you pick the word",
   lines: [
     line(
       "anna-back-in-studio",
@@ -619,103 +646,496 @@ const quiz: ListeningChapter = {
       "Yes. And I have that key here.",
     ),
     line(
-      "anna-right-or-wrong",
+      "anna-dont-lose-it",
       "Anna",
-      ["A teraz hra: správne alebo nesprávne? Hádajte s nami!"],
-      "And now a game: right or wrong? Guess along with us!",
+      [CHUCKLE, "Tak ho už nestrať!"],
+      "Then don't lose it again!",
+    ),
+    line("marek-i-wont", "Marek", ["Nestratím, sľubujem."], "I won't, I promise."),
+    line(
+      "anna-test-for-marek",
+      "Anna",
+      [
+        "No, kľúč máš. ",
+        PAUSE,
+        "A teraz malá skúška pre Mareka: ",
+        mark("ten"),
+        ", ",
+        mark("tá"),
+        ", ",
+        mark("to"),
+        ".",
+      ],
+      "Well, you have the key. And now a little test for Marek: ten, tá, to.",
     ),
     line(
-      "marek-first-sentence",
+      "marek-never-get-these",
       "Marek",
-      ["Dobre. Prvá veta: ", PAUSE, mark("Tá"), " dievča je moja sestra."],
-      "OK. First sentence: Tá dievča je moja sestra. (Wrong on purpose.)",
+      ["Ojoj. ", PAUSE, "Tieto slovíčka mi nikdy nejdú do hlavy."],
+      "Uh-oh. These little words never stick in my head.",
     ),
-    afterThinking(
+    line(
+      "marek-you-help-me",
+      "Marek",
+      ["Viete čo? ", PAUSE, "Pomôžte mi vy!"],
+      "You know what? You help me!",
+    ),
+    line(
+      "anna-you-choose",
+      "Anna",
+      [CHUCKLE, "Dobre. ", PAUSE, "Vy vyberiete, Marek povie."],
+      "OK. You choose, Marek says it.",
+    ),
+    line(
+      "anna-first-word",
+      "Anna",
+      [
+        "Prvé slovo: dievča. ",
+        PAUSE,
+        mark("Tá"),
+        " dievča, alebo ",
+        mark("to"),
+        " dievča?",
+      ],
+      "First word: dievča, a girl. Tá dievča, or to dievča?",
+    ),
+    listenerPicks(
       line(
-        "anna-dievca-neuter",
-        "Anna",
-        ["Nesprávne! ", PAUSE, "Dievča je stredný rod: ", mark("to"), " dievča."],
-        "Wrong! Dievča is neuter: to dievča.",
+        "marek-what-do-you-think",
+        "Marek",
+        ["Hm", STOP, PAUSE, "Čo myslíte?"],
+        "Hmm… What do you think?",
       ),
+      {
+        prompt: "Čo má Marek povedať?",
+        choices: [
+          { id: "ta", label: "Tá dievča", english: "that girl" },
+          { id: "to", label: "To dievča", english: "that girl" },
+        ],
+        answerId: "to",
+        judge: "Anna",
+      },
     ),
-    line(
-      "marek-second-sentence",
-      "Marek",
-      ["Druhá veta: ", PAUSE, mark("Tie"), " deti sa hrajú vonku."],
-      "Second sentence: Those children are playing outside.",
-    ),
-    afterThinking(
+    onPath(
       line(
-        "anna-tie-deti-right",
+        "marek-to-dievca",
+        "Marek",
+        [mark("To"), " dievča, hovoríte? ", PAUSE, "Dobre, verím vám."],
+        "To dievča, you say? OK, I trust you.",
+      ),
+      { ask: `${PREFIX}marek-what-do-you-think`, picks: ["to"] },
+    ),
+    onPath(
+      line(
+        "marek-ta-dievca",
+        "Marek",
+        [mark("Tá"), " dievča, hovoríte? ", PAUSE, "Dobre, verím vám."],
+        "Tá dievča, you say? OK, I trust you.",
+      ),
+      { ask: `${PREFIX}marek-what-do-you-think`, picks: ["ta"] },
+    ),
+    onPath(
+      line(
+        "marek-nobody-to-dievca",
+        "Marek",
+        ["Nikto nič? ", PAUSE, "Tak si vyberiem sám. ", PAUSE, mark("To"), " dievča."],
+        "Nobody? Then I'll pick myself. To dievča.",
+      ),
+      { ask: `${PREFIX}marek-what-do-you-think`, picks: [NO_PICK] },
+    ),
+    onPath(
+      line(
+        "anna-dievca-right",
+        "Anna",
+        ["Správne! ", PAUSE, "Dievča je stredného rodu."],
+        "Right! Dievča is neuter.",
+      ),
+      { ask: `${PREFIX}marek-what-do-you-think`, picks: ["to", NO_PICK] },
+    ),
+    onPath(line("marek-i-knew-it", "Marek", ["Vedel som to!"], "I knew it!"), {
+      ask: `${PREFIX}marek-what-do-you-think`,
+      picks: ["to"],
+    }),
+    onPath(
+      line(
+        "anna-you-asked-them",
+        "Anna",
+        [CHUCKLE, "Ty? Veď si sa ich pýtal."],
+        "You? You asked them!",
+      ),
+      { ask: `${PREFIX}marek-what-do-you-think`, picks: ["to"] },
+    ),
+    onPath(
+      line(
+        "marek-know-it-myself",
+        "Marek",
+        [CHUCKLE, "Vidíte? Viem to aj sám."],
+        "See? I know it by myself too.",
+      ),
+      { ask: `${PREFIX}marek-what-do-you-think`, picks: [NO_PICK] },
+    ),
+    onPath(
+      line(
+        "anna-dievca-wrong",
+        "Anna",
+        ["Nesprávne! ", PAUSE, "Dievča je stredného rodu: ", mark("to"), " dievča."],
+        "Wrong! Dievča is neuter: to dievča.",
+        { gestures: ["shake"] },
+      ),
+      { ask: `${PREFIX}marek-what-do-you-think`, picks: ["ta"] },
+    ),
+    onPath(
+      line(
+        "anna-who-told-you",
+        "Anna",
+        [CHUCKLE, "Marek, kto ti to poradil?"],
+        "Marek, who told you that?",
+      ),
+      { ask: `${PREFIX}marek-what-do-you-think`, picks: ["ta"] },
+    ),
+    onPath(line("marek-they-did", "Marek", ["Oni!"], "They did!"), {
+      ask: `${PREFIX}marek-what-do-you-think`,
+      picks: ["ta"],
+    }),
+    {
+      ...line(
+        "anna-second-word",
+        "Anna",
+        [
+          "No dobre. ",
+          PAUSE,
+          "Druhé slovo: deti. ",
+          PAUSE,
+          mark("Tie"),
+          " deti, alebo ",
+          mark("tí"),
+          " deti?",
+        ],
+        "Alright. Second word: deti, children. Tie deti, or tí deti?",
+      ),
+      wait: BEAT_MS,
+    },
+    listenerPicks(
+      line(
+        "marek-tie-or-ti",
+        "Marek",
+        [
+          mark("Tie"),
+          " deti",
+          STOP,
+          PAUSE,
+          "alebo ",
+          mark("tí"),
+          " deti? ",
+          PAUSE,
+          "Pomôžte mi!",
+        ],
+        "Tie deti… or tí deti? Help me!",
+      ),
+      {
+        prompt: "Čo má Marek povedať?",
+        choices: [
+          { id: "tie", label: "Tie deti", english: "those children" },
+          { id: "ti", label: "Tí deti", english: "those children" },
+        ],
+        answerId: "tie",
+        judge: "Anna",
+      },
+    ),
+    onPath(
+      line(
+        "marek-tie-deti",
+        "Marek",
+        [mark("Tie"), " deti, hovoríte? ", PAUSE, "Dobre, tak ", mark("tie"), " deti."],
+        "Tie deti, you say? OK, tie deti then.",
+      ),
+      { ask: `${PREFIX}marek-tie-or-ti`, picks: ["tie"] },
+    ),
+    onPath(
+      line(
+        "marek-ti-deti",
+        "Marek",
+        [mark("Tí"), " deti, hovoríte? ", PAUSE, "Dobre, tak ", mark("tí"), " deti."],
+        "Tí deti, you say? OK, tí deti then.",
+      ),
+      { ask: `${PREFIX}marek-tie-or-ti`, picks: ["ti"] },
+    ),
+    onPath(
+      line(
+        "marek-nothing-again",
+        "Marek",
+        ["Nikto? ", PAUSE, "Tak ", mark("tie"), " deti."],
+        "Nobody? Then tie deti.",
+      ),
+      { ask: `${PREFIX}marek-tie-or-ti`, picks: [NO_PICK] },
+    ),
+    onPath(
+      line(
+        "anna-tie-right",
         "Anna",
         [
           "Správne! ",
           PAUSE,
           mark("Tie"),
-          " deti, ",
-          mark("tie"),
-          " ženy. ",
+          " deti. ",
+          PAUSE,
           mark("Tí"),
-          " muži, ",
-          mark("tí"),
-          " chlapci.",
+          " je pre mužov a chlapcov.",
         ],
-        "Right! Tie deti, tie ženy. Tí muži, tí chlapci.",
+        "Right! Tie deti. Tí is for men and boys.",
       ),
+      { ask: `${PREFIX}marek-tie-or-ti`, picks: ["tie", NO_PICK] },
     ),
-    line(
-      "marek-last-sentence",
-      "Marek",
-      ["A posledná veta: ", PAUSE, "Poznáš ", mark("tohoto"), " muža?"],
-      "And the last sentence: Poznáš tohoto muža? (The Czech form, on purpose.)",
+    onPath(line("marek-yay", "Marek", ["Juchú!"], "Yay!"), {
+      ask: `${PREFIX}marek-tie-or-ti`,
+      picks: ["tie", NO_PICK],
+    }),
+    onPath(
+      line(
+        "anna-tie-wrong",
+        "Anna",
+        [
+          "Nesprávne! ",
+          PAUSE,
+          mark("Tí"),
+          " je pre mužov a chlapcov. ",
+          PAUSE,
+          "Ale ",
+          mark("tie"),
+          " deti.",
+        ],
+        "Wrong! Tí is for men and boys. But tie deti.",
+        { gestures: ["shake"] },
+      ),
+      { ask: `${PREFIX}marek-tie-or-ti`, picks: ["ti"] },
     ),
-    afterThinking(
+    onPath(
+      line(
+        "anna-dont-listen-to-them",
+        "Anna",
+        [CHUCKLE, "Marek, nepočúvaj ich tak veľmi."],
+        "Marek, don't listen to them so much.",
+      ),
+      { ask: `${PREFIX}marek-tie-or-ti`, picks: ["ti"] },
+    ),
+    onPath(
+      line(
+        "marek-my-helpers",
+        "Marek",
+        ["Ale veď sú to moji pomocníci!"],
+        "But they're my helpers!",
+      ),
+      { ask: `${PREFIX}marek-tie-or-ti`, picks: ["ti"] },
+    ),
+    {
+      ...line(
+        "anna-last-sentence",
+        "Anna",
+        [
+          "A posledná veta: poznám",
+          STOP,
+          PAUSE,
+          mark("tohto"),
+          " muža, alebo ",
+          mark("tohoto"),
+          " muža?",
+        ],
+        "And the last sentence: I know… tohto muža, or tohoto muža?",
+      ),
+      wait: BEAT_MS,
+    },
+    listenerPicks(
+      line(
+        "marek-so-helpers",
+        "Marek",
+        ["Ojoj, to je ťažké. ", PAUSE, "Tak čo, pomocníci?"],
+        "Uh-oh, that's hard. So what, helpers?",
+      ),
+      {
+        prompt: "Čo má Marek povedať?",
+        choices: [
+          { id: "tohto", label: "Poznám tohto muža", english: "I know this man" },
+          { id: "tohoto", label: "Poznám tohoto muža", english: "I know this man" },
+        ],
+        answerId: "tohto",
+        judge: "Anna",
+      },
+    ),
+    onPath(
+      line(
+        "marek-tohto-muza",
+        "Marek",
+        [
+          mark("Tohto"),
+          " muža, hovoríte? ",
+          PAUSE,
+          "Dobre: poznám ",
+          mark("tohto"),
+          " muža.",
+        ],
+        "Tohto muža, you say? OK: I know this man.",
+      ),
+      { ask: `${PREFIX}marek-so-helpers`, picks: ["tohto"] },
+    ),
+    onPath(
+      line(
+        "marek-tohoto-muza",
+        "Marek",
+        [
+          mark("Tohoto"),
+          " muža, hovoríte? ",
+          PAUSE,
+          "Dobre: poznám ",
+          mark("tohoto"),
+          " muža.",
+        ],
+        "Tohoto muža, you say? OK: I know this man.",
+      ),
+      { ask: `${PREFIX}marek-so-helpers`, picks: ["tohoto"] },
+    ),
+    onPath(
+      line(
+        "marek-silence-tohto",
+        "Marek",
+        ["Ticho? ", PAUSE, "Dobre. Poznám ", mark("tohto"), " muža."],
+        "Silence? OK. I know this man.",
+      ),
+      { ask: `${PREFIX}marek-so-helpers`, picks: [NO_PICK] },
+    ),
+    onPath(
+      line(
+        "anna-tohto-right",
+        "Anna",
+        ["Správne! ", PAUSE, mark("Tohto"), ". Tohoto je po česky."],
+        "Right! Tohto. Tohoto is Czech.",
+      ),
+      { ask: `${PREFIX}marek-so-helpers`, picks: ["tohto", NO_PICK] },
+    ),
+    onPath(
       line(
         "anna-tohto-not-tohoto",
         "Anna",
-        ["Nesprávne! ", PAUSE, "Tohoto je po česky. Správne je ", mark("tohto"), "."],
-        "Wrong! Tohoto is Czech. The right form is tohto.",
+        [
+          "Skoro, ale nie celkom. ",
+          PAUSE,
+          "Tohoto je po česky. Po slovensky hovoríme ",
+          mark("tohto"),
+          ".",
+        ],
+        "Close, but not quite. Tohoto is Czech. In Slovak we say tohto.",
+        { gestures: ["shake"] },
       ),
+      { ask: `${PREFIX}marek-so-helpers`, picks: ["tohoto"] },
     ),
-    line(
-      "marek-tohto-now-i-know",
-      "Marek",
-      [mark("Tohto"), ", ", mark("tohto"), ", ", mark("tohto"), ". ", PAUSE, "Už viem."],
-      "Tohto, tohto, tohto. Now I know.",
+    onPath(
+      line(
+        "marek-that-czech",
+        "Marek",
+        ["Aha. ", PAUSE, "Tá čeština!"],
+        "Oh. That Czech!",
+      ),
+      { ask: `${PREFIX}marek-so-helpers`, picks: ["tohoto"] },
     ),
-    line("anna-excellent", "Anna", ["Výborne, Marek!"], "Excellent, Marek!"),
+    onPath(
+      line(
+        "marek-phew-hard",
+        "Marek",
+        ["Uf. ", PAUSE, "To bolo ťažké."],
+        "Phew. That was hard.",
+      ),
+      { ask: `${PREFIX}marek-so-helpers`, picks: ["tohto", NO_PICK] },
+    ),
+    ...ending(
+      { score: [3] },
+      [
+        "anna-three-of-three",
+        ["Tri z troch! ", PAUSE, "Marek, to bol dobrý tím."],
+        "Three out of three! Marek, that was a good team.",
+      ],
+      ["marek-thanks-helpers", ["Ďakujem, pomocníci!"], "Thank you, helpers!"],
+    ),
+    ...ending(
+      { score: [2] },
+      [
+        "anna-two-of-three",
+        ["Dve z troch. ", PAUSE, "Jeden pomocník asi nedával pozor."],
+        "Two out of three. One helper probably wasn't paying attention.",
+      ],
+      [
+        "marek-thanks-that-one-too",
+        [CHUCKLE, "Ďakujem aj tomu, čo nedával pozor."],
+        "Thanks to the one who wasn't paying attention too.",
+      ],
+    ),
+    ...ending(
+      { score: [1] },
+      [
+        "anna-one-of-three",
+        ["Jedna z troch. ", PAUSE, "Hm", STOP, PAUSE, "Marek, nabudúce sa spýtaj mňa."],
+        "One out of three. Hmm… Marek, next time ask me.",
+      ],
+      [
+        "marek-thanks-anyway",
+        [CHUCKLE, "Aj tak ďakujem, pomocníci."],
+        "Thanks anyway, helpers.",
+      ],
+    ),
+    ...ending(
+      { score: [0] },
+      [
+        "anna-none-of-three",
+        ["Nula z troch! ", PAUSE, CHUCKLE, "Marek, dnes ťa pomocníci nezachránili."],
+        "Zero out of three! Marek, the helpers didn't save you today.",
+      ],
+      ["marek-on-purpose", ["Oni to urobili naschvál!"], "They did it on purpose!"],
+    ),
+    ...ending(
+      { unaided: true },
+      [
+        "anna-all-by-yourself",
+        ["Tri z troch. ", PAUSE, "A úplne sám!"],
+        "Three out of three. And all by yourself!",
+      ],
+      [
+        "marek-no-helpers-needed",
+        [CHUCKLE, "Vidíš? Pomocníkov nepotrebujem."],
+        "See? I don't need helpers.",
+      ],
+    ),
   ],
   checks: [
     {
-      id: `${PREFIX}check-correct-sentence`,
-      prompt: "Ktorá veta je podľa Anny správna?",
-      promptEnglish: "Which sentence does Anna call correct?",
+      id: `${PREFIX}check-tie-deti`,
+      gap: "___ deti",
+      prompt: "Ktoré slovo ide k slovu deti?",
+      promptEnglish: "Which word goes with deti?",
       choices: [
-        { id: "children", label: "Tie deti sa hrajú vonku." },
+        { id: "tie", label: "tie" },
         {
-          id: "girl",
-          label: "Tá dievča je moja sestra.",
-          whyWrong: "Anna says **nesprávne**: **dievča** is neuter, so **to dievča**.",
+          id: "ti",
+          label: "tí",
+          whyWrong:
+            "Anna says **tí** is for men and boys: **tí muži**. Children take **tie**.",
         },
         {
-          id: "man",
-          label: "Poznáš tohoto muža?",
+          id: "to",
+          label: "to",
           whyWrong:
-            "Anna says **nesprávne**: **tohoto** is Czech, the Slovak form is **tohto**.",
+            "**To** is for one neuter thing, like **to dievča**. **Deti** is plural.",
         },
       ],
-      answerId: "children",
+      answerId: "tie",
       feedback: {
-        english: "Those children are playing outside.",
-        why: "Anna says **správne** after **tie deti sa hrajú vonku**: children take **tie**.",
+        english: "Those children.",
+        why: "Anna says **tí je pre mužov a chlapcov**, so children take **tie**.",
       },
     },
     {
       id: `${PREFIX}check-tohto`,
-      gap: "Poznáš ___ muža?",
-      prompt: "Ako Anna opravila Mareka?",
-      promptEnglish: "How did Anna correct Marek?",
-      replayLineId: `${PREFIX}anna-tohto-not-tohoto`,
+      gap: "Poznám ___ muža.",
+      prompt: "Ako sa to povie po slovensky?",
+      promptEnglish: "How do you say it in Slovak?",
+      replayLineId: `${PREFIX}anna-tohto-right`,
       choices: [
         { id: "tohto", label: "tohto" },
         {
@@ -731,8 +1151,8 @@ const quiz: ListeningChapter = {
       ],
       answerId: "tohto",
       feedback: {
-        english: "In Slovak it's tohto.",
-        why: "Anna says **po slovensky je tohto**.",
+        english: "I know this man.",
+        why: "Anna says **tohoto je po česky**: in Slovak it is **tohto**.",
       },
     },
   ],
@@ -829,7 +1249,7 @@ export const demonstrativesEpisode: ListeningEpisode = {
   title: "Where is that key?",
   topic: "ten, tá, to",
   promise:
-    "Anna and Marek play a guessing game, shop at the market, lose the car key and quiz each other.",
+    "Anna and Marek play a guessing game, shop at the market and lose the car key. At the end, Marek needs your help.",
   grammarSlug: "demonstratives",
   lessonId: "grammar/demonstratives",
   practiceSetId: "demonstratives",
