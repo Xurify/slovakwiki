@@ -289,7 +289,7 @@ The animated cast, its places and the scene player. Logic lives in `src/lib/stic
 
 **Player and games**
 
-- `/dev/scenes?scene=<id>` opens one scene; use these links in PR QA lists.
+- `/dev/scenes?scene=<id>` opens one scene, for work on this player and its games. A podcast segment is built and checked on its episode page (`/listening/<slug>`), where learners hear it, and its PR QA links go there.
 - Modes are Watch, Play as (Pick the line, Build it, Say it, Adaptive) and Find it. A game that is not about the scene picked is a scene of its own in the list, under Prototype with the other scripts, not a mode of the scene picked.
 - Find it asks in Slovak only, since English would give the answer away. Someone on stage asks each thing and answers each tap out loud (`findAsker`, `findSayings` in `scene-find.ts`; the clips reach the generator through `findTurns()` in `scene-sources.ts` and the player through `Scene.finds`), gesturing instead only where a clip is missing. It names each find in English after the tap and ends with the case behind the forms.
 - A talk (`talk.ts`) is a graph: the other person's lines, then Alex's replies. A reply that fits leads to a node and is voiced. A slip carries `why`, a reaction (`puzzle`, `laugh`, `frown`) and a voiced answer. `talk.test.ts` checks every talk: all nodes reachable, slips lead nowhere, ends are goodbyes, ty or vy fits who is spoken to. A talk has no script ahead of the learner: the text under the stage lists only what has been said.

@@ -40,7 +40,7 @@ A listening episode is a short podcast in simple Slovak for one grammar topic: t
 - [ ] `bun scripts/audio/generate.ts -- --lessons-only --missing-only --verify`, then `bun scripts/audio/upload.ts -- --lessons-only`. Commit `content/audio/manifest.json` and `runtime-index.json`.
 - [ ] Update the `listening` count in `src/lib/seo/sitemap.test.ts`, and the stage snapshot (`bunx vitest run src/lib/stick-figure/scenes.snapshot.test.ts -u`); read its diff for the new segments.
 - [ ] `bun run format`, `bun run lint`, `bun run typecheck`, `bunx vitest run`, `bun run index:search`.
-- [ ] In the browser: play every chapter on the stage (`/dev/scenes?scene=podcast-<slug>-<chapter>` too), checking mouths, props and who faces whom; play a chapter through, answer the questions, read the text, go to the next chapter, try Slower and Show transcript. Phone width and dark mode.
+- [ ] In the browser, on the episode page (`/listening/<slug>`), not `/dev/scenes`: play every chapter on the stage, checking mouths, props and who faces whom; play a chapter through, answer the questions, read the text, go to the next chapter, try Slower and Show transcript. Phone width and dark mode.
 
 ## Slips we shipped
 
