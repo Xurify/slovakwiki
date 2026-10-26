@@ -11,10 +11,10 @@ import type {
 } from "./types";
 
 /**
- * One pass through the adaptive formats. Item counts (Read and Select 15–18,
- * Fill in the Blanks 6–9, Read and Complete 3–6, Listen and Type 6–9) are spread
- * over three rounds; Listen and Select is the audio yes/no format. Three formats
- * are this test's own, for what Slovak has and English does not: vowel length
+ * One pass through the adaptive formats. Item counts in the quick test (two
+ * rounds) and the full test (three): Read and Select 12 or 18, Fill in the
+ * Blanks 6 or 9, Read and Complete 2 or 3, Listen and Type 4 or 6. Listen and
+ * Select is the audio yes/no format. Three formats are this test's own, for what Slovak has and English does not: vowel length
  * that changes meaning (Short or Long: mala, malá), verbal aspect (Choose the
  * Verb: písal, napísal) and clitics fixed in second position (Where Does It Go:
  * Včera som sa…).

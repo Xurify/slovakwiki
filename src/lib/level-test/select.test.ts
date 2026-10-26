@@ -75,6 +75,13 @@ describe("pickListenLength", () => {
     expect(new Set(grid.map((item) => item.short)).size).toBe(6);
   });
 
+  it("does not play the partner of a clip from an earlier screen", () => {
+    const used = new Set(["ll-mala", "ll-dobré"]);
+    const grid = pickListenLength(items, 25, used, seededRandom(5));
+    expect(grid.map((item) => item.short)).not.toContain("mala");
+    expect(grid.map((item) => item.short)).not.toContain("dobre");
+  });
+
   it("mixes short and long words", () => {
     const grid = pickListenLength(items, 25, new Set(), seededRandom(6));
     const long = grid.filter((item) => item.word === item.long).length;

@@ -1,6 +1,11 @@
 import { estimateAbility, type Observation } from "./estimate";
 import { foldDiacritics, normalizeTyped, tokenizeWords } from "./grade";
-import { cefrForScore, probabilityCorrect, type CefrLevel } from "./scale";
+import {
+  SCALE_POINTS_PER_LOGIT,
+  cefrForScore,
+  probabilityCorrect,
+  type CefrLevel,
+} from "./scale";
 import { areaForTag } from "./areas";
 import type {
   AiIssue,
@@ -103,7 +108,7 @@ export const STUDY_AREA_INFO: Record<
   conjugation: {
     label: "Conjugation",
     slovak: "časovanie",
-    what: "verb endings for person, number and tense",
+    what: "verb endings for person, number and tense, and for gender in the past (odišiel, odišla)",
   },
   aspect: {
     label: "Aspect",
@@ -205,8 +210,18 @@ export const AREA_SOURCES: Record<StudyArea, readonly StepKind[]> = {
 /** Fewer answers than this and an area says more about luck than about the learner. */
 export const MIN_EVIDENCE = 3;
 
-/** How far an area must sit from the overall score to count as a strength or a gap. */
+/** The least an area must sit from the overall score to count as a strength or a gap. */
 export const DELTA_THRESHOLD = 5;
+
+/**
+ * Beyond the floor, an area must sit this many of its own posterior SDs from
+ * the overall score: with three answers 2 of 3 right at the learner's level is
+ * noise, while three misses there are not.
+ */
+export const DELTA_SE = 1.2;
+
+/** One miss in a handful is a slip, not a gap, however hard the item was. */
+export const MIN_GAP_MISSES = 2;
 
 /**
  * Each area starts at the learner's overall level. With sd 15, three misses
@@ -258,6 +273,10 @@ export interface AreaSummary {
   delta: number;
   /** Credit earned minus the credit expected at the overall level. */
   surplus: number;
+  /** Posterior SD of the area's score. */
+  se: number;
+  /** Answers not fully right. */
+  misses: number;
 }
 
 export interface Example {
@@ -436,10 +455,13 @@ function fold(value: string): string {
   return foldDiacritics(normalizeTyped(value));
 }
 
-/** Letter gaps judged on the letters alone, so a missing háček counts under spelling, not grammar. */
+/**
+ * Letter gaps judged on the letters alone, i and y aside, so a missing háček or
+ * a wrong i counts under spelling, not grammar.
+ */
 function areaScore(response: ItemResponse): number {
   if (isTyped(response) && LETTER_KINDS.has(response.kind)) {
-    return fold(response.expected) === fold(response.given) ? 1 : 0;
+    return toIy(fold(response.expected)) === toIy(fold(response.given)) ? 1 : 0;
   }
   return response.score;
 }
@@ -489,12 +511,30 @@ interface WordPair {
   given: string;
 }
 
+interface MatchedWord extends WordPair {
+  /** The letters the learner typed, when part of the word was printed for them. */
+  typed?: WordPair;
+}
+
+/**
+ * A letter gap prints the first half of the word (the C-test rule in ctest.ts
+ * and the bank build), so its accents are the learner's only in the rest.
+ */
+function typedPart(expected: string, given: string): WordPair | null {
+  const letters = [...expected];
+  const printed = letters.slice(0, Math.floor(letters.length / 2)).join("");
+  if (!given.startsWith(printed)) return null;
+  return { expected: expected.slice(printed.length), given: given.slice(printed.length) };
+}
+
 /** Word pairs where the learner wrote the same word, accents and i/y aside. */
-function matchedWords(response: ItemResponse & WordPair): WordPair[] {
+function matchedWords(response: ItemResponse & WordPair): MatchedWord[] {
   if (LETTER_KINDS.has(response.kind)) {
     const expected = normalizeTyped(response.expected);
     const given = normalizeTyped(response.given);
-    return given ? [{ expected, given }] : [];
+    if (!given) return [];
+    const typed = typedPart(expected, given);
+    return [{ expected, given, ...(typed ? { typed } : {}) }];
   }
 
   const unused = tokenizeWords(response.given);
@@ -523,8 +563,11 @@ function accentEvidence(responses: readonly ItemResponse[]): AccentEvidence {
     if (!isTyped(response)) continue;
     let judged = 0;
     let right = 0;
-    for (const pair of matchedWords(response)) {
-      const check = checkWord(pair.expected, pair.given);
+    for (const { typed, ...pair } of matchedWords(response)) {
+      const check = checkWord(
+        typed?.expected ?? pair.expected,
+        typed?.given ?? pair.given,
+      );
       if (check.right === null) continue;
       judged += 1;
       if (check.right) right += 1;
@@ -719,6 +762,16 @@ function wordsToLearn(responses: readonly ItemResponse[]): WordToLearn[] {
 }
 
 /**
+ * A part is at the answer's level when about 85% of its uses are right, CEFR's
+ * "good control" with occasional slips; at 50% a writer who gets 60–80% of
+ * their endings right would look strong.
+ */
+const PRODUCTION_ACCURACY = 0.85;
+
+const PRODUCTION_OFFSET =
+  SCALE_POINTS_PER_LOGIT * Math.log(PRODUCTION_ACCURACY / (1 - PRODUCTION_ACCURACY));
+
+/**
  * Writing and speaking, as the AI scorer counted them: one observation per
  * answer and area, at the level that answer was written or spoken at, so a
  * long essay does not outweigh the short tasks.
@@ -736,7 +789,7 @@ function productionEvidence(
       const area = ISSUE_AREA[topic as AiIssueTopic];
       byArea.set(area, [
         ...(byArea.get(area) ?? []),
-        { difficulty: result.score, score: usage.right / total },
+        { difficulty: result.score - PRODUCTION_OFFSET, score: usage.right / total },
       ]);
     }
   }
@@ -760,9 +813,8 @@ function summarize(
   observations: readonly Observation[],
   center: number,
 ): AreaSummary {
-  const score = Math.round(
-    estimateAbility(observations, { mean: center, sd: AREA_PRIOR_SD }).theta,
-  );
+  const estimate = estimateAbility(observations, { mean: center, sd: AREA_PRIOR_SD });
+  const score = Math.round(estimate.theta);
   const earned = observations.reduce((sum, observation) => sum + observation.score, 0);
   const expected = observations.reduce(
     (sum, observation) =>
@@ -777,7 +829,13 @@ function summarize(
     total: observations.length,
     delta: score - Math.round(center),
     surplus: earned - expected,
+    se: estimate.se,
+    misses: observations.filter((observation) => observation.score < 1).length,
   };
+}
+
+function clearOfCenter(summary: AreaSummary): boolean {
+  return Math.abs(summary.delta) >= Math.max(DELTA_THRESHOLD, DELTA_SE * summary.se);
 }
 
 function statusFor(
@@ -871,12 +929,20 @@ export function diagnose(
   // Near 0 or 100 the estimate cannot move past the edge, so the delta alone can
   // call an area strong with nothing right; the raw surplus has to agree.
   const strengths = measured
-    .filter((summary) => summary.delta >= DELTA_THRESHOLD && summary.surplus > 0)
+    .filter(
+      (summary) => clearOfCenter(summary) && summary.delta > 0 && summary.surplus > 0,
+    )
     .sort((a, b) => b.delta - a.delta);
 
   const weak = new Map<StudyArea, AreaSummary | null>(
     measured
-      .filter((summary) => summary.delta <= -DELTA_THRESHOLD && summary.surplus < 0)
+      .filter(
+        (summary) =>
+          clearOfCenter(summary) &&
+          summary.delta < 0 &&
+          summary.surplus < 0 &&
+          summary.misses >= MIN_GAP_MISSES,
+      )
       .sort((a, b) => a.delta - b.delta)
       .map((summary) => [summary.area, summary]),
   );

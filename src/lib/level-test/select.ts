@@ -83,7 +83,8 @@ export const LISTEN_LENGTH_GRID = 6;
 
 /**
  * Six clips near the target, each from a different pair so the learner never
- * hears both words of one pair and compares them; half short, half long.
+ * hears both words of one pair and compares them, on this screen or a later
+ * one; half short, half long.
  */
 export function pickListenLength(
   items: readonly AdaptiveItem[],
@@ -93,7 +94,13 @@ export function pickListenLength(
   seen?: ReadonlySet<string>,
 ): ListenLengthItem[] {
   const pool = itemsOfFormat(items, "listenLength");
-  const taken = new Set(used);
+  const played = new Set(
+    pool.filter((entry) => used.has(entry.id)).map((entry) => entry.short),
+  );
+  const taken = new Set([
+    ...used,
+    ...pool.filter((entry) => played.has(entry.short)).map((entry) => entry.id),
+  ]);
   const picked: ListenLengthItem[] = [];
 
   for (let index = 0; index < LISTEN_LENGTH_GRID; index++) {
