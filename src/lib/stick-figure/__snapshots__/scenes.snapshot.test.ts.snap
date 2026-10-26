@@ -4356,7 +4356,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
       "line": "anna: Tak ho už nestrať!",
       "plan": {
         "beats": [
-          "0 stress",
+          "0 chuckle",
         ],
         "ms": 2350,
         "sentences": "0-2000",
@@ -4486,7 +4486,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
       "line": "anna: Dobre. Vy vyberiete, Marek povie.",
       "plan": {
         "beats": [
-          "50 nod",
+          "50 chuckle",
           "2250 tell",
         ],
         "ms": 4650,
@@ -4723,7 +4723,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
       "line": "anna: Ty? Veď si sa ich pýtal.",
       "plan": {
         "beats": [
-          "0 ask",
+          "0 chuckle",
           "950 tell",
         ],
         "ms": 3150,
@@ -4756,7 +4756,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
       "line": "marek: Vidíte? Viem to aj sám.",
       "plan": {
         "beats": [
-          "0 ask",
+          "0 chuckle",
           "1550 tell",
         ],
         "ms": 2750,
@@ -4813,7 +4813,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
       "line": "anna: Marek, kto ti to poradil?",
       "plan": {
         "beats": [
-          "0 ask",
+          "0 chuckle",
         ],
         "ms": 3000,
         "questions": "0-2800",
@@ -5116,7 +5116,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
       "line": "anna: Marek, nepočúvaj ich tak veľmi.",
       "plan": {
         "beats": [
-          "0 tell",
+          "0 chuckle",
         ],
         "ms": 3550,
         "sentences": "0-3300",
@@ -5512,7 +5512,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
       "line": "marek: Ďakujem aj tomu, čo nedával pozor.",
       "plan": {
         "beats": [
-          "0 nod",
+          "0 chuckle",
         ],
         "ms": 3550,
         "sentences": "0-3300",
@@ -5568,7 +5568,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
       "line": "marek: Aj tak ďakujem, pomocníci.",
       "plan": {
         "beats": [
-          "50 tell",
+          "50 chuckle",
         ],
         "ms": 3400,
         "sentences": "50-3150",
@@ -5662,7 +5662,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
       "line": "marek: Vidíš? Pomocníkov nepotrebujem.",
       "plan": {
         "beats": [
-          "0 ask",
+          "0 chuckle",
           "700 tell",
         ],
         "ms": 3200,
@@ -11037,7 +11037,7 @@ exports[`every scene, directed > podcast podcast-possessives-quiz 1`] = `
       "line": "anna: Uvidíme. Ďalšia?",
       "plan": {
         "beats": [
-          "50 tell",
+          "50 chuckle",
           "2550 ask",
         ],
         "ms": 3550,
@@ -11144,7 +11144,7 @@ exports[`every scene, directed > podcast podcast-possessives-quiz 1`] = `
       "line": "anna: To si mal. Skús ešte jednu.",
       "plan": {
         "beats": [
-          "50 tell",
+          "50 chuckle",
           "2650 tell",
         ],
         "ms": 3850,
@@ -11212,7 +11212,7 @@ exports[`every scene, directed > podcast podcast-possessives-quiz 1`] = `
       "line": "marek: To je ťažké.",
       "plan": {
         "beats": [
-          "50 tell",
+          "50 sigh",
         ],
         "ms": 2250,
         "sentences": "50-2050",
@@ -11325,7 +11325,7 @@ exports[`every scene, directed > podcast podcast-possessives-quiz 1`] = `
       "line": "anna: Pred chvíľou to bolo ťažké! A vy? Koľko ste mali správne?",
       "plan": {
         "beats": [
-          "50 stress",
+          "50 chuckle",
           "3245 ask",
           "4053 ask",
         ],
@@ -11357,7 +11357,7 @@ exports[`every scene, directed > podcast podcast-possessives-quiz 1`] = `
       "line": "marek: Ja radšej nebudem počítať.",
       "plan": {
         "beats": [
-          "0 self",
+          "0 chuckle",
         ],
         "ms": 2900,
         "sentences": "0-2500",
@@ -13546,7 +13546,7 @@ exports[`every scene, directed > podcast podcast-telling-time-quiz 1`] = `
       "line": "anna: Práve preto.",
       "plan": {
         "beats": [
-          "50 tell",
+          "50 chuckle",
         ],
         "ms": 2100,
         "sentences": "50-1700",
@@ -13765,7 +13765,7 @@ exports[`every scene, directed > podcast podcast-telling-time-quiz 1`] = `
       "line": "marek: Zase nesprávne? Dve tridsať… dobre.",
       "plan": {
         "beats": [
-          "50 ask",
+          "50 sigh",
           "3200 muse",
           "4950 nod",
         ],
@@ -13872,7 +13872,7 @@ exports[`every scene, directed > podcast podcast-telling-time-quiz 1`] = `
       "line": "anna: Ujde to, Marek. A vy? Koľko ste mali správne?",
       "plan": {
         "beats": [
-          "50 tell",
+          "50 chuckle",
           "2600 ask",
           "3450 ask",
         ],
@@ -13901,7 +13901,7 @@ exports[`every scene, directed > podcast podcast-telling-time-quiz 1`] = `
       "line": "marek: Dúfam, že menej ako ja.",
       "plan": {
         "beats": [
-          "0 tell",
+          "0 chuckle",
         ],
         "ms": 2800,
         "sentences": "0-2450",
