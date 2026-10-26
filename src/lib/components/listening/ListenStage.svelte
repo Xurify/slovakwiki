@@ -188,14 +188,6 @@
           : `Listen first, then answer ${COUNT_WORDS[checks.length - 1] ?? checks.length} short questions.`,
   );
 
-  /** How far through this listener's path the segment is, in percent. */
-  const progress = $derived.by(() => {
-    if (stage === "idle") return 0;
-    if (listened && !player.playing && !player.held) return 100;
-    const step = path.findIndex(({ index }) => index === player.cursor);
-    return Math.round(((step + 1) / Math.max(path.length, 1)) * 100);
-  });
-
   const status = $derived.by(() => {
     const line = player.line;
     if (player.speaking && line)
@@ -412,19 +404,40 @@
   {/if}
 
   <div class="px-4 pt-3 pb-4 sm:px-5">
-    <div
-      class="h-1 overflow-hidden rounded-full bg-slate-200"
-      role="progressbar"
-      aria-label="Segment progress"
-      aria-valuemin={0}
-      aria-valuemax={100}
-      aria-valuenow={progress}
-    >
-      <div
-        class="h-full rounded-full bg-blue-600 transition-[width] duration-300 ease-out"
-        style:width="{progress}%"
-      ></div>
-    </div>
+    <ol class="m-0 -my-2 flex list-none gap-1 p-0" aria-label="Lines">
+      {#each path as { index, line }, step (line.id)}
+        {@const ahead = index > (shownPath.at(-1)?.index ?? -1)}
+        <li class="flex-1">
+          <button
+            class={cx(
+              "block w-full border-0 bg-transparent px-0 py-2",
+              ahead ? "cursor-default" : "group cursor-pointer",
+            )}
+            type="button"
+            aria-label="Play line {step + 1} of {path.length}, {episodeSpeakerName(
+              line.speaker,
+            )}"
+            aria-current={index === player.cursor && stage !== "idle"
+              ? "true"
+              : undefined}
+            aria-disabled={ahead ? "true" : undefined}
+            onclick={() => {
+              // Past the next unanswered question: jumping there would skip it.
+              if (!ahead) player.playFrom(index);
+            }}
+          >
+            <span
+              class={cx(
+                "block h-1 rounded-full transition-colors duration-150 ease-out",
+                index < player.cursor || (index === player.cursor && stage !== "idle")
+                  ? "bg-blue-600"
+                  : "bg-slate-200 group-hover:bg-slate-300",
+              )}
+            ></span>
+          </button>
+        </li>
+      {/each}
+    </ol>
 
     {#if !player.held}
       <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2">
