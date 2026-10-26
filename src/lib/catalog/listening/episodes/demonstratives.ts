@@ -1215,7 +1215,7 @@ export const demonstrativesEpisode: ListeningEpisode = {
   title: "Where is that key?",
   topic: "ten, tá, to",
   promise:
-    "Anna and Marek play a guessing game, shop at the market, lose the car key and quiz each other.",
+    "Anna and Marek play a guessing game, shop at the market and lose the car key. At the end, Marek needs your help.",
   grammarSlug: "demonstratives",
   lessonId: "grammar/demonstratives",
   practiceSetId: "demonstratives",

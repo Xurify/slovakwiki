@@ -129,7 +129,7 @@
       class="min-h-10 px-4 text-sm"
       onclick={() => openChapter(nextIndex, true)}
     >
-      Next segment
+      Next: <span lang="sk">{episode.chapters[nextIndex]!.titleSk}</span>
     </Button>
   {/if}
 {/snippet}
@@ -183,46 +183,6 @@
 {/snippet}
 
 <div class="grid gap-8">
-  <section aria-labelledby="words-heading">
-    <h2 id="words-heading" class="m-0 text-sm font-semibold text-slate-700">
-      Words you'll hear
-    </h2>
-
-    <ul class="m-0 mt-2.5 flex list-none flex-wrap gap-2 p-0">
-      {#each episode.vocabulary as phrase (phrase.slovak)}
-        <li>
-          <button
-            class={cx(
-              "inline-flex min-h-10 cursor-pointer items-center gap-2 rounded-full border border-slate-300 bg-surface px-3.5 py-1.5",
-              "transition-[background-color,border-color] duration-150 ease-out hover:border-blue-700 hover:bg-blue-50",
-            )}
-            type="button"
-            aria-label="Listen: {phrase.slovak}, {phrase.english}"
-            onclick={() => playWord(phrase.slovak)}
-          >
-            <svg
-              class="size-4 shrink-0 fill-none stroke-current text-blue-800"
-              viewBox="0 0 24 24"
-              stroke-width="1.75"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M11 6 7 9.5H4v5h3L11 18V6Z" fill="currentColor" stroke="none" />
-              <path d="M15.2 9.2a4.2 4.2 0 0 1 0 5.6M18.2 7a7 7 0 0 1 0 10" />
-            </svg>
-
-            <span class="font-serif font-semibold text-slate-900" lang="sk">
-              {phrase.slovak}
-            </span>
-
-            <span class="text-sm text-slate-500">{phrase.english}</span>
-          </button>
-        </li>
-      {/each}
-    </ul>
-  </section>
-
   <section
     bind:this={stageEl}
     class={cx(
@@ -248,7 +208,7 @@
         <button
           class={cx(
             iconButtonClass,
-            "size-9 text-slate-500 hover:bg-subtle hover:text-slate-900",
+            "size-11 text-slate-500 hover:bg-subtle hover:text-slate-900",
             active === 0 && "invisible",
           )}
           type="button"
@@ -276,7 +236,7 @@
         <button
           class={cx(
             iconButtonClass,
-            "size-9 text-slate-500 hover:bg-subtle hover:text-slate-900",
+            "size-11 text-slate-500 hover:bg-subtle hover:text-slate-900",
             active === episode.chapters.length - 1 && "invisible",
           )}
           type="button"
@@ -318,12 +278,69 @@
     {/key}
   </section>
 
-  <nav aria-labelledby="segments-heading">
-    <h2 id="segments-heading" class="m-0 text-sm font-semibold text-slate-700">
-      Segments
+  <section aria-labelledby="words-heading">
+    <h2 id="words-heading" class="m-0 text-sm font-semibold text-slate-700">
+      Words you'll hear
     </h2>
 
-    <ol class="{dataPanelClass} m-0 mt-2.5 list-none p-0">
+    <ul class="m-0 mt-2.5 flex list-none flex-wrap gap-2 p-0">
+      {#each episode.vocabulary as phrase (phrase.slovak)}
+        <li>
+          <button
+            class={cx(
+              "inline-flex min-h-10 cursor-pointer items-center gap-2 rounded-full border border-slate-300 bg-surface px-3.5 py-1.5",
+              "transition-[background-color,border-color] duration-150 ease-out hover:border-blue-700 hover:bg-blue-50",
+            )}
+            type="button"
+            aria-label="Listen: {phrase.slovak}, {phrase.english}"
+            onclick={() => playWord(phrase.slovak)}
+          >
+            <svg
+              class="size-4 shrink-0 fill-none stroke-current text-blue-800"
+              viewBox="0 0 24 24"
+              stroke-width="1.75"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M11 6 7 9.5H4v5h3L11 18V6Z" fill="currentColor" stroke="none" />
+              <path d="M15.2 9.2a4.2 4.2 0 0 1 0 5.6M18.2 7a7 7 0 0 1 0 10" />
+            </svg>
+
+            <span class="font-serif font-semibold text-slate-900" lang="sk">
+              {phrase.slovak}
+            </span>
+
+            <span class="text-sm text-slate-500">{phrase.english}</span>
+          </button>
+        </li>
+      {/each}
+    </ul>
+  </section>
+
+  <details class="group">
+    <summary
+      class="flex min-h-11 cursor-pointer list-none items-center gap-2 text-sm font-semibold text-slate-700 hover:text-slate-900 [&::-webkit-details-marker]:hidden"
+    >
+      <svg
+        class="size-4 fill-none stroke-current transition-transform duration-150 group-open:rotate-90"
+        viewBox="0 0 24 24"
+        stroke-width="2.25"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="m9.5 6 6 6-6 6" />
+      </svg>
+      All segments
+      <span class="font-normal text-slate-500 tabular-nums">
+        {episode.chapters.filter(
+          (entry) => scores[entry.id] !== undefined || heard[entry.id],
+        ).length} of {episode.chapters.length} played
+      </span>
+    </summary>
+
+    <ol class="{dataPanelClass} m-0 mt-2 list-none p-0" aria-label="Segments">
       {#each episode.chapters as entry, index (entry.id)}
         {@const score = scores[entry.id]}
         {@const played = score !== undefined || heard[entry.id]}
@@ -388,5 +405,5 @@
         </li>
       {/each}
     </ol>
-  </nav>
+  </details>
 </div>

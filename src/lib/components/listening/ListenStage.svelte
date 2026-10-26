@@ -8,7 +8,6 @@
     setAudioVolume,
   } from "$lib/audio/volume";
   import type { ListeningChapter } from "$lib/catalog/listening/types";
-  import LessonCharacterAvatar from "$lib/components/lessons/LessonCharacterAvatar.svelte";
   import Button from "$lib/components/ui/Button.svelte";
   import {
     getListenPlayAlong,
@@ -94,7 +93,6 @@
   const lines = chapter.lines;
   // Switching questions on mid-segment changes only what comes at its end.
   const checks = $derived(questions ? chapter.checks : []);
-  const speakers = [...new Set(lines.map((line) => line.speaker))];
 
   const asks = lines.some((line) => line.ask);
 
@@ -193,23 +191,24 @@
           : `Listen first, then answer ${COUNT_WORDS[checks.length - 1] ?? checks.length} short questions.`,
   );
 
+  /** How far through this listener's path the segment is, in percent. */
+  const progress = $derived.by(() => {
+    if (stage === "idle") return 0;
+    if (listened && !player.playing && !player.held) return 100;
+    const step = path.findIndex(({ index }) => index === player.cursor);
+    return Math.round(((step + 1) / Math.max(path.length, 1)) * 100);
+  });
+
   const status = $derived.by(() => {
     const line = player.line;
-    const step = path.findIndex(({ index }) => index === player.cursor);
-    const position = `line ${step + 1} of ${path.length}`;
-    if (player.speaking && line)
-      return `${episodeSpeakerName(line.speaker)} · ${position}`;
-    if (player.held) return `Your turn · ${position}`;
-    if (player.playing) return position;
+    if (player.speaking && line) return episodeSpeakerName(line.speaker);
     if (stage === "idle") return idleCopy;
-    if (stage === "listening") return `Paused · ${position}`;
-    if (stage === "checking") return "";
-    return "Play it again and read along.";
+    if (stage === "listening" && !player.playing) return "Paused";
+    return "";
   });
 
   const playLabel = $derived.by(() => {
     if (player.playing) return "Pause";
-    if (player.held) return "Go on";
     if (stage === "idle") return "Listen";
     if (stage === "listening") return "Resume";
     return "Listen again";
@@ -405,77 +404,42 @@
   {/if}
 
   <div class="px-4 pt-3 pb-4 sm:px-5">
-    <div class="flex flex-wrap items-center justify-between gap-4">
-      <Button
-        class="min-h-12 pr-5 pl-4"
-        variant={firstListen ? "accent" : "secondary"}
-        onclick={togglePlay}
-      >
-        <svg class="size-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          {#if player.playing}
-            <rect x="6.5" y="5" width="4" height="14" rx="1" />
-            <rect x="13.5" y="5" width="4" height="14" rx="1" />
-          {:else}
-            <path d="M8 5v14l11-7Z" />
-          {/if}
-        </svg>
-
-        {playLabel}
-      </Button>
-
-      <ul class="m-0 flex list-none gap-3 p-0" aria-label="Voices">
-        {#each speakers as speaker (speaker)}
-          {@const speaking = player.speaking && player.line?.speaker === speaker}
-
-          <li class="flex flex-col items-center gap-1">
-            <LessonCharacterAvatar
-              {speaker}
-              size="md"
-              class={speaking
-                ? "ring-2 ring-blue-600 ring-offset-2 ring-offset-surface"
-                : ""}
-            />
-
-            <span
-              class="text-xs font-semibold {speaking
-                ? 'text-blue-800'
-                : 'text-slate-500'}"
-            >
-              {episodeSpeakerName(speaker)}
-            </span>
-          </li>
-        {/each}
-      </ul>
+    <div
+      class="h-1 overflow-hidden rounded-full bg-slate-200"
+      role="progressbar"
+      aria-label="Segment progress"
+      aria-valuemin={0}
+      aria-valuemax={100}
+      aria-valuenow={progress}
+    >
+      <div
+        class="h-full rounded-full bg-blue-600 transition-[width] duration-300 ease-out"
+        style:width="{progress}%"
+      ></div>
     </div>
 
-    <ol class="m-0 mt-2 flex list-none gap-1 p-0" aria-label="Lines">
-      {#each path as { index, line }, step (line.id)}
-        <li class="flex-1">
-          <button
-            class="block w-full cursor-pointer border-0 bg-transparent px-0 py-2"
-            type="button"
-            aria-label="Play line {step + 1} of {path.length}, {episodeSpeakerName(
-              line.speaker,
-            )}"
-            aria-current={index === player.cursor && stage !== "idle"
-              ? "true"
-              : undefined}
-            onclick={() => player.playFrom(index)}
-          >
-            <span
-              class={cx(
-                "block h-1 rounded-full transition-colors duration-150 ease-out",
-                index < player.cursor || (index === player.cursor && stage !== "idle")
-                  ? "bg-blue-600"
-                  : "bg-slate-200 hover:bg-slate-300",
-              )}
-            ></span>
-          </button>
-        </li>
-      {/each}
-    </ol>
+    {#if !player.held}
+      <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2">
+        <Button
+          class="min-h-12 pr-5 pl-4"
+          variant={firstListen ? "accent" : "secondary"}
+          onclick={togglePlay}
+        >
+          <svg class="size-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            {#if player.playing}
+              <rect x="6.5" y="5" width="4" height="14" rx="1" />
+              <rect x="13.5" y="5" width="4" height="14" rx="1" />
+            {:else}
+              <path d="M8 5v14l11-7Z" />
+            {/if}
+          </svg>
 
-    <p class="m-0 mt-0.5 text-sm text-slate-700 empty:hidden">{status}</p>
+          {playLabel}
+        </Button>
+
+        <p class="m-0 text-sm text-slate-700 empty:hidden" aria-live="polite">{status}</p>
+      </div>
+    {/if}
 
     <div class="mt-2 -ml-2.5 flex flex-wrap items-center gap-1">
       {#if stage === "listening"}
@@ -567,7 +531,6 @@
             number={step + 1}
             current={(player.playing || stage === "listening") && player.cursor === index}
             playing={player.playing && player.cursor === index}
-            dimmed={player.playing && player.cursor !== index}
             showEnglish={english}
             onplay={() => player.playFrom(index)}
             onpause={pause}

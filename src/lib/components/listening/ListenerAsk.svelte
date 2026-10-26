@@ -29,22 +29,25 @@
   let root: HTMLElement | undefined = $state();
 
   const right = $derived(picked === ask.answerId);
+  const answer = $derived(ask.choices.find((choice) => choice.id === ask.answerId));
+  /** The same English under every choice would only repeat itself, and a different one could give the answer away. */
+  const glossed = $derived(new Set(ask.choices.map((choice) => choice.english)).size > 1);
   const status = $derived.by(() => {
-    if (!picked) return null;
-    if (!revealed) return `Let's hear ${answerer}…`;
-    return right ? "You got it." : "Not this time.";
+    if (!picked) return "";
+    if (!revealed) return `${answerer} is answering…`;
+    return right ? "Right." : `Not quite. The answer is ${answer?.label}.`;
   });
 
   $effect(() => {
     void tick().then(() =>
-      focusUnlessTyping(root?.querySelector<HTMLElement>("button:not(:disabled)")),
+      focusUnlessTyping(root?.querySelector<HTMLElement>("button:not([aria-disabled])")),
     );
   });
 </script>
 
 <div
   bind:this={root}
-  class="animate-rise border-t border-slate-200/70 bg-subtle/60 px-4 py-4 sm:px-5"
+  class="animate-rise border-t border-slate-200/70 bg-subtle/60 px-4 pt-4 pb-3 sm:px-5"
   role="group"
   aria-labelledby="listener-ask-prompt"
 >
@@ -61,24 +64,31 @@
   <div class="mt-3 flex flex-wrap items-center gap-2">
     {#each ask.choices as choice (choice.id)}
       {@const chosen = picked === choice.id}
-      {@const marked = revealed && chosen}
+      {@const markWrong = revealed && chosen && !right}
+      {@const markRight = revealed && choice.id === ask.answerId && (chosen || !right)}
 
       <button
         class={cx(
-          "inline-flex min-h-12 min-w-32 cursor-pointer items-center justify-center gap-2 rounded-(--control-radius) border px-4 py-2",
-          "transition-[background-color,border-color,color] duration-150 ease-out disabled:cursor-default",
-          marked && right && "border-emerald-600 bg-emerald-50 text-emerald-800",
-          marked && !right && "border-rose-600 bg-rose-50 text-rose-800",
-          chosen && !marked && "border-blue-600 bg-blue-50 text-blue-800",
-          !chosen &&
-            "border-slate-300 bg-surface text-slate-900 enabled:hover:border-blue-700 enabled:hover:bg-blue-50 disabled:opacity-60",
+          "inline-flex min-h-12 min-w-32 items-center justify-center gap-2 rounded-(--control-radius) border px-4 py-2",
+          "transition-[background-color,border-color,color] duration-150 ease-out",
+          picked ? "cursor-default" : "cursor-pointer",
+          markRight && "border-emerald-600 bg-emerald-50 text-emerald-800",
+          markWrong && "border-rose-600 bg-rose-50 text-rose-800",
+          chosen && !revealed && "border-blue-600 bg-blue-50 text-blue-800",
+          !markRight &&
+            !markWrong &&
+            !(chosen && !revealed) &&
+            "border-slate-300 bg-surface text-slate-900",
+          !picked && "hover:border-blue-700 hover:bg-blue-50",
         )}
         type="button"
         aria-pressed={chosen}
-        disabled={picked !== null}
-        onclick={() => onpick(choice.id)}
+        aria-disabled={picked !== null ? "true" : undefined}
+        onclick={() => {
+          if (picked === null) onpick(choice.id);
+        }}
       >
-        {#if marked}
+        {#if markRight || markWrong}
           <svg
             class="size-4 shrink-0 fill-none stroke-current"
             viewBox="0 0 24 24"
@@ -87,7 +97,7 @@
             stroke-linejoin="round"
             aria-hidden="true"
           >
-            {#if right}
+            {#if markRight}
               <path d="M5 13l4 4L19 7" />
             {:else}
               <path d="M6 6l12 12M18 6 6 18" />
@@ -96,14 +106,18 @@
         {/if}
 
         <span class="font-serif font-semibold" lang="sk">{choice.label}</span>
-        <span class="text-sm opacity-70">{choice.english}</span>
+        {#if glossed}
+          <span class="text-sm text-slate-700">{choice.english}</span>
+        {/if}
       </button>
     {/each}
+  </div>
 
+  <div class="mt-1 -ml-2.5 min-h-11">
     {#if !picked}
       <ListenControl onclick={onskip}>Let {answerer} answer</ListenControl>
     {/if}
   </div>
 
-  <p class="m-0 mt-2 min-h-5 text-sm text-slate-700" aria-live="polite">{status}</p>
+  <p class="sr-only" aria-live="polite">{status}</p>
 </div>
