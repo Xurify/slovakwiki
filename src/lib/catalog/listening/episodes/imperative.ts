@@ -623,12 +623,14 @@ const KITCHEN_ACTS: Record<string, Cue[]> = {
     { who: "marek", do: "go", to: "aside", on: "after" },
   ],
   "anna-top-up": [
-    { do: "go", to: "pot-left", on: "nevadí" },
+    { do: "go", to: "jug-left", on: "nevadí" },
     { do: "take", what: "jug" },
+    { do: "go", to: "pot-left" },
     { do: "pour", what: "jug", to: "pot", on: "dolejeme" },
   ],
   "maria-cook-an-hour": [
-    { who: "anna", do: "put", what: "jug", to: "jug-place", on: "start" },
+    { who: "anna", do: "go", to: "jug-left", on: "start" },
+    { who: "anna", do: "put", what: "jug", to: "jug-place" },
     { who: "anna", do: "go", to: "board" },
     { do: "look", to: "hodiny", on: "hodinku" },
     { do: "skip", minutes: 60, on: "after" },

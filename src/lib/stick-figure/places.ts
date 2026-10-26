@@ -180,6 +180,8 @@ const KITCHEN_SET: PlaceSet = {
     "board-back": { piece: "counter", dx: -4, facing: 1 },
     // Across the board from whoever is at it, to show them.
     "board-across": { piece: "counter", dx: 42, facing: -1 },
+    // A step short of the jug, so the hand is seen going to it: from pot-left the jug stood behind her body.
+    "jug-left": { piece: "counter", dx: 30, facing: 1 },
     // At the stove from the counter's side, far enough back that a jug or shaker held over the pot is in front of the chest, not the face.
     "pot-left": { piece: "stove", dx: -30, facing: 1 },
     // Close in at the stove's left, to set the big pot on the hob by both handles.

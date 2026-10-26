@@ -13,7 +13,13 @@
     type SpeechClock,
   } from "$lib/stick-figure/performance";
   import type { StickPictureId } from "$lib/stick-figure/pictures";
-  import { REST_POSE, overTable, type StickPose } from "$lib/stick-figure/pose";
+  import {
+    REST_POSE,
+    easeInOut,
+    lerpPose,
+    overTable,
+    type StickPose,
+  } from "$lib/stick-figure/pose";
   import type { Dress } from "$lib/stick-figure/dress";
   import type { Held } from "$lib/stick-figure/props";
   import { sitMs, stepMs, walkPose } from "$lib/stick-figure/walk";
@@ -138,6 +144,15 @@
   let frame = 0;
   let startedAt = 0;
   let act: PerformanceState = startPerformance();
+  /**
+   * Where a cue left the body, eased out of over RELEASE_MS: the talking
+   * pose that takes over holds the arms elsewhere, and a hand fanning a
+   * burnt mouth dropped to the hip in one frame.
+   */
+  const RELEASE_MS = 300;
+  let lastActed:
+    { pose: StickPose; turn: Partial<Record<"lead" | "rear", number>> } | undefined;
+  let released: (typeof lastActed & { at: number }) | undefined;
   let reducedMotion = false;
   let walkStartedAt = 0;
   let walkMs = 0;
@@ -256,17 +271,40 @@
     );
     const stepping = walking ? walkPose(body, walked, walkMs, stepMs(characterId)) : body;
     const acted = acting ? doing.sample(now, stepping, sitting.current) : undefined;
+    if (acted) {
+      lastActed = { pose: acted.pose, turn: acted.turn };
+      released = undefined;
+    } else if (lastActed) {
+      released = reducedMotion ? undefined : { ...lastActed, at: now };
+      lastActed = undefined;
+    }
+    const easing = released
+      ? easeInOut(Math.min(1, (now - released.at) / RELEASE_MS))
+      : 1;
+    const still = released ? lerpPose(released.pose, stepping, easing) : stepping;
     // A listener leaning in to a question leaned into the mic too.
     pose =
       mic && sitting.current > 0.5
-        ? headClearOfMic(acted?.pose ?? stepping, sitting.current, mic)
-        : (acted?.pose ?? stepping);
-    turn = acted?.turn ?? {};
+        ? headClearOfMic(acted?.pose ?? still, sitting.current, mic)
+        : (acted?.pose ?? still);
+    turn =
+      acted?.turn ??
+      (released
+        ? Object.fromEntries(
+            Object.entries(released.turn).map(([hand, degrees]) => [
+              hand,
+              (degrees ?? 0) * (1 - easing),
+            ]),
+          )
+        : {});
+    if (easing >= 1) released = undefined;
     emote = acted?.emote;
     sign = acted?.sign;
 
     frame =
-      !(next?.settled ?? true) || walking || acting ? requestAnimationFrame(tick) : 0;
+      !(next?.settled ?? true) || walking || acting || released
+        ? requestAnimationFrame(tick)
+        : 0;
   }
 </script>
 
