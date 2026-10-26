@@ -1,3 +1,4 @@
+// @ts-nocheck: Playwright is preinstalled in cloud sessions, not a dependency of this repo.
 // Needs Playwright with a Chromium (preinstalled in cloud sessions; run with NODE_PATH=$(npm root -g) there).
 // Usage: node scripts/critic/snap-frames.cjs <slug> <outdir> [waitMs]
 // Clicks each segment, then each "Play line" button, and screenshots the stage after the line's staging settles.
