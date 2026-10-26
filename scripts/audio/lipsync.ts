@@ -19,7 +19,7 @@ import { existsSync } from "node:fs";
 import { mkdir } from "node:fs/promises";
 import path from "node:path";
 
-import { spokenText } from "../../src/lib/catalog/audio/core";
+import { audioConfigData, spokenText } from "../../src/lib/catalog/audio/core";
 import { alignSyllables } from "../../src/lib/stick-figure/syllable-align";
 import { slovakSyllables } from "../../src/lib/stick-figure/syllables";
 import { readJsonFile, writeFileAtomic } from "../lib/json-file";
@@ -54,6 +54,9 @@ for (const [hash, entry] of Object.entries(manifest)) {
   if (entry.kind !== "lesson") continue;
   if (only && !entry.text.includes(only)) continue;
   if (tagsOnly && !entry.text.includes("[")) continue;
+  // A bark has no words to land on; its mouth is the loudness alone.
+  if (entry.characterId && audioConfigData.characters?.[entry.characterId]?.sounds)
+    continue;
   const file = path.join(AUDIO_DIR, "lesson", `${hash}.mp3`);
   if (!existsSync(file)) continue;
 

@@ -28,6 +28,7 @@
 
   const look = $derived(LOOKS[characterId]);
   const robot = $derived(look.robot);
+  const dog = $derived(look.dog);
   const hair = $derived(look.grey ? "fill-portrait-hair-grey" : "fill-portrait-hair");
   const brows = $derived(
     look.grey ? "stroke-portrait-hair-grey" : "stroke-portrait-hair",
@@ -35,7 +36,7 @@
 
   // The face sits turned toward the way the figure faces (a three-quarter
   // view), so a turn reads at a glance; `look` moves the eyes on top of that.
-  const aside = $derived(turn ?? (robot ? 1.4 : 2.6));
+  const aside = $derived(turn ?? (robot ? 1.4 : dog ? 4 : 2.6));
   const eyeX = $derived(aside + pose.look * 2);
   const noseX = $derived(32 + aside * 1.15 + pose.look * 0.8);
   const mouthX = $derived(32 + aside * 0.9 + pose.look * 1.2);
@@ -88,6 +89,62 @@
     />
     <path d="M19.4 32.6q1.6 3.4.4 7.4" class="stroke-portrait-ink" stroke-width="1.1" />
   {/if}
+{:else if dog}
+  <!-- A floppy-eared dog's head: the far ear, the skull, a pale muzzle toward the facing side, the near ear over it. -->
+  <path
+    d="M{40 +
+      aside *
+        0.4} 17.4c5.4-1.6 9.4 2.6 9.2 10.6-.2 5-2.2 8.4-4.6 8.6-2.6.2-3.4-5.4-4.4-10.6Z"
+    class="{dog.patch} stroke-portrait-ink"
+    stroke-width="1.5"
+  />
+  <ellipse
+    cx="32"
+    cy="28"
+    rx="13.4"
+    ry="12.6"
+    class="{dog.coat} stroke-portrait-ink"
+    stroke-width="1.7"
+  />
+  <ellipse
+    cx={32 + aside * 0.9}
+    cy="35.4"
+    rx="8.4"
+    ry="6.4"
+    class="fill-scene-warm stroke-portrait-ink"
+    stroke-width="1.4"
+  />
+  <circle cx={26 + eyeX} cy={eyeY - 2.6} r="2.1" class="fill-portrait-ink" />
+  <circle cx={38 + eyeX} cy={eyeY - 2.6} r="2.1" class="fill-portrait-ink" />
+  <circle cx={26.7 + eyeX} cy={eyeY - 3.3} r="0.6" class="fill-white" />
+  <circle cx={38.7 + eyeX} cy={eyeY - 3.3} r="0.6" class="fill-white" />
+  <ellipse cx={32 + aside * 1.2} cy="31.6" rx="3" ry="2.2" class="fill-portrait-ink" />
+
+  {#if mouthOpen}
+    <path d={mouthPath(32 + aside * 1.1, 36.4)} class="fill-portrait-ink" />
+    <ellipse
+      cx={32 + aside * 1.1}
+      cy={36.8 + pose.mouth * 3}
+      rx="1.9"
+      ry={0.6 + pose.mouth * 1.1}
+      class="fill-scene-red-mid"
+    />
+  {:else}
+    <path
+      d="M{28.6 + aside * 1.1} 36.2q1.7 1.6 3.4 0q1.7 1.6 3.4 0M{32 +
+        aside * 1.1} 33.6v2.6"
+      class="stroke-portrait-ink"
+      stroke-width="1.3"
+    />
+  {/if}
+
+  <path
+    d="M{24 +
+      aside *
+        0.4} 17.4c-5.4-1.6-9.4 2.6-9.2 10.6.2 5 2.2 8.4 4.6 8.6 2.6.2 3.4-5.4 4.4-10.6Z"
+    class="{dog.patch} stroke-portrait-ink"
+    stroke-width="1.5"
+  />
 {:else if robot}
   <path d="M32 14.5V9" class="stroke-portrait-ink" stroke-width="1.4" />
   <circle

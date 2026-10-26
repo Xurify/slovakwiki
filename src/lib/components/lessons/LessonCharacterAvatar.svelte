@@ -20,6 +20,7 @@
     characterId ? storyCastForId(characterId) : storyCastForSpeaker(speaker),
   );
   const robot = $derived(LOOKS[cast.id].robot);
+  const dog = $derived(LOOKS[cast.id].dog);
   const dim = $derived(
     size === "xl"
       ? "size-24"
@@ -58,7 +59,22 @@
 
     <StickHead characterId={cast.id} part="back" turn={0} />
 
-    {#if robot}
+    {#if dog}
+      <!-- the dog's chest and red collar under the head -->
+      <path
+        d="M15 64c1-12 8-20 17-20s16 8 17 20Z"
+        class="{dog.coat} stroke-portrait-ink"
+        stroke-width="1.3"
+      />
+      <path d="M22 46.4q10 5 20 0" class={dog.collar} stroke-width="3" />
+      <circle
+        cx="32"
+        cy="50.6"
+        r="2"
+        class="fill-scene-honey stroke-portrait-ink"
+        stroke-width="0.8"
+      />
+    {:else if robot}
       <!-- light casing with the chest screen -->
       <rect
         x="29"

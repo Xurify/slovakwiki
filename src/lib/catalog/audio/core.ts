@@ -21,6 +21,13 @@ export interface AudioCharacter {
   gender: "female" | "male" | "neutral";
   kind: CharacterKind;
   note?: string;
+  /**
+   * Not a voice but sounds: each line's text is the key to a sound-effects
+   * prompt (a dog's "Haf!"), and the clip is generated from the prompt.
+   */
+  sounds?: Record<string, string>;
+  /** Repo paths of recordings that stand in for some of `sounds`' prompts, by the same line text. */
+  recordings?: Record<string, string>;
   /** Dialogue speaker labels that map to this character (e.g. "You" → alex). */
   speakers?: string[];
   voiceId: string;

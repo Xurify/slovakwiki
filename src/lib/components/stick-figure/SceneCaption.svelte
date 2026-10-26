@@ -46,6 +46,14 @@
       run.word === undefined ? undefined : thingNamed(foldLine(run.text), things),
     ),
   );
+  // A button is an inline-block, so the line may break between it and the full stop after it.
+  const glued = $derived(
+    runs.map((run, index) =>
+      onthing && named[index - 1] && run.word === undefined
+        ? (/^[^\s\p{L}]+/u.exec(run.text)?.[0] ?? "")
+        : "",
+    ),
+  );
 
   $effect(() => {
     void cue;
@@ -80,26 +88,28 @@
         {@const said = run.word !== undefined && run.word === current}
 
         {#if thing && onthing}
-          <button
-            class={cx(
-              "cursor-pointer rounded-sm border-0 bg-transparent p-0 font-serif text-inherit",
-              "underline decoration-slate-400 decoration-dotted underline-offset-4",
-              "transition-colors duration-150 ease-out hover:decoration-blue-600",
-              run.role && markRoleClass(run.role),
-              said && "bg-blue-100",
-            )}
-            type="button"
-            onclick={() => onthing(thing.id)}
+          <span class="whitespace-nowrap"
+            ><button
+              class={cx(
+                "cursor-pointer rounded-sm border-0 bg-transparent p-0 font-serif text-inherit",
+                "underline decoration-slate-400 decoration-dotted underline-offset-4",
+                "transition-colors duration-150 ease-out hover:decoration-blue-600",
+                run.role && markRoleClass(run.role),
+                said && "bg-blue-100",
+              )}
+              type="button"
+              onclick={() => onthing(thing.id)}
+            >
+              {run.text}
+            </button>{glued[index + 1] ?? ""}</span
           >
-            {run.text}
-          </button>
         {:else}
           <span
             class={cx(
               "rounded-sm transition-colors duration-150 ease-out",
               run.role && markRoleClass(run.role),
               said && "bg-blue-100",
-            )}>{run.text}</span
+            )}>{run.text.slice(glued[index].length)}</span
           >
         {/if}
       {/each}
