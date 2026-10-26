@@ -33,6 +33,21 @@ describe("tagWord", () => {
     });
   });
 
+  it("knows cardinals in every case and the animate dvaja, traja, štyria", () => {
+    for (const word of [
+      "dvoch",
+      "dvoma",
+      "tromi",
+      "štyroch",
+      "piatich",
+      "jedenástim",
+      "traja",
+    ]) {
+      expect(tagWord(word).class, word).toBe("numeral");
+    }
+    expect(tagWord("piatych").class).toBe("numeral");
+  });
+
   it("keeps prepositions, by and indefinite pronouns out of nouns and verbs", () => {
     expect(tagWord("Vďaka").class).toBe("functionWord");
     expect(tagWord("by").class).toBe("functionWord");

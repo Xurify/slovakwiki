@@ -77,7 +77,7 @@ describe("Where Does It Go content", () => {
     for (const item of cliticItems) {
       expect(item.words.length, item.id).toBeGreaterThan(1);
       expect(item.answer, item.id).toBeGreaterThan(0);
-      expect(item.answer, item.id).toBeLessThan(item.words.length + 1);
+      expect(item.answer, item.id).toBeLessThan(item.words.length);
       expect(
         item.words.every((word) => word && !/\s/u.test(word)),
         item.id,

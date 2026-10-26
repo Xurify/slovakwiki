@@ -90,11 +90,10 @@
           <!-- Each gap wraps with the word after it, so a line never ends in an empty gap. -->
           {#each item.words as word, slot (slot)}
             <span class="inline-flex items-center gap-1.5 whitespace-nowrap">
-              {@render gapButton(item, gap, slot)}
-              <span>{word}</span>
-              {#if slot === item.words.length - 1}
-                {@render gapButton(item, gap, slot + 1)}
+              {#if slot > 0}
+                {@render gapButton(item, gap, slot)}
               {/if}
+              <span>{word}</span>
             </span>
           {/each}
         </div>

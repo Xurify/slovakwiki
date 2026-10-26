@@ -47,6 +47,26 @@ describe("pickFillBlank", () => {
   });
 });
 
+describe("pickFillBlank for a strong learner", () => {
+  it("reaches an easier item for a part with too few answers", () => {
+    const items = [item("n1", "noun", 80), item("p1", "pronoun", 55)];
+    const coverage = new Map<StudyArea, number>([
+      ["nouns", 4],
+      ["pronouns", 1],
+    ]);
+    expect(pickFillBlank(items, 80, new Set(), coverage, seededRandom(2))?.id).toBe("p1");
+  });
+
+  it("stays near the target once that part has enough", () => {
+    const items = [item("n1", "noun", 80), item("p1", "pronoun", 55)];
+    const coverage = new Map<StudyArea, number>([
+      ["nouns", 4],
+      ["pronouns", 3],
+    ]);
+    expect(pickFillBlank(items, 80, new Set(), coverage, seededRandom(2))?.id).toBe("n1");
+  });
+});
+
 describe("pickListenLength", () => {
   const pairs = [
     ["mala", "malá"],

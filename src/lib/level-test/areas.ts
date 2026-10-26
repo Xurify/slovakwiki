@@ -6,6 +6,9 @@ import type { ItemResponse, StudyArea, WordTag } from "./types";
  */
 export const AREA_TARGET = 5;
 
+/** Fewer answers than this and the results say "Not enough data" for a part. */
+export const AREA_MINIMUM = 3;
+
 export function areaForTag(tag: WordTag | undefined): StudyArea {
   switch (tag?.class) {
     case "noun":

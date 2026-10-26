@@ -3,10 +3,11 @@ import { foldDiacritics, normalizeTyped, tokenizeWords } from "./grade";
 import {
   SCALE_POINTS_PER_LOGIT,
   cefrForScore,
+  clampScale,
   probabilityCorrect,
   type CefrLevel,
 } from "./scale";
-import { areaForTag } from "./areas";
+import { AREA_MINIMUM, areaForTag } from "./areas";
 import type {
   AiIssue,
   AiIssueTopic,
@@ -208,7 +209,7 @@ export const AREA_SOURCES: Record<StudyArea, readonly StepKind[]> = {
 };
 
 /** Fewer answers than this and an area says more about luck than about the learner. */
-export const MIN_EVIDENCE = 3;
+export const MIN_EVIDENCE = AREA_MINIMUM;
 
 /** The least an area must sit from the overall score to count as a strength or a gap. */
 export const DELTA_THRESHOLD = 5;
@@ -802,8 +803,8 @@ function skippedReason(area: StudyArea, run: RunContext): string {
   if (sources.some((kind) => run.stepKinds.has(kind))) return "No answers this time.";
   if (run.mode === "quick") return "Not part of the quick test.";
   if (sources.includes("readAloud")) {
-    if (!run.microphone) return "Needs a microphone.";
     if (!run.transcription) return "Needs speech recognition, not set up yet.";
+    if (!run.microphone) return "Needs a microphone.";
   }
   return "Not part of this run.";
 }
@@ -813,8 +814,12 @@ function summarize(
   observations: readonly Observation[],
   center: number,
 ): AreaSummary {
-  const estimate = estimateAbility(observations, { mean: center, sd: AREA_PRIOR_SD });
-  const score = Math.round(estimate.theta);
+  const prior = { mean: center, sd: AREA_PRIOR_SD };
+  const estimate = estimateAbility(observations, prior);
+  // Near 0 or 100 the scale cuts off half the prior, which alone pulls an
+  // estimate about 12 points inward; measure the move from the prior instead.
+  const edgePull = estimateAbility([], prior).theta - center;
+  const score = Math.round(clampScale(estimate.theta - edgePull));
   const earned = observations.reduce((sum, observation) => sum + observation.score, 0);
   const expected = observations.reduce(
     (sum, observation) =>

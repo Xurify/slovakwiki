@@ -24,7 +24,7 @@ const OTHER_PRONOUN =
   /^(?:kto|čo|koho|komu|čom|čím|niečo|nič|ničím|ničoho|niekto|niekoho|nikto|nikoho|nikomu|všetko|všetci|všetky|všetka|všetku)$|^(?:ktor|každ|niektor|mnoh|žiadn|nijak|všetk|ak|tak|in)(?:ý|á|é|í|ého|ej|ému|om|ú|ou|ých|ým|ými)$/u;
 
 const NUMBER =
-  /^(?:jeden|jedna|jedno|dva|dve|tri|štyri|päť|šesť|sedem|osem|deväť|desať|\p{L}+násť|dvadsať|tridsať|štyridsať|\p{L}+desiat|sto|tisíc)$|^(?:prv|druh|štvrt|piat|šiest|siedm|ôsm|deviat|desiat)(?:ý|á|é|í|ej|ého|ému|om|ou|ú|ých|ým|ými)$|^tret(?:í|ieho|iemu|ia|ie|iu|ej|ích|ím|ími)$|^treť(?:om|ou)$/u;
+  /^(?:jeden|jedna|jedno|dva|dve|tri|štyri|päť|šesť|sedem|osem|deväť|desať|\p{L}+násť|dvadsať|tridsať|štyridsať|\p{L}+desiat|sto|tisíc)$|^(?:prv|druh|štvrt|piat|šiest|siedm|ôsm|deviat|desiat)(?:ý|á|é|í|ej|ého|ému|om|ou|ú|ých|ým|ými)$|^(?:piat|šiest|siedm|ôsm|deviat|desiat)(?:y|a|e|eho|emu|u|ych|ym|ymi)$|^tret(?:í|ieho|iemu|ia|ie|iu|ej|ích|ím|ími)$|^treť(?:om|ou)$|^(?:dvaja|traja|štyria)$|^(?:dv|tr)(?:och|om|oma|omi)$|^štyr(?:och|om|mi)$|^(?:piat|šiest|siedm|ôsm|deviat|desiat|\p{L}+nást|dvadsiat|tridsiat|štyridsiat|\p{L}+desiat)(?:ich|im|imi)$/u;
 
 /**
  * Adverbs that look like a noun (málo, a small amount, is the rarer reading)

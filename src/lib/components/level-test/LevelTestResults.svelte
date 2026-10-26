@@ -80,7 +80,7 @@
   );
   const result = $derived(computeResult(responses, production));
   const diagnosis = $derived(
-    diagnose(responses, production, currentTheta(responses), {
+    diagnose(responses, production, result.overall?.score ?? currentTheta(responses), {
       stepKinds: new Set(plan.map((step) => step.kind)),
       mode,
       microphone,
@@ -119,6 +119,8 @@
     if (mode === "quick" && (skill === "writing" || skill === "speaking")) {
       return "Not part of the quick test.";
     }
+    if (skill === "speaking" && !capabilities.transcription)
+      return "Planned: needs speech recognition.";
     if (skill === "speaking" && !microphone) return "No microphone in this run.";
     if (skill === "writing" || skill === "speaking") {
       const failed = production.some(

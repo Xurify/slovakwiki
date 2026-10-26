@@ -1,4 +1,4 @@
-import { AREA_TARGET, areaForTag } from "./areas";
+import { AREA_MINIMUM, AREA_TARGET, areaForTag } from "./areas";
 import { itemsOfFormat, pickNearest } from "./plan";
 import type {
   AdaptiveFormat,
@@ -163,6 +163,13 @@ export function pickAdaptiveItem(
 const FILL_BLANK_REACH = 12;
 
 /**
+ * How far it may reach for a word class with fewer answers than the results
+ * need to judge it. Pronoun and number items stop around 55, so a strong
+ * learner would otherwise never see one.
+ */
+const FILL_BLANK_FAR_REACH = 30;
+
+/**
  * Natural text is mostly nouns and verbs, so a C-test alone leaves adjectives
  * with two or three answers. Among the items close to the target, Fill in the
  * Blanks picks the word class furthest below its share of evidence.
@@ -175,10 +182,13 @@ export function pickFillBlank(
   random: () => number,
   seen?: ReadonlySet<string>,
 ): FillBlankItem | undefined {
-  const near = itemsOfFormat(items, "fillBlank").filter(
-    (item) =>
-      !used.has(item.id) && Math.abs(item.difficulty - target) <= FILL_BLANK_REACH,
-  );
+  const near = itemsOfFormat(items, "fillBlank").filter((item) => {
+    if (used.has(item.id)) return false;
+    const distance = Math.abs(item.difficulty - target);
+    if (distance <= FILL_BLANK_REACH) return true;
+    const answers = coverage.get(areaForTag(item.tag)) ?? 0;
+    return distance <= FILL_BLANK_FAR_REACH && answers < AREA_MINIMUM;
+  });
 
   let neediest: StudyArea | undefined;
   let deficit = 0;

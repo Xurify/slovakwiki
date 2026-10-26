@@ -84,6 +84,28 @@ describe("diagnose", () => {
     expect(result.strengths.map((area) => area.area)).toContain("conjugation");
   });
 
+  it("lets a part with no misses reach the top near the scale's edge", () => {
+    const responses = [0, 1, 2, 3, 4, 5].map((n) => gap("chodí", "chodí", verb, 40 + n));
+    const status = statusOf(diagnose(responses, [], 100, QUICK), "conjugation");
+    expect(status?.kind === "measured" && status.summary.score).toBeGreaterThanOrEqual(
+      95,
+    );
+  });
+
+  it("names missing speech recognition before a missing microphone", () => {
+    const result = diagnose([], [], 40, {
+      ...QUICK,
+      mode: "full",
+      stepKinds: new Set(),
+      microphone: false,
+      transcription: false,
+    });
+    expect(statusOf(result, "intelligibility")).toEqual({
+      kind: "skipped",
+      reason: "Needs speech recognition, not set up yet.",
+    });
+  });
+
   it("never calls an area strong with nothing right", () => {
     const responses = [1, 2, 3].map((n) => gap("malá", "maľ", noun, n));
     const result = diagnose(responses, [], 0, QUICK);

@@ -54,9 +54,7 @@
   function finish(): void {
     if (done) return;
     done = true;
-    const parts = followUp
-      ? [`${question.slovak}\n${first.trim()}`, `${followUp.slovak}\n${second.trim()}`]
-      : [first.trim()];
+    const parts = followUp ? [first.trim(), second.trim()] : [first.trim()];
     const hasText = Boolean(first.trim() || second.trim());
 
     ondone({
