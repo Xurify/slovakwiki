@@ -113,6 +113,16 @@ const GREETING_TIMES: Array<[string, TimeOfDay]> = [
   ["dobru noc", "night"],
 ];
 
+/** Folded phrases that say what time of day it is now, anywhere in a line; zajtra ráno is another day. */
+const SAID_TIMES: Array<[string, TimeOfDay]> = [
+  ["je rano", "morning"],
+  ["je skoro rano", "morning"],
+  ["je este skoro rano", "morning"],
+  ["je vecer", "evening"],
+  ["je uz vecer", "evening"],
+  ["je noc", "night"],
+];
+
 /** Folded words for the weather: prší, sneží and slnko whole, dážď, sneh and oblak in any case. Sunny is clear with the sun out. */
 const WEATHER_CUES: Array<[Weather, WordCues]> = [
   ["rain", { stems: ["dazd"], words: ["prsi", "prsalo", "prsat"] }],
@@ -123,7 +133,7 @@ const WEATHER_CUES: Array<[Weather, WordCues]> = [
 
 /**
  * The light and weather a scene's own words call for at line `upTo`: the
- * first greeting that names a time of day, the time a line tells for the
+ * first greeting or line that names the time of day (`Je ráno.`), the time a line tells for the
  * clocks, and the weather named last by
  * then, so a sky that clouds over and rains changes as the lines say so.
  * Without `upTo`, the weather the scene ends in. Past the last line the
@@ -133,7 +143,11 @@ export function sceneMood(lines: readonly string[], upTo = lines.length - 1): Sc
   const folded = lines.map(foldLine);
   const time =
     folded
-      .map((line) => GREETING_TIMES.find(([greeting]) => opens(line, greeting))?.[1])
+      .map(
+        (line) =>
+          GREETING_TIMES.find(([greeting]) => opens(line, greeting))?.[1] ??
+          SAID_TIMES.find(([said]) => ` ${line} `.includes(` ${said} `))?.[1],
+      )
       .find(Boolean) ?? "day";
   const weather =
     folded
