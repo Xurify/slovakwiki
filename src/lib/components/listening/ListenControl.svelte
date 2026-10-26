@@ -5,11 +5,13 @@
 
   let {
     children,
+    class: className,
     disabled = false,
     onclick,
     pressed,
   }: {
     children: Snippet;
+    class?: string;
     disabled?: boolean;
     onclick: () => void;
     pressed?: boolean;
@@ -23,6 +25,7 @@
     pressed
       ? "bg-blue-50 text-blue-800"
       : "bg-transparent text-slate-600 hover:bg-subtle hover:text-slate-900",
+    className,
   )}
   type="button"
   aria-pressed={pressed}

@@ -84,6 +84,12 @@ const TO_LISTENERS = [
   "teraz do",
   "teraz spat do",
   "teraz na",
+  "pomozte",
+  "co myslite",
+  "co poviete",
+  "pomocnici",
+  "nikto nic",
+  "vy vyberiete",
 ];
 
 /**
