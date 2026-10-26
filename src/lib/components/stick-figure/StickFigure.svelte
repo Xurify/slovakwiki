@@ -18,7 +18,7 @@
   import type { Held } from "$lib/stick-figure/props";
   import type { Emote, Sign } from "$lib/stick-figure/act-motions";
   import type { Effect } from "$lib/stick-figure/act-motions";
-  import { mouthOf } from "$lib/stick-figure/reach";
+  import { mouthOf, reachFor } from "$lib/stick-figure/reach";
   import { OBJECT_SIZE, tipFromHand } from "$lib/stick-figure/set-pieces";
   import StickHead from "./StickHead.svelte";
   import StickSetObject, { type ObjectLook } from "./StickSetObject.svelte";
@@ -112,7 +112,31 @@
     call > 0.5 && (held?.id === "phone" || hands.rear?.kind === "phone"),
   );
 
-  const rig = $derived(solveRig(atEar(pose, call), sit, sitPath));
+  /** In front of the middle of the body at the waist, where a held thing is carried round a turn. */
+  const IN_FRONT: Point = { x: 1, y: 82 };
+  /**
+   * Round a turn, a hand holding something comes in to the middle in front
+   * and goes back out: the figure changes sides as it faces the front, and a
+   * spoon held out at the side jumped across the body in one frame.
+   */
+  function carriedRound(from: StickPose): StickPose {
+    const tuck = 1 - round;
+    if (tuck <= 0 || call > 0 || (hands.lead && hands.rear)) return from;
+    const ends = solveRig(from, sit, sitPath);
+    let to = from;
+    for (const hand of ["lead", "rear"] as const) {
+      if (!(hand === "lead" ? hands.lead || held : hands.rear)) continue;
+      const end = ends[hand === "lead" ? "leadArm" : "rearArm"].end;
+      const at = {
+        x: end.x + (IN_FRONT.x - end.x) * tuck,
+        y: end.y + (IN_FRONT.y - end.y) * tuck,
+      };
+      to = { ...to, ...reachFor(to, hand, at, sit) };
+    }
+    return to;
+  }
+
+  const rig = $derived(solveRig(carriedRound(atEar(pose, call)), sit, sitPath));
   /**
    * Headphones in both hands, a cup in each, while the hands are a band's
    * width or so apart. Round the head they are held as worn: the rear hand
