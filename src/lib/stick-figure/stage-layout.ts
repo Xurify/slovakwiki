@@ -4,8 +4,12 @@ import type { Facing } from "./staging";
 
 /** The stage's side padding, px. */
 export const STAGE_PADDING = 24;
-/** Between neighbours, as a share of the stage's inner width: close enough to be talking. */
-const GAP_SHARE = 0.02;
+/**
+ * Centre to centre, in figure widths, between neighbours: about 0.9 m for a
+ * 1.75 m figure, the distance people stand at to talk, with room left for
+ * an arm (29 of the box's 80) to point without touching the next person.
+ */
+export const TALK_STEP = 0.7;
 
 /**
  * A figure's width on a stage this size: in step with the stage's height,
@@ -20,13 +24,13 @@ export function figureWidth(
 ): number {
   const preferred = ((castSize > 2 ? 110 : 150) * stageHeight) / BACKDROP_HEIGHT;
   const inner = stageWidth - 2 * STAGE_PADDING;
-  const gaps = GAP_SHARE * inner * Math.max(0, castSize - 1);
-  return Math.max(40, Math.min(preferred, (inner - gaps) / Math.max(1, castSize)));
+  const steps = 1 + TALK_STEP * Math.max(0, castSize - 1);
+  return Math.max(40, Math.min(preferred, inner / steps));
 }
 
 /**
- * Each figure's mark, as the left edge in px: the cast in a row, a gap
- * apart, centred on `at` (the middle of the stage unless the place has a
+ * Each figure's mark, as the left edge in px: the cast in a row, at a
+ * talking distance, centred on `at` (the middle of the stage unless the place has a
  * post). Whoever is on stage stands there; someone who walks on later
  * takes no room until then, but the row is kept far enough over that they
  * still fit when they arrive.
@@ -39,7 +43,7 @@ export function stageMarks(
   stageHeight = BACKDROP_HEIGHT,
 ): { marks: Partial<Record<LessonCharacterId, number>>; width: number } {
   const width = figureWidth(cast.length, stageWidth, stageHeight);
-  const step = width + GAP_SHARE * (stageWidth - 2 * STAGE_PADDING);
+  const step = width * TALK_STEP;
   const present = cast.flatMap((id, index) => (id in entering ? [] : [index]));
   const shown = present.length > 0 ? present : cast.map((_, index) => index);
   const middle = ((shown[0] + shown[shown.length - 1]) / 2) * step + width / 2;

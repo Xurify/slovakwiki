@@ -315,6 +315,10 @@ const curatedWordSeed: WordSeed[] = [
     category: "Nouns",
     gender: "masculine-inanimate",
     topics: ["Everyday life"],
+    declension: {
+      singular: ["dom", "domu", "domu", "dom", "dome", "domom"],
+      plural: ["domy", "domov", "domom", "domy", "domoch", "domami"],
+    },
     examples: [
       { slovak: "Náš dom je malý.", english: "Our house is small." },
       { slovak: "Mám nový dom.", english: "I have a new house." },
@@ -328,6 +332,10 @@ const curatedWordSeed: WordSeed[] = [
     category: "Nouns",
     gender: "feminine",
     topics: ["Everyday life"],
+    declension: {
+      singular: ["rodina", "rodiny", "rodine", "rodinu", "rodine", "rodinou"],
+      plural: ["rodiny", "rodín", "rodinám", "rodiny", "rodinách", "rodinami"],
+    },
     examples: [
       {
         slovak: "Moja rodina žije na Slovensku.",
@@ -407,6 +415,10 @@ const curatedWordSeed: WordSeed[] = [
     category: "Nouns",
     gender: "feminine",
     topics: ["People"],
+    declension: {
+      singular: ["žena", "ženy", "žene", "ženu", "žene", "ženou"],
+      plural: ["ženy", "žien", "ženám", "ženy", "ženách", "ženami"],
+    },
     examples: [
       { slovak: "Tá žena číta.", english: "That woman is reading." },
       { slovak: "Moja žena je učiteľka.", english: "My wife is a teacher." },

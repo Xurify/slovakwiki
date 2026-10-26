@@ -49,6 +49,7 @@
   import {
     blockingBefore,
     endLine,
+    seatedFacings,
     startLine,
     type Blocking,
   } from "$lib/stick-figure/stage-blocking";
@@ -57,6 +58,7 @@
     markOf,
     offStage,
     stageFrame,
+    stageX,
     standing,
     walkOns,
     type Offsets,
@@ -70,6 +72,7 @@
   import StickBackdrop from "./StickBackdrop.svelte";
   import StickWeather from "./StickWeather.svelte";
   import StickFigureActor from "./StickFigureActor.svelte";
+  import StickFurniture from "./StickFurniture.svelte";
 
   interface ActorState {
     cue: number;
@@ -115,6 +118,7 @@
   /** When each figure begins a turn: the speaker at once, the others a beat later. */
   let turns = $state<TurnDelays>({});
   let offsets = $state<Offsets>({});
+  let seated = $state<Blocking["seated"]>({});
   let walks = $state<Partial<Record<LessonCharacterId, { cue: number; ms: number }>>>({});
   /** The line whose props are in hand: the one playing, or the last one played. */
   let heldAt = $state(-1);
@@ -185,6 +189,8 @@
       stageHeight,
     ),
   );
+  /** Someone on a chair faces the way it does, whoever points or talks. */
+  const sitting = $derived(seatedFacings(seated, frame));
   const pickedThing = $derived(things.find((thing) => thing.id === picked));
   /**
    * The word card sits under the thing, or over it when there is no room
@@ -258,12 +264,13 @@
   }
 
   function blocking(): Blocking {
-    return { aboard, facings, offsets, tram };
+    return { aboard, facings, offsets, seated, tram };
   }
 
   /** Turn everyone as `next` has them at once, and walk whoever it moves. */
   function block(next: Blocking): void {
     facings = next.facings;
+    seated = next.seated;
     tram = next.tram;
     aboard = next.aboard;
     for (const id of direction.cast) {
@@ -302,6 +309,7 @@
     umbrellas = {};
     facings = placed.facings;
     offsets = placed.offsets;
+    seated = placed.seated;
     tram = placed.tram;
     aboard = placed.aboard;
     walks = {};
@@ -553,7 +561,11 @@
 
     for (const actor of Object.values(actors)) actor.talking = false;
     spoken = { at: performance.now(), durationMs: plan?.durationMs ?? 1600, rate };
-    const speaker = line.characterId;
+    // A voice over the phone has nobody on stage to move.
+    const speaker =
+      line.characterId && direction.cast.includes(line.characterId)
+        ? line.characterId
+        : null;
     front = staging?.audience && speaker ? speaker : undefined;
     turns = turnDelays(direction.cast, speaker);
     facings = { ...facings, ...staging?.facing };
@@ -658,6 +670,16 @@
 
     <!-- Unmeasured, the server's render and the first frame would draw the cast tiny in a corner. -->
     {#if measured}
+      {#each PLACES[setting].furniture ?? [] as piece, index (index)}
+        <div
+          class="pointer-events-none absolute"
+          style:bottom="{FLOOR}px"
+          style:left="{stageX(frame, { x: piece.x, y: 0 }) - frame.figureWidth / 2}px"
+          style:width="{frame.figureWidth}px"
+        >
+          <StickFurniture {piece} />
+        </div>
+      {/each}
       {#each direction.cast as characterId (characterId)}
         <div
           class="pointer-events-none absolute transition-transform ease-linear"
@@ -671,11 +693,16 @@
             {characterId}
             {clock}
             cue={actors[characterId]?.cue ?? 0}
-            facing={facings[characterId] ?? resting[characterId] ?? 1}
+            facing={sitting[characterId] ??
+              facings[characterId] ??
+              resting[characterId] ??
+              1}
             front={front === characterId}
             onbeat={onBeat}
             plan={actors[characterId]?.plan}
             held={heldBy(characterId)}
+            seated={seated[characterId] !== undefined}
+            onCall={direction.lines[heldAt]?.call === characterId}
             {dress}
             talking={actors[characterId]?.talking ?? false}
             turnDelay={turns[characterId] ?? 0}

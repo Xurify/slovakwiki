@@ -27,7 +27,7 @@
 {/snippet}
 
 <figure
-  class="m-0 overflow-hidden rounded-(--frame-radius) bg-subtle shadow-(--shadow-border)"
+  class="m-0 overflow-hidden rounded-(--frame-radius) bg-surface shadow-(--shadow-border)"
 >
   <figcaption class="px-4 pt-4 pb-3 sm:px-6">
     <h3 class="m-0 font-sans text-sm font-semibold tracking-normal text-slate-900">
@@ -53,7 +53,7 @@
       </thead>
 
       {#each table.sections as section, sectionIndex (sectionIndex)}
-        <tbody class="bg-surface/70">
+        <tbody>
           {#if section.heading}
             <tr class="border-b border-slate-200 bg-subtle">
               <th
@@ -76,14 +76,18 @@
             <tr class="border-b border-slate-200/70 last:border-b-0">
               <th
                 scope="row"
-                class="{edgeCellClass} max-w-56 py-2.5 text-xs leading-snug font-semibold text-slate-700 sm:min-w-36"
+                class="{edgeCellClass} max-w-56 py-1.5 text-xs leading-snug font-semibold text-slate-700 sm:min-w-36"
               >
                 {@render heading(row.heading)}
               </th>
 
               {#each row.cells as cell, cellIndex (cellIndex)}
                 <td
-                  class="{cellPaddingClass} py-2.5 font-serif text-base whitespace-nowrap text-slate-900"
+                  class={[
+                    cellPaddingClass,
+                    "py-1.5 font-serif text-base whitespace-nowrap text-slate-900",
+                    cellIndex < row.cells.length - 1 && "w-px sm:pr-8",
+                  ]}
                   lang="sk"
                 >
                   <MarkedNote text={cell} />

@@ -50,7 +50,9 @@ export function sceneLines(turns: readonly DialogueTurn[]): SceneLine[] {
     learner: isLearnerSpeaker(turn.speaker),
     marks: turn.marks,
     mouth: mouths[turn.id]?.m,
+    overPhone: turn.overPhone,
     props: turn.props,
+    ring: turn.ring,
     said: turn.audio?.transcript,
     sayChoices: turn.sayChoices,
     slovak: turn.slovak,
@@ -111,7 +113,9 @@ function directedLine({
   characterId,
   gestures,
   mouth,
+  overPhone,
   props,
+  ring,
   said,
   slovak,
   src,
@@ -119,7 +123,20 @@ function directedLine({
   to,
   vowels,
 }: SceneLine): DirectedLine {
-  return { characterId, gestures, mouth, props, said, slovak, src, stays, to, vowels };
+  return {
+    characterId,
+    gestures,
+    mouth,
+    overPhone,
+    props,
+    ring,
+    said,
+    slovak,
+    src,
+    stays,
+    to,
+    vowels,
+  };
 }
 
 /**
@@ -131,15 +148,24 @@ export function episodeStages(episode: ListeningEpisode): {
   thingWords: Record<string, { href?: string; src?: string }>;
 } {
   const order = episode.speakers.map(characterIdForSpeaker);
+  let said: string[] = [];
   const scenes = Object.fromEntries(
-    episode.chapters.map((chapter) => [
-      chapter.id,
-      {
-        lines: sceneLines(chapter.lines).map(directedLine),
-        order,
-        setting: chapter.stage ?? "studio",
-      },
-    ]),
+    episode.chapters.map((chapter, index) => {
+      const setting = chapter.stage ?? "studio";
+      const previous = episode.chapters[index - 1];
+      if ((previous?.stage ?? "studio") !== setting) said = [];
+      const before = said;
+      said = [...said, ...chapter.lines.map((line) => line.slovak)];
+      return [
+        chapter.id,
+        {
+          ...(index > 0 && before.length > 0 ? { before } : {}),
+          lines: sceneLines(chapter.lines).map(directedLine),
+          order,
+          setting,
+        },
+      ];
+    }),
   );
   const onStage = new Set(
     Object.values(scenes).flatMap(({ setting }) =>
