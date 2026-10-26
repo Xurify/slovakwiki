@@ -24,10 +24,11 @@ it.skipIf(!process.env.SLUG)("dumps the script for a critic", () => {
   if (!episode) throw new Error(`No listed episode "${process.env.SLUG}"`);
   const rows: string[] = [`# ${episode.titleSk} (${episode.title})`, ""];
   for (const chapter of episode.chapters) {
-    const place = PLACES[chapter.stage ?? "studio"] as {
-      things: { word: string }[];
-      furniture?: { kind: string }[];
-    };
+    // Furniture and phone calls come with the stage work, so they may be missing from these types.
+    const place: {
+      things: readonly { word: string }[];
+      furniture?: readonly { kind: string }[];
+    } = PLACES[chapter.stage ?? "studio"];
     const drawn = [
       ...place.things.map((t) => t.word),
       ...(place.furniture ?? []).map((f) => f.kind),
@@ -40,7 +41,8 @@ it.skipIf(!process.env.SLUG)("dumps the script for a critic", () => {
       "| # | Speaker | Slovak | English | Voice direction, path |",
       "|---|---|---|---|---|",
     );
-    chapter.lines.forEach((line, i) => {
+    chapter.lines.forEach((turn, i) => {
+      const line = turn as typeof turn & { ring?: string; overPhone?: boolean };
       const said = line.audio?.transcript ?? "";
       const tags = [...said.matchAll(/\[(\w+)\]/g)]
         .map((m) => m[1])
