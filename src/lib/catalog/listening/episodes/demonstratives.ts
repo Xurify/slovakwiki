@@ -1,5 +1,6 @@
 import type { MarkedPart } from "$lib/learning/marked-text";
 import {
+  CHUCKLE,
   PAUSE,
   SIGH,
   STOP,
@@ -627,17 +628,28 @@ const quiz: ListeningChapter = {
       "Yes. And I have that key here.",
     ),
     line(
+      "anna-dont-lose-it",
+      "Anna",
+      [CHUCKLE, "Tak ho už nestrať!"],
+      "Then don't lose it again!",
+    ),
+    line("marek-i-wont", "Marek", ["Nestratím, sľubujem."], "I won't, I promise."),
+    line(
       "anna-right-or-wrong",
       "Anna",
-      ["A teraz hra: správne alebo nesprávne? Hádajte s nami!"],
-      "And now a game: right or wrong? Guess along with us!",
+      [
+        "No a teraz malá skúška pre Mareka. ",
+        PAUSE,
+        "Marek povie vetu a vy hádajte: je správna, alebo nesprávna?",
+      ],
+      "And now a little test for Marek. Marek says a sentence and you guess: is it right, or wrong?",
     ),
     rightOrWrong(
       line(
         "marek-first-sentence",
         "Marek",
-        ["Dobre. Prvá veta: ", PAUSE, mark("Tá"), " dievča je moja sestra."],
-        "OK. First sentence: Tá dievča je moja sestra.",
+        ["Ojoj. ", PAUSE, "Dobre… ", PAUSE, mark("Tá"), " dievča je moja sestra."],
+        "Uh-oh. OK… Tá dievča je moja sestra.",
       ),
       "wrong",
     ),
@@ -649,12 +661,24 @@ const quiz: ListeningChapter = {
         "Wrong! Dievča is neuter: to dievča.",
       ),
     ),
+    line(
+      "marek-first-one-already",
+      "Marek",
+      ["Ajaj. ", PAUSE, "Hneď prvá."],
+      "Oh no. The very first one.",
+    ),
+    line(
+      "anna-no-harm-next",
+      "Anna",
+      ["Nič sa nestalo. ", PAUSE, "Ďalšia?"],
+      "No harm done. Next one?",
+    ),
     rightOrWrong(
       line(
         "marek-second-sentence",
         "Marek",
-        ["Druhá veta: ", PAUSE, mark("Tie"), " deti sa hrajú vonku."],
-        "Second sentence: Those children are playing outside.",
+        ["Tak… ", PAUSE, mark("Tie"), " deti sa hrajú vonku."],
+        "So… Those children are playing outside.",
       ),
       "right",
     ),
@@ -677,12 +701,24 @@ const quiz: ListeningChapter = {
         "Right! Tie deti, tie ženy. Tí muži, tí chlapci.",
       ),
     ),
+    line(
+      "marek-at-least-one",
+      "Marek",
+      ["Juchú! ", PAUSE, "Aspoň jedna!"],
+      "Yay! At least one!",
+    ),
+    line(
+      "anna-one-more",
+      "Anna",
+      [CHUCKLE, "No vidíš. ", PAUSE, "A ešte jedna."],
+      "There you go. And one more.",
+    ),
     rightOrWrong(
       line(
         "marek-last-sentence",
         "Marek",
-        ["A posledná veta: ", PAUSE, "Poznáš ", mark("tohoto"), " muža?"],
-        "And the last sentence: Poznáš tohoto muža?",
+        ["Hm… ", PAUSE, "Poznám ", mark("tohoto"), " muža."],
+        "Hmm… Poznám tohoto muža.",
       ),
       "wrong",
     ),
@@ -702,12 +738,25 @@ const quiz: ListeningChapter = {
       ),
     ),
     line(
-      "marek-tohto-now-i-know",
+      "marek-that-czech",
       "Marek",
-      [mark("Tohto"), ", ", mark("tohto"), ", ", mark("tohto"), ". ", PAUSE, "Už viem."],
-      "Tohto, tohto, tohto. Now I know.",
+      ["Aha, ", mark("tohto"), ". ", PAUSE, "Tá čeština! ", PAUSE, "Tak jedna z troch."],
+      "Oh, tohto. That Czech! So one out of three.",
     ),
-    line("anna-excellent", "Anna", ["Výborne, Marek!"], "Excellent, Marek!"),
+    line(
+      "anna-and-you",
+      "Anna",
+      [CHUCKLE, "A vy? ", PAUSE, "Koľko ste mali správne?"],
+      "And you? How many did you get right?",
+    ),
+    afterThinking(
+      line(
+        "marek-more-than-me",
+        "Marek",
+        [CHUCKLE, "Určite viac ako ja."],
+        "Surely more than me.",
+      ),
+    ),
   ],
   checks: [
     {

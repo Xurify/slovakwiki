@@ -5,6 +5,9 @@ export const LINE_GAP_MS = 450;
 
 export const SLOW_RATE = 0.8;
 
+/** After the listener's pick, a beat before the answer, so it lands as a reply and not a snap. */
+export const ANSWER_BEAT_MS = 900;
+
 /**
  * Heard this much of a line, Replay line starts it over; before that it goes
  * back a line, the way a player's previous button does on a track just begun.
@@ -153,7 +156,7 @@ export class LinePlayer {
       this.#gap = 0;
       if (mine !== this.#epoch || !this.playing) return;
       this.playFrom(this.cursor + 1);
-    }, LINE_GAP_MS);
+    }, ANSWER_BEAT_MS);
   }
 
   toggleSlow(): void {
