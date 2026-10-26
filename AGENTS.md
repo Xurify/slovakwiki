@@ -10,6 +10,7 @@ Domain-specific authoring and pipelines live next to the work — not here:
 | Hand-add a lemma                            | [`content/dictionary/README.md`](content/dictionary/README.md)              |
 | Create or expand a lesson                   | [`docs/lesson-authoring.md`](docs/lesson-authoring.md) · `new-lesson` skill |
 | Write a listening episode (podcast)         | [`docs/listening-authoring.md`](docs/listening-authoring.md)                |
+| Brief a new episode in one prompt           | [`docs/listening-one-prompt.md`](docs/listening-one-prompt.md)              |
 | Voice roster                                | [`content/audio/README.md`](content/audio/README.md)                        |
 | FOUC / blocking pre-paint boots             | [`src/lib/fouc/README.md`](src/lib/fouc/README.md)                          |
 | Slovak linguistic accuracy                  | [`slovak-language` skill](.agents/skills/slovak-language/SKILL.md)          |
@@ -76,7 +77,7 @@ Dictionary / lesson / practice **spoken Slovak** needs ElevenLabs MP3s. Do **not
 - Prod play also needs `bun scripts/audio/upload.ts` (R2). Generate still required locally even if upload waits.
 - Skip only for pure UI/CSS/layout with **no** spoken-text change.
 - **Write dialogue for the ear, before the first clip.** Read each exchange aloud at speaking pace. Where someone has to think (a guess, a quiz answer, a choice), let them say so in the line (`Hm…`, or the clue said back) with a pause after it. Put a beat between two clues, before a quiz sentence, between a verdict and its reason, and where a speaker turns to someone else. A pause is `[pause]` in the clip text: `PAUSE` in a podcast line, or a lesson line's `audio.transcript` with the same words as its text. Never direct a line `[slowly]`, and give the clip a full stop where the text trails off (`STOP`): Eleven reads an ellipsis as trailing off, and slowed, Marek's clues became a drawn-out whisper. Eleven v4 makes about a second of silence inside a line and next to none at its start or end, so a pause always sits between words. The first podcast had Anna name the key the instant Marek gave the clue.
-- **Listen back before calling dialogue done.** For each new dialogue clip, Scribe hears the line as written (`generate.ts -- --verify`), the pauses fall where the script puts them (`ffmpeg -af silencedetect`), and the mouth follows the voice (`bun scripts/audio/lipsync.ts -- --only "…"`, 80% or better). The tone of a directed line only a person can judge: list it in the PR's QA. The slips the first episode shipped are listed in [`docs/listening-authoring.md`](docs/listening-authoring.md) under **Slips we shipped**; read a script against them.
+- **Listen back before calling dialogue done.** For each new dialogue clip, Scribe hears the line as written (`generate.ts -- --verify`), the pauses fall where the script puts them (`ffmpeg -af silencedetect`), and the mouth follows the voice (`bun scripts/audio/lipsync.ts`, 80% or better over the episode; a single clip far under it, about 60%, is retaken). The tone of a directed line only a person can judge: list it in the PR's QA. The slips the first episode shipped are listed in [`docs/listening-authoring.md`](docs/listening-authoring.md) under **Slips we shipped**; read a script against them.
 
 ## Content pipelines
 
@@ -288,7 +289,7 @@ The animated cast, its places and the scene player. Logic lives in `src/lib/stic
 
 **Player and games**
 
-- `/dev/scenes?scene=<id>` opens one scene; use these links in PR QA lists.
+- `/dev/scenes?scene=<id>` opens one scene, for work on this player and its games. A podcast segment is built and checked on its episode page (`/listening/<slug>`), where learners hear it, and its PR QA links go there.
 - Modes are Watch, Play as (Pick the line, Build it, Say it, Adaptive) and Find it. A game that is not about the scene picked is a scene of its own in the list, under Prototype with the other scripts, not a mode of the scene picked.
 - Find it asks in Slovak only, since English would give the answer away. Someone on stage asks each thing and answers each tap out loud (`findAsker`, `findSayings` in `scene-find.ts`; the clips reach the generator through `findTurns()` in `scene-sources.ts` and the player through `Scene.finds`), gesturing instead only where a clip is missing. It names each find in English after the tap and ends with the case behind the forms.
 - A talk (`talk.ts`) is a graph: the other person's lines, then Alex's replies. A reply that fits leads to a node and is voiced. A slip carries `why`, a reaction (`puzzle`, `laugh`, `frown`) and a voiced answer. `talk.test.ts` checks every talk: all nodes reachable, slips lead nowhere, ends are goodbyes, ty or vy fits who is spoken to. A talk has no script ahead of the learner: the text under the stage lists only what has been said.
