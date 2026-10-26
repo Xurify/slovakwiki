@@ -2,7 +2,6 @@
   import { untrack, type Component } from "svelte";
   import { cubicInOut } from "svelte/easing";
   import { Tween } from "svelte/motion";
-  import { DOOR_OPEN_MS, DOOR_SHUT_MS } from "$lib/stick-figure/act-motions";
 
   import {
     BACKDROP_HEIGHT,
@@ -32,7 +31,7 @@
   let {
     board,
     class: className = "",
-    door = false,
+    door = 0,
     found = [],
     height = 0,
     hint,
@@ -51,8 +50,8 @@
     /** A line to chalk on the classroom board. */
     board?: string;
     class?: string;
-    /** The door stands open: someone is coming in. */
-    door?: boolean;
+    /** How far the door has swung in, from 0 shut: someone is coming in. */
+    door?: number;
     /** Things found in a game, ringed in green for the rest of it. */
     found?: readonly string[];
     /** The drawn size in px, once measured, so the slice can sit anywhere along it. */
@@ -125,19 +124,6 @@
     const run = untrack(() => skipping) && to > from;
     void hour.set(to, { duration: run ? 1200 : 0 });
   });
-  /**
-   * The door swings rather than snaps, about as long as a door takes, and
-   * only part way: wide enough to come in by, and its edge still in reach
-   * of whoever turns back to push it to. In 450 ms it flew open and shut.
-   */
-  const AJAR = 0.5;
-  const swing = new Tween(
-    untrack(() => (door ? AJAR : 0)),
-    { easing: cubicInOut },
-  );
-  $effect(() => {
-    void swing.set(door ? AJAR : 0, { duration: door ? DOOR_OPEN_MS : DOOR_SHUT_MS });
-  });
   const Drawing = $derived(DRAWINGS[setting]);
   const things = $derived(thingsIn(PLACES[setting].things, setting, mood));
   /** Which thing the Tab key lands on: the last one focused, so leaving and coming back keeps the place. */
@@ -187,7 +173,7 @@
       <SkyLayer {mood} {setting} />
     {/if}
 
-    <Drawing {board} hour={hour.current} open={swing.current} {tram} />
+    <Drawing {board} hour={hour.current} open={door} {tram} />
 
     <MoodLayer {mood} {setting} />
     <StageLight />

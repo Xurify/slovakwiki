@@ -81,6 +81,27 @@ export function playFoley(id: FoleyId): void {
     tone.stop(start + length + 0.02);
   };
 
+  /** A hinge's creak: a slow buzz of stick and slip through a narrow resonance. */
+  const creak = (at: number, length: number, level: number) => {
+    const start = now + at;
+    const tone = ctx.createOscillator();
+    tone.type = "sawtooth";
+    tone.frequency.setValueAtTime(48, start);
+    tone.frequency.linearRampToValueAtTime(70, start + length);
+    const filter = ctx.createBiquadFilter();
+    filter.type = "bandpass";
+    filter.Q.value = 8;
+    filter.frequency.setValueAtTime(1400, start);
+    filter.frequency.linearRampToValueAtTime(1100, start + length);
+    const gain = ctx.createGain();
+    gain.gain.setValueAtTime(0.0001, start);
+    gain.gain.exponentialRampToValueAtTime(level, start + length * 0.3);
+    gain.gain.exponentialRampToValueAtTime(0.0001, start + length);
+    tone.connect(filter).connect(gain).connect(out);
+    tone.start(start);
+    tone.stop(start + length + 0.02);
+  };
+
   switch (id) {
     case "clink":
       ring([2650, 4100], 0.16, 0.18);
@@ -107,9 +128,18 @@ export function playFoley(id: FoleyId): void {
         air("bandpass", 1600, 1200, 0.12, 0.04, 0.003, at);
       }
       break;
-    case "door":
-      ring([1900, 2700], 0.06, 0.06);
-      air("bandpass", 420, 260, 0.08, 0.7, 0.2, 0.05);
+    case "door-open":
+      // The handle pressed and the latch drawing back, then the door swinging in on its hinges.
+      ring([2300, 3500], 0.04, 0.035);
+      ring([1800, 2900], 0.03, 0.03, 0.07);
+      air("bandpass", 380, 240, 0.06, 1, 0.3, 0.1);
+      creak(0.3, 0.45, 0.08);
+      break;
+    case "door-shut":
+      // Wood meeting its frame, then the latch dropping into place.
+      thump(105, 60, 0.26, 0.16);
+      air("bandpass", 700, 350, 0.06, 0.08, 0.004);
+      ring([2100, 3300], 0.04, 0.04, 0.05);
       break;
     case "tap":
       air("bandpass", 2600, 2300, 0.16, 1.9, 0.08);

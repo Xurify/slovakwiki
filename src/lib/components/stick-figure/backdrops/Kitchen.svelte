@@ -1,21 +1,16 @@
 <script lang="ts">
   import { PARTS } from "$lib/stick-figure/backdrop-parts";
+  import { DOORS, HANDLE, doorPoint } from "$lib/stick-figure/door";
   import Room from "./Room.svelte";
   import WallClock from "./WallClock.svelte";
 
   /** `open`: how far the door has swung in, from 0 shut to 1 wide open against the wall. */
   let { hour, open = 0 }: { hour: number; open?: number } = $props();
 
-  /**
-   * A point on the door, `u` from its hinge to its free edge and `v` from
-   * top to bottom. The free edge swings from the frame's far side round
-   * past the hinge toward us, so it grows a little taller as it comes near.
-   */
+  const door = DOORS.kitchen!;
+
   function on(u: number, v: number): string {
-    const edge = 256 - 86 * open;
-    const near = 10 * open * u;
-    const x = 196 + (edge - 196) * u;
-    const y = 46 - near + (180 + 2 * near) * v;
+    const { x, y } = doorPoint(door, open, u, v);
     return `${x.toFixed(1)} ${y.toFixed(1)}`;
   }
   function quad(u0: number, u1: number, v0: number, v1: number): string {
@@ -39,7 +34,10 @@
   d="{quad(0.1, 0.9, 0.078, 0.444)}{quad(0.1, 0.9, 0.522, 0.933)}"
   class="fill-scene-line/10"
 />
-<path d={quad(0.7, 0.9, 0.5, 0.522)} class="fill-scene-line/70" />
+<path
+  d={quad(HANDLE.u - 0.1, HANDLE.u + 0.1, HANDLE.v - 0.011, HANDLE.v + 0.011)}
+  class="fill-scene-line/70"
+/>
 
 <ellipse cx="308" cy="227" rx="34" ry="3" class="fill-scene-line/12" />
 <rect x="280" y="66" width="56" height="160" rx="6" class="fill-white" />
