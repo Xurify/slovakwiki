@@ -34,30 +34,44 @@
     "md:grid-cols-2",
   )}
 >
-  <GrammarSentence {audioKey} reserveAudio={reserveAudioColumn} english={example.english}>
-    {#each parts as part, index (index)}
-      {#if part.highlighted}
-        <span class={grammarEndingClass}>{part.text}</span>
-      {:else}
-        {part.text}
-      {/if}
-    {/each}
-  </GrammarSentence>
+  <div class="min-w-0 md:col-start-1 md:row-start-1">
+    <GrammarSentence
+      {audioKey}
+      reserveAudio={reserveAudioColumn}
+      english={example.english}
+    >
+      {#each parts as part, index (index)}
+        {#if part.highlighted}
+          <span class={grammarEndingClass}>{part.text}</span>
+        {:else}
+          {part.text}
+        {/if}
+      {/each}
+    </GrammarSentence>
+  </div>
 
-  {#if example.demonstrates || practiceHref}
-    <div class={cx("flex min-w-0 flex-col", reserveAudioColumn && "pl-10 md:pl-0")}>
-      {#if example.demonstrates}
-        <p class="m-0 text-sm leading-snug text-pretty text-slate-500 md:pt-1.5">
-          <GrammarRichText text={example.demonstrates} />
-        </p>
-      {/if}
+  {#if example.demonstrates}
+    <p
+      class={cx(
+        "m-0 min-w-0 text-sm leading-snug text-pretty text-slate-500 md:col-start-2 md:row-span-2 md:row-start-1 md:pt-1.5",
+        reserveAudioColumn && "pl-10 md:pl-0",
+      )}
+    >
+      <GrammarRichText text={example.demonstrates} />
+    </p>
+  {/if}
 
-      {#if practiceHref}
-        <a class={cx(moreLinkClass, "mt-auto self-start pt-1")} href={practiceHref}>
-          Practice
-          <ArrowRight />
-        </a>
-      {/if}
-    </div>
+  {#if practiceHref}
+    <a
+      class={cx(
+        moreLinkClass,
+        "justify-self-start md:col-start-1 md:row-start-2",
+        reserveAudioColumn && "ml-10",
+      )}
+      href={practiceHref}
+    >
+      Practice
+      <ArrowRight />
+    </a>
   {/if}
 </li>

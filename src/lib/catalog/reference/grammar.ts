@@ -2567,12 +2567,12 @@ export const grammarEntries: GrammarTopic[] = [
       {
         label: "Jeho, jej, ich never change",
         lines: [
-          "jeho brat · his brother",
-          "jeho sestra · his sister",
-          "jeho auto · his car",
-          "s jeho bratom · with his brother",
-          "jej deti · her children",
-          "ich dom · their house",
+          "[jeho] brat · his brother",
+          "[jeho] sestra · his sister",
+          "[jeho] auto · his car",
+          "s [jeho] bratom · with his brother",
+          "[jej] deti · her children",
+          "[ich] dom · their house",
         ],
         examples: [
           {

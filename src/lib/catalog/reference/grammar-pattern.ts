@@ -178,6 +178,11 @@ function markCell(base: string, cell: string): MarkedPhrase {
   return { before: explicit[1]!, mark: explicit[2]!, after: explicit[3]! };
 }
 
+/** A phrase with its `[part]` marked, or unmarked when it has no brackets. */
+export function markedPhrase(text: string): MarkedPhrase {
+  return markCell(text, text);
+}
+
 export function tableView(pattern: GrammarTablePattern): PatternView {
   const { rowLabel, columns, rows } = pattern;
 
@@ -269,7 +274,7 @@ export function patternSearchLines(pattern: GrammarPattern): string[] {
   if (isGrammarTable(pattern)) {
     return pattern.rows.flatMap((row) => [row.label, ...row.cells.map(plainCell)]);
   }
-  return [...pattern.lines];
+  return pattern.lines.map(plainCell);
 }
 
 /** Quarters and halves name the coming hour (štvrť na tri, pol tretej, trištvrte na tri). */

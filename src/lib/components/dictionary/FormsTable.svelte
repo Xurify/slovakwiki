@@ -28,7 +28,7 @@
 </script>
 
 {#snippet form(stem: string, ending: string)}
-  {stem}{#if ending}<span class="rounded-sm bg-mark px-px text-blue-800">{ending}</span
+  {stem}{#if ending}<span class="rounded-sm bg-mark/60 px-px text-blue-800">{ending}</span
     >{/if}
 {/snippet}
 

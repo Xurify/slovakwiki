@@ -11,6 +11,7 @@
   import {
     addedPrefix,
     isGrammarTable,
+    markedPhrase,
     namesHourAhead,
     patternForms,
     patternView,
@@ -87,7 +88,7 @@
 
 {#snippet marked(phrase: MarkedPhrase)}
   {phrase.before}{#if phrase.mark}<span
-      class={cx(grammarEndingClass, "rounded-sm bg-mark px-px")}>{phrase.mark}</span
+      class={cx(grammarEndingClass, "rounded-sm bg-mark/60 px-px")}>{phrase.mark}</span
     >{/if}{phrase.after}
 {/snippet}
 
@@ -102,7 +103,7 @@
 
     <span class={grammarFormClass} lang="sk">
       {#if cell.stem && cell.ending}
-        {cell.stem}<span class={cx(grammarEndingClass, "rounded-sm bg-mark px-px")}
+        {cell.stem}<span class={cx(grammarEndingClass, "rounded-sm bg-mark/60 px-px")}
           >{cell.ending}</span
         >
       {:else}
@@ -269,7 +270,7 @@
                 <th
                   scope="rowgroup"
                   colspan={view.columns.length}
-                  class="px-4 pt-2 pb-0 text-left text-[0.8125rem] leading-snug font-normal text-slate-500"
+                  class="px-4 pt-1.5 pb-0 text-left text-xs leading-snug font-normal text-slate-500"
                 >
                   {row.label}
                 </th>
@@ -287,7 +288,7 @@
                   <td
                     class={cx(
                       "font-serif text-lg leading-snug font-semibold text-slate-900",
-                      "py-1.5 pr-4 pl-0 align-baseline whitespace-nowrap last:pr-4 max-sm:pt-0.5 sm:last:pr-5",
+                      "py-1.5 pr-4 pl-0 align-baseline whitespace-nowrap last:pr-4 max-sm:pt-0 sm:last:pr-5",
                       index < row.cells.length - 1 && "w-px pr-8 sm:pr-10",
                       index === 0 && "max-sm:pl-4",
                     )}
@@ -348,7 +349,9 @@
     >
       {#each view.rows as row, index (index)}
         <li class="border-r border-b border-slate-200/70 px-4 py-2 sm:px-5">
-          <span class={cx(grammarFormClass, "block")} lang="sk">{row.main}</span>
+          <span class={cx(grammarFormClass, "block")} lang="sk"
+            >{@render marked(markedPhrase(row.main))}</span
+          >
           <span class="mt-0.5 block text-sm leading-snug text-slate-500">{row.gloss}</span
           >
         </li>
