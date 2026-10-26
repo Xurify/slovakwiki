@@ -31,11 +31,25 @@ export function openingBlocking(
   frame: StageFrame,
 ): Blocking {
   const offsets: Offsets = {};
+  const seated: Blocking["seated"] = {};
+  if (frame.desk && frame.width) {
+    frame.cast.forEach((id, index) => {
+      seated[id] = index;
+      offsets[id] = onSeat(frame, id, frame.seats[index].x);
+    });
+  }
   for (const { enter } of stagings) {
     if (!enter) continue;
+    delete seated[enter.characterId];
     offsets[enter.characterId] = offStage(frame, enter.characterId, enter.from);
   }
-  return { aboard: false, facings: {}, offsets, seated: {}, tram: "away" };
+  return {
+    aboard: false,
+    facings: seatedFacings(seated, frame),
+    offsets,
+    seated,
+    tram: "away",
+  };
 }
 
 /** Everyone on stage walks over to stand around backdrop `point`, facing the way they go. */
