@@ -84,6 +84,10 @@
   const time = $derived(
     withClocks && !isGrammarTable(pattern) ? splitTime(pattern.lines) : undefined,
   );
+
+  // The card belongs to the table. Examples read as sentences, so they follow
+  // it on the page rather than inside the box.
+  const hasTable = $derived(Boolean(time || view));
 </script>
 
 {#snippet marked(phrase: MarkedPhrase)}
@@ -117,12 +121,7 @@
   </li>
 {/snippet}
 
-<div
-  class={cx(
-    dataPanelClass,
-    view?.kind === "grid" && examples.length === 0 && "sm:w-fit sm:max-w-full",
-  )}
->
+<div class={cx(hasTable && dataPanelClass)}>
   {#if time}
     <div>
       <ol class="m-0 list-none p-0" aria-label="Clock times">
@@ -242,7 +241,7 @@
                   class={cx(
                     eyebrowMutedClass,
                     "py-2 pr-4 pl-0 text-left align-bottom whitespace-nowrap last:pr-4 sm:last:pr-5",
-                    index < view.columns.length - 1 && "w-px pr-8 sm:pr-10",
+                    index < view.columns.length - 1 && "pr-8 sm:pr-10",
                     index === 0 && "max-sm:pl-4",
                   )}
                 >
@@ -289,7 +288,7 @@
                     class={cx(
                       "font-serif text-lg leading-snug font-semibold text-slate-900",
                       "py-1.5 pr-4 pl-0 align-baseline whitespace-nowrap last:pr-4 max-sm:pt-0 sm:last:pr-5",
-                      index < row.cells.length - 1 && "w-px pr-8 sm:pr-10",
+                      index < row.cells.length - 1 && "pr-8 sm:pr-10",
                       index === 0 && "max-sm:pl-4",
                     )}
                     lang="sk"
@@ -405,15 +404,16 @@
       </ul>
     </div>
   {/if}
+</div>
 
-  {#if examples.length > 0 && !examplesInTiles}
+{#if examples.length > 0 && !examplesInTiles}
+  <div class={cx(hasTable && "mt-6")}>
     <GrammarExampleList
       {examples}
       {audioKeys}
       {audioKeyPrefix}
-      framed={false}
       highlight={patternForms(pattern)}
       label="Examples"
     />
-  {/if}
-</div>
+  </div>
+{/if}

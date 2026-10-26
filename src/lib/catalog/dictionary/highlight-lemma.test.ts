@@ -57,7 +57,22 @@ describe("highlightLemmaInText", () => {
 
   it("requires whole-word match", () => {
     expect(
-      hitText(highlightLemmaInText("nepriznal nič.", "priznať", "Verbs")),
+      hitText(highlightLemmaInText("Rozpriznal nič.", "priznať", "Verbs")),
+    ).toBeUndefined();
+  });
+
+  it("bolds a negated form as the same word", () => {
+    expect(
+      hitText(highlightLemmaInText("Táto vec sa ma netýka.", "týkať", "Verbs")),
+    ).toBe("netýka");
+    expect(hitText(highlightLemmaInText("nepriznal nič.", "priznať", "Verbs"))).toBe(
+      "nepriznal",
+    );
+  });
+
+  it("keeps short negated forms out", () => {
+    expect(
+      hitText(highlightLemmaInText("Tom nemá čas.", "mať", "Verbs")),
     ).toBeUndefined();
   });
 
