@@ -230032,5 +230032,76 @@
       }
     ],
     "related": []
+  },
+  {
+    "slug": "tykanie",
+    "slovak": "tykanie",
+    "english": "addressing with the informal ty",
+    "category": "Verbs",
+    "examples": [
+      {
+        "slovak": "Navrhujem tykanie.",
+        "english": "I suggest we switch to ty.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Môžeme si tykať?",
+        "english": "Shall we address each other with ty?",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "tykat",
+      "vykanie"
+    ],
+    "source": "curated",
+    "sourceLabel": "Slovak Wiki"
+  },
+  {
+    "slug": "vykanie",
+    "slovak": "vykanie",
+    "english": "addressing with the formal vy",
+    "category": "Verbs",
+    "examples": [
+      {
+        "slovak": "Šéfovi vykám.",
+        "english": "I address the boss with vy.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Ostaneme pri vykaní?",
+        "english": "Shall we stay on formal terms?",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "vykat",
+      "tykanie"
+    ],
+    "source": "curated",
+    "sourceLabel": "Slovak Wiki"
+  },
+  {
+    "slug": "vykat",
+    "slovak": "vykať",
+    "english": "to address with the formal vy",
+    "category": "Verbs",
+    "examples": [
+      {
+        "slovak": "Šéfovi vykám.",
+        "english": "I address the boss with vy.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Ostaneme pri vykaní?",
+        "english": "Shall we stay on formal terms?",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "vykanie"
+    ],
+    "source": "curated",
+    "sourceLabel": "Slovak Wiki"
   }
 ]
