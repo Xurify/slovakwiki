@@ -1074,10 +1074,10 @@
       "demonstrates": "mať + rád + noun — liking"
     },
     {
-      "slovak": "Rád čítam knihy.",
-      "english": "I like reading books.",
+      "slovak": "Som rád, že si prišiel.",
+      "english": "I'm glad you came.",
       "note": "Curated",
-      "demonstrates": "rád + verb — like doing"
+      "demonstrates": "byť rád — glad"
     }
   ],
   "bat": [
@@ -46798,6 +46798,13 @@
     {
       "slovak": "Kotol treba skontrolovať raz ročne.",
       "english": "The boiler needs to be checked once a year.",
+      "note": "Curated"
+    }
+  ],
+  "rad-adv": [
+    {
+      "slovak": "Rád čítam knihy.",
+      "english": "I like reading books.",
       "note": "Curated"
     }
   ]
