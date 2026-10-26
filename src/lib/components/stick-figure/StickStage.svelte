@@ -6,7 +6,7 @@
   import AudioButton from "$lib/audio/AudioButton.svelte";
   import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
   import { nounGenderLabel } from "$lib/catalog/types";
-  import TextLink from "$lib/components/ui/TextLink.svelte";
+  import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
   import {
     playStoryLineAudio,
     stopStoryLineAudio,
@@ -36,11 +36,15 @@
     backdropToStage,
     figureToStage,
   } from "$lib/stick-figure/backdrop-geometry";
+  import { demonstrativeForm } from "$lib/learning/demonstratives/paradigm";
   import { LOOKS } from "$lib/stick-figure/looks";
   import { PLACES, backdropAlign, thingsIn } from "$lib/stick-figure/places";
   import {
     boxCenter,
+    isPlural,
+    isProperName,
     litKey,
+    slotOf,
     thingBoxes,
     thingCenter,
     withDrawn,
@@ -173,7 +177,7 @@
   const WALKING = new Set<Cue["do"]>(["go", "enter", "sit"]);
   /** Long enough to read a short line said in a bubble. */
   const BUBBLE_MS = 2800;
-  const CARD_WIDTH = 220;
+  const CARD_WIDTH = 232;
   /**
    * Passing someone, or the table and its chairs, a walker steps down and
    * grows a little, as a step nearer the camera would, and is drawn over
@@ -1162,16 +1166,21 @@
       align,
     );
     const lowest = stageHeight - cardHeight - 8;
-    const under = bottom.y + 8;
-    const over = top.y - 8 - cardHeight;
+    const under = bottom.y + 10;
+    const over = top.y - 10 - cardHeight;
 
+    const left = Math.min(
+      Math.max(8, centre.x - CARD_WIDTH / 2),
+      Math.max(8, stageWidth - CARD_WIDTH - 8),
+    );
+    // Under the thing, or over it; on a stage too short for either (a phone's), under it and past the stage's edge, where the card is not clipped.
+    const below = under <= lowest || over < 8;
     return {
-      left: Math.min(
-        Math.max(8, centre.x - CARD_WIDTH / 2),
-        Math.max(8, stageWidth - CARD_WIDTH - 8),
-      ),
-      // Under the thing, or over it; on a stage too short for either (a phone's), under it and past the stage's edge, where the card is not clipped.
-      top: under <= lowest ? under : over >= 8 ? over : under,
+      left,
+      top: below ? under : over,
+      below,
+      // Clear of the rounded corners.
+      tip: Math.min(CARD_WIDTH - 16, Math.max(16, centre.x - left)),
     };
   });
 
@@ -1956,10 +1965,15 @@
 
   {#if pickedThing && card}
     {@const word = thingWords[pickedThing.word]}
+    {@const pointer = isProperName(pickedThing)
+      ? undefined
+      : demonstrativeForm("ten", slotOf(pickedThing), "nominative")}
     <div
       data-word-card
+      role="dialog"
+      aria-label={pickedThing.word}
       class={cx(
-        "absolute z-10 animate-rise rounded-(--control-radius) bg-surface p-3",
+        "absolute z-10 animate-rise rounded-(--control-radius) bg-surface text-left",
         "shadow-(--shadow-float) ring-1 ring-slate-200",
       )}
       style:left="{card.left}px"
@@ -1967,7 +1981,23 @@
       style:width="{CARD_WIDTH}px"
       bind:offsetHeight={cardHeight}
     >
-      <div class="flex items-center gap-3">
+      <!-- The tip points at the thing, so with several things close together it is clear which one this is. -->
+      <svg
+        class={cx(
+          "absolute h-2 w-4",
+          card.below ? "bottom-[calc(100%-1px)]" : "top-[calc(100%-1px)]",
+        )}
+        style:left="{card.tip - 8}px"
+        viewBox="0 0 16 8"
+        aria-hidden="true"
+      >
+        <path
+          d={card.below ? "M0 8L8 0L16 8" : "M0 0L8 8L16 0"}
+          class="fill-surface stroke-slate-200"
+        />
+      </svg>
+
+      <div class="flex items-center gap-3 px-3 pt-3 pb-2.5">
         {#if word?.src}
           <AudioButton
             label="Listen: {pickedThing.word}"
@@ -1976,25 +2006,43 @@
             text={pickedThing.word}
           />
         {/if}
-
         <div class="min-w-0">
-          <p class="m-0 font-serif text-lg font-semibold text-slate-900" lang="sk">
+          <p
+            class="m-0 font-serif text-xl leading-tight font-semibold text-slate-900"
+            lang="sk"
+          >
             {pickedThing.word}
           </p>
           <p class="m-0 text-sm text-slate-600">{pickedThing.english}</p>
         </div>
       </div>
 
-      <p class="m-0 mt-2 text-xs text-slate-500">
-        {nounGenderLabel(pickedThing.gender).english}{pickedThing.plural
+      <!-- Gender as Slovak shows it: by the word for "this" in front. On its own over the noun, "ten" read as part of its name. -->
+      <p class="m-0 border-t border-slate-100 px-3 py-2 text-xs text-slate-500">
+        {#if pointer}
+          <span class="font-serif text-sm text-slate-700" lang="sk"
+            ><strong class="font-semibold text-slate-900">{pointer}</strong>
+            {pickedThing.word}</span
+          >
+          <span aria-hidden="true"> · </span>
+        {/if}
+        {nounGenderLabel(pickedThing.gender).english}{isPlural(pickedThing)
           ? ", plural"
           : ""}
       </p>
 
       {#if word?.href}
-        <TextLink class="mt-1 inline-block" href={word.href}
-          >Open in the dictionary</TextLink
+        <a
+          class={cx(
+            "flex items-center justify-between gap-2 rounded-b-(--control-radius) border-t border-slate-100",
+            "px-3 py-2 text-sm font-medium text-blue-700 no-underline transition-colors",
+            "hover:bg-slate-50 focus-visible:bg-slate-50",
+          )}
+          href={word.href}
         >
+          Open in the dictionary
+          <ArrowRight />
+        </a>
       {/if}
     </div>
   {/if}

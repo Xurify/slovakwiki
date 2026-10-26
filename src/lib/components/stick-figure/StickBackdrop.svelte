@@ -313,12 +313,12 @@
     aria-hidden="true"
   >
     {#each boxes.filter(({ thing }) => thing.of) as ring (`${ring.thing.id}-${ring.copy}`)}
-      {@render lightUp(ring)}
+      {@render lightUp(ring, true)}
     {/each}
   </svg>
 {/if}
 
-{#snippet lightUp({ box, copy, thing }: (typeof boxes)[number])}
+{#snippet lightUp({ box, copy, thing }: (typeof boxes)[number], over = false)}
   {@const done = found.includes(thing.id)}
   <rect
     x={box.x - 5}
@@ -327,7 +327,9 @@
     height={box.height + 10}
     rx="8"
     class={cx(
-      "fill-white/20 transition-opacity duration-150 ease-out",
+      // Drawn over a thing, a white wash greyed it out.
+      over ? "fill-none" : "fill-white/20",
+      "transition-opacity duration-150 ease-out",
       done ? "stroke-emerald-500" : "stroke-blue-500",
       done ||
         lit.includes(thing.id) ||
