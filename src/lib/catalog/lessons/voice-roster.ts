@@ -1,7 +1,7 @@
 import { hasAudioClip } from "../audio/manifest";
 import { audioHash } from "../audio/core";
 import { resolveKeyedAudioSrc } from "../audio/resolve-server";
-import { audioConfigForCharacter } from "../audio/characters";
+import { audioConfigForClip } from "../audio/characters";
 import {
   LESSON_CHARACTER_IDS,
   type CharacterKind,
@@ -32,7 +32,7 @@ export function getVoiceRoster(): VoiceRosterEntry[] {
   return LESSON_CHARACTER_IDS.map((characterId) => {
     const rawCharacter = characters[characterId];
     const preview = VOICE_PREVIEW_LINES[characterId];
-    const config = audioConfigForCharacter(characterId);
+    const config = audioConfigForClip(preview.sampleSlovak, characterId, hasAudioClip);
     const hash = audioHash(preview.sampleSlovak, config);
 
     const gender: "female" | "male" | "neutral" =

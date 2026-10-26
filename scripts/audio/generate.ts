@@ -81,7 +81,10 @@ async function main(): Promise<void> {
   const manifest = await loadManifest();
   await ensureAudioDir();
 
-  let targets = collectAudioTargets({ lemmasOnly, lessonsOnly, slugs }, config);
+  let targets = collectAudioTargets(
+    { fresh: force, lemmasOnly, lessonsOnly, slugs },
+    config,
+  );
   if (examplesOnly) {
     targets = targets.filter((target) => target.kind === "example");
   }

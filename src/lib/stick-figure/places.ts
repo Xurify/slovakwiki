@@ -154,8 +154,8 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       drawn(WORDS.rastlina, plantBox(PARTS.home.plant)),
     ],
     sounds: ["hum"],
-    // Left of the bag on the rug, so nobody stands on it.
-    post: 360,
+    // On the rug (480 ± 250), left of the bag on it so nobody stands on that.
+    post: 410,
     glass: { height: 100, width: 130, x: 106, y: 54 },
   },
   kitchen: {

@@ -83,8 +83,8 @@
   const direction = $derived(directScene(scene.lines, scene.setting, scene.order));
   const mood = $derived(
     sceneMood(
-      scene.lines.map((line) => line.slovak),
-      Math.max(at, 0),
+      [...(scene.before ?? []), ...scene.lines.map((line) => line.slovak)],
+      (scene.before?.length ?? 0) + Math.max(at, 0),
     ),
   );
 

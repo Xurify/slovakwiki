@@ -23,7 +23,7 @@
   import MoodLayer from "./backdrops/MoodLayer.svelte";
   import SkyLayer from "./backdrops/SkyLayer.svelte";
   import StageLight from "./backdrops/StageLight.svelte";
-  import { CLOCK_HOURS, DAYTIME, type SceneMood } from "$lib/stick-figure/scene-mood";
+  import { DAYTIME, clockHour, type SceneMood } from "$lib/stick-figure/scene-mood";
   import type { TramState } from "$lib/stick-figure/street";
 
   let {
@@ -107,7 +107,7 @@
     const y = BACKDROP_HEIGHT - shown.height;
     return { box: `${x} ${y} ${shown.width} ${shown.height}`, ratio: "none" };
   });
-  const hour = $derived(CLOCK_HOURS[mood.time]);
+  const hour = $derived(clockHour(mood));
   const Drawing = $derived(DRAWINGS[setting]);
   const things = $derived(thingsIn(PLACES[setting].things, setting, mood));
   /** Which thing the Tab key lands on: the last one focused, so leaving and coming back keeps the place. */

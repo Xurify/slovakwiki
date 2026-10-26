@@ -9,8 +9,8 @@ import type { SceneThing } from "./thing-words";
 
 /** The stage's bottom padding, where the figures' feet stand. */
 export const FLOOR = 12;
-/** Centre to centre, in figure widths, when one figure stands beside another to look at something. */
-const BESIDE_WIDTHS = 0.8;
+/** Centre to centre, in figure widths, when one figure stands beside another to look at something: closer than talking (TALK_STEP), shoulder to shoulder over it. */
+const BESIDE_WIDTHS = 0.55;
 /** Figure widths apart when called in under an umbrella: shoulder to shoulder, both under the canopy. */
 export const SHELTER_WIDTHS = 0.45;
 

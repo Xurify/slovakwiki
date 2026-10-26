@@ -106,7 +106,7 @@ describe("stage blocking", () => {
 
     expect(
       Math.abs(centre(frame, shown, "alex") - centre(frame, shown, "anna")),
-    ).toBeCloseTo(0.8 * frame.figureWidth);
+    ).toBeCloseTo(0.55 * frame.figureWidth);
     expect(shown.offsets.anna ?? 0).toBe(0);
   });
 
