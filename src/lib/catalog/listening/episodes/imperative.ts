@@ -37,7 +37,7 @@ const INTRO_ACTS: Record<string, Cue[]> = {
   "marek-drinking": [
     { do: "take", what: "cup-marek", on: "dobre" },
     { do: "taste", what: "cup-marek", on: "pijem" },
-    { do: "put", what: "cup-marek", to: "desk", dx: 25, on: "after" },
+    { do: "put", what: "cup-marek", to: "desk", dx: 20, on: "after" },
   ],
   "marek-yellow-plant": [
     { do: "point", to: "plant", on: "rastlinku" },
@@ -51,8 +51,9 @@ const INTRO_ACTS: Record<string, Cue[]> = {
   "anna-tonight-maria": [{ do: "laugh", on: "start" }],
   "anna-lucia-late": [{ do: "shrug", on: "meškať" }],
   "marek-take-mic": [
+    // Up as soon as it is in hand: held low at the desk it stood on his mug.
     { do: "take", what: "recorder", on: "zoberieme" },
-    { do: "raise", what: "recorder", on: "mikrofón" },
+    { do: "raise", what: "recorder" },
     { do: "pocket", what: "recorder", on: "after" },
   ],
 };
@@ -71,9 +72,10 @@ const intro: ListeningChapter = {
       {
         id: "cup-marek",
         kind: "cup",
-        start: { where: { on: "desk", dx: 25 }, fill: "coffee" },
+        start: { where: { on: "desk", dx: 20 }, fill: "coffee" },
       },
-      { id: "recorder", kind: "mic", start: { where: { on: "desk", dx: 12 } } },
+      // In front of Marek, clear of his mic's clamp and his mug.
+      { id: "recorder", kind: "mic", start: { where: { on: "desk", dx: 31 } } },
     ],
     state: { plant: { wilt: 1 } },
   },
@@ -260,7 +262,7 @@ const intro: ListeningChapter = {
   ],
 };
 
-/** The next morning: the recorder is back on the desk. */
+/** The next morning: the recorder is back on the desk, at its far end, out of the way of the mugs. */
 const GAME_ACTS: Record<string, Cue[]> = {
   "marek-slept": [{ do: "thumbs", on: "vyspal" }],
 };
@@ -269,7 +271,7 @@ const game: ListeningChapter = {
   id: `${PREFIX}game`,
   titleSk: "Hra so slovesami",
   title: "The verb game",
-  setup: { state: { recorder: { where: { on: "desk", dx: 12 } } } },
+  setup: { state: { recorder: { where: { on: "desk", dx: -70 } } } },
   lines: staged(
     PREFIX,
     [
@@ -1264,7 +1266,8 @@ const OUTRO_ACTS: Record<string, Cue[]> = {
   ],
   "marek-right-away": [
     { do: "take", what: "headphones", on: "jaj" },
-    { do: "put", what: "headphones", to: "desk", dx: 30 },
+    // In front of him, past his mug.
+    { do: "put", what: "headphones", to: "desk", dx: 34 },
     { do: "stand", on: "už" },
     { do: "go", to: "plant" },
   ],

@@ -50,8 +50,12 @@ export interface MotionKey {
   /** A hand's target; left out, the hand is wherever the talking puts it. */
   lead?: Target;
   rear?: Target;
-  /** The other hand on the near handle of the pot the lead one holds by its far one. */
-  both?: boolean;
+  /**
+   * The other hand on what the lead one holds too: `true` on the near handle
+   * of a pot held by its far one, or a point, the other hand's offset from
+   * the lead one (the far cup of a pair of headphones).
+   */
+  both?: boolean | Point;
   /** Added to the talking pose. */
   body?: Partial<StickPose>;
   /** Degrees a held object turns from upright, per hand: a spoon tipped to the mouth. */
@@ -138,6 +142,8 @@ const REACHED = 420;
  * with the hands one behind the other, it read as a bag held by one fist.
  */
 const FAR_HAND: Point = { x: -2 * OBJECT_SIZE.pot.grip.x, y: 0 };
+/** Headphones in both hands, one on each cup: held by the near cup, the far one a band's width back. */
+export const PAIR: Point = { x: -2 * OBJECT_SIZE.headphones.grip.x, y: 0 };
 /** Against the belly, elbows bent, where both hands carry a pot: the arms cannot hold it further out. */
 export const CARRY: Point = { x: 24, y: 79 };
 
@@ -229,6 +235,24 @@ export function motionFor(
       const where = { landing: true } as const;
       const sink = heavy && plan ? sinkAt(plan, putDown(plan, world, cue)) : undefined;
       if (sink) return { motion: intoSinkMotion(sink) };
+      if (object?.kind === "headphones") {
+        // Down by both cups, the way they came off, and let go.
+        return {
+          motion: {
+            ms: 1100,
+            face: to,
+            takes: 600,
+            sounds: [{ at: 580, id: "thud" }],
+            keys: [
+              { at: 0, lead: { mouth: true, dx: 13, dy: 13 }, both: PAIR },
+              { at: 420, lead: { ...where, dy: -4 }, both: PAIR, body: { lean: 4 } },
+              { at: 600, lead: where, both: PAIR, body: { lean: 4 } },
+              { at: 750, lead: where, both: PAIR, body: { lean: 3 } },
+              { at: 1100 },
+            ],
+          },
+        };
+      }
       if (heavy) {
         return {
           motion: {
@@ -311,11 +335,11 @@ export function motionFor(
       };
     }
     case "raise": {
-      // Halfway to the mouth, and held there: about to eat, until something stops it.
-      const up = {
-        ...hands(hand, { mouth: true, dx: 18, dy: 10.5 }),
-        turn: { [hand]: -20 },
-      };
+      // Halfway to the mouth, and held there: about to eat, until something stops it. A recorder is held up to be seen, above a desk mic.
+      const up =
+        object?.kind === "mic"
+          ? { ...hands(hand, { up: { x: 14, y: -24 } }), body: { lean: -1, brow: 0.4 } }
+          : { ...hands(hand, { mouth: true, dx: 18, dy: 10.5 }), turn: { [hand]: -20 } };
       return {
         motion: {
           ms: 800,
@@ -834,15 +858,24 @@ export function motionFor(
       };
     }
     case "yawn": {
-      // Head back, mouth wide behind a hand, a breath out after.
+      // Head back, mouth wide behind a hand, a breath out after. At a desk the microphone is in front of the mouth, so further back, clear of it.
       const cover = { ...hands(free, { mouth: true, dx: 4, dy: 0.5 }) };
+      const back = world.seated?.includes(who) ? 7 : 0;
       return {
         motion: {
           ms: 2000,
           keys: [
             { at: 0 },
-            { at: 350, ...cover, body: { tilt: -6, lean: -3, mouth: 0.9, brow: 0.6 } },
-            { at: 1300, ...cover, body: { tilt: -8, lean: -4, mouth: 1, brow: 0.7 } },
+            {
+              at: 350,
+              ...cover,
+              body: { tilt: -6, lean: -3 - back, mouth: 0.9, brow: 0.6 },
+            },
+            {
+              at: 1300,
+              ...cover,
+              body: { tilt: -8, lean: -4 - back, mouth: 1, brow: 0.7 },
+            },
             { at: 1650, body: { tilt: 2, nod: 0.5, mouth: 0 } },
             { at: 2000 },
           ],
@@ -850,9 +883,10 @@ export function motionFor(
       };
     }
     case "fold": {
+      // From the shoulders, so a seated figure folds them over the chest too, not up under the chin.
       const folded = {
-        lead: { at: { x: -1, y: 77 } },
-        rear: { at: { x: 7, y: 75 } },
+        lead: { up: { x: -5, y: 11 } },
+        rear: { up: { x: 11, y: 9 } },
         body: { lean: -2, brow: 0.4 },
       };
       return {
@@ -1189,29 +1223,36 @@ function pocketMotion(way: "in" | "out", what: string, hand: Hand = "lead"): Mot
 }
 
 /**
- * Headphones off over the head, both hands: the near one on the cup over the
- * near ear, the far one on the band's far side, lifted up and off. Set from
- * the lips, so it fits a head on a chair as one standing.
+ * Headphones off, both hands: the rear one on the near cup at the back of
+ * the head, as it goes to a phone at the ear, and the lead one on the far
+ * cup behind the head. Taken as the hands close on the cups, so the pair
+ * they hold sits where the worn one did; lifted, brought round in front of
+ * the face and down, held by both cups. Set from the lips, so it fits a
+ * head on a chair as one standing.
  */
 function offHeadMotion(): Motion {
+  const cups = (lift: number): Pick<MotionKey, Hand> => ({
+    lead: { mouth: true, dx: 8.3, dy: -9.4 - lift },
+    rear: { mouth: true, dx: -14, dy: -6.2 - lift },
+  });
+  const held = { lead: { mouth: true, dx: 13, dy: 13 }, both: PAIR } as const;
   return {
-    ms: 1100,
-    takes: 500,
+    ms: 1700,
+    takes: 450,
+    hold: true,
     keys: [
       { at: 0 },
+      { at: 380, ...cups(0), body: { tilt: 3 } },
+      { at: 520, ...cups(0), body: { tilt: 3 } },
+      { at: 760, ...cups(6), body: { tilt: -3, lean: -2 } },
       {
-        at: 380,
-        lead: { mouth: true, dx: -12, dy: -7 },
-        rear: { mouth: true, dx: 8, dy: -9 },
-        body: { tilt: 4 },
-      },
-      {
-        at: 650,
-        lead: { mouth: true, dx: -10, dy: -13 },
-        rear: { mouth: true, dx: 8, dy: -14 },
+        at: 1050,
+        lead: { mouth: true, dx: 13, dy: 1 },
+        rear: { mouth: true, dx: 1, dy: 1 },
         body: { tilt: 2 },
       },
-      { at: 1100, lead: { up: { x: 10, y: 10 } } },
+      { at: 1400, ...held, body: { lean: 1 } },
+      { at: 1700, ...held },
     ],
   };
 }
@@ -1281,8 +1322,11 @@ export function targetPoint(
   }
   if ("toward" in target) {
     const shoulder = hand === "lead" ? rig.leadShoulder : rig.rearShoulder;
-    const at = around.pointOf(target.toward);
-    if (!at) return rest;
+    const aim = around.pointOf(target.toward, "top") ?? around.pointOf(target.toward);
+    if (!aim) return rest;
+    // Pointing across a room the arm stays about level: aimed down at a thing's foot it went into the desk or table between.
+    const across = Math.abs(aim.x - shoulder.x);
+    const at = { x: aim.x, y: Math.min(aim.y, shoulder.y + across * POINT_DROP) };
     const length = Math.hypot(at.x - shoulder.x, at.y - shoulder.y) || 1;
     return {
       x: shoulder.x + ((at.x - shoulder.x) / length) * 28,
@@ -1292,6 +1336,9 @@ export function targetPoint(
   const at = around.pointOf(target.to, target.as ?? "grip");
   return at ? { x: at.x + (target.dx ?? 0), y: at.y + (target.dy ?? 0) } : rest;
 }
+
+/** The steepest a point goes below level, as a slope: about 6 degrees. */
+const POINT_DROP = 0.1;
 
 /** The arm's length, upper arm and forearm, a little short of straight. */
 const ARM_REACH = 28.5;
@@ -1374,20 +1421,28 @@ export function frameBetween(
     body[key] = base[key] + lerp(a, b, t);
   }
 
-  // Where each hand is headed, worked out on the body before any stoop.
+  // Where each hand is headed, worked out on the body before any stoop. A
+  // key with `both` puts the rear hand on the far side of what the lead one
+  // holds, so going from one hand to two it travels there, not jumps.
   const points: Partial<Record<Hand, Point>> = {};
+  const ends = (key: Omit<MotionKey, "at">): Partial<Record<Hand, Point>> => {
+    const lead = targetPoint(key.lead, "lead", body, around, sit);
+    const far = key.both === true ? FAR_HAND : key.both;
+    return {
+      lead,
+      rear: far
+        ? { x: lead.x + far.x, y: lead.y + far.y }
+        : targetPoint(key.rear, "rear", body, around, sit),
+    };
+  };
+  const start = ends(from);
+  const end = ends(to);
   for (const hand of ["lead", "rear"] as const) {
-    const a = from[hand];
-    const b = to[hand];
-    if (!a && !b) continue;
-    const start = targetPoint(a, hand, body, around, sit);
-    const end = targetPoint(b, hand, body, around, sit);
-    points[hand] = { x: lerp(start.x, end.x, t), y: lerp(start.y, end.y, t) };
-  }
-  // The rear hand on the pot's other handle.
-  const both = (from.both && to.both) || (t < 0.5 ? from.both : to.both);
-  if (both && points.lead) {
-    points.rear = { x: points.lead.x + FAR_HAND.x, y: points.lead.y + FAR_HAND.y };
+    const moved = from[hand] || to[hand] || (hand === "rear" && (from.both || to.both));
+    if (!moved) continue;
+    const a = start[hand]!;
+    const b = end[hand]!;
+    points[hand] = { x: lerp(a.x, b.x, t), y: lerp(a.y, b.y, t) };
   }
 
   // A reach below the waist bends the figure down to it, more the lower it goes.

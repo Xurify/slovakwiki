@@ -22,6 +22,7 @@
   import StickHead from "./StickHead.svelte";
   import StickSetObject, { type ObjectLook } from "./StickSetObject.svelte";
   import StickHeld from "./StickHeld.svelte";
+  import StickHeadphones from "./StickHeadphones.svelte";
   import StickPicture from "./StickPicture.svelte";
   import StickProp from "./StickProp.svelte";
   import StickTorso from "./StickTorso.svelte";
@@ -106,11 +107,27 @@
 
   const rig = $derived(solveRig(atEar(pose, call), sit));
   /**
+   * Headphones in both hands, a cup in each, while the hands are a band's
+   * width or so apart. Round the head they are held as worn: the rear hand
+   * on the near cup at the back of the head, drawn over it as a phone at
+   * the ear is, and the lead hand on the far cup, hidden behind the head
+   * with half the band. Brought round in front, both cups are in front.
+   */
+  const pair = $derived.by(() => {
+    if (hands.lead?.kind !== "headphones" || hands.rear) return undefined;
+    const lead = rig.leadArm.end;
+    const rear = rig.rearArm.end;
+    if (Math.hypot(lead.x - rear.x, lead.y - rear.y) > 30) return undefined;
+    return { lead, rear, onHead: rear.x < rig.head.x - 6 };
+  });
+
+  /**
    * The lead hand up at the face, in front of the head rather than hidden
    * behind it: a spoon at the lips, a hand over a yawn, on the forehead, on
    * the near ear's cup.
    */
   const leadAtFace = $derived.by(() => {
+    if (pair) return !pair.onHead;
     const at = rig.leadArm.end;
     const lips = mouthOf(pose, sit);
     if (hands.lead && Math.hypot(at.x - lips.x, at.y - lips.y) < 15) return true;
@@ -276,7 +293,12 @@
   {#if held && !phoneAtEar}
     <StickHeld {held} {rig} />
   {/if}
-  {#if hands.lead}
+  {#if pair?.onHead}
+    <StickHeadphones far={pair.lead} near={pair.rear} part="far" />
+  {:else if pair}
+    <StickHeadphones far={pair.rear} near={pair.lead} />
+    {@render hand(rig.rearArm.end)}
+  {:else if hands.lead}
     {@render inHand(rig.leadArm.end, hands.lead, "lead")}
   {/if}
   <!-- The other hand on the pot's near handle, round from behind the body: drawn under the pot, it was not seen holding it. -->
@@ -444,6 +466,11 @@
           {/if}
         </g>
       </g>
+    {/if}
+
+    {#if pair?.onHead}
+      <StickHeadphones far={pair.lead} near={pair.rear} part="near" />
+      {@render hand(rig.rearArm.end)}
     {/if}
 
     {#if phoneAtEar}

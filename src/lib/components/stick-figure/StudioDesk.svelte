@@ -30,7 +30,8 @@
   const TOP = GROUND_Y - 28;
   /** The mouth of a host seated facing +x, from their seat: the mic points at it from the chin. */
   const MOUTH = { x: -1, y: 69 };
-  const MIC = { x: 15, y: 73 };
+  // A hand's width out from the lips, so a head that leans in on a word still clears it.
+  const MIC = { x: 19, y: 73 };
   const ELBOW = { x: 34, y: 56 };
 
   /** Rig y 136, the bottom of a figure's box, stands on the stage's floor padding. */

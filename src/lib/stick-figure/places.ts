@@ -418,7 +418,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       drawn(WORDS.hodiny, clockBox(PARTS.studio.clock)),
       // The desk and mics are drawn at the cast's scale (StudioDesk.svelte); these boxes are where they land on a wide stage.
       drawn(WORDS.stol, [285, 208, 390, 70]),
-      drawn(WORDS.mikrofon, [419, 158, 28, 22], [513, 158, 28, 22]),
+      drawn(WORDS.mikrofon, [423, 158, 28, 22], [509, 158, 28, 22]),
       drawn(WORDS.rastlina, plantBox(PARTS.studio.plant)),
       drawn(WORDS.koberec, [190, 256, 580, 40]),
     ],

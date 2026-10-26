@@ -32,8 +32,11 @@
     rearRaise: REST_POSE.rearRaise,
     rearBend: REST_POSE.rearBend,
   };
-  /** What spills if it hangs from the hand: soup on a spoon or ladle, coffee in a cup. */
-  const STEADY = new Set<ObjectKind>(["spoon", "ladle", "cup"]);
+  /**
+   * What spills if it hangs from the hand: soup on a spoon or ladle, coffee
+   * in a cup. And a recorder, which hanging at a desk goes behind it.
+   */
+  const STEADY = new Set<ObjectKind>(["spoon", "ladle", "cup", "mic"]);
   /** Between moves such a thing is held up: elbow by the side, forearm level, the hand in front of the chest. */
   const STEADY_ARM = { raise: 16, bend: 84 };
 
@@ -189,11 +192,19 @@
   function steady(pose: StickPose): StickPose {
     const lead = hands.lead && STEADY.has(hands.lead.kind);
     const rear = hands.rear && STEADY.has(hands.rear.kind);
-    if (!lead && !rear) return pose;
+    // Anything else held hangs from the hand: a beat would swing a full can up to the chest.
+    const leadDown = hands.lead && !lead;
+    const rearDown = hands.rear && !rear;
     return {
       ...pose,
       ...(lead ? { leadRaise: STEADY_ARM.raise, leadBend: STEADY_ARM.bend } : {}),
       ...(rear ? { rearRaise: -STEADY_ARM.raise, rearBend: -STEADY_ARM.bend } : {}),
+      ...(leadDown
+        ? { leadRaise: REST_POSE.leadRaise, leadBend: REST_POSE.leadBend }
+        : {}),
+      ...(rearDown
+        ? { rearRaise: REST_POSE.rearRaise, rearBend: REST_POSE.rearBend }
+        : {}),
     };
   }
 

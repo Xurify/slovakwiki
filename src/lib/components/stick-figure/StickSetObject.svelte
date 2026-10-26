@@ -25,6 +25,7 @@
 
 <script lang="ts">
   import Self from "./StickSetObject.svelte";
+  import StickHeadphones from "./StickHeadphones.svelte";
 
   /**
    * One object of a set, drawn up from its base at 0,0 in rig units, in the
@@ -336,10 +337,11 @@
       stroke-width="1"
     />
   {:else if kind === "mic"}
-    <rect x="-1.8" y="-7" width="3.6" height="7" rx="0.8" class="fill-portrait-vest" />
-    <circle cx="0" cy="-8.6" r="2.2" class="fill-scene-line" />
-    <path d="M-1.4 -8.6H1.4M0 -10V-7.2" class="stroke-white/40" stroke-width="0.4" />
-    <circle cx="0" cy="-4.6" r="0.5" class="fill-scene-red" stroke="none" />
+    <!-- Silver, so it shows in a hand against a dark jumper or the desk mic. -->
+    <rect x="-2" y="-8.6" width="4" height="8.6" rx="0.9" fill="#c9ced4" />
+    <circle cx="0" cy="-10.2" r="2.5" class="fill-scene-line" />
+    <path d="M-1.7 -10.2H1.7M0 -11.9V-8.5" class="stroke-white/40" stroke-width="0.45" />
+    <circle cx="0" cy="-5.6" r="0.6" class="fill-scene-red" stroke="none" />
   {:else if kind === "cup"}
     <path
       d="M3.5 -5.6Q6.6 -5.6 6.2 -3.4Q5.8 -1.6 3.5 -2"
@@ -436,9 +438,7 @@
       stroke="none"
     />
   {:else if kind === "headphones"}
-    <path d="M-5 -2.2Q-5 -8 0 -8Q5 -8 5 -2.2" fill="none" stroke-width="1.4" />
-    <rect x="-6.6" y="-4" width="3.2" height="4" rx="1.2" class="fill-portrait-vest" />
-    <rect x="3.4" y="-4" width="3.2" height="4" rx="1.2" class="fill-portrait-vest" />
+    <StickHeadphones far={{ x: -6, y: -4.5 }} near={{ x: 6, y: -4.5 }} />
   {/if}
   {#each on as { dx, dy, ...look }, index (index)}
     <g transform="translate({dx} {dy})">

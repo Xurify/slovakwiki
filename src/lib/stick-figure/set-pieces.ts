@@ -93,11 +93,12 @@ export const OBJECT_SIZE: Record<
   towel: { grip: { x: 0, y: -4 }, top: 0, width: 7 },
   phone: { grip: { x: 0, y: 3.5 }, top: 1, width: 4 },
   keys: { grip: { x: 0, y: 2 }, top: 1, width: 5 },
-  mic: { grip: { x: 0, y: 3 }, top: 10, width: 4 },
+  mic: { grip: { x: 0, y: 3.5 }, top: 12.7, width: 5 },
   cup: { grip: { x: 5, y: 4 }, top: 7, width: 9 },
   can: { grip: { x: -2, y: 14 }, top: 12, width: 26 },
   plant: { grip: { x: 0, y: 12 }, top: 24, width: 25 },
-  headphones: { grip: { x: 0, y: 6 }, top: 6, width: 10 },
+  // Over-ear, a head's width across: held by the near cup, the band arched over.
+  headphones: { grip: { x: 6, y: 4.5 }, top: 18, width: 18 },
 };
 
 /**
