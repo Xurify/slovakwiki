@@ -1,6 +1,6 @@
 # Writing a listening episode
 
-A listening episode is a short podcast in simple Slovak for one grammar topic: two or three roster voices, a few chapters, a handful of questions. Copy tone and feedback wording live in [`lessons-practice-content.md`](lessons-practice-content.md); Slovak accuracy is the `slovak-language` skill. Reference implementation: `src/lib/catalog/listening/episodes/demonstratives.ts`.
+A listening episode is a short podcast in simple Slovak for one grammar topic: two or three roster voices, a few chapters, a handful of questions. Copy tone and feedback wording live in [`lessons-practice-content.md`](lessons-practice-content.md); Slovak accuracy is the `slovak-language` skill. Reference implementations: `src/lib/catalog/listening/episodes/demonstratives.ts` (a magazine show) and `past-tense.ts` (a radio play with scene cards). To brief a whole episode in one prompt, start from [`listening-one-prompt.md`](listening-one-prompt.md): what to decide first, a prompt template, and every pain point from the first four episodes with its fix.
 
 ## 1. Plan
 
@@ -10,12 +10,13 @@ A listening episode is a short podcast in simple Slovak for one grammar topic: t
 - [ ] Cover every form the grammar page's tables show, the other cases too, not only the nominative.
 - [ ] Give the chapters a thread: something from an early chapter comes back later. The car key from the bag game goes missing at home, and again in the last line.
 - [ ] Keep the Slovak inside the level: present tense, high-frequency nouns, fixed chunks. Repetition is a feature: a learner should hear the taught forms many times.
-- [ ] Speakers come from the roster in `content/audio/config.json` (`speakers`): `Anna`, `Marek`, `Lucia`, `Mária`, `Waiter`, `Receptionist`. List them in the episode's `speakers`; any other label falls back to the narrator voice and fails the speaker test.
+- [ ] Speakers come from the roster in `content/audio/config.json` (`characters[*].speakers`): `Anna`, `Marek`, `Lucia`, `Mária`, `Waiter`, `Receptionist`, plus `Scene` for a narrator's scene card and `Announcement` for a tannoy. List them in the episode's `speakers`; any other label falls back to the narrator voice and fails the speaker test.
+- [ ] Each chapter's `stage` is where the stick figures act it out (`studio` unless set; `cafe`, `classroom`, `home`, `market`, `plaza`, `registration`, `street`). What a line points at or brings out must be drawn there or be a prop.
 
 ## 2. Write the script
 
 - [ ] It must read like a show: a hello, a reason to talk, banter, a goodbye. Read it aloud.
-- [ ] Mark the taught word with `{ demonstrative: "ten" }` so the transcript lights it up after listening. Add a role in `marked-text.ts` when a new topic needs one, then run `bun run fouc:boot`.
+- [ ] Mark the taught word with a role, `{ role: "demonstrative", text: "ten" }` (episodes wrap it in a helper, `mark("ten")`), so the transcript lights it up after listening. Add a role in `marked-text.ts` when a new topic needs one, then run `bun run fouc:boot`.
 - [ ] When a host says something wrong on purpose (a quiz), say so in the English gloss, so the transcript never teaches the wrong form.
 - [ ] Give the listener time where a person would take it: a beat between two clues, before a quiz sentence, between a verdict and its reason. Put `PAUSE` in the line's parts; the text skips it and the clip says `[pause]` there. Eleven v4 makes a pause only inside a line (about a second); at its start or end it makes next to none. When someone has to think before they answer, as in a guessing game, let them say so: `"Hm… ", PAUSE, …`, or say the clues back: `"Žlté a ťažké… ", PAUSE, …`.
 - [ ] A segment that moves to another place says so before it goes and when it gets there: the last line of the one before is `Poďme na trh!`, the first line of the next is `Teraz sme na trhu.` The stage fades in on the new place and its sound, the break's sting plays, and the first line waits a moment, but only words tell the listener where they are.
@@ -37,9 +38,9 @@ A listening episode is a short podcast in simple Slovak for one grammar topic: t
 
 - [ ] Add the episode to `listeningEpisodes` in `src/lib/catalog/listening/index.ts`.
 - [ ] `bun scripts/audio/generate.ts -- --lessons-only --missing-only`, then `bun scripts/audio/upload.ts -- --lessons-only`. Commit `content/audio/manifest.json` and `runtime-index.json`.
-- [ ] Update the `listening` count in `src/lib/seo/sitemap.test.ts`.
+- [ ] Update the `listening` count in `src/lib/seo/sitemap.test.ts`, and the stage snapshot (`bunx vitest run src/lib/stick-figure/scenes.snapshot.test.ts -u`); read its diff for the new segments.
 - [ ] `bun run format`, `bun run lint`, `bun run typecheck`, `bunx vitest run`, `bun run index:search`.
-- [ ] In the browser: play a chapter through, answer the questions, read the text, go to the next chapter, try Slower and Show transcript. Phone width and dark mode.
+- [ ] In the browser: play every chapter on the stage (`/dev/scenes?scene=podcast-<slug>-<chapter>` too), checking mouths, props and who faces whom; play a chapter through, answer the questions, read the text, go to the next chapter, try Slower and Show transcript. Phone width and dark mode.
 
 ## Slips we shipped
 
