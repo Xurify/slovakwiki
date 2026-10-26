@@ -179,5 +179,12 @@
   "grecky#12794646": "Grécka is the country Grécko, not the adjective",
   "finsky#13412691": "Fínska is the country Fínsko, not the adjective",
   "dobro#2926456": "dobre is the adverb, not the noun dobro",
-  "dobro#3934257": "dobre is the adverb, not the noun dobro"
+  "dobro#3934257": "dobre is the adverb, not the noun dobro",
+  "relativne#13313033": "je relatívne is the adjective (predicate), not the adverb",
+  "casom#9754207": "časom here is the instrumental of the noun čas, not the adverb",
+  "casom#12777823": "časom here is the instrumental of the noun čas, not the adverb",
+  "rozhodne#8905440": "sa rozhodne is the verb rozhodnúť sa, not the adverb",
+  "rozhodne#9079926": "sa rozhodne is the verb rozhodnúť, not the adverb",
+  "nespravne#8905431": "one-word fragment; weak in the first four",
+  "mena#9820028": "podstatného mena is meno (noun), not mena (currency)"
 }
