@@ -1,6 +1,7 @@
 /**
- * The longest speaking task is three minutes. The recorder sets no bitrate, and
- * browsers default to as much as 128 kbit/s, so this is 200 s at that rate.
+ * The longest speaking task is three minutes. The recorder asks for 32 kbit/s,
+ * but Safari has not been checked to honour it, and browsers default to as much
+ * as 128 kbit/s, so this is still 200 s at that rate.
  */
 export const MAX_AUDIO_BYTES = 3_200_000;
 

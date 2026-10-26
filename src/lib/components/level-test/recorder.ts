@@ -5,6 +5,8 @@ export interface Recording {
 
 const MIME_TYPES = ["audio/webm;codecs=opus", "audio/mp4", "audio/webm"];
 
+const AUDIO_BITS_PER_SECOND = 32_000;
+
 export function canRecord(): boolean {
   return (
     typeof window !== "undefined" &&
@@ -30,7 +32,12 @@ export function closeMicrophone(stream: MediaStream | null): void {
 /** Safari records MP4/AAC, Chrome and Firefox WebM/Opus; Scribe takes both. */
 export function startRecording(stream: MediaStream): { stop: () => Promise<Recording> } {
   const mimeType = MIME_TYPES.find((type) => MediaRecorder.isTypeSupported(type));
-  const recorder = new MediaRecorder(stream, mimeType ? { mimeType } : undefined);
+  // Speech needs no more. Browsers default to as much as 128 kbit/s, four
+  // times the upload.
+  const recorder = new MediaRecorder(stream, {
+    audioBitsPerSecond: AUDIO_BITS_PER_SECOND,
+    ...(mimeType ? { mimeType } : {}),
+  });
   const chunks: Blob[] = [];
   const startedAt = performance.now();
 
