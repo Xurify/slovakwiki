@@ -58,6 +58,8 @@ function gesture(peak: Partial<StickPose>, keys: GestureKey[]): StickGesture {
   return { keys, peak: { ...REST_POSE, ...peak } };
 }
 
+// No talking gesture turns the face past the front (look below 0): with the eyes off the person spoken to, it read as facing the wrong way.
+
 /** A statement, offered on a small open hand turned out at the waist. */
 const telling = { leadRaise: 28, leadBend: 38, tilt: 2, look: 0.6, brow: 0.2 };
 /** An exclamation: a short beat of the hand with a nod on the word. */
@@ -93,8 +95,8 @@ const armsUp = {
   bob: -1,
   brow: 1,
 };
-const sorry = { leadRaise: 40, leadBend: -155, nod: 2.5, tilt: -5, brow: -1, look: 0 };
-const handOnChin = { leadRaise: 75, leadBend: -210, tilt: -6, look: -0.4, brow: 0.6 };
+const sorry = { leadRaise: 40, leadBend: -155, nod: 2.5, tilt: -5, brow: -1, look: 0.4 };
+const handOnChin = { leadRaise: 75, leadBend: -210, tilt: -6, look: 0.2, brow: 0.6 };
 const leanIn = { lean: 5, tilt: 6, nod: 0.8, look: 1, brow: 0.6 };
 const holdOut = { leadRaise: 55, leadBend: 45, lean: 2, tilt: 3, look: 1, brow: 0.6 };
 /** Head up a little and eyes ahead: following where someone points. */
@@ -103,7 +105,7 @@ const lookOver = { tilt: -12, look: 1, brow: 0.6, lean: -1 };
 const puzzled = {
   tilt: 13,
   brow: 1,
-  look: -0.5,
+  look: 0.2,
   lean: -1.5,
   rearRaise: 30,
   rearBend: 70,
@@ -123,14 +125,14 @@ const chuckling = {
   tilt: 4,
   nod: 1.2,
   brow: 0.5,
-  look: -0.4,
+  look: 0.3,
   leadRaise: 28,
   leadBend: -110,
 };
 /** Breath in, shoulders up and head back… */
-const sighIn = { bob: -1.6, tilt: -5, brow: 0.4, lean: -1, look: 0 };
+const sighIn = { bob: -1.6, tilt: -5, brow: 0.4, lean: -1, look: 0.4 };
 /** …then out, everything dropping: fond exasperation. */
-const sighOut = { bob: 1.2, nod: 2.2, tilt: 3, brow: -0.6, lean: 1, look: -0.4 };
+const sighOut = { bob: 1.2, nod: 2.2, tilt: 3, brow: -0.6, lean: 1, look: 0.2 };
 /**
  * The near hand up over the mouth and the head back: still half asleep. The
  * far arm's raise swings it backwards, so it could never reach the mouth.
@@ -140,7 +142,7 @@ const yawning = {
   leadBend: 126,
   tilt: -8,
   brow: -0.4,
-  look: -0.6,
+  look: 0.2,
   bob: -0.6,
 };
 /** Arms folded, leaning back, brows drawn: politely put out by too familiar a word. */
