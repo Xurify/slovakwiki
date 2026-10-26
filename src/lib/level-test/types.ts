@@ -236,11 +236,14 @@ export interface BilingualText {
 
 export interface WritingPrompt extends BilingualText {
   id: string;
+  /** Who can answer it: a learner gets the prompts nearest their level. */
+  level: CefrLevel;
   followUp?: BilingualText;
 }
 
 export interface SpeakingPrompt extends BilingualText {
   id: string;
+  level: CefrLevel;
   points?: BilingualText[];
 }
 

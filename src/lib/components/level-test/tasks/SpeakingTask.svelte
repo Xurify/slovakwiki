@@ -28,7 +28,7 @@
     ondone: StepDone;
   } = $props();
 
-  const PHOTO_PROMPT: SpeakingPrompt = {
+  const PHOTO_PROMPT: Omit<SpeakingPrompt, "level"> = {
     id: "photo",
     slovak: "Povedzte, čo vidíte na fotke. Opíšte čo najviac detailov.",
     english: "Say what you see in the photo. Describe as much detail as you can.",

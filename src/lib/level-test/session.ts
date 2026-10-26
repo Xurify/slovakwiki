@@ -1,6 +1,7 @@
 import { areaForTag } from "./areas";
 import { estimateAbility } from "./estimate";
 import { GUESS_FOR_FORMAT, SKILL_FOR_FORMAT, itemsOfFormat, pickNearest } from "./plan";
+import { CEFR_ANCHOR, type CefrLevel } from "./scale";
 import {
   pickAdaptiveItem,
   pickClosestSet,
@@ -74,6 +75,21 @@ function pickUnused<T extends { id: string }>(
   const unseen = fresh.filter((entry) => !picker.seen.has(entry.id));
   const choices = unseen.length ? unseen : fresh;
   return choices[Math.floor(picker.random() * choices.length)];
+}
+
+/** A prompt far above the learner gets no answer worth scoring; one far below says little about them. */
+function pickByLevel<T extends { id: string; level: CefrLevel }>(
+  pool: readonly T[],
+  target: number,
+  picker: Picker,
+): T | undefined {
+  const fresh = pool.filter((entry) => !picker.used.has(entry.id));
+  const distance = (entry: T) => Math.abs(CEFR_ANCHOR[entry.level] - target);
+  const nearest = Math.min(...fresh.map(distance));
+  return pickUnused(
+    fresh.filter((entry) => distance(entry) === nearest),
+    picker,
+  );
 }
 
 function take<T extends { id: string }>(
@@ -212,11 +228,11 @@ export function resolveStep(
       return photo ? { kind: step.kind, photo } : null;
     }
     case "interactiveWriting": {
-      const prompt = take(pickUnused(bank.interactiveWriting, picker), picker);
+      const prompt = take(pickByLevel(bank.interactiveWriting, target, picker), picker);
       return prompt ? { kind: "interactiveWriting", prompt } : null;
     }
     case "writingSample": {
-      const prompt = take(pickUnused(bank.writingSamples, picker), picker);
+      const prompt = take(pickByLevel(bank.writingSamples, target, picker), picker);
       return prompt ? { kind: "writingSample", prompt } : null;
     }
     case "readAloud": {
@@ -227,11 +243,11 @@ export function resolveStep(
       return item ? { kind: "readAloud", item } : null;
     }
     case "readThenSpeak": {
-      const prompt = take(pickUnused(bank.readThenSpeak, picker), picker);
+      const prompt = take(pickByLevel(bank.readThenSpeak, target, picker), picker);
       return prompt ? { kind: "readThenSpeak", prompt } : null;
     }
     case "speakingSample": {
-      const prompt = take(pickUnused(bank.speakingSamples, picker), picker);
+      const prompt = take(pickByLevel(bank.speakingSamples, target, picker), picker);
       return prompt ? { kind: "speakingSample", prompt } : null;
     }
     case "planned":

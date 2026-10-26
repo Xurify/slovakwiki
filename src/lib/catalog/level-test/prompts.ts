@@ -49,6 +49,7 @@ export const photoSlugs = [
 export const interactiveWritingPrompts: WritingPrompt[] = [
   {
     id: "volny-cas",
+    level: "A2",
     slovak: "Opíšte miesto, kde najradšej trávite voľný čas. Prečo sa vám tam páči?",
     english:
       "Describe the place where you most like to spend your free time. Why do you like it there?",
@@ -59,6 +60,7 @@ export const interactiveWritingPrompts: WritingPrompt[] = [
   },
   {
     id: "jedlo",
+    level: "A2",
     slovak: "Napíšte o jedle, ktoré máte najradšej. Kedy a s kým ho jete?",
     english: "Write about your favourite food. When and with whom do you eat it?",
     followUp: {
@@ -68,6 +70,7 @@ export const interactiveWritingPrompts: WritingPrompt[] = [
   },
   {
     id: "mesto-dedina",
+    level: "B1",
     slovak: "Je lepšie bývať v meste, alebo na dedine? Napíšte svoj názor.",
     english: "Is it better to live in a town or in the countryside? Give your opinion.",
     followUp: {
@@ -77,6 +80,7 @@ export const interactiveWritingPrompts: WritingPrompt[] = [
   },
   {
     id: "bezny-den",
+    level: "A2",
     slovak:
       "Opíšte svoj bežný pracovný alebo školský deň. Čo robíte ráno, cez deň a večer?",
     english:
@@ -88,6 +92,7 @@ export const interactiveWritingPrompts: WritingPrompt[] = [
   },
   {
     id: "domov",
+    level: "A2",
     slovak: "Opíšte byt alebo dom, v ktorom bývate. Ktoré miesto v ňom máte najradšej?",
     english: "Describe the flat or house you live in. Which spot in it do you like best?",
     followUp: {
@@ -98,6 +103,7 @@ export const interactiveWritingPrompts: WritingPrompt[] = [
   },
   {
     id: "rocne-obdobie",
+    level: "A2",
     slovak:
       "Ktoré ročné obdobie máte najradšej a prečo? Aké je vtedy počasie tam, kde žijete?",
     english:
@@ -109,6 +115,7 @@ export const interactiveWritingPrompts: WritingPrompt[] = [
   },
   {
     id: "susedia",
+    level: "B1",
     slovak:
       "Poznáte svojich susedov? Napíšte, aké vzťahy máte s ľuďmi, ktorí bývajú vo vašom okolí.",
     english:
@@ -120,6 +127,7 @@ export const interactiveWritingPrompts: WritingPrompt[] = [
   },
   {
     id: "nakupovanie",
+    level: "B1",
     slovak: "Nakupujete radšej v obchodoch, alebo cez internet? Prečo?",
     english: "Do you prefer to shop in stores or online? Why?",
     followUp: {
@@ -129,6 +137,7 @@ export const interactiveWritingPrompts: WritingPrompt[] = [
   },
   {
     id: "sport",
+    level: "A2",
     slovak:
       "Športujete alebo cvičíte? Napíšte, čo vás baví a ako často sa tomu venujete.",
     english:
@@ -140,6 +149,7 @@ export const interactiveWritingPrompts: WritingPrompt[] = [
   },
   {
     id: "doprava",
+    level: "B1",
     slovak: "Ako sa dostávate do práce alebo do školy? Ako dlho vám trvá cesta?",
     english: "How do you get to work or school? How long does the journey take?",
     followUp: {
@@ -149,6 +159,7 @@ export const interactiveWritingPrompts: WritingPrompt[] = [
   },
   {
     id: "hudba",
+    level: "A2",
     slovak: "Akú hudbu počúvate najčastejšie a kedy?",
     english: "What music do you listen to most, and when?",
     followUp: {
@@ -160,6 +171,7 @@ export const interactiveWritingPrompts: WritingPrompt[] = [
   },
   {
     id: "oddych",
+    level: "A2",
     slovak:
       "Ako najradšej oddychujete po náročnom dni? Napíšte, čo robíte a prečo vám to pomáha.",
     english:
@@ -171,6 +183,7 @@ export const interactiveWritingPrompts: WritingPrompt[] = [
   },
   {
     id: "novy-konicek",
+    level: "B1",
     slovak: "Akému novému koníčku by ste sa chceli venovať? Prečo práve tomuto?",
     english: "What new hobby would you like to take up? Why that one?",
     followUp: {
@@ -180,6 +193,7 @@ export const interactiveWritingPrompts: WritingPrompt[] = [
   },
   {
     id: "zoznamovanie",
+    level: "B1",
     slovak:
       "Ako sa zoznamujete s novými ľuďmi? Kde si podľa vás človek najľahšie nájde priateľov?",
     english:
@@ -192,6 +206,7 @@ export const interactiveWritingPrompts: WritingPrompt[] = [
   },
   {
     id: "domace-zviera",
+    level: "B1",
     slovak: "Máte doma zviera, alebo by ste nejaké chceli mať? Napíšte o ňom.",
     english: "Do you have a pet, or would you like one? Write about it.",
     followUp: {
@@ -204,22 +219,26 @@ export const interactiveWritingPrompts: WritingPrompt[] = [
 export const writingSamplePrompts: WritingPrompt[] = [
   {
     id: "dolezity-clovek",
+    level: "A2",
     slovak: "Napíšte o človeku, ktorý je pre vás dôležitý. Kto to je a prečo?",
     english: "Write about a person who is important to you. Who are they, and why?",
   },
   {
     id: "preco-slovencina",
+    level: "A2",
     slovak: "Prečo sa učíte slovenčinu? Čo vás na nej baví a čo je pre vás ťažké?",
     english:
       "Why are you learning Slovak? What do you enjoy about it, and what do you find hard?",
   },
   {
     id: "idealny-vikend",
+    level: "A2",
     slovak: "Opíšte svoj ideálny víkend. Čo by ste robili a s kým?",
     english: "Describe your ideal weekend. What would you do, and who with?",
   },
   {
     id: "zivotne-prostredie",
+    level: "B2",
     slovak:
       "Čo môže každý z nás urobiť pre životné prostredie? Napíšte, čo robíte vy a čo by mali robiť firmy a štát.",
     english:
@@ -227,6 +246,7 @@ export const writingSamplePrompts: WritingPrompt[] = [
   },
   {
     id: "turizmus",
+    level: "B2",
     slovak:
       "Prináša turizmus mestám viac výhod, alebo viac problémov? Napíšte svoj názor a uveďte príklady.",
     english:
@@ -234,6 +254,7 @@ export const writingSamplePrompts: WritingPrompt[] = [
   },
   {
     id: "skola",
+    level: "B1",
     slovak:
       "Čo by sa deti mali učiť v škole, čo sa tam dnes neučia? Prečo je to podľa vás dôležité?",
     english:
@@ -241,6 +262,7 @@ export const writingSamplePrompts: WritingPrompt[] = [
   },
   {
     id: "o-pat-rokov",
+    level: "B1",
     slovak:
       "Ako si predstavujete svoj život o päť rokov? Napíšte o svojich plánoch a želaniach.",
     english:
@@ -248,6 +270,7 @@ export const writingSamplePrompts: WritingPrompt[] = [
   },
   {
     id: "generacie",
+    level: "B2",
     slovak:
       "Čo sa môžu mladí ľudia naučiť od starších a čo starší od mladých? Uveďte príklady.",
     english:
@@ -255,6 +278,7 @@ export const writingSamplePrompts: WritingPrompt[] = [
   },
   {
     id: "deti-a-mobily",
+    level: "B1",
     slovak:
       "Od akého veku by mali deti mať vlastný mobilný telefón? Napíšte svoj názor a vysvetlite ho.",
     english:
@@ -262,6 +286,7 @@ export const writingSamplePrompts: WritingPrompt[] = [
   },
   {
     id: "reklama",
+    level: "B2",
     slovak:
       "Aký vplyv má reklama na ľudí? Napíšte, kde sa s ňou stretávate a čo si o nej myslíte.",
     english:
@@ -269,6 +294,7 @@ export const writingSamplePrompts: WritingPrompt[] = [
   },
   {
     id: "dobrovolnictvo",
+    level: "B2",
     slovak:
       "Prečo ľudia pomáhajú druhým ako dobrovoľníci? Mal by to podľa vás aspoň raz skúsiť každý?",
     english:
@@ -276,6 +302,7 @@ export const writingSamplePrompts: WritingPrompt[] = [
   },
   {
     id: "zivot-v-zahranici",
+    level: "B1",
     slovak:
       "Keby ste mali rok žiť v inej krajine, ktorú by ste si vybrali? Čo by vám z domova chýbalo?",
     english:
@@ -283,12 +310,14 @@ export const writingSamplePrompts: WritingPrompt[] = [
   },
   {
     id: "kultura-zadarmo",
+    level: "B2",
     slovak: "Mali by byť múzeá, galérie a divadlá zadarmo? Napíšte argumenty za a proti.",
     english:
       "Should museums, galleries and theatres be free? Give arguments for and against.",
   },
   {
     id: "spravy",
+    level: "B2",
     slovak:
       "Odkiaľ sa dozvedáte, čo sa deje vo svete? Ako zistíte, či je informácia na internete pravdivá?",
     english:
@@ -296,6 +325,7 @@ export const writingSamplePrompts: WritingPrompt[] = [
   },
   {
     id: "dochvilnost",
+    level: "B1",
     slovak:
       "Chodíte všade načas, alebo občas meškáte? Je dochvíľnosť v rôznych krajinách rovnako dôležitá?",
     english:
@@ -306,6 +336,7 @@ export const writingSamplePrompts: WritingPrompt[] = [
 export const readThenSpeakPrompts: SpeakingPrompt[] = [
   {
     id: "moje-mesto",
+    level: "A2",
     slovak: "Porozprávajte nám o meste alebo dedine, kde bývate.",
     english: "Tell us about the town or village where you live.",
     points: [
@@ -319,6 +350,7 @@ export const readThenSpeakPrompts: SpeakingPrompt[] = [
   },
   {
     id: "kniha-film",
+    level: "B1",
     slovak: "Porozprávajte nám o svojej obľúbenej knihe alebo o svojom obľúbenom filme.",
     english: "Tell us about your favourite book or film.",
     points: [
@@ -329,6 +361,7 @@ export const readThenSpeakPrompts: SpeakingPrompt[] = [
   },
   {
     id: "sviatok",
+    level: "A2",
     slovak: "Porozprávajte nám o sviatku, ktorý oslavujete.",
     english: "Tell us about a holiday or festival you celebrate.",
     points: [
@@ -339,6 +372,7 @@ export const readThenSpeakPrompts: SpeakingPrompt[] = [
   },
   {
     id: "praca-alebo-skola",
+    level: "A2",
     slovak: "Porozprávajte nám o svojej práci alebo o svojom štúdiu.",
     english: "Tell us about your work or your studies.",
     points: [
@@ -349,6 +383,7 @@ export const readThenSpeakPrompts: SpeakingPrompt[] = [
   },
   {
     id: "domace-prace",
+    level: "A2",
     slovak: "Porozprávajte nám o domácich prácach.",
     english: "Tell us about the housework you do.",
     points: [
@@ -362,6 +397,7 @@ export const readThenSpeakPrompts: SpeakingPrompt[] = [
   },
   {
     id: "hracka-z-detstva",
+    level: "B1",
     slovak:
       "Porozprávajte nám o hračke alebo hre z detstva, na ktorú si dodnes spomínate.",
     english: "Tell us about a toy or game from your childhood that you still remember.",
@@ -376,6 +412,7 @@ export const readThenSpeakPrompts: SpeakingPrompt[] = [
   },
   {
     id: "obliekanie",
+    level: "A2",
     slovak: "Porozprávajte nám o tom, ako sa obliekate.",
     english: "Tell us about the way you dress.",
     points: [
@@ -389,6 +426,7 @@ export const readThenSpeakPrompts: SpeakingPrompt[] = [
   },
   {
     id: "rastliny",
+    level: "A2",
     slovak: "Porozprávajte nám o rastlinách, ktoré máte doma alebo v záhrade.",
     english: "Tell us about the plants you have at home or in a garden.",
     points: [
@@ -402,6 +440,7 @@ export const readThenSpeakPrompts: SpeakingPrompt[] = [
   },
   {
     id: "fotografia",
+    level: "B1",
     slovak: "Porozprávajte nám o fotografii, ktorá je pre vás dôležitá.",
     english: "Tell us about a photo that matters to you.",
     points: [
@@ -415,6 +454,7 @@ export const readThenSpeakPrompts: SpeakingPrompt[] = [
   },
   {
     id: "darcek",
+    level: "B1",
     slovak: "Porozprávajte nám o darčeku, ktorý by ste chceli dať niekomu blízkemu.",
     english: "Tell us about a present you would like to give someone close to you.",
     points: [
@@ -425,6 +465,7 @@ export const readThenSpeakPrompts: SpeakingPrompt[] = [
   },
   {
     id: "navsteva",
+    level: "B1",
     slovak: "Porozprávajte nám o tom, ako u vás vyzerá návšteva priateľov alebo rodiny.",
     english: "Tell us what a visit from friends or family is like at your place.",
     points: [
@@ -441,6 +482,7 @@ export const readThenSpeakPrompts: SpeakingPrompt[] = [
   },
   {
     id: "zdravie",
+    level: "A2",
     slovak: "Porozprávajte nám o tom, čo robíte, keď vám nie je dobre.",
     english: "Tell us what you do when you don't feel well.",
     points: [
@@ -460,17 +502,20 @@ export const readThenSpeakPrompts: SpeakingPrompt[] = [
 export const speakingSamplePrompts: SpeakingPrompt[] = [
   {
     id: "jazyk-online",
+    level: "B1",
     slovak: "Aké sú výhody a nevýhody učenia sa jazyka online? Povedzte svoj názor.",
     english:
       "What are the pros and cons of learning a language online? Give your opinion.",
   },
   {
     id: "cesta",
+    level: "B1",
     slovak: "Porozprávajte nám o ceste, na ktorú dodnes s radosťou spomínate.",
     english: "Talk about a trip you still like to remember.",
   },
   {
     id: "milion-eur",
+    level: "B1",
     slovak:
       "Čo by ste urobili, keby ste dostali milión eur? Porozprávajte nám o svojich plánoch.",
     english:
@@ -478,6 +523,7 @@ export const speakingSamplePrompts: SpeakingPrompt[] = [
   },
   {
     id: "vecera-s-osobnostou",
+    level: "B1",
     slovak:
       "Keby ste mohli ísť na večeru s akoukoľvek známou osobnosťou, koho by ste si vybrali? O čom by ste sa rozprávali?",
     english:
@@ -485,6 +531,7 @@ export const speakingSamplePrompts: SpeakingPrompt[] = [
   },
   {
     id: "cestovanie-v-case",
+    level: "B2",
     slovak:
       "Keby ste mohli cestovať v čase, vybrali by ste sa do minulosti, alebo do budúcnosti? Kam presne a prečo?",
     english:
@@ -492,6 +539,7 @@ export const speakingSamplePrompts: SpeakingPrompt[] = [
   },
   {
     id: "humor",
+    level: "B2",
     slovak:
       "Čo vás dokáže rozosmiať? Myslíte si, že sa ľudia v rôznych krajinách smejú na tých istých veciach?",
     english:
@@ -499,6 +547,7 @@ export const speakingSamplePrompts: SpeakingPrompt[] = [
   },
   {
     id: "nove-pravidlo",
+    level: "B2",
     slovak:
       "Keby ste mohli zaviesť jedno nové pravidlo, ktoré by platilo pre všetkých, aké by to bolo? Prečo?",
     english:
@@ -506,17 +555,20 @@ export const speakingSamplePrompts: SpeakingPrompt[] = [
   },
   {
     id: "vynalez",
+    level: "B2",
     slovak: "Ktorý vynález je podľa vás najdôležitejší? Ako by vyzeral život bez neho?",
     english:
       "Which invention do you think is the most important? What would life be like without it?",
   },
   {
     id: "stastie",
+    level: "B2",
     slovak: "Čo podľa vás robí človeka šťastným? Povedzte svoj názor a uveďte príklady.",
     english: "What do you think makes a person happy? Give your opinion with examples.",
   },
   {
     id: "umela-inteligencia",
+    level: "C1",
     slovak:
       "Ako umelá inteligencia mení prácu a vzdelávanie? Povedzte svoj názor a uveďte príklady.",
     english:
@@ -524,6 +576,7 @@ export const speakingSamplePrompts: SpeakingPrompt[] = [
   },
   {
     id: "vesmir",
+    level: "C1",
     slovak:
       "Majú lety do vesmíru zmysel, keď máme toľko problémov na Zemi? Povedzte svoj názor.",
     english:
@@ -531,6 +584,7 @@ export const speakingSamplePrompts: SpeakingPrompt[] = [
   },
   {
     id: "pravda",
+    level: "C1",
     slovak:
       "Je niekedy v poriadku nepovedať celú pravdu? Vysvetlite svoj názor na príkladoch.",
     english:
