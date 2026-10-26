@@ -748,7 +748,7 @@ export const listeningSets: AuthoredListeningSet[] = [
           english: "The text is almost done, but I don't have any of the charts yet.",
         },
         options: [
-          "Tak mi pošli text, prečítam ho a opravím chyby.",
+          "Tak mi pošli text, grafy aj tak nepotrebuješ.",
           "Grafy ti môžem urobiť ja. Pošli mi tie čísla.",
           "Text je hotový, takže máš všetko.",
         ],

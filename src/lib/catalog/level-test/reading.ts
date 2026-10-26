@@ -653,7 +653,7 @@ export const readingSets: AuthoredReadingSet[] = [
         id: "b5",
         options: ["smrteľná", "smrteľne", "smrteľný", "smrteľnú"],
         answer: 1,
-        area: "adjectives",
+        area: "vocabulary",
       },
       " jedovatá.",
     ],
