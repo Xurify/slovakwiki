@@ -1,47 +1,50 @@
 <script lang="ts">
-  import { n } from "$lib/stick-figure/draw";
-  import type { LeashSpan } from "$lib/stick-figure/leash";
+  import { onMount } from "svelte";
+  import { leashPath } from "$lib/stick-figure/leash";
 
-  /** A lead between a walker's hand and a dog's collar, moving with them over `ms`. */
-  let { ms = 0, span }: { ms?: number; span: LeashSpan } = $props();
+  /**
+   * A lead from the hand holding it to the dog's collar, `length` px long.
+   * Both ends are read off the drawn figures every frame, so the lead stays
+   * on them through a walk, a turn or a wave of the arm.
+   */
+  let { length }: { length: number } = $props();
 
-  /** A slack lead dips below its lower end, more the further apart they are. */
-  const sag = $derived(Math.min(18, span.width * 0.18));
-  const height = $derived(span.height + sag);
-  const path = $derived.by(() => {
-    const [from, to] = span.flip ? [span.collar, span.hand] : [span.hand, span.collar];
-    const y = (up: number) => n(span.height - up);
-    return `M0 ${y(from)}Q${n(span.width / 2)} ${n(height + sag)} ${n(span.width)} ${y(to)}`;
+  let svg: SVGSVGElement;
+  let path = $state("");
+
+  onMount(() => {
+    let frame = requestAnimationFrame(function follow() {
+      const stage = svg.parentElement;
+      const hand = stage?.querySelector('[data-leash-end="hand"]');
+      const collar = stage?.querySelector('[data-leash-end="collar"]');
+      if (stage && hand && collar) {
+        const box = svg.getBoundingClientRect();
+        const centre = (end: Element) => {
+          const at = end.getBoundingClientRect();
+          return {
+            x: at.left + at.width / 2 - box.left,
+            y: at.top + at.height / 2 - box.top,
+          };
+        };
+        path = leashPath(centre(hand), centre(collar), length);
+      } else {
+        path = "";
+      }
+      frame = requestAnimationFrame(follow);
+    });
+    return () => cancelAnimationFrame(frame);
   });
 </script>
 
-<div
-  class="pointer-events-none absolute transition-all ease-linear"
-  style:left="{span.left}px"
-  style:top="{span.top}px"
-  style:width="{span.width}px"
-  style:height="{height}px"
-  style:transition-duration="{ms}ms"
+<svg
+  bind:this={svg}
+  class="pointer-events-none absolute inset-0 size-full overflow-visible"
+  fill="none"
+  stroke-linecap="round"
+  aria-hidden="true"
 >
-  <svg
-    class="block size-full overflow-visible"
-    viewBox="0 0 {n(span.width)} {n(height)}"
-    preserveAspectRatio="none"
-    fill="none"
-    stroke-linecap="round"
-    aria-hidden="true"
-  >
-    <path
-      d={path}
-      class="stroke-portrait-ink"
-      stroke-width="2.4"
-      vector-effect="non-scaling-stroke"
-    />
-    <path
-      d={path}
-      class="stroke-scene-red"
-      stroke-width="1.2"
-      vector-effect="non-scaling-stroke"
-    />
-  </svg>
-</div>
+  {#if path}
+    <path d={path} class="stroke-portrait-ink" stroke-width="2.4" />
+    <path d={path} class="stroke-scene-red" stroke-width="1.2" />
+  {/if}
+</svg>

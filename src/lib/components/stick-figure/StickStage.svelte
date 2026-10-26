@@ -34,7 +34,6 @@
     backdropToStage,
     figureToStage,
   } from "$lib/stick-figure/backdrop-geometry";
-  import { leashSpan } from "$lib/stick-figure/leash";
   import { LOOKS } from "$lib/stick-figure/looks";
   import { PLACES, backdropAlign, thingsIn } from "$lib/stick-figure/places";
   import {
@@ -298,18 +297,17 @@
   }
 
   const dog = $derived(direction.cast.find((id) => LOOKS[id].dog));
-  const leash = $derived.by(() => {
-    const holder = direction.cast.find((id) => holding[id] === "leash");
-    if (!holder || !dog) return undefined;
-    const at = (id: LessonCharacterId) => ({
-      facing: sitting[id] ?? facings[id] ?? resting[id] ?? 1,
-      mark: standing(markOf(frame, id), offsets[id]),
-    });
-    return {
-      ms: Math.max(walks[holder]?.ms ?? 0, walks[dog]?.ms ?? 0),
-      span: leashSpan(at(holder), at(dog)),
-    };
+  /** The robot on a call while the far end speaks: it plays the voice out loud. */
+  const relayedBy = $derived.by(() => {
+    const line = lines[heldAt];
+    const caller = direction.lines[heldAt]?.call;
+    if (!line?.overPhone || !line.characterId || !caller || !LOOKS[caller].robot) return;
+    return actors[line.characterId]?.talking ? caller : undefined;
   });
+
+  const leashed = $derived(
+    dog !== undefined && direction.cast.some((id) => holding[id] === "leash"),
+  );
 
   /** Put every umbrella down: the rain has stopped, or they are getting on the tram. */
   export function foldUmbrellas(): void {
@@ -732,6 +730,7 @@
             held={heldBy(characterId)}
             seated={seated[characterId] !== undefined}
             onCall={direction.lines[heldAt]?.call === characterId}
+            relaying={relayedBy === characterId}
             {dress}
             talking={actors[characterId]?.talking ?? false}
             turnDelay={turns[characterId] ?? 0}
@@ -739,8 +738,9 @@
           />
         </div>
       {/each}
-      {#if leash}
-        <StickLeash ms={leash.ms} span={leash.span} />
+      {#if leashed}
+        <!-- Short enough to hang in a gentle dip at heel and pull straight a step further off. -->
+        <StickLeash length={frame.figureWidth * 0.8} />
       {/if}
       {#if frame.desk}
         <StudioDesk

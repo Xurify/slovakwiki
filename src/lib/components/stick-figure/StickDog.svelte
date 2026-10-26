@@ -111,6 +111,14 @@
       stroke-width="1.5"
     />
     <path d="M9.2 100.6Q12.6 103.4 16.4 100.8" class={dog.collar} stroke-width="2.2" />
+    <circle
+      data-leash-end="collar"
+      cx="12.7"
+      cy="102.2"
+      r="0.5"
+      fill="none"
+      stroke="none"
+    />
 
     <g transform={headTransform}>
       <!-- Lower jaw, hinged under the ear so a bark drops it. -->

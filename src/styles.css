@@ -34,6 +34,23 @@
   /* A robot working something out: a bar filling over and over, and dots taking turns. */
   --animate-compute: compute 1.2s ease-in-out infinite;
   --animate-compute-dot: compute-dot 0.9s ease-in-out infinite;
+  --animate-sound-wave: sound-wave 1.2s ease-out infinite;
+
+  @keyframes sound-wave {
+    from {
+      opacity: 0;
+      transform: translateX(-3px);
+    }
+
+    30% {
+      opacity: 1;
+    }
+
+    to {
+      opacity: 0;
+      transform: translateX(7px);
+    }
+  }
 
   @keyframes compute {
     from {

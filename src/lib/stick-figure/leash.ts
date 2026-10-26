@@ -1,54 +1,19 @@
-import { STICK_BOX, type Point } from "./rig";
-import type { Mark } from "./stage-frame";
-import type { Facing } from "./staging";
-
-/** The loop of a held lead, in figure space: round the lead hand at rest. */
-const HAND: Point = { x: 9.6, y: 93.4 };
-/** Where the lead clips on, in the dog's figure space (StickDog's collar). */
-const COLLAR: Point = { x: 12.8, y: 101 };
-
-/** A lead from a hand to a collar, as a box on the stage: where it starts and ends, in px. */
-export interface LeashSpan {
-  /** True when the hand is right of the collar, so the drawing is mirrored. */
-  flip: boolean;
-  /** Distances up from the box's bottom edge to the hand and to the collar. */
-  hand: number;
-  collar: number;
-  left: number;
-  top: number;
-  width: number;
-  height: number;
-}
-
-function onStage(mark: Mark, facing: Facing, at: Point): Point {
-  const scale = mark.width / STICK_BOX.width;
-  return {
-    x: mark.left + (at.x * facing - STICK_BOX.x) * scale,
-    y: mark.top + (at.y - STICK_BOX.y) * scale,
-  };
-}
+import { n } from "./draw";
+import type { Point } from "./rig";
 
 /**
- * The box a lead is drawn in between whoever holds it and the dog. Kept as a
- * box rather than two points so the stage can move it with the same linear
- * transition that walks both figures: its corners then stay on the hand and
- * the collar all the way.
+ * A lead hanging from a hand to a collar, as an SVG path in stage px. It is
+ * `length` long, so it hangs in a dip while they are close and pulls straight
+ * as they part.
  */
-export function leashSpan(
-  holder: { mark: Mark; facing: Facing },
-  dog: { mark: Mark; facing: Facing },
-): LeashSpan {
-  const hand = onStage(holder.mark, holder.facing, HAND);
-  const collar = onStage(dog.mark, dog.facing, COLLAR);
-  const top = Math.min(hand.y, collar.y);
-  const bottom = Math.max(hand.y, collar.y);
-  return {
-    collar: bottom - collar.y,
-    flip: hand.x > collar.x,
-    hand: bottom - hand.y,
-    height: Math.max(1, bottom - top),
-    left: Math.min(hand.x, collar.x),
-    top,
-    width: Math.max(1, Math.abs(hand.x - collar.x)),
+export function leashPath(hand: Point, collar: Point, length: number): string {
+  const span = Math.hypot(collar.x - hand.x, collar.y - hand.y);
+  // Pulled down to a V by its middle, the lead would dip this far; a rope's curve rides a little higher.
+  const sag = 0.6 * (Math.sqrt(Math.max(0, length ** 2 - span ** 2)) / 2);
+  // A quadratic's middle sits halfway to its control point, so the control goes twice as low.
+  const control = {
+    x: (hand.x + collar.x) / 2,
+    y: (hand.y + collar.y) / 2 + 2 * sag,
   };
+  return `M${n(hand.x)} ${n(hand.y)}Q${n(control.x)} ${n(control.y)} ${n(collar.x)} ${n(collar.y)}`;
 }

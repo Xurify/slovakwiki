@@ -89,7 +89,9 @@
       class="stroke-scene-red"
       stroke-width="1.1"
     />
-    {#if !clipped}
+    {#if clipped}
+      <circle data-leash-end="hand" cx="0.6" cy="2.2" r="0.5" fill="none" stroke="none" />
+    {:else}
       <path d="M0.6 2.2Q1.4 12 7.2 15.4" fill="none" stroke-width="2.4" />
       <path
         d="M0.6 2.2Q1.4 12 7.2 15.4"

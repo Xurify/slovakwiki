@@ -350,4 +350,11 @@ describe("a call a robot makes", () => {
     ]);
     expect(direction.lines.map((line) => line.held.robo)).not.toContain("phone");
   });
+
+  it("greets the far end with a nod, since a wave cannot be seen down a line", () => {
+    const [, hello] = directScene(lines, "home").lines;
+
+    expect(hello.plan.beats.map((beat) => beat.gesture)).not.toContain("wave");
+    expect(hello.plan.beats[0].gesture).toBe("nod");
+  });
 });

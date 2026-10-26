@@ -12262,7 +12262,7 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-window 1`] = `
       "line": "robo: Ahoj, Marek. Tu je Robo.",
       "plan": {
         "beats": [
-          "0 wave",
+          "0 nod",
           "1200 point",
         ],
         "ms": 1950,

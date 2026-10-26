@@ -31,6 +31,7 @@
     held,
     sit = 0,
     call = 0,
+    relaying = false,
     dress = dressFor("clear"),
     turnDelay = 0,
   }: {
@@ -48,6 +49,8 @@
     sit?: number;
     /** 0 the phone in hand or none, 1 held at the ear. */
     call?: number;
+    /** A robot playing the far end of its call out loud, from the speaker in its chest. */
+    relaying?: boolean;
     /** What the weather on them does to what they wear. */
     dress?: Dress;
     /** Ms before a change of `facing` starts: a listener turns a beat after the speaker. */
@@ -135,6 +138,29 @@
   {/if}
 {/snippet}
 
+<!-- A metal foot: a flat sole on the ground, its toe rounded up, and an ankle cap where the leg meets it. -->
+{#snippet plate(at: Point)}
+  <path
+    d="M{n(at.x - 1.4)} {n(
+      at.y + 0.8,
+    )}h7q1.6 0 1.6-1.6q0-2.2-3-2.6l-3.2-0.6h-2.4q-1.6 0-1.6 1.6v1.6q0 1.6 1.6 1.6Z"
+    class="fill-scene-steel stroke-portrait-ink"
+    stroke-width="1.1"
+  />
+  <path
+    d="M{n(at.x - 2.6)} {n(at.y - 0.6)}h7.6"
+    class="stroke-scene-steel-dark"
+    stroke-width="0.7"
+  />
+  <circle
+    cx={n(at.x)}
+    cy={n(at.y - 2.2)}
+    r="1.5"
+    class="fill-scene-steel-dark stroke-portrait-ink"
+    stroke-width="0.9"
+  />
+{/snippet}
+
 {#snippet joint(at: Point, r: number)}
   <circle
     cx={n(at.x)}
@@ -196,13 +222,18 @@
       {@render hand(rig.rearArm.end)}
       {@render leg(rig.rearLeg)}
       {@render leg(rig.leadLeg)}
-      <path
-        d="M{n(rig.rearLeg.end.x - 1)} {n(rig.rearLeg.end.y - 1)}h5M{n(
-          rig.leadLeg.end.x - 1,
-        )} {n(rig.leadLeg.end.y - 1)}h5"
-        class="stroke-portrait-ink"
-        stroke-width="3.6"
-      />
+      {#if robot?.metal}
+        {@render plate(rig.rearLeg.end)}
+        {@render plate(rig.leadLeg.end)}
+      {:else}
+        <path
+          d="M{n(rig.rearLeg.end.x - 1)} {n(rig.rearLeg.end.y - 1)}h5M{n(
+            rig.leadLeg.end.x - 1,
+          )} {n(rig.leadLeg.end.y - 1)}h5"
+          class="stroke-portrait-ink"
+          stroke-width="3.6"
+        />
+      {/if}
 
       {#if robot}
         {@render joint(rig.rearLeg.joint, 1.6)}
@@ -289,6 +320,19 @@
           />
         {/if}
       </g>
+
+      {#if relaying}
+        <g transform={torsoTransform}>
+          {#each [0, 1, 2] as wave (wave)}
+            <path
+              d="M{6 + wave * 3.4} -26.4Q{9.6 + wave * 3.4} -21.3 {6 + wave * 3.4} -16.2"
+              class="stroke-portrait-ink motion-safe:animate-sound-wave"
+              stroke-width="1.1"
+              style:animation-delay="{wave * 400}ms"
+            />
+          {/each}
+        </g>
+      {/if}
 
       {#if phoneAtEar}
         <!-- Over the head, so the phone shows against the ear the rear arm reaches round to. -->
