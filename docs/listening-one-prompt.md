@@ -35,7 +35,8 @@ Every iteration in the first four episodes came from something nobody had decide
 - [ ] The camera opens close and widens as people and things come in.
 - [ ] How each change of place is said: the last line before (`Poďme na trh!`) and the first after (`Teraz sme na trhu.`), or a scene card (`Trh. Pol piatej.`).
 
-- [ ] An independent naturalness review before the person sees the script: a reviewer with no context on the episode or its grammar reads every line as a native speaker would and flags anything stiff, textbook, copied from English, illogical (a pot put on the stove before it is filled) or there only to show a form. Fix and review again until clean.
+- [ ] A world sheet (each place, what is drawn there, who is there and why, every object and where it starts) and a beat sheet (per segment, what a viewer sees happen, in order, and how it ends) before any dialogue.
+- [ ] The critic loop in **5** on the beat sheet, the script and the staged frames, before the person sees any of them.
 
 ## 2. The prompt
 
@@ -62,7 +63,9 @@ as the reference episode. Use the `slovak-language` skill on every line.
 Before generating any clip, show me the script as a table per segment
 (speaker, Slovak, English, directions, props/to/gestures) and the checks,
 and read it against "Slips we shipped" and the staging list in
-docs/listening-one-prompt.md section 3. Then generate, verify, wire in and
+docs/listening-one-prompt.md section 3. Run the critic loop in section 5
+on the beat sheet, the script and the staged frames, and show me what
+is still open after it. Then generate, verify, wire in and
 open a PR with the QA list from section 4, including the lines a person
 must judge by ear.
 ```
@@ -133,3 +136,27 @@ What went wrong, why, and where the fix lives now. The left column is what to lo
 6. `bun run format`, `bun run lint`, `bun run typecheck`, `bunx vitest run`, `bun run index:search`.
 7. Play every segment on `/listening/<slug>`, the page learners use, at 390px and desktop, light and dark: mouths on the words, one mouth per line, props only when meant, faces to the right person, transitions said. Not on `/dev/scenes`: that is a different player, without the episode's segment cues, Pause at questions or transcript, so a segment can pass there and fail on the page.
 8. Open the PR. QA links to `/listening/<slug>` on the preview and says, per segment by its number and title, what to watch, plus a **Listen back, a person's call** list: every directed line (sigh, chuckle, unsure, remembering), any new voice, any clip kept without a passing verify, and each lip-sync score far under 80% with why it stands.
+
+## 5. Critics: someone else reads it first
+
+The writer cannot judge their own lines: drafts self-scored 9/10 on dialogue and story had a dozen problems each that a cold reader found at once. So every stage is read by a **critic**, a fresh agent on a different model from the writer's (Sonnet when the writer is Opus) that gets only the artifact and a brief, never the plan or the grammar goals.
+
+| Stage            | What the critic gets                                                                                                                                                                                  | Brief                            |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- |
+| Beats and script | Tables per segment with what is drawn on each set: `SLUG=<slug> OUT=<file> bunx vitest run scripts/critic/dump-script.test.ts`                                                                        | `docs/critics/script-critic.md`  |
+| Staged episode   | A contact sheet per segment, one frame per line: `node scripts/critic/snap-frames.cjs <slug> <dir>` with `astro dev` running, then `python3 scripts/critic/contact-sheets.py <dir> <script.md> <out>` | `docs/critics/picture-critic.md` |
+
+The loop, at each stage:
+
+1. Run the critic twice, independently, and merge the lists: single runs miss different things.
+2. Fix each finding by its class, not only its line. A missing bridge in one place means checking every change of topic.
+3. A finding may be rejected, with the reason written down.
+4. At most three rounds, with small fixes each. What is still open after round three, and the script critic's **Ask a native** doubts, go to the person with the script, each with its reason.
+
+Write the opening and the ending three times blind (each by a fresh agent that has not seen the others) and let the critic pick: they are where first drafts are weakest.
+
+**How well the critics do.** The script brief was tuned in three rounds on the scripts of #76 and #77 as Xurify reviewed them, with #78 held out. It found 86% of the points Xurify raised that a script reader could find on #76 and #77, and 5 of 5 and 3.5 of 5 on #78 in two runs. Earlier briefs invented language errors (`Ja prídem`, `stojeden`), so the brief now reports only certain errors and lists doubts for a native. No round caught Marek producing `choď` with nobody telling him: in a guessing exchange, write on the beat sheet who supplies each answer. The picture brief, on the frames of #76 v2, found all three stage points Xurify raised (the card from nowhere, the cup handed to Anna at `Tu máš vodu`, the studio desk) and a dozen more. One frame per line can miss a quick walk or a prop that flashes in; when a finding is about motion, play the segment.
+
+**After a review.** Every point the person raises is a class: add a question for it to the brief, add the reviewed version and the point to the calibration set, check the other episodes for the same class, and rerun the calibration so the brief still finds the person's past points.
+
+**Proof in the PR.** Next to the QA list, a **Proof** section of what was observed, not claimed: the verify output, `silencedetect` for clips with pauses, lip-sync scores, the critic rounds (fixed, rejected with reasons, still open) and the contact sheets.
