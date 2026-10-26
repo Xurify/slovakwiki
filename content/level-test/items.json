@@ -16129,16 +16129,6 @@
    "english": "This discovery made him famous all over the world."
   },
   {
-   "id": "fb-brejk",
-   "format": "fillBlank",
-   "difficulty": 67.2,
-   "before": "Hráčka získala ",
-   "prefix": "br",
-   "missing": "ejk",
-   "after": " hneď v prvom geme.",
-   "english": "The player got a break right in the first game."
-  },
-  {
    "id": "fb-odhodlat",
    "format": "fillBlank",
    "difficulty": 65.3,
@@ -16527,16 +16517,6 @@
    "missing": "icky",
    "after": ", do tmavého obleku.",
    "english": "He dressed classically for the wedding, in a dark suit."
-  },
-  {
-   "id": "fb-memoriam",
-   "format": "fillBlank",
-   "difficulty": 79.2,
-   "before": "V parku odhalili lavičku venovanú in ",
-   "prefix": "memo",
-   "missing": "riam",
-   "after": " obľúbenému učiteľovi.",
-   "english": "They unveiled a bench in the park in memory of a beloved teacher."
   },
   {
    "id": "fb-pron-1e43cf7cdd",
@@ -17319,16 +17299,6 @@
    "english": "The winner ran in lane four."
   },
   {
-   "id": "fb-num-53434b205c",
-   "format": "fillBlank",
-   "difficulty": 31.8,
-   "before": "Jeho neschopnosť počúvať ",
-   "prefix": "dru",
-   "missing": "hých",
-   "after": " ho stála priateľov.",
-   "english": "His inability to listen to others cost him his friends."
-  },
-  {
    "id": "fb-num-1b723b4d43",
    "format": "fillBlank",
    "difficulty": 33.6,
@@ -17397,16 +17367,6 @@
    "missing": "stej",
    "after": ".",
    "english": "The health center is open until six."
-  },
-  {
-   "id": "fb-num-f80d81b385",
-   "format": "fillBlank",
-   "difficulty": 37.3,
-   "before": "Ľudia podvedome napodobňujú gestá ",
-   "prefix": "dru",
-   "missing": "hých",
-   "after": ".",
-   "english": "People subconsciously imitate other people's gestures."
   },
   {
    "id": "fb-num-4764a45aa1",
@@ -17763,7 +17723,7 @@
    "format": "listenType",
    "difficulty": 18.6,
    "text": "Mrzí ma, že prišiel tak neskoro.",
-   "english": "It annoys me that he came so late."
+   "english": "I'm sorry he came so late."
   },
   {
    "id": "lt-86345cde9f",

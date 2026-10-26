@@ -92,7 +92,9 @@ function listenTypeItems(): ListenTypeItem[] {
         ...item,
         format: "listenType" as const,
         audio: resolveKeyedAudioSrc(item.text, kind),
-        wordTags: tokenizeWords(item.text).map(tagWord),
+        wordTags: tokenizeWords(item.text).map((word, index, words) =>
+          tagWord(word, { previous: words[index - 1], next: words[index + 1] }),
+        ),
       },
     ];
   });
@@ -127,7 +129,11 @@ function fillBlankItems(): FillBlankItem[] {
   return items.fillBlank.map((item) => ({
     ...item,
     format: "fillBlank" as const,
-    tag: tagWord(item.prefix + item.missing),
+    tag: tagWord(item.prefix + item.missing, {
+      previous: tokenizeWords(item.before).at(-1),
+      next: tokenizeWords(item.after)[0],
+      slug: item.id.slice("fb-".length),
+    }),
   }));
 }
 
@@ -151,11 +157,20 @@ function readCompleteItems(): ReadCompleteItem[] {
   return items.readComplete.map((item) => ({
     ...item,
     format: "readComplete" as const,
-    parts: (item.parts as CTestPart[]).map((part) =>
-      typeof part === "string"
-        ? part
-        : { ...part, tag: tagWord(part.prefix + part.missing) },
-    ),
+    parts: (item.parts as CTestPart[]).map((part, index, parts) => {
+      if (typeof part === "string") return part;
+      const word = (other: CTestPart | undefined, at: number) =>
+        typeof other === "string"
+          ? tokenizeWords(other).at(at)
+          : other && other.prefix + other.missing;
+      return {
+        ...part,
+        tag: tagWord(part.prefix + part.missing, {
+          previous: word(parts[index - 1], -1),
+          next: word(parts[index + 1], 0),
+        }),
+      };
+    }),
   }));
 }
 

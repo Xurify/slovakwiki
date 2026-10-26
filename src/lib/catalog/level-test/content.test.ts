@@ -6,7 +6,12 @@ import {
   spanOfSubstring,
   tokenizePassage,
 } from "$lib/level-test/passage";
-import { foldDiacritics } from "$lib/level-test/grade";
+import {
+  foldDiacritics,
+  gradeDictation,
+  numberValue,
+  tokenizeWords,
+} from "$lib/level-test/grade";
 import type { CTestPart } from "$lib/level-test/types";
 
 import { aspectItems } from "./aspect";
@@ -14,6 +19,7 @@ import { listeningSets } from "./listening";
 import { ctestPassages } from "./passages";
 import { readingSets } from "./reading";
 import { cliticItems } from "./word-order";
+import { tagWord } from "./word-tags";
 
 describe("interactive reading content", () => {
   for (const set of readingSets) {
@@ -128,6 +134,23 @@ describe("generated items", () => {
         items.listenLength.some((other) => other.word === partner),
         partner,
       ).toBe(true);
+    }
+  });
+
+  it("lets digits stand for every number a Listen and Type sentence says", () => {
+    for (const item of items.listenType) {
+      const words = tokenizeWords(item.text);
+      words.forEach((word, index) => {
+        if (
+          tagWord(word, { previous: words[index - 1], next: words[index + 1] }).class !==
+          "numeral"
+        )
+          return;
+        const value = numberValue(word);
+        expect(value, `${item.id}: ${word}`).not.toBeNull();
+        const typed = item.text.replace(word, String(value));
+        expect(gradeDictation(item.text, typed), `${item.id}: ${typed}`).toBe(1);
+      });
     }
   });
 

@@ -148,6 +148,18 @@ const REVIEWED_REJECTS = new Set([
   "špecifikačný",
 ]);
 
+/**
+ * Fill in the Blanks items dropped on review: Latin (in memoriam), tennis
+ * jargon (brejk), and druhých meaning "others", which is no numeral. They go
+ * after sampling so the rest of the pool stays as it was.
+ */
+const REVIEWED_FILL_REJECTS = new Set([
+  "fb-memoriam",
+  "fb-brejk",
+  "fb-num-53434b205c",
+  "fb-num-f80d81b385",
+]);
+
 /** A negated or superlative real word is itself a real word. */
 const TRANSPARENT_PREFIXES = ["ne", "naj"];
 
@@ -869,16 +881,18 @@ async function main(): Promise<void> {
         ...item,
         id: `fb-num-${audioHash(item.source.slovak).slice(0, 10)}`,
       })),
-    ].map((item) => ({
-      id: item.id,
-      format: "fillBlank" as const,
-      difficulty: round(item.difficulty),
-      before: item.before,
-      prefix: item.prefix,
-      missing: item.missing,
-      after: item.after,
-      english: item.source.english,
-    })),
+    ]
+      .filter((item) => !REVIEWED_FILL_REJECTS.has(item.id))
+      .map((item) => ({
+        id: item.id,
+        format: "fillBlank" as const,
+        difficulty: round(item.difficulty),
+        before: item.before,
+        prefix: item.prefix,
+        missing: item.missing,
+        after: item.after,
+        english: item.source.english,
+      })),
     listenType: listenType.map((item) => ({
       id: `lt-${audioHash(item.source.slovak).slice(0, 10)}`,
       format: "listenType" as const,
