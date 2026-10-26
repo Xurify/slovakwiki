@@ -46,7 +46,7 @@ export const LOOKS: Readonly<Record<LessonCharacterId, Look>> = {
   },
   anna: {
     gait: 0.92,
-    crown: 6.4,
+    crown: 7.6,
     blush: true,
     nameClass: "text-rose-700",
     scarfClass: "fill-scene-sage",

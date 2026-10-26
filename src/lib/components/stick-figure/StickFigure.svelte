@@ -27,9 +27,32 @@
   import StickPicture from "./StickPicture.svelte";
   import StickProp from "./StickProp.svelte";
   import StickTorso from "./StickTorso.svelte";
-  import { sineInOut } from "svelte/easing";
-  import { prefersReducedMotion, Tween } from "svelte/motion";
+  import { cubicInOut, sineInOut } from "svelte/easing";
+  import { prefersReducedMotion, Spring, Tween } from "svelte/motion";
   import { untrack } from "svelte";
+
+  // The head is drawn in the 64×64 portrait space of StickHead, which the
+  // portraits show as it is; 0.82 brings its 15.2 head radius to the rig's.
+  const HEAD_SCALE = 0.82;
+
+  /**
+   * Long hair's give, in the head's 64-unit space. Svelte's spring steps
+   * once per 60th of a second, so this stiffness swings about 1.6 times a
+   * second, a pendulum the length of the hair, and this damping settles it
+   * after one swing back. `hang` is how far toward straight down the ends
+   * fall when the head tilts, `lift` how much of a drop or bob of the head
+   * they lag (hair does not stretch), `yaw` rig units of swing for a whole
+   * turn's lag.
+   */
+  const HAIR = {
+    spring: { stiffness: 0.03, damping: 0.15 },
+    length: 24,
+    hang: 0.6,
+    lift: 0.4,
+    stride: 1.2,
+    yaw: 5,
+    most: 5,
+  };
 
   let {
     characterId,
@@ -220,14 +243,55 @@
       y: dx * Math.sin(angle) + dy * Math.cos(angle),
     };
   });
+  /**
+   * What long hair answers to: the head's angle and place, and which way it
+   * faces (a turn, or round to the listeners). Each step swings the body a
+   * little, so the hair sways with the stride as well as bobbing with it.
+   */
+  const facingFront = Tween.of(() => (front ? 1 : 0), {
+    duration: () => (prefersReducedMotion.current ? 0 : TURN_MS),
+    easing: cubicInOut,
+  });
+  const hairDrive = $derived({
+    angle: rig.headAngle,
+    x: rig.head.x + pose.stride * HAIR.stride,
+    y: rig.head.y,
+    yaw: turning.current * (1 - facingFront.current),
+  });
+  /** Where the hair's ends were carried a moment ago: it lags the head, swings past and settles. */
+  const hairLag = new Spring(
+    untrack(() => hairDrive),
+    HAIR.spring,
+  );
+  $effect.pre(() => {
+    const to = hairDrive;
+    const from = untrack(() => hairLag.target);
+    // Put in place (seated as the stage first sets the cast), the hair is already there.
+    const jump =
+      Math.hypot(to.x - from.x, to.y - from.y) > 6 ||
+      Math.abs(to.angle - from.angle) > 20;
+    void hairLag.set(to, { instant: jump || prefersReducedMotion.current });
+  });
+  const hairSway = $derived.by(() => {
+    const now = hairDrive;
+    const then = hairLag.current;
+    const tilt = now.angle - then.angle * (1 - HAIR.hang);
+    const x =
+      HAIR.length * Math.sin((tilt * Math.PI) / 180) +
+      (then.x - now.x + (then.yaw - now.yaw) * HAIR.yaw * side) / HEAD_SCALE;
+    const y = ((then.y - now.y) * HAIR.lift) / HEAD_SCALE;
+    return {
+      x: n(Math.max(-HAIR.most, Math.min(HAIR.most, x))),
+      y: n(Math.max(-HAIR.most * 0.6, Math.min(HAIR.most * 0.6, y))),
+    };
+  });
+
   const torsoTransform = $derived(
     `translate(${n(rig.hip.x)} ${n(rig.hip.y)}) rotate(${n(rig.lean)})`,
   );
 
-  // The head is drawn in the 64×64 portrait space of StickHead, which the
-  // portraits show as it is; 0.82 brings its 15.2 head radius to the rig's.
   const headTransform = $derived(
-    `translate(${n(rig.head.x)} ${n(rig.head.y)}) rotate(${n(rig.headAngle)}) scale(0.82) translate(-32 -29)`,
+    `translate(${n(rig.head.x)} ${n(rig.head.y)}) rotate(${n(rig.headAngle)}) scale(${HEAD_SCALE}) translate(-32 -29)`,
   );
 </script>
 
@@ -409,14 +473,18 @@
 
     <g transform={headTransform}>
       <!-- Under the hair behind the head as well as the skull: drawn over a lob, the far half framed the face like a hood. -->
-      {#if dress.headwear === "headphones"}
-        <path d={headband(1.2, "far")} class="stroke-portrait-ink" stroke-width="3.2" />
-        <path d={headband(1.2, "far")} class="stroke-scene-line" stroke-width="1.5" />
-      {:else if dress.headwear === "headset"}
+      {#if dress.headwear === "headset"}
         <path d={headband(0.4, "far")} class="stroke-portrait-ink" stroke-width="1.8" />
       {/if}
 
-      <StickHead {characterId} part="back" {pose} turn={front ? 0 : undefined} {round} />
+      <StickHead
+        {characterId}
+        part="back"
+        {pose}
+        turn={front ? 0 : undefined}
+        {round}
+        sway={hairSway}
+      />
     </g>
 
     {@render arm(rig.rearShoulder, rig.rearArm)}
@@ -448,31 +516,16 @@
     {/if}
 
     <g transform={headTransform}>
-      <StickHead {characterId} {pose} turn={front ? 0 : undefined} {round} />
+      <StickHead
+        {characterId}
+        {pose}
+        turn={front ? 0 : undefined}
+        {round}
+        sway={hairSway}
+        headphones={dress.headwear === "headphones"}
+      />
 
-      {#if dress.headwear === "headphones"}
-        <!-- Closed-back studio headphones in the head's own 64-unit space: a padded band over the hair, a deep cup over the near ear. -->
-        <path d={headband(1.2, "near")} class="stroke-portrait-ink" stroke-width="3.2" />
-        <path d={headband(1.2, "near")} class="stroke-scene-line" stroke-width="1.5" />
-        <!-- The cushion against the head, then the shell, both centred on the ear (x 18, y 29.6). -->
-        <ellipse
-          cx="18.6"
-          cy="29.6"
-          rx="4.4"
-          ry="6.4"
-          class="fill-portrait-ink stroke-portrait-ink"
-          stroke-width="1.2"
-        />
-        <ellipse
-          cx="17.6"
-          cy="29.6"
-          rx="4"
-          ry="5.9"
-          class="fill-portrait-vest stroke-portrait-ink"
-          stroke-width="1.2"
-        />
-        <ellipse cx="16.9" cy="28.4" rx="1.5" ry="2.8" class="fill-scene-line/60" />
-      {:else if dress.headwear === "headset"}
+      {#if dress.headwear === "headset"}
         <!-- A headset: slim band, a cup on the near ear, and a boom mic curving to the mouth. -->
         <path d={headband(0.4, "near")} class="stroke-portrait-ink" stroke-width="1.8" />
         <circle
