@@ -75,6 +75,8 @@
   import StickFigureActor from "./StickFigureActor.svelte";
   import StickFurniture from "./StickFurniture.svelte";
   import StickLeash from "./StickLeash.svelte";
+  import StudioDesk from "./StudioDesk.svelte";
+  import { STICK_BOX } from "$lib/stick-figure/rig";
 
   interface ActorState {
     cue: number;
@@ -698,6 +700,15 @@
           <StickFurniture {piece} />
         </div>
       {/each}
+      {#if frame.desk}
+        <StudioDesk
+          height={stageHeight}
+          layer="behind"
+          seats={frame.seats}
+          unit={frame.figureWidth / STICK_BOX.width}
+          width={stageWidth}
+        />
+      {/if}
       {#each direction.cast as characterId (characterId)}
         <div
           class="pointer-events-none absolute transition-transform ease-linear"
@@ -730,6 +741,15 @@
       {/each}
       {#if leash}
         <StickLeash ms={leash.ms} span={leash.span} />
+      {/if}
+      {#if frame.desk}
+        <StudioDesk
+          height={stageHeight}
+          layer="front"
+          seats={frame.seats}
+          unit={frame.figureWidth / STICK_BOX.width}
+          width={stageWidth}
+        />
       {/if}
     {/if}
 

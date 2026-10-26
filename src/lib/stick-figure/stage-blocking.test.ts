@@ -199,8 +199,17 @@ describe("sitting", () => {
   });
 
   it("stays standing where there is no chair", () => {
-    const { before } = staged(lines, "studio");
+    const { before } = staged(lines, "market");
 
     expect(before(1).seated).toEqual({});
+  });
+
+  it("seats the hosts at the studio desk from the start, turned to each other", () => {
+    const { before } = staged(lines, "studio");
+    const state = before(0);
+
+    expect(Object.keys(state.seated).sort()).toEqual(["anna", "marek", "maria"]);
+    expect(state.facings.maria).toBe(1);
+    expect(state.facings.marek).toBe(-1);
   });
 });
