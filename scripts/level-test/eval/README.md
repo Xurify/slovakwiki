@@ -40,7 +40,7 @@ Then list what the reviewers flagged:
 bun scripts/level-test/eval.ts -- check
 ```
 
-Fix or drop each flagged answer or error in `bases.ts`, run `bun run test` (it fails on any error that no longer fits its answer), and review again. Where a reviewer and Claude disagree on Slovak, check KSSJ or the SNK (see the `slovak-language` skill) rather than taking either side.
+Fix or drop each flagged answer or error in `bases.ts`, run `bun run test` (it fails on any error that no longer fits its answer), and review again. Where a reviewer and Claude disagree on Slovak, check KSSJ or the SNK (see the `slovak-language` skill) rather than taking either side. Reviewers get things wrong too: one review of this set called _ovocie_ a mistake and offered the Czech _ovoce_ as the fix, and quoted sentences that are not in the set.
 
 `check --snk` also looks up every word of the clean answers in the SNK form lists (downloaded once to `tmp/snk/`) and warns when an accent error is a common word in its own right.
 
@@ -94,4 +94,4 @@ It prints a table, one column per model, and writes `tmp/level-test-eval/report.
 
 ## Adding answers
 
-Each base needs the prompt it answers (`promptId`, `photo` or `listening`), a target level, `seconds` for spoken tasks, and mutations whose `from` occurs once in the full answer. For a photo answer, look at the photo first and describe only what is there. `bun run test` checks the rest.
+Each base needs the prompt it answers (`promptId`, `photo` or `listening`), a target level, `seconds` for spoken tasks, and mutations whose `from` occurs once in the full answer. When a careful marker could file an error under a second topic (a perfective read as future tense is also a verb-form error), list it in `alsoTopics`. For a photo answer, look at the photo first and describe only what is there. `bun run test` checks the rest.

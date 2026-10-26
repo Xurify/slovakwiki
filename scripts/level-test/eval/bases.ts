@@ -32,7 +32,7 @@ export const EVAL_BASES: EvalBase[] = [
     targetLevel: "A2",
     source: "claude",
     response:
-      "Na fotke je pekná kaviareň. Má veľké okná a drevené stoly. Na stoloch sú malé kvety. V kaviarni nie je veľa ľudí, vzadu sedí jeden človek. Na stenách visia obrázky a zo stropu visia lampy. Páči sa mi tam.",
+      "Na fotke je pekná kaviareň. Má veľké okná a drevené stoly. Na stoloch sú malé kvety. V kaviarni nie je veľa ľudí, jeden človek sedí vzadu a druhý stojí pri pulte. Na stenách visia obrázky a zo stropu visia lampy. Páči sa mi tam.",
     mutations: [
       { topic: "adjectiveAgreement", from: "pekná kaviareň", to: "pekný kaviareň" },
       { topic: "wordOrder", from: "Páči sa mi tam", to: "Páči mi sa tam" },
@@ -55,7 +55,12 @@ export const EVAL_BASES: EvalBase[] = [
       { topic: "nounEndings", from: "vedľa babky", to: "vedľa babka" },
       { topic: "functionWords", from: "si myslím", to: "sa myslím" },
       { topic: "adjectiveAgreement", from: "biely obrus", to: "biela obrus" },
-      { topic: "aspect", from: "sa usmievajú", to: "sa usmejú" },
+      {
+        topic: "aspect",
+        from: "sa usmievajú",
+        to: "sa usmejú",
+        alsoTopics: ["verbForms"],
+      },
       { topic: "wordOrder", from: "že sa majú radi", to: "že majú sa radi" },
       { topic: "verbForms", from: "Vyzerá to", to: "Vyzerajú to" },
     ],
@@ -72,12 +77,13 @@ export const EVAL_BASES: EvalBase[] = [
     mutations: [
       { topic: "nounEndings", from: "so sochou", to: "so socha" },
       { topic: "adjectiveAgreement", from: "červená budova", to: "červený budova" },
-      { topic: "aspect", from: "sa prechádza", to: "sa prejde" },
       {
-        topic: "functionWords",
-        from: "v historickom centre",
-        to: "na historickom centre",
+        topic: "aspect",
+        from: "sa prechádza",
+        to: "sa prejde",
+        alsoTopics: ["verbForms"],
       },
+      { topic: "functionWords", from: "so slnečníkmi", to: "zo slnečníkmi" },
       { topic: "wordOrder", from: "hoci si viem", to: "hoci viem si" },
       { topic: "verbForms", from: "stoja farebné", to: "stojí farebné" },
     ],
@@ -95,7 +101,12 @@ export const EVAL_BASES: EvalBase[] = [
       { topic: "vocabulary", from: "Možno ide o", to: "Možno sa jedná o" },
       { topic: "nounEndings", from: "dvoma letmi", to: "dvoma letami" },
       { topic: "adjectiveAgreement", from: "lesklú dlážku", to: "lesklý dlážku" },
-      { topic: "aspect", from: "nikto nečaká", to: "nikto nepočká" },
+      {
+        topic: "aspect",
+        from: "nikto nečaká",
+        to: "nikto nepočká",
+        alsoTopics: ["verbForms"],
+      },
       { topic: "wordOrder", from: "keď sa letisko", to: "keď letisko sa" },
       { topic: "verbForms", from: "vrhajú", to: "vrhá" },
     ],
@@ -145,13 +156,18 @@ export const EVAL_BASES: EvalBase[] = [
     seconds: 85,
     source: "claude",
     response:
-      "Na fotke je pláž s jemným bielym pieskom a priezračnou tyrkysovou vodou. Vlny sú malé a pomaly sa rozlievajú po piesku. Na obzore vidno ostrov alebo možno nejaký kopec. Obloha je modrá, ale je na nej veľa oblakov, takže sa zdá, že sa počasie môže čoskoro zmeniť. Na pláži nie sú žiadni ľudia ani lehátka, čo je dosť nezvyčajné. Vyzerá to ako miesto, kam by som chcel ísť na dovolenku, keby som mal viac času a peňazí.",
+      "Na fotke je pláž s jemným bielym pieskom a priezračnou tyrkysovou vodou. Vlny sú malé a pomaly sa rozlievajú po piesku. Na obzore vidno ostrov alebo možno nejaký kopec. Obloha je modrá, ale je na nej veľa oblakov, takže sa zdá, že sa počasie môže čoskoro zmeniť. Na pláži nie sú žiadni ľudia ani ležadlá, čo je dosť nezvyčajné. Vyzerá to ako miesto, kam by som chcel ísť na dovolenku, keby som mal viac času a peňazí.",
     mutations: [
       { topic: "nounEndings", from: "pieskom", to: "piesok" },
       { topic: "adjectiveAgreement", from: "žiadni ľudia", to: "žiadne ľudia" },
-      { topic: "aspect", from: "sa rozlievajú", to: "sa rozlejú" },
+      {
+        topic: "aspect",
+        from: "sa rozlievajú",
+        to: "sa rozlejú",
+        alsoTopics: ["verbForms"],
+      },
       { topic: "wordOrder", from: "kam by som chcel", to: "kam som by chcel" },
-      { topic: "functionWords", from: "ani lehátka", to: "aj lehátka" },
+      { topic: "functionWords", from: "ani ležadlá", to: "aj ležadlá" },
       { topic: "verbForms", from: "Vlny sú malé", to: "Vlny je malé" },
     ],
   },
@@ -286,8 +302,13 @@ export const EVAL_BASES: EvalBase[] = [
       "Podľa mňa prináša turizmus mestám výhody aj problémy a záleží najmä na tom, ako ho mesto riadi. Turisti míňajú peniaze v hoteloch, reštauráciách a obchodoch, vďaka čomu vznikajú nové pracovné miesta. Mnohé historické budovy by bez peňazí od návštevníkov chátrali. Na druhej strane sa centrá niektorých miest, napríklad Benátok alebo Prahy, menia na kulisy pre turistov. Byty sa prenajímajú cez internet, nájomné rastie a domáci obyvatelia sa sťahujú na okraj mesta. Preto by mestá mali turizmus regulovať, napríklad obmedziť krátkodobé prenájmy alebo zaviesť poplatok pre jednodňových návštevníkov.",
     mutations: [
       { topic: "nounEndings", from: "v hoteloch", to: "v hotely" },
-      { topic: "functionWords", from: "na okraj mesta", to: "do okraja mesta" },
-      { topic: "aspect", from: "nájomné rastie", to: "nájomné vzrastie" },
+      { topic: "functionWords", from: "výhody aj problémy", to: "výhody ani problémy" },
+      {
+        topic: "aspect",
+        from: "nájomné rastie",
+        to: "nájomné vzrastie",
+        alsoTopics: ["verbForms"],
+      },
       { topic: "adjectiveAgreement", from: "Mnohé historické", to: "Mnohí historické" },
       { topic: "wordOrder", from: "Preto by mestá mali", to: "Preto mestá by mali" },
       { topic: "verbForms", from: "Turisti míňajú", to: "Turisti míňa" },
@@ -302,7 +323,7 @@ export const EVAL_BASES: EvalBase[] = [
     response:
       "Myšlienka, aby boli múzeá, galérie a divadlá prístupné bezplatne, znie na prvý pohľad lákavo. Kultúra by sa tak dostala aj k ľuďom, ktorí si dnes lístok nemôžu dovoliť, a deti z chudobnejších rodín by mali rovnakú šancu spoznať umenie ako ich rovesníci. Navyše by vstup zadarmo mohol prilákať návštevníkov, ktorí by inak do galérie nikdy nezavítali.\n\nNa druhej strane treba zvážiť, kto by takéto inštitúcie financoval. Ak by štát prestal vyberať vstupné, peniaze by musel vziať z iných oblastí, napríklad zo školstva alebo zo zdravotníctva. Hrozí aj to, že by si ľudia prestali vážiť niečo, za čo nemusia platiť.\n\nZa rozumný kompromis považujem model, v ktorom by boli stále expozície zadarmo aspoň raz do mesiaca a študenti a dôchodcovia by mali výraznú zľavu. Tak by sa kultúra otvorila širšej verejnosti bez toho, aby inštitúcie prišli o podstatnú časť príjmov.",
     mutations: [
-      { topic: "vocabulary", from: "treba zvážiť", to: "je potreba zvážiť" },
+      { topic: "vocabulary", from: "Navyše", to: "Navíc" },
       {
         topic: "nounEndings",
         from: "z chudobnejších rodín",
@@ -311,7 +332,7 @@ export const EVAL_BASES: EvalBase[] = [
       { topic: "aspect", from: "prestal vyberať", to: "prestal vybrať" },
       { topic: "wordOrder", from: "že by si ľudia", to: "že by ľudia si" },
       { topic: "adjectiveAgreement", from: "výraznú zľavu", to: "výrazný zľavu" },
-      { topic: "functionWords", from: "bez toho, aby", to: "bez toho, že" },
+      { topic: "functionWords", from: "bez toho, aby", to: "bez toho, keby" },
     ],
   },
   {
@@ -354,7 +375,12 @@ export const EVAL_BASES: EvalBase[] = [
       "Susedka z bytu podo mnou, pani Mária, sa sťažovala, že u mňa bol včera hluk až do jednej v noci a nemohla spať. S priateľmi sme pozerali hokejové finále a zrejme sme boli dosť hluční. Vysvetlila mi, že vstáva o piatej do práce a že nočný pokoj platí od desiatej. Ospravedlnil som sa a sľúbil som jej, že nabudúce budeme po desiatej potichu a o návšteve jej dám vedieť aspoň deň vopred.",
     mutations: [
       { topic: "nounEndings", from: "o návšteve", to: "o návštevu" },
-      { topic: "aspect", from: "jej dám vedieť", to: "jej budem dať vedieť" },
+      {
+        topic: "aspect",
+        from: "jej dám vedieť",
+        to: "jej budem dať vedieť",
+        alsoTopics: ["verbForms"],
+      },
       { topic: "adjectiveAgreement", from: "nočný pokoj", to: "nočná pokoj" },
       { topic: "wordOrder", from: "Ospravedlnil som sa", to: "Ospravedlnil sa som" },
       { topic: "functionWords", from: "od desiatej", to: "z desiatej" },
@@ -442,10 +468,15 @@ export const EVAL_BASES: EvalBase[] = [
     mutations: [
       { topic: "nounEndings", from: "pri sviečkach", to: "pri sviečky" },
       { topic: "vocabulary", from: "nejde o jeden", to: "nejedná sa o jeden" },
-      { topic: "aspect", from: "berieme ako", to: "zoberieme ako" },
+      {
+        topic: "aspect",
+        from: "berieme ako",
+        to: "zoberieme ako",
+        alsoTopics: ["vocabulary"],
+      },
       { topic: "wordOrder", from: "by som nechcel", to: "nechcel by som" },
       { topic: "adjectiveAgreement", from: "moderné nemocnice", to: "moderní nemocnice" },
-      { topic: "functionWords", from: "ako žili", to: "čo žili" },
+      { topic: "functionWords", from: "internet ani", to: "internet aj" },
     ],
   },
   {
@@ -460,7 +491,12 @@ export const EVAL_BASES: EvalBase[] = [
     mutations: [
       { topic: "vocabulary", from: "pomerne rýchlo", to: "poměrně rýchlo" },
       { topic: "nounEndings", from: "v lotérii", to: "v lotéria" },
-      { topic: "aspect", from: "ľahšie znesie", to: "ľahšie bude zniesť" },
+      {
+        topic: "aspect",
+        from: "ľahšie znesie",
+        to: "ľahšie bude zniesť",
+        alsoTopics: ["verbForms"],
+      },
       { topic: "wordOrder", from: "na ktorých sa môžeme", to: "na ktorých môžeme sa" },
       {
         topic: "adjectiveAgreement",

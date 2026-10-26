@@ -162,7 +162,10 @@ async function check(cases: EvalCase[], withSnk: boolean): Promise<void> {
     };
     console.log(`\nReview ${file}:`);
     for (const base of review.bases ?? []) {
+      const current = EVAL_BASES.find((entry) => entry.id === base.id);
+      const text = `${current?.response ?? ""} ${current?.followUp ?? ""}`;
       for (const problem of base.problems ?? []) {
+        if (!text.includes(problem.quote)) continue;
         console.log(
           `  ${base.id}: "${problem.quote}" — ${problem.problem} → ${problem.fix}`,
         );
@@ -224,6 +227,7 @@ async function review(cases: EvalCase[], model: string | undefined): Promise<voi
         id: entry.id,
         kind: entry.request.kind,
         prompt: entry.request.prompt,
+        ...(entry.request.imageUrl ? { photoUrl: entry.request.imageUrl } : {}),
         answer: entry.request.response,
         description: ADVERSARIAL.find((input) => input.id === entry.id)?.why,
         expected: entry.expect,

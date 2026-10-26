@@ -222,7 +222,9 @@ export function summarize(
           if (found.has(error)) continue;
           found.add(error);
           topicAccuracy.total++;
-          if (issue.topic === error.topic) topicAccuracy.hit++;
+          if (issue.topic === error.topic || error.alsoTopics?.includes(issue.topic)) {
+            topicAccuracy.hit++;
+          }
           fixRate.total++;
           if (fixesError(issue.correct, error)) fixRate.hit++;
         }

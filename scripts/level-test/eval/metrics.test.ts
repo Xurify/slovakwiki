@@ -115,4 +115,37 @@ describe("summarize", () => {
     expect(value("Czech in corrections")).toBe(1);
     expect(summary!.misses.map((miss) => miss.caseId)).toEqual(["a/clean", "adv"]);
   });
+
+  it("accepts a second topic the mutation allows", () => {
+    const aspect = placeMutations("Všetci sa usmievajú.", [
+      {
+        topic: "aspect",
+        alsoTopics: ["verbForms"],
+        from: "sa usmievajú",
+        to: "sa usmejú",
+      },
+    ]);
+    const entry: EvalCase = {
+      ...cases[1]!,
+      request: { kind: "writePhoto", prompt: "p", response: aspect.text },
+      errors: aspect.placed,
+    };
+    const [summary] = summarize(
+      [entry],
+      [
+        {
+          caseId: entry.id,
+          model: "m",
+          repeat: 0,
+          ms: 1,
+          score: score({
+            issues: [{ topic: "verbForms", wrote: "sa usmejú", correct: "sa usmievajú" }],
+          }),
+        },
+      ],
+    );
+    expect(
+      summary!.checks.find((check) => check.name.startsWith("Right topic"))?.value,
+    ).toBe(1);
+  });
 });

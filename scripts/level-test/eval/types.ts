@@ -12,6 +12,8 @@ export type EvalSource = "claude" | "own";
 /** One known error: `from` appears exactly once in the clean answer and becomes `to`. */
 export interface Mutation {
   topic: AiIssueTopic;
+  /** Other topics a careful marker could file it under, e.g. a perfective read as future tense. */
+  alsoTopics?: AiIssueTopic[];
   from: string;
   to: string;
 }
