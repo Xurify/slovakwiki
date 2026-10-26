@@ -42,6 +42,10 @@ export interface LineOptions {
   props?: DialogueTurn["props"];
   /** Who it is said to, when that is not who it replies to. */
   to?: string;
+  /** The phone rings or pings before the line; on a call the speaker answers. */
+  ring?: DialogueTurn["ring"];
+  /** Said at the far end of a call. */
+  overPhone?: boolean;
 }
 
 /** The lines of one episode, their ids under `prefix`. */
@@ -51,7 +55,7 @@ export function lineWriter(prefix: string) {
     speaker: string,
     parts: Part[],
     english: string,
-    { gestures, props, to }: LineOptions = {},
+    { gestures, overPhone, props, ring, to }: LineOptions = {},
   ): DialogueTurn {
     const marked = markedText(
       parts.flatMap((part): MarkedPart[] =>
@@ -86,6 +90,8 @@ export function lineWriter(prefix: string) {
       ...(gestures ? { gestures } : {}),
       ...(props ? { props } : {}),
       ...(to ? { to } : {}),
+      ...(ring ? { ring } : {}),
+      ...(overPhone ? { overPhone } : {}),
     };
   };
 }

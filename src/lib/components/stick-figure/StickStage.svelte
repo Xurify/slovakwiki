@@ -561,7 +561,11 @@
 
     for (const actor of Object.values(actors)) actor.talking = false;
     spoken = { at: performance.now(), durationMs: plan?.durationMs ?? 1600, rate };
-    const speaker = line.characterId;
+    // A voice over the phone has nobody on stage to move.
+    const speaker =
+      line.characterId && direction.cast.includes(line.characterId)
+        ? line.characterId
+        : null;
     front = staging?.audience && speaker ? speaker : undefined;
     turns = turnDelays(direction.cast, speaker);
     facings = { ...facings, ...staging?.facing };
@@ -698,6 +702,7 @@
             plan={actors[characterId]?.plan}
             held={heldBy(characterId)}
             seated={seated[characterId] !== undefined}
+            onCall={direction.lines[heldAt]?.call === characterId}
             {dress}
             talking={actors[characterId]?.talking ?? false}
             turnDelay={turns[characterId] ?? 0}

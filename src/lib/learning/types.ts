@@ -57,6 +57,14 @@ export interface DialogueTurn {
   to?: string;
   /** Silence before the line, ms: a moment for the listener to decide before the answer comes. */
   wait?: number;
+  /**
+   * The phone rings, or pings with a message, before this line. On a call,
+   * the line's speaker answers and holds the phone to their ear until the
+   * call's last line.
+   */
+  ring?: "call" | "message";
+  /** Said at the far end of a call: heard, not seen on stage. */
+  overPhone?: boolean;
 }
 
 export interface LessonTrack {

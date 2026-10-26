@@ -650,3 +650,49 @@ export function playSegmentCue(): void {
   strike(strikeKit, 988, 0.18, 1.4, 0.16);
   window.setTimeout(() => out.disconnect(), 2000);
 }
+
+/** How long the phone sounds before the line that answers or reads it, ms. */
+export const PHONE_CUE_MS = { call: 2600, message: 800 } as const;
+
+/**
+ * A phone in the room: a call rings twice, a pair of warbling bursts each;
+ * a message pings once, two quick notes. Plays with background sound off,
+ * like footsteps, but not with sound off.
+ */
+export function playPhoneCue(kind: "call" | "message"): void {
+  if (getStoredSfxPreference() === "off") return;
+  const kit = cues();
+  if (!kit) return;
+
+  const { ctx } = kit;
+  const out = ctx.createGain();
+  out.gain.value = 0.3 * getAudioVolume();
+  out.connect(ctx.destination);
+  const now = ctx.currentTime;
+
+  const beep = (frequency: number, at: number, length: number, level: number) => {
+    const tone = ctx.createOscillator();
+    const gain = ctx.createGain();
+    tone.type = "triangle";
+    tone.frequency.value = frequency;
+    gain.gain.setValueAtTime(0.0001, now + at);
+    gain.gain.exponentialRampToValueAtTime(level, now + at + 0.012);
+    gain.gain.setValueAtTime(level, now + at + length - 0.02);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + at + length);
+    tone.connect(gain).connect(out);
+    tone.start(now + at);
+    tone.stop(now + at + length + 0.02);
+  };
+
+  if (kind === "message") {
+    beep(1320, 0, 0.09, 0.35);
+    beep(1760, 0.12, 0.16, 0.3);
+  } else {
+    for (const ring of [0, 1.3]) {
+      for (let burst = 0; burst < 10; burst += 1) {
+        beep(burst % 2 ? 1180 : 1480, ring + burst * 0.05, 0.05, 0.22);
+      }
+    }
+  }
+  window.setTimeout(() => out.disconnect(), 3200);
+}

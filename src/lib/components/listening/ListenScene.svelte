@@ -1,7 +1,9 @@
 <script module lang="ts">
   import {
+    PHONE_CUE_MS,
     ambienceFor,
     playAmbience,
+    playPhoneCue,
     playSegmentCue,
     stopSteps,
     type AmbiencePlayer,
@@ -115,6 +117,12 @@
       settled = true;
       playSegmentCue();
       wait = Math.max(wait, SETTLE_MS);
+    }
+
+    const ring = scene.lines[index]?.ring;
+    if (ring) {
+      playPhoneCue(ring);
+      wait = Math.max(wait, PHONE_CUE_MS[ring]);
     }
 
     const last = index === scene.lines.length - 1;

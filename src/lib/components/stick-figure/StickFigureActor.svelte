@@ -21,6 +21,8 @@
 
   /** Sitting down or getting up takes about as long as a step and a half. */
   const SIT_MS = 600;
+  /** Bringing the phone up to the ear, or down. */
+  const PHONE_MS = 400;
 
   let {
     characterId,
@@ -33,6 +35,7 @@
     held,
     dress,
     seated = false,
+    onCall = false,
     talking = false,
     turnDelay = 0,
     walk,
@@ -53,6 +56,8 @@
     dress?: Dress;
     /** On a chair: they sit once any walk there is over, and get up before walking on. */
     seated?: boolean;
+    /** On a call: the phone at their ear. */
+    onCall?: boolean;
     /** True while the line `plan` belongs to plays: this figure's own, or one it reacts to. */
     talking?: boolean;
     /** Ms before a change of `facing` starts. */
@@ -63,6 +68,7 @@
 
   let pose = $state<StickPose>(REST_POSE);
   const sitting = new Tween(0, { easing: cubicInOut });
+  const calling = new Tween(0, { easing: cubicInOut });
 
   let picture = $state<StickPictureId>();
   /** The way a point in flight turns the figure, when its target is behind it. */
@@ -117,6 +123,14 @@
     });
   });
 
+  $effect(() => {
+    const up = onCall;
+    untrack(() => {
+      const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      void calling.set(up ? 1 : 0, { duration: still ? 0 : PHONE_MS });
+    });
+  });
+
   $effect(() => () => cancelAnimationFrame(frame));
 
   function run(): void {
@@ -158,5 +172,6 @@
   {held}
   {dress}
   sit={sitting.current}
+  call={calling.current}
   turnDelay={turned ? 0 : turnDelay}
 />
