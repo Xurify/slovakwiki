@@ -33,6 +33,7 @@ import {
 import { PLACES, type PlaceSet } from "$lib/stick-figure/places";
 import { HEAD_RADIUS, STICK_BOX, solveRig, type Point } from "$lib/stick-figure/rig";
 import { REST_POSE } from "$lib/stick-figure/pose";
+import { CHAIR_OUT } from "$lib/stick-figure/walk";
 import {
   DESK_REACH,
   OBJECT_SIZE,
@@ -471,7 +472,8 @@ export function checkCues(
   const furnitureAt = (x: number): string | undefined => {
     for (const [index, seat] of seats.entries()) {
       if (frame.desk) break;
-      const middle = seat.x / unit;
+      // An empty chair stands drawn back from the table (CHAIR_OUT), out into the floor beside it.
+      const middle = seat.x / unit - CHAIR_OUT * seat.facing;
       const [back, front] = [
         middle - CHAIR.back * seat.facing,
         middle + CHAIR.front * seat.facing,

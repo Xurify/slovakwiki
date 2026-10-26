@@ -162,14 +162,14 @@ const KITCHEN_SET: PlaceSet = {
   spots: {
     door: { x: 226, facing: 1 },
     // A step in from the door, short of the end chair's back.
-    inside: { x: 246, facing: 1 },
+    inside: { x: 236, facing: 1 },
     // Clear of the table's end chair, where the guests stand about and talk, a step apart.
     middle: { x: 498, facing: 1 },
     chat: { x: 567, facing: -1 },
     // Out of the cooks' way past the table's end, watching.
-    aside: { x: 490, facing: 1 },
+    aside: { x: 502, facing: 1 },
     // Short of the counter's end, to set something on it.
-    "counter-end": { piece: "counter", dx: -80, facing: 1 },
+    "counter-end": { piece: "counter", dx: -70, facing: 1 },
     // At the stove's left, facing the towel on the oven door.
     "by-towel": { piece: "stove", dx: -24, facing: 1 },
     sink: { piece: "counter", dx: -34, facing: 1 },
