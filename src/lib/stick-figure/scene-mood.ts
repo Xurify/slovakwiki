@@ -1,5 +1,4 @@
-import { answersForTime } from "$lib/learning/time/clock-phrases";
-import type { QuarterMinute } from "$lib/learning/time/clock-types";
+import { answersForTime, type QuarterMinute } from "$lib/learning/time/clock";
 import { foldLine, matchesWord, opens, type WordCues } from "./slovak-text";
 
 export type TimeOfDay = "morning" | "day" | "evening" | "night";
