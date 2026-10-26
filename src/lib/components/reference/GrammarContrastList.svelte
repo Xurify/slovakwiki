@@ -84,8 +84,8 @@
               "grid gap-x-6 gap-y-2 border-t border-slate-200/70 px-4 py-3 first:border-t-0 sm:px-5",
               frame.scene ? "md:items-center" : "md:items-start",
               withScenes
-                ? "md:grid-cols-[8rem_minmax(0,1fr)_minmax(0,10rem)]"
-                : "md:grid-cols-[10rem_minmax(0,1fr)_minmax(0,10rem)]",
+                ? "md:grid-cols-[8rem_minmax(0,1fr)]"
+                : "md:grid-cols-[10rem_minmax(0,1fr)]",
             )}
           >
             <div
@@ -107,31 +107,35 @@
               </span>
             </div>
 
-            <GrammarSentence
-              audioKey={audioKey && audioKeys.includes(audioKey) ? audioKey : undefined}
-              {reserveAudio}
-              english={choice.english}
+            <!-- The why sits level with the Slovak, not centred on the row. -->
+            <div
+              class="grid min-w-0 gap-x-6 gap-y-1 md:grid-cols-[minmax(0,1fr)_minmax(0,10rem)] md:items-start"
             >
-              {#each segmentsFromMarks(choice.slovak.text, choice.slovak.marks) as segment, index (index)}
-                {#if segment.role}
-                  <span class={grammarMarkClass(segment.role)}>{segment.text}</span>
-                {:else}
-                  {segment.text}
-                {/if}
-              {/each}
-            </GrammarSentence>
-
-            {#if choice.why}
-              <p
-                class={cx(
-                  "m-0 min-w-0 text-sm leading-snug text-pretty text-slate-600 md:text-right",
-                  !frame.scene && "md:pt-1.5",
-                  reserveAudio && "pl-10 md:pl-0",
-                )}
+              <GrammarSentence
+                audioKey={audioKey && audioKeys.includes(audioKey) ? audioKey : undefined}
+                {reserveAudio}
+                english={choice.english}
               >
-                <GrammarRichText text={choice.why} />
-              </p>
-            {/if}
+                {#each segmentsFromMarks(choice.slovak.text, choice.slovak.marks) as segment, index (index)}
+                  {#if segment.role}
+                    <span class={grammarMarkClass(segment.role)}>{segment.text}</span>
+                  {:else}
+                    {segment.text}
+                  {/if}
+                {/each}
+              </GrammarSentence>
+
+              {#if choice.why}
+                <p
+                  class={cx(
+                    "m-0 min-w-0 text-sm leading-snug text-pretty text-slate-600 md:pt-1.5 md:text-right",
+                    reserveAudio && "pl-10 md:pl-0",
+                  )}
+                >
+                  <GrammarRichText text={choice.why} />
+                </p>
+              {/if}
+            </div>
           </li>
         {/each}
       </ol>

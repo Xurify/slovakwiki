@@ -2755,7 +2755,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "Anna is looking for her keys.",
               when: "Anna's own",
-              why: "Owner is the subject: **svoj**",
+              why: "Subject's own: **svoj**",
             },
             {
               at: "other",
@@ -2792,7 +2792,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "Tom is calling his mom.",
               when: "Tom's own",
-              why: "Owner is the subject: **svoj**",
+              why: "Subject's own: **svoj**",
             },
             {
               at: "other",
@@ -2827,7 +2827,7 @@ export const grammarEntries: GrammarTopic[] = [
               ]),
               english: "Eva is going to the cinema with her brother.",
               when: "Eva's own",
-              why: "Owner is the subject: **svoj**",
+              why: "Subject's own: **svoj**",
             },
             {
               at: "other",
