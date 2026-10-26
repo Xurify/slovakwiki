@@ -19,7 +19,7 @@ import type { DialogueTurn } from "$lib/learning/types";
 
 /** A direction to the voice, not shown in the text. */
 export interface Direction {
-  readonly tag: "chuckles" | "pause" | "sighs";
+  readonly tag: "chuckles" | "pause" | "sighs" | "yawns";
 }
 
 /** A beat of silence in the clip, where the speaker thinks or lets a clue sink in. */
@@ -28,6 +28,8 @@ export const PAUSE: Direction = { tag: "pause" };
 export const SIGH: Direction = { tag: "sighs" };
 /** A chuckle before the words: Anna keeping the cake's hiding place to herself. */
 export const CHUCKLE: Direction = { tag: "chuckles" };
+/** A yawn before the words: still half asleep. The stage acts each of these three out too. */
+export const YAWN: Direction = { tag: "yawns" };
 /** Words trailing off in the text, a full stop in the clip; the beat comes from the PAUSE after it. */
 export const STOP = { said: ". ", shown: "… " } as const;
 /** The listener gets this long to decide before the answer comes. */
@@ -42,6 +44,10 @@ export interface LineOptions {
   props?: DialogueTurn["props"];
   /** Who it is said to, when that is not who it replies to. */
   to?: string;
+  /** The phone rings or pings before the line; on a call the speaker answers. */
+  ring?: DialogueTurn["ring"];
+  /** Said at the far end of a call. */
+  overPhone?: boolean;
 }
 
 /** The lines of one episode, their ids under `prefix`. */
@@ -51,7 +57,7 @@ export function lineWriter(prefix: string) {
     speaker: string,
     parts: Part[],
     english: string,
-    { gestures, props, to }: LineOptions = {},
+    { gestures, overPhone, props, ring, to }: LineOptions = {},
   ): DialogueTurn {
     const marked = markedText(
       parts.flatMap((part): MarkedPart[] =>
@@ -86,6 +92,8 @@ export function lineWriter(prefix: string) {
       ...(gestures ? { gestures } : {}),
       ...(props ? { props } : {}),
       ...(to ? { to } : {}),
+      ...(ring ? { ring } : {}),
+      ...(overPhone ? { overPhone } : {}),
     };
   };
 }

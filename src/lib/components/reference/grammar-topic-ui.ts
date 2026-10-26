@@ -10,7 +10,7 @@ export function grammarMarkClass(role: TextRole): string {
 }
 
 export const grammarFormClass =
-  "font-serif text-xl leading-snug font-semibold text-slate-900";
+  "font-serif text-lg leading-snug font-semibold text-slate-900";
 
 export const grammarGlossClass = "text-[0.95rem] leading-snug text-slate-600";
 

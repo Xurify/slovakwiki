@@ -1,6 +1,7 @@
 /** Dynamic outbound lookup URLs for a Slovak lemma (Clozemaster-style). */
 
-export type ExternalLookupGroup = "translate" | "dictionary" | "examples" | "images";
+export type ExternalLookupGroup =
+  "translate" | "dictionary" | "forms" | "examples" | "images";
 
 export interface ExternalLookupLink {
   group: ExternalLookupGroup;
@@ -11,8 +12,17 @@ export interface ExternalLookupLink {
 }
 
 export interface ExternalLookupOptions {
+  /** The entry's category; Verbix has pages for verbs, nouns and adjectives only. */
+  category?: string;
   dialect?: boolean;
 }
+
+const VERBIX_PART: Partial<Record<string, string>> = {
+  Verbs: "verb",
+  Nouns: "noun",
+  Places: "noun",
+  Adjectives: "adjective",
+};
 
 /**
  * Build stable search/lookup links for a dictionary lemma.
@@ -29,6 +39,7 @@ export function externalLookupsForLemma(
   }
 
   const q = encodeURIComponent(trimmed);
+  const verbixPart = options.category ? VERBIX_PART[options.category] : undefined;
 
   return [
     {
@@ -101,6 +112,24 @@ export function externalLookupsForLemma(
       icon: "/icons/lookups/zoznam.png",
       href: `https://webslovnik.zoznam.sk/slovensko-anglicky/?s=${q}`,
     },
+    {
+      id: "slovnik-iz",
+      label: "slovník.iz.sk",
+      group: "dictionary",
+      icon: "/icons/lookups/slovnik-iz.png",
+      href: `https://slovnik.iz.sk/?word=${q}`,
+    },
+    ...(verbixPart
+      ? [
+          {
+            id: "verbix",
+            label: "Verbix",
+            group: "forms" as const,
+            icon: "/icons/lookups/verbix.png",
+            href: `https://www.verbix.com/slovak/${verbixPart}/${q}`,
+          },
+        ]
+      : []),
     ...(options.dialect
       ? [
           {

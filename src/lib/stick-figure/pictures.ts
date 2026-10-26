@@ -1,6 +1,7 @@
 import { foldLine, lineWords } from "./slovak-text";
 
 export const STICK_PICTURE_IDS = [
+  "computing",
   "flag-at",
   "flag-ca",
   "flag-cz",
@@ -18,6 +19,7 @@ export type StickPictureId = (typeof STICK_PICTURE_IDS)[number];
 
 /** What each picture shows, for notes in the lab. */
 export const STICK_PICTURE_NAMES: Record<StickPictureId, string> = {
+  computing: "Working it out",
   "flag-at": "Austrian flag",
   "flag-ca": "Canadian flag",
   "flag-cz": "Czech flag",

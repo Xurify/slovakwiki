@@ -97,6 +97,18 @@ const POINT_LEAD_MS = 200;
 /** A beat pushed later than this before the voice stops is dropped. */
 const LATE_BEAT_MS = 300;
 
+/** What a voice direction before the words looks like: the sigh or chuckle is seen as well as heard. */
+const DIRECTED: Record<string, StickGestureId> = {
+  chuckles: "chuckle",
+  sighs: "sigh",
+  yawns: "yawn",
+};
+
+function directedGesture(sentence: string): StickGestureId | undefined {
+  const tag = /^\[([^\]]+)\]/.exec(sentence.trim())?.[1]?.toLowerCase();
+  return tag ? DIRECTED[tag] : undefined;
+}
+
 export function estimateSpeechMs(text: string): number {
   let ms = 0;
 
@@ -232,7 +244,10 @@ export function planLine(
     const start =
       index === 0 ? estimated : (nearestPauseEnd(pauses, estimated) ?? estimated);
     const end = origin + (cursor + lengths[index]) * scale;
-    const gesture = gestures?.[index] ?? gestureForLine(sentence);
+    const gesture =
+      gestures?.[index] ??
+      (index === 0 ? directedGesture(saidSentences[0] ?? "") : undefined) ??
+      gestureForLine(sentence);
 
     beats.push({ at: start, gesture });
 
@@ -267,10 +282,16 @@ export function planLine(
 
   beats.sort((a, b) => a.at - b.at);
   const speechEnd = origin + speechMs * scale;
-  const pictures = linePictures(slovak).map(({ picture, word }) => ({
-    at: words[word]?.start ?? origin,
-    picture,
-  }));
+  // A beat directed to compute shows the working-out over the head, not just on the face.
+  const pictures = [
+    ...beats
+      .filter(({ gesture }) => gesture === "compute")
+      .map(({ at }) => ({ at, picture: "computing" as const })),
+    ...linePictures(slovak).map(({ picture, word }) => ({
+      at: words[word]?.start ?? origin,
+      picture,
+    })),
+  ].sort((a, b) => a.at - b.at);
 
   return {
     beats: spaceBeats(beats, speechEnd),

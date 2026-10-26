@@ -1,3 +1,4 @@
+import { LOOKS } from "./looks";
 import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
 import type { StickGestureId } from "./gestures";
 import { planLine, type LinePlan } from "./line-plan";
@@ -38,6 +39,8 @@ export interface LineDirection {
   /** The prop each sentence brings out. */
   props: Array<StickPropId | undefined>;
   staging: LineStaging;
+  /** Who holds the phone to their ear while this line plays: a call is on. */
+  call?: LessonCharacterId;
 }
 
 /** Everything the stage does with a scene, worked out once from its lines. */
@@ -57,8 +60,13 @@ export function castFor(
   setting: StageSetting,
   order: readonly LessonCharacterId[] = [],
 ): LessonCharacterId[] {
+  // Someone heard only over the phone is not on stage.
   const speakers = [
-    ...new Set(lines.flatMap(({ characterId }) => (characterId ? [characterId] : []))),
+    ...new Set(
+      lines.flatMap(({ characterId, overPhone }) =>
+        characterId && !overPhone ? [characterId] : [],
+      ),
+    ),
   ];
   const cast = [
     ...order.filter((id) => speakers.includes(id)),
@@ -71,6 +79,34 @@ export function castFor(
   ];
 }
 
+/**
+ * Who is on the phone during each line: from the line that answers a ringing
+ * call to the last line said over it, the one who answered holds it to their
+ * ear, through their goodbye. Anyone else on stage speaking ends it.
+ */
+function callers(
+  lines: readonly DirectedLine[],
+  cast: readonly LessonCharacterId[],
+): Array<LessonCharacterId | undefined> {
+  const on: Array<LessonCharacterId | undefined> = lines.map(() => undefined);
+  lines.forEach((line, start) => {
+    const answers = line.characterId;
+    if ((line.ring !== "call" && line.ring !== "dial") || !answers) return;
+    if (!cast.includes(answers)) return;
+
+    let end = start;
+    for (let index = start + 1; index < lines.length; index += 1) {
+      const next = lines[index];
+      if (next.overPhone) end = index;
+      else if (next.characterId !== answers) break;
+    }
+    // The goodbye after the far end's last line is said into the phone too.
+    while (lines[end + 1]?.characterId === answers && !lines[end + 1].overPhone) end += 1;
+    for (let index = start; index <= end; index += 1) on[index] = answers;
+  });
+  return on;
+}
+
 export function directScene(
   lines: readonly DirectedLine[],
   setting: StageSetting,
@@ -79,7 +115,17 @@ export function directScene(
   const cast = castFor(lines, setting, order);
   const { atMarks, things } = PLACES[setting];
   const read = readLines(lines, cast, things);
-  const held = heldProps(read);
+  const calls = callers(lines, cast);
+  const held = heldProps(read).map((props, index) => {
+    const caller = calls[index];
+    const withCall = caller ? { ...props, [caller]: "phone" as const } : props;
+    // A robot is its own phone: it never takes one out, to call or to show.
+    return Object.fromEntries(
+      Object.entries(withCall).filter(
+        ([id, prop]) => !(prop === "phone" && LOOKS[id as LessonCharacterId].robot),
+      ),
+    ) as typeof withCall;
+  });
   // What the scene has named so far, which a bare tamten can point back at.
   const named: NamedThing[] = [];
 
@@ -117,6 +163,7 @@ export function directScene(
       }),
       props,
       staging: atMarks ? { ...staging, approach: undefined, goTo: undefined } : staging,
+      ...(calls[index] ? { call: calls[index] } : {}),
     };
   });
 

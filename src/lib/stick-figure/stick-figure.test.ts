@@ -232,6 +232,20 @@ describe("planLine", () => {
     expect(plan.beats[1].at - plan.beats[0].at).toBeGreaterThanOrEqual(700);
   });
 
+  it("acts out a sigh, chuckle or yawn the voice is directed to make", () => {
+    const first = (slovak: string, said: string) =>
+      planLine(slovak, { said }).beats[0].gesture;
+
+    expect(first("Marek? A tá rastlina?", "[sighs] Marek? [pause] A tá rastlina?")).toBe(
+      "sigh",
+    );
+    expect(first("Ale v triede nespite!", "[chuckles] Ale v triede nespite!")).toBe(
+      "chuckle",
+    );
+    expect(first("Je ešte skoro ráno.", "[yawns] Je ešte skoro ráno.")).toBe("yawn");
+    expect(first("Je ešte skoro ráno.", "[pause] Je ešte skoro ráno.")).toBe("tell");
+  });
+
   it("lets the author override a sentence's gesture", () => {
     const plan = planLine("Teší ma. Odkiaľ ste?", { gestures: ["wave"] });
 
@@ -670,6 +684,15 @@ describe("pictures", () => {
       { picture: "flag-sk", word: 2 },
     ]);
     expect(linePictures("Dobrý deň.")).toEqual([]);
+  });
+
+  it("shows the working-out over the head on a sentence directed to compute", () => {
+    const plan = planLine("Hľadám v slovníku. Haf: zvuk psa.", {
+      gestures: ["compute"],
+    });
+
+    expect(plan.pictures).toEqual([{ at: plan.beats[0].at, picture: "computing" }]);
+    expect(planLine("Hľadám v slovníku.").pictures).toEqual([]);
   });
 
   it("pops the picture up as its word is said", () => {

@@ -11,7 +11,7 @@
  *   bun scripts/audio/generate.ts -- --force --verify --stt elevenlabs --concurrency 4
  */
 
-import { access, mkdir, writeFile } from "node:fs/promises";
+import { access, mkdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 import { ROOT } from "../lib/paths";
@@ -303,6 +303,9 @@ async function main(): Promise<void> {
       }
 
       if (!audio) {
+        // A failed take left on disk would count as present for --missing-only, with no
+        // manifest, index or mouth entry. To keep one for a person's ear, run without --verify.
+        await rm(filePath, { force: true });
         failed += 1;
         verifyFailures.push({
           text: target.text,

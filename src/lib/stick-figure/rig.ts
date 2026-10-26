@@ -43,6 +43,8 @@ const UPPER_ARM = 15;
 const FOREARM = 14;
 const THIGH = 19.5;
 const SHIN = 19.5;
+/** A chair seat's height off the floor (StickFurniture.svelte): a sitting hip rests on it. */
+export const SEAT_Y = GROUND_Y - 20;
 /** How far a full stride carries each foot from its stance, px: about a person's step for the figure's height. */
 export const STRIDE = 13;
 
@@ -86,8 +88,13 @@ function leg(hip: Point, foot: Point): StickLimb {
   };
 }
 
-export function solveRig(pose: StickPose): StickRig {
-  const hip = { x: 0, y: GROUND_Y - HIP_HEIGHT + pose.bob };
+/** `sit` runs from 0, standing, to 1, on a chair: the hip lowers onto the seat and the feet come forward. */
+export function solveRig(pose: StickPose, sit = 0): StickRig {
+  const standingHip = GROUND_Y - HIP_HEIGHT + pose.bob;
+  const hip = {
+    x: -3 * sit,
+    y: standingHip + (SEAT_Y - 2 - standingHip) * sit,
+  };
   const up = 180 - pose.lean;
   const neck = along(hip, up, TORSO);
   const shoulders = along(hip, up, TORSO - SHOULDER_DROP);
@@ -105,11 +112,11 @@ export function solveRig(pose: StickPose): StickRig {
     leadArm: arm(leadShoulder, pose.lean, 1, pose.leadRaise, pose.leadBend),
     rearArm: arm(rearShoulder, pose.lean, -1, pose.rearRaise, pose.rearBend),
     leadLeg: leg(hip, {
-      x: pose.stance + pose.stride * STRIDE,
+      x: pose.stance + pose.stride * STRIDE + 10 * sit,
       y: GROUND_Y - Math.max(0, pose.lift),
     }),
     rearLeg: leg(hip, {
-      x: -pose.stance - pose.stride * STRIDE,
+      x: -pose.stance - pose.stride * STRIDE + (pose.stance + 4) * sit,
       y: GROUND_Y - Math.max(0, -pose.lift),
     }),
   };

@@ -22,9 +22,11 @@ export interface Look {
   /**
    * A screen for a face and joints at the knees and elbows: the eyes and an
    * open mouth in `eyes`, the closed mouth in `smile`, the antenna's `light`
-   * and the one on the chest.
+   * and the one on the chest. A `metal` one is a household machine rather
+   * than a companion like the guide: a grey box of a head with a visor,
+   * rivets and metal limbs, so it never reads as the narrator.
    */
-  robot?: { chest: string; eyes: string; light: string; smile: string };
+  robot?: { chest: string; eyes: string; light: string; metal?: boolean; smile: string };
   /**
    * A dog on four legs instead of the stick rig: its coat (and the coat as a
    * stroke, for the tail), the darker ears and patch, and the collar.
@@ -125,12 +127,13 @@ export const LOOKS: Readonly<Record<LessonCharacterId, Look>> = {
   },
   // Marek's home robot: a companion like the guide, in warm orange so the two never pass for one.
   robo: {
-    crown: 6.3,
+    crown: 7,
     nameClass: "text-orange-700",
     robot: {
       chest: "fill-scene-carrot",
       eyes: "fill-scene-honey",
       light: "fill-scene-carrot",
+      metal: true,
       smile: "stroke-scene-honey",
     },
   },

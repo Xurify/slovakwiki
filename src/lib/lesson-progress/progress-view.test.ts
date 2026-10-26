@@ -68,7 +68,7 @@ describe("buildLessonsProgressView", () => {
     expect(view.continueCard).toMatchObject({
       lessonTitle: "A",
       trackTitle: "Everyday",
-      ctaLabel: "Continue",
+      ctaLabel: "Start lesson",
       ctaHref: "/lessons/everyday/a",
       lessonNumber: 1,
       lessonTotal: 2,

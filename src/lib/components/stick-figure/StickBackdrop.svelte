@@ -19,6 +19,7 @@
   import Registration from "./backdrops/Registration.svelte";
   import Street from "./backdrops/Street.svelte";
   import Studio from "./backdrops/Studio.svelte";
+  import Kitchen from "./backdrops/Kitchen.svelte";
   import MoodLayer from "./backdrops/MoodLayer.svelte";
   import SkyLayer from "./backdrops/SkyLayer.svelte";
   import StageLight from "./backdrops/StageLight.svelte";
@@ -36,6 +37,7 @@
     onpick,
     picked,
     setting,
+    taken = [],
     tram = "away",
     width = 0,
   }: {
@@ -56,6 +58,8 @@
     onpick?: (id: string) => void;
     picked?: string;
     setting: StageSetting;
+    /** Props someone on stage holds, so the place no longer shows them where they are kept. */
+    taken?: readonly string[];
     /** Where the street's tram is. */
     tram?: TramState;
     width?: number;
@@ -64,12 +68,18 @@
   /** Each place's drawing; every one takes the same props and uses what it needs. */
   const DRAWINGS: Record<
     StageSetting,
-    Component<{ board?: string; hour: number; tram: TramState }>
+    Component<{
+      board?: string;
+      hour: number;
+      taken?: readonly string[];
+      tram: TramState;
+    }>
   > = {
     cafe: Cafe,
     classroom: Classroom,
     default: Park,
     home: Home,
+    kitchen: Kitchen,
     market: Market,
     plaza: Plaza,
     registration: Registration,
@@ -147,7 +157,7 @@
       <SkyLayer {mood} {setting} />
     {/if}
 
-    <Drawing {board} {hour} {tram} />
+    <Drawing {board} {hour} {taken} {tram} />
 
     <MoodLayer {mood} {setting} />
     <StageLight />

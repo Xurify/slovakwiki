@@ -3297,7 +3297,6 @@ exports[`every scene, directed > podcast podcast-demonstratives-bag 1`] = `
     "sluchadla",
     "mikrofon",
     "okno",
-    "reproduktor",
     "rastlina",
     "koberec",
   ],
@@ -3812,7 +3811,6 @@ exports[`every scene, directed > podcast podcast-demonstratives-intro 1`] = `
     "sluchadla",
     "mikrofon",
     "okno",
-    "reproduktor",
     "rastlina",
     "koberec",
   ],
@@ -4269,7 +4267,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-outro 1`] = `
       "line": "anna: Marek!",
       "plan": {
         "beats": [
-          "100 stress",
+          "100 sigh",
         ],
         "ms": 2000,
         "sentences": "100-1700",
@@ -4301,7 +4299,6 @@ exports[`every scene, directed > podcast podcast-demonstratives-outro 1`] = `
     "sluchadla",
     "mikrofon",
     "okno",
-    "reproduktor",
     "rastlina",
     "koberec",
   ],
@@ -4601,7 +4598,6 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
     "sluchadla",
     "mikrofon",
     "okno",
-    "reproduktor",
     "rastlina",
     "koberec",
   ],
@@ -5298,7 +5294,7 @@ exports[`every scene, directed > podcast podcast-past-tense-closed 1`] = `
       "line": "anna: To ti nepoviem.",
       "plan": {
         "beats": [
-          "0 tell",
+          "0 chuckle",
         ],
         "ms": 2100,
         "sentences": "0-1950",
@@ -5348,7 +5344,6 @@ exports[`every scene, directed > podcast podcast-past-tense-closed 1`] = `
     "sluchadla",
     "mikrofon",
     "okno",
-    "reproduktor",
     "rastlina",
     "koberec",
   ],
@@ -6103,7 +6098,6 @@ exports[`every scene, directed > podcast podcast-past-tense-plate 1`] = `
     "sluchadla",
     "mikrofon",
     "okno",
-    "reproduktor",
     "rastlina",
     "koberec",
   ],
@@ -6578,6 +6572,9 @@ exports[`every scene, directed > podcast podcast-past-tense-whodunit 1`] = `
           "anna": 1,
           "marek": -1,
         },
+        "sit": [
+          "marek",
+        ],
       },
     },
     {
@@ -6745,7 +6742,6 @@ exports[`every scene, directed > podcast podcast-past-tense-whodunit 1`] = `
     "sluchadla",
     "mikrofon",
     "okno",
-    "reproduktor",
     "rastlina",
     "koberec",
   ],
@@ -6968,7 +6964,6 @@ exports[`every scene, directed > podcast podcast-possessives-intro 1`] = `
     "sluchadla",
     "mikrofon",
     "okno",
-    "reproduktor",
     "rastlina",
     "koberec",
   ],
@@ -7105,7 +7100,7 @@ exports[`every scene, directed > podcast podcast-possessives-outro 1`] = `
       "line": "anna: Áno. Môj dáždnik je doma.",
       "plan": {
         "beats": [
-          "100 nod",
+          "100 sigh",
           "1244 tell",
         ],
         "ms": 3450,
@@ -7222,7 +7217,6 @@ exports[`every scene, directed > podcast podcast-possessives-outro 1`] = `
     "sluchadla",
     "mikrofon",
     "okno",
-    "reproduktor",
     "rastlina",
     "koberec",
   ],
@@ -7901,7 +7895,6 @@ exports[`every scene, directed > podcast podcast-possessives-photos 1`] = `
     "sluchadla",
     "mikrofon",
     "okno",
-    "reproduktor",
     "rastlina",
     "koberec",
   ],
@@ -8144,7 +8137,6 @@ exports[`every scene, directed > podcast podcast-possessives-quiz 1`] = `
     "sluchadla",
     "mikrofon",
     "okno",
-    "reproduktor",
     "rastlina",
     "koberec",
   ],
@@ -8879,7 +8871,7 @@ exports[`every scene, directed > podcast podcast-possessives-square 1`] = `
       "line": "anna: Zase? Tvoje kľúče sú v tvojej taške, Marek.",
       "plan": {
         "beats": [
-          "100 ask",
+          "100 sigh",
           "1076 tell",
         ],
         "ms": 4500,
@@ -9823,7 +9815,6 @@ exports[`every scene, directed > podcast podcast-telling-time-clock-game 1`] = `
     "sluchadla",
     "mikrofon",
     "okno",
-    "reproduktor",
     "rastlina",
     "koberec",
   ],
@@ -10051,7 +10042,6 @@ exports[`every scene, directed > podcast podcast-telling-time-intro 1`] = `
     "sluchadla",
     "mikrofon",
     "okno",
-    "reproduktor",
     "rastlina",
     "koberec",
   ],
@@ -10222,7 +10212,6 @@ exports[`every scene, directed > podcast podcast-telling-time-outro 1`] = `
     "sluchadla",
     "mikrofon",
     "okno",
-    "reproduktor",
     "rastlina",
     "koberec",
   ],
@@ -10469,7 +10458,6 @@ exports[`every scene, directed > podcast podcast-telling-time-quiz 1`] = `
     "sluchadla",
     "mikrofon",
     "okno",
-    "reproduktor",
     "rastlina",
     "koberec",
   ],
@@ -10845,7 +10833,7 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-home 1`] = `
       "line": "marek: Má pravdu. Zmena plánu. Zajtra pracujem z domu. A pôjdeme na námestie. Všetci traja.",
       "plan": {
         "beats": [
-          "100 tell",
+          "100 sigh",
           "1746 tell",
           "2900 tell",
           "5262 tell",
@@ -11463,7 +11451,7 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-morning 1`] = `
       "line": "marek: To je Bobík. Môj pes.",
       "plan": {
         "beats": [
-          "50 tell",
+          "50 chuckle",
           "1900 tell",
         ],
         "ms": 2900,
@@ -11801,7 +11789,7 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-square 1`] = `
       "line": "anna: Ty rozumieš psom?",
       "plan": {
         "beats": [
-          "50 ask",
+          "50 chuckle",
         ],
         "ms": 2500,
         "questions": "50-2200",
@@ -11912,7 +11900,7 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-square 1`] = `
       "line": "anna: Ako vždy. Marek veľa pracuje.",
       "plan": {
         "beats": [
-          "100 tell",
+          "100 sigh",
           "2277 tell",
         ],
         "ms": 4250,
@@ -12253,9 +12241,6 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-window 1`] = `
       },
     },
     {
-      "held": {
-        "robo": "phone",
-      },
       "line": "robo: Ahoj, Marek. Tu je Robo. Nie, všetko je v poriadku.",
       "plan": {
         "beats": [
@@ -12280,9 +12265,6 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-window 1`] = `
       },
     },
     {
-      "held": {
-        "robo": "phone",
-      },
       "line": "robo: Ale Bobík sedí pri okne. Čaká na teba. Od siedmej.",
       "plan": {
         "beats": [
@@ -12308,9 +12290,6 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-window 1`] = `
       },
     },
     {
-      "held": {
-        "robo": "phone",
-      },
       "line": "robo: Áno. Dobre. Poviem mu.",
       "plan": {
         "beats": [
@@ -12335,9 +12314,6 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-window 1`] = `
       },
     },
     {
-      "held": {
-        "robo": "phone",
-      },
       "line": "robo: Bobík. Marek ide domov.",
       "plan": {
         "beats": [

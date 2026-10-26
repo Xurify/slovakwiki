@@ -34,6 +34,7 @@
     backdropToStage,
     figureToStage,
   } from "$lib/stick-figure/backdrop-geometry";
+  import { leashSpan } from "$lib/stick-figure/leash";
   import { LOOKS } from "$lib/stick-figure/looks";
   import { PLACES, backdropAlign, thingsIn } from "$lib/stick-figure/places";
   import {
@@ -49,6 +50,7 @@
   import {
     blockingBefore,
     endLine,
+    seatedFacings,
     startLine,
     type Blocking,
   } from "$lib/stick-figure/stage-blocking";
@@ -57,6 +59,7 @@
     markOf,
     offStage,
     stageFrame,
+    stageX,
     standing,
     walkOns,
     type Offsets,
@@ -70,6 +73,8 @@
   import StickBackdrop from "./StickBackdrop.svelte";
   import StickWeather from "./StickWeather.svelte";
   import StickFigureActor from "./StickFigureActor.svelte";
+  import StickFurniture from "./StickFurniture.svelte";
+  import StickLeash from "./StickLeash.svelte";
 
   interface ActorState {
     cue: number;
@@ -115,6 +120,7 @@
   /** When each figure begins a turn: the speaker at once, the others a beat later. */
   let turns = $state<TurnDelays>({});
   let offsets = $state<Offsets>({});
+  let seated = $state<Blocking["seated"]>({});
   let walks = $state<Partial<Record<LessonCharacterId, { cue: number; ms: number }>>>({});
   /** The line whose props are in hand: the one playing, or the last one played. */
   let heldAt = $state(-1);
@@ -185,6 +191,8 @@
       stageHeight,
     ),
   );
+  /** Someone on a chair faces the way it does, whoever points or talks. */
+  const sitting = $derived(seatedFacings(seated, frame));
   const pickedThing = $derived(things.find((thing) => thing.id === picked));
   /**
    * The word card sits under the thing, or over it when there is no room
@@ -258,12 +266,13 @@
   }
 
   function blocking(): Blocking {
-    return { aboard, facings, offsets, tram };
+    return { aboard, facings, offsets, seated, tram };
   }
 
   /** Turn everyone as `next` has them at once, and walk whoever it moves. */
   function block(next: Blocking): void {
     facings = next.facings;
+    seated = next.seated;
     tram = next.tram;
     aboard = next.aboard;
     for (const id of direction.cast) {
@@ -280,10 +289,25 @@
   function heldBy(id: LessonCharacterId): Held | undefined {
     const prop = holding[id];
     if (!prop) return undefined;
-    return prop === "umbrella"
-      ? { id: prop, open: umbrellas[id] ?? dress.umbrellaUp }
-      : { id: prop };
+    if (prop === "umbrella") return { id: prop, open: umbrellas[id] ?? dress.umbrellaUp };
+    // A lead is open once it is on the dog.
+    if (prop === "leash") return { id: prop, open: dog !== undefined };
+    return { id: prop };
   }
+
+  const dog = $derived(direction.cast.find((id) => LOOKS[id].dog));
+  const leash = $derived.by(() => {
+    const holder = direction.cast.find((id) => holding[id] === "leash");
+    if (!holder || !dog) return undefined;
+    const at = (id: LessonCharacterId) => ({
+      facing: sitting[id] ?? facings[id] ?? resting[id] ?? 1,
+      mark: standing(markOf(frame, id), offsets[id]),
+    });
+    return {
+      ms: Math.max(walks[holder]?.ms ?? 0, walks[dog]?.ms ?? 0),
+      span: leashSpan(at(holder), at(dog)),
+    };
+  });
 
   /** Put every umbrella down: the rain has stopped, or they are getting on the tram. */
   export function foldUmbrellas(): void {
@@ -302,6 +326,7 @@
     umbrellas = {};
     facings = placed.facings;
     offsets = placed.offsets;
+    seated = placed.seated;
     tram = placed.tram;
     aboard = placed.aboard;
     walks = {};
@@ -553,7 +578,11 @@
 
     for (const actor of Object.values(actors)) actor.talking = false;
     spoken = { at: performance.now(), durationMs: plan?.durationMs ?? 1600, rate };
-    const speaker = line.characterId;
+    // A voice over the phone has nobody on stage to move.
+    const speaker =
+      line.characterId && direction.cast.includes(line.characterId)
+        ? line.characterId
+        : null;
     front = staging?.audience && speaker ? speaker : undefined;
     turns = turnDelays(direction.cast, speaker);
     facings = { ...facings, ...staging?.facing };
@@ -651,6 +680,7 @@
       onpick={pickThing}
       {picked}
       {setting}
+      taken={Object.values(holding).filter((prop) => prop !== undefined)}
       {tram}
       width={stageWidth}
     />
@@ -658,6 +688,16 @@
 
     <!-- Unmeasured, the server's render and the first frame would draw the cast tiny in a corner. -->
     {#if measured}
+      {#each PLACES[setting].furniture ?? [] as piece, index (index)}
+        <div
+          class="pointer-events-none absolute"
+          style:bottom="{FLOOR}px"
+          style:left="{stageX(frame, { x: piece.x, y: 0 }) - frame.figureWidth / 2}px"
+          style:width="{frame.figureWidth}px"
+        >
+          <StickFurniture {piece} />
+        </div>
+      {/each}
       {#each direction.cast as characterId (characterId)}
         <div
           class="pointer-events-none absolute transition-transform ease-linear"
@@ -671,11 +711,16 @@
             {characterId}
             {clock}
             cue={actors[characterId]?.cue ?? 0}
-            facing={facings[characterId] ?? resting[characterId] ?? 1}
+            facing={sitting[characterId] ??
+              facings[characterId] ??
+              resting[characterId] ??
+              1}
             front={front === characterId}
             onbeat={onBeat}
             plan={actors[characterId]?.plan}
             held={heldBy(characterId)}
+            seated={seated[characterId] !== undefined}
+            onCall={direction.lines[heldAt]?.call === characterId}
             {dress}
             talking={actors[characterId]?.talking ?? false}
             turnDelay={turns[characterId] ?? 0}
@@ -683,6 +728,9 @@
           />
         </div>
       {/each}
+      {#if leash}
+        <StickLeash ms={leash.ms} span={leash.span} />
+      {/if}
     {/if}
 
     {#if bubble}

@@ -18,6 +18,7 @@
   import StickHead from "./StickHead.svelte";
   import StickHeld from "./StickHeld.svelte";
   import StickPicture from "./StickPicture.svelte";
+  import StickProp from "./StickProp.svelte";
   import StickTorso from "./StickTorso.svelte";
 
   let {
@@ -28,6 +29,8 @@
     picture,
     pose = REST_POSE,
     held,
+    sit = 0,
+    call = 0,
     dress = dressFor("clear"),
     turnDelay = 0,
   }: {
@@ -41,13 +44,33 @@
     pose?: StickPose;
     /** In the lead hand. */
     held?: Held;
+    /** 0 standing, 1 sitting on a chair. */
+    sit?: number;
+    /** 0 the phone in hand or none, 1 held at the ear. */
+    call?: number;
     /** What the weather on them does to what they wear. */
     dress?: Dress;
     /** Ms before a change of `facing` starts: a listener turns a beat after the speaker. */
     turnDelay?: number;
   } = $props();
 
-  const rig = $derived(solveRig(pose));
+  /**
+   * The rear hand at the near ear, which the three-quarter view puts on the
+   * back of the head, the elbow out below the shoulder: solved on the rig.
+   */
+  const EAR = { rearRaise: 94, rearBend: -254 };
+  function atEar(from: StickPose, amount: number): StickPose {
+    if (amount <= 0) return from;
+    return {
+      ...from,
+      rearRaise: from.rearRaise + (EAR.rearRaise - from.rearRaise) * amount,
+      rearBend: from.rearBend + (EAR.rearBend - from.rearBend) * amount,
+    };
+  }
+  /** Most of the way up, the phone has changed hands to the one at the ear. */
+  const phoneAtEar = $derived(call > 0.5 && held?.id === "phone");
+
+  const rig = $derived(solveRig(robot ? pose : atEar(pose, call), sit));
   /**
    * From the near cup over the crown to the far one: half an ellipse round
    * the head whose top sits `lift` above the hair, so the band hugs the
@@ -71,6 +94,10 @@
 
 {#snippet arm(shoulder: Point, limb: StickLimb)}
   <path d={limbPath(shoulder, limb)} class="stroke-portrait-ink" stroke-width="3" />
+  {#if robot?.metal}
+    <path d={limbPath(shoulder, limb)} class="stroke-portrait-ink" stroke-width="4.4" />
+    <path d={limbPath(shoulder, limb)} class="stroke-scene-steel" stroke-width="2.4" />
+  {/if}
 
   {#if look.sleeve}
     <path
@@ -91,13 +118,21 @@
     cx={n(at.x)}
     cy={n(at.y)}
     r="2.3"
-    class="{robot ? 'fill-portrait-bib' : 'fill-portrait-skin'} stroke-portrait-ink"
+    class="{robot?.metal
+      ? 'fill-scene-steel-light'
+      : robot
+        ? 'fill-portrait-bib'
+        : 'fill-portrait-skin'} stroke-portrait-ink"
     stroke-width="1.2"
   />
 {/snippet}
 
 {#snippet leg(limb: StickLimb)}
   <path d={limbPath(rig.hip, limb)} class="stroke-portrait-ink" stroke-width="3.4" />
+  {#if robot?.metal}
+    <path d={limbPath(rig.hip, limb)} class="stroke-portrait-ink" stroke-width="4.8" />
+    <path d={limbPath(rig.hip, limb)} class="stroke-scene-steel" stroke-width="2.8" />
+  {/if}
 {/snippet}
 
 {#snippet joint(at: Point, r: number)}
@@ -105,7 +140,9 @@
     cx={n(at.x)}
     cy={n(at.y)}
     {r}
-    class="fill-portrait-bib stroke-portrait-ink"
+    class="{robot?.metal
+      ? 'fill-scene-steel-dark'
+      : 'fill-portrait-bib'} stroke-portrait-ink"
     stroke-width="0.9"
   />
 {/snippet}
@@ -183,14 +220,19 @@
         {@render joint(rig.leadArm.joint, 1.5)}
       {/if}
 
-      {#if held}
+      {#if held && !phoneAtEar}
         <StickHeld {held} {rig} />
       {/if}
 
       {@render hand(rig.leadArm.end)}
 
       <g transform={headTransform}>
-        <StickHead {characterId} {pose} turn={front ? 0 : undefined} />
+        <StickHead
+          {characterId}
+          calling={call > 0.5}
+          {pose}
+          turn={front ? 0 : undefined}
+        />
 
         {#if dress.headwear === "headphones"}
           <!-- Open-back headphones in the head's own 64-unit space: a thin band over the hair, a light cup with a grille on the near ear. -->
@@ -235,6 +277,14 @@
           />
         {/if}
       </g>
+
+      {#if phoneAtEar}
+        <!-- Over the head, so the phone shows against the ear the rear arm reaches round to. -->
+        <g transform="translate({n(rig.rearArm.end.x + 1.5)} {n(rig.rearArm.end.y + 4)})">
+          <StickProp prop="phone" />
+        </g>
+        {@render hand(rig.rearArm.end)}
+      {/if}
     {/if}
   </g>
 

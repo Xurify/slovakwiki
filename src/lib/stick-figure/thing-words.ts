@@ -182,6 +182,20 @@ export const THING_WORDS = {
     stems: ["jahod"],
     word: "jahody",
   },
+  chladnicka: {
+    english: "fridge",
+    gender: "feminine",
+    id: "chladnicka",
+    stems: ["chladnick", "chladniciek"],
+    word: "chladnička",
+  },
+  hrniec: {
+    english: "pot",
+    forms: ["hrniec", "hrnca", "hrnci", "hrncom", "hrnce", "hrncov"],
+    gender: "masculine-inanimate",
+    id: "hrniec",
+    word: "hrniec",
+  },
   kavovar: {
     english: "coffee machine",
     gender: "masculine-inanimate",
@@ -331,6 +345,13 @@ export const THING_WORDS = {
     id: "stol",
     word: "stôl",
   },
+  sporak: {
+    english: "stove",
+    gender: "masculine-inanimate",
+    id: "sporak",
+    stems: ["sporak"],
+    word: "sporák",
+  },
   stolicka: {
     english: "chair",
     gender: "feminine",
@@ -372,6 +393,13 @@ export const THING_WORDS = {
     id: "torta",
     stems: ["tort"],
     word: "torta",
+  },
+  umyvadlo: {
+    english: "sink",
+    gender: "neuter",
+    id: "umyvadlo",
+    stems: ["umyvadl", "umyvadiel"],
+    word: "umývadlo",
   },
   vankus: {
     english: "cushion",

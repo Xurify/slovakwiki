@@ -12,7 +12,7 @@
  *   bun scripts/audio/lipsync.ts -- --tags            # clips with a direction in their text
  *   bun scripts/audio/lipsync.ts -- --episode past-tense  # one podcast episode's lines
  *
- * Scribe's word times are kept in tmp/scribe-words.json, so a clip is heard
+ * Scribe's word times are kept in tmp/scribe-words.json, so a take is heard
  * once. Needs ELEVENLABS_API_KEY and ffmpeg.
  */
 
@@ -70,15 +70,17 @@ for (const [hash, entry] of Object.entries(manifest)) {
   const file = path.join(AUDIO_DIR, "lesson", `${hash}.mp3`);
   if (!existsSync(file)) continue;
 
-  if (!cache[hash]) {
+  // A retake keeps the clip's hash, so the take's own time is part of the key.
+  const key = `${hash}@${entry.generatedAt}`;
+  if (!cache[key]) {
     const heard = await transcribeAudio(file);
-    cache[hash] = (heard.words ?? [])
+    cache[key] = (heard.words ?? [])
       .filter((word) => /\p{L}/u.test(word.text))
       .map((word) => ({ end: word.end ?? 0, start: word.start ?? 0, text: word.text }));
     await writeFileAtomic(CACHE_PATH, JSON.stringify(cache));
   }
 
-  const heard = cache[hash];
+  const heard = cache[key];
   const written = spokenText(entry.text).match(/\p{L}+/gu) ?? [];
   if (heard.length !== written.length) {
     console.log(
