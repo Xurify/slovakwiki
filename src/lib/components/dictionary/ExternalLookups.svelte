@@ -7,11 +7,13 @@
 
   let {
     lemma,
+    category,
     dialect = false,
     compact = false,
     class: className = "",
   }: {
     lemma: string;
+    category?: string;
     dialect?: boolean;
     /** Narrow side-column layout: smaller label column, tighter links. */
     compact?: boolean;
@@ -21,19 +23,21 @@
   const GROUP_LABEL: Record<ExternalLookupGroup, string> = {
     translate: "Translate",
     dictionary: "Dictionaries",
+    forms: "Every form",
     examples: "In context",
     images: "Images",
   };
 
   const GROUP_ORDER: ExternalLookupGroup[] = [
     "dictionary",
+    "forms",
     "translate",
     "examples",
     "images",
   ];
 
   const links: ExternalLookupLink[] = $derived(
-    externalLookupsForLemma(lemma, { dialect }),
+    externalLookupsForLemma(lemma, { category, dialect }),
   );
 
   const groups = $derived(

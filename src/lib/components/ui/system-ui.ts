@@ -22,7 +22,7 @@ export const iconButtonClass =
 export const iconButtonToneClass = "text-slate-500 hover:bg-subtle hover:text-slate-900";
 
 const chipBase =
-  "inline-flex min-h-11 cursor-pointer items-center justify-center rounded-full border text-xs font-semibold no-underline transition-[color,background-color,border-color,box-shadow] duration-150 ease-out";
+  "inline-flex cursor-pointer items-center justify-center rounded-full border text-xs font-semibold no-underline transition-[color,background-color,border-color,box-shadow] duration-150 ease-out";
 
 const chipIdle =
   "border-slate-300 bg-surface text-slate-600 shadow-(--shadow-border) hover:border-slate-400 hover:bg-subtle hover:text-slate-900";

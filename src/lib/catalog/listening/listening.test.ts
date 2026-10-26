@@ -92,6 +92,25 @@ describe("listening episodes", () => {
     }
   });
 
+  it("asks the listener to play along only once they have heard the forms, and answers every ask", () => {
+    for (const episode of listeningEpisodes) {
+      episode.chapters.forEach((chapter, index) => {
+        chapter.lines.forEach((line, at) => {
+          if (!line.ask) return;
+          expect(index, `${line.id} asks in an opening segment`).toBeGreaterThan(1);
+          expect(
+            line.ask.choices.map((choice) => choice.id),
+            line.id,
+          ).toContain(line.ask.answerId);
+          expect(
+            chapter.lines[at + 1],
+            `${line.id} has nobody to answer it`,
+          ).toBeDefined();
+        });
+      });
+    }
+  });
+
   it("is a short A1 listen with a handful of checks", () => {
     const [episode] = listeningEpisodes;
     expect(episode).toBeDefined();

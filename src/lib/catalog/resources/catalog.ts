@@ -664,6 +664,34 @@ export const learningResources: LearningResource[] = [
     cost: "free",
   },
   {
+    id: "verbix",
+    group: "dictionaries",
+    name: "Verbix — Slovak conjugation and declension",
+    href: "https://www.verbix.com/slovak/",
+    summary:
+      "Every form of a Slovak verb, noun, or adjective in one table: present, past, future, and imperative for verbs; the six cases, singular and plural, for nouns and adjectives.",
+    note: "Look up the dictionary form (čakať, dom, dobrý). Check a form that looks odd in JÚĽŠ.",
+    cost: "free",
+    links: [
+      {
+        href: "https://www.verbix.com/slovak/verb/%C4%8Daka%C5%A5",
+        label: "Example: čakať",
+      },
+      { href: "https://www.verbix.com/slovak/noun/dom", label: "Example: dom" },
+    ],
+  },
+  {
+    id: "slovnik-iz",
+    group: "dictionaries",
+    name: "slovník.iz.sk",
+    href: "https://slovnik.iz.sk/",
+    summary:
+      "Quick SK↔EN word lookup. Type a Slovak or an English word and get the translations from several free dictionaries on one page.",
+    note: "Bare word lists, no examples or grammar. Good for a fast gloss; look up the form you find in a fuller dictionary.",
+    cost: "free",
+    links: [{ href: "https://slovnik.iz.sk/?word=wait", label: "Example: wait" }],
+  },
+  {
     id: "tatoeba-sk",
     group: "dictionaries",
     name: "Tatoeba — Slovak sentences",
@@ -1036,7 +1064,12 @@ const resourceIconFiles: Partial<Record<string, string>> = {
 };
 
 /** Same brand as a lemma lookup chip — reuse `/icons/lookups/${id}.png`. */
-export const lookupSharedResourceIds = new Set(["narecie", "zoznam"]);
+export const lookupSharedResourceIds = new Set([
+  "narecie",
+  "zoznam",
+  "verbix",
+  "slovnik-iz",
+]);
 
 export function resourceIconUrl(resourceId: string): string {
   if (youtubeResourceIds.has(resourceId)) {

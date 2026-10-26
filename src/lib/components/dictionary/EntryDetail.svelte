@@ -19,6 +19,7 @@
   import { FREQUENCY_PART_OF_SPEECH_LABEL } from "$lib/catalog/frequency/types";
   import { declensionRows } from "$lib/catalog/dictionary/declension";
   import type { NearbyEntry } from "$lib/catalog/dictionary/entries-near";
+  import { groupExamplesByPattern } from "$lib/catalog/dictionary/example-groups";
   import { EXAMPLE_DISPLAY_LIMIT } from "$lib/catalog/dictionary/example-limits";
   import type { FrequencyNeighbor } from "$lib/catalog/dictionary/frequency-neighbors";
   import type { DictionaryImageView } from "$lib/catalog/dictionary/images";
@@ -136,29 +137,6 @@
   const railGlossClass = "text-xs leading-snug text-slate-500";
   const moreLinkClass = `${sharedMoreLinkClass} mt-2`;
 
-  function groupExamplesByPattern(
-    items: { example: Example; index: number }[],
-  ): { label: string; items: { example: Example; index: number }[] }[] {
-    const groups: {
-      label: string;
-      items: { example: Example; index: number }[];
-    }[] = [];
-    const indexByLabel = new Map<string, number>();
-
-    for (const item of items) {
-      const label = item.example.demonstrates?.trim() || "Other";
-      const existing = indexByLabel.get(label);
-      if (existing === undefined) {
-        indexByLabel.set(label, groups.length);
-        groups.push({ label, items: [item] });
-      } else {
-        groups[existing]!.items.push(item);
-      }
-    }
-
-    return groups;
-  }
-
   function categoryLabel(category: string): string {
     return (category === "Nouns" ? "noun" : category.replace(/s$/, "")).toLowerCase();
   }
@@ -225,28 +203,34 @@
     </header>
 
     <nav
-      class="sticky top-(--header-height) z-10 mt-6 flex gap-5 overflow-x-auto border-y border-slate-200 bg-canvas/95 backdrop-blur-sm scrollbar-none"
+      class="sticky top-(--header-height) z-10 mt-6 border-y border-slate-200 bg-canvas/95 backdrop-blur-sm"
       aria-label="On this page"
     >
-      {#if multiSense}
-        {#each senseViews as sense (sense.entry.slug)}
-          <a class={contentsLinkClass} href="#{senseSectionId(sense.entry.category)}">
-            {sense.entry.category}
-          </a>
-        {/each}
-      {/if}
-
-      {#each mainContents as item (item.href)}
-        {#if !(multiSense && item.href === "#meaning")}
-          <a class={contentsLinkClass} href={item.href}>{item.label}</a>
+      <!-- Below lg the links overflow; the fade says the strip scrolls, and the
+           end padding lets the last link clear it. -->
+      <div
+        class="flex gap-5 overflow-x-auto scrollbar-none max-lg:pr-8 max-lg:mask-r-from-[calc(100%-2rem)]"
+      >
+        {#if multiSense}
+          {#each senseViews as sense (sense.entry.slug)}
+            <a class={contentsLinkClass} href="#{senseSectionId(sense.entry.category)}">
+              {sense.entry.category}
+            </a>
+          {/each}
         {/if}
-      {/each}
 
-      <span class="ml-auto" aria-hidden="true"></span>
+        {#each mainContents as item (item.href)}
+          {#if !(multiSense && item.href === "#meaning")}
+            <a class={contentsLinkClass} href={item.href}>{item.label}</a>
+          {/if}
+        {/each}
 
-      {#each railContents as item (item.href)}
-        <a class={contentsLinkClass} href={item.href}>{item.label}</a>
-      {/each}
+        <span class="ml-auto" aria-hidden="true"></span>
+
+        {#each railContents as item (item.href)}
+          <a class={contentsLinkClass} href={item.href}>{item.label}</a>
+        {/each}
+      </div>
     </nav>
 
     <div
@@ -307,7 +291,7 @@
 
                 {#if grouped}
                   <div class="mt-3 grid gap-6">
-                    {#each groupExamplesByPattern(visibleItems) as group (group.label)}
+                    {#each groupExamplesByPattern(visibleItems, senseEntry) as group (group.label)}
                       <div>
                         <Eyebrow tone="muted" class="mb-1">{group.label}</Eyebrow>
                         {@render exampleList(
@@ -375,6 +359,7 @@
 
         <ExternalLookups
           lemma={entry.slovak}
+          category={entry.category}
           dialect={senseViews.some((sense) => sense.entry.dialect === true)}
         />
       </article>
@@ -455,15 +440,11 @@
               {#each entriesNear as nearby (nearby.slovak)}
                 <li>
                   {#if nearby.current}
-                    <span
-                      class={cx(
-                        railRowClass,
-                        "-mx-2 rounded-(--control-radius) bg-mark px-2",
-                      )}
-                      aria-current="true"
-                    >
-                      <span class={cx(railWordClass, "font-semibold")} lang="sk">
-                        {nearby.slovak}
+                    <span class={railRowClass} aria-current="true">
+                      <span class={cx(railWordClass, "justify-self-start")} lang="sk">
+                        <span class="rounded-sm bg-mark font-semibold">
+                          {nearby.slovak}
+                        </span>
                       </span>
                       <span class={cx(railGlossClass, "text-slate-700")}>
                         {nearby.english}
@@ -516,10 +497,7 @@
             <ol class="m-0 list-none p-0">
               {#each frequencyNeighbors as row (row.rank)}
                 <li
-                  class={cx(
-                    "grid grid-cols-[2.75rem_minmax(0,1fr)_auto] items-baseline gap-x-2 py-1.5",
-                    row.current && "-mx-2 rounded-(--control-radius) bg-mark px-2",
-                  )}
+                  class="grid grid-cols-[2.75rem_minmax(0,1fr)_auto] items-baseline gap-x-2 py-1.5"
                   aria-current={row.current ? "true" : undefined}
                 >
                   <span class="text-xs tabular-nums text-slate-700">#{row.rank}</span>
@@ -536,11 +514,14 @@
                       {row.lemma}
                     </a>
                   {:else}
-                    <span
-                      class={cx(railWordClass, row.current && "font-semibold")}
-                      lang="sk"
-                    >
-                      {row.lemma}
+                    <span class={railWordClass} lang="sk">
+                      <span
+                        class={row.current
+                          ? "rounded-sm bg-mark font-semibold"
+                          : undefined}
+                      >
+                        {row.lemma}
+                      </span>
                     </span>
                   {/if}
 

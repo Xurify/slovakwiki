@@ -6,6 +6,7 @@
 
   import GrammarCaseMap from "$lib/components/reference/GrammarCaseMap.svelte";
   import GrammarExampleList from "$lib/components/reference/GrammarExampleList.svelte";
+  import GrammarPatternList from "$lib/components/reference/GrammarPatternList.svelte";
   import GrammarRichText from "$lib/components/reference/GrammarRichText.svelte";
   import {
     grammarHeadingClass,
@@ -87,6 +88,22 @@
         {/if}
       </div>
     </section>
+
+    {#if topic.status === "ready" && topic.forms}
+      <section id="endings" class="mt-8" aria-labelledby="endings-heading">
+        <h2 id="endings-heading" class={grammarHeadingClass}>Endings</h2>
+
+        {#if topic.forms.intro}
+          <p class="{grammarIntroClass} mt-1.5">
+            <GrammarRichText text={topic.forms.intro} />
+          </p>
+        {/if}
+
+        <div class="mt-3">
+          <GrammarPatternList pattern={topic.forms} />
+        </div>
+      </section>
+    {/if}
 
     {#if topic.status === "ready" && topic.examples.length > 0}
       <section id="examples" class="mt-8" aria-labelledby="examples-heading">

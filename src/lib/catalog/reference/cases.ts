@@ -1,5 +1,28 @@
 import { languageSource } from "../sources";
-import type { CaseTopic } from "../types";
+import type { CaseTopic, GrammarTablePattern } from "../types";
+
+const NOUNS = {
+  person: "Masculine person: brat",
+  thing: "Masculine thing: dom",
+  feminine: "Feminine: ruka",
+  neuter: "Neuter: mesto",
+} as const;
+
+function endings(
+  intro: string,
+  rows: Record<keyof typeof NOUNS, [string, string]>,
+): GrammarTablePattern {
+  return {
+    label: "Endings",
+    intro,
+    rowLabel: "Noun",
+    columns: ["Singular", "Plural"],
+    rows: (Object.keys(NOUNS) as Array<keyof typeof NOUNS>).map((key) => ({
+      label: NOUNS[key],
+      cells: rows[key],
+    })),
+  };
+}
 
 export const caseTopics: CaseTopic[] = [
   {
@@ -30,6 +53,15 @@ export const caseTopics: CaseTopic[] = [
       "Collect three nouns in nominative from your own Slovak reading.",
       "Compare a masculine, feminine, and neuter noun in the nominative.",
     ],
+    forms: endings(
+      "The nominative is the form you find in a dictionary. The plural ending depends on the noun.",
+      {
+        person: ["brat", "bratia"],
+        thing: ["dom", "dom[y]"],
+        feminine: ["ruk[a]", "ruk[y]"],
+        neuter: ["mest[o]", "mest[á]"],
+      },
+    ),
     status: "ready",
     source: languageSource,
   },
@@ -60,6 +92,15 @@ export const caseTopics: CaseTopic[] = [
       "Notice one genitive phrase with **z**, **od**, **do**, or **bez**.",
       "Build a phrase showing possession or amount.",
     ],
+    forms: endings(
+      "Masculine nouns take **-a** (**brata**) or **-u** (**domu**); learn which with each noun. In the plural, masculine nouns take **-ov**. Feminine and neuter plurals have no ending, and the stem often changes: **rúk**, **miest**.",
+      {
+        person: ["brat[a]", "brat[ov]"],
+        thing: ["dom[u]", "dom[ov]"],
+        feminine: ["ruk[y]", "r[ú]k"],
+        neuter: ["mest[a]", "m[ie]st"],
+      },
+    ),
     status: "ready",
     source: languageSource,
   },
@@ -90,6 +131,15 @@ export const caseTopics: CaseTopic[] = [
       "Find a verb that takes a person in the dative.",
       "Compare a dative recipient with an accusative object.",
     ],
+    forms: endings(
+      "Masculine people take **-ovi**, other masculine and neuter nouns **-u**, feminine nouns **-e**. In the plural, masculine nouns take **-om**; feminine and neuter nouns take **-ám**.",
+      {
+        person: ["brat[ovi]", "brat[om]"],
+        thing: ["dom[u]", "dom[om]"],
+        feminine: ["ruk[e]", "ruk[ám]"],
+        neuter: ["mest[u]", "mest[ám]"],
+      },
+    ),
     status: "ready",
     source: languageSource,
   },
@@ -120,6 +170,15 @@ export const caseTopics: CaseTopic[] = [
       "Underline the direct object in three Slovak sentences.",
       "Practice one feminine noun in nominative and accusative.",
     ],
+    forms: endings(
+      "Masculine people and animals take the genitive form: **brata**. Masculine things and neuter nouns look like the nominative. Feminine nouns in **-a** take **-u**.",
+      {
+        person: ["brat[a]", "brat[ov]"],
+        thing: ["dom", "dom[y]"],
+        feminine: ["ruk[u]", "ruk[y]"],
+        neuter: ["mest[o]", "mest[á]"],
+      },
+    ),
     status: "ready",
     source: languageSource,
   },
@@ -156,6 +215,15 @@ export const caseTopics: CaseTopic[] = [
       "Collect one location phrase with **v** or **na**.",
       "Find a sentence using **o** for its topic.",
     ],
+    forms: endings(
+      "Masculine people take **-ovi**. Other singular nouns take **-e**; after **k**, **g**, **h**, and **ch**, masculine nouns take **-u**: **v parku**. In the plural, masculine nouns take **-och**; feminine and neuter nouns take **-ách**.",
+      {
+        person: ["brat[ovi]", "brat[och]"],
+        thing: ["dom[e]", "dom[och]"],
+        feminine: ["ruk[e]", "ruk[ách]"],
+        neuter: ["mest[e]", "mest[ách]"],
+      },
+    ),
     status: "ready",
     source: languageSource,
   },
@@ -186,6 +254,15 @@ export const caseTopics: CaseTopic[] = [
       "Find a phrase with **s** or **so** plus a person.",
       "Name one tool you use with instrumental.",
     ],
+    forms: endings(
+      "Masculine and neuter nouns take **-om**, feminine nouns **-ou**. In the plural, **-ami** is the most common ending; masculine people take **-mi**: **bratmi**.",
+      {
+        person: ["brat[om]", "brat[mi]"],
+        thing: ["dom[om]", "dom[ami]"],
+        feminine: ["ruk[ou]", "ruk[ami]"],
+        neuter: ["mest[om]", "mest[ami]"],
+      },
+    ),
     status: "ready",
     source: languageSource,
   },

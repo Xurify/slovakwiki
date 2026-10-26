@@ -43,7 +43,7 @@ function statusMarkup(
   }
 
   if (status === "active") {
-    return `<span class="inline-flex min-h-8 items-center rounded-(--control-radius) bg-blue-600 px-3.5 text-xs font-bold text-paper">Start</span>`;
+    return `<span class="text-xs font-semibold text-blue-800">Up next</span>`;
   }
 
   return `<span class="sr-only">Not started</span>`;
@@ -51,8 +51,6 @@ function statusMarkup(
 
 function paintRow(row: HTMLElement, lessonId: string, status: LessonStatus): void {
   row.dataset.lessonStatus = status;
-  row.classList.toggle("border-blue-600", status === "active");
-  row.classList.toggle("border-transparent", status !== "active");
 
   const leading = row.dataset.lessonLeading ?? "index";
   const completeOnRight = leading === "motif";
