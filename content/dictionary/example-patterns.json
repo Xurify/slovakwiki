@@ -1,0 +1,237 @@
+{
+  "bat": {
+    "báť sa + noun — afraid of": [
+      "Toho sa báť nemusíte.",
+      "Ani jeden z nás sa nemá čoho báť."
+    ]
+  },
+  "cerpat": {
+    "to draw": ["Vodu čerpali zo studne za domom.", "Firma čerpá úver na novú linku."]
+  },
+  "dodrziavat": {
+    "to comply with": [
+      "Prečo dodržiavate tieto zvrátené pravidlá?",
+      "Šoféri musia dodržiavať maximálnu povolenú rýchlosť.",
+      "Treba dodržiavať pravidlá cestnej premávky."
+    ]
+  },
+  "dojst": {
+    "to run out": ["Mlieko došlo skôr, než sme čakali."]
+  },
+  "doplatit": {
+    "to pay the rest": ["Študent doplatil školné do konca týždňa."]
+  },
+  "doplnit": {
+    "to complete": [
+      "Prosím, doplň chýbajúce údaje vo formulári.",
+      "Doplňte chýbajúce údaje vo formulári."
+    ]
+  },
+  "dotiahnut": {
+    "to pull": [
+      "Dotiahli vozík až k vchodu do skladu.",
+      "Dotiahol stoličku bližšie k stolu."
+    ]
+  },
+  "klast": {
+    "to lay": [
+      "Kladie taniere na stôl pred večerou.",
+      "Pred spaním kladie knihu na nočný stolík.",
+      "Kladie dôraz na precíznu výslovnosť."
+    ]
+  },
+  "krutit": {
+    "to shoot (a film)": ["Filmár krútil nové scény celé popoludnie."],
+    "to turn": ["Pri tanci krútila sukňou dookola."]
+  },
+  "mrziet": {
+    "to annoy": ["Čo ťa na tom najviac mrzí?"]
+  },
+  "nechybat": {
+    "not to be missing": ["Nechýbajú nám nápady, chýba však čas."]
+  },
+  "nepustit": {
+    "not to let in": [
+      "Pes ma nepustil bližšie k bráne.",
+      "Strážnik nás nepustil do budovy bez preukazu.",
+      "Vrátnik nás nepustil dnu bez preukazu.",
+      "Tréner nepustil hráča do zostavy."
+    ]
+  },
+  "nevyjst": {
+    "not to work out": ["Z dohody nakoniec nič nevyšlo."]
+  },
+  "odkazat": {
+    "to bequeath": ["V testamente odkázal dom deťom."]
+  },
+  "odstartovat": {
+    "to start": ["Sezóna odštartovala prvým domácim zápasom."]
+  },
+  "odstupit": {
+    "to withdraw": ["Firma odstúpila od zmluvy pre nesplnenie podmienok."]
+  },
+  "ozvat": {
+    "to speak up": ["Ozval sa až po dlhom tichu."],
+    "to sound": ["Telefón sa ozval uprostred noci.", "Z lesa sa ozval vzdialený hlas."]
+  },
+  "podavat": {
+    "to hand": [
+      "Sestra podáva pacientovi lieky podľa rozpisu.",
+      "Pri stole mi podáva chlieb bez slova.",
+      "Tréner podáva hráčom jasné pokyny pred zápasom."
+    ]
+  },
+  "ponechat": {
+    "to leave": ["Sudca ponechal rozhodnutie na odvolací senát."]
+  },
+  "posobit": {
+    "to come across (as)": ["Na študentov pôsobí učiteľ veľmi pokojne."],
+    "to act": [
+      "Liečba začala pôsobiť až po týždni.",
+      "Tá vôňa na mňa pôsobí príliš silno."
+    ]
+  },
+  "prebehnut": {
+    "to run across": ["Prebehli sme park pred zatváraním brány."]
+  },
+  "prebrat": {
+    "to go over": ["Po obede preberieme ďalší postup."],
+    "to take delivery of": ["Prebrali tovar podľa dodacieho listu."]
+  },
+  "preberat": {
+    "to accept": ["Pošta preberá zásielky do šiestej večer."]
+  },
+  "pripojit": {
+    "to attach": [
+      "K e-mailu pripojím fotografie z výletu.",
+      "K listu pripojím fotografie z výletu.",
+      "K dokumentu pripojili podpisové hárky."
+    ]
+  },
+  "rozbehnut": {
+    "to start running": [
+      "Pes sa rozbehol za loptou cez trávnik.",
+      "Dieťa sa rozbehlo k mame na stanici."
+    ]
+  },
+  "siahnut": {
+    "to reach": ["Hladina vody siahla až po schody."]
+  },
+  "smerovat": {
+    "to aim": ["Slnečnice vždy smerujú k slnku."]
+  },
+  "spominat": {
+    "to mention": ["Prečo spomínaš tú starú hádku?"]
+  },
+  "tazit": {
+    "to benefit": ["Firma ťaží z rastúceho dopytu."],
+    "to weigh on": ["Bolesť chrbta ho ťaží pri dlhom sedení."]
+  },
+  "vylucit": {
+    "to exclude": ["Rozhodca vylúčil hráča za hrubý faul."]
+  },
+  "vymenovat": {
+    "to list": ["V správe vymenovali najdôležitejšie body."]
+  },
+  "vyniest": {
+    "to carry up": ["Pomohol vyniesť ťažké kreslo na poschodie."]
+  },
+  "vypadnut": {
+    "to go out (power)": [
+      "Počas búrky vypadol prúd na celú hodinu.",
+      "Vypadol prúd a celá ulica zostala v tme."
+    ],
+    "to fall out": ["Kľúč vypadol z vrecka na zastávke."],
+    "to get out": ["Je čas odtiaľto vypadnúť."]
+  },
+  "vypovedat": {
+    "to testify": [
+      "Susedka vypovedala, že v noci počula výstrely.",
+      "Obžalovaný vypovedal pred sudcom bez váhania."
+    ],
+    "to terminate (a contract)": ["Chcem vypovedať nájomnú zmluvu ku koncu mesiaca."]
+  },
+  "vyslovit": {
+    "to utter": [
+      "Na schôdzi vyslovil pochybnosti o rozpočte.",
+      "Na stretnutí vyslovil poďakovanie celému tímu.",
+      "Vyslovil obavy z rastúcich cien energií."
+    ]
+  },
+  "vystriedat": {
+    "to replace": ["Vystriedala kolegu na recepcii po obede."]
+  },
+  "vyjst": {
+    "to come out": [
+      "Film vyšiel aj na streamingovej platforme.",
+      "Ráno vyšlo slnko nad horami."
+    ],
+    "to climb": [
+      "Je ťažké vyjsť hore schodmi?",
+      "Schody sú strmé, ťažko po nich vyjsť hore."
+    ]
+  },
+  "vztahovat": {
+    "to relate": [
+      "Ruské prídavné mená sú v zhode s rodom, číslom a pádom s podstatnými menami alebo zámenami, na ktoré sa vzťahujú."
+    ]
+  },
+  "zabezpecit": {
+    "to ensure": ["Zabezpeč, aby boli okná zatvorené."],
+    "to provide": ["Firma zabezpečila školenie nových zamestnancov."]
+  },
+  "zakladat": {
+    "to found": [
+      "Obec zakladá nový park pri rieke.",
+      "Každý rok zakladajú nové športové kluby."
+    ]
+  },
+  "zastupovat": {
+    "to substitute": [
+      "Počas dovolenky ju zastupuje kolega z oddelenia.",
+      "V neprítomnosti riaditeľa ho zastupuje zástupca."
+    ]
+  },
+  "zachytit": {
+    "to catch": [
+      "Mikrofón zachytil aj tichý šepot.",
+      "Brankár zachytil ťažkú strelu do rohu.",
+      "Mikrofón zachytil aj tiché šepkanie zo sály.",
+      "Zachytili signál z poškodenej lode."
+    ]
+  },
+  "zaviazat": {
+    "to bind": ["Zaviazala si vlasy do prísneho uzla."]
+  },
+  "zdolat": {
+    "overcome": [
+      "Turisti zdolali vrchol pred poludním.",
+      "Chorobu zdolala vďaka včasnej liečbe.",
+      "Schody zdolal bez zastavenia."
+    ]
+  },
+  "zohrat": {
+    "play": [
+      "Orchester zohral celú skladbu bez prestávky.",
+      "Orchester zohral symfóniu bez jedinej chyby."
+    ]
+  },
+  "zvolat": {
+    "call": [
+      "Starosta zvolá mimoriadne zasadnutie rady.",
+      "Rada zvolala mimoriadne zasadnutie na piatok."
+    ]
+  },
+  "zvolit": {
+    "choose": [
+      "Zvolili si pokojnejšiu trasu cez les.",
+      "Zvolila si štúdium cudzích jazykov."
+    ]
+  },
+  "zvysovat": {
+    "increase": ["Ceny energií sa stále zvyšujú."]
+  },
+  "nasadit": {
+    "to plant": ["Záhradník nasadil sadenice do záhonov."]
+  }
+}

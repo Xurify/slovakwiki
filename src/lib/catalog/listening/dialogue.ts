@@ -1,5 +1,7 @@
 import { markedText, type MarkedPart } from "$lib/learning/marked-text";
-import type { DialogueTurn } from "$lib/learning/types";
+import type { DialogueTurn, ListenerAsk, ListenerPath } from "$lib/learning/types";
+
+export { NO_PICK } from "$lib/listening/listener-path";
 
 /**
  * Writing a podcast line for the ear. A line is its parts: words, a marked
@@ -112,6 +114,40 @@ export function lineWriter(prefix: string) {
 /** The answer to a question put to the listener: the player waits before it. */
 export function afterThinking(turn: DialogueTurn): DialogueTurn {
   return { ...turn, wait: THINK_MS };
+}
+
+const RIGHT_OR_WRONG = [
+  { id: "right", label: "Správne", english: "Right" },
+  { id: "wrong", label: "Nesprávne", english: "Wrong" },
+];
+
+/**
+ * A sentence the hosts' game puts to the listener as well: the player holds
+ * after it until they pick right or wrong, and the verdict that follows is
+ * theirs to check.
+ */
+export function rightOrWrong(
+  turn: DialogueTurn,
+  answerId: "right" | "wrong",
+): DialogueTurn {
+  return {
+    ...turn,
+    ask: {
+      prompt: "Správne alebo nesprávne?",
+      choices: RIGHT_OR_WRONG,
+      answerId,
+    },
+  };
+}
+
+/** A line the listener answers in the host's place: the lines after it can go by their pick. */
+export function listenerPicks(turn: DialogueTurn, ask: ListenerAsk): DialogueTurn {
+  return { ...turn, ask };
+}
+
+/** A line that plays only on some paths through the listener's picks. */
+export function onPath(turn: DialogueTurn, when: ListenerPath): DialogueTurn {
+  return { ...turn, when };
 }
 
 /** A guess at something not yet shown: none of the speaker's sentences brings a prop out. */

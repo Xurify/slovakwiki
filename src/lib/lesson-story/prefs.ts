@@ -6,6 +6,8 @@ export const STORY_AUTO_ADVANCE_KEY = "slovak.wiki.story-auto-advance";
 export const STORY_SHOW_ENGLISH_KEY = "slovak.wiki.story-show-english";
 export const STORY_PLACE_SOUND_KEY = "slovak.wiki.story-place-sound";
 export const STORY_SUBTITLES_KEY = "slovak.wiki.story-subtitles";
+export const LISTEN_PLAY_ALONG_KEY = "slovak.wiki.listen-play-along";
+export const LISTEN_SHOW_VOICES_KEY = "slovak.wiki.listen-show-voices";
 export const STORY_PREFS_CHANGE_EVENT = "slovak-story-prefs-change";
 
 /**
@@ -18,6 +20,10 @@ export const STORY_SHOW_ENGLISH_DEFAULT: StoryBoolPreference = "off";
 export const STORY_PLACE_SOUND_DEFAULT: StoryBoolPreference = "on";
 /** The line being said shows under the stage unless the learner turns it off. */
 export const STORY_SUBTITLES_DEFAULT: StoryBoolPreference = "on";
+/** A podcast stops for the listener's guess when the hosts ask for one, unless they turn it off. */
+export const LISTEN_PLAY_ALONG_DEFAULT: StoryBoolPreference = "on";
+/** The hosts' faces sit beside the play button, lit while they speak, unless hidden. */
+export const LISTEN_SHOW_VOICES_DEFAULT: StoryBoolPreference = "on";
 
 export interface StorageLike {
   getItem(key: string): string | null;
@@ -116,6 +122,28 @@ export function setStorySubtitles(
   storage?: StorageLike,
 ): void {
   writePreference(STORY_SUBTITLES_KEY, value, storage);
+}
+
+export function getListenPlayAlong(storage?: StorageLike): StoryBoolPreference {
+  return readPreference(LISTEN_PLAY_ALONG_KEY, LISTEN_PLAY_ALONG_DEFAULT, storage);
+}
+
+export function setListenPlayAlong(
+  value: StoryBoolPreference,
+  storage?: StorageLike,
+): void {
+  writePreference(LISTEN_PLAY_ALONG_KEY, value, storage);
+}
+
+export function getListenShowVoices(storage?: StorageLike): StoryBoolPreference {
+  return readPreference(LISTEN_SHOW_VOICES_KEY, LISTEN_SHOW_VOICES_DEFAULT, storage);
+}
+
+export function setListenShowVoices(
+  value: StoryBoolPreference,
+  storage?: StorageLike,
+): void {
+  writePreference(LISTEN_SHOW_VOICES_KEY, value, storage);
 }
 
 export function toggleStoryBool(value: StoryBoolPreference): StoryBoolPreference {

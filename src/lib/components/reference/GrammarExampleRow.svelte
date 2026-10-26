@@ -26,35 +26,27 @@
   const parts = $derived(exampleParts(example.slovak, forms, example.demonstrates));
 </script>
 
-<!-- The note starts at the panel's midpoint, the same keyline as a three-column
-     table's middle column, with its first line level with the Slovak's. -->
-<li
-  class={cx(
-    "grid gap-x-6 gap-y-1 border-t border-slate-200/70 px-4 py-2.5 first:border-t-0 sm:px-5",
-    "md:grid-cols-2",
-  )}
->
-  <div class="min-w-0 md:col-start-1 md:row-start-1">
-    <GrammarSentence
-      {audioKey}
-      reserveAudio={reserveAudioColumn}
-      english={example.english}
-    >
-      {#each parts as part, index (index)}
-        {#if part.highlighted}
-          <span class={grammarEndingClass}>{part.text}</span>
-        {:else}
-          {part.text}
-        {/if}
-      {/each}
-    </GrammarSentence>
-  </div>
+<!-- One example per row, read down a single column: the Slovak, what it means,
+     then the bit worth noticing. A second column would turn the list into a
+     table, and the notes would line up with nothing. -->
+<li>
+  <GrammarSentence {audioKey} reserveAudio={reserveAudioColumn} english={example.english}>
+    {#each parts as part, index (index)}
+      {#if part.highlighted}
+        <span class={grammarEndingClass}>{part.text}</span>
+      {:else}
+        {part.text}
+      {/if}
+    {/each}
+  </GrammarSentence>
 
   {#if example.demonstrates}
+    <!-- The rule sits on the sentence's own left edge, so the note reads as a
+         remark about the line above rather than a third translation of it. -->
     <p
       class={cx(
-        "m-0 min-w-0 text-sm leading-snug text-pretty text-slate-500 md:col-start-2 md:row-span-2 md:row-start-1 md:pt-1.5",
-        reserveAudioColumn && "pl-10 md:pl-0",
+        "m-0 mt-2 max-w-[65ch] border-l-2 border-slate-200 pl-3 text-[0.8125rem] leading-relaxed text-pretty text-slate-500",
+        reserveAudioColumn && "ml-10",
       )}
     >
       <GrammarRichText text={example.demonstrates} />
@@ -63,11 +55,7 @@
 
   {#if practiceHref}
     <a
-      class={cx(
-        moreLinkClass,
-        "justify-self-start md:col-start-1 md:row-start-2",
-        reserveAudioColumn && "ml-10",
-      )}
+      class={cx(moreLinkClass, "mt-1.5", reserveAudioColumn && "ml-10")}
       href={practiceHref}
     >
       Practice

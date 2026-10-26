@@ -1,7 +1,11 @@
+# Prettier on the staged files only. lint-staged writes every file prettier can
+# parse, so a commit cannot carry unformatted code; a repo-wide
+# `prettier --check .` here re-checked all ~850 files (~15s) to catch drift in
+# files the commit does not touch. That is CI's job (`format:check`).
 bunx lint-staged
-bun run format:check
 
-# astro check is ~20s and CI does not run it. Content-only commits skip it.
+# astro check is ~30s and CI does not run it, so it stays the one heavy step:
+# only a commit that stages typed code or the configs it reads pays for it.
 # sh -e: a no-match grep must stay inside `if` or the hook aborts.
 if git diff --cached --name-only --diff-filter=ACMRD | grep -Eq '^(src/|scripts/).+\.(astro|cjs|js|json|mjs|svelte|ts|tsx)$|^(astro\.config\.ts|eslint\.config\.js|package\.json|svelte\.config\.js|tsconfig\.json)$'; then
   bun run check

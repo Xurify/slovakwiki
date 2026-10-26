@@ -1,5 +1,13 @@
 import type { MarkedPart } from "$lib/learning/marked-text";
-import { PAUSE, SIGH, STOP, afterThinking, lineWriter } from "../dialogue";
+import {
+  CHUCKLE,
+  PAUSE,
+  SIGH,
+  STOP,
+  afterThinking,
+  lineWriter,
+  rightOrWrong,
+} from "../dialogue";
 import type { ListeningChapter, ListeningEpisode } from "../types";
 
 const PREFIX = "podcast-telling-time-";
@@ -736,56 +744,31 @@ const quiz: ListeningChapter = {
         mark("je jedna hodina"),
         ". ",
         PAUSE,
-        "A teraz hra: správne alebo nesprávne? Hádajte s nami!",
+        "Teraz malá skúška z hodín pre Mareka.",
       ],
-      "We're back in the studio and it's one o'clock. And now a game: right or wrong? Guess along with us!",
+      "We're back in the studio and it's one o'clock. Now a little test on telling time for Marek.",
     ),
     line(
-      "marek-first-sentence",
-      "Marek",
-      ["Prvá veta: ", PAUSE, mark("Sú päť hodín"), "."],
-      "First sentence: Sú päť hodín. (Wrong on purpose.)",
+      "anna-the-rules",
+      "Anna",
+      ["Marek povie vetu a vy hádajte: je správna, alebo nesprávna?"],
+      "Marek says a sentence and you guess: is it right, or wrong?",
     ),
-    afterThinking(
+    line(
+      "marek-why-me",
+      "Marek",
+      ["Z hodín? ", PAUSE, "Prečo práve ja?"],
+      "Telling time? Why me of all people?",
+    ),
+    line("anna-thats-why", "Anna", [CHUCKLE, "Práve preto."], "That's exactly why."),
+    rightOrWrong(
       line(
-        "anna-je-pat-hodin",
-        "Anna",
-        [
-          "Nesprávne! ",
-          PAUSE,
-          "Päť a viac: ",
-          mark("je päť hodín"),
-          ", ",
-          mark("je desať hodín"),
-          ".",
-        ],
-        "Wrong! Five and more: je päť hodín, je desať hodín.",
+        "marek-third-sentence",
+        "Marek",
+        ["Dobre… ", PAUSE, "Stretneme sa ", mark("o tretej"), "."],
+        "OK… We'll meet at three.",
       ),
-    ),
-    line(
-      "marek-second-sentence",
-      "Marek",
-      ["Druhá veta: ", PAUSE, mark("Pol tretej"), " je tri tridsať."],
-      "Second sentence: Pol tretej is three thirty. (Wrong on purpose.)",
-    ),
-    afterThinking(
-      line(
-        "anna-pol-tretej-two-thirty",
-        "Anna",
-        [
-          "Nesprávne! ",
-          PAUSE,
-          mark("Pol tretej"),
-          " je dve tridsať. Pozeráme sa na tretiu hodinu.",
-        ],
-        "Wrong! Pol tretej is two thirty. We look toward the third hour.",
-      ),
-    ),
-    line(
-      "marek-third-sentence",
-      "Marek",
-      ["Tretia veta: ", PAUSE, "Stretneme sa ", mark("o tretej"), "."],
-      "Third sentence: We'll meet at three.",
+      "right",
     ),
     afterThinking(
       line(
@@ -805,10 +788,91 @@ const quiz: ListeningChapter = {
       ),
     ),
     line(
-      "marek-last-sentence",
+      "marek-see-i-know",
       "Marek",
-      ["A posledná veta: ", PAUSE, "Zavolám ti ", mark("o dve hodiny"), "."],
-      "And the last sentence: I'll call you in two hours.",
+      ["Hurá! ", PAUSE, "Vidíš, viem to."],
+      "Hooray! See, I know it.",
+    ),
+    line(
+      "anna-so-next",
+      "Anna",
+      ["Dobre. ", PAUSE, "Tak ďalšia."],
+      "OK. So, the next one.",
+    ),
+    rightOrWrong(
+      line(
+        "marek-first-sentence",
+        "Marek",
+        ["Hm… ", PAUSE, mark("Sú päť hodín"), "."],
+        "Hmm… Sú päť hodín.",
+      ),
+      "wrong",
+    ),
+    afterThinking(
+      line(
+        "anna-je-pat-hodin",
+        "Anna",
+        [
+          "Nesprávne! ",
+          PAUSE,
+          "Päť a viac: ",
+          mark("je päť hodín"),
+          ", ",
+          mark("je desať hodín"),
+          ".",
+        ],
+        "Wrong! Five and more: je päť hodín, je desať hodín.",
+      ),
+    ),
+    line(
+      "marek-of-course-five",
+      "Marek",
+      ["No jasné, ", mark("je päť hodín"), "."],
+      "Of course, je päť hodín.",
+    ),
+    line(
+      "anna-try-again",
+      "Anna",
+      ["Nič sa nestalo. ", PAUSE, "Skús ešte."],
+      "No harm done. Try again.",
+    ),
+    rightOrWrong(
+      line(
+        "marek-second-sentence",
+        "Marek",
+        ["Tak… ", PAUSE, mark("Pol tretej"), " je tri tridsať."],
+        "So… Pol tretej is three thirty.",
+      ),
+      "wrong",
+    ),
+    afterThinking(
+      line(
+        "anna-pol-tretej-two-thirty",
+        "Anna",
+        [
+          "Nesprávne! ",
+          PAUSE,
+          mark("Pol tretej"),
+          " je dve tridsať. Pozeráme sa na tretiu hodinu.",
+        ],
+        "Wrong! Pol tretej is two thirty. We look toward the third hour.",
+      ),
+    ),
+    line(
+      "marek-wrong-again",
+      "Marek",
+      [SIGH, "Zase nesprávne? ", PAUSE, "Dve tridsať… dobre."],
+      "Wrong again? Two thirty… OK.",
+    ),
+    line("anna-last-one", "Anna", ["Ešte jedna, posledná."], "One more, the last one."),
+    rightOrWrong(
+      line(
+        "marek-last-sentence",
+        "Marek",
+        ["Hm… ", PAUSE, "Zavolám ti ", mark("o dve hodiny"), "."],
+        "Hmm… I'll call you in two hours.",
+      ),
+      "right",
     ),
     afterThinking(
       line(
@@ -830,21 +894,25 @@ const quiz: ListeningChapter = {
       ),
     ),
     line(
-      "marek-i-know-it-now",
+      "marek-two-and-two",
       "Marek",
-      [
-        mark("Je jedna hodina"),
-        ", ",
-        mark("sú dve hodiny"),
-        ", ",
-        mark("je päť hodín"),
-        ". ",
-        PAUSE,
-        "Už to viem!",
-      ],
-      "Je jedna hodina, sú dve hodiny, je päť hodín. Now I know it!",
+      ["Dve správne, dve nesprávne. ", PAUSE, "Ujde to."],
+      "Two right, two wrong. Not bad.",
     ),
-    line("anna-excellent", "Anna", ["Výborne, Marek!"], "Excellent, Marek!"),
+    line(
+      "anna-and-you",
+      "Anna",
+      [CHUCKLE, "Ujde to, Marek. ", PAUSE, "A vy? Koľko ste mali správne?"],
+      "Not bad, Marek. And you? How many did you get right?",
+    ),
+    afterThinking(
+      line(
+        "marek-hope-fewer",
+        "Marek",
+        [CHUCKLE, "Dúfam, že menej ako ja."],
+        "I hope fewer than me.",
+      ),
+    ),
   ],
   checks: [
     {

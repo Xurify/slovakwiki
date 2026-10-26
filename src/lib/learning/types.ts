@@ -24,7 +24,26 @@ export interface DialogueSayChoices {
   choices: DialogueSayChoice[];
 }
 
+/** A question a podcast line puts to the listener: the player holds after the line for their answer. */
+export interface ListenerAsk {
+  answerId: string;
+  choices: Array<{ english: string; id: string; label: string }>;
+  /** Whose line marks the pick right or wrong; the line straight after the ask unless set. */
+  judge?: string;
+  prompt: string;
+}
+
+/**
+ * The listener's answers a podcast line plays on: the pick at an asking line
+ * ("none" when they let the host answer), how many asks in the segment went
+ * right once they picked at least once, or `unaided` when they picked none.
+ */
+export type ListenerPath =
+  { ask: string; picks: string[] } | { score: number[] } | { unaided: true };
+
 export interface DialogueTurn {
+  /** Podcast only: the listener answers this line before the next one plays. */
+  ask?: ListenerAsk;
   audio?: AudioCue;
   english: string;
   /** Practice bubble starts with this gloss behind “Show English”. The task prompt stays visible. */
@@ -66,6 +85,8 @@ export interface DialogueTurn {
   ring?: "call" | "dial" | "message";
   /** Said at the far end of a call: heard, not seen on stage. */
   overPhone?: boolean;
+  /** Podcast only: the line plays only on this path through the listener's answers. */
+  when?: ListenerPath;
 }
 
 export interface LessonTrack {

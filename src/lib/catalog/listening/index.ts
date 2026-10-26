@@ -1,4 +1,5 @@
 import type { DialogueTurn } from "$lib/learning/types";
+import { NO_PICK, onPath } from "$lib/listening/listener-path";
 import { demonstrativesEpisode } from "./episodes/demonstratives";
 import { pastTenseEpisode } from "./episodes/past-tense";
 import { possessivesEpisode } from "./episodes/possessives";
@@ -34,8 +35,18 @@ export function episodeCheckCount(episode: ListeningEpisode): number {
 
 const WORDS_PER_MINUTE = 90;
 
+/** One listen through: the lines of a listener who picks every answer right. */
+function heardLines(episode: ListeningEpisode): DialogueTurn[] {
+  return episode.chapters.flatMap(({ lines }) => {
+    const picks = Object.fromEntries(
+      lines.flatMap((line) => (line.ask ? [[line.id, line.ask.answerId]] : [])),
+    );
+    return lines.filter((line) => onPath(line, lines, picks));
+  });
+}
+
 export function episodeMinutes(episode: ListeningEpisode): number {
-  const words = episodeLines(episode).reduce(
+  const words = heardLines(episode).reduce(
     (sum, line) => sum + line.slovak.split(/\s+/).filter(Boolean).length,
     0,
   );
@@ -74,6 +85,22 @@ export function validateListeningEpisodes(): string[] {
       }
       if (!line.english.trim()) issues.push(`Line ${line.id} has no English`);
       onSpeaker(line.speaker, line.id);
+      const when = line.when;
+      if (when && "ask" in when) {
+        const ask = chapter.lines.find((other) => other.id === when.ask)?.ask;
+        if (!ask) issues.push(`Line ${line.id} follows ${when.ask}, which asks nothing`);
+        for (const pick of when.picks) {
+          if (
+            ask &&
+            pick !== NO_PICK &&
+            !ask.choices.some((choice) => choice.id === pick)
+          ) {
+            issues.push(
+              `Line ${line.id} follows pick ${pick}, not a choice of ${when.ask}`,
+            );
+          }
+        }
+      }
     }
 
     for (const check of chapter.checks) {
