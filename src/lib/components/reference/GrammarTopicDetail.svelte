@@ -62,6 +62,9 @@
     "sm:col-span-2 sm:grid-cols-subgrid sm:px-5",
   );
 
+  const relatedRowClass =
+    "grid scroll-mt-24 grid-cols-[7.5rem_minmax(0,1fr)] items-baseline gap-x-4 max-[560px]:grid-cols-1 max-[560px]:gap-y-1.5";
+
   const isTime = $derived(topic.slug === "telling-time");
   const terms = $derived(topic.termSections ?? []);
   const neighbors = $derived(grammarNeighbors(topic.slug));
@@ -320,83 +323,70 @@
       {@render weakSpots()}
     {/if}
 
-    {#if words.length > 0}
-      <section id="words" class="mt-8" aria-labelledby="words-heading">
-        <h2 id="words-heading" class={grammarHeadingClass}>Words on this page</h2>
-
-        <!-- Cells instead of a single column, so a short word list fills the width
-             rather than running down the page. -->
-        <ul
-          class={cx(
-            dataPanelClass,
-            "m-0 mt-3 grid list-none p-0",
-            words.length === 1 && "grid-cols-1",
-            words.length === 2 && "grid-cols-2",
-            words.length > 2 && "grid-cols-2 sm:grid-cols-3",
-          )}
-        >
-          {#each words as link (link.slug)}
-            <li class="-mr-px -mb-px border-r border-b border-slate-200/70">
-              <a
-                class="group block h-full px-4 py-3 no-underline transition-colors duration-150 ease-out hover:bg-subtle/60 sm:px-5"
-                href={link.href}
-              >
-                <span
-                  class="block font-serif text-lg leading-snug font-semibold text-slate-900 group-hover:text-blue-800"
-                  lang="sk"
-                >
-                  {link.primary}
-                </span>
-
-                <span class="mt-0.5 block text-sm leading-snug text-slate-500">
-                  {link.secondary}
-                </span>
-              </a>
-            </li>
-          {/each}
-        </ul>
-      </section>
-    {/if}
-
-    {#if relatedTopics.length > 0}
+    {#if words.length > 0 || relatedTopics.length > 0}
       <section id="related" class="mt-8" aria-labelledby="related-heading">
-        <h2 id="related-heading" class={grammarHeadingClass}>Related topics</h2>
+        <h2 id="related-heading" class={grammarHeadingClass}>Related</h2>
 
-        <ul class={cx(dataPanelClass, "m-0 mt-3 list-none p-0")}>
-          {#each relatedTopics as related (related.slug)}
-            <li class="border-b border-slate-200/70 last:border-b-0">
-              <a
-                class={cx(
-                  "group grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 px-4 py-3 no-underline sm:px-5",
-                  "transition-colors duration-150 ease-out hover:bg-subtle/60",
-                )}
-                href="/grammar/{related.slug}"
-              >
-                <span class="min-w-0">
-                  <span class="flex flex-wrap items-baseline gap-x-2.5">
-                    <span
-                      class="font-serif text-lg leading-snug font-semibold text-slate-900 group-hover:text-blue-800"
-                    >
-                      {sentenceCase(related.english)}
-                    </span>
+        <!-- Labelled rows like "Look it up elsewhere": the label column is the
+             edge, the links are blue, and nothing needs a box around it. -->
+        <dl class="m-0 mt-3 grid gap-y-4">
+          {#if words.length > 0}
+            <div id="words" class={relatedRowClass}>
+              <dt class="text-[0.8rem] font-medium text-slate-600">Words</dt>
 
-                    <span class="font-serif text-sm text-slate-500" lang="sk">
-                      {related.slovak}
-                    </span>
-                  </span>
+              <dd class="m-0">
+                <ul class="m-0 flex list-none flex-wrap gap-x-6 gap-y-1.5 p-0">
+                  {#each words as link (link.slug)}
+                    <li>
+                      <a class="group no-underline" href={link.href}>
+                        <span
+                          class="font-serif text-lg leading-snug font-semibold text-blue-800 underline-offset-2 group-hover:underline"
+                          lang="sk"
+                        >
+                          {link.primary}
+                        </span>
 
-                  <span
-                    class="mt-0.5 line-clamp-2 block text-sm leading-snug text-pretty text-slate-600"
-                  >
-                    {related.summary}
-                  </span>
-                </span>
+                        <span class="ml-1 text-sm text-slate-500">{link.secondary}</span>
+                      </a>
+                    </li>
+                  {/each}
+                </ul>
+              </dd>
+            </div>
+          {/if}
 
-                <ArrowRight class="text-slate-400 group-hover:text-blue-800" />
-              </a>
-            </li>
-          {/each}
-        </ul>
+          {#if relatedTopics.length > 0}
+            <div class={relatedRowClass}>
+              <dt class="text-[0.8rem] font-medium text-slate-600">Topics</dt>
+
+              <dd class="m-0">
+                <ul class="m-0 grid list-none gap-y-2.5 p-0">
+                  {#each relatedTopics as related (related.slug)}
+                    <li>
+                      <a class="group no-underline" href="/grammar/{related.slug}">
+                        <span
+                          class="font-serif text-lg leading-snug font-semibold text-blue-800 underline-offset-2 group-hover:underline"
+                        >
+                          {sentenceCase(related.english)}
+                        </span>
+
+                        <span class="ml-1.5 font-serif text-sm text-slate-500" lang="sk">
+                          {related.slovak}
+                        </span>
+                      </a>
+
+                      <p
+                        class="m-0 mt-0.5 text-sm leading-snug text-pretty text-slate-600"
+                      >
+                        {related.summary}
+                      </p>
+                    </li>
+                  {/each}
+                </ul>
+              </dd>
+            </div>
+          {/if}
+        </dl>
       </section>
     {/if}
 

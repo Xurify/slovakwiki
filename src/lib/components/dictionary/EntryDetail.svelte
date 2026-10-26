@@ -375,6 +375,7 @@
 
         <ExternalLookups
           lemma={entry.slovak}
+          category={entry.category}
           dialect={senseViews.some((sense) => sense.entry.dialect === true)}
         />
       </article>
