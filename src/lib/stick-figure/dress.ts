@@ -1,6 +1,6 @@
 import type { Weather } from "./scene-mood";
 
-/** What a place puts on a head: the studio's open-back headphones, or a headset with a boom mic. */
+/** What a place puts on a head: the studio's closed-back headphones, or a headset with a boom mic. */
 export type Headwear = "headphones" | "headset";
 
 /**
