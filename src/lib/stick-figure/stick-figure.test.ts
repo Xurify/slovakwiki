@@ -99,6 +99,15 @@ describe("overTable", () => {
     expect(reach(kept)).toBeLessThan(reach(swung));
     expect(kept.leadArm.end.y).toBeLessThan(swung.leadArm.end.y);
   });
+
+  it("brings a seated talker's far hand round in front, not back onto the desk behind", () => {
+    const open = { ...REST_POSE, rearRaise: 30, rearBend: 46 };
+    const kept = solveRig(overTable(open, 1), 1);
+
+    expect(solveRig(open, 1).rearArm.end.x).toBeLessThan(kept.rearShoulder.x);
+    expect(kept.rearArm.end.x).toBeGreaterThan(kept.rearShoulder.x + 8);
+    expect(kept.rearArm.end.y).toBeLessThan(kept.rearShoulder.y + 18);
+  });
 });
 
 describe("gestures", () => {

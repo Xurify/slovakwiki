@@ -1268,13 +1268,15 @@ const OUTRO_ACTS: Record<string, Cue[]> = {
   ],
   "marek-right-away": [
     { do: "take", what: "headphones", on: "jaj" },
-    // In front of him, past his mug.
-    { do: "put", what: "headphones", to: "desk", dx: 34 },
+    // In front of him, a hand clear of his mug.
+    { do: "put", what: "headphones", to: "desk", dx: 38 },
     { do: "stand", on: "už" },
     { do: "go", to: "plant" },
   ],
+  // Bent to it as he says sorry, before the water.
   "marek-sorry-plant": [
     { do: "take", what: "can", on: "start" },
+    { do: "lean", to: "plant" },
     { do: "pour", what: "can", to: "plant", on: "tu" },
     { do: "wag", on: "nezaspi" },
     // Done with it, the can goes straight back where it lives.

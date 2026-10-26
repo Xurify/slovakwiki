@@ -39,6 +39,12 @@ const BETWEEN_MS = 120;
  */
 export const APART_MS = 400;
 const BEAT_MS = 550;
+/**
+ * Two people starting a gesture closer together than this (both waving
+ * goodbye, both looking round) read as a drill: the one listed later
+ * answers this much after.
+ */
+export const REACT_MS = 300;
 /** How far into a `skip` the lights are down, for the cues that happen in the dark. */
 export const DARK_MS = 1300;
 
@@ -67,6 +73,8 @@ export function scheduleCues(
   let dark: number | undefined;
   /** The walks of this line so far, by whom and when. */
   const moves: Array<{ who: LessonCharacterId; start: number; end: number }> = [];
+  /** When each gesture of this line so far starts, and whose. */
+  const gestures: Array<{ who: LessonCharacterId; start: number }> = [];
 
   for (const cue of cues) {
     const who = cueActor(cue, speaker);
@@ -99,8 +107,18 @@ export function scheduleCues(
     );
     const ms = WALKS.has(cue.do) ? walkMs(who, cue, state) : motion.ms;
     if (WALKS.has(cue.do) && ms > 0) start = apart(start, ms, who, moves);
+    const gesture = !WALKS.has(cue.do) && cue.do !== "camera" && ms > 0;
+    if (gesture && !partner) {
+      while (
+        gestures.some(
+          (other) => other.who !== who && Math.abs(other.start - start) < REACT_MS,
+        )
+      )
+        start += REACT_MS;
+    }
     const end = start + ms;
     if (WALKS.has(cue.do) && ms > 0) moves.push({ who, start, end });
+    if (gesture) gestures.push({ who, start });
 
     const next = applyCue(state, who, cue, plan);
     scheduled.push({ cue, who, motion, start, end, before: state, after: next });

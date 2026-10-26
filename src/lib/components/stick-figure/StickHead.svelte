@@ -263,8 +263,16 @@
     class={brows}
     stroke-width="1.25"
   />
-  <circle cx={26.2 + eyeX} cy={eyeY} r="2" class="fill-portrait-ink" />
-  <circle cx={37.8 + eyeX} cy={eyeY} r="2" class="fill-portrait-ink" />
+  {#if pose.shut > 0.5}
+    <path
+      d="M{24 + eyeX} {eyeY + 0.6}q2.2-2 4.4 0M{35.6 + eyeX} {eyeY + 0.6}q2.2-2 4.4 0"
+      class="stroke-portrait-ink"
+      stroke-width="1.3"
+    />
+  {:else}
+    <circle cx={26.2 + eyeX} cy={eyeY} r="2" class="fill-portrait-ink" />
+    <circle cx={37.8 + eyeX} cy={eyeY} r="2" class="fill-portrait-ink" />
+  {/if}
 
   {#if look.glasses}
     <circle

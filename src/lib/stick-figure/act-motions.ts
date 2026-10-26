@@ -286,7 +286,7 @@ export function motionFor(
             takes: 600,
             sounds: [{ at: 580, id: "thud" }],
             keys: [
-              { at: 0, lead: { mouth: true, dx: 13, dy: 13 }, both: PAIR },
+              { at: 0, ...HEADPHONES_HELD },
               { at: 420, lead: { ...where, dy: -4 }, both: PAIR, body: { lean: 4 } },
               { at: 600, lead: where, both: PAIR, body: { lean: 4 } },
               { at: 750, lead: where, both: PAIR, body: { lean: 3 } },
@@ -990,26 +990,45 @@ export function motionFor(
       };
     }
     case "yawn": {
-      // Head back, mouth wide behind a hand, a breath out after. At a desk the microphone is in front of the mouth, so further back, clear of it.
-      const cover = { ...hands(free, { mouth: true, dx: 4, dy: 0.5 }) };
+      // A stretch: arms up, head back, the mouth wide open and the eyes squeezed shut, then a breath out. Behind a hand, it read as leaning on it. Up past the face and in front of it, the arms clear a desk microphone; seated, the head goes further back, clear of it too.
       const back = world.seated?.includes(who) ? 7 : 0;
+      const tucked = { lead: { up: { x: 3, y: 10 } }, rear: { up: { x: 5, y: 12 } } };
+      const stretched = (lift: number) => ({
+        lead: { up: { x: 7, y: -26.5 - lift } },
+        rear: { up: { x: -5, y: -26 - lift } },
+      });
       return {
         motion: {
-          ms: 2000,
+          ms: 2300,
           keys: [
             { at: 0 },
+            { at: 250, ...tucked, body: { tilt: -3, lean: -1 - back, mouth: 0.4 } },
             {
-              at: 350,
-              ...cover,
-              body: { tilt: -6, lean: -3 - back, mouth: 0.9, brow: 0.6 },
+              at: 650,
+              ...stretched(0),
+              body: {
+                tilt: -10,
+                lean: -3 - back,
+                mouth: 1,
+                round: 0.4,
+                shut: 1,
+                brow: 0.7,
+              },
             },
             {
-              at: 1300,
-              ...cover,
-              body: { tilt: -8, lean: -4 - back, mouth: 1, brow: 0.7 },
+              at: 1400,
+              ...stretched(1),
+              body: {
+                tilt: -12,
+                lean: -4 - back,
+                mouth: 1,
+                round: 0.5,
+                shut: 1,
+                brow: 0.8,
+              },
             },
-            { at: 1650, body: { tilt: 2, nod: 0.5, mouth: 0 } },
-            { at: 2000 },
+            { at: 1750, ...tucked, body: { tilt: 2, nod: 0.8, mouth: 0.2 } },
+            { at: 2300 },
           ],
         },
       };
@@ -1110,20 +1129,32 @@ export function motionFor(
       keys.push({ at: 1800 });
       return { motion: { ms: 1800, keys } };
     }
-    case "point":
+    case "point": {
       // The arm comes up as the figure turns round to what it points at (TURN_MS), and stays long enough to follow.
+      const finger = { sign: { [free]: "finger" as const } };
       return {
         motion: {
           ms: 1900,
           face: to,
           keys: [
             { at: 0 },
-            { at: 450, ...hands(free, { toward: to }), body: { look: 1, brow: 0.3 } },
-            { at: 1500, ...hands(free, { toward: to }), body: { look: 1, brow: 0.3 } },
+            {
+              at: 450,
+              ...hands(free, { toward: to }),
+              ...finger,
+              body: { look: 1, brow: 0.3 },
+            },
+            {
+              at: 1500,
+              ...hands(free, { toward: to }),
+              ...finger,
+              body: { look: 1, brow: 0.3 },
+            },
             { at: 1900 },
           ],
         },
       };
+    }
     case "shrug": {
       // Elbows in, forearms out, palms up and open, and the head sinking between shoulders that cannot rise. Seated, the hands stay above the desk.
       const drop = world.seated?.includes(who) ? 15 : 22;
@@ -1175,6 +1206,7 @@ export function motionFor(
             bob: shake % 2 ? -1.4 : 0.6,
             brow: 0.8,
             mouth: shake % 2 ? 0.95 : 0.6,
+            shut: shake % 2 ? 1 : 0.6,
           },
         });
       }
@@ -1381,6 +1413,9 @@ function pocketMotion(way: "in" | "out", what: string, hand: Hand = "lead"): Mot
   };
 }
 
+/** Headphones held by both cups at the chest: higher, a seated host held them against the desk mic. */
+const HEADPHONES_HELD = { lead: { mouth: true, dx: 9, dy: 20 }, both: PAIR } as const;
+
 /**
  * Headphones off, both hands: the rear one on the near cup at the back of
  * the head, as it goes to a phone at the ear, and the lead one on the far
@@ -1394,7 +1429,7 @@ function offHeadMotion(): Motion {
     lead: { mouth: true, dx: 8.3, dy: -9.4 - lift },
     rear: { mouth: true, dx: -14, dy: -6.2 - lift },
   });
-  const held = { lead: { mouth: true, dx: 13, dy: 13 }, both: PAIR } as const;
+  const held = HEADPHONES_HELD;
   return {
     ms: 1700,
     takes: 450,
@@ -1404,13 +1439,14 @@ function offHeadMotion(): Motion {
       { at: 380, ...cups(0), body: { tilt: 3 } },
       { at: 520, ...cups(0), body: { tilt: 3 } },
       { at: 760, ...cups(6), body: { tilt: -3, lean: -2 } },
+      // Quickly down past the face, which they hide on the way.
       {
-        at: 1050,
-        lead: { mouth: true, dx: 13, dy: 1 },
-        rear: { mouth: true, dx: 1, dy: 1 },
+        at: 960,
+        lead: { mouth: true, dx: 9, dy: 8 },
+        rear: { mouth: true, dx: -3, dy: 8 },
         body: { tilt: 2 },
       },
-      { at: 1400, ...held, body: { lean: 1 } },
+      { at: 1300, ...held, body: { lean: 1 } },
       { at: 1700, ...held },
     ],
   };
@@ -1490,6 +1526,10 @@ export function targetPoint(
     const shoulder = hand === "lead" ? rig.leadShoulder : rig.rearShoulder;
     const aim = around.pointOf(target.toward, "top") ?? around.pointOf(target.toward);
     if (!aim) return rest;
+    // Seated behind a desk mic, the hand stays in under it and the finger shows the way: held out level, the arm went behind the mic's boom and read as gripping it; raised over the mic, it crossed the boom.
+    if (sit > 0.5 && around.mic?.side === 1 && aim.x > shoulder.x) {
+      return { x: shoulder.x + UNDER_MIC_POINT.x, y: shoulder.y + UNDER_MIC_POINT.y };
+    }
     // Pointing across a room the arm stays about level: aimed down at a thing's foot it went into the desk or table between.
     const across = Math.abs(aim.x - shoulder.x);
     const at = { x: aim.x, y: Math.min(aim.y, shoulder.y + across * POINT_DROP) };
@@ -1501,6 +1541,16 @@ export function targetPoint(
   }
   const at = around.pointOf(target.to, target.as ?? "grip");
   return at ? { x: at.x + (target.dx ?? 0), y: at.y + (target.dy ?? 0) } : rest;
+}
+
+/** A seated host's lean that would put the head into their desk mic, stopped short of it. */
+export function headClearOfMic(pose: StickPose, sit: number, side: 1 | -1): StickPose {
+  let body = pose;
+  for (let step = 0; step < 40; step += 1) {
+    if (intoDeskMic(solveRig(body, sit).head, HEAD_RADIUS, side) <= 0) break;
+    body = { ...body, lean: body.lean - side * 0.5 };
+  }
+  return body;
 }
 
 /** Half a hand, with room to spare: the drawn hand is 2.3 across from its middle. */
@@ -1545,6 +1595,8 @@ function clearOfMic(
 
 /** The steepest a point goes below level, as a slope: about 6 degrees. */
 const POINT_DROP = 0.1;
+/** From a seated host's shoulder: in front of the chest, under the mic's head and short of its boom (StudioDesk). */
+const UNDER_MIC_POINT: Point = { x: 13, y: 3 };
 
 /** The arm's length, upper arm and forearm, a little short of straight. */
 const ARM_REACH = 28.5;
@@ -1659,6 +1711,17 @@ export function frameBetween(
     turn[hand] = lerp(a ?? 0, b ?? 0, t);
   }
 
+  // A pointing finger along the line from the hand to what it points at.
+  const signs = t < 0.5 ? from.sign : to.sign;
+  for (const hand of ["lead", "rear"] as const) {
+    const target = [to[hand], from[hand]].find((key) => key && "toward" in key);
+    const point = points[hand];
+    if (signs?.[hand] !== "finger" || turn[hand] !== undefined || !point) continue;
+    if (!target || !("toward" in target)) continue;
+    const aim = around.pointOf(target.toward, "top") ?? around.pointOf(target.toward);
+    if (aim) turn[hand] = (Math.atan2(aim.x - point.x, point.y - aim.y) * 180) / Math.PI;
+  }
+
   const mic = sit > 0.5 ? around.mic : undefined;
   if (mic) {
     for (const hand of ["lead", "rear"] as const) {
@@ -1685,13 +1748,7 @@ export function frameBetween(
   body.lean += leaned;
   if (low && sit === 0) body.bob += leaned * 0.5;
 
-  // A lean that would put the head into the mic stops short of it.
-  for (let step = 0; mic && step < 40; step += 1) {
-    if (intoDeskMic(solveRig(body, sit).head, HEAD_RADIUS, mic.side) <= 0) break;
-    body.lean -= mic.side * 0.5;
-  }
-
-  let pose = body;
+  let pose = mic ? headClearOfMic(body, sit, mic.side) : body;
   for (const hand of ["lead", "rear"] as const) {
     const point = points[hand];
     if (point) pose = { ...pose, ...reachFor(pose, hand, point, sit) };

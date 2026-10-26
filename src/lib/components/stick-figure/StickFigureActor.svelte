@@ -17,7 +17,12 @@
   import type { Dress } from "$lib/stick-figure/dress";
   import type { Held } from "$lib/stick-figure/props";
   import { stepMs, walkPose } from "$lib/stick-figure/walk";
-  import type { Effect, Emote, Sign } from "$lib/stick-figure/act-motions";
+  import {
+    headClearOfMic,
+    type Effect,
+    type Emote,
+    type Sign,
+  } from "$lib/stick-figure/act-motions";
   import type { ObjectKind } from "$lib/stick-figure/acts";
   import StickFigure from "./StickFigure.svelte";
   import type { ObjectLook } from "./StickSetObject.svelte";
@@ -51,6 +56,7 @@
     held,
     dress,
     seated = false,
+    mic,
     onCall = false,
     talking = false,
     turnDelay = 0,
@@ -74,6 +80,8 @@
     dress?: Dress;
     /** On a chair: they sit once any walk there is over, and get up before walking on. */
     seated?: boolean;
+    /** Seated behind a desk mic: 1 on the side they face, -1 turned away from it. */
+    mic?: 1 | -1;
     /** On a call: the phone at their ear. */
     onCall?: boolean;
     /** True while the line `plan` belongs to plays: this figure's own, or one it reacts to. */
@@ -241,7 +249,11 @@
     );
     const stepping = walking ? walkPose(body, walked, walkMs, stepMs(characterId)) : body;
     const acted = acting ? doing.sample(now, stepping, sitting.current) : undefined;
-    pose = acted?.pose ?? stepping;
+    // A listener leaning in to a question leaned into the mic too.
+    pose =
+      mic && sitting.current > 0.5
+        ? headClearOfMic(acted?.pose ?? stepping, sitting.current, mic)
+        : (acted?.pose ?? stepping);
     turn = acted?.turn ?? {};
     emote = acted?.emote;
     sign = acted?.sign;

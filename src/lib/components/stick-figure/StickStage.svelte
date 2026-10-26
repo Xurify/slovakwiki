@@ -1708,6 +1708,7 @@
                 doing={acts[characterId]}
                 hands={handsOf(characterId)}
                 seated={seated[characterId] !== undefined}
+                mic={deskMic(characterId, world, undefined)?.side}
                 onCall={acted
                   ? onCall(characterId)
                   : direction.lines[heldAt]?.call === characterId}

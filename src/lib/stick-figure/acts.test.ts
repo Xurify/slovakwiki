@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { listeningEpisodes } from "$lib/catalog/listening";
-import { DARK_MS, scheduleCues, type LineTimes } from "./act-schedule";
+import { DARK_MS, REACT_MS, scheduleCues, type LineTimes } from "./act-schedule";
 import { CueError, heldBy, setUp, startWorld, worlds, type Cue } from "./acts";
 import { PLACES } from "./places";
 import { episodeStages } from "./scene-sources";
@@ -241,6 +241,16 @@ describe("cues on the clock", () => {
 
     expect(salt.start).toBe(1500);
     expect(spoon.start).toBeGreaterThanOrEqual(salt.end);
+  });
+
+  it("has the second of two people waving on the same word answer a beat after", () => {
+    const cues: Cue[] = [
+      { do: "wave", on: "start" },
+      { who: "anna", do: "wave", on: "start" },
+    ];
+    const [first, second] = scheduleCues(cues, "marek", world, times, () => 0);
+
+    expect(second.start - first.start).toBe(REACT_MS);
   });
 });
 
