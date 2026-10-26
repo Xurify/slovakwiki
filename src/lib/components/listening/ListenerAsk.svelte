@@ -57,7 +57,6 @@
   >
     {ask.prompt}
   </p>
-  <p class="m-0 text-sm text-slate-600">{ask.promptEnglish}</p>
 
   <div class="mt-3 flex flex-wrap items-center gap-2">
     {#each ask.choices as choice (choice.id)}
@@ -68,9 +67,9 @@
         class={cx(
           "inline-flex min-h-12 min-w-32 cursor-pointer items-center justify-center gap-2 rounded-(--control-radius) border px-4 py-2",
           "transition-[background-color,border-color,color] duration-150 ease-out disabled:cursor-default",
-          marked && right && "border-emerald-600 bg-emerald-50 text-emerald-900",
-          marked && !right && "border-rose-600 bg-rose-50 text-rose-900",
-          chosen && !marked && "border-blue-600 bg-blue-50 text-blue-900",
+          marked && right && "border-emerald-600 bg-emerald-50 text-emerald-800",
+          marked && !right && "border-rose-600 bg-rose-50 text-rose-800",
+          chosen && !marked && "border-blue-600 bg-blue-50 text-blue-800",
           !chosen &&
             "border-slate-300 bg-surface text-slate-900 enabled:hover:border-blue-700 enabled:hover:bg-blue-50 disabled:opacity-60",
         )}

@@ -29,7 +29,6 @@ export interface ListenerAsk {
   answerId: string;
   choices: Array<{ english: string; id: string; label: string }>;
   prompt: string;
-  promptEnglish: string;
 }
 
 export interface DialogueTurn {

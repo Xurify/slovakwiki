@@ -113,7 +113,6 @@ export function rightOrWrong(
     ...turn,
     ask: {
       prompt: "Správne alebo nesprávne?",
-      promptEnglish: "Right or wrong?",
       choices: RIGHT_OR_WRONG,
       answerId,
     },
