@@ -42,7 +42,9 @@
     ></span>
   </span>
 
-  <ul class="m-0 flex list-none flex-col gap-2 p-0">
+  <ul
+    class="m-0 list-none divide-y divide-slate-200/70 overflow-hidden rounded-(--frame-radius) bg-surface p-0 shadow-(--shadow-border)"
+  >
     {#each lessons as lesson, index (lesson.id)}
       <LessonPathCard
         {index}

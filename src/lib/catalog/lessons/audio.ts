@@ -2,7 +2,7 @@ import { hasAudioClip } from "../audio/manifest";
 import { audioHash } from "../audio/core";
 import { resolveAudioSrc } from "../audio";
 import { characterIdForSpeaker, type LessonCharacterId } from "./character-ids";
-import { audioConfigForCharacter, keyPhraseCharacterId } from "../audio/characters";
+import { audioConfigForClip, keyPhraseCharacterId } from "../audio/characters";
 import { mouthTrackFor, type MouthTrackEntry } from "../audio/mouth";
 import { lessonExercises } from "$lib/learning/beats";
 import type {
@@ -16,7 +16,7 @@ function resolveCharacterAudioSrc(
   text: string,
   characterId: LessonCharacterId,
 ): string | undefined {
-  const config = audioConfigForCharacter(characterId);
+  const config = audioConfigForClip(text, characterId, hasAudioClip);
   const hash = audioHash(text, config);
   if (!hasAudioClip(hash)) return undefined;
   return resolveAudioSrc(text, "lesson", config);
@@ -41,7 +41,11 @@ export function sceneMouthTracks(scene: DialogueTurn[]): Record<string, MouthTra
 
   for (const line of scene) {
     const text = line.audio?.transcript ?? line.slovak;
-    const config = audioConfigForCharacter(characterIdForSpeaker(line.speaker));
+    const config = audioConfigForClip(
+      text,
+      characterIdForSpeaker(line.speaker),
+      hasAudioClip,
+    );
     const track = mouthTrackFor(audioHash(text, config));
     if (track) tracks[line.id] = track;
   }

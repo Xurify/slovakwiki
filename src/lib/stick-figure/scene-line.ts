@@ -61,6 +61,11 @@ export interface Scene {
 
 /** What the stage needs to act a scene out: its lines, the place, and who stands where. */
 export interface StagedScene {
+  /**
+   * What was said here in the segments just before, in the same place, so
+   * a time of day or a clock time told there still holds in this one.
+   */
+  before?: string[];
   lines: DirectedLine[];
   order?: LessonCharacterId[];
   setting: StageSetting;

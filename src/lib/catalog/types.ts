@@ -173,6 +173,7 @@ export interface ContentEntry {
 
 export interface GrammarTableRow {
   label: string;
+  /** One per column. Wrap the ending in brackets (`moj[ej]`) when it does not extend the first cell. */
   cells: string[];
 }
 
@@ -257,6 +258,8 @@ export interface GrammarChoice {
   slovak: MarkedText;
   /** The situation in a few words: “in your hand”. */
   when: string;
+  /** What picks the form, at the row's right edge: “Owner is the subject: **svoj**”. */
+  why?: string;
 }
 
 /** One sentence said two or three ways; the situation picks the form. */
@@ -313,6 +316,8 @@ export interface CaseReference {
 export interface CaseTopic {
   body: string[];
   examples: Example[];
+  /** Endings on four reference nouns, singular and plural. */
+  forms?: GrammarTablePattern;
   name: string;
   /** Slovak grammar term for the case (genitív). */
   slovakName: string;

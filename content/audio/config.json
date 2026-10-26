@@ -72,7 +72,8 @@
       "voiceId": "uUnmszGfUW9O6qdstQHs",
       "voiceName": "Slovak Wiki Marek",
       "speakers": ["Marek"],
-      "note": "Voice Design. Classmate and coworker."
+      "voiceSettings": { "stability": 0.85, "style": 0, "speed": 1 },
+      "note": "Voice Design. Classmate and coworker. Steadier than the shared settings since episode 5's review, where his reads sounded breathy and lost; his feelings come from directions on the line (dialogue.ts)."
     },
     "waiter": {
       "displayName": "Waiter",

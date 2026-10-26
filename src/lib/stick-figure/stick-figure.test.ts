@@ -232,6 +232,20 @@ describe("planLine", () => {
     expect(plan.beats[1].at - plan.beats[0].at).toBeGreaterThanOrEqual(700);
   });
 
+  it("acts out a sigh, chuckle or yawn the voice is directed to make", () => {
+    const first = (slovak: string, said: string) =>
+      planLine(slovak, { said }).beats[0].gesture;
+
+    expect(first("Marek? A tá rastlina?", "[sighs] Marek? [pause] A tá rastlina?")).toBe(
+      "sigh",
+    );
+    expect(first("Ale v triede nespite!", "[chuckles] Ale v triede nespite!")).toBe(
+      "chuckle",
+    );
+    expect(first("Je ešte skoro ráno.", "[yawns] Je ešte skoro ráno.")).toBe("yawn");
+    expect(first("Je ešte skoro ráno.", "[pause] Je ešte skoro ráno.")).toBe("tell");
+  });
+
   it("lets the author override a sentence's gesture", () => {
     const plan = planLine("Teší ma. Odkiaľ ste?", { gestures: ["wave"] });
 

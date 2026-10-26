@@ -3299,7 +3299,6 @@ exports[`every scene, directed > podcast podcast-demonstratives-bag 1`] = `
     "sluchadla",
     "mikrofon",
     "okno",
-    "reproduktor",
     "rastlina",
     "koberec",
   ],
@@ -3814,7 +3813,6 @@ exports[`every scene, directed > podcast podcast-demonstratives-intro 1`] = `
     "sluchadla",
     "mikrofon",
     "okno",
-    "reproduktor",
     "rastlina",
     "koberec",
   ],
@@ -4271,7 +4269,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-outro 1`] = `
       "line": "anna: Marek!",
       "plan": {
         "beats": [
-          "100 stress",
+          "100 sigh",
         ],
         "ms": 2000,
         "sentences": "100-1700",
@@ -4303,7 +4301,6 @@ exports[`every scene, directed > podcast podcast-demonstratives-outro 1`] = `
     "sluchadla",
     "mikrofon",
     "okno",
-    "reproduktor",
     "rastlina",
     "koberec",
   ],
@@ -4603,7 +4600,6 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
     "sluchadla",
     "mikrofon",
     "okno",
-    "reproduktor",
     "rastlina",
     "koberec",
   ],
@@ -4938,7 +4934,7 @@ exports[`every scene, directed > podcast podcast-future-tense-monday 1`] = `
       "line": "marek: Loptičku nechce. Domo, ako ste sa mali?",
       "plan": {
         "beats": [
-          "0 tell",
+          "0 chuckle",
           "2621 ask",
         ],
         "ms": 5000,
@@ -5256,7 +5252,7 @@ exports[`every scene, directed > podcast podcast-future-tense-morning 1`] = `
       "line": "anna: Vrrr znamená nie. Haf znamená ahoj. A kňu znamená: som smutný.",
       "plan": {
         "beats": [
-          "100 tell",
+          "100 chuckle",
           "3850 tell",
           "6400 tell",
         ],
@@ -7105,7 +7101,7 @@ exports[`every scene, directed > podcast podcast-past-tense-closed 1`] = `
       "line": "anna: To ti nepoviem.",
       "plan": {
         "beats": [
-          "0 tell",
+          "0 chuckle",
         ],
         "ms": 2100,
         "sentences": "0-1950",
@@ -7155,7 +7151,6 @@ exports[`every scene, directed > podcast podcast-past-tense-closed 1`] = `
     "sluchadla",
     "mikrofon",
     "okno",
-    "reproduktor",
     "rastlina",
     "koberec",
   ],
@@ -7910,7 +7905,6 @@ exports[`every scene, directed > podcast podcast-past-tense-plate 1`] = `
     "sluchadla",
     "mikrofon",
     "okno",
-    "reproduktor",
     "rastlina",
     "koberec",
   ],
@@ -8385,6 +8379,9 @@ exports[`every scene, directed > podcast podcast-past-tense-whodunit 1`] = `
           "anna": 1,
           "marek": -1,
         },
+        "sit": [
+          "marek",
+        ],
       },
     },
     {
@@ -8552,7 +8549,6 @@ exports[`every scene, directed > podcast podcast-past-tense-whodunit 1`] = `
     "sluchadla",
     "mikrofon",
     "okno",
-    "reproduktor",
     "rastlina",
     "koberec",
   ],
@@ -8775,7 +8771,6 @@ exports[`every scene, directed > podcast podcast-possessives-intro 1`] = `
     "sluchadla",
     "mikrofon",
     "okno",
-    "reproduktor",
     "rastlina",
     "koberec",
   ],
@@ -8912,7 +8907,7 @@ exports[`every scene, directed > podcast podcast-possessives-outro 1`] = `
       "line": "anna: Áno. Môj dáždnik je doma.",
       "plan": {
         "beats": [
-          "100 nod",
+          "100 sigh",
           "1244 tell",
         ],
         "ms": 3450,
@@ -9029,7 +9024,6 @@ exports[`every scene, directed > podcast podcast-possessives-outro 1`] = `
     "sluchadla",
     "mikrofon",
     "okno",
-    "reproduktor",
     "rastlina",
     "koberec",
   ],
@@ -9708,7 +9702,6 @@ exports[`every scene, directed > podcast podcast-possessives-photos 1`] = `
     "sluchadla",
     "mikrofon",
     "okno",
-    "reproduktor",
     "rastlina",
     "koberec",
   ],
@@ -9951,7 +9944,6 @@ exports[`every scene, directed > podcast podcast-possessives-quiz 1`] = `
     "sluchadla",
     "mikrofon",
     "okno",
-    "reproduktor",
     "rastlina",
     "koberec",
   ],
@@ -10686,7 +10678,7 @@ exports[`every scene, directed > podcast podcast-possessives-square 1`] = `
       "line": "anna: Zase? Tvoje kľúče sú v tvojej taške, Marek.",
       "plan": {
         "beats": [
-          "100 ask",
+          "100 sigh",
           "1076 tell",
         ],
         "ms": 4500,
@@ -11630,7 +11622,6 @@ exports[`every scene, directed > podcast podcast-telling-time-clock-game 1`] = `
     "sluchadla",
     "mikrofon",
     "okno",
-    "reproduktor",
     "rastlina",
     "koberec",
   ],
@@ -11858,7 +11849,6 @@ exports[`every scene, directed > podcast podcast-telling-time-intro 1`] = `
     "sluchadla",
     "mikrofon",
     "okno",
-    "reproduktor",
     "rastlina",
     "koberec",
   ],
@@ -12029,7 +12019,6 @@ exports[`every scene, directed > podcast podcast-telling-time-outro 1`] = `
     "sluchadla",
     "mikrofon",
     "okno",
-    "reproduktor",
     "rastlina",
     "koberec",
   ],
@@ -12276,7 +12265,6 @@ exports[`every scene, directed > podcast podcast-telling-time-quiz 1`] = `
     "sluchadla",
     "mikrofon",
     "okno",
-    "reproduktor",
     "rastlina",
     "koberec",
   ],

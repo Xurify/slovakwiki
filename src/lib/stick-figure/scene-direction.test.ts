@@ -310,3 +310,23 @@ describe("the podcast studio", () => {
     expect(moves("studio")).toBe(0);
   });
 });
+
+describe("a phone call", () => {
+  const lines: DirectedLine[] = [
+    { characterId: "anna", slovak: "Marek, telefón!" },
+    { characterId: "marek", slovak: "Haló? Ahoj, Lucia!", ring: "call" },
+    { characterId: "lucia", slovak: "Prídem neskôr. Jedzte bezo mňa.", overPhone: true },
+    { characterId: "marek", slovak: "Dobre. Ahoj!" },
+    { characterId: "anna", slovak: "Čo hovorí?" },
+  ];
+
+  it("keeps the voice at the far end off the stage", () => {
+    expect(directScene(lines, "kitchen").cast).not.toContain("lucia");
+  });
+
+  it("holds the phone to the ear of whoever answers, through their goodbye", () => {
+    const calls = directScene(lines, "kitchen").lines.map((line) => line.call);
+
+    expect(calls).toEqual([undefined, "marek", "marek", "marek", undefined]);
+  });
+});

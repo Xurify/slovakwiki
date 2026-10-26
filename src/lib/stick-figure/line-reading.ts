@@ -13,6 +13,10 @@ export interface StageLine {
   stays?: boolean;
   /** Who it is said to, when that is not the person it replies to. */
   to?: LessonCharacterId;
+  /** The phone rings or pings before the line; on a call the speaker answers. */
+  ring?: "call" | "message";
+  /** Said at the far end of a call, by someone not on stage. */
+  overPhone?: boolean;
 }
 
 /** A line as the direction reads it, once: its words, who it is said to, what passes hands. */

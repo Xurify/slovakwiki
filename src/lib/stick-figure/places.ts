@@ -22,6 +22,20 @@ export interface Glass extends ThingBox {
   arch?: boolean;
 }
 
+/**
+ * A chair or table standing on the floor at `x` in the drawing. It is drawn at
+ * the cast's scale (StickFurniture.svelte), not the backdrop's, so a figure
+ * sits on the seat at any stage size. A chair's back is behind whoever sits
+ * on it, facing `facing`.
+ */
+export interface Furniture {
+  kind: "chair" | "table";
+  x: number;
+  facing?: 1 | -1;
+  /** A school desk in front of the chair. */
+  desk?: boolean;
+}
+
 /** Everything about a place the stage needs, besides its drawing (StickBackdrop.svelte). */
 export interface Place {
   /** Before a scene starts, where it is. */
@@ -52,6 +66,8 @@ export interface Place {
   headwear?: Headwear;
   /** Where rain and grey show indoors, and the way rain is heard; a room without one stays quiet. */
   glass?: Glass;
+  /** Chairs a line can sit someone on ("Sadnite si."), and tables. */
+  furniture?: readonly Furniture[];
 }
 
 /** The park's afternoon sun, which a line can point at and Find it can ask for. */
@@ -96,6 +112,12 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       drawn(WORDS.rastlina, plantBox(PARTS.classroom.plant)),
     ],
     sounds: ["hum"],
+    // The teacher stands by her desk; the pupils' desks face her, inside what a phone shows.
+    staff: ["maria"],
+    furniture: [
+      { kind: "chair", x: 200, facing: 1, desk: true },
+      { kind: "chair", x: 330, facing: 1, desk: true },
+    ],
   },
   default: {
     ground: "soil",
@@ -134,9 +156,32 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       drawn(WORDS.rastlina, plantBox(PARTS.home.plant)),
     ],
     sounds: ["hum"],
-    // Left of the bag on the rug, so nobody stands on it.
-    post: 360,
+    // On the rug (480 ± 250), left of the bag on it so nobody stands on that.
+    post: 410,
     glass: { height: 100, width: 130, x: 106, y: 54 },
+  },
+  kitchen: {
+    ground: "wood",
+    label: "In the kitchen",
+    outdoors: false,
+    things: [
+      drawn(WORDS.dvere, [190, 40, 72, 186]),
+      drawn(WORDS.chladnicka, [280, 66, 56, 160]),
+      drawn(WORDS.okno, [372, 54, 104, 80]),
+      drawn(WORDS.hodiny, clockBox(PARTS.kitchen.clock)),
+      drawn(WORDS.umyvadlo, [582, 116, 54, 34]),
+      drawn(WORDS.hrniec, [690, 100, 62, 42]),
+      drawn(WORDS.sporak, [684, 142, 80, 84]),
+    ],
+    sounds: ["hum"],
+    // The cook works at the stove end; guests eat at the table by the window.
+    staff: ["maria"],
+    furniture: [
+      { kind: "chair", x: 360, facing: 1 },
+      { kind: "table", x: 440 },
+      { kind: "chair", x: 520, facing: -1 },
+    ],
+    glass: { height: 64, width: 88, x: 380, y: 62 },
   },
   market: {
     ground: "stone",
@@ -229,14 +274,13 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     label: "In the podcast studio",
     outdoors: false,
     things: [
-      drawn(WORDS.dvere, [246, 40, 82, 186]),
+      drawn(WORDS.dvere, [190, 40, 72, 186]),
       drawn(WORDS.hodiny, clockBox(PARTS.studio.clock)),
-      drawn(WORDS.stol, [450, 204, 60, 86], [24, 156, 180, 70]),
-      drawn(WORDS.pocitac, [56, 116, 68, 44]),
-      drawn(WORDS.sluchadla, [128, 130, 52, 30]),
+      drawn(WORDS.stol, [450, 204, 60, 86], [626, 170, 152, 56]),
+      drawn(WORDS.pocitac, [642, 132, 50, 38]),
+      drawn(WORDS.sluchadla, [708, 146, 44, 24]),
       drawn(WORDS.mikrofon, [429, 120, 34, 22], [497, 120, 34, 22]),
-      drawn(WORDS.okno, [660, 52, 140, 108]),
-      drawn(WORDS.reproduktor, [832, 140, 40, 86]),
+      drawn(WORDS.okno, [636, 36, 124, 88]),
       drawn(WORDS.rastlina, plantBox(PARTS.studio.plant)),
       drawn(WORDS.koberec, [210, 252, 540, 40]),
     ],
@@ -244,7 +288,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     // Podcast hosts talk into their own mics, headphones on.
     atMarks: true,
     headwear: "headphones",
-    glass: { height: 94, width: 126, x: 667, y: 59 },
+    glass: { height: 74, width: 110, x: 643, y: 43 },
   },
 };
 

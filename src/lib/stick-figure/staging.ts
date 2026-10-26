@@ -55,6 +55,10 @@ export interface LineStaging {
   boards?: boolean;
   /** Said to the listeners ("Hádajte s nami!"): the speaker faces the front, not a figure. */
   audience?: boolean;
+  /** Who walks to a free chair and sits down during this line: "Sadnite si." */
+  sit?: LessonCharacterId[];
+  /** Who gets up: "Vstaňte." */
+  stand?: LessonCharacterId[];
 }
 
 /** Folded sentence openers the one spoken to nods at. */
@@ -87,14 +91,23 @@ const TO_LISTENERS = [
  * then it is to them, whatever else it says. "Ja som Anna" names nobody.
  */
 function callsByName(slovak: string, cast: readonly LessonCharacterId[]): boolean {
-  const names = listedCharacters()
+  return calledByName(slovak, cast) !== undefined;
+}
+
+/** Who in `cast` the line calls by name, if anyone. */
+function calledByName(
+  slovak: string,
+  cast: readonly LessonCharacterId[],
+): LessonCharacterId | undefined {
+  return listedCharacters()
     .filter((character) => cast.includes(character.id))
-    .map((character) => character.displayName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
-  return names.some((name) =>
-    new RegExp(`(^|[.!?…]\\s*)${name}[,!?]|,\\s*(pani |pán )?${name}\\b`, "u").test(
-      slovak,
-    ),
-  );
+    .find((character) => {
+      const name = character.displayName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      return new RegExp(
+        `(^|[.!?…]\\s*)${name}[,!?]|,\\s*(pani |pán )?${name}\\b`,
+        "u",
+      ).test(slovak);
+    })?.id;
 }
 
 /** Folded phrases that call the one spoken to over. */
@@ -115,6 +128,39 @@ function destination(line: ReadLine, things: readonly SceneThing[]): string | un
   if (!along) return undefined;
 
   return line.words.map((word) => thingNamed(word, things)).findLast(Boolean)?.id;
+}
+
+/** Folded phrases that sit the one spoken to down, or everyone spoken to with -te. */
+const SIT_YOU = ["sadni si", "posad sa"];
+const SIT_ALL_OF_YOU = ["sadnite si", "posadte sa"];
+/** …the speaker and everyone with them. */
+const SIT_US = ["sadnime si", "sadneme si", "posadme sa"];
+const SIT_ME = ["sadnem si"];
+const STAND_YOU = ["vstan", "postav sa"];
+const STAND_ALL_OF_YOU = ["vstante", "postavte sa"];
+const STAND_US = ["vstanme", "vstaneme"];
+
+/** Who a line sits down, and who it gets up. */
+function seating(
+  line: ReadLine,
+  speaker: LessonCharacterId,
+  addressee: LessonCharacterId | null,
+  cast: readonly LessonCharacterId[],
+): Pick<LineStaging, "sit" | "stand"> {
+  const says = (phrases: readonly string[]) =>
+    line.sentences.some((sentence) => mentions(sentence, phrases));
+  const others = cast.filter((id) => id !== speaker);
+  const pick = (you: string[], allOfYou: string[], us: string[], me: string[] = []) => {
+    if (says(us)) return [...cast];
+    if (says(allOfYou)) return others;
+    if (says(you) && addressee && cast.includes(addressee)) return [addressee];
+    if (says(me)) return [speaker];
+    return undefined;
+  };
+
+  const sit = pick(SIT_YOU, SIT_ALL_OF_YOU, SIT_US, SIT_ME);
+  const stand = pick(STAND_YOU, STAND_ALL_OF_YOU, STAND_US);
+  return { ...(sit ? { sit } : {}), ...(stand ? { stand } : {}) };
 }
 
 function tramComing(line: ReadLine): boolean {
@@ -293,5 +339,6 @@ export function stageLine(
         ? true
         : undefined,
     audience: audience ? true : undefined,
+    ...seating(line, speaker, calledByName(line.slovak, cast) ?? addressee, cast),
   };
 }

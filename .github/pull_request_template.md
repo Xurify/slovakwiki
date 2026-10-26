@@ -4,6 +4,6 @@
 
 ## QA
 
-<!-- One link per changed page or part, on the Vercel preview. Rules: AGENTS.md → Pull requests. -->
+<!-- One link per changed page or part, on the Vercel preview. Copy PREVIEW-HOST from the vercel[bot] comment's Preview link; never build it from the branch name. Rules: AGENTS.md → Pull requests. -->
 
-- [ ] [Page — part](https://slovakwiki-git-BRANCH-xurifys-projects.vercel.app/path#anchor): what to check
+- [ ] [Page — part](https://PREVIEW-HOST/path#anchor): what to check
