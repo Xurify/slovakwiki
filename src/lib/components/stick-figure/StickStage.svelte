@@ -461,6 +461,10 @@
   });
 
   function facingOf(id: LessonCharacterId): Facing {
+    if (behindDesk(id)) {
+      const seat = frame.seats[direction.cast.indexOf(id)];
+      if (seat) return seat.facing;
+    }
     return turned[id] ?? sitting[id] ?? facings[id] ?? resting[id] ?? 1;
   }
 
@@ -1791,14 +1795,16 @@
     plan: LinePlan | undefined,
   ): LinePlan | undefined {
     if (!plan || deskMic(id, world, undefined)?.side !== 1) return plan;
-    const beats = plan.beats.map((beat) =>
-      beat.point
-        ? {
-            ...beat,
-            point: { ...beat.point, reach: "near" as const, rise: DESK_POINT_RISE },
-          }
-        : beat,
-    );
+    const beats = plan.beats.map((beat) => {
+      let b = beat;
+      if (b.gesture === "wave") b = { ...b, gesture: "waveOut" };
+      if (b.point)
+        b = {
+          ...b,
+          point: { ...b.point, reach: "near" as const, rise: DESK_POINT_RISE },
+        };
+      return b;
+    });
     return { ...plan, beats };
   }
 
@@ -1961,7 +1967,7 @@
       line.characterId && direction.cast.includes(line.characterId)
         ? line.characterId
         : null;
-    front = staging?.audience && speaker ? speaker : undefined;
+    front = staging?.audience && speaker && !behindDesk(speaker) ? speaker : undefined;
     turns = turnDelays(direction.cast, speaker);
     facings = { ...facings, ...turning(staging?.facing) };
     // Aimed from where the speaker stands before anyone walks this line.

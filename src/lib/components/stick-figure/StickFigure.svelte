@@ -678,7 +678,7 @@
   </g>
 
   {#if picture}
-    <g transform="translate({n(rig.head.x * side)} 4)">
+    <g transform="translate({n(rig.head.x * side)} {n(rig.head.y - HEAD_RADIUS - 23)})">
       <g class="animate-rise">
         <path
           d="M-17 -13h34a5 5 0 0 1 5 5v15a5 5 0 0 1-5 5h-13l-4 5-4-5h-13a5 5 0 0 1-5-5v-15a5 5 0 0 1 5-5Z"

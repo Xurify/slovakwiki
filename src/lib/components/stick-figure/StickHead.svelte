@@ -388,7 +388,7 @@
     stroke-width="1.7"
   />
 
-  {#if look.ear}
+  {#if look.ear && !headphones}
     <path
       d="M18.6 25.8c-2.2.6-3 4.6-1.1 7.4 1 1.3 2.3.7 2.1-.9-.4-2.2-.6-4.6-1-6.5Z"
       class="fill-portrait-skin stroke-portrait-ink"
