@@ -8,6 +8,8 @@
  * pseudowords come from a character model, filtered against every attested word
  * form. Downloads the SNK word-form lists to tmp/snk/ and the OpenSubtitles
  * counts to tmp/opensubtitles/ on the first run.
+ * `--rescore-pseudowords` only re-rates the pseudowords already in the bank
+ * (no SNK download, no new audio).
  * Then voice and check the Listen and Select pseudowords, and repeat until
  * check-spoken reports nothing new:
  *   bun scripts/audio/generate.ts -- --level-test-only --missing-only
@@ -453,78 +455,34 @@ function generatePseudowords(
 }
 
 /**
- * Pseudowords have no frequency, so their difficulty comes from what a word
- * looks like: fit difficulty on real words from character-model likelihood
- * and length, predict pseudowords, then map the predictions onto the
- * real-word distribution so both kinds cover the same range of the scale.
+ * Pseudowords have no frequency, so their difficulty comes from how Slovak
+ * they look: the more wordlike a fake word, the harder it is to reject. Ranks
+ * pseudowords by the character model's average log-probability (most wordlike
+ * hardest) and maps the ranks onto `targets`, so they cover the same range of
+ * the scale. A fit on real words got the sign backwards, since a typical-looking
+ * real word is an easy one, and left length driving difficulty (r = 0.96).
  */
 function assignPseudowordDifficulty(
-  real: readonly RealWord[],
-  pseudo: Pseudoword[],
+  model: CharModel,
+  pseudo: { word: string; difficulty: number }[],
+  targets: readonly number[],
 ): void {
-  const model = new CharModel(4);
-  model.train(real.map((entry) => entry.word));
-
-  const features = (word: string): [number, number, number] => [
-    1,
-    model.averageLogProb(word),
-    [...word].length,
-  ];
-
-  const xtx = [
-    [0, 0, 0],
-    [0, 0, 0],
-    [0, 0, 0],
-  ];
-  const xty = [0, 0, 0];
-  for (const entry of real) {
-    const x = features(entry.word);
-    for (let row = 0; row < 3; row++) {
-      xty[row] = (xty[row] ?? 0) + (x[row] ?? 0) * entry.difficulty;
-      for (let column = 0; column < 3; column++) {
-        (xtx[row] as number[])[column] =
-          ((xtx[row] as number[])[column] ?? 0) + (x[row] ?? 0) * (x[column] ?? 0);
-      }
-    }
-  }
-  const weights = solve3(xtx, xty);
-
-  const predicted = pseudo.map((entry) => {
-    const x = features(entry.word);
-    return x.reduce((total, value, index) => total + value * (weights[index] ?? 0), 0);
-  });
-
-  const realSorted = real.map((entry) => entry.difficulty).sort((a, b) => a - b);
-  const order = predicted
-    .map((value, index) => ({ value, index }))
+  const sortedTargets = [...targets].sort((a, b) => a - b);
+  const order = pseudo
+    .map((entry, index) => ({ value: model.averageLogProb(entry.word), index }))
     .sort((a, b) => a.value - b.value);
   order.forEach(({ index }, position) => {
     const quantile = order.length === 1 ? 0.5 : position / (order.length - 1);
-    const realIndex = Math.round(quantile * (realSorted.length - 1));
+    const targetIndex = Math.round(quantile * (sortedTargets.length - 1));
     const entry = pseudo[index];
-    if (entry) entry.difficulty = realSorted[realIndex] ?? 50;
+    if (entry) entry.difficulty = sortedTargets[targetIndex] ?? 50;
   });
 }
 
-function solve3(matrix: number[][], vector: number[]): number[] {
-  const a = matrix.map((row, index) => [...row, vector[index] ?? 0]);
-  for (let column = 0; column < 3; column++) {
-    let pivot = column;
-    for (let row = column + 1; row < 3; row++) {
-      if (Math.abs(a[row]?.[column] ?? 0) > Math.abs(a[pivot]?.[column] ?? 0))
-        pivot = row;
-    }
-    [a[column], a[pivot]] = [a[pivot] as number[], a[column] as number[]];
-    const lead = a[column]?.[column] ?? 1;
-    for (let row = 0; row < 3; row++) {
-      if (row === column) continue;
-      const factor = (a[row]?.[column] ?? 0) / lead;
-      for (let k = column; k < 4; k++) {
-        (a[row] as number[])[k] = (a[row]?.[k] ?? 0) - factor * (a[column]?.[k] ?? 0);
-      }
-    }
-  }
-  return [0, 1, 2].map((index) => (a[index]?.[3] ?? 0) / (a[index]?.[index] ?? 1));
+function trainCharModel(real: readonly RealWord[]): CharModel {
+  const model = new CharModel(4);
+  model.train(real.map((entry) => entry.word));
+  return model;
 }
 
 /**
@@ -673,7 +631,11 @@ async function main(): Promise<void> {
   const lengths = lengthPairs(formCounts, difficulty.form, await loadLengthChecks());
 
   const pseudo = generatePseudowords(real, formCounts);
-  assignPseudowordDifficulty(real, pseudo);
+  assignPseudowordDifficulty(
+    trainCharModel(real),
+    pseudo,
+    real.map((entry) => entry.difficulty),
+  );
 
   const listenReal = sampleByBin(
     real.filter((entry) => entry.hasLemmaAudio),
@@ -940,7 +902,39 @@ function dedupe<T extends { source: SentenceSource }>(items: readonly T[]): T[] 
   });
 }
 
-main().catch((error: unknown) => {
-  console.error(error);
-  process.exit(1);
-});
+/**
+ * Re-rates the pseudowords already in the bank without drawing new ones, so
+ * the Listen and Select clips and the spoken checks stay valid. Each format
+ * keeps its own spread of difficulties; only which word gets which changes.
+ */
+async function rescorePseudowords(): Promise<void> {
+  const [audioHashes, subtitleCounts] = await Promise.all([
+    loadRuntimeIndex(),
+    loadSubtitleCounts(),
+  ]);
+  const { real } = await loadRealWords(audioHashes, subtitleCounts);
+  const model = trainCharModel(real);
+
+  type BankWord = { word: string; real: boolean; difficulty: number };
+  const bank = await readJsonFile<Record<string, unknown>>(OUT_PATH, {});
+  for (const key of ["readSelect", "listenSelect"]) {
+    const pseudo = ((bank[key] ?? []) as BankWord[]).filter((entry) => !entry.real);
+    assignPseudowordDifficulty(
+      model,
+      pseudo,
+      pseudo.map((entry) => entry.difficulty),
+    );
+    for (const entry of pseudo) entry.difficulty = round(entry.difficulty);
+    console.log(`${key}: re-rated ${pseudo.length} pseudowords`);
+  }
+
+  await writeFileAtomic(OUT_PATH, `${JSON.stringify(bank, null, 1)}\n`);
+  console.log(`Wrote ${path.relative(ROOT, OUT_PATH)}`);
+}
+
+(process.argv.includes("--rescore-pseudowords") ? rescorePseudowords() : main()).catch(
+  (error: unknown) => {
+    console.error(error);
+    process.exit(1);
+  },
+);

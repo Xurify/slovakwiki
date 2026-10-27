@@ -52,15 +52,14 @@ Coverage is steered, not left to chance: Fill in the Blanks picks the word class
 Ordered by how much they limit the results.
 
 1. **Item difficulty is predicted, not calibrated.** Difficulties come from word frequency, sentence length and the level a text was written for. Calibrating items on real test responses requires collecting response data first.
-2. **Fake-word difficulty follows length, not how Slovak a word looks.** In the bank, a pseudoword's difficulty correlates 0.96 with its length and 0.04 with the letter model's score, so twelve-letter strings like _inzerorister_ land at C2. The fit is learned on real words, where looking typical goes with being easy; for a fake word it is the other way round, since the more Slovak it looks the harder it is to reject. Rate pseudowords on the letter model's score with its sign reversed (`scripts/level-test/build-bank.ts`), then rebuild the bank.
-3. **Aspect and word order items sit on their level's anchor.** Choose the Verb and Where Does It Go take their difficulty from the level they were written for, so items within a level do not differ. Choose the Verb offers two verbs, so a guess is right half the time; three sentences a screen make up for it. Word order covers clitics only: the order of the other words is free in Slovak and has no single right answer.
-4. **The AI's counts are checked only on planted errors.** How often a part came up in writing or speech is the scorer's own count. The [scorer eval](../scripts/level-test/eval/README.md) checks the wrong counts, the named mistakes and the rule cases against errors put into correct answers on purpose. The right counts, and the level of a real learner's answer, still need answers rated by hand.
-5. **Numbers are thin in the quick test.** Fewer than three answers in up to half of quick runs. More number items, or a short number dictation, would fix it.
-6. **Pronunciation is measured only as being understood.** Read Aloud compares a speech-recognition transcript with the sentence; recognition repairs accents and length, so it cannot judge them. Phoneme-level scoring needs a pronunciation service that supports Slovak (not yet checked).
-7. **Short or Long covers vowel length only.** Soft consonants (ď, ť, ň, ľ against d, t, n, l) are not tested. Its difficulty is a fixed A2 base nudged by word rarity, not calibrated. Clips are kept only when speech-to-text heard them exactly, which drops about a third of TTS clips; some of those may be speech-recognition bias toward the commoner form rather than a bad clip.
-8. **Formal and informal address (ty / vy) is not tested.** Interactive Listening uses both registers but scores the reply, not the register.
-9. **Writing and speaking need keys.** Without `OPENROUTER_API_KEY` and `ELEVENLABS_API_KEY` those skills show as planned. Interactive Speaking is always planned.
-10. **Retake variety is per device.** Items seen before are stored in `localStorage` and picked last; another browser starts fresh.
+2. **Aspect and word order items sit on their level's anchor.** Choose the Verb and Where Does It Go take their difficulty from the level they were written for, so items within a level do not differ. Choose the Verb offers two verbs, so a guess is right half the time; three sentences a screen make up for it. Word order covers clitics only: the order of the other words is free in Slovak and has no single right answer.
+3. **The AI's counts are checked only on planted errors.** How often a part came up in writing or speech is the scorer's own count. The [scorer eval](../scripts/level-test/eval/README.md) checks the wrong counts, the named mistakes and the rule cases against errors put into correct answers on purpose. The right counts, and the level of a real learner's answer, still need answers rated by hand.
+4. **Numbers are thin in the quick test.** Fewer than three answers in up to half of quick runs. More number items, or a short number dictation, would fix it.
+5. **Pronunciation is measured only as being understood.** Read Aloud compares a speech-recognition transcript with the sentence; recognition repairs accents and length, so it cannot judge them. Phoneme-level scoring needs a pronunciation service that supports Slovak (not yet checked).
+6. **Short or Long covers vowel length only.** Soft consonants (ď, ť, ň, ľ against d, t, n, l) are not tested. Its difficulty is a fixed A2 base nudged by word rarity, not calibrated. Clips are kept only when speech-to-text heard them exactly, which drops about a third of TTS clips; some of those may be speech-recognition bias toward the commoner form rather than a bad clip.
+7. **Formal and informal address (ty / vy) is not tested.** Interactive Listening uses both registers but scores the reply, not the register.
+8. **Writing and speaking need keys.** Without `OPENROUTER_API_KEY` and `ELEVENLABS_API_KEY` those skills show as planned. Interactive Speaking is always planned.
+9. **Retake variety is per device.** Items seen before are stored in `localStorage` and picked last; another browser starts fresh.
 
 ## Rebuilding the bank
 
@@ -75,6 +74,8 @@ bun scripts/level-test/check-length.ts   # unclear Short or Long clips drop thei
 
 Then `bun scripts/audio/upload.ts` and `bunx vitest run src/lib/catalog/level-test`.
 
+To re-rate the pseudowords already in the bank without drawing new ones (no SNK download, no new audio), run `bun scripts/level-test/build-bank.ts --rescore-pseudowords`.
+
 ## Methodology and prior art
 
 The adaptive engine and assessment architecture adapt ideas from computer-adaptive language testing and open computational linguistics research, primarily Burr Settles, Geoffrey T. LaFlair, and Masato Hagiwara (2020), _"Machine Learning–Driven Language Assessment"_, _Transactions of the Association for Computational Linguistics_ (TACL), 8, 247–263 (the foundational paper behind the Duolingo English Test).
@@ -82,7 +83,7 @@ The adaptive engine and assessment architecture adapt ideas from computer-adapti
 ### Adopted from Settles et al. (2020)
 
 - **Cold-start difficulty estimation:** Predicting item difficulty directly from corpus metrics (geometric mean of written SNK ranks and spoken OpenSubtitles ranks, plus text length and CEFR target) to avoid needing thousands of calibration respondents before launch.
-- **Character n-gram pseudowords:** Training a 4-gram character Markov model (`scripts/level-test/char-model.ts`) over lemmatized Slovak to generate plausible non-words for lexical decision tasks (_Read and Select_, _Listen and Select_), filtered against every attested inflected form.
+- **Character n-gram pseudowords:** Training a 4-gram character Markov model (`scripts/level-test/char-model.ts`) over lemmatized Slovak to generate plausible non-words for lexical decision tasks (_Read and Select_, _Listen and Select_), filtered against every attested inflected form. A pseudoword's difficulty is its rank by the same model's score, most Slovak-looking hardest, mapped onto the real-word difficulty range.
 - **0–100 CEFR anchor scale:** Using fixed scale anchors (`A1 = 0`, `A2 = 20`, `B1 = 40`, `B2 = 60`, `C1 = 80`, `C2 = 100`) mapped to a 10-points-per-logit Rasch/IRT update curve.
 - **Integrated subscores:** Aggregating four cross-skill components: Literacy (reading + writing), Comprehension (reading + listening), Conversation (listening + speaking), and Production (writing + speaking).
 

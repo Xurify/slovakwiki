@@ -6844,1981 +6844,1981 @@
   {
    "id": "rs-x-inšpec",
    "format": "readSelect",
-   "difficulty": 4.3,
+   "difficulty": 51.2,
    "word": "inšpec",
    "real": false
   },
   {
    "id": "rs-x-mamih",
    "format": "readSelect",
-   "difficulty": 4.9,
+   "difficulty": 3.4,
    "word": "mamih",
    "real": false
   },
   {
    "id": "rs-x-krimný",
    "format": "readSelect",
-   "difficulty": 4.7,
+   "difficulty": 39.9,
    "word": "krimný",
    "real": false
   },
   {
    "id": "rs-x-fantka",
    "format": "readSelect",
-   "difficulty": 4.7,
+   "difficulty": 37.8,
    "word": "fantka",
    "real": false
   },
   {
    "id": "rs-x-uvedať",
    "format": "readSelect",
-   "difficulty": 4.2,
+   "difficulty": 54.4,
    "word": "uvedať",
    "real": false
   },
   {
    "id": "rs-x-náčel",
    "format": "readSelect",
-   "difficulty": 4.1,
+   "difficulty": 4.7,
    "word": "náčel",
    "real": false
   },
   {
    "id": "rs-x-trične",
    "format": "readSelect",
-   "difficulty": 5,
+   "difficulty": 29,
    "word": "trične",
    "real": false
   },
   {
    "id": "rs-x-koalík",
    "format": "readSelect",
-   "difficulty": 4.9,
+   "difficulty": 33.8,
    "word": "koalík",
    "real": false
   },
   {
    "id": "rs-x-zápavo",
    "format": "readSelect",
-   "difficulty": 4.8,
+   "difficulty": 35.8,
    "word": "zápavo",
    "real": false
   },
   {
    "id": "rs-x-mentne",
    "format": "readSelect",
-   "difficulty": 4.4,
+   "difficulty": 49.9,
    "word": "mentne",
    "real": false
   },
   {
    "id": "rs-x-uchnúť",
    "format": "readSelect",
-   "difficulty": 4.9,
+   "difficulty": 30.9,
    "word": "uchnúť",
    "real": false
   },
   {
    "id": "rs-x-vinec",
    "format": "readSelect",
-   "difficulty": 4.9,
+   "difficulty": 3.9,
    "word": "vinec",
    "real": false
   },
   {
    "id": "rs-x-potviť",
    "format": "readSelect",
-   "difficulty": 4.7,
+   "difficulty": 39.1,
    "word": "potviť",
    "real": false
   },
   {
    "id": "rs-x-núknuť",
    "format": "readSelect",
-   "difficulty": 4.8,
+   "difficulty": 37.5,
    "word": "núknuť",
    "real": false
   },
   {
    "id": "rs-x-intene",
    "format": "readSelect",
-   "difficulty": 4.6,
+   "difficulty": 41.4,
    "word": "intene",
    "real": false
   },
   {
    "id": "rs-x-genec",
    "format": "readSelect",
-   "difficulty": 3,
+   "difficulty": 12.3,
    "word": "genec",
    "real": false
   },
   {
    "id": "rs-x-večník",
    "format": "readSelect",
-   "difficulty": 4.6,
+   "difficulty": 42.5,
    "word": "večník",
    "real": false
   },
   {
    "id": "rs-x-gazín",
    "format": "readSelect",
-   "difficulty": 3.9,
+   "difficulty": 4.8,
    "word": "gazín",
    "real": false
   },
   {
    "id": "rs-x-nahovať",
    "format": "readSelect",
-   "difficulty": 5,
+   "difficulty": 89.1,
    "word": "nahovať",
    "real": false
   },
   {
    "id": "rs-x-čocho",
    "format": "readSelect",
-   "difficulty": 5,
+   "difficulty": 3.2,
    "word": "čocho",
    "real": false
   },
   {
    "id": "rs-x-zamieť",
    "format": "readSelect",
-   "difficulty": 4.4,
+   "difficulty": 48,
    "word": "zamieť",
    "real": false
   },
   {
    "id": "rs-x-vniť",
    "format": "readSelect",
-   "difficulty": 1.3,
+   "difficulty": 4.9,
    "word": "vniť",
    "real": false
   },
   {
    "id": "rs-x-bohod",
    "format": "readSelect",
-   "difficulty": 4.4,
+   "difficulty": 4.3,
    "word": "bohod",
    "real": false
   },
   {
    "id": "rs-x-vyrieť",
    "format": "readSelect",
-   "difficulty": 3.4,
+   "difficulty": 70.8,
    "word": "vyrieť",
    "real": false
   },
   {
    "id": "rs-x-rozóna",
    "format": "readSelect",
-   "difficulty": 3.2,
+   "difficulty": 72.1,
    "word": "rozóna",
    "real": false
   },
   {
    "id": "rs-x-napovať",
    "format": "readSelect",
-   "difficulty": 7.5,
+   "difficulty": 83,
    "word": "napovať",
    "real": false
   },
   {
    "id": "rs-x-židový",
    "format": "readSelect",
-   "difficulty": 5.3,
+   "difficulty": 26.5,
    "word": "židový",
    "real": false
   },
   {
    "id": "rs-x-poročne",
    "format": "readSelect",
-   "difficulty": 9,
+   "difficulty": 80.2,
    "word": "poročne",
    "real": false
   },
   {
    "id": "rs-x-hospec",
    "format": "readSelect",
-   "difficulty": 8.4,
+   "difficulty": 14.7,
    "word": "hospec",
    "real": false
   },
   {
    "id": "rs-x-popult",
    "format": "readSelect",
-   "difficulty": 6.5,
+   "difficulty": 20.9,
    "word": "popult",
    "real": false
   },
   {
    "id": "rs-x-domovať",
    "format": "readSelect",
-   "difficulty": 8.5,
+   "difficulty": 81.1,
    "word": "domovať",
    "real": false
   },
   {
    "id": "rs-x-pomovo",
    "format": "readSelect",
-   "difficulty": 7.8,
+   "difficulty": 15.3,
    "word": "pomovo",
    "real": false
   },
   {
    "id": "rs-x-klisko",
    "format": "readSelect",
-   "difficulty": 5.7,
+   "difficulty": 24.4,
    "word": "klisko",
    "real": false
   },
   {
    "id": "rs-x-odzene",
    "format": "readSelect",
-   "difficulty": 7.1,
+   "difficulty": 17.7,
    "word": "odzene",
    "real": false
   },
   {
    "id": "rs-x-akadlo",
    "format": "readSelect",
-   "difficulty": 5.9,
+   "difficulty": 23.7,
    "word": "akadlo",
    "real": false
   },
   {
    "id": "rs-x-testie",
    "format": "readSelect",
-   "difficulty": 8.5,
+   "difficulty": 13.9,
    "word": "testie",
    "real": false
   },
   {
    "id": "rs-x-vyučový",
    "format": "readSelect",
-   "difficulty": 6.5,
+   "difficulty": 86.5,
    "word": "vyučový",
    "real": false
   },
   {
    "id": "rs-x-príras",
    "format": "readSelect",
-   "difficulty": 6.9,
+   "difficulty": 18.6,
    "word": "príras",
    "real": false
   },
   {
    "id": "rs-x-bielne",
    "format": "readSelect",
-   "difficulty": 9.3,
+   "difficulty": 11.3,
    "word": "bielne",
    "real": false
   },
   {
    "id": "rs-x-odhodne",
    "format": "readSelect",
-   "difficulty": 7.6,
+   "difficulty": 82.9,
    "word": "odhodne",
    "real": false
   },
   {
    "id": "rs-x-amfina",
    "format": "readSelect",
-   "difficulty": 5.3,
+   "difficulty": 27.2,
    "word": "amfina",
    "real": false
   },
   {
    "id": "rs-x-rušovať",
    "format": "readSelect",
-   "difficulty": 9.5,
+   "difficulty": 79.9,
    "word": "rušovať",
    "real": false
   },
   {
    "id": "rs-x-vidlho",
    "format": "readSelect",
-   "difficulty": 7.3,
+   "difficulty": 17,
    "word": "vidlho",
    "real": false
   },
   {
    "id": "rs-x-hmotok",
    "format": "readSelect",
-   "difficulty": 6,
+   "difficulty": 22.7,
    "word": "hmotok",
    "real": false
   },
   {
    "id": "rs-x-strior",
    "format": "readSelect",
-   "difficulty": 8,
+   "difficulty": 14.8,
    "word": "strior",
    "real": false
   },
   {
    "id": "rs-x-kolita",
    "format": "readSelect",
-   "difficulty": 6,
+   "difficulty": 22.9,
    "word": "kolita",
    "real": false
   },
   {
    "id": "rs-x-kopaky",
    "format": "readSelect",
-   "difficulty": 5.4,
+   "difficulty": 25,
    "word": "kopaky",
    "real": false
   },
   {
    "id": "rs-x-chlene",
    "format": "readSelect",
-   "difficulty": 8.9,
+   "difficulty": 12,
    "word": "chlene",
    "real": false
   },
   {
    "id": "rs-x-mimočne",
    "format": "readSelect",
-   "difficulty": 9.9,
+   "difficulty": 78.5,
    "word": "mimočne",
    "real": false
   },
   {
    "id": "rs-x-prejniť",
    "format": "readSelect",
-   "difficulty": 7.1,
+   "difficulty": 83.4,
    "word": "prejniť",
    "real": false
   },
   {
    "id": "rs-x-demožne",
    "format": "readSelect",
-   "difficulty": 11.3,
+   "difficulty": 70.5,
    "word": "demožne",
    "real": false
   },
   {
    "id": "rs-x-inštrum",
    "format": "readSelect",
-   "difficulty": 12.3,
+   "difficulty": 67.2,
    "word": "inštrum",
    "real": false
   },
   {
    "id": "rs-x-radent",
    "format": "readSelect",
-   "difficulty": 11.1,
+   "difficulty": 7.5,
    "word": "radent",
    "real": false
   },
   {
    "id": "rs-x-dlhorý",
    "format": "readSelect",
-   "difficulty": 10.3,
+   "difficulty": 9.5,
    "word": "dlhorý",
    "real": false
   },
   {
    "id": "rs-x-vôbecne",
    "format": "readSelect",
-   "difficulty": 14,
+   "difficulty": 59.2,
    "word": "vôbecne",
    "real": false
   },
   {
    "id": "rs-x-testniť",
    "format": "readSelect",
-   "difficulty": 14.7,
+   "difficulty": 56.7,
    "word": "testniť",
    "real": false
   },
   {
    "id": "rs-x-ustenie",
    "format": "readSelect",
-   "difficulty": 13.9,
+   "difficulty": 60.3,
    "word": "ustenie",
    "real": false
   },
   {
    "id": "rs-x-zrive",
    "format": "readSelect",
-   "difficulty": 10.5,
+   "difficulty": 1.3,
    "word": "zrive",
    "real": false
   },
   {
    "id": "rs-x-inšpekt",
    "format": "readSelect",
-   "difficulty": 13.8,
+   "difficulty": 60.3,
    "word": "inšpekt",
    "real": false
   },
   {
    "id": "rs-x-snemok",
    "format": "readSelect",
-   "difficulty": 12,
+   "difficulty": 6,
    "word": "snemok",
    "real": false
   },
   {
    "id": "rs-x-automný",
    "format": "readSelect",
-   "difficulty": 10,
+   "difficulty": 75.9,
    "word": "automný",
    "real": false
   },
   {
    "id": "rs-x-kartie",
    "format": "readSelect",
-   "difficulty": 11,
+   "difficulty": 7.8,
    "word": "kartie",
    "real": false
   },
   {
    "id": "rs-x-sekres",
    "format": "readSelect",
-   "difficulty": 10.8,
+   "difficulty": 8.5,
    "word": "sekres",
    "real": false
   },
   {
    "id": "rs-x-legist",
    "format": "readSelect",
-   "difficulty": 12,
+   "difficulty": 6,
    "word": "legist",
    "real": false
   },
   {
    "id": "rs-x-irodne",
    "format": "readSelect",
-   "difficulty": 12.6,
+   "difficulty": 5.3,
    "word": "irodne",
    "real": false
   },
   {
    "id": "rs-x-predina",
    "format": "readSelect",
-   "difficulty": 10,
+   "difficulty": 77.9,
    "word": "predina",
    "real": false
   },
   {
    "id": "rs-x-cestniť",
    "format": "readSelect",
-   "difficulty": 11.8,
+   "difficulty": 69.3,
    "word": "cestniť",
    "real": false
   },
   {
    "id": "rs-x-semiéra",
    "format": "readSelect",
-   "difficulty": 14.1,
+   "difficulty": 58.2,
    "word": "semiéra",
    "real": false
   },
   {
    "id": "rs-x-poistor",
    "format": "readSelect",
-   "difficulty": 14.8,
+   "difficulty": 56.5,
    "word": "poistor",
    "real": false
   },
   {
    "id": "rs-x-malite",
    "format": "readSelect",
-   "difficulty": 10.5,
+   "difficulty": 8.9,
    "word": "malite",
    "real": false
   },
   {
    "id": "rs-x-majstný",
    "format": "readSelect",
-   "difficulty": 13.1,
+   "difficulty": 64.4,
    "word": "majstný",
    "real": false
   },
   {
    "id": "rs-x-pretika",
    "format": "readSelect",
-   "difficulty": 12.2,
+   "difficulty": 67.3,
    "word": "pretika",
    "real": false
   },
   {
    "id": "rs-x-formidž",
    "format": "readSelect",
-   "difficulty": 14.5,
+   "difficulty": 57.3,
    "word": "formidž",
    "real": false
   },
   {
    "id": "rs-x-prieľať",
    "format": "readSelect",
-   "difficulty": 12.2,
+   "difficulty": 67.4,
    "word": "prieľať",
    "real": false
   },
   {
    "id": "rs-x-štvola",
    "format": "readSelect",
-   "difficulty": 11.2,
+   "difficulty": 7.1,
    "word": "štvola",
    "real": false
   },
   {
    "id": "rs-x-ovládež",
    "format": "readSelect",
-   "difficulty": 17.7,
+   "difficulty": 43.6,
    "word": "ovládež",
    "real": false
   },
   {
    "id": "rs-x-pedajší",
    "format": "readSelect",
-   "difficulty": 16.4,
+   "difficulty": 49.6,
    "word": "pedajší",
    "real": false
   },
   {
    "id": "rs-x-hneďale",
    "format": "readSelect",
-   "difficulty": 19.3,
+   "difficulty": 36.7,
    "word": "hneďale",
    "real": false
   },
   {
    "id": "rs-x-rokojiť",
    "format": "readSelect",
-   "difficulty": 17.9,
+   "difficulty": 43.1,
    "word": "rokojiť",
    "real": false
   },
   {
    "id": "rs-x-viročný",
    "format": "readSelect",
-   "difficulty": 18.6,
+   "difficulty": 40.1,
    "word": "viročný",
    "real": false
   },
   {
    "id": "rs-x-zďalene",
    "format": "readSelect",
-   "difficulty": 19.8,
+   "difficulty": 32.7,
    "word": "zďalene",
    "real": false
   },
   {
    "id": "rs-x-automoc",
    "format": "readSelect",
-   "difficulty": 17.8,
+   "difficulty": 43.3,
    "word": "automoc",
    "real": false
   },
   {
    "id": "rs-x-marážka",
    "format": "readSelect",
-   "difficulty": 18,
+   "difficulty": 42.3,
    "word": "marážka",
    "real": false
   },
   {
    "id": "rs-x-primavý",
    "format": "readSelect",
-   "difficulty": 18.3,
+   "difficulty": 40.6,
    "word": "primavý",
    "real": false
   },
   {
    "id": "rs-x-lúpera",
    "format": "readSelect",
-   "difficulty": 20,
+   "difficulty": 4.1,
    "word": "lúpera",
    "real": false
   },
   {
    "id": "rs-x-poslovať",
    "format": "readSelect",
-   "difficulty": 17.8,
+   "difficulty": 91.4,
    "word": "poslovať",
    "real": false
   },
   {
    "id": "rs-x-odpovor",
    "format": "readSelect",
-   "difficulty": 19.3,
+   "difficulty": 37,
    "word": "odpovor",
    "real": false
   },
   {
    "id": "rs-x-sestník",
    "format": "readSelect",
-   "difficulty": 18.2,
+   "difficulty": 41.2,
    "word": "sestník",
    "real": false
   },
   {
    "id": "rs-x-udencia",
    "format": "readSelect",
-   "difficulty": 16,
+   "difficulty": 51,
    "word": "udencia",
    "real": false
   },
   {
    "id": "rs-x-jedisko",
    "format": "readSelect",
-   "difficulty": 19.7,
+   "difficulty": 33.4,
    "word": "jedisko",
    "real": false
   },
   {
    "id": "rs-x-expozor",
    "format": "readSelect",
-   "difficulty": 19,
+   "difficulty": 37.7,
    "word": "expozor",
    "real": false
   },
   {
    "id": "rs-x-parátor",
    "format": "readSelect",
-   "difficulty": 17.2,
+   "difficulty": 47.7,
    "word": "parátor",
    "real": false
   },
   {
    "id": "rs-x-povstvo",
    "format": "readSelect",
-   "difficulty": 17,
+   "difficulty": 48.5,
    "word": "povstvo",
    "real": false
   },
   {
    "id": "rs-x-tmavský",
    "format": "readSelect",
-   "difficulty": 15.3,
+   "difficulty": 55,
    "word": "tmavský",
    "real": false
   },
   {
    "id": "rs-x-primidž",
    "format": "readSelect",
-   "difficulty": 17.4,
+   "difficulty": 45.7,
    "word": "primidž",
    "real": false
   },
   {
    "id": "rs-x-vojedno",
    "format": "readSelect",
-   "difficulty": 19.7,
+   "difficulty": 33.6,
    "word": "vojedno",
    "real": false
   },
   {
    "id": "rs-x-komovňa",
    "format": "readSelect",
-   "difficulty": 17.4,
+   "difficulty": 44.7,
    "word": "komovňa",
    "real": false
   },
   {
    "id": "rs-x-prizovať",
    "format": "readSelect",
-   "difficulty": 17.7,
+   "difficulty": 91.4,
    "word": "prizovať",
    "real": false
   },
   {
    "id": "rs-x-namenúť",
    "format": "readSelect",
-   "difficulty": 15.2,
+   "difficulty": 55.4,
    "word": "namenúť",
    "real": false
   },
   {
    "id": "rs-x-lúpelý",
    "format": "readSelect",
-   "difficulty": 15.3,
+   "difficulty": 4.6,
    "word": "lúpelý",
    "real": false
   },
   {
    "id": "rs-x-enerský",
    "format": "readSelect",
-   "difficulty": 21.5,
+   "difficulty": 29.7,
    "word": "enerský",
    "real": false
   },
   {
    "id": "rs-x-všeobed",
    "format": "readSelect",
-   "difficulty": 24.3,
+   "difficulty": 22.5,
    "word": "všeobed",
    "real": false
   },
   {
    "id": "rs-x-hospoko",
    "format": "readSelect",
-   "difficulty": 22.9,
+   "difficulty": 25.5,
    "word": "hospoko",
    "real": false
   },
   {
    "id": "rs-x-automov",
    "format": "readSelect",
-   "difficulty": 21.7,
+   "difficulty": 29.6,
    "word": "automov",
    "real": false
   },
   {
    "id": "rs-x-organtne",
    "format": "readSelect",
-   "difficulty": 25,
+   "difficulty": 86.8,
    "word": "organtne",
    "real": false
   },
   {
    "id": "rs-x-požinie",
    "format": "readSelect",
-   "difficulty": 20.3,
+   "difficulty": 31.7,
    "word": "požinie",
    "real": false
   },
   {
    "id": "rs-x-dodatne",
    "format": "readSelect",
-   "difficulty": 21.8,
+   "difficulty": 29.5,
    "word": "dodatne",
    "real": false
   },
   {
    "id": "rs-x-etinský",
    "format": "readSelect",
-   "difficulty": 20.9,
+   "difficulty": 30.9,
    "word": "etinský",
    "real": false
   },
   {
    "id": "rs-x-školoha",
    "format": "readSelect",
-   "difficulty": 21.2,
+   "difficulty": 29.8,
    "word": "školoha",
    "real": false
   },
   {
    "id": "rs-x-otožniť",
    "format": "readSelect",
-   "difficulty": 23.7,
+   "difficulty": 24.3,
    "word": "otožniť",
    "real": false
   },
   {
    "id": "rs-x-vodajší",
    "format": "readSelect",
-   "difficulty": 24.1,
+   "difficulty": 22.7,
    "word": "vodajší",
    "real": false
   },
   {
    "id": "rs-x-neprevať",
    "format": "readSelect",
-   "difficulty": 23.3,
+   "difficulty": 87.5,
    "word": "neprevať",
    "real": false
   },
   {
    "id": "rs-x-vestota",
    "format": "readSelect",
-   "difficulty": 22.5,
+   "difficulty": 28.6,
    "word": "vestota",
    "real": false
   },
   {
    "id": "rs-x-hovoľba",
    "format": "readSelect",
-   "difficulty": 24.4,
+   "difficulty": 21.2,
    "word": "hovoľba",
    "real": false
   },
   {
    "id": "rs-x-stronik",
    "format": "readSelect",
-   "difficulty": 24.6,
+   "difficulty": 21.2,
    "word": "stronik",
    "real": false
   },
   {
    "id": "rs-x-vyspeší",
    "format": "readSelect",
-   "difficulty": 20.7,
+   "difficulty": 31.3,
    "word": "vyspeší",
    "real": false
   },
   {
    "id": "rs-x-študelo",
    "format": "readSelect",
-   "difficulty": 22.7,
+   "difficulty": 28.1,
    "word": "študelo",
    "real": false
   },
   {
    "id": "rs-x-tvárika",
    "format": "readSelect",
-   "difficulty": 24.4,
+   "difficulty": 21.8,
    "word": "tvárika",
    "real": false
   },
   {
    "id": "rs-x-nervene",
    "format": "readSelect",
-   "difficulty": 21.2,
+   "difficulty": 29.9,
    "word": "nervene",
    "real": false
   },
   {
    "id": "rs-x-služový",
    "format": "readSelect",
-   "difficulty": 22.7,
+   "difficulty": 26.7,
    "word": "služový",
    "real": false
   },
   {
    "id": "rs-x-škodent",
    "format": "readSelect",
-   "difficulty": 22.7,
+   "difficulty": 27,
    "word": "škodent",
    "real": false
   },
   {
    "id": "rs-x-novisko",
    "format": "readSelect",
-   "difficulty": 24,
+   "difficulty": 22.7,
    "word": "novisko",
    "real": false
   },
   {
    "id": "rs-x-hraňovať",
    "format": "readSelect",
-   "difficulty": 21.3,
+   "difficulty": 89.2,
    "word": "hraňovať",
    "real": false
   },
   {
    "id": "rs-x-stovanie",
    "format": "readSelect",
-   "difficulty": 22.7,
+   "difficulty": 88.8,
    "word": "stovanie",
    "real": false
   },
   {
    "id": "rs-x-triekať",
    "format": "readSelect",
-   "difficulty": 24.4,
+   "difficulty": 21.7,
    "word": "triekať",
    "real": false
   },
   {
    "id": "rs-x-telekcia",
    "format": "readSelect",
-   "difficulty": 29,
+   "difficulty": 78.9,
    "word": "telekcia",
    "real": false
   },
   {
    "id": "rs-x-spozovať",
    "format": "readSelect",
-   "difficulty": 27.2,
+   "difficulty": 81.1,
    "word": "spozovať",
    "real": false
   },
   {
    "id": "rs-x-zredieť",
    "format": "readSelect",
-   "difficulty": 25.5,
+   "difficulty": 19.7,
    "word": "zredieť",
    "real": false
   },
   {
    "id": "rs-x-malizmus",
    "format": "readSelect",
-   "difficulty": 29.5,
+   "difficulty": 78,
    "word": "malizmus",
    "real": false
   },
   {
    "id": "rs-x-predport",
    "format": "readSelect",
-   "difficulty": 29.6,
+   "difficulty": 76.6,
    "word": "predport",
    "real": false
   },
   {
    "id": "rs-x-rozumena",
    "format": "readSelect",
-   "difficulty": 29.9,
+   "difficulty": 75.5,
    "word": "rozumena",
    "real": false
   },
   {
    "id": "rs-x-poskala",
    "format": "readSelect",
-   "difficulty": 26,
+   "difficulty": 17.8,
    "word": "poskala",
    "real": false
   },
   {
    "id": "rs-x-postrár",
    "format": "readSelect",
-   "difficulty": 27.2,
+   "difficulty": 14.1,
    "word": "postrár",
    "real": false
   },
   {
    "id": "rs-x-pobytie",
    "format": "readSelect",
-   "difficulty": 26.7,
+   "difficulty": 15.3,
    "word": "pobytie",
    "real": false
   },
   {
    "id": "rs-x-motívno",
    "format": "readSelect",
-   "difficulty": 27.6,
+   "difficulty": 13.8,
    "word": "motívno",
    "real": false
   },
   {
    "id": "rs-x-ľútorne",
    "format": "readSelect",
-   "difficulty": 26.5,
+   "difficulty": 17.4,
    "word": "ľútorne",
    "real": false
   },
   {
    "id": "rs-x-raznivo",
    "format": "readSelect",
-   "difficulty": 25.2,
+   "difficulty": 20,
    "word": "raznivo",
    "real": false
   },
   {
    "id": "rs-x-cieľavo",
    "format": "readSelect",
-   "difficulty": 27,
+   "difficulty": 14.5,
    "word": "cieľavo",
    "real": false
   },
   {
    "id": "rs-x-tradový",
    "format": "readSelect",
-   "difficulty": 27.9,
+   "difficulty": 12.2,
    "word": "tradový",
    "real": false
   },
   {
    "id": "rs-x-plomeno",
    "format": "readSelect",
-   "difficulty": 29.7,
+   "difficulty": 10,
    "word": "plomeno",
    "real": false
   },
   {
    "id": "rs-x-civisko",
    "format": "readSelect",
-   "difficulty": 25.8,
+   "difficulty": 18.2,
    "word": "civisko",
    "real": false
   },
   {
    "id": "rs-x-predecky",
    "format": "readSelect",
-   "difficulty": 29.7,
+   "difficulty": 75.9,
    "word": "predecky",
    "real": false
   },
   {
    "id": "rs-x-povencia",
    "format": "readSelect",
-   "difficulty": 27,
+   "difficulty": 82.6,
    "word": "povencia",
    "real": false
   },
   {
    "id": "rs-x-vysvedať",
    "format": "readSelect",
-   "difficulty": 25.4,
+   "difficulty": 85.6,
    "word": "vysvedať",
    "real": false
   },
   {
    "id": "rs-x-odstanie",
    "format": "readSelect",
-   "difficulty": 29,
+   "difficulty": 79.9,
    "word": "odstanie",
    "real": false
   },
   {
    "id": "rs-x-dopadok",
    "format": "readSelect",
-   "difficulty": 29.8,
+   "difficulty": 10,
    "word": "dopadok",
    "real": false
   },
   {
    "id": "rs-x-eferenie",
    "format": "readSelect",
-   "difficulty": 28.6,
+   "difficulty": 80,
    "word": "eferenie",
    "real": false
   },
   {
    "id": "rs-x-odpovin",
    "format": "readSelect",
-   "difficulty": 27.4,
+   "difficulty": 14,
    "word": "odpovin",
    "real": false
   },
   {
    "id": "rs-x-porovník",
    "format": "readSelect",
-   "difficulty": 28.1,
+   "difficulty": 80.7,
    "word": "porovník",
    "real": false
   },
   {
    "id": "rs-x-biskorý",
    "format": "readSelect",
-   "difficulty": 25.1,
+   "difficulty": 20.3,
    "word": "biskorý",
    "real": false
   },
   {
    "id": "rs-x-trieniť",
    "format": "readSelect",
-   "difficulty": 31.1,
+   "difficulty": 7.1,
    "word": "trieniť",
    "real": false
   },
   {
    "id": "rs-x-modentný",
    "format": "readSelect",
-   "difficulty": 33.6,
+   "difficulty": 65.4,
    "word": "modentný",
    "real": false
   },
   {
    "id": "rs-x-odmiešne",
    "format": "readSelect",
-   "difficulty": 34.5,
+   "difficulty": 63,
    "word": "odmiešne",
    "real": false
   },
   {
    "id": "rs-x-poligový",
    "format": "readSelect",
-   "difficulty": 32.4,
+   "difficulty": 68.8,
    "word": "poligový",
    "real": false
   },
   {
    "id": "rs-x-prektúra",
    "format": "readSelect",
-   "difficulty": 32.7,
+   "difficulty": 67.7,
    "word": "prektúra",
    "real": false
   },
   {
    "id": "rs-x-vysliesť",
    "format": "readSelect",
-   "difficulty": 33.4,
+   "difficulty": 66.9,
    "word": "vysliesť",
    "real": false
   },
   {
    "id": "rs-x-priedavo",
    "format": "readSelect",
-   "difficulty": 33.8,
+   "difficulty": 63.5,
    "word": "priedavo",
    "real": false
   },
   {
    "id": "rs-x-podprec",
    "format": "readSelect",
-   "difficulty": 30,
+   "difficulty": 9.9,
    "word": "podprec",
    "real": false
   },
   {
    "id": "rs-x-dychicky",
    "format": "readSelect",
-   "difficulty": 31.1,
+   "difficulty": 71.2,
    "word": "dychicky",
    "real": false
   },
   {
    "id": "rs-x-plukont",
    "format": "readSelect",
-   "difficulty": 33.7,
+   "difficulty": 5,
    "word": "plukont",
    "real": false
   },
   {
    "id": "rs-x-šírenár",
    "format": "readSelect",
-   "difficulty": 33.9,
+   "difficulty": 4.9,
    "word": "šírenár",
    "real": false
   },
   {
    "id": "rs-x-gendenie",
    "format": "readSelect",
-   "difficulty": 34.6,
+   "difficulty": 62.3,
    "word": "gendenie",
    "real": false
   },
   {
    "id": "rs-x-kretávať",
    "format": "readSelect",
-   "difficulty": 31.3,
+   "difficulty": 70.8,
    "word": "kretávať",
    "real": false
   },
   {
    "id": "rs-x-dariadať",
    "format": "readSelect",
-   "difficulty": 32,
+   "difficulty": 69.7,
    "word": "dariadať",
    "real": false
   },
   {
    "id": "rs-x-hranier",
    "format": "readSelect",
-   "difficulty": 33.1,
+   "difficulty": 5.4,
    "word": "hranier",
    "real": false
   },
   {
    "id": "rs-x-zvolický",
    "format": "readSelect",
-   "difficulty": 33.3,
+   "difficulty": 66.9,
    "word": "zvolický",
    "real": false
   },
   {
    "id": "rs-x-mometer",
    "format": "readSelect",
-   "difficulty": 31.6,
+   "difficulty": 6.5,
    "word": "mometer",
    "real": false
   },
   {
    "id": "rs-x-nápojed",
    "format": "readSelect",
-   "difficulty": 31.5,
+   "difficulty": 6.9,
    "word": "nápojed",
    "real": false
   },
   {
    "id": "rs-x-neočasne",
    "format": "readSelect",
-   "difficulty": 30.7,
+   "difficulty": 74.3,
    "word": "neočasne",
    "real": false
   },
   {
    "id": "rs-x-nadviezť",
    "format": "readSelect",
-   "difficulty": 31.7,
+   "difficulty": 69.9,
    "word": "nadviezť",
    "real": false
   },
   {
    "id": "rs-x-hodkový",
    "format": "readSelect",
-   "difficulty": 30.9,
+   "difficulty": 7.6,
    "word": "hodkový",
    "real": false
   },
   {
    "id": "rs-x-vzrádzať",
    "format": "readSelect",
-   "difficulty": 30.9,
+   "difficulty": 73.8,
    "word": "vzrádzať",
    "real": false
   },
   {
    "id": "rs-x-vetlenie",
    "format": "readSelect",
-   "difficulty": 33.7,
+   "difficulty": 64.5,
    "word": "vetlenie",
    "real": false
   },
   {
    "id": "rs-x-víkendum",
    "format": "readSelect",
-   "difficulty": 34.8,
+   "difficulty": 62.2,
    "word": "víkendum",
    "real": false
   },
   {
    "id": "rs-x-invesmír",
    "format": "readSelect",
-   "difficulty": 32.5,
+   "difficulty": 68.6,
    "word": "invesmír",
    "real": false
   },
   {
    "id": "rs-x-cestupne",
    "format": "readSelect",
-   "difficulty": 38.9,
+   "difficulty": 48.1,
    "word": "cestupne",
    "real": false
   },
   {
    "id": "rs-x-povosta",
    "format": "readSelect",
-   "difficulty": 37.9,
+   "difficulty": 4.4,
    "word": "povosta",
    "real": false
   },
   {
    "id": "rs-x-predpovať",
    "format": "readSelect",
-   "difficulty": 36.7,
+   "difficulty": 92.3,
    "word": "predpovať",
    "real": false
   },
   {
    "id": "rs-x-netranne",
    "format": "readSelect",
-   "difficulty": 38.8,
+   "difficulty": 48.3,
    "word": "netranne",
    "real": false
   },
   {
    "id": "rs-x-nevidlho",
    "format": "readSelect",
-   "difficulty": 37,
+   "difficulty": 54,
    "word": "nevidlho",
    "real": false
   },
   {
    "id": "rs-x-pologicky",
    "format": "readSelect",
-   "difficulty": 36.4,
+   "difficulty": 92.7,
    "word": "pologicky",
    "real": false
   },
   {
    "id": "rs-x-lístupca",
    "format": "readSelect",
-   "difficulty": 37.7,
+   "difficulty": 50.9,
    "word": "lístupca",
    "real": false
   },
   {
    "id": "rs-x-popoluha",
    "format": "readSelect",
-   "difficulty": 39.3,
+   "difficulty": 44.6,
    "word": "popoluha",
    "real": false
   },
   {
    "id": "rs-x-krajomne",
    "format": "readSelect",
-   "difficulty": 35.7,
+   "difficulty": 58.9,
    "word": "krajomne",
    "real": false
   },
   {
    "id": "rs-x-kvapojiť",
    "format": "readSelect",
-   "difficulty": 38.9,
+   "difficulty": 47.9,
    "word": "kvapojiť",
    "real": false
   },
   {
    "id": "rs-x-výskytok",
    "format": "readSelect",
-   "difficulty": 37.8,
+   "difficulty": 50,
    "word": "výskytok",
    "real": false
   },
   {
    "id": "rs-x-princent",
    "format": "readSelect",
-   "difficulty": 37.6,
+   "difficulty": 51.3,
    "word": "princent",
    "real": false
   },
   {
    "id": "rs-x-podhadlo",
    "format": "readSelect",
-   "difficulty": 37.6,
+   "difficulty": 51.2,
    "word": "podhadlo",
    "real": false
   },
   {
    "id": "rs-x-každodne",
    "format": "readSelect",
-   "difficulty": 37.5,
+   "difficulty": 51.6,
    "word": "každodne",
    "real": false
   },
   {
    "id": "rs-x-sportina",
    "format": "readSelect",
-   "difficulty": 39.1,
+   "difficulty": 46.6,
    "word": "sportina",
    "real": false
   },
   {
    "id": "rs-x-ceniknúť",
    "format": "readSelect",
-   "difficulty": 37.5,
+   "difficulty": 51.4,
    "word": "ceniknúť",
    "real": false
   },
   {
    "id": "rs-x-sledomoc",
    "format": "readSelect",
-   "difficulty": 39.4,
+   "difficulty": 43.8,
    "word": "sledomoc",
    "real": false
   },
   {
    "id": "rs-x-nedentný",
    "format": "readSelect",
-   "difficulty": 35.8,
+   "difficulty": 58.1,
    "word": "nedentný",
    "real": false
   },
   {
    "id": "rs-x-ochviesť",
    "format": "readSelect",
-   "difficulty": 37.9,
+   "difficulty": 49.9,
    "word": "ochviesť",
    "real": false
   },
   {
    "id": "rs-x-želesok",
    "format": "readSelect",
-   "difficulty": 36.7,
+   "difficulty": 4.6,
    "word": "želesok",
    "real": false
   },
   {
    "id": "rs-x-hradnika",
    "format": "readSelect",
-   "difficulty": 39.9,
+   "difficulty": 42.6,
    "word": "hradnika",
    "real": false
   },
   {
    "id": "rs-x-ropatik",
    "format": "readSelect",
-   "difficulty": 38.7,
+   "difficulty": 4.2,
    "word": "ropatik",
    "real": false
   },
   {
    "id": "rs-x-kolanky",
    "format": "readSelect",
-   "difficulty": 37.4,
+   "difficulty": 4.4,
    "word": "kolanky",
    "real": false
   },
   {
    "id": "rs-x-odportok",
    "format": "readSelect",
-   "difficulty": 35.3,
+   "difficulty": 60.6,
    "word": "odportok",
    "real": false
   },
   {
    "id": "rs-x-revenský",
    "format": "readSelect",
-   "difficulty": 37.3,
+   "difficulty": 53.4,
    "word": "revenský",
    "real": false
   },
   {
    "id": "rs-x-španicky",
    "format": "readSelect",
-   "difficulty": 42.5,
+   "difficulty": 35.7,
    "word": "španicky",
    "real": false
   },
   {
    "id": "rs-x-ekonicky",
    "format": "readSelect",
-   "difficulty": 40.2,
+   "difficulty": 41.3,
    "word": "ekonicky",
    "real": false
   },
   {
    "id": "rs-x-zaspočuť",
    "format": "readSelect",
-   "difficulty": 43.8,
+   "difficulty": 33.1,
    "word": "zaspočuť",
    "real": false
   },
   {
    "id": "rs-x-špektovať",
    "format": "readSelect",
-   "difficulty": 43.3,
+   "difficulty": 90.3,
    "word": "špektovať",
    "real": false
   },
   {
    "id": "rs-x-cestičný",
    "format": "readSelect",
-   "difficulty": 41.4,
+   "difficulty": 38.7,
    "word": "cestičný",
    "real": false
   },
   {
    "id": "rs-x-poďakona",
    "format": "readSelect",
-   "difficulty": 41.2,
+   "difficulty": 38.9,
    "word": "poďakona",
    "real": false
   },
   {
    "id": "rs-x-posemiér",
    "format": "readSelect",
-   "difficulty": 40.6,
+   "difficulty": 40.1,
    "word": "posemiér",
    "real": false
   },
   {
    "id": "rs-x-posúdruh",
    "format": "readSelect",
-   "difficulty": 40.1,
+   "difficulty": 41.4,
    "word": "posúdruh",
    "real": false
   },
   {
    "id": "rs-x-svetľovať",
    "format": "readSelect",
-   "difficulty": 42.1,
+   "difficulty": 90.8,
    "word": "svetľovať",
    "real": false
   },
   {
    "id": "rs-x-oddielňa",
    "format": "readSelect",
-   "difficulty": 43.1,
+   "difficulty": 33.7,
    "word": "oddielňa",
    "real": false
   },
   {
    "id": "rs-x-výchotok",
    "format": "readSelect",
-   "difficulty": 42.6,
+   "difficulty": 35.3,
    "word": "výchotok",
    "real": false
   },
   {
    "id": "rs-x-prezolák",
    "format": "readSelect",
-   "difficulty": 42.3,
+   "difficulty": 37.4,
    "word": "prezolák",
    "real": false
   },
   {
    "id": "rs-x-chopecia",
    "format": "readSelect",
-   "difficulty": 44,
+   "difficulty": 32.4,
    "word": "chopecia",
    "real": false
   },
   {
    "id": "rs-x-ekonočný",
    "format": "readSelect",
-   "difficulty": 41.3,
+   "difficulty": 38.8,
    "word": "ekonočný",
    "real": false
   },
   {
    "id": "rs-x-zmenajať",
    "format": "readSelect",
-   "difficulty": 44.4,
+   "difficulty": 31.1,
    "word": "zmenajať",
    "real": false
   },
   {
    "id": "rs-x-maniečka",
    "format": "readSelect",
-   "difficulty": 44.7,
+   "difficulty": 30,
    "word": "maniečka",
    "real": false
   },
   {
    "id": "rs-x-finisový",
    "format": "readSelect",
-   "difficulty": 42.7,
+   "difficulty": 34.8,
    "word": "finisový",
    "real": false
   },
   {
    "id": "rs-x-predvážiť",
    "format": "readSelect",
-   "difficulty": 44.3,
+   "difficulty": 90.1,
    "word": "predvážiť",
    "real": false
   },
   {
    "id": "rs-x-politbal",
    "format": "readSelect",
-   "difficulty": 40.1,
+   "difficulty": 42,
    "word": "politbal",
    "real": false
   },
   {
    "id": "rs-x-dozriasť",
    "format": "readSelect",
-   "difficulty": 41.4,
+   "difficulty": 37.9,
    "word": "dozriasť",
    "real": false
   },
   {
    "id": "rs-x-chybňovať",
    "format": "readSelect",
-   "difficulty": 42,
+   "difficulty": 91,
    "word": "chybňovať",
    "real": false
   },
   {
    "id": "rs-x-elegislý",
    "format": "readSelect",
-   "difficulty": 41.2,
+   "difficulty": 38.9,
    "word": "elegislý",
    "real": false
   },
   {
    "id": "rs-x-decepcia",
    "format": "readSelect",
-   "difficulty": 44.6,
+   "difficulty": 30.7,
    "word": "decepcia",
    "real": false
   },
   {
    "id": "rs-x-kandátum",
    "format": "readSelect",
-   "difficulty": 43.6,
+   "difficulty": 33.3,
    "word": "kandátum",
    "real": false
   },
   {
    "id": "rs-x-teligent",
    "format": "readSelect",
-   "difficulty": 44.1,
+   "difficulty": 32,
    "word": "teligent",
    "real": false
   },
   {
    "id": "rs-x-zakresiť",
    "format": "readSelect",
-   "difficulty": 45.7,
+   "difficulty": 25.1,
    "word": "zakresiť",
    "real": false
   },
   {
    "id": "rs-x-svetvier",
    "format": "readSelect",
-   "difficulty": 46.7,
+   "difficulty": 21.3,
    "word": "svetvier",
    "real": false
   },
   {
    "id": "rs-x-strebitný",
    "format": "readSelect",
-   "difficulty": 48.5,
+   "difficulty": 82.7,
    "word": "strebitný",
    "real": false
   },
   {
    "id": "rs-x-telenstvo",
    "format": "readSelect",
-   "difficulty": 48.1,
+   "difficulty": 83.5,
    "word": "telenstvo",
    "real": false
   },
   {
    "id": "rs-x-streberať",
    "format": "readSelect",
-   "difficulty": 49.9,
+   "difficulty": 79,
    "word": "streberať",
    "real": false
   },
   {
    "id": "rs-x-verimidž",
    "format": "readSelect",
-   "difficulty": 50,
+   "difficulty": 10.5,
    "word": "verimidž",
    "real": false
   },
   {
    "id": "rs-x-chrávanie",
    "format": "readSelect",
-   "difficulty": 48.3,
+   "difficulty": 83.2,
    "word": "chrávanie",
    "real": false
   },
   {
    "id": "rs-x-pravotník",
    "format": "readSelect",
-   "difficulty": 46.5,
+   "difficulty": 86.9,
    "word": "pravotník",
    "real": false
   },
   {
    "id": "rs-x-rekrehký",
    "format": "readSelect",
-   "difficulty": 49.1,
+   "difficulty": 12.2,
    "word": "rekrehký",
    "real": false
   },
   {
    "id": "rs-x-úzkovanie",
    "format": "readSelect",
-   "difficulty": 47.7,
+   "difficulty": 85.5,
    "word": "úzkovanie",
    "real": false
   },
   {
    "id": "rs-x-hnedenný",
    "format": "readSelect",
-   "difficulty": 47.7,
+   "difficulty": 19.3,
    "word": "hnedenný",
    "real": false
   },
   {
    "id": "rs-x-náportál",
    "format": "readSelect",
-   "difficulty": 47.9,
+   "difficulty": 18,
    "word": "náportál",
    "real": false
   },
   {
    "id": "rs-x-kopagovať",
    "format": "readSelect",
-   "difficulty": 48.5,
+   "difficulty": 82.6,
    "word": "kopagovať",
    "real": false
   },
   {
    "id": "rs-x-brežitol",
    "format": "readSelect",
-   "difficulty": 48,
+   "difficulty": 17.8,
    "word": "brežitol",
    "real": false
   },
   {
    "id": "rs-x-zjazdanie",
    "format": "readSelect",
-   "difficulty": 49.9,
+   "difficulty": 78.7,
    "word": "zjazdanie",
    "real": false
   },
   {
    "id": "rs-x-ovenečne",
    "format": "readSelect",
-   "difficulty": 49.9,
+   "difficulty": 10.8,
    "word": "ovenečne",
    "real": false
   },
   {
    "id": "rs-x-vypropať",
    "format": "readSelect",
-   "difficulty": 46.6,
+   "difficulty": 21.5,
    "word": "vypropať",
    "real": false
   },
   {
    "id": "rs-x-nehotent",
    "format": "readSelect",
-   "difficulty": 45.7,
+   "difficulty": 25.2,
    "word": "nehotent",
    "real": false
   },
   {
    "id": "rs-x-cestnanie",
    "format": "readSelect",
-   "difficulty": 48.6,
+   "difficulty": 81.7,
    "word": "cestnanie",
    "real": false
   },
   {
    "id": "rs-x-redagóga",
    "format": "readSelect",
-   "difficulty": 46.5,
+   "difficulty": 22.7,
    "word": "redagóga",
    "real": false
   },
   {
    "id": "rs-x-spolidar",
    "format": "readSelect",
-   "difficulty": 49.6,
+   "difficulty": 11,
    "word": "spolidar",
    "real": false
   },
   {
    "id": "rs-x-samostík",
    "format": "readSelect",
-   "difficulty": 48.3,
+   "difficulty": 17.2,
    "word": "samostík",
    "real": false
   },
   {
    "id": "rs-x-študelník",
    "format": "readSelect",
-   "difficulty": 49.8,
+   "difficulty": 79,
    "word": "študelník",
    "real": false
   },
   {
    "id": "rs-x-odporaziť",
    "format": "readSelect",
-   "difficulty": 47.2,
+   "difficulty": 85.8,
    "word": "odporaziť",
    "real": false
   },
   {
    "id": "rs-x-politeľný",
    "format": "readSelect",
-   "difficulty": 49.4,
+   "difficulty": 80.1,
    "word": "politeľný",
    "real": false
   },
   {
    "id": "rs-x-operovský",
    "format": "readSelect",
-   "difficulty": 54.4,
+   "difficulty": 63.1,
    "word": "operovský",
    "real": false
   },
   {
    "id": "rs-x-schovárať",
    "format": "readSelect",
-   "difficulty": 51.2,
+   "difficulty": 74.5,
    "word": "schovárať",
    "real": false
   },
   {
    "id": "rs-x-pozdelník",
    "format": "readSelect",
-   "difficulty": 51.6,
+   "difficulty": 73.9,
    "word": "pozdelník",
    "real": false
   },
   {
    "id": "rs-x-dávnosto",
    "format": "readSelect",
-   "difficulty": 54.5,
+   "difficulty": 4.9,
    "word": "dávnosto",
    "real": false
   },
   {
    "id": "rs-x-reštarod",
    "format": "readSelect",
-   "difficulty": 54,
+   "difficulty": 5,
    "word": "reštarod",
    "real": false
   },
   {
    "id": "rs-x-uprebovať",
    "format": "readSelect",
-   "difficulty": 53.9,
+   "difficulty": 66.6,
    "word": "uprebovať",
    "real": false
   },
   {
    "id": "rs-x-potretnuť",
    "format": "readSelect",
-   "difficulty": 50,
+   "difficulty": 78.2,
    "word": "potretnuť",
    "real": false
   },
   {
    "id": "rs-x-momerane",
    "format": "readSelect",
-   "difficulty": 50.9,
+   "difficulty": 9,
    "word": "momerane",
    "real": false
   },
   {
    "id": "rs-x-veľkolský",
    "format": "readSelect",
-   "difficulty": 51.6,
+   "difficulty": 73.9,
    "word": "veľkolský",
    "real": false
   },
   {
    "id": "rs-x-pozasadiť",
    "format": "readSelect",
-   "difficulty": 53.9,
+   "difficulty": 66.7,
    "word": "pozasadiť",
    "real": false
   },
   {
    "id": "rs-x-sústroho",
    "format": "readSelect",
-   "difficulty": 51.6,
+   "difficulty": 8.4,
    "word": "sústroho",
    "real": false
   },
   {
    "id": "rs-x-pohodobný",
    "format": "readSelect",
-   "difficulty": 52,
+   "difficulty": 71.2,
    "word": "pohodobný",
    "real": false
   },
   {
    "id": "rs-x-vyznamieť",
    "format": "readSelect",
-   "difficulty": 53.3,
+   "difficulty": 69,
    "word": "vyznamieť",
    "real": false
   },
   {
    "id": "rs-x-komuniknúť",
    "format": "readSelect",
-   "difficulty": 54,
+   "difficulty": 92.9,
    "word": "komuniknúť",
    "real": false
   },
   {
    "id": "rs-x-samoslový",
    "format": "readSelect",
-   "difficulty": 51.4,
+   "difficulty": 74.4,
    "word": "samoslový",
    "real": false
   },
   {
    "id": "rs-x-výplavír",
    "format": "readSelect",
-   "difficulty": 51.3,
+   "difficulty": 8.5,
    "word": "výplavír",
    "real": false
   },
   {
    "id": "rs-x-ozdražda",
    "format": "readSelect",
-   "difficulty": 50.2,
+   "difficulty": 10.3,
    "word": "ozdražda",
    "real": false
   },
   {
    "id": "rs-x-nezastniť",
    "format": "readSelect",
-   "difficulty": 51.2,
+   "difficulty": 74.4,
    "word": "nezastniť",
    "real": false
   },
   {
    "id": "rs-x-odstrávať",
    "format": "readSelect",
-   "difficulty": 51,
+   "difficulty": 75.1,
    "word": "odstrávať",
    "real": false
   },
   {
    "id": "rs-x-predicína",
    "format": "readSelect",
-   "difficulty": 54.8,
+   "difficulty": 62.5,
    "word": "predicína",
    "real": false
   },
   {
    "id": "rs-x-neďalelne",
    "format": "readSelect",
-   "difficulty": 54.8,
+   "difficulty": 62.6,
    "word": "neďalelne",
    "real": false
   },
   {
    "id": "rs-x-partnenie",
    "format": "readSelect",
-   "difficulty": 51.1,
+   "difficulty": 74.5,
    "word": "partnenie",
    "real": false
   },
   {
    "id": "rs-x-postavent",
    "format": "readSelect",
-   "difficulty": 55,
+   "difficulty": 60.8,
    "word": "postavent",
    "real": false
   },
   {
    "id": "rs-x-navrievať",
    "format": "readSelect",
-   "difficulty": 53.4,
+   "difficulty": 67.6,
    "word": "navrievať",
    "real": false
   },
   {
    "id": "rs-x-poznámaha",
    "format": "readSelect",
-   "difficulty": 54.3,
+   "difficulty": 64.1,
    "word": "poznámaha",
    "real": false
   },
   {
    "id": "rs-x-predievča",
    "format": "readSelect",
-   "difficulty": 58,
+   "difficulty": 46.5,
    "word": "predievča",
    "real": false
   },
   {
    "id": "rs-x-navlastne",
    "format": "readSelect",
-   "difficulty": 57.5,
+   "difficulty": 48.5,
    "word": "navlastne",
    "real": false
   },
   {
    "id": "rs-x-maďalelne",
    "format": "readSelect",
-   "difficulty": 55.6,
+   "difficulty": 58,
    "word": "maďalelne",
    "real": false
   },
   {
    "id": "rs-x-relaticky",
    "format": "readSelect",
-   "difficulty": 58.9,
+   "difficulty": 42.1,
    "word": "relaticky",
    "real": false
   },
   {
    "id": "rs-x-prakterný",
    "format": "readSelect",
-   "difficulty": 56.5,
+   "difficulty": 54.3,
    "word": "prakterný",
    "real": false
   },
   {
    "id": "rs-x-tredagóga",
    "format": "readSelect",
-   "difficulty": 59.6,
+   "difficulty": 37.9,
    "word": "tredagóga",
    "real": false
   },
   {
    "id": "rs-x-kompliknúť",
    "format": "readSelect",
-   "difficulty": 58.9,
+   "difficulty": 91.2,
    "word": "kompliknúť",
    "real": false
   },
   {
    "id": "rs-x-rozumierať",
    "format": "readSelect",
-   "difficulty": 59,
+   "difficulty": 91.1,
    "word": "rozumierať",
    "real": false
   },
@@ -8832,1071 +8832,1071 @@
   {
    "id": "rs-x-alistenie",
    "format": "readSelect",
-   "difficulty": 56.9,
+   "difficulty": 53.3,
    "word": "alistenie",
    "real": false
   },
   {
    "id": "rs-x-zomriešiť",
    "format": "readSelect",
-   "difficulty": 55.5,
+   "difficulty": 59,
    "word": "zomriešiť",
    "real": false
   },
   {
    "id": "rs-x-potresliť",
    "format": "readSelect",
-   "difficulty": 56.3,
+   "difficulty": 55.9,
    "word": "potresliť",
    "real": false
   },
   {
    "id": "rs-x-prevzdávať",
    "format": "readSelect",
-   "difficulty": 59.2,
+   "difficulty": 91,
    "word": "prevzdávať",
    "real": false
   },
   {
    "id": "rs-x-systrický",
    "format": "readSelect",
-   "difficulty": 57.3,
+   "difficulty": 49.4,
    "word": "systrický",
    "real": false
   },
   {
    "id": "rs-x-demokrvne",
    "format": "readSelect",
-   "difficulty": 56.7,
+   "difficulty": 53.9,
    "word": "demokrvne",
    "real": false
   },
   {
    "id": "rs-x-nakretnuť",
    "format": "readSelect",
-   "difficulty": 58.2,
+   "difficulty": 44.3,
    "word": "nakretnuť",
    "real": false
   },
   {
    "id": "rs-x-spologicky",
    "format": "readSelect",
-   "difficulty": 55.6,
+   "difficulty": 92.8,
    "word": "spologicky",
    "real": false
   },
   {
    "id": "rs-x-nenapovať",
    "format": "readSelect",
-   "difficulty": 59.4,
+   "difficulty": 39.4,
    "word": "nenapovať",
    "real": false
   },
   {
    "id": "rs-x-citorovať",
    "format": "readSelect",
-   "difficulty": 55.4,
+   "difficulty": 59.4,
    "word": "citorovať",
    "real": false
   },
   {
    "id": "rs-x-zavčasovo",
    "format": "readSelect",
-   "difficulty": 59.2,
+   "difficulty": 40.2,
    "word": "zavčasovo",
    "real": false
   },
   {
    "id": "rs-x-inscener",
    "format": "readSelect",
-   "difficulty": 56.8,
+   "difficulty": 4.4,
    "word": "inscener",
    "real": false
   },
   {
    "id": "rs-x-posemfina",
    "format": "readSelect",
-   "difficulty": 56.4,
+   "difficulty": 54.8,
    "word": "posemfina",
    "real": false
   },
   {
    "id": "rs-x-zápalátka",
    "format": "readSelect",
-   "difficulty": 58.1,
+   "difficulty": 44.4,
    "word": "zápalátka",
    "real": false
   },
   {
    "id": "rs-x-odskotať",
    "format": "readSelect",
-   "difficulty": 55.9,
+   "difficulty": 4.7,
    "word": "odskotať",
    "real": false
   },
   {
    "id": "rs-x-zdraznivo",
    "format": "readSelect",
-   "difficulty": 56.8,
+   "difficulty": 53.9,
    "word": "zdraznivo",
    "real": false
   },
   {
    "id": "rs-x-zaradiela",
    "format": "readSelect",
-   "difficulty": 62.7,
+   "difficulty": 24.4,
    "word": "zaradiela",
    "real": false
   },
   {
    "id": "rs-x-obrontakt",
    "format": "readSelect",
-   "difficulty": 62.2,
+   "difficulty": 27.2,
    "word": "obrontakt",
    "real": false
   },
   {
    "id": "rs-x-rozumožniť",
    "format": "readSelect",
-   "difficulty": 61,
+   "difficulty": 90.1,
    "word": "rozumožniť",
    "real": false
   },
   {
    "id": "rs-x-hosporuke",
    "format": "readSelect",
-   "difficulty": 64.4,
+   "difficulty": 17.7,
    "word": "hosporuke",
    "real": false
   },
   {
    "id": "rs-x-spustihnúť",
    "format": "readSelect",
-   "difficulty": 60.3,
+   "difficulty": 90.4,
    "word": "spustihnúť",
    "real": false
   },
   {
    "id": "rs-x-každodato",
    "format": "readSelect",
-   "difficulty": 63,
+   "difficulty": 24,
    "word": "každodato",
    "real": false
   },
   {
    "id": "rs-x-naposlene",
    "format": "readSelect",
-   "difficulty": 64.5,
+   "difficulty": 17.4,
    "word": "naposlene",
    "real": false
   },
   {
    "id": "rs-x-učebníctvo",
    "format": "readSelect",
-   "difficulty": 64.5,
+   "difficulty": 83,
    "word": "učebníctvo",
    "real": false
   },
   {
    "id": "rs-x-prezradnúť",
    "format": "readSelect",
-   "difficulty": 62.3,
+   "difficulty": 88.6,
    "word": "prezradnúť",
    "real": false
   },
   {
    "id": "rs-x-majstencia",
    "format": "readSelect",
-   "difficulty": 62.5,
+   "difficulty": 88.3,
    "word": "majstencia",
    "real": false
   },
   {
    "id": "rs-x-krízemika",
    "format": "readSelect",
-   "difficulty": 60.3,
+   "difficulty": 34.6,
    "word": "krízemika",
    "real": false
   },
   {
    "id": "rs-x-upevnímať",
    "format": "readSelect",
-   "difficulty": 60.6,
+   "difficulty": 33.7,
    "word": "upevnímať",
    "real": false
   },
   {
    "id": "rs-x-uistrácať",
    "format": "readSelect",
-   "difficulty": 62.9,
+   "difficulty": 24.1,
    "word": "uistrácať",
    "real": false
   },
   {
    "id": "rs-x-osemierka",
    "format": "readSelect",
-   "difficulty": 60.2,
+   "difficulty": 36.4,
    "word": "osemierka",
    "real": false
   },
   {
    "id": "rs-x-chránerk",
    "format": "readSelect",
-   "difficulty": 61.9,
+   "difficulty": 3,
    "word": "chránerk",
    "real": false
   },
   {
    "id": "rs-x-islanecký",
    "format": "readSelect",
-   "difficulty": 64.1,
+   "difficulty": 19,
    "word": "islanecký",
    "real": false
   },
   {
    "id": "rs-x-otváracký",
    "format": "readSelect",
-   "difficulty": 60.6,
+   "difficulty": 33.9,
    "word": "otváracký",
    "real": false
   },
   {
    "id": "rs-x-podporadiť",
    "format": "readSelect",
-   "difficulty": 62.9,
+   "difficulty": 87.1,
    "word": "podporadiť",
    "real": false
   },
   {
    "id": "rs-x-prehliard",
    "format": "readSelect",
-   "difficulty": 63.1,
+   "difficulty": 23.3,
    "word": "prehliard",
    "real": false
   },
   {
    "id": "rs-x-zraktorín",
    "format": "readSelect",
-   "difficulty": 62.6,
+   "difficulty": 24.6,
    "word": "zraktorín",
    "real": false
   },
   {
    "id": "rs-x-atravodný",
    "format": "readSelect",
-   "difficulty": 63.5,
+   "difficulty": 20.7,
    "word": "atravodný",
    "real": false
   },
   {
    "id": "rs-x-hnedentný",
    "format": "readSelect",
-   "difficulty": 64.1,
+   "difficulty": 19.3,
    "word": "hnedentný",
    "real": false
   },
   {
    "id": "rs-x-neprebovať",
    "format": "readSelect",
-   "difficulty": 60.8,
+   "difficulty": 90.2,
    "word": "neprebovať",
    "real": false
   },
   {
    "id": "rs-x-osvetiecť",
    "format": "readSelect",
-   "difficulty": 62.3,
+   "difficulty": 26,
    "word": "osvetiecť",
    "real": false
   },
   {
    "id": "rs-x-plasičský",
    "format": "readSelect",
-   "difficulty": 60.1,
+   "difficulty": 37.5,
    "word": "plasičský",
    "real": false
   },
   {
    "id": "rs-x-mospojenie",
    "format": "readSelect",
-   "difficulty": 69.7,
+   "difficulty": 60.6,
    "word": "mospojenie",
    "real": false
   },
   {
    "id": "rs-x-strovníčka",
    "format": "readSelect",
-   "difficulty": 66.6,
+   "difficulty": 77.9,
    "word": "strovníčka",
    "real": false
   },
   {
    "id": "rs-x-majstrične",
    "format": "readSelect",
-   "difficulty": 70,
+   "difficulty": 58.9,
    "word": "majstrične",
    "real": false
   },
   {
    "id": "rs-x-vonkurecký",
    "format": "readSelect",
-   "difficulty": 68.8,
+   "difficulty": 66.9,
    "word": "vonkurecký",
    "real": false
   },
   {
    "id": "rs-x-zranizovať",
    "format": "readSelect",
-   "difficulty": 66.9,
+   "difficulty": 75.8,
    "word": "zranizovať",
    "real": false
   },
   {
    "id": "rs-x-kandárenie",
    "format": "readSelect",
-   "difficulty": 69.3,
+   "difficulty": 65.5,
    "word": "kandárenie",
    "real": false
   },
   {
    "id": "rs-x-proriziko",
    "format": "readSelect",
-   "difficulty": 67.4,
+   "difficulty": 8,
    "word": "proriziko",
    "real": false
   },
   {
    "id": "rs-x-popoznanie",
    "format": "readSelect",
-   "difficulty": 67.9,
+   "difficulty": 71,
    "word": "popoznanie",
    "real": false
   },
   {
    "id": "rs-x-obchovážiť",
    "format": "readSelect",
-   "difficulty": 67.6,
+   "difficulty": 72.8,
    "word": "obchovážiť",
    "real": false
   },
   {
    "id": "rs-x-okolektár",
    "format": "readSelect",
-   "difficulty": 65.4,
+   "difficulty": 13.1,
    "word": "okolektár",
    "real": false
   },
   {
    "id": "rs-x-spustúpnuť",
    "format": "readSelect",
-   "difficulty": 69.8,
+   "difficulty": 60.1,
    "word": "spustúpnuť",
    "real": false
   },
   {
    "id": "rs-x-samotiútok",
    "format": "readSelect",
-   "difficulty": 69.9,
+   "difficulty": 59.2,
    "word": "samotiútok",
    "real": false
   },
   {
    "id": "rs-x-dôvodlišne",
    "format": "readSelect",
-   "difficulty": 66.9,
+   "difficulty": 75.4,
    "word": "dôvodlišne",
    "real": false
   },
   {
    "id": "rs-x-odhaliadiť",
    "format": "readSelect",
-   "difficulty": 69,
+   "difficulty": 65.6,
    "word": "odhaliadiť",
    "real": false
   },
   {
    "id": "rs-x-tenkovanie",
    "format": "readSelect",
-   "difficulty": 69.6,
+   "difficulty": 62.9,
    "word": "tenkovanie",
    "real": false
   },
   {
    "id": "rs-x-bezprostne",
    "format": "readSelect",
-   "difficulty": 68.6,
+   "difficulty": 67.9,
    "word": "bezprostne",
    "real": false
   },
   {
    "id": "rs-x-vypátratiť",
    "format": "readSelect",
-   "difficulty": 67.3,
+   "difficulty": 75.2,
    "word": "vypátratiť",
    "real": false
   },
   {
    "id": "rs-x-nenistita",
    "format": "readSelect",
-   "difficulty": 65.9,
+   "difficulty": 11.2,
    "word": "nenistita",
    "real": false
   },
   {
    "id": "rs-x-nacholieť",
    "format": "readSelect",
-   "difficulty": 65.5,
+   "difficulty": 12,
    "word": "nacholieť",
    "real": false
   },
   {
    "id": "rs-x-navôkolsky",
    "format": "readSelect",
-   "difficulty": 66.7,
+   "difficulty": 77.5,
    "word": "navôkolsky",
    "real": false
   },
   {
    "id": "rs-x-prírastník",
    "format": "readSelect",
-   "difficulty": 66.7,
+   "difficulty": 76.2,
    "word": "prírastník",
    "real": false
   },
   {
    "id": "rs-x-trvaligový",
    "format": "readSelect",
-   "difficulty": 66.9,
+   "difficulty": 75.5,
    "word": "trvaligový",
    "real": false
   },
   {
    "id": "rs-x-zaregistiť",
    "format": "readSelect",
-   "difficulty": 67.7,
+   "difficulty": 71.5,
    "word": "zaregistiť",
    "real": false
   },
   {
    "id": "rs-x-ukontajňa",
    "format": "readSelect",
-   "difficulty": 67.2,
+   "difficulty": 9.3,
    "word": "ukontajňa",
    "real": false
   },
   {
    "id": "rs-x-zavravovať",
    "format": "readSelect",
-   "difficulty": 65.6,
+   "difficulty": 80.8,
    "word": "zavravovať",
    "real": false
   },
   {
    "id": "rs-x-všeobyčajne",
    "format": "readSelect",
-   "difficulty": 73.9,
+   "difficulty": 89.7,
    "word": "všeobyčajne",
    "real": false
   },
   {
    "id": "rs-x-symboliehať",
    "format": "readSelect",
-   "difficulty": 73.5,
+   "difficulty": 90.2,
    "word": "symboliehať",
    "real": false
   },
   {
    "id": "rs-x-ohrozobrať",
    "format": "readSelect",
-   "difficulty": 71.2,
+   "difficulty": 49.9,
    "word": "ohrozobrať",
    "real": false
   },
   {
    "id": "rs-x-zoskupinka",
    "format": "readSelect",
-   "difficulty": 74.2,
+   "difficulty": 27.9,
    "word": "zoskupinka",
    "real": false
   },
   {
    "id": "rs-x-kolejbalec",
    "format": "readSelect",
-   "difficulty": 74.3,
+   "difficulty": 27,
    "word": "kolejbalec",
    "real": false
   },
   {
    "id": "rs-x-dokoncelár",
    "format": "readSelect",
-   "difficulty": 74.3,
+   "difficulty": 27.4,
    "word": "dokoncelár",
    "real": false
   },
   {
    "id": "rs-x-servistol",
    "format": "readSelect",
-   "difficulty": 70,
+   "difficulty": 4.7,
    "word": "servistol",
    "real": false
   },
   {
    "id": "rs-x-oseminanie",
    "format": "readSelect",
-   "difficulty": 73.8,
+   "difficulty": 31.6,
    "word": "oseminanie",
    "real": false
   },
   {
    "id": "rs-x-zhodoberať",
    "format": "readSelect",
-   "difficulty": 70.8,
+   "difficulty": 54,
    "word": "zhodoberať",
    "real": false
   },
   {
    "id": "rs-x-prievolepý",
    "format": "readSelect",
-   "difficulty": 73.9,
+   "difficulty": 29.7,
    "word": "prievolepý",
    "real": false
   },
   {
    "id": "rs-x-strebavene",
    "format": "readSelect",
-   "difficulty": 70.5,
+   "difficulty": 56.8,
    "word": "strebavene",
    "real": false
   },
   {
    "id": "rs-x-eštedrobne",
    "format": "readSelect",
-   "difficulty": 74.2,
+   "difficulty": 27.6,
    "word": "eštedrobne",
    "real": false
   },
   {
    "id": "rs-x-výpravičňa",
    "format": "readSelect",
-   "difficulty": 71.2,
+   "difficulty": 50,
    "word": "výpravičňa",
    "real": false
   },
   {
    "id": "rs-x-oddychádzať",
    "format": "readSelect",
-   "difficulty": 70.8,
+   "difficulty": 92.2,
    "word": "oddychádzať",
    "real": false
   },
   {
    "id": "rs-x-ekonkurenie",
    "format": "readSelect",
-   "difficulty": 74.5,
+   "difficulty": 87.2,
    "word": "ekonkurenie",
    "real": false
   },
   {
    "id": "rs-x-zhorieknuť",
    "format": "readSelect",
-   "difficulty": 74.5,
+   "difficulty": 24.4,
    "word": "zhorieknuť",
    "real": false
   },
   {
    "id": "rs-x-obsahovávať",
    "format": "readSelect",
-   "difficulty": 73.8,
+   "difficulty": 90.1,
    "word": "obsahovávať",
    "real": false
   },
   {
    "id": "rs-x-teletierať",
    "format": "readSelect",
-   "difficulty": 71.5,
+   "difficulty": 48.6,
    "word": "teletierať",
    "real": false
   },
   {
    "id": "rs-x-systeticky",
    "format": "readSelect",
-   "difficulty": 70.7,
+   "difficulty": 55.5,
    "word": "systeticky",
    "real": false
   },
   {
    "id": "rs-x-nechápasiť",
    "format": "readSelect",
-   "difficulty": 72.1,
+   "difficulty": 46.5,
    "word": "nechápasiť",
    "real": false
   },
   {
    "id": "rs-x-zeleformok",
    "format": "readSelect",
-   "difficulty": 71,
+   "difficulty": 51.6,
    "word": "zeleformok",
    "real": false
   },
   {
    "id": "rs-x-akterpanec",
    "format": "readSelect",
-   "difficulty": 73.9,
+   "difficulty": 31.1,
    "word": "akterpanec",
    "real": false
   },
   {
    "id": "rs-x-vyspokúsiť",
    "format": "readSelect",
-   "difficulty": 72.8,
+   "difficulty": 39.3,
    "word": "vyspokúsiť",
    "real": false
   },
   {
    "id": "rs-x-zabalizovať",
    "format": "readSelect",
-   "difficulty": 74.4,
+   "difficulty": 88.6,
    "word": "zabalizovať",
    "real": false
   },
   {
    "id": "rs-x-nedostňovať",
    "format": "readSelect",
-   "difficulty": 74.4,
+   "difficulty": 88.2,
    "word": "nedostňovať",
    "real": false
   },
   {
    "id": "rs-x-smolanečna",
    "format": "readSelect",
-   "difficulty": 76.6,
+   "difficulty": 11.8,
    "word": "smolanečna",
    "real": false
   },
   {
    "id": "rs-x-fronteriér",
    "format": "readSelect",
-   "difficulty": 78.2,
+   "difficulty": 6.5,
    "word": "fronteriér",
    "real": false
   },
   {
    "id": "rs-x-výcholdinka",
    "format": "readSelect",
-   "difficulty": 79,
+   "difficulty": 64.5,
    "word": "výcholdinka",
    "real": false
   },
   {
    "id": "rs-x-výpovenstvo",
    "format": "readSelect",
-   "difficulty": 75.9,
+   "difficulty": 82.4,
    "word": "výpovenstvo",
    "real": false
   },
   {
    "id": "rs-x-striementne",
    "format": "readSelect",
-   "difficulty": 77.9,
+   "difficulty": 74.2,
    "word": "striementne",
    "real": false
   },
   {
    "id": "rs-x-spotratický",
    "format": "readSelect",
-   "difficulty": 75.9,
+   "difficulty": 81.9,
    "word": "spotratický",
    "real": false
   },
   {
    "id": "rs-x-stropolega",
    "format": "readSelect",
-   "difficulty": 78.7,
+   "difficulty": 5.3,
    "word": "stropolega",
    "real": false
   },
   {
    "id": "rs-x-pohospectvo",
    "format": "readSelect",
-   "difficulty": 77.9,
+   "difficulty": 74.3,
    "word": "pohospectvo",
    "real": false
   },
   {
    "id": "rs-x-preskríknuť",
    "format": "readSelect",
-   "difficulty": 78.9,
+   "difficulty": 66.7,
    "word": "preskríknuť",
    "real": false
   },
   {
    "id": "rs-x-podstatívne",
    "format": "readSelect",
-   "difficulty": 75.5,
+   "difficulty": 83.8,
    "word": "podstatívne",
    "real": false
   },
   {
    "id": "rs-x-nevychodnúť",
    "format": "readSelect",
-   "difficulty": 75.1,
+   "difficulty": 86.3,
    "word": "nevychodnúť",
    "real": false
   },
   {
    "id": "rs-x-skompliknúť",
    "format": "readSelect",
-   "difficulty": 77.5,
+   "difficulty": 75.4,
    "word": "skompliknúť",
    "real": false
   },
   {
    "id": "rs-x-pokomplexne",
    "format": "readSelect",
-   "difficulty": 75.5,
+   "difficulty": 84.2,
    "word": "pokomplexne",
    "real": false
   },
   {
    "id": "rs-x-adekvalovo",
    "format": "readSelect",
-   "difficulty": 78.5,
+   "difficulty": 5.9,
    "word": "adekvalovo",
    "real": false
   },
   {
    "id": "rs-x-všestatočne",
    "format": "readSelect",
-   "difficulty": 79.9,
+   "difficulty": 56.4,
    "word": "všestatočne",
    "real": false
   },
   {
    "id": "rs-x-nezmyseliga",
    "format": "readSelect",
-   "difficulty": 78.2,
+   "difficulty": 70,
    "word": "nezmyseliga",
    "real": false
   },
   {
    "id": "rs-x-postancovať",
    "format": "readSelect",
-   "difficulty": 76.2,
+   "difficulty": 81,
    "word": "postancovať",
    "real": false
   },
   {
    "id": "rs-x-nachystaviť",
    "format": "readSelect",
-   "difficulty": 79.9,
+   "difficulty": 56.9,
    "word": "nachystaviť",
    "real": false
   },
   {
    "id": "rs-x-prednohodne",
    "format": "readSelect",
-   "difficulty": 75.4,
+   "difficulty": 85.2,
    "word": "prednohodne",
    "real": false
   },
   {
    "id": "rs-x-zábradievo",
    "format": "readSelect",
-   "difficulty": 78,
+   "difficulty": 7.3,
    "word": "zábradievo",
    "real": false
   },
   {
    "id": "rs-x-zeministor",
    "format": "readSelect",
-   "difficulty": 75.2,
+   "difficulty": 19.8,
    "word": "zeministor",
    "real": false
   },
   {
    "id": "rs-x-vybudovoľno",
    "format": "readSelect",
-   "difficulty": 80,
+   "difficulty": 56.3,
    "word": "vybudovoľno",
    "real": false
   },
   {
    "id": "rs-x-vyšetriavať",
    "format": "readSelect",
-   "difficulty": 79,
+   "difficulty": 64.1,
    "word": "vyšetriavať",
    "real": false
   },
   {
    "id": "rs-x-nakreskryť",
    "format": "readSelect",
-   "difficulty": 75.8,
+   "difficulty": 15.2,
    "word": "nakreskryť",
    "real": false
   },
   {
    "id": "rs-x-vyžadovovať",
    "format": "readSelect",
-   "difficulty": 75.4,
+   "difficulty": 85.4,
    "word": "vyžadovovať",
    "real": false
   },
   {
    "id": "rs-x-predomiesta",
    "format": "readSelect",
-   "difficulty": 80,
+   "difficulty": 55.6,
    "word": "predomiesta",
    "real": false
   },
   {
    "id": "rs-x-hvieranstvo",
    "format": "readSelect",
-   "difficulty": 81.3,
+   "difficulty": 44,
    "word": "hvieranstvo",
    "real": false
   },
   {
    "id": "rs-x-sympatiklad",
    "format": "readSelect",
-   "difficulty": 82.6,
+   "difficulty": 37.3,
    "word": "sympatiklad",
    "real": false
   },
   {
    "id": "rs-x-postovaniec",
    "format": "readSelect",
-   "difficulty": 80.9,
+   "difficulty": 48.3,
    "word": "postovaniec",
    "real": false
   },
   {
    "id": "rs-x-vykonkurovať",
    "format": "readSelect",
-   "difficulty": 83.4,
+   "difficulty": 90.1,
    "word": "vykonkurovať",
    "real": false
   },
   {
    "id": "rs-x-poverejňovať",
    "format": "readSelect",
-   "difficulty": 82.6,
+   "difficulty": 90.7,
    "word": "poverejňovať",
    "real": false
   },
   {
    "id": "rs-x-náhradnutie",
    "format": "readSelect",
-   "difficulty": 80.2,
+   "difficulty": 54.5,
    "word": "náhradnutie",
    "real": false
   },
   {
    "id": "rs-x-očivideálne",
    "format": "readSelect",
-   "difficulty": 82.9,
+   "difficulty": 34.5,
    "word": "očivideálne",
    "real": false
   },
   {
    "id": "rs-x-bohaváhadlo",
    "format": "readSelect",
-   "difficulty": 81.1,
+   "difficulty": 46.7,
    "word": "bohaváhadlo",
    "real": false
   },
   {
    "id": "rs-x-hospokladok",
    "format": "readSelect",
-   "difficulty": 81,
+   "difficulty": 47.7,
    "word": "hospokladok",
    "real": false
   },
   {
    "id": "rs-x-kontrojročný",
    "format": "readSelect",
-   "difficulty": 83.5,
+   "difficulty": 89.9,
    "word": "kontrojročný",
    "real": false
   },
   {
    "id": "rs-x-nepredvihnúť",
    "format": "readSelect",
-   "difficulty": 80.8,
+   "difficulty": 91.6,
    "word": "nepredvihnúť",
    "real": false
   },
   {
    "id": "rs-x-vekolitický",
    "format": "readSelect",
-   "difficulty": 84.2,
+   "difficulty": 25.8,
    "word": "vekolitický",
    "real": false
   },
   {
    "id": "rs-x-tvrtkodobný",
    "format": "readSelect",
-   "difficulty": 81.7,
+   "difficulty": 42.7,
    "word": "tvrtkodobný",
    "real": false
   },
   {
    "id": "rs-x-zastovencia",
    "format": "readSelect",
-   "difficulty": 81.1,
+   "difficulty": 47.2,
    "word": "zastovencia",
    "real": false
   },
   {
    "id": "rs-x-pivočítanie",
    "format": "readSelect",
-   "difficulty": 80.7,
+   "difficulty": 49.1,
    "word": "pivočítanie",
    "real": false
   },
   {
    "id": "rs-x-prehodniknúť",
    "format": "readSelect",
-   "difficulty": 83,
+   "difficulty": 90.2,
    "word": "prehodniknúť",
    "real": false
   },
   {
    "id": "rs-x-zaviaznikať",
    "format": "readSelect",
-   "difficulty": 82.4,
+   "difficulty": 37.6,
    "word": "zaviaznikať",
    "real": false
   },
   {
    "id": "rs-x-minovoriasť",
    "format": "readSelect",
-   "difficulty": 82.7,
+   "difficulty": 36.7,
    "word": "minovoriasť",
    "real": false
   },
   {
    "id": "rs-x-protivistka",
    "format": "readSelect",
-   "difficulty": 83,
+   "difficulty": 32.5,
    "word": "protivistka",
    "real": false
   },
   {
    "id": "rs-x-púšťanipulz",
    "format": "readSelect",
-   "difficulty": 83.2,
+   "difficulty": 31.5,
    "word": "púšťanipulz",
    "real": false
   },
   {
    "id": "rs-x-nezriemecky",
    "format": "readSelect",
-   "difficulty": 80.1,
+   "difficulty": 54.8,
    "word": "nezriemecky",
    "real": false
   },
   {
    "id": "rs-x-prívrženstvo",
    "format": "readSelect",
-   "difficulty": 81.9,
+   "difficulty": 91.2,
    "word": "prívrženstvo",
    "real": false
   },
   {
    "id": "rs-x-neverejňovať",
    "format": "readSelect",
-   "difficulty": 80.7,
+   "difficulty": 91.8,
    "word": "neverejňovať",
    "real": false
   },
   {
    "id": "rs-x-oznamentovať",
    "format": "readSelect",
-   "difficulty": 83.8,
+   "difficulty": 89.2,
    "word": "oznamentovať",
    "real": false
   },
   {
    "id": "rs-x-prerozmýšľať",
    "format": "readSelect",
-   "difficulty": 86.8,
+   "difficulty": 80.9,
    "word": "prerozmýšľať",
    "real": false
   },
   {
    "id": "rs-x-umenšinanel",
    "format": "readSelect",
-   "difficulty": 85.8,
+   "difficulty": 16.4,
    "word": "umenšinanel",
    "real": false
   },
   {
    "id": "rs-x-kormovember",
    "format": "readSelect",
-   "difficulty": 85.2,
+   "difficulty": 19.7,
    "word": "kormovember",
    "real": false
   },
   {
    "id": "rs-x-požadobrátiť",
    "format": "readSelect",
-   "difficulty": 89.7,
+   "difficulty": 65.9,
    "word": "požadobrátiť",
    "real": false
   },
   {
    "id": "rs-x-dodárstvenie",
    "format": "readSelect",
-   "difficulty": 87.1,
+   "difficulty": 80,
    "word": "dodárstvenie",
    "real": false
   },
   {
    "id": "rs-x-vystupovovať",
    "format": "readSelect",
-   "difficulty": 85.5,
+   "difficulty": 85.1,
    "word": "vystupovovať",
    "real": false
   },
   {
    "id": "rs-x-operfektovný",
    "format": "readSelect",
-   "difficulty": 89.2,
+   "difficulty": 69.6,
    "word": "operfektovný",
    "real": false
   },
   {
    "id": "rs-x-šetriumfovať",
    "format": "readSelect",
-   "difficulty": 86.3,
+   "difficulty": 81.3,
    "word": "šetriumfovať",
    "real": false
   },
   {
    "id": "rs-x-platelitbal",
    "format": "readSelect",
-   "difficulty": 85.6,
+   "difficulty": 17.9,
    "word": "platelitbal",
    "real": false
   },
   {
    "id": "rs-x-odstrebehnať",
    "format": "readSelect",
-   "difficulty": 88.3,
+   "difficulty": 73.9,
    "word": "odstrebehnať",
    "real": false
   },
   {
    "id": "rs-x-hrdositulok",
    "format": "readSelect",
-   "difficulty": 85.4,
+   "difficulty": 18.3,
    "word": "hrdositulok",
    "real": false
   },
   {
    "id": "rs-x-udeľovažovať",
    "format": "readSelect",
-   "difficulty": 87.5,
+   "difficulty": 78.2,
    "word": "udeľovažovať",
    "real": false
   },
@@ -9910,259 +9910,259 @@
   {
    "id": "rs-x-zločnostraj",
    "format": "readSelect",
-   "difficulty": 89.9,
+   "difficulty": 4.9,
    "word": "zločnostraj",
    "real": false
   },
   {
    "id": "rs-x-polupravedať",
    "format": "readSelect",
-   "difficulty": 88.8,
+   "difficulty": 70.7,
    "word": "polupravedať",
    "real": false
   },
   {
    "id": "rs-x-šanceznivec",
    "format": "readSelect",
-   "difficulty": 85.8,
+   "difficulty": 16,
    "word": "šanceznivec",
    "real": false
   },
   {
    "id": "rs-x-predčasticky",
    "format": "readSelect",
-   "difficulty": 85.1,
+   "difficulty": 85.8,
    "word": "predčasticky",
    "real": false
   },
   {
    "id": "rs-x-operoztrhnúť",
    "format": "readSelect",
-   "difficulty": 88.2,
+   "difficulty": 74.2,
    "word": "operoztrhnúť",
    "real": false
   },
   {
    "id": "rs-x-stresvedčivo",
    "format": "readSelect",
-   "difficulty": 89.1,
+   "difficulty": 70,
    "word": "stresvedčivo",
    "real": false
   },
   {
    "id": "rs-x-prospoľahčiť",
    "format": "readSelect",
-   "difficulty": 88.6,
+   "difficulty": 73.5,
    "word": "prospoľahčiť",
    "real": false
   },
   {
    "id": "rs-x-gólovedľajší",
    "format": "readSelect",
-   "difficulty": 89.2,
+   "difficulty": 69.8,
    "word": "gólovedľajší",
    "real": false
   },
   {
    "id": "rs-x-prístupokryť",
    "format": "readSelect",
-   "difficulty": 86.9,
+   "difficulty": 80.7,
    "word": "prístupokryť",
    "real": false
   },
   {
    "id": "rs-x-elefoniteľne",
    "format": "readSelect",
-   "difficulty": 88.6,
+   "difficulty": 73.8,
    "word": "elefoniteľne",
    "real": false
   },
   {
    "id": "rs-x-katabinemok",
    "format": "readSelect",
-   "difficulty": 87.2,
+   "difficulty": 11.1,
    "word": "katabinemok",
    "real": false
   },
   {
    "id": "rs-x-lúposedenie",
    "format": "readSelect",
-   "difficulty": 86.5,
+   "difficulty": 12.6,
    "word": "lúposedenie",
    "real": false
   },
   {
    "id": "rs-x-nepoklarobiť",
    "format": "readSelect",
-   "difficulty": 90.7,
+   "difficulty": 56.8,
    "word": "nepoklarobiť",
    "real": false
   },
   {
    "id": "rs-x-sekerastliv",
    "format": "readSelect",
-   "difficulty": 90.2,
+   "difficulty": 4.8,
    "word": "sekerastliv",
    "real": false
   },
   {
    "id": "rs-x-rukturistava",
    "format": "readSelect",
-   "difficulty": 90.1,
+   "difficulty": 62.7,
    "word": "rukturistava",
    "real": false
   },
   {
    "id": "rs-x-znešetriadať",
    "format": "readSelect",
-   "difficulty": 90.1,
+   "difficulty": 62.3,
    "word": "znešetriadať",
    "real": false
   },
   {
    "id": "rs-x-obodkladavok",
    "format": "readSelect",
-   "difficulty": 92.3,
+   "difficulty": 25.4,
    "word": "obodkladavok",
    "real": false
   },
   {
    "id": "rs-x-teorekvapivo",
    "format": "readSelect",
-   "difficulty": 90.2,
+   "difficulty": 60.2,
    "word": "teorekvapivo",
    "real": false
   },
   {
    "id": "rs-x-nevenčinenie",
    "format": "readSelect",
-   "difficulty": 91.4,
+   "difficulty": 44.1,
    "word": "nevenčinenie",
    "real": false
   },
   {
    "id": "rs-x-irokontinule",
    "format": "readSelect",
-   "difficulty": 92.8,
+   "difficulty": 5.7,
    "word": "irokontinule",
    "real": false
   },
   {
    "id": "rs-x-projektrolný",
    "format": "readSelect",
-   "difficulty": 91.2,
+   "difficulty": 49.8,
    "word": "projektrolný",
    "real": false
   },
   {
    "id": "rs-x-rockokatočný",
    "format": "readSelect",
-   "difficulty": 91.4,
+   "difficulty": 45.7,
    "word": "rockokatočný",
    "real": false
   },
   {
    "id": "rs-x-komplechápas",
    "format": "readSelect",
-   "difficulty": 90.8,
+   "difficulty": 55.6,
    "word": "komplechápas",
    "real": false
   },
   {
    "id": "rs-x-zneuspomínať",
    "format": "readSelect",
-   "difficulty": 90.2,
+   "difficulty": 61,
    "word": "zneuspomínať",
    "real": false
   },
   {
    "id": "rs-x-vyhodchodlie",
    "format": "readSelect",
-   "difficulty": 91.8,
+   "difficulty": 37.6,
    "word": "vyhodchodlie",
    "real": false
   },
   {
    "id": "rs-x-šporokušenie",
    "format": "readSelect",
-   "difficulty": 90.3,
+   "difficulty": 59.6,
    "word": "šporokušenie",
    "real": false
   },
   {
    "id": "rs-x-vykonzumelec",
    "format": "readSelect",
-   "difficulty": 91.2,
+   "difficulty": 50.2,
    "word": "vykonzumelec",
    "real": false
   },
   {
    "id": "rs-x-málohavicena",
    "format": "readSelect",
-   "difficulty": 92.9,
+   "difficulty": 5,
    "word": "málohavicena",
    "real": false
   },
   {
    "id": "rs-x-nástarostava",
    "format": "readSelect",
-   "difficulty": 90.4,
+   "difficulty": 57.5,
    "word": "nástarostava",
    "real": false
   },
   {
    "id": "rs-x-nastupozasiť",
    "format": "readSelect",
-   "difficulty": 92.2,
+   "difficulty": 29,
    "word": "nastupozasiť",
    "real": false
   },
   {
    "id": "rs-x-netratulovať",
    "format": "readSelect",
-   "difficulty": 90.1,
+   "difficulty": 61.9,
    "word": "netratulovať",
    "real": false
   },
   {
    "id": "rs-x-nechopiteľne",
    "format": "readSelect",
-   "difficulty": 90.1,
+   "difficulty": 62.9,
    "word": "nechopiteľne",
    "real": false
   },
   {
    "id": "rs-x-odobilovenie",
    "format": "readSelect",
-   "difficulty": 91,
+   "difficulty": 52,
    "word": "odobilovenie",
    "real": false
   },
   {
    "id": "rs-x-zastresliezť",
    "format": "readSelect",
-   "difficulty": 91.6,
+   "difficulty": 41.2,
    "word": "zastresliezť",
    "real": false
   },
   {
    "id": "rs-x-neočakaždoro",
    "format": "readSelect",
-   "difficulty": 91,
+   "difficulty": 51.6,
    "word": "neočakaždoro",
    "real": false
   },
   {
    "id": "rs-x-namiložiadať",
    "format": "readSelect",
-   "difficulty": 91.1,
+   "difficulty": 51.1,
    "word": "namiložiadať",
    "real": false
   },
   {
    "id": "rs-x-parameternát",
    "format": "readSelect",
-   "difficulty": 92.7,
+   "difficulty": 10.5,
    "word": "parameternát",
    "real": false
   }
@@ -12223,616 +12223,616 @@
   {
    "id": "ls-x-agenec",
    "format": "listenSelect",
-   "difficulty": 4.8,
+   "difficulty": 31.8,
    "word": "agenec",
    "real": false
   },
   {
    "id": "ls-x-náboží",
    "format": "listenSelect",
-   "difficulty": 4.8,
+   "difficulty": 33.4,
    "word": "náboží",
    "real": false
   },
   {
    "id": "ls-x-obžalm",
    "format": "listenSelect",
-   "difficulty": 4.7,
+   "difficulty": 34.3,
    "word": "obžalm",
    "real": false
   },
   {
    "id": "ls-x-rozdo",
    "format": "listenSelect",
-   "difficulty": 3.7,
+   "difficulty": 5.7,
    "word": "rozdo",
    "real": false
   },
   {
    "id": "ls-x-naznuť",
    "format": "listenSelect",
-   "difficulty": 5,
+   "difficulty": 25.2,
    "word": "naznuť",
    "real": false
   },
   {
    "id": "ls-x-orický",
    "format": "listenSelect",
-   "difficulty": 4.6,
+   "difficulty": 39,
    "word": "orický",
    "real": false
   },
   {
    "id": "ls-x-polupa",
    "format": "listenSelect",
-   "difficulty": 5,
+   "difficulty": 24.7,
    "word": "polupa",
    "real": false
   },
   {
    "id": "ls-x-spelý",
    "format": "listenSelect",
-   "difficulty": 2.8,
+   "difficulty": 24.2,
    "word": "spelý",
    "real": false
   },
   {
    "id": "ls-x-rekt",
    "format": "listenSelect",
-   "difficulty": 2.6,
+   "difficulty": 3.7,
    "word": "rekt",
    "real": false
   },
   {
    "id": "ls-x-subjem",
    "format": "listenSelect",
-   "difficulty": 5,
+   "difficulty": 25,
    "word": "subjem",
    "real": false
   },
   {
    "id": "ls-x-jedník",
    "format": "listenSelect",
-   "difficulty": 3.6,
+   "difficulty": 68.3,
    "word": "jedník",
    "real": false
   },
   {
    "id": "ls-x-nesnúť",
    "format": "listenSelect",
-   "difficulty": 4.4,
+   "difficulty": 43.4,
    "word": "nesnúť",
    "real": false
   },
   {
    "id": "ls-x-cestík",
    "format": "listenSelect",
-   "difficulty": 8.9,
+   "difficulty": 13.4,
    "word": "cestík",
    "real": false
   },
   {
    "id": "ls-x-prezený",
    "format": "listenSelect",
-   "difficulty": 7.8,
+   "difficulty": 81.7,
    "word": "prezený",
    "real": false
   },
   {
    "id": "ls-x-rekvar",
    "format": "listenSelect",
-   "difficulty": 8.9,
+   "difficulty": 13.7,
    "word": "rekvar",
    "real": false
   },
   {
    "id": "ls-x-prepor",
    "format": "listenSelect",
-   "difficulty": 9.8,
+   "difficulty": 10.2,
    "word": "prepor",
    "real": false
   },
   {
    "id": "ls-x-slušník",
    "format": "listenSelect",
-   "difficulty": 8.6,
+   "difficulty": 79.8,
    "word": "slušník",
    "real": false
   },
   {
    "id": "ls-x-inštip",
    "format": "listenSelect",
-   "difficulty": 9.2,
+   "difficulty": 12,
    "word": "inštip",
    "real": false
   },
   {
    "id": "ls-x-spodák",
    "format": "listenSelect",
-   "difficulty": 6.3,
+   "difficulty": 18.8,
    "word": "spodák",
    "real": false
   },
   {
    "id": "ls-x-povenie",
    "format": "listenSelect",
-   "difficulty": 5.7,
+   "difficulty": 90,
    "word": "povenie",
    "real": false
   },
   {
    "id": "ls-x-drent",
    "format": "listenSelect",
-   "difficulty": 6.7,
+   "difficulty": 2.6,
    "word": "drent",
    "real": false
   },
   {
    "id": "ls-x-teolór",
    "format": "listenSelect",
-   "difficulty": 9.4,
+   "difficulty": 10.5,
    "word": "teolór",
    "real": false
   },
   {
    "id": "ls-x-okrvne",
    "format": "listenSelect",
-   "difficulty": 8.9,
+   "difficulty": 12.6,
    "word": "okrvne",
    "real": false
   },
   {
    "id": "ls-x-vybovať",
    "format": "listenSelect",
-   "difficulty": 5.6,
+   "difficulty": 90,
    "word": "vybovať",
    "real": false
   },
   {
    "id": "ls-x-ukrajší",
    "format": "listenSelect",
-   "difficulty": 13.7,
+   "difficulty": 59.1,
    "word": "ukrajší",
    "real": false
   },
   {
    "id": "ls-x-eurofa",
    "format": "listenSelect",
-   "difficulty": 12.6,
+   "difficulty": 6.3,
    "word": "eurofa",
    "real": false
   },
   {
    "id": "ls-x-miložiť",
    "format": "listenSelect",
-   "difficulty": 10.5,
+   "difficulty": 74.7,
    "word": "miložiť",
    "real": false
   },
   {
    "id": "ls-x-nadoxne",
    "format": "listenSelect",
-   "difficulty": 13.8,
+   "difficulty": 58.7,
    "word": "nadoxne",
    "real": false
   },
   {
    "id": "ls-x-testno",
    "format": "listenSelect",
-   "difficulty": 13.8,
+   "difficulty": 5.6,
    "word": "testno",
    "real": false
   },
   {
    "id": "ls-x-formálo",
    "format": "listenSelect",
-   "difficulty": 13.4,
+   "difficulty": 60,
    "word": "formálo",
    "real": false
   },
   {
    "id": "ls-x-absenie",
    "format": "listenSelect",
-   "difficulty": 11.3,
+   "difficulty": 72.9,
    "word": "absenie",
    "real": false
   },
   {
    "id": "ls-x-predavý",
    "format": "listenSelect",
-   "difficulty": 14.2,
+   "difficulty": 56.6,
    "word": "predavý",
    "real": false
   },
   {
    "id": "ls-x-zavedať",
    "format": "listenSelect",
-   "difficulty": 14.9,
+   "difficulty": 54.3,
    "word": "zavedať",
    "real": false
   },
   {
    "id": "ls-x-zastník",
    "format": "listenSelect",
-   "difficulty": 10,
+   "difficulty": 75.1,
    "word": "zastník",
    "real": false
   },
   {
    "id": "ls-x-lierka",
    "format": "listenSelect",
-   "difficulty": 10.2,
+   "difficulty": 9.8,
    "word": "lierka",
    "real": false
   },
   {
    "id": "ls-x-haváha",
    "format": "listenSelect",
-   "difficulty": 12,
+   "difficulty": 7.8,
    "word": "haváha",
    "real": false
   },
   {
    "id": "ls-x-odovek",
    "format": "listenSelect",
-   "difficulty": 17.1,
+   "difficulty": 4.7,
    "word": "odovek",
    "real": false
   },
   {
    "id": "ls-x-želecký",
    "format": "listenSelect",
-   "difficulty": 16.6,
+   "difficulty": 46.1,
    "word": "želecký",
    "real": false
   },
   {
    "id": "ls-x-krimina",
    "format": "listenSelect",
-   "difficulty": 19.8,
+   "difficulty": 27.5,
    "word": "krimina",
    "real": false
   },
   {
    "id": "ls-x-stredok",
    "format": "listenSelect",
-   "difficulty": 15.5,
+   "difficulty": 49.4,
    "word": "stredok",
    "real": false
   },
   {
    "id": "ls-x-bydlivo",
    "format": "listenSelect",
-   "difficulty": 16.3,
+   "difficulty": 47,
    "word": "bydlivo",
    "real": false
   },
   {
    "id": "ls-x-jarmát",
    "format": "listenSelect",
-   "difficulty": 15.4,
+   "difficulty": 4.8,
    "word": "jarmát",
    "real": false
   },
   {
    "id": "ls-x-marelo",
    "format": "listenSelect",
-   "difficulty": 18.8,
+   "difficulty": 4.4,
    "word": "marelo",
    "real": false
   },
   {
    "id": "ls-x-skordne",
    "format": "listenSelect",
-   "difficulty": 18.7,
+   "difficulty": 35.9,
    "word": "skordne",
    "real": false
   },
   {
    "id": "ls-x-zárobne",
    "format": "listenSelect",
-   "difficulty": 19.3,
+   "difficulty": 31.6,
    "word": "zárobne",
    "real": false
   },
   {
    "id": "ls-x-ružobný",
    "format": "listenSelect",
-   "difficulty": 15.6,
+   "difficulty": 48.9,
    "word": "ružobný",
    "real": false
   },
   {
    "id": "ls-x-prodent",
    "format": "listenSelect",
-   "difficulty": 19.9,
+   "difficulty": 26.9,
    "word": "prodent",
    "real": false
   },
   {
    "id": "ls-x-kvapivo",
    "format": "listenSelect",
-   "difficulty": 16.3,
+   "difficulty": 46.5,
    "word": "kvapivo",
    "real": false
   },
   {
    "id": "ls-x-organtný",
    "format": "listenSelect",
-   "difficulty": 24.2,
+   "difficulty": 89,
    "word": "organtný",
    "real": false
   },
   {
    "id": "ls-x-držiada",
    "format": "listenSelect",
-   "difficulty": 23.5,
+   "difficulty": 22.2,
    "word": "držiada",
    "real": false
   },
   {
    "id": "ls-x-inšpička",
    "format": "listenSelect",
-   "difficulty": 22.2,
+   "difficulty": 90.6,
    "word": "inšpička",
    "real": false
   },
   {
    "id": "ls-x-obradba",
    "format": "listenSelect",
-   "difficulty": 23.2,
+   "difficulty": 23.4,
    "word": "obradba",
    "real": false
   },
   {
    "id": "ls-x-unisový",
    "format": "listenSelect",
-   "difficulty": 22,
+   "difficulty": 24.9,
    "word": "unisový",
    "real": false
   },
   {
    "id": "ls-x-prestro",
    "format": "listenSelect",
-   "difficulty": 20.4,
+   "difficulty": 26.3,
    "word": "prestro",
    "real": false
   },
   {
    "id": "ls-x-rozšírka",
    "format": "listenSelect",
-   "difficulty": 24.7,
+   "difficulty": 87.2,
    "word": "rozšírka",
    "real": false
   },
   {
    "id": "ls-x-spolický",
    "format": "listenSelect",
-   "difficulty": 24.9,
+   "difficulty": 86.5,
    "word": "spolický",
    "real": false
   },
   {
    "id": "ls-x-kaštrum",
    "format": "listenSelect",
-   "difficulty": 24.4,
+   "difficulty": 19.8,
    "word": "kaštrum",
    "real": false
   },
   {
    "id": "ls-x-pýchlad",
    "format": "listenSelect",
-   "difficulty": 23,
+   "difficulty": 23.5,
    "word": "pýchlad",
    "real": false
   },
   {
    "id": "ls-x-prenivo",
    "format": "listenSelect",
-   "difficulty": 21,
+   "difficulty": 26.2,
    "word": "prenivo",
    "real": false
   },
   {
    "id": "ls-x-písmera",
    "format": "listenSelect",
-   "difficulty": 23.4,
+   "difficulty": 23,
    "word": "písmera",
    "real": false
   },
   {
    "id": "ls-x-objektne",
    "format": "listenSelect",
-   "difficulty": 25.2,
+   "difficulty": 84.1,
    "word": "objektne",
    "real": false
   },
   {
    "id": "ls-x-svadový",
    "format": "listenSelect",
-   "difficulty": 26.3,
+   "difficulty": 16.3,
    "word": "svadový",
    "real": false
   },
   {
    "id": "ls-x-blahovať",
    "format": "listenSelect",
-   "difficulty": 27.5,
+   "difficulty": 79.9,
    "word": "blahovať",
    "real": false
   },
   {
    "id": "ls-x-čochovo",
    "format": "listenSelect",
-   "difficulty": 25.5,
+   "difficulty": 16.6,
    "word": "čochovo",
    "real": false
   },
   {
    "id": "ls-x-prilovať",
    "format": "listenSelect",
-   "difficulty": 25.2,
+   "difficulty": 83.1,
    "word": "prilovať",
    "real": false
   },
   {
    "id": "ls-x-výcvička",
    "format": "listenSelect",
-   "difficulty": 25,
+   "difficulty": 86.1,
    "word": "výcvička",
    "real": false
   },
   {
    "id": "ls-x-sestika",
    "format": "listenSelect",
-   "difficulty": 26.9,
+   "difficulty": 15.4,
    "word": "sestika",
    "real": false
   },
   {
    "id": "ls-x-demožniť",
    "format": "listenSelect",
-   "difficulty": 25.7,
+   "difficulty": 82.4,
    "word": "demožniť",
    "real": false
   },
   {
    "id": "ls-x-potreliť",
    "format": "listenSelect",
-   "difficulty": 26.4,
+   "difficulty": 82.1,
    "word": "potreliť",
    "real": false
   },
   {
    "id": "ls-x-produšiť",
    "format": "listenSelect",
-   "difficulty": 29.2,
+   "difficulty": 75.9,
    "word": "produšiť",
    "real": false
   },
   {
    "id": "ls-x-žiareál",
    "format": "listenSelect",
-   "difficulty": 26.2,
+   "difficulty": 16.3,
    "word": "žiareál",
    "real": false
   },
   {
    "id": "ls-x-preverný",
    "format": "listenSelect",
-   "difficulty": 27.4,
+   "difficulty": 80.2,
    "word": "preverný",
    "real": false
   },
   {
    "id": "ls-x-zasvedať",
    "format": "listenSelect",
-   "difficulty": 34.3,
+   "difficulty": 60.4,
    "word": "zasvedať",
    "real": false
   },
   {
    "id": "ls-x-registka",
    "format": "listenSelect",
-   "difficulty": 30.6,
+   "difficulty": 74.7,
    "word": "registka",
    "real": false
   },
   {
    "id": "ls-x-poskytok",
    "format": "listenSelect",
-   "difficulty": 33.4,
+   "difficulty": 65.6,
    "word": "poskytok",
    "real": false
   },
   {
    "id": "ls-x-schviesť",
    "format": "listenSelect",
-   "difficulty": 31.8,
+   "difficulty": 71.7,
    "word": "schviesť",
    "real": false
   },
   {
    "id": "ls-x-synamia",
    "format": "listenSelect",
-   "difficulty": 31.6,
+   "difficulty": 8.6,
    "word": "synamia",
    "real": false
   },
   {
    "id": "ls-x-sprakcia",
    "format": "listenSelect",
-   "difficulty": 33.5,
+   "difficulty": 65.3,
    "word": "sprakcia",
    "real": false
   },
   {
    "id": "ls-x-hviečba",
    "format": "listenSelect",
-   "difficulty": 30.8,
+   "difficulty": 9.4,
    "word": "hviečba",
    "real": false
   },
   {
    "id": "ls-x-parkevný",
    "format": "listenSelect",
-   "difficulty": 32.7,
+   "difficulty": 68.5,
    "word": "parkevný",
    "real": false
   },
   {
    "id": "ls-x-hokejina",
    "format": "listenSelect",
-   "difficulty": 33.6,
+   "difficulty": 64.9,
    "word": "hokejina",
    "real": false
   },
   {
    "id": "ls-x-islatok",
    "format": "listenSelect",
-   "difficulty": 31,
+   "difficulty": 9.2,
    "word": "islatok",
    "real": false
   },
   {
    "id": "ls-x-zúfalový",
    "format": "listenSelect",
-   "difficulty": 31.6,
+   "difficulty": 72.7,
    "word": "zúfalový",
    "real": false
   },
   {
    "id": "ls-x-vyspešný",
    "format": "listenSelect",
-   "difficulty": 32.1,
+   "difficulty": 70.1,
    "word": "vyspešný",
    "real": false
   },
   {
    "id": "ls-x-obratúra",
    "format": "listenSelect",
-   "difficulty": 35.6,
+   "difficulty": 58.3,
    "word": "obratúra",
    "real": false
   },
   {
    "id": "ls-x-nedievať",
    "format": "listenSelect",
-   "difficulty": 36.6,
+   "difficulty": 53.6,
    "word": "nedievať",
    "real": false
   },
   {
    "id": "ls-x-porizon",
    "format": "listenSelect",
-   "difficulty": 38,
+   "difficulty": 4.8,
    "word": "porizon",
    "real": false
   },
   {
    "id": "ls-x-športoár",
    "format": "listenSelect",
-   "difficulty": 39.1,
+   "difficulty": 42,
    "word": "športoár",
    "real": false
   },
@@ -12846,973 +12846,973 @@
   {
    "id": "ls-x-rozorniť",
    "format": "listenSelect",
-   "difficulty": 37.1,
+   "difficulty": 49.4,
    "word": "rozorniť",
    "real": false
   },
   {
    "id": "ls-x-zväznika",
    "format": "listenSelect",
-   "difficulty": 39,
+   "difficulty": 42.6,
    "word": "zväznika",
    "real": false
   },
   {
    "id": "ls-x-poprávno",
    "format": "listenSelect",
-   "difficulty": 37.4,
+   "difficulty": 47.4,
    "word": "poprávno",
    "real": false
   },
   {
    "id": "ls-x-anjelita",
    "format": "listenSelect",
-   "difficulty": 38,
+   "difficulty": 46.2,
    "word": "anjelita",
    "real": false
   },
   {
    "id": "ls-x-nepodovo",
    "format": "listenSelect",
-   "difficulty": 35.9,
+   "difficulty": 56.3,
    "word": "nepodovo",
    "real": false
   },
   {
    "id": "ls-x-nedosieť",
    "format": "listenSelect",
-   "difficulty": 39.6,
+   "difficulty": 40.6,
    "word": "nedosieť",
    "real": false
   },
   {
    "id": "ls-x-svetero",
    "format": "listenSelect",
-   "difficulty": 36.3,
+   "difficulty": 5,
    "word": "svetero",
    "real": false
   },
   {
    "id": "ls-x-štauráca",
    "format": "listenSelect",
-   "difficulty": 43.4,
+   "difficulty": 30.6,
    "word": "štauráca",
    "real": false
   },
   {
    "id": "ls-x-sústrčiť",
    "format": "listenSelect",
-   "difficulty": 40.1,
+   "difficulty": 39.6,
    "word": "sústrčiť",
    "real": false
   },
   {
    "id": "ls-x-nevyšovať",
    "format": "listenSelect",
-   "difficulty": 41.9,
+   "difficulty": 91.8,
    "word": "nevyšovať",
    "real": false
   },
   {
    "id": "ls-x-zbrancia",
    "format": "listenSelect",
-   "difficulty": 42,
+   "difficulty": 33.5,
    "word": "zbrancia",
    "real": false
   },
   {
    "id": "ls-x-odporasa",
    "format": "listenSelect",
-   "difficulty": 43.6,
+   "difficulty": 29.2,
    "word": "odporasa",
    "real": false
   },
   {
    "id": "ls-x-streďovať",
    "format": "listenSelect",
-   "difficulty": 40.8,
+   "difficulty": 92.6,
    "word": "streďovať",
    "real": false
   },
   {
    "id": "ls-x-manželez",
    "format": "listenSelect",
-   "difficulty": 40.7,
+   "difficulty": 37.4,
    "word": "manželez",
    "real": false
   },
   {
    "id": "ls-x-dusielať",
    "format": "listenSelect",
-   "difficulty": 42.6,
+   "difficulty": 31.6,
    "word": "dusielať",
    "real": false
   },
   {
    "id": "ls-x-dnešťan",
    "format": "listenSelect",
-   "difficulty": 40.3,
+   "difficulty": 4.6,
    "word": "dnešťan",
    "real": false
   },
   {
    "id": "ls-x-výročina",
    "format": "listenSelect",
-   "difficulty": 40.6,
+   "difficulty": 38,
    "word": "výročina",
    "real": false
   },
   {
    "id": "ls-x-autentný",
    "format": "listenSelect",
-   "difficulty": 43.9,
+   "difficulty": 27.4,
    "word": "autentný",
    "real": false
   },
   {
    "id": "ls-x-umriešať",
    "format": "listenSelect",
-   "difficulty": 41.3,
+   "difficulty": 33.6,
    "word": "umriešať",
    "real": false
   },
   {
    "id": "ls-x-celetieť",
    "format": "listenSelect",
-   "difficulty": 49.4,
+   "difficulty": 11.3,
    "word": "celetieť",
    "real": false
   },
   {
    "id": "ls-x-charadca",
    "format": "listenSelect",
-   "difficulty": 46,
+   "difficulty": 22,
    "word": "charadca",
    "real": false
   },
   {
    "id": "ls-x-svedčovať",
    "format": "listenSelect",
-   "difficulty": 47.4,
+   "difficulty": 82.7,
    "word": "svedčovať",
    "real": false
   },
   {
    "id": "ls-x-uchoršiť",
    "format": "listenSelect",
-   "difficulty": 45.3,
+   "difficulty": 24.4,
    "word": "uchoršiť",
    "real": false
   },
   {
    "id": "ls-x-eurovanie",
    "format": "listenSelect",
-   "difficulty": 46.1,
+   "difficulty": 89.9,
    "word": "eurovanie",
    "real": false
   },
   {
    "id": "ls-x-zapreliť",
    "format": "listenSelect",
-   "difficulty": 48.5,
+   "difficulty": 15.5,
    "word": "zapreliť",
    "real": false
   },
   {
    "id": "ls-x-polinica",
    "format": "listenSelect",
-   "difficulty": 46.5,
+   "difficulty": 19.9,
    "word": "polinica",
    "real": false
   },
   {
    "id": "ls-x-obchádnuť",
    "format": "listenSelect",
-   "difficulty": 48.9,
+   "difficulty": 79.9,
    "word": "obchádnuť",
    "real": false
   },
   {
    "id": "ls-x-hospodák",
    "format": "listenSelect",
-   "difficulty": 46.2,
+   "difficulty": 21,
    "word": "hospodák",
    "real": false
   },
   {
    "id": "ls-x-bariatok",
    "format": "listenSelect",
-   "difficulty": 46.3,
+   "difficulty": 20.4,
    "word": "bariatok",
    "real": false
   },
   {
    "id": "ls-x-dosprávať",
    "format": "listenSelect",
-   "difficulty": 47,
+   "difficulty": 85.9,
    "word": "dosprávať",
    "real": false
   },
   {
    "id": "ls-x-kráľovník",
    "format": "listenSelect",
-   "difficulty": 49.4,
+   "difficulty": 79.5,
    "word": "kráľovník",
    "real": false
   },
   {
    "id": "ls-x-tlačiapka",
    "format": "listenSelect",
-   "difficulty": 54.5,
+   "difficulty": 61.4,
    "word": "tlačiapka",
    "real": false
   },
   {
    "id": "ls-x-vystrafiť",
    "format": "listenSelect",
-   "difficulty": 54.5,
+   "difficulty": 61.5,
    "word": "vystrafiť",
    "real": false
   },
   {
    "id": "ls-x-prechtivo",
    "format": "listenSelect",
-   "difficulty": 54.9,
+   "difficulty": 59.3,
    "word": "prechtivo",
    "real": false
   },
   {
    "id": "ls-x-posvetový",
    "format": "listenSelect",
-   "difficulty": 54.3,
+   "difficulty": 63.2,
    "word": "posvetový",
    "real": false
   },
   {
    "id": "ls-x-psychtivo",
    "format": "listenSelect",
-   "difficulty": 52.3,
+   "difficulty": 72.8,
    "word": "psychtivo",
    "real": false
   },
   {
    "id": "ls-x-oznamerať",
    "format": "listenSelect",
-   "difficulty": 50.5,
+   "difficulty": 75,
    "word": "oznamerať",
    "real": false
   },
   {
    "id": "ls-x-potratúra",
    "format": "listenSelect",
-   "difficulty": 53.1,
+   "difficulty": 69.4,
    "word": "potratúra",
    "real": false
   },
   {
    "id": "ls-x-podmiešne",
    "format": "listenSelect",
-   "difficulty": 52.1,
+   "difficulty": 73.1,
    "word": "podmiešne",
    "real": false
   },
   {
    "id": "ls-x-štatožia",
    "format": "listenSelect",
-   "difficulty": 53.6,
+   "difficulty": 6.7,
    "word": "štatožia",
    "real": false
   },
   {
    "id": "ls-x-pobaveky",
    "format": "listenSelect",
-   "difficulty": 52.1,
+   "difficulty": 8.9,
    "word": "pobaveky",
    "real": false
   },
   {
    "id": "ls-x-sporizmus",
    "format": "listenSelect",
-   "difficulty": 54.4,
+   "difficulty": 61.8,
    "word": "sporizmus",
    "real": false
   },
   {
    "id": "ls-x-vynorovať",
    "format": "listenSelect",
-   "difficulty": 53.7,
+   "difficulty": 66.1,
    "word": "vynorovať",
    "real": false
   },
   {
    "id": "ls-x-upresovať",
    "format": "listenSelect",
-   "difficulty": 59.1,
+   "difficulty": 38,
    "word": "upresovať",
    "real": false
   },
   {
    "id": "ls-x-navedčivo",
    "format": "listenSelect",
-   "difficulty": 58.7,
+   "difficulty": 40.3,
    "word": "navedčivo",
    "real": false
   },
   {
    "id": "ls-x-záležitie",
    "format": "listenSelect",
-   "difficulty": 56.3,
+   "difficulty": 53.7,
    "word": "záležitie",
    "real": false
   },
   {
    "id": "ls-x-súhlasovať",
    "format": "listenSelect",
-   "difficulty": 58.3,
+   "difficulty": 92.7,
    "word": "súhlasovať",
    "real": false
   },
   {
    "id": "ls-x-zelenečne",
    "format": "listenSelect",
-   "difficulty": 58.6,
+   "difficulty": 40.8,
    "word": "zelenečne",
    "real": false
   },
   {
    "id": "ls-x-poprostať",
    "format": "listenSelect",
-   "difficulty": 55.7,
+   "difficulty": 56.6,
    "word": "poprostať",
    "real": false
   },
   {
    "id": "ls-x-otreberať",
    "format": "listenSelect",
-   "difficulty": 59.3,
+   "difficulty": 36.3,
    "word": "otreberať",
    "real": false
   },
   {
    "id": "ls-x-cheoločný",
    "format": "listenSelect",
-   "difficulty": 56.8,
+   "difficulty": 48.5,
    "word": "cheoločný",
    "real": false
   },
   {
    "id": "ls-x-nevideolo",
    "format": "listenSelect",
-   "difficulty": 56.6,
+   "difficulty": 50.5,
    "word": "nevideolo",
    "real": false
   },
   {
    "id": "ls-x-klesnažiť",
    "format": "listenSelect",
-   "difficulty": 56.1,
+   "difficulty": 54.5,
    "word": "klesnažiť",
    "real": false
   },
   {
    "id": "ls-x-masketika",
    "format": "listenSelect",
-   "difficulty": 56.6,
+   "difficulty": 52.1,
    "word": "masketika",
    "real": false
   },
   {
    "id": "ls-x-zhodložiť",
    "format": "listenSelect",
-   "difficulty": 56.1,
+   "difficulty": 54.4,
    "word": "zhodložiť",
    "real": false
   },
   {
    "id": "ls-x-súkrotent",
    "format": "listenSelect",
-   "difficulty": 61.5,
+   "difficulty": 25.5,
    "word": "súkrotent",
    "real": false
   },
   {
    "id": "ls-x-otogratiť",
    "format": "listenSelect",
-   "difficulty": 60.4,
+   "difficulty": 30.8,
    "word": "otogratiť",
    "real": false
   },
   {
    "id": "ls-x-prekvaliať",
    "format": "listenSelect",
-   "difficulty": 63.6,
+   "difficulty": 85.9,
    "word": "prekvaliať",
    "real": false
   },
   {
    "id": "ls-x-pripulovať",
    "format": "listenSelect",
-   "difficulty": 63.2,
+   "difficulty": 87.3,
    "word": "pripulovať",
    "real": false
   },
   {
    "id": "ls-x-neprihovať",
    "format": "listenSelect",
-   "difficulty": 60.2,
+   "difficulty": 91.3,
    "word": "neprihovať",
    "real": false
   },
   {
    "id": "ls-x-nádherejný",
    "format": "listenSelect",
-   "difficulty": 64.9,
+   "difficulty": 80.5,
    "word": "nádherejný",
    "real": false
   },
   {
    "id": "ls-x-zosmieniť",
    "format": "listenSelect",
-   "difficulty": 62.5,
+   "difficulty": 23.2,
    "word": "zosmieniť",
    "real": false
   },
   {
    "id": "ls-x-dievčinok",
    "format": "listenSelect",
-   "difficulty": 63.4,
+   "difficulty": 19.3,
    "word": "dievčinok",
    "real": false
   },
   {
    "id": "ls-x-škvrnatív",
    "format": "listenSelect",
-   "difficulty": 61.4,
+   "difficulty": 25.7,
    "word": "škvrnatív",
    "real": false
   },
   {
    "id": "ls-x-kvidieľať",
    "format": "listenSelect",
-   "difficulty": 60.9,
+   "difficulty": 26.4,
    "word": "kvidieľať",
    "real": false
   },
   {
    "id": "ls-x-živiestať",
    "format": "listenSelect",
-   "difficulty": 61.8,
+   "difficulty": 25.2,
    "word": "živiestať",
    "real": false
   },
   {
    "id": "ls-x-predsedieť",
    "format": "listenSelect",
-   "difficulty": 60,
+   "difficulty": 91.4,
    "word": "predsedieť",
    "real": false
   },
   {
    "id": "ls-x-zhrozložiť",
    "format": "listenSelect",
-   "difficulty": 66.1,
+   "difficulty": 79.4,
    "word": "zhrozložiť",
    "real": false
   },
   {
    "id": "ls-x-nesmierový",
    "format": "listenSelect",
-   "difficulty": 69.4,
+   "difficulty": 63.4,
    "word": "nesmierový",
    "real": false
   },
   {
    "id": "ls-x-redsedenie",
    "format": "listenSelect",
-   "difficulty": 67.4,
+   "difficulty": 73.5,
    "word": "redsedenie",
    "real": false
   },
   {
    "id": "ls-x-prestrániť",
    "format": "listenSelect",
-   "difficulty": 65.6,
+   "difficulty": 79.7,
    "word": "prestrániť",
    "real": false
   },
   {
    "id": "ls-x-kolovníma",
    "format": "listenSelect",
-   "difficulty": 65.6,
+   "difficulty": 13.8,
    "word": "kolovníma",
    "real": false
   },
   {
    "id": "ls-x-zvyšetriať",
    "format": "listenSelect",
-   "difficulty": 68.9,
+   "difficulty": 65.6,
    "word": "zvyšetriať",
    "real": false
   },
   {
    "id": "ls-x-nedôverzia",
    "format": "listenSelect",
-   "difficulty": 68.2,
+   "difficulty": 72.3,
    "word": "nedôverzia",
    "real": false
   },
   {
    "id": "ls-x-presnažieť",
    "format": "listenSelect",
-   "difficulty": 68.5,
+   "difficulty": 68.7,
    "word": "presnažieť",
    "real": false
   },
   {
    "id": "ls-x-neskoročne",
    "format": "listenSelect",
-   "difficulty": 68.4,
+   "difficulty": 68.9,
    "word": "neskoročne",
    "real": false
   },
   {
    "id": "ls-x-manipustiť",
    "format": "listenSelect",
-   "difficulty": 68.3,
+   "difficulty": 71.6,
    "word": "manipustiť",
    "real": false
   },
   {
    "id": "ls-x-techutene",
    "format": "listenSelect",
-   "difficulty": 65.3,
+   "difficulty": 14.2,
    "word": "techutene",
    "real": false
   },
   {
    "id": "ls-x-vyžreberať",
    "format": "listenSelect",
-   "difficulty": 68.7,
+   "difficulty": 68.4,
    "word": "vyžreberať",
    "real": false
   },
   {
    "id": "ls-x-blahoženiť",
    "format": "listenSelect",
-   "difficulty": 72.8,
+   "difficulty": 35.6,
    "word": "blahoženiť",
    "real": false
   },
   {
    "id": "ls-x-predporaziť",
    "format": "listenSelect",
-   "difficulty": 73.5,
+   "difficulty": 90.9,
    "word": "predporaziť",
    "real": false
   },
   {
    "id": "ls-x-viditerový",
    "format": "listenSelect",
-   "difficulty": 72.7,
+   "difficulty": 36.6,
    "word": "viditerový",
    "real": false
   },
   {
    "id": "ls-x-návštevanie",
    "format": "listenSelect",
-   "difficulty": 74.7,
+   "difficulty": 89.8,
    "word": "návštevanie",
    "real": false
   },
   {
    "id": "ls-x-upevniknúť",
    "format": "listenSelect",
-   "difficulty": 72.3,
+   "difficulty": 41.3,
    "word": "upevniknúť",
    "real": false
   },
   {
    "id": "ls-x-strasadent",
    "format": "listenSelect",
-   "difficulty": 73.1,
+   "difficulty": 32.1,
    "word": "strasadent",
    "real": false
   },
   {
    "id": "ls-x-odložiadať",
    "format": "listenSelect",
-   "difficulty": 71.6,
+   "difficulty": 46,
    "word": "odložiadať",
    "real": false
   },
   {
    "id": "ls-x-zapískavať",
    "format": "listenSelect",
-   "difficulty": 71.8,
+   "difficulty": 43.6,
    "word": "zapískavať",
    "real": false
   },
   {
    "id": "ls-x-skrižovanie",
    "format": "listenSelect",
-   "difficulty": 74.7,
+   "difficulty": 89.6,
    "word": "skrižovanie",
    "real": false
   },
   {
    "id": "ls-x-zakresadať",
    "format": "listenSelect",
-   "difficulty": 70.1,
+   "difficulty": 56.8,
    "word": "zakresadať",
    "real": false
   },
   {
    "id": "ls-x-zábavebník",
    "format": "listenSelect",
-   "difficulty": 71.7,
+   "difficulty": 45.3,
    "word": "zábavebník",
    "real": false
   },
   {
    "id": "ls-x-releskoro",
    "format": "listenSelect",
-   "difficulty": 72.9,
+   "difficulty": 3.6,
    "word": "releskoro",
    "real": false
   },
   {
    "id": "ls-x-ohromaticky",
    "format": "listenSelect",
-   "difficulty": 75,
+   "difficulty": 85,
    "word": "ohromaticky",
    "real": false
   },
   {
    "id": "ls-x-výpočítanec",
    "format": "listenSelect",
-   "difficulty": 79.7,
+   "difficulty": 56.1,
    "word": "výpočítanec",
    "real": false
   },
   {
    "id": "ls-x-prednodenne",
    "format": "listenSelect",
-   "difficulty": 75.9,
+   "difficulty": 81.5,
    "word": "prednodenne",
    "real": false
   },
   {
    "id": "ls-x-vrhovárniť",
    "format": "listenSelect",
-   "difficulty": 75.1,
+   "difficulty": 17.1,
    "word": "vrhovárniť",
    "real": false
   },
   {
    "id": "ls-x-nedôverzita",
    "format": "listenSelect",
-   "difficulty": 76.8,
+   "difficulty": 78.7,
    "word": "nedôverzita",
    "real": false
   },
   {
    "id": "ls-x-obyvatinet",
    "format": "listenSelect",
-   "difficulty": 79.5,
+   "difficulty": 5,
    "word": "obyvatinet",
    "real": false
   },
   {
    "id": "ls-x-prihovárniť",
    "format": "listenSelect",
-   "difficulty": 79.9,
+   "difficulty": 54.9,
    "word": "prihovárniť",
    "real": false
   },
   {
    "id": "ls-x-lyžovateľka",
    "format": "listenSelect",
-   "difficulty": 79.8,
+   "difficulty": 55.7,
    "word": "lyžovateľka",
    "real": false
   },
   {
    "id": "ls-x-výbavedenie",
    "format": "listenSelect",
-   "difficulty": 78.7,
+   "difficulty": 67.4,
    "word": "výbavedenie",
    "real": false
   },
   {
    "id": "ls-x-meditamída",
    "format": "listenSelect",
-   "difficulty": 78.1,
+   "difficulty": 8.9,
    "word": "meditamída",
    "real": false
   },
   {
    "id": "ls-x-nemiérovsky",
    "format": "listenSelect",
-   "difficulty": 79.4,
+   "difficulty": 58.6,
    "word": "nemiérovsky",
    "real": false
   },
   {
    "id": "ls-x-sproskladať",
    "format": "listenSelect",
-   "difficulty": 79.9,
+   "difficulty": 54.5,
    "word": "sproskladať",
    "real": false
   },
   {
    "id": "ls-x-prednostávať",
    "format": "listenSelect",
-   "difficulty": 81.5,
+   "difficulty": 92.8,
    "word": "prednostávať",
    "real": false
   },
   {
    "id": "ls-x-soliarelár",
    "format": "listenSelect",
-   "difficulty": 84.1,
+   "difficulty": 2.8,
    "word": "soliarelár",
    "real": false
   },
   {
    "id": "ls-x-pobrodencia",
    "format": "listenSelect",
-   "difficulty": 82.1,
+   "difficulty": 37.1,
    "word": "pobrodencia",
    "real": false
   },
   {
    "id": "ls-x-želekonočný",
    "format": "listenSelect",
-   "difficulty": 81.7,
+   "difficulty": 40.1,
    "word": "želekonočný",
    "real": false
   },
   {
    "id": "ls-x-príznačenec",
    "format": "listenSelect",
-   "difficulty": 82.7,
+   "difficulty": 31,
    "word": "príznačenec",
    "real": false
   },
   {
    "id": "ls-x-vypustavovať",
    "format": "listenSelect",
-   "difficulty": 84.2,
+   "difficulty": 90.4,
    "word": "vypustavovať",
    "real": false
   },
   {
    "id": "ls-x-priemyslanie",
    "format": "listenSelect",
-   "difficulty": 83.1,
+   "difficulty": 90.9,
    "word": "priemyslanie",
    "real": false
   },
   {
    "id": "ls-x-pedaktivita",
    "format": "listenSelect",
-   "difficulty": 82,
+   "difficulty": 39.1,
    "word": "pedaktivita",
    "real": false
   },
   {
    "id": "ls-x-realitbalec",
    "format": "listenSelect",
-   "difficulty": 81.5,
+   "difficulty": 40.7,
    "word": "realitbalec",
    "real": false
   },
   {
    "id": "ls-x-zachybojovať",
    "format": "listenSelect",
-   "difficulty": 82.4,
+   "difficulty": 92.5,
    "word": "zachybojovať",
    "real": false
   },
   {
    "id": "ls-x-výsledomota",
    "format": "listenSelect",
-   "difficulty": 80.5,
+   "difficulty": 46.3,
    "word": "výsledomota",
    "real": false
   },
   {
    "id": "ls-x-neusponútiť",
    "format": "listenSelect",
-   "difficulty": 80.2,
+   "difficulty": 52.3,
    "word": "neusponútiť",
    "real": false
   },
   {
    "id": "ls-x-sprinkovina",
    "format": "listenSelect",
-   "difficulty": 85.9,
+   "difficulty": 15.6,
    "word": "sprinkovina",
    "real": false
   },
   {
    "id": "ls-x-hovodlister",
    "format": "listenSelect",
-   "difficulty": 86.5,
+   "difficulty": 14.9,
    "word": "hovodlister",
    "real": false
   },
   {
    "id": "ls-x-predčastičný",
    "format": "listenSelect",
-   "difficulty": 89.9,
+   "difficulty": 62.5,
    "word": "predčastičný",
    "real": false
   },
   {
    "id": "ls-x-strelomierať",
    "format": "listenSelect",
-   "difficulty": 89,
+   "difficulty": 71.8,
    "word": "strelomierať",
    "real": false
   },
   {
    "id": "ls-x-úprijateľský",
    "format": "listenSelect",
-   "difficulty": 89.6,
+   "difficulty": 68.2,
    "word": "úprijateľský",
    "real": false
   },
   {
    "id": "ls-x-predotivovať",
    "format": "listenSelect",
-   "difficulty": 89.8,
+   "difficulty": 63.6,
    "word": "predotivovať",
    "real": false
   },
   {
    "id": "ls-x-nezodporaziť",
    "format": "listenSelect",
-   "difficulty": 85.9,
+   "difficulty": 82,
    "word": "nezodporaziť",
    "real": false
   },
   {
    "id": "ls-x-zdravanizmus",
    "format": "listenSelect",
-   "difficulty": 87.3,
+   "difficulty": 76.8,
    "word": "zdravanizmus",
    "real": false
   },
   {
    "id": "ls-x-stvoriaďovať",
    "format": "listenSelect",
-   "difficulty": 85,
+   "difficulty": 84.2,
    "word": "stvoriaďovať",
    "real": false
   },
   {
    "id": "ls-x-naklopakovať",
    "format": "listenSelect",
-   "difficulty": 86.1,
+   "difficulty": 81.5,
    "word": "naklopakovať",
    "real": false
   },
   {
    "id": "ls-x-rozplyvniesť",
    "format": "listenSelect",
-   "difficulty": 90,
+   "difficulty": 60.9,
    "word": "rozplyvniesť",
    "real": false
   },
   {
    "id": "ls-x-pripoverovať",
    "format": "listenSelect",
-   "difficulty": 87.2,
+   "difficulty": 78.1,
    "word": "pripoverovať",
    "real": false
   },
   {
    "id": "ls-x-doslednostne",
    "format": "listenSelect",
-   "difficulty": 90.9,
+   "difficulty": 52.1,
    "word": "doslednostne",
    "real": false
   },
   {
    "id": "ls-x-závislandský",
    "format": "listenSelect",
-   "difficulty": 90,
+   "difficulty": 60.2,
    "word": "závislandský",
    "real": false
   },
   {
    "id": "ls-x-vypovedozvať",
    "format": "listenSelect",
-   "difficulty": 91.4,
+   "difficulty": 41.9,
    "word": "vypovedozvať",
    "real": false
   },
   {
    "id": "ls-x-vrchestolesk",
    "format": "listenSelect",
-   "difficulty": 92.8,
+   "difficulty": 8.9,
    "word": "vrchestolesk",
    "real": false
   },
   {
    "id": "ls-x-potrukopend",
    "format": "listenSelect",
-   "difficulty": 90.4,
+   "difficulty": 5,
    "word": "potrukopend",
    "real": false
   },
   {
    "id": "ls-x-inzerorister",
    "format": "listenSelect",
-   "difficulty": 92.5,
+   "difficulty": 18.7,
    "word": "inzerorister",
    "real": false
   },
   {
    "id": "ls-x-jasketisícka",
    "format": "listenSelect",
-   "difficulty": 91.8,
+   "difficulty": 32.7,
    "word": "jasketisícka",
    "real": false
   },
   {
    "id": "ls-x-repodhadavka",
    "format": "listenSelect",
-   "difficulty": 92.7,
+   "difficulty": 10,
    "word": "repodhadavka",
    "real": false
   },
   {
    "id": "ls-x-poprechnický",
    "format": "listenSelect",
-   "difficulty": 90.6,
+   "difficulty": 56.1,
    "word": "poprechnický",
    "real": false
   },
   {
    "id": "ls-x-odôverizerať",
    "format": "listenSelect",
-   "difficulty": 91.3,
+   "difficulty": 43.9,
    "word": "odôverizerať",
    "real": false
   },
   {
    "id": "ls-x-inšpechnolór",
    "format": "listenSelect",
-   "difficulty": 90.9,
+   "difficulty": 53.1,
    "word": "inšpechnolór",
    "real": false
   },
   {
    "id": "ls-x-stravostnant",
    "format": "listenSelect",
-   "difficulty": 92.6,
+   "difficulty": 13.8,
    "word": "stravostnant",
    "real": false
   }
