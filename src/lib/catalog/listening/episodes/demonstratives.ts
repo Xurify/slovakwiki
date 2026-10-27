@@ -65,8 +65,8 @@ const intro: ListeningChapter = {
     line(
       "anna-lets-go",
       "Anna",
-      ["Dobre, dobre. Ideme na ", mark("to"), "!"],
-      "OK, OK. Let's get to it!",
+      ["Dobre, dobre. Poďme na trh!"],
+      "OK, OK. Let's go to the market!",
     ),
   ],
   checks: [
@@ -145,8 +145,8 @@ const bag: ListeningChapter = {
       line(
         "marek-bag-three-things",
         "Marek",
-        ["Anna, mám tu tašku. V taške sú tri veci."],
-        "Anna, I have a bag here. There are three things in the bag.",
+        ["Sme späť v štúdiu. Anna, mám tu tašku. V taške sú tri veci."],
+        "We're back in the studio. Anna, I have a bag here. There are three things in the bag.",
       ),
       line(
         "anna-what-is-it",
@@ -266,10 +266,10 @@ const bag: ListeningChapter = {
       ),
       line("anna-hungry", "Anna", ["Ďakujem! Mám hlad."], "Thanks! I'm hungry."),
       line(
-        "marek-lets-go-to-market",
-        "Marek",
-        ["A teraz poďme na trh!"],
-        "And now let's go to the market!",
+        "anna-now-the-quiz",
+        "Anna",
+        ["Jablko je výborné. A teraz malá skúška pre Mareka!"],
+        "The apple is delicious. And now a little test for Marek!",
       ),
     ],
     BAG_ACTS,
@@ -737,19 +737,12 @@ const home: ListeningChapter = {
   ],
 };
 
-const QUIZ_ACTS: Record<string, Cue[]> = {
-  "marek-key-is-here": [
-    { do: "take", what: "keys", on: "kľúč" },
-    { do: "raise", what: "keys", on: "tu" },
-  ],
-  "anna-dont-lose-it": [{ do: "point", to: "keys", on: "nestrať" }],
-  "marek-i-wont": [{ do: "pocket", what: "keys", on: "nestratím" }],
-};
+const QUIZ_ACTS: Record<string, Cue[]> = {};
 
 const quiz: ListeningChapter = {
   id: `${PREFIX}quiz`,
   titleSk: "Pomôžte Marekovi",
-  title: "Help Marek: you pick the word",
+  title: "Quiz: help Marek pick the word",
   setup: {
     objects: [{ id: "keys", kind: "keys", start: { where: { pocket: "marek" } } }],
   },
@@ -757,30 +750,9 @@ const quiz: ListeningChapter = {
     PREFIX,
     [
       line(
-        "anna-back-in-studio",
-        "Anna",
-        ["Tak, sme späť v štúdiu."],
-        "So, we're back in the studio.",
-      ),
-      line(
-        "marek-key-is-here",
-        "Marek",
-        ["Áno. A ", mark("ten"), " kľúč mám tu."],
-        "Yes. And I have that key here.",
-      ),
-      line(
-        "anna-dont-lose-it",
-        "Anna",
-        [CHUCKLE, "Tak ho už nestrať!"],
-        "Then don't lose it again!",
-      ),
-      line("marek-i-wont", "Marek", ["Nestratím, sľubujem."], "I won't, I promise."),
-      line(
         "anna-test-for-marek",
         "Anna",
         [
-          "No, kľúč máš. ",
-          PAUSE,
           "A teraz malá skúška pre Mareka: ",
           mark("ten"),
           ", ",
@@ -789,7 +761,7 @@ const quiz: ListeningChapter = {
           mark("to"),
           ".",
         ],
-        "Well, you have the key. And now a little test for Marek: ten, tá, to.",
+        "And now a little test for Marek: ten, tá, to.",
       ),
       line(
         "marek-never-get-these",
@@ -1395,5 +1367,5 @@ export const demonstrativesEpisode: ListeningEpisode = {
     { slovak: "jahody", english: "strawberries" },
     { slovak: "Čo je to?", english: "What is it?" },
   ],
-  chapters: [intro, bag, market, home, quiz, outro],
+  chapters: [intro, market, home, bag, quiz, outro],
 };

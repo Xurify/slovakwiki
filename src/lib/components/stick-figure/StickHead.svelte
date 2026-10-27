@@ -136,13 +136,13 @@
     // far one goes in behind the face. Out past the outline with the band sunk
     // into the hair, they read as sliding off.
     const near = { x: 18.4 + 1.6 * u, rx: 2.9 + 0.9 * u };
-    const far = { x: 45.6 - 1.4 * u, rx: 2.9 - 0.7 * u };
+    const far = { x: 45.4 - 0.1 * u, rx: 2.7 - 0.3 * u };
     const top = look.crown + 1.2;
     const from = { x: near.x + 0.2, y: cy - ry + 0.6 };
     const to = { x: far.x - 0.2, y: cy - ry + 0.6 };
     const mid = { x: 31.8 - 0.3 * u, y: top };
     const rise = from.y - top;
-    const band = `M${n(from.x)} ${n(from.y)}C${n(from.x - 0.6)} ${n(from.y - rise * 0.58)} ${n(mid.x - (mid.x - from.x) * 0.56)} ${n(top)} ${n(mid.x)} ${n(top)}C${n(mid.x + (to.x - mid.x) * 0.56)} ${n(top)} ${n(to.x + 0.6)} ${n(to.y - rise * 0.58)} ${n(to.x)} ${n(to.y)}`;
+    const band = `M${n(from.x)} ${n(from.y)}C${n(from.x + (mid.x - from.x) * 0.12)} ${n(from.y - rise * 0.42)} ${n(mid.x - (mid.x - from.x) * 0.28)} ${n(top)} ${n(mid.x)} ${n(top)}C${n(mid.x + (to.x - mid.x) * 0.28)} ${n(top)} ${n(to.x - (to.x - mid.x) * 0.12)} ${n(to.y - rise * 0.42)} ${n(to.x)} ${n(to.y)}`;
     return { cy, ry, near, far, band };
   });
 </script>

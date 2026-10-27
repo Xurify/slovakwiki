@@ -119,8 +119,12 @@ const intro: ListeningChapter = {
       line(
         "anna-yes-for-you",
         "Anna",
-        ["Áno, pre teba. Ideme na to!"],
-        "Yes, for you. Let's get to it!",
+        [
+          "Áno, pre teba. A naša električka ide ",
+          mark("o desiatej"),
+          ". Poďme na zastávku!",
+        ],
+        "Yes, for you. And our tram goes at ten. Let's go to the stop!",
       ),
     ],
     INTRO_ACTS,
@@ -187,8 +191,12 @@ const clockGame: ListeningChapter = {
     line(
       "anna-game-rules",
       "Anna",
-      ["Malá hra. ", PAUSE, "Ja poviem čas po slovensky a ty povieš čísla."],
-      "A small game. I'll say the time in Slovak and you'll say the numbers.",
+      [
+        "Sme späť v štúdiu. A máme tu malú hru. ",
+        PAUSE,
+        "Ja poviem čas po slovensky a ty povieš čísla.",
+      ],
+      "We're back in the studio. And we have a small game here. I'll say the time in Slovak and you'll say the numbers.",
     ),
     line("marek-ok", "Marek", ["Dobre."], "OK."),
     line(
@@ -304,16 +312,10 @@ const clockGame: ListeningChapter = {
       "Je jedna hodina. Sú dve hodiny. Je päť hodín. Now I know.",
     ),
     line(
-      "anna-lets-go-to-stop",
+      "anna-ready-for-test",
       "Anna",
-      [
-        "Super. A teraz poďme von, na zastávku. ",
-        PAUSE,
-        "Naša električka ide ",
-        mark("o desiatej"),
-        ".",
-      ],
-      "Great. And now let's go out, to the tram stop. Our tram goes at ten.",
+      ["Super, Marek! A teraz si dáme malú skúšku."],
+      "Great, Marek! And now let's take a small test.",
     ),
   ],
   checks: [
@@ -370,27 +372,29 @@ const clockGame: ListeningChapter = {
       },
     },
     {
-      id: `${PREFIX}check-tram-when`,
-      prompt: "Kedy ide ich električka?",
-      promptEnglish: "When does their tram go?",
-      replayLineId: `${PREFIX}anna-lets-go-to-stop`,
+      id: `${PREFIX}check-five-oclock`,
+      gap: "___ päť hodín.",
+      prompt: "Ktoré slovo povedala Anna?",
+      promptEnglish: "Which word did Anna say?",
+      replayLineId: `${PREFIX}anna-five-oclock`,
       choices: [
-        { id: "ten", label: "O desiatej." },
+        { id: "je", label: "Je" },
         {
-          id: "nine",
-          label: "O deviatej.",
-          whyWrong: "**O deviatej** is at nine. Anna says **o desiatej**, at ten.",
+          id: "su",
+          label: "Sú",
+          whyWrong:
+            "**Sú** goes with two, three, four: **sú dve hodiny**. Five and more takes **je**.",
         },
         {
-          id: "two",
-          label: "O druhej.",
-          whyWrong: "**O druhej** is at two. Two o'clock was only a time in the game.",
+          id: "ma",
+          label: "Má",
+          whyWrong: "**Má** means has. Clock time uses **byť**: **je** or **sú**.",
         },
       ],
-      answerId: "ten",
+      answerId: "je",
       feedback: {
-        english: "Our tram goes at ten.",
-        why: "Anna says **o desiatej**: **o** + the hour for a time on the clock.",
+        english: "It's five o'clock.",
+        why: "From five up, Slovak uses **je** and **hodín**: **je päť hodín**.",
       },
     },
   ],
@@ -800,19 +804,19 @@ const cafe: ListeningChapter = {
 const quiz: ListeningChapter = {
   id: `${PREFIX}quiz`,
   titleSk: "Správne alebo nesprávne?",
-  title: "Right or wrong? Marek takes the test",
+  title: "Right or wrong? Marek takes the quiz",
   lines: [
     line(
       "anna-back-one-oclock",
       "Anna",
       [
         "Sme späť v štúdiu a ",
-        mark("je jedna hodina"),
+        mark("Je jedna hodina"),
         ". ",
         PAUSE,
         "Teraz malá skúška z hodín pre Mareka.",
       ],
-      "We're back in the studio and it's one o'clock. Now a little test on telling time for Marek.",
+      "It's one o'clock. Now a little test on telling time for Marek.",
     ),
     line(
       "anna-the-rules",
@@ -1148,5 +1152,5 @@ export const tellingTimeEpisode: ListeningEpisode = {
     { slovak: "kaviareň", english: "café" },
     { slovak: "meškať", english: "to be late" },
   ],
-  chapters: [intro, clockGame, tramStop, cafe, quiz, outro],
+  chapters: [intro, tramStop, cafe, clockGame, quiz, outro],
 };

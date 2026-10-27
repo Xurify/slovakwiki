@@ -26,6 +26,7 @@ const INTRO_ACTS: Record<string, Cue[]> = {
   ],
   "anna-not-mine": [{ do: "point", to: "umbrella", on: "môj" }],
   "marek-so-whose": [{ do: "put", what: "umbrella", to: "desk", dx: 30, on: "nie" }],
+  "anna-good-question": [{ who: "marek", do: "take", what: "umbrella", on: "školy" }],
 };
 
 const intro: ListeningChapter = {
@@ -93,8 +94,8 @@ const intro: ListeningChapter = {
       line(
         "anna-good-question",
         "Anna",
-        ["To je dobrá otázka. Ideme na to!"],
-        "That's a good question. Let's get to it!",
+        ["To je dobrá otázka. Možno je zo školy. Poďme do jazykovej školy!"],
+        "That's a good question. Maybe it's from the school. Let's go to the language school!",
       ),
     ],
     INTRO_ACTS,
@@ -165,11 +166,7 @@ const PHOTOS_ACTS: Record<string, Cue[]> = {
   "marek-first-photo": [{ do: "raise", what: "phone", on: "fotka" }],
   "marek-house-and-car": [{ do: "raise", what: "phone", on: "fotka" }],
   "marek-old-but-mine": [{ do: "raise", what: "phone", on: "fotka" }],
-  "anna-umbrella-not-theirs": [{ do: "point", to: "umbrella", on: "dáždnik" }],
-  "marek-maybe-school": [
-    { do: "pocket", what: "phone", on: "Nie" },
-    { do: "take", what: "umbrella", on: "školy" },
-  ],
+  "marek-test-again": [{ do: "pocket", what: "phone", on: "skúška" }],
 };
 
 const photos: ListeningChapter = {
@@ -185,8 +182,8 @@ const photos: ListeningChapter = {
       line(
         "marek-phone-photos",
         "Marek",
-        ["Anna, mám tu telefón. Na telefóne mám fotky."],
-        "Anna, I have my phone here. I have photos on the phone.",
+        ["Sme späť v štúdiu. Anna, mám tu telefón. Na telefóne mám fotky."],
+        "We're back in the studio. Anna, I have my phone here. I have photos on the phone.",
       ),
       line("anna-show-me", "Anna", ["Ukáž! Kto je to?"], "Show me! Who is it?"),
       line(
@@ -310,16 +307,16 @@ const photos: ListeningChapter = {
       ),
       line("marek-five-years", "Marek", ["Má päť rokov."], "She's five."),
       line(
-        "anna-umbrella-not-theirs",
+        "anna-nice-photos",
         "Anna",
-        ["Pekné fotky. ", PAUSE, "Ale ten dáždnik nie je ", mark("ich"), "."],
-        "Nice photos. But that umbrella is not theirs.",
+        ["Pekné fotky! A teraz malá skúška pre Mareka."],
+        "Nice photos! And now a little test for Marek.",
       ),
       line(
-        "marek-maybe-school",
+        "marek-test-again",
         "Marek",
-        ["Nie. ", PAUSE, "Možno je zo školy. Poďme do jazykovej školy!"],
-        "No. Maybe it's from the school. Let's go to the language school!",
+        ["Zase skúška? No dobre."],
+        "A test again? All right then.",
       ),
     ],
     PHOTOS_ACTS,
@@ -806,7 +803,7 @@ const QUIZ_ACTS: Record<string, Cue[]> = {
 const quiz: ListeningChapter = {
   id: `${PREFIX}quiz`,
   titleSk: "Správne alebo nesprávne?",
-  title: "Right or wrong? Marek takes the test",
+  title: "Right or wrong? Marek takes the quiz",
   // Each place keeps its own set, so the studio still has the umbrella Marek gave back on the square.
   setup: { state: { umbrella: { where: { pocket: "lucia" } } } },
   lines: staged(
@@ -816,8 +813,6 @@ const quiz: ListeningChapter = {
         "anna-back-right-or-wrong",
         "Anna",
         [
-          "Sme späť v štúdiu. ",
-          PAUSE,
           "Lucia má ",
           mark("svoj"),
           " dáždnik a ty ",
@@ -826,7 +821,7 @@ const quiz: ListeningChapter = {
           PAUSE,
           "Tak teraz malá skúška, Marek.",
         ],
-        "We're back in the studio. Lucia has her umbrella and you have your keys. So now a little test, Marek.",
+        "Lucia has her umbrella and you have your keys. So now a little test, Marek.",
       ),
       line(
         "anna-the-rules",
@@ -1181,5 +1176,5 @@ export const possessivesEpisode: ListeningEpisode = {
     { slovak: "kľúče", english: "keys" },
     { slovak: "Čí je to?", english: "Whose is it?" },
   ],
-  chapters: [intro, photos, school, square, quiz, outro],
+  chapters: [intro, school, square, photos, quiz, outro],
 };
