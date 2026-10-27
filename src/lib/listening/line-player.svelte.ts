@@ -168,6 +168,8 @@ export class LinePlayer {
   }
 
   destroy(): void {
+    this.#epoch += 1;
+    this.playing = false;
     this.#clearGap();
     this.#clearBegun();
     this.#options.stage?.()?.stop(true);
