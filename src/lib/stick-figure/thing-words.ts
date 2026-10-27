@@ -84,6 +84,24 @@ export function twins(
     : { ...drawn(word, far, near), twins: { far: 0, near: 1 } };
 }
 
+/**
+ * The thing a `point` cue names in `things`, and which of its copies:
+ * `syr#near` for tento's, `syr#far` for tamten's, the main one otherwise.
+ * Named by reach, not by index, as which copy is first differs by place.
+ */
+export function pointedThing(
+  things: readonly SceneThing[],
+  name: string,
+): { thing: SceneThing; copy?: number } | undefined {
+  const [id, reach] = name.split("#");
+  const thing = things.find((candidate) => candidate.id === id);
+  if (!thing) return undefined;
+  if (reach === undefined) return { thing };
+  if (reach !== "near" && reach !== "far") return undefined;
+  const copy = thing.twins?.[reach];
+  return copy === undefined ? undefined : { thing, copy };
+}
+
 /** A thing the set draws and the cast handles by cues; `main` is its box until the stage measures it. */
 export function onSet(word: ThingWord, of: readonly string[], main: Rect): SceneThing {
   return { ...drawn(word, main), of, quiet: true };

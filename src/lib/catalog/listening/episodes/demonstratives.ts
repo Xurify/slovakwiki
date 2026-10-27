@@ -100,35 +100,23 @@ const intro: ListeningChapter = {
 
 const BAG_ACTS: Record<string, Cue[]> = {
   "marek-bag-three-things": [{ do: "point", to: "bag", on: "tašku" }],
-  "marek-small-opens-doors": [
-    { do: "take", what: "key", on: "malé" },
-    { do: "raise", what: "key", on: "dvere" },
-  ],
-  "anna-its-a-key": [{ do: "point", to: "key", on: "kľúč" }],
+  "marek-small-opens-doors": [{ do: "point", to: "dvere", on: "dvere" }],
+  "anna-its-a-key": [{ do: "nod", on: "kľúč" }],
   "marek-car-key": [
-    { do: "nod", on: "správne" },
+    { do: "take", what: "key", on: "správne" },
+    { do: "raise", what: "key", on: "kľúč" },
     { do: "put", what: "key", to: "bag", on: "auta" },
   ],
-  "marek-heavy-paper": [
-    { do: "take", what: "book", on: "žlté" },
-    { do: "raise", what: "book", on: "papier" },
-  ],
-  "anna-is-it-a-book": [{ do: "point", to: "book", on: "kniha" }],
   "marek-dictionary": [
-    { do: "nod", on: "presne" },
+    { do: "take", what: "book", on: "presne" },
+    { do: "raise", what: "book", on: "kniha" },
     { do: "put", what: "book", to: "bag", on: "slovník" },
   ],
-  "marek-green-sweet": [
-    { do: "take", what: "apple", on: "zelené" },
-    { do: "raise", what: "apple", on: "sladké" },
-  ],
-  "marek-not-a-pear": [
-    { do: "shrug", on: "nie" },
-    { do: "raise", what: "apple", on: "okrúhle" },
-  ],
-  "anna-apple": [{ do: "point", to: "apple", on: "jablko" }],
+  "marek-not-a-pear": [{ do: "shrug", on: "nie" }],
+  "anna-apple": [{ do: "nod", on: "jablko" }],
   "marek-apple-for-you": [
-    { do: "raise", what: "apple", on: "výborne" },
+    { do: "take", what: "apple", on: "výborne" },
+    { do: "raise", what: "apple", on: "to" },
     { do: "put", what: "apple", to: "desk", dx: 31, on: "jablko" },
     { do: "slide", what: "apple", to: "desk", dx: -20, on: "teba" },
   ],
@@ -367,12 +355,24 @@ const bag: ListeningChapter = {
 };
 
 const MARKET_ACTS: Record<string, Cue[]> = {
+  "marek-how-much-this-cheese": [{ do: "point", to: "syr#near", on: "tento" }],
+  "lucia-this-cheese-five": [{ do: "point", to: "syr#near", on: "Tento" }],
+  "marek-and-that-cheese": [{ do: "point", to: "syr#far", on: "tamten" }],
+  "lucia-that-one-cheaper": [{ do: "point", to: "syr#far", on: "Tamten" }],
+  "marek-ill-take-that-one": [{ do: "point", to: "syr#far", on: "tamten" }],
   // Marek has his cheese and stands back; Anna steps up to the stall.
   "anna-want-these-strawberries": [
     { who: "marek", do: "go", to: "aside", on: "start" },
     { do: "go", to: "stall" },
+    { do: "point", to: "jahody#near", on: "tieto" },
   ],
+  "lucia-strawberries-from": [
+    { do: "point", to: "jahody#near", on: "Tieto" },
+    { do: "point", to: "jahody#far", on: "Tamtie" },
+  ],
+  "anna-those-please": [{ do: "point", to: "jahody#far", on: "tamtie" }],
   "lucia-here-you-are": [{ do: "give", what: "basket", to: "anna", on: "páči" }],
+  "marek-anna-always-slovak": [{ do: "point", to: "jahody#far", on: "slovenské" }],
   "anna-lets-go-home": [{ do: "wave", on: "poďme" }],
 };
 
@@ -541,10 +541,20 @@ const market: ListeningChapter = {
 };
 
 const HOME_ACTS: Record<string, Cue[]> = {
+  // The key is in the bag by the window; Marek takes her to mean the one by them.
+  "anna-in-that-bag": [{ do: "point", to: "taska#far", on: "tej" }],
+  "marek-in-this-one": [{ do: "point", to: "taska#near", on: "tejto" }],
+  "anna-in-that-one-window": [
+    { do: "point", to: "taska#far", on: "tamtej" },
+    { do: "point", to: "okno", on: "okne" },
+  ],
   "marek-got-it-who-is-man": [
     { do: "take", what: "keys", on: "mám" },
     { do: "raise", what: "keys", on: "ho" },
+    { do: "point", to: "muz", on: "muž" },
   ],
+  "anna-neighbour-you-know-him": [{ do: "point", to: "muz", on: "muža" }],
+  "marek-with-that-woman": [{ do: "point", to: "zena", on: "ženou" }],
   "anna-dont-lose-these-keys": [{ do: "point", to: "keys", on: "kľúče" }],
   "marek-back-to-studio": [{ do: "pocket", what: "keys", on: "späť" }],
 };

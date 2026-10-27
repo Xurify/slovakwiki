@@ -15,7 +15,12 @@ import {
   lineWords,
   mentions,
 } from "$lib/stick-figure/slovak-text";
-import { thingBoxes, thingCenter, thingNamed } from "$lib/stick-figure/thing-words";
+import {
+  pointedThing,
+  thingBoxes,
+  thingCenter,
+  thingNamed,
+} from "$lib/stick-figure/thing-words";
 import { propForSentence } from "$lib/stick-figure/props";
 import {
   CueError,
@@ -917,6 +922,14 @@ export function checkCues(
             level: "error",
             ...at,
             message: `${who} points at ${cue.to} at height y=${Math.round(target.y)}, but a dog is knee-high (y~94). Aim down at the dog.`,
+          });
+        }
+        if (!target && !world.objects[cue.to] && !pointedThing(frame.things, cue.to)) {
+          findings.push({
+            rule: "point/nothing-there",
+            level: "error",
+            ...at,
+            message: `${who} points at "${cue.to}", which this place does not have: no one, no object or spot of its set, and no thing of its backdrop (twins by #near or #far).`,
           });
         }
       }

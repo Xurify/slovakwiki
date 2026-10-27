@@ -44,6 +44,7 @@
     isPlural,
     isProperName,
     litKey,
+    pointedThing,
     slotOf,
     thingBoxes,
     thingCenter,
@@ -526,8 +527,8 @@
     if (isCast(name) && LOOKS[name].dog) {
       return { x: castMiddle(name) + facingOf(name) * DOG_COLLAR.x, y: DOG_COLLAR.y };
     }
-    const thing = things.find((candidate) => candidate.id === name);
-    const box = thing && thingBoxes(thing)[0];
+    const pointed = pointedThing(things, name);
+    const box = pointed && thingBoxes(pointed.thing)[pointed.copy ?? 0];
     if (!box) return undefined;
     const centre = boxCenter(box);
     return { x: castX(centre.x), y: castY(centre.y) };
@@ -840,6 +841,15 @@
         const face = faceToward(who, cue.to);
         if (face) facings = { ...facings, [who]: face };
         return;
+      }
+      case "point": {
+        // Acted, a thing of the backdrop lights up and draws the others' eyes only on its cue, not on its word.
+        const pointed = cue.to ? pointedThing(things, cue.to) : undefined;
+        if (pointed) {
+          light(pointed.thing.id, pointed.copy);
+          lookAt({ kind: "thing", id: pointed.thing.id, copy: pointed.copy });
+        }
+        break;
       }
       case "throw":
         later(motion.takes ?? 0, () => throwBall(who, facingOf(who), heldAt));

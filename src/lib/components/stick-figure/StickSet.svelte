@@ -63,6 +63,8 @@
         const holder = "in" in state.where ? world.objects[state.where.in] : undefined;
         // Carrots in the pot are bits in the soup, drawn with it.
         if (state.kind === "carrot" && holder?.kind === "pot") return [];
+        // Inside an opaque bag or suitcase, items are hidden until taken out.
+        if (holder?.kind === "bag" || holder?.kind === "suitcase") return [];
         const at = objectBase(world, id, geometry);
         return at ? [{ id, state, at, depth: depthOf(id), sink: sinkOf(id) }] : [];
       })

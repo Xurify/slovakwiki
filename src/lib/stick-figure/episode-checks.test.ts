@@ -11,6 +11,7 @@ import { REST_POSE } from "./pose";
 import { solveRig } from "./rig";
 import { intoDeskMic } from "./set-pieces";
 import { stageFrame } from "./stage-frame";
+import { pointedThing } from "./thing-words";
 
 /** A finding's key in the baseline: episode, segment, line and rule. */
 function keyOf(slug: string, finding: Finding): string {
@@ -153,6 +154,36 @@ describe("cues against the set", () => {
       [{ who: "anna", do: "take", what: "apple" }],
     );
     expect(checkCues(slid.chapter, slid.lines, studio, frame, start)).toEqual([]);
+  });
+
+  it("finds twins by reach, whichever copy a place lists first", () => {
+    // At home the bag by the window comes first, as plain ten means it.
+    const home = PLACES.home.things;
+    expect(pointedThing(home, "taska")?.copy).toBeUndefined();
+    expect(pointedThing(home, "taska#far")?.copy).toBe(0);
+    expect(pointedThing(home, "taska#near")?.copy).toBe(1);
+    expect(pointedThing(PLACES.market.things, "syr#near")?.copy).toBe(0);
+  });
+
+  it("flags a point at what the place does not have", () => {
+    const market = PLACES.market.set!;
+    const frame = stageFrame(
+      ["anna", "marek", "lucia"],
+      {},
+      "market",
+      PLACES.market.things,
+      960,
+      480,
+    );
+    const pointing = (to: string) => segment("marek", [{ do: "point", to }]);
+    const ok = pointing("syr#far");
+    expect(checkCues(ok.chapter, ok.lines, market, frame)).toEqual([]);
+    for (const to of ["syr#1", "okno", "jahody#middle"]) {
+      const { chapter, lines } = pointing(to);
+      expect(rules(checkCues(chapter, lines, market, frame))).toEqual([
+        "error point/nothing-there",
+      ]);
+    }
   });
 
   it("flags a standing spot behind the end of the studio desk", () => {
