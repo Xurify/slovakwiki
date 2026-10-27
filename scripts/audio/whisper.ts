@@ -22,6 +22,23 @@ function pythonBin(): string {
   );
 }
 
+let available: Promise<boolean> | undefined;
+
+/** Whether this machine can run local whisper (Python with faster-whisper). */
+export function whisperAvailable(): Promise<boolean> {
+  const bin = pythonBin();
+  const args = [
+    ...(process.platform === "win32" && bin === "py" ? ["-3"] : []),
+    "-c",
+    "import faster_whisper",
+  ];
+  available ??= run(bin, args).then(
+    ({ code }) => code === 0,
+    () => false,
+  );
+  return available;
+}
+
 export async function transcribeWithWhisper(
   audioPath: string,
   options?: { model?: string },
