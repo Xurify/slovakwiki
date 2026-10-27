@@ -82,7 +82,7 @@ export const LOOKS: Readonly<Record<LessonCharacterId, Look>> = {
   },
   marek: {
     gait: 1.06,
-    crown: 8.7,
+    crown: 5.4,
     ear: true,
     nameClass: "text-slate-700",
     scarfClass: "fill-scene-clay",

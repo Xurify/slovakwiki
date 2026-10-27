@@ -123,9 +123,12 @@
     const u = Math.min(1, Math.abs(aside) / 2.6);
     const cy = 29.8;
     const ry = 5.7;
-    const near = { x: 16.2 + u, rx: 2.9 + 0.9 * u };
-    const far = { x: 47.8 + 0.2 * u, rx: 2.9 - 0.7 * u };
-    const top = look.crown + 3;
+    // Each cup's middle on the head's outline, so it hugs the ear; turned, the
+    // far one goes in behind the face. Out past the outline with the band sunk
+    // into the hair, they read as sliding off.
+    const near = { x: 18.4 + 1.6 * u, rx: 2.9 + 0.9 * u };
+    const far = { x: 45.6 - 1.4 * u, rx: 2.9 - 0.7 * u };
+    const top = look.crown + 1.2;
     const from = { x: near.x + 0.2, y: cy - ry + 0.6 };
     const to = { x: far.x - 0.2, y: cy - ry + 0.6 };
     const mid = { x: 31.8 - 0.3 * u, y: top };
