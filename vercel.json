@@ -7,6 +7,7 @@
       "feat/future-tense-story": true,
       "feat/migrate-legacy-listening-episodes": true,
       "feat/slovak-level-test": true,
+      "fix/legacy-games-after-story": true,
       "fix/stage-seek-and-robot-motion": true,
       "master": true
     }
