@@ -153,6 +153,11 @@ describe("things in view", () => {
     expect(ids(0, 0)).toHaveLength(cafe.length);
   });
 
+  it("shows every studio thing on a phone, so the hosts never name what is cut off", () => {
+    const studio = PLACES.studio.things;
+    expect(thingsInView(studio, "studio", 366, 183)).toHaveLength(studio.length);
+  });
+
   it("keeps both bags at home and Lucia's whole stall on a phone", () => {
     const at = (setting: "home" | "market") =>
       thingsInView(PLACES[setting].things, setting, 366, 240).map(({ id }) => id);

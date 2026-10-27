@@ -1,5 +1,6 @@
 import { markedText, type MarkedPart } from "$lib/learning/marked-text";
 import type { DialogueTurn, ListenerAsk, ListenerPath } from "$lib/learning/types";
+import type { Cue } from "$lib/stick-figure/acts";
 
 export { NO_PICK } from "$lib/listening/listener-path";
 
@@ -21,7 +22,8 @@ export { NO_PICK } from "$lib/listening/listener-path";
 
 /** A direction to the voice, not shown in the text. */
 export interface Direction {
-  readonly tag: "chuckles" | "pause" | "sighs";
+  readonly tag:
+    "chuckles" | "excited" | "happy" | "pause" | "sighs" | "surprised" | "yawns";
 }
 
 /** A beat of silence in the clip, where the speaker thinks or lets a clue sink in. */
@@ -30,6 +32,18 @@ export const PAUSE: Direction = { tag: "pause" };
 export const SIGH: Direction = { tag: "sighs" };
 /** A chuckle before the words: Anna keeping the cake's hiding place to herself. */
 export const CHUCKLE: Direction = { tag: "chuckles" };
+/** A yawn before the words: still half asleep. The stage acts each of these three out too. */
+export const YAWN: Direction = { tag: "yawns" };
+/**
+ * The feeling a line is said with, where the moment carries one: the steady
+ * voice of a host (Marek's settings) reads flat without it. Untried on Eleven
+ * v4 until each is heard back; say in the PR how each should sound.
+ */
+export const EXCITED: Direction = { tag: "excited" };
+/** Glad and warm: good news, a dish that tastes good. */
+export const HAPPY: Direction = { tag: "happy" };
+/** Caught off guard: the phone ringing, a hot spoon. */
+export const SURPRISED: Direction = { tag: "surprised" };
 /** Words trailing off in the text, a full stop in the clip; the beat comes from the PAUSE after it. */
 export const STOP = { said: ". ", shown: "… " } as const;
 /** The listener gets this long to decide before the answer comes. */
@@ -38,12 +52,18 @@ export const THINK_MS = 2000;
 export type Part = string | Exclude<MarkedPart, string> | Direction | typeof STOP;
 
 export interface LineOptions {
+  /** What the cast does on stage while it plays, on cue. */
+  act?: DialogueTurn["act"];
   /** A gesture per sentence on the stage, where the one read from the words is wrong. */
   gestures?: DialogueTurn["gestures"];
   /** What the speaker holds per sentence on the stage, where the words would pick wrong. */
   props?: DialogueTurn["props"];
   /** Who it is said to, when that is not who it replies to. */
   to?: string;
+  /** The phone rings or pings before the line; on a call the speaker answers. */
+  ring?: DialogueTurn["ring"];
+  /** Said at the far end of a call. */
+  overPhone?: boolean;
 }
 
 /** The lines of one episode, their ids under `prefix`. */
@@ -53,7 +73,7 @@ export function lineWriter(prefix: string) {
     speaker: string,
     parts: Part[],
     english: string,
-    { gestures, props, to }: LineOptions = {},
+    { act, gestures, overPhone, props, ring, to }: LineOptions = {},
   ): DialogueTurn {
     const marked = markedText(
       parts.flatMap((part): MarkedPart[] =>
@@ -85,9 +105,12 @@ export function lineWriter(prefix: string) {
       marks: marked.marks,
       english,
       ...(said !== marked.text ? { audio: { transcript: said } } : {}),
+      ...(act ? { act } : {}),
       ...(gestures ? { gestures } : {}),
       ...(props ? { props } : {}),
       ...(to ? { to } : {}),
+      ...(ring ? { ring } : {}),
+      ...(overPhone ? { overPhone } : {}),
     };
   };
 }
@@ -134,4 +157,25 @@ export function onPath(turn: DialogueTurn, when: ListenerPath): DialogueTurn {
 /** A guess at something not yet shown: none of the speaker's sentences brings a prop out. */
 export function guess(sentences: number): null[] {
   return Array.from({ length: sentences }, () => null);
+}
+
+/**
+ * A segment's lines with their stage directions: `acts` maps a line's id,
+ * without the episode's prefix, to what the cast does while it plays. The
+ * staging reads as its own script beside the dialogue. A key that names no
+ * line throws, so a renamed line cannot quietly lose its staging.
+ */
+export function staged(
+  prefix: string,
+  lines: DialogueTurn[],
+  acts: Record<string, Cue[]>,
+): DialogueTurn[] {
+  const ids = new Set(lines.map((turn) => turn.id));
+  for (const id of Object.keys(acts)) {
+    if (!ids.has(`${prefix}${id}`)) throw new Error(`Staging for "${id}": no such line`);
+  }
+  return lines.map((turn) => {
+    const act = acts[turn.id.slice(prefix.length)];
+    return act ? { ...turn, act } : turn;
+  });
 }

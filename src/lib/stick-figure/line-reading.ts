@@ -1,9 +1,12 @@
+import type { Cue } from "./acts";
 import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
 import { lineProps, propForSentence, type StickPropId } from "./props";
 import { foldLine, lineSentences, lineWords, mentions } from "./slovak-text";
 import { thingNamed, type SceneThing } from "./thing-words";
 
 export interface StageLine {
+  /** What the cast does while it plays, on cue (acts.ts). */
+  act?: readonly Cue[];
   /** Null when nobody on stage says it: a notice, the narrator. */
   characterId: LessonCharacterId | null;
   /** Per-sentence prop overrides, as on the lesson line; `undefined` reads the words. */
@@ -13,6 +16,10 @@ export interface StageLine {
   stays?: boolean;
   /** Who it is said to, when that is not the person it replies to. */
   to?: LessonCharacterId;
+  /** The phone rings or pings before the line; on a call the speaker answers. */
+  ring?: "call" | "message";
+  /** Said at the far end of a call, by someone not on stage. */
+  overPhone?: boolean;
 }
 
 /** A line as the direction reads it, once: its words, who it is said to, what passes hands. */

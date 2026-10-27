@@ -1,3 +1,4 @@
+import { WIDE, setUp, startWorld, worlds, type World } from "./acts";
 import { audioHash } from "$lib/catalog/audio/core";
 import { hasAudioClip } from "$lib/catalog/audio/manifest";
 import { resolveDictionaryAudioSrc } from "$lib/catalog/audio/resolve-server";
@@ -20,7 +21,7 @@ import {
   type LessonSceneArtId,
 } from "$lib/lesson-story/story-settings";
 import { RAIN_AND_TRAM, WEATHER_TODAY } from "./dev-scenes";
-import { PLACES } from "./places";
+import { PLACES, type PlaceSet } from "./places";
 import { dayTalks } from "./scene-day";
 import { directScene, type DirectedLine } from "./scene-direction";
 import { findAsker, findSayings } from "./scene-find";
@@ -40,6 +41,7 @@ export function sceneLines(turns: readonly DialogueTurn[]): SceneLine[] {
   const mouths = sceneMouthTracks([...turns]);
 
   return turns.map((turn) => ({
+    act: turn.act,
     characterId:
       dialogueSpeakerLabel(turn.speaker) === null
         ? null
@@ -50,7 +52,9 @@ export function sceneLines(turns: readonly DialogueTurn[]): SceneLine[] {
     learner: isLearnerSpeaker(turn.speaker),
     marks: turn.marks,
     mouth: mouths[turn.id]?.m,
+    overPhone: turn.overPhone,
     props: turn.props,
+    ring: turn.ring,
     said: turn.audio?.transcript,
     sayChoices: turn.sayChoices,
     slovak: turn.slovak,
@@ -108,10 +112,13 @@ export function podcastGroups(): SceneGroup[] {
 
 /** The part of a scene line the stage reads, so a page sends no more than it plays. */
 function directedLine({
+  act,
   characterId,
   gestures,
   mouth,
+  overPhone,
   props,
+  ring,
   said,
   slovak,
   src,
@@ -119,7 +126,21 @@ function directedLine({
   to,
   vowels,
 }: SceneLine): DirectedLine {
-  return { characterId, gestures, mouth, props, said, slovak, src, stays, to, vowels };
+  return {
+    act,
+    characterId,
+    gestures,
+    mouth,
+    overPhone,
+    props,
+    ring,
+    said,
+    slovak,
+    src,
+    stays,
+    to,
+    vowels,
+  };
 }
 
 /**
@@ -131,15 +152,38 @@ export function episodeStages(episode: ListeningEpisode): {
   thingWords: Record<string, { href?: string; src?: string }>;
 } {
   const order = episode.speakers.map(characterIdForSpeaker);
+  let said: string[] = [];
+  /** Each place's set as the last segment there left it: the soup still on the stove, the plant still yellow. */
+  const left = new Map<string, World>();
   const scenes = Object.fromEntries(
-    episode.chapters.map((chapter) => [
-      chapter.id,
-      {
-        lines: sceneLines(chapter.lines).map(directedLine),
-        order,
-        setting: chapter.stage ?? "studio",
-      },
-    ]),
+    episode.chapters.map((chapter, index) => {
+      const setting = chapter.stage ?? "studio";
+      const previous = episode.chapters[index - 1];
+      if ((previous?.stage ?? "studio") !== setting) said = [];
+      const before = said;
+      said = [...said, ...chapter.lines.map((line) => line.slovak)];
+      const lines = sceneLines(chapter.lines).map(directedLine);
+      const set = PLACES[setting].set;
+      // Each segment starts on a wide shot, whatever the last one ended on.
+      const opening = set
+        ? setUp(
+            { ...(left.get(setting) ?? startWorld(set.objects)), camera: WIDE },
+            chapter.setup,
+          )
+        : undefined;
+      const start = opening && PLACES[setting].desk ? atDesk(opening, lines) : opening;
+      if (set && start) left.set(setting, playedThrough(lines, set, start));
+      return [
+        chapter.id,
+        {
+          ...(index > 0 && before.length > 0 ? { before } : {}),
+          ...(start ? { world: start } : {}),
+          lines,
+          order,
+          setting,
+        },
+      ];
+    }),
   );
   const onStage = new Set(
     Object.values(scenes).flatMap(({ setting }) =>
@@ -151,6 +195,25 @@ export function episodeStages(episode: ListeningEpisode): {
   );
 
   return { scenes, thingWords };
+}
+
+/** Hosts the stage seats at the desk, being nowhere else, are seated in the world too, so a cue knows they sit. */
+function atDesk(world: World, lines: readonly DirectedLine[]): World {
+  const hosts = [...new Set(lines.map(({ characterId }) => characterId))].filter(
+    (id): id is LessonCharacterId => !!id && !world.spots[id] && !world.out?.includes(id),
+  );
+  const seated = [...new Set([...(world.seated ?? []), ...hosts])];
+  return seated.length ? { ...world, seated } : world;
+}
+
+/** The world once a segment's cues have played; a cue that cannot be played (the episode checks name it) leaves it as it was. */
+function playedThrough(lines: DirectedLine[], set: PlaceSet, start: World): World {
+  try {
+    return worlds(lines, set, start).at(-1) ?? start;
+  } catch (error) {
+    console.error(error);
+    return start;
+  }
 }
 
 function prototypeScene(
@@ -281,7 +344,9 @@ export function sceneThingWords(): Record<string, { href?: string; src?: string 
   for (const thing of Object.values(PLACES).flatMap((place) => place.things)) {
     if (thing.word in found) continue;
 
-    const entry = words.find((word) => word.slovak === thing.word && word.gender);
+    const entry = words.find(
+      (word) => word.slovak === (thing.lemma ?? thing.word) && word.gender,
+    );
     found[thing.word] = {
       href: entry ? dictionaryPathForLemmaId(entry.slug) : undefined,
       src: hasAudioClip(audioHash(thing.word))

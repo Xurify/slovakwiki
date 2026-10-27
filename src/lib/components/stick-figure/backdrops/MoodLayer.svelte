@@ -53,6 +53,13 @@
   <rect x="-10" y="-10" width="980" height="320" class="fill-scene-honey/20" />
 {:else if mood.time === "day" && mood.weather === "sunny"}
   <rect x="-10" y="-10" width="980" height="320" class="fill-scene-honey/10" />
+{:else if mood.time === "evening" && !outdoors}
+  <!-- Indoors the lights are on: the room only warms a little, and the dusk is out in the window. -->
+  <rect x="-10" y="-10" width="980" height="320" class="fill-scene-honey/8" />
+  {#if glass}
+    <path d={glassPath(glass)} fill="url(#{id}-dusk)" />
+    <path d={glassPath(glass)} class="fill-portrait-suit/25" />
+  {/if}
 {:else if mood.time === "evening"}
   <rect x="-10" y="-10" width="980" height="240" fill="url(#{id}-dusk)" />
   <rect x="-10" y="-10" width="980" height="320" class="fill-scene-clay/12" />
