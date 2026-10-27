@@ -5,6 +5,7 @@
       "**": false,
       "feat/dog-robot-story": true,
       "feat/future-tense-story": true,
+      "feat/migrate-legacy-listening-episodes": true,
       "feat/slovak-level-test": true,
       "fix/stage-seek-and-robot-motion": true,
       "master": true

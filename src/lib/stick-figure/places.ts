@@ -76,9 +76,10 @@ export interface Place {
   /**
    * What the cast works at and with, for scenes acted from cues: the
    * surfaces at the cast's scale, every object with where it starts, and
-   * the spots people stand at.
+   * the spots people stand at. Every place has one, so a segment anywhere
+   * can bring what it acts with in its setup.
    */
-  set?: PlaceSet;
+  set: PlaceSet;
 }
 
 export type PlaceSet = Omit<SetPlan, "pieces"> & { pieces: readonly SetPiece[] };
@@ -245,7 +246,7 @@ const HOME_SET: PlaceSet = {
 /** The park's afternoon sun, which a line can point at and Find it can ask for. */
 const PARK_SUN = { x: 562, y: 36 };
 
-/** An empty set for places whose set has no static pieces of its own: a scene brings what it acts with (setup). */
+/** A place with no pieces of its own: a scene brings what it acts with in its setup. */
 const EMPTY_SET: PlaceSet = {
   pieces: [],
   objects: [],
@@ -297,6 +298,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       { kind: "chair", x: 200, facing: 1, desk: true },
       { kind: "chair", x: 330, facing: 1, desk: true },
     ],
+    set: EMPTY_SET,
   },
   default: {
     ground: "soil",
@@ -498,6 +500,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       drawn(WORDS.oblak, [382, 19, 76, 31], [733, 40, 54, 22]),
     ],
     sounds: ["murmur"],
+    set: EMPTY_SET,
   },
   studio: {
     ground: "carpet",

@@ -536,7 +536,10 @@ const tramStop: ListeningChapter = {
 };
 
 const CAFE_ACTS: Record<string, Cue[]> = {
-  "waiter-here-two-coffees": [{ do: "raise", what: "cup", on: "páči" }],
+  "waiter-here-two-coffees": [
+    { do: "raise", what: "anna-cup", on: "páči" },
+    { do: "raise", what: "marek-cup", on: "kávy" },
+  ],
   "anna-when-do-you-close": [{ do: "nod", on: "ďakujeme" }],
 };
 
@@ -547,7 +550,16 @@ const cafe: ListeningChapter = {
   title: "At the café: at three, or in three hours?",
   setup: {
     objects: [
-      { id: "cup", kind: "cup", start: { where: { hand: "waiter", side: "lead" } } },
+      {
+        id: "anna-cup",
+        kind: "cup",
+        start: { where: { hand: "waiter", side: "lead" } },
+      },
+      {
+        id: "marek-cup",
+        kind: "cup",
+        start: { where: { hand: "waiter", side: "rear" } },
+      },
     ],
   },
   lines: staged(

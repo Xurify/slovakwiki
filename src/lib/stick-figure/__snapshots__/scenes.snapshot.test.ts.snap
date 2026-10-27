@@ -13303,6 +13303,25 @@ exports[`every scene, directed > podcast podcast-possessives-photos 1`] = `
       },
     },
     {
+      "line": "anna: Pekné fotky. Ale ten dáždnik nie je ich.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "2000 tell",
+        ],
+        "ms": 4000,
+        "sentences": "50-934 2000-3800",
+        "words": "50-513 513-934 2000-2369 2369-2604 2604-3152 3152-3398 3398-3599 3599-3800",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
       "line": "marek: Nie. Možno je zo školy. Poďme do jazykovej školy!",
       "plan": {
         "beats": [

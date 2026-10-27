@@ -167,7 +167,7 @@ export function checkEpisode(episode: ListeningEpisode): Finding[] {
     const direction = directScene(scene.lines, setting, scene.order);
     const stagings = direction.lines.map((line) => line.staging);
     const speakers = scene.lines.map((line) => line.characterId);
-    const set = PLACES[setting].set ?? { pieces: [], objects: [] };
+    const set = PLACES[setting].set;
     const entrances = {
       ...walkOns(stagings),
       ...cueEntrances(scene.lines, set),

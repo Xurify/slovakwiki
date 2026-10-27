@@ -162,6 +162,8 @@ const PHOTOS_ACTS: Record<string, Cue[]> = {
   ],
   "anna-show-me": [{ do: "nod", on: "ukáž" }],
   "marek-parents-house": [{ do: "pocket", what: "phone", on: "lese" }],
+  "anna-umbrella-not-theirs": [{ do: "point", to: "umbrella", on: "dáždnik" }],
+  "marek-maybe-school": [{ do: "take", what: "umbrella", on: "školy" }],
 };
 
 const photos: ListeningChapter = {
@@ -301,6 +303,12 @@ const photos: ListeningChapter = {
         "Her daughter is sweet. How old is she?",
       ),
       line("marek-five-years", "Marek", ["Má päť rokov."], "She's five."),
+      line(
+        "anna-umbrella-not-theirs",
+        "Anna",
+        ["Pekné fotky. ", PAUSE, "Ale ten dáždnik nie je ", mark("ich"), "."],
+        "Nice photos. But that umbrella is not theirs.",
+      ),
       line(
         "marek-maybe-school",
         "Marek",
@@ -582,7 +590,10 @@ const school: ListeningChapter = {
 
 const SQUARE_ACTS: Record<string, Cue[]> = {
   "marek-blue-umbrella": [{ do: "raise", what: "umbrella", on: "modrý" }],
-  "lucia-mine": [{ do: "nod", on: "môj" }],
+  "lucia-mine": [
+    { who: "marek", do: "give", what: "umbrella", to: "lucia", on: "môj" },
+    { do: "nod", on: "ďakujem" },
+  ],
   "marek-in-my-bag": [
     { do: "take", what: "keys", on: "tu" },
     { do: "raise", what: "keys", on: "sú" },
@@ -788,6 +799,8 @@ const quiz: ListeningChapter = {
   id: `${PREFIX}quiz`,
   titleSk: "Správne alebo nesprávne?",
   title: "Right or wrong? Marek takes the test",
+  // Each place keeps its own set, so the studio still has the umbrella Marek gave back on the square.
+  setup: { state: { umbrella: { where: { pocket: "lucia" } } } },
   lines: staged(
     PREFIX,
     [
@@ -1030,10 +1043,10 @@ const quiz: ListeningChapter = {
 
 const OUTRO_ACTS: Record<string, Cue[]> = {
   "marek-here-take-mine": [
-    { do: "take", what: "umbrella", on: "páči" },
-    { do: "raise", what: "umbrella", on: "môj" },
+    { do: "take", what: "marek-umbrella", on: "páči" },
+    { do: "raise", what: "marek-umbrella", on: "môj" },
   ],
-  "anna-yours-is-small": [{ do: "point", to: "umbrella", on: "malý" }],
+  "anna-yours-is-small": [{ do: "point", to: "marek-umbrella", on: "malý" }],
 };
 
 const outro: ListeningChapter = {
@@ -1041,8 +1054,13 @@ const outro: ListeningChapter = {
   titleSk: "Záver",
   title: "It's raining",
   setup: {
+    // A small folding one, from his pocket: "Tvoj dáždnik je naozaj malý."
     objects: [
-      { id: "umbrella", kind: "umbrella", start: { where: { on: "desk", dx: 30 } } },
+      {
+        id: "marek-umbrella",
+        kind: "umbrella",
+        start: { where: { pocket: "marek" } },
+      },
     ],
   },
   lines: staged(
