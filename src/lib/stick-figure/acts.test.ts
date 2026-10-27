@@ -72,6 +72,28 @@ describe("the world the cues leave", () => {
       ),
     ).toThrow(CueError);
   });
+
+  it("slides only what stands on a surface, and only along it", () => {
+    const studio = PLACES.studio.set;
+    const start = setUp(startWorld(studio.objects), {
+      objects: [{ id: "bag", kind: "bag", start: { where: { on: "desk", dx: 30 } } }],
+    });
+    const slid = applyCue(
+      start,
+      "marek",
+      { do: "slide", what: "bag", to: "desk", dx: -20 },
+      studio,
+    );
+    expect(slid.objects.bag.where).toEqual({ on: "desk", dx: -20 });
+
+    const held = applyCue(start, "marek", { do: "take", what: "bag" }, studio);
+    expect(() =>
+      applyCue(held, "marek", { do: "slide", what: "bag", to: "desk", dx: -20 }, studio),
+    ).toThrow(CueError);
+    expect(() =>
+      applyCue(start, "marek", { do: "slide", what: "bag", to: "corner" }, studio),
+    ).toThrow(CueError);
+  });
 });
 
 describe("cooking with the kitchen's set", () => {

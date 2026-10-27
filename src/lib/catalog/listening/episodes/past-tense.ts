@@ -903,10 +903,12 @@ const whodunit: ListeningChapter = {
 const CLOSED_ACTS: Record<string, Cue[]> = {
   "anna-give-me-your-bag": [{ do: "point", to: "bag", on: "taška" }],
   "marek-here-is-the-bag": [
-    { do: "take", what: "bag", on: "páči" },
-    { do: "put", what: "bag", to: "desk", dx: 15, on: "páči" },
+    { do: "slide", what: "bag", to: "desk", dx: -20, on: "páči" },
   ],
-  "anna-crumbs-in-the-bag": [{ do: "point", to: "bag", on: "omrvinky" }],
+  "anna-crumbs-in-the-bag": [
+    { do: "take", what: "bag", on: "start" },
+    { do: "raise", what: "bag", on: "omrvinky" },
+  ],
   "marek-maybe-i-ate-it": [{ do: "shrug", on: "možno" }],
 };
 

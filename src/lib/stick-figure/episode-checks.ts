@@ -967,6 +967,7 @@ function workedOn(
   };
   switch (cue.do) {
     case "take":
+    case "slide":
       return base(world, cue.what);
     case "put":
       return base(after, cue.what);

@@ -1044,9 +1044,13 @@ const quiz: ListeningChapter = {
 const OUTRO_ACTS: Record<string, Cue[]> = {
   "marek-here-take-mine": [
     { do: "take", what: "marek-umbrella", on: "páči" },
-    { do: "raise", what: "marek-umbrella", on: "môj" },
+    { do: "put", what: "marek-umbrella", to: "desk", dx: 31, on: "máš" },
+    { do: "slide", what: "marek-umbrella", to: "desk", dx: -20 },
   ],
-  "anna-yours-is-small": [{ do: "point", to: "marek-umbrella", on: "malý" }],
+  "anna-yours-is-small": [
+    { do: "take", what: "marek-umbrella", on: "ďakujem" },
+    { do: "raise", what: "marek-umbrella", on: "malý" },
+  ],
 };
 
 const outro: ListeningChapter = {

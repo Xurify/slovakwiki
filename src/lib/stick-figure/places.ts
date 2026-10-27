@@ -243,6 +243,35 @@ const HOME_SET: PlaceSet = {
   },
 };
 
+/**
+ * The café counter in the backdrop stands far behind the cast, its top
+ * above their heads: the waiter fetches from the back, past the stage's
+ * right edge, where a shelf at the hip holds what he brings out. His place
+ * at the counter's end is where a cast of three has him.
+ */
+const CAFE_SET: PlaceSet = {
+  pieces: [{ id: "back", kind: "ledge", x: 1050, width: 30, height: 44 }],
+  objects: [],
+  spots: {
+    back: { piece: "back", dx: -16, facing: 1 },
+    waiter: { x: 767, facing: -1 },
+  },
+};
+
+/**
+ * The stall on the right, Lucia at its end. Whoever buys next steps up
+ * beside her, where a cast of three has the one next to her, and the one
+ * done stands back a step left of the other.
+ */
+const MARKET_SET: PlaceSet = {
+  pieces: [],
+  objects: [],
+  spots: {
+    stall: { x: 660, facing: 1 },
+    aside: { x: 530, facing: 1 },
+  },
+};
+
 /** The park's afternoon sun, which a line can point at and Find it can ask for. */
 const PARK_SUN = { x: 562, y: 36 };
 
@@ -275,7 +304,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     staff: ["waiter"],
     post: 690,
     glass: { arch: true, height: 166, width: 156, x: 110, y: 34 },
-    set: EMPTY_SET,
+    set: CAFE_SET,
   },
   classroom: {
     ground: "wood",
@@ -430,7 +459,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     // Lucia sells at the market in the podcast, from the stall on the right.
     staff: ["lucia"],
     post: 660,
-    set: EMPTY_SET,
+    set: MARKET_SET,
   },
   plaza: {
     ground: "stone",

@@ -33,7 +33,14 @@ export type Target =
    * it, or its base), a place or piece of the set (its surface), a person,
    * or a thing of the backdrop. `dx` and `dy` move it, in rig units.
    */
-  | { to: string; as?: "grip" | "top" | "base"; dx?: number; dy?: number }
+  | {
+      to: string;
+      as?: "grip" | "top" | "base";
+      dx?: number;
+      dy?: number;
+      /** Where it was when the cue began: the hand stays with what it pushes off, not with where it ends up. */
+      was?: boolean;
+    }
   /** At the lips: `dx` further out in front of them, `dy` lower. */
   | { mouth: true; dx?: number; dy?: number }
   /** Halfway to the other person, at chest height: where two hands meet to hand something over. */
@@ -133,6 +140,8 @@ export interface Motion {
   takes?: number;
   sounds?: Array<{ at: number; id: FoleyId }>;
   effects?: Effect[];
+  /** Over how long what the cue moves comes to rest, from `takes`: pushed across a desk, it glides on out of the hand. */
+  glide?: number;
   /**
    * Holds its last key after it ends: `true` until the person's next cue
    * (a spoon held out until it is taken), `"line"` until the line is over
@@ -290,6 +299,18 @@ export function motionFor(
           ),
         },
       };
+    case "slide": {
+      const from = object?.where;
+      let there: ReturnType<typeof putDown> | undefined;
+      try {
+        there = putDown(plan, world, cue);
+      } catch {
+        there = undefined;
+      }
+      const distance =
+        from && "on" in from && there && "on" in there ? Math.abs(there.dx - from.dx) : 0;
+      return { motion: slideMotion(what, free, distance, object?.kind) };
+    }
     case "put": {
       const where = { landing: true } as const;
       const sink = heavy && plan ? sinkAt(plan, putDown(plan, world, cue)) : undefined;
@@ -1618,6 +1639,42 @@ function offHeadMotion(): Motion {
   };
 }
 
+/** How long something pushed across a desk takes to come to rest. */
+export const GLIDE_MS = 800;
+/** How far the hand goes with what it pushes before it lets go: the rest of the way it glides. */
+const PUSH = 12;
+
+/**
+ * A push along the surface something stands on, to someone too far off to
+ * hand it to: seated hosts at the studio desk sit with their mics between
+ * them. The hand comes down on it, shoves it on a hand's length and lets go,
+ * and it glides on to its new place.
+ */
+function slideMotion(
+  what: string,
+  hand: Hand,
+  distance: number,
+  kind?: ObjectKind,
+): Motion {
+  const on: Target = { to: what, was: true };
+  const shoved: Target = { ...on, dx: Math.min(distance, PUSH) };
+  return {
+    ms: 1300,
+    face: what,
+    takes: REACHED + 100,
+    glide: GLIDE_MS,
+    sounds: [{ at: REACHED + 80, id: soundOf(kind) }],
+    keys: [
+      { at: 0 },
+      { at: REACHED, ...hands(hand, { ...on, dy: -3 }), body: { lean: 3 } },
+      { at: REACHED + 100, ...hands(hand, on), body: { lean: 3 } },
+      { at: REACHED + 400, ...hands(hand, shoved), body: { lean: 6 } },
+      { at: REACHED + 600, ...hands(hand, shoved), body: { lean: 5 } },
+      { at: 1300 },
+    ],
+  };
+}
+
 /** One half of a hand-over: out to where the two hands meet, a beat there, and back. */
 function handOverMotion(hand: Hand, to: LessonCharacterId, kind?: ObjectKind): Motion {
   // A knife goes across blade down, the way it is handed safely: held out level, the blade hid behind the two fists and it read as a handshake.
@@ -1645,6 +1702,8 @@ export interface Surroundings {
   pointOf(name: string, as?: "grip" | "top" | "base"): Point | undefined;
   /** Halfway to `who`, at chest height. */
   meetWith(who: LessonCharacterId): Point | undefined;
+  /** A named point as it was when the cue began, if it has moved since: `pointOf` otherwise. */
+  pointBefore?(name: string, as?: "grip" | "top" | "base"): Point | undefined;
   /** Where what is being put down will be held once it is there. */
   landing?(): Point | undefined;
   /**
@@ -1711,7 +1770,10 @@ export function targetPoint(
       y: shoulder.y + ((at.y - shoulder.y) / length) * 28,
     };
   }
-  const at = around.pointOf(target.to, target.as ?? "grip");
+  const as = target.as ?? "grip";
+  const at =
+    (target.was ? around.pointBefore?.(target.to, as) : undefined) ??
+    around.pointOf(target.to, as);
   return at ? { x: at.x + (target.dx ?? 0), y: at.y + (target.dy ?? 0) } : rest;
 }
 

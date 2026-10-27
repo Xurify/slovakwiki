@@ -126,6 +126,35 @@ describe("cues against the set", () => {
     expect(checkCues(apart.chapter, apart.lines, KITCHEN, FRAME)).toEqual([]);
   });
 
+  it("passes a thing across the studio desk by sliding it, out of reach of a hand-over", () => {
+    const studio = PLACES.studio.set!;
+    const frame = stageFrame(["anna", "marek"], {}, "studio", [], 960, 480);
+    const start = {
+      ...startWorld(studio.objects),
+      objects: {
+        ...startWorld(studio.objects).objects,
+        apple: {
+          kind: "apple" as const,
+          where: { hand: "marek" as const, side: "lead" as const },
+        },
+      },
+    };
+    const handed = segment("marek", [{ do: "give", what: "apple", to: "anna" }]);
+    // The hosts sit with their mics between them: the arms meet short of each other.
+    expect(
+      rules(checkCues(handed.chapter, handed.lines, studio, frame, start)),
+    ).toContain("error contact/miss");
+    const slid = segment(
+      "marek",
+      [
+        { do: "put", what: "apple", to: "desk", dx: 31 },
+        { do: "slide", what: "apple", to: "desk", dx: -20 },
+      ],
+      [{ who: "anna", do: "take", what: "apple" }],
+    );
+    expect(checkCues(slid.chapter, slid.lines, studio, frame, start)).toEqual([]);
+  });
+
   it("flags a standing spot behind the end of the studio desk", () => {
     const studio = PLACES.studio.set!;
     const frame = stageFrame(["anna", "marek"], {}, "studio", [], 960, 480);

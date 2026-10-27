@@ -375,6 +375,8 @@
   let pouring = $state<
     Partial<Record<LessonCharacterId, Partial<Record<Hand, Pick<Effect, "kind" | "to">>>>>
   >({});
+  /** What glides along the surface it was pushed on, and over how long: a bag slid across the desk. */
+  let gliding = $state<Record<string, number>>({});
   /** What each hand's tool is down in: a spoon in the pot, hidden under its rim. */
   let sunk = $state<Partial<Record<LessonCharacterId, Partial<Record<Hand, string>>>>>(
     {},
@@ -538,6 +540,10 @@
         const at =
           castPoint(name, as, facingOf(id)) ??
           (item && castPoint(name, as, facingOf(id), item.before));
+        return at && toRig(id, at);
+      },
+      pointBefore: (name, as = "grip") => {
+        const at = item && castPoint(name, as, facingOf(id), item.before);
         return at && toRig(id, at);
       },
       meetWith: (other) => {
@@ -838,6 +844,15 @@
       case "throw":
         later(motion.takes ?? 0, () => throwBall(who, facingOf(who), heldAt));
         break;
+      case "slide": {
+        const what = cue.what ?? "";
+        gliding = { ...gliding, [what]: motion.glide ?? 0 };
+        later((motion.takes ?? 0) + (motion.glide ?? 0) + 50, () => {
+          const { [what]: _, ...rest } = gliding;
+          gliding = rest;
+        });
+        break;
+      }
       case "skip":
         dimmed = true;
         later(motion.ms, () => {
@@ -1045,6 +1060,7 @@
     busy = {};
     actsEnd = 0;
     running = [];
+    gliding = {};
     pouring = {};
     sunk = {};
     dimmed = false;
@@ -2085,7 +2101,14 @@
       <!-- Unmeasured, the server's render and the first frame would draw the cast tiny in a corner. -->
       {#if measured}
         {#if set && world}
-          <StickSet {geometry} layer="behind" {running} view={castView} {world} />
+          <StickSet
+            {geometry}
+            {gliding}
+            layer="behind"
+            {running}
+            view={castView}
+            {world}
+          />
         {/if}
         {#each PLACES[setting].furniture ?? [] as piece, index (index)}
           {@const chair = (PLACES[setting].furniture ?? [])
@@ -2190,7 +2213,14 @@
             />
           {/if}
           {#if set && world}
-            <StickSet {geometry} layer="front" {running} view={castView} {world} />
+            <StickSet
+              {geometry}
+              {gliding}
+              layer="front"
+              {running}
+              view={castView}
+              {world}
+            />
           {/if}
         </div>
       {/if}

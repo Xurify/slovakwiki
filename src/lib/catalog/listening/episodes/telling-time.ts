@@ -536,11 +536,22 @@ const tramStop: ListeningChapter = {
 };
 
 const CAFE_ACTS: Record<string, Cue[]> = {
-  "waiter-here-two-coffees": [
-    { do: "raise", what: "anna-cup", on: "páči" },
-    { do: "raise", what: "marek-cup", on: "kávy" },
+  // He fetches the coffees from the back, past the stage's edge, while they talk.
+  "waiter-right-away": [
+    { do: "go", to: "back", on: "end" },
+    { do: "take", what: "anna-cup" },
+    { do: "take", what: "marek-cup" },
   ],
-  "anna-when-do-you-close": [{ do: "nod", on: "ďakujeme" }],
+  "marek-at-three-around-two": [{ who: "waiter", do: "go", to: "waiter", on: "start" }],
+  // Both to Marek, beside him: Anna is past Marek, out of his reach.
+  "waiter-here-two-coffees": [
+    { do: "give", what: "marek-cup", to: "marek", on: "páči" },
+    { do: "give", what: "anna-cup", to: "marek", on: "kávy" },
+  ],
+  "anna-when-do-you-close": [
+    { who: "marek", do: "give", what: "anna-cup", to: "anna", on: "start" },
+    { do: "nod", on: "ďakujeme" },
+  ],
 };
 
 const cafe: ListeningChapter = {
@@ -553,12 +564,12 @@ const cafe: ListeningChapter = {
       {
         id: "anna-cup",
         kind: "cup",
-        start: { where: { hand: "waiter", side: "lead" } },
+        start: { where: { on: "back", dx: -6 }, fill: "coffee" },
       },
       {
         id: "marek-cup",
         kind: "cup",
-        start: { where: { hand: "waiter", side: "rear" } },
+        start: { where: { on: "back", dx: 6 }, fill: "coffee" },
       },
     ],
   },

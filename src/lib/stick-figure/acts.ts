@@ -29,6 +29,7 @@ export const VERBS = [
   "take",
   "give",
   "put",
+  "slide",
   "pocket",
   "offer",
   "raise",
@@ -94,13 +95,14 @@ export interface Cue {
    * ("place-l"), a piece ("counter"), an object ("pot"), a person, a thing
    * of the backdrop to look at ("clock"), or for the camera "wide". For
    * `switch`, "on" or "off"; for `chop`, "small" for fine pieces; for
-   * `leave`, the edge walked off by, "left" or "right"; for `leash`, the dog.
+   * `leave`, the edge walked off by, "left" or "right"; for `leash`, the dog;
+   * for `slide`, the piece it is pushed along, to `dx`.
    */
   to?: LessonCharacterId | (string & {});
   /** What it comes out of: the pot a ladle is filled from; for `enter` where there is no door, the edge spot they walk on from. */
   from?: string;
   on?: CueAnchor;
-  /** Rig units along a piece, for `put` straight onto one. */
+  /** Rig units along a piece, for `put` straight onto one or `slide` along it. */
   dx?: number;
   /** The camera's zoom on `to`: 1 is the whole stage. */
   zoom?: number;
@@ -492,6 +494,22 @@ export function applyCue(
       if (!what || !to) throw new CueError(`${who} put: what, and where?`);
       holds(world, who, cue);
       return setObject(world, what, { where: putDown(plan, world, cue), call: false });
+    }
+    case "slide": {
+      // Pushed along the surface it stands on, to someone too far off to hand it to across a desk.
+      const where = object?.where;
+      if (!where || !("on" in where)) {
+        throw new CueError(
+          `${who} slide ${what}: put it down first, it slides along a surface`,
+        );
+      }
+      const there = putDown(plan, world, cue);
+      if (!("on" in there) || there.on !== where.on) {
+        throw new CueError(
+          `${who} slide ${what}: along the ${where.on} it stands on, not onto another`,
+        );
+      }
+      return setObject(world, what!, { where: there });
     }
     case "pocket":
       holds(world, who, cue);

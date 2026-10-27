@@ -551,16 +551,19 @@
       stroke-width="0.6"
     />
   {:else if kind === "umbrella"}
-    <path d="M0 0V-18" stroke-width="1.6" class="stroke-scene-edge" />
-    <path
-      d="M0 0Q0 3 -2.5 3Q-5 3 -5 0.5"
-      fill="none"
-      stroke-width="1.4"
-      class="stroke-scene-wood"
-    />
-    <path d="M-1.5 -18L0 -21L1.5 -18Z" class="fill-scene-edge" />
-    <path d="M-3 -18L-1.5 -3L1.5 -3L3 -18Z" class="fill-scene-sky" />
-    <path d="M-3 -11H3" class="stroke-scene-line" stroke-width="0.8" />
+    <!-- Put down, a folded umbrella lies on its side, the crook up: stood on end, the crook went through the desk. -->
+    <g transform={flat ? "translate(-9 -3.2) rotate(90)" : undefined}>
+      <path d="M0 0V-18" stroke-width="1.6" class="stroke-scene-edge" />
+      <path
+        d="M0 0Q0 3 -2.5 3Q-5 3 -5 0.5"
+        fill="none"
+        stroke-width="1.4"
+        class="stroke-scene-wood"
+      />
+      <path d="M-1.5 -18L0 -21L1.5 -18Z" class="fill-scene-edge" />
+      <path d="M-3 -18L-1.5 -3L1.5 -3L3 -18Z" class="fill-scene-sky" />
+      <path d="M-3 -11H3" class="stroke-scene-line" stroke-width="0.8" />
+    </g>
   {/if}
   {#each on as { dx, dy, ...look }, index (index)}
     <g transform="translate({dx} {dy})">

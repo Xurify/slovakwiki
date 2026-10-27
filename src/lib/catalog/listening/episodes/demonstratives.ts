@@ -107,7 +107,7 @@ const BAG_ACTS: Record<string, Cue[]> = {
   "anna-its-a-key": [{ do: "point", to: "key", on: "kľúč" }],
   "marek-car-key": [
     { do: "nod", on: "správne" },
-    { do: "put", what: "key", to: "desk", dx: 22, on: "auta" },
+    { do: "put", what: "key", to: "bag", on: "auta" },
   ],
   "marek-heavy-paper": [
     { do: "take", what: "book", on: "žlté" },
@@ -116,7 +116,7 @@ const BAG_ACTS: Record<string, Cue[]> = {
   "anna-is-it-a-book": [{ do: "point", to: "book", on: "kniha" }],
   "marek-dictionary": [
     { do: "nod", on: "presne" },
-    { do: "put", what: "book", to: "desk", dx: 44, on: "slovník" },
+    { do: "put", what: "book", to: "bag", on: "slovník" },
   ],
   "marek-green-sweet": [
     { do: "take", what: "apple", on: "zelené" },
@@ -129,9 +129,14 @@ const BAG_ACTS: Record<string, Cue[]> = {
   "anna-apple": [{ do: "point", to: "apple", on: "jablko" }],
   "marek-apple-for-you": [
     { do: "raise", what: "apple", on: "výborne" },
-    { do: "put", what: "apple", to: "desk", dx: 33, on: "teba" },
+    { do: "put", what: "apple", to: "desk", dx: 31, on: "jablko" },
+    { do: "slide", what: "apple", to: "desk", dx: -20, on: "teba" },
   ],
-  "anna-hungry": [{ do: "nod", on: "ďakujem" }],
+  "anna-hungry": [
+    { do: "take", what: "apple", on: "ďakujem" },
+    { do: "taste", what: "apple", on: "hlad" },
+    { do: "put", what: "apple", to: "desk", dx: -26, on: "after" },
+  ],
 };
 
 const bag: ListeningChapter = {
@@ -362,7 +367,12 @@ const bag: ListeningChapter = {
 };
 
 const MARKET_ACTS: Record<string, Cue[]> = {
-  "lucia-here-you-are": [{ do: "raise", what: "basket", on: "páči" }],
+  // Marek has his cheese and stands back; Anna steps up to the stall.
+  "anna-want-these-strawberries": [
+    { who: "marek", do: "go", to: "aside", on: "start" },
+    { do: "go", to: "stall" },
+  ],
+  "lucia-here-you-are": [{ do: "give", what: "basket", to: "anna", on: "páči" }],
   "anna-lets-go-home": [{ do: "wave", on: "poďme" }],
 };
 
