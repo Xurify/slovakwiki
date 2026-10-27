@@ -123,7 +123,7 @@ What went wrong, why, and where the fix lives now. The left column is what to lo
 
 **Process**
 
-- Vercel's free plan builds 100 previews a day. A stack of six PRs, each rebased and pushed several times, ran out on 2026-10-22. Ship an episode as one PR and push in batches.
+- Vercel's free plan allows 100 deployments a day for the whole account. It ran out on 2026-10-22 (six stacked PRs, each rebased and pushed several times) and on 2026-10-26 (about 117 pushes in a day across parallel threads). Ship an episode as one PR, list its branch in `vercel.json` → `git.deploymentEnabled` for a preview, push in batches, and keep helper branches local. See AGENTS.md → Pull requests.
 - `static/audio/` is gitignored and survives branch switches. Generate and upload from the episode's branch only.
 - `prune-orphans.ts --delete` clears a branch's discarded takes. Before #79 it also dropped manifest entries for other branches' uploaded clips: check the manifest diff removes only your own hashes.
 - A cloud session linked to someone's computer has a narrower network and cannot reach R2, whatever the environment allows. Upload from a session that is not linked.

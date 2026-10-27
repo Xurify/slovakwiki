@@ -1,3 +1,13 @@
 {
-  "ignoreCommand": "node scripts/vercel-ignore-preview.mjs"
+  "ignoreCommand": "node scripts/vercel-ignore-preview.mjs",
+  "git": {
+    "deploymentEnabled": {
+      "**": false,
+      "feat/dog-robot-story": true,
+      "feat/future-tense-story": true,
+      "feat/slovak-level-test": true,
+      "feat/stage-actions": true,
+      "master": true
+    }
+  }
 }
