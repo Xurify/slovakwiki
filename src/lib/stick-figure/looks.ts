@@ -25,6 +25,11 @@ export interface Look {
    * and the one on the chest.
    */
   robot?: { chest: string; eyes: string; light: string; smile: string };
+  /**
+   * Four legs and a tail instead of the rig: the coat, the ears and patch in
+   * `patch`, and the collar. The head is still StickHead's, mouth and all.
+   */
+  dog?: { coat: string; collar: string; patch: string };
   /** Wrapped round the neck in the snow, in a colour that stands off the outfit. */
   scarfClass?: string;
   shoes?: Shoes;
@@ -60,6 +65,16 @@ export const LOOKS: Readonly<Record<LessonCharacterId, Look>> = {
       eyes: "fill-emerald-300",
       light: "fill-scene-green-mid",
       smile: "stroke-emerald-300",
+    },
+  },
+  // Marek's dog: a tan mutt with brown ears and a red collar, small beside the cast.
+  dog: {
+    crown: 14,
+    nameClass: "text-amber-800",
+    dog: {
+      coat: "fill-scene-wood",
+      collar: "stroke-scene-red",
+      patch: "fill-scene-potato",
     },
   },
   guide: {
@@ -114,6 +129,17 @@ export const LOOKS: Readonly<Record<LessonCharacterId, Look>> = {
     nameClass: "text-blue-700",
     scarfClass: "fill-scene-honey",
     sleeve: { class: "stroke-scene-blue", reach: 1.85 },
+  },
+  // Marek's home robot: the guide's chassis in honey, so it is not mistaken for the guide.
+  robot: {
+    crown: 6.3,
+    nameClass: "text-amber-800",
+    robot: {
+      chest: "fill-scene-carrot",
+      eyes: "fill-amber-300",
+      light: "fill-scene-carrot",
+      smile: "stroke-amber-300",
+    },
   },
   waiter: {
     crown: 8.6,

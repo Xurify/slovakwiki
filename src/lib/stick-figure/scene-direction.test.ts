@@ -135,6 +135,32 @@ describe("handing things over", () => {
     expect(direction.lines[2].held).toEqual({ anna: "basket" });
   });
 
+  it("lets whoever walks on carry in what their hello brings out", () => {
+    const direction = directScene(
+      [
+        { characterId: "robot", slovak: "Dnes príde. Uvidíš." },
+        { characterId: "marek", props: ["suitcase"], slovak: "Dobrý večer!" },
+      ],
+      "home",
+    );
+
+    expect(direction.lines[0].staging.enter?.characterId).toBe("marek");
+    expect(direction.lines[0].held).toEqual({ marek: "suitcase" });
+  });
+
+  it("brings a called dog over past whoever stands between", () => {
+    const direction = directScene(
+      [
+        { characterId: "dog", slovak: "Haf!" },
+        { characterId: "robot", slovak: "Ja viem." },
+        { characterId: "marek", slovak: "Dunčo! Poď sem!", to: "dog" },
+      ],
+      "home",
+    );
+
+    expect(direction.lines[2].staging.approach?.characterId).toBe("dog");
+  });
+
   it("gives nothing when nothing is in hand", () => {
     const direction = directScene(
       [

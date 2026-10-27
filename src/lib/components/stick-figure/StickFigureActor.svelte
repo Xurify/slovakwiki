@@ -104,7 +104,7 @@
     /** Ms before a change of `facing` starts. */
     turnDelay?: number;
     /** Bump `cue` to take steps for `ms` while the stage moves the figure. */
-    walk?: { cue: number; ms: number };
+    walk?: { cue: number; ms: number; pace?: number };
     /** What the figure does on cue, over its talking: reach, taste, fan its mouth. A new object starts it. */
     doing?: {
       /** Wall time it is over; the last pose holds until then if `hold`. */
@@ -169,6 +169,8 @@
   let reducedMotion = false;
   let walkStartedAt = 0;
   let walkMs = 0;
+  /** Steps per step of a walk: above 1 a run, the legs going round that much faster. */
+  let walkPace = 1;
   let walkCue = 0;
 
   $effect(() => {
@@ -190,11 +192,12 @@
     // new cue means this figure steps, or it would walk on the spot.
     if (!walk?.cue || walk.cue === walkCue) return;
     walkCue = walk.cue;
-    const ms = walk.ms;
+    const { ms, pace = 1 } = walk;
 
     untrack(() => {
       walkStartedAt = performance.now();
       walkMs = ms;
+      walkPace = pace;
       run();
     });
   });
@@ -293,7 +296,9 @@
         ? restOnTable(seated, sitting.current)
         : seated;
     const body = steady(laid);
-    const stepping = walking ? walkPose(body, walked, walkMs, stepMs(characterId)) : body;
+    const stepping = walking
+      ? walkPose(body, walked, walkMs, stepMs(characterId) / walkPace)
+      : body;
     const sampled = acting ? doing.sample(now, stepping, sitting.current) : undefined;
     if (sampled && entered?.doing !== doing) {
       entered = { pose: $state.snapshot(pose), at: now, doing };

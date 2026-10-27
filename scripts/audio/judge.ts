@@ -23,6 +23,8 @@ export interface JudgeOptions {
   mode?: JudgeMode;
   scribeModel?: string;
   whisperModel?: string;
+  /** Character names; the ones a clip says are passed to Scribe as keyterms. */
+  names?: string[];
   /** Absolute floor (very weak). Prefer relative gap vs other words. */
   minLastLogprob?: number;
   /** Fail when last-word logprob is this much worse than median of earlier words. */
@@ -146,10 +148,15 @@ export async function judgeClip(
   let whisper: SttResult | undefined;
 
   if (mode === "dual" || mode === "elevenlabs") {
+    // Scribe swaps a name it doesn't know for a real word (Domo → domov) in every take.
+    const keyterms = (options.names ?? []).filter((name) =>
+      new RegExp(`(?<!\\p{L})${name}(?!\\p{L})`, "u").test(expected),
+    );
     scribe = await transcribeAudio(audioPath, {
       apiKey: options.apiKey,
       provider: "elevenlabs",
       model: options.scribeModel ?? "scribe_v2",
+      keyterms,
     });
   }
 

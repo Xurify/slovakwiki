@@ -60,6 +60,18 @@ const WAITER_TALK = [
   "Nech sa páči. Keby ste ešte niečo potrebovali, stačí zavolať.",
 ].join(" ");
 
+/**
+ * Domo at Marek's flat, from his own lines: a household robot reading out
+ * his plan and talking to the dog, so the design hears him, not a lesson.
+ */
+const DOMO_TALK = [
+  "Dobrý večer, pani Anna. Tri dni sa budem starať o Dunča.",
+  "To nevadí. Mám plán. O siedmej pôjdem s Dunčom von. O ôsmej mu dám granule. Potom budem upratovať.",
+  "Pán Marek, a kedy budete doma?",
+  "Nerozumiem. Tento jazyk nemám.",
+  "Dobre. Zmením plán. Dnes nebudem upratovať. Budem čakať s tebou.",
+].join(" ");
+
 /** Core lesson cast — designed specifically for Slovak Wiki dialogue. */
 const CAST: CastBrief[] = [
   {
@@ -118,6 +130,15 @@ const CAST: CastBrief[] = [
     voiceName: "Slovak Wiki Receptionist",
     voiceDescription:
       "Adult Slovak woman, about 32, hotel or clinic front desk. Polished professional female voice, clear and helpful, medium pitch. Central European accent, calm pacing for check-in questions. Distinct from a casual friend — more formal service tone.",
+  },
+  {
+    characterId: "robot",
+    displayName: "Domo",
+    gender: "neutral",
+    voiceName: "Slovak Wiki Domo",
+    voiceDescription:
+      "A small, friendly household robot speaking Slovak in a flat at home, to the people there and to their dog. A light, clean, slightly synthetic voice with an even, precise rhythm and very clear diction, polite and a little formal, earnest rather than cold, with a faint electronic sheen but fully human-intelligible. Medium pitch, neither a man nor a woman, close-miked in a quiet room. Not a narrator, not an announcer, not a menacing sci-fi robot, not a vocoder, no heavy effects. Central European accent.",
+    sampleText: DOMO_TALK,
   },
   {
     characterId: "guide",

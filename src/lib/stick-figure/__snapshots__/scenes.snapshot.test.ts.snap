@@ -685,6 +685,8 @@ exports[`every scene, directed > dev weather-today 1`] = `
     "kopec",
     "rieka",
     "strom",
+    "lavicka",
+    "lampa",
     "oblak",
     "slnko",
   ],
@@ -5710,6 +5712,1981 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
     "knihy",
     "polica",
     "koberec",
+  ],
+}
+`;
+
+exports[`every scene, directed > podcast podcast-future-tense-friday 1`] = `
+{
+  "cast": [
+    "dog",
+    "anna",
+    "marek",
+    "robot",
+  ],
+  "lines": [
+    {
+      "line": "-: Piatok večer. U Mareka doma.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "1350 tell",
+        ],
+        "ms": 2400,
+        "sentences": "50-859 1350-2250",
+        "words": "50-474 474-859 1350-1479 1479-1941 1941-2250",
+      },
+      "staging": {
+        "addressee": null,
+      },
+    },
+    {
+      "line": "anna: Ahoj, Marek! Tak čo, už si zbalený?",
+      "plan": {
+        "beats": [
+          "50 wave",
+          "1850 ask",
+        ],
+        "ms": 3800,
+        "questions": "1850-3500",
+        "sentences": "50-923 1850-3500",
+        "words": "50-420 522-923 1850-2087 2087-2291 2404-2607 2607-2811 2811-3500",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "dog": 1,
+          "marek": -1,
+          "robot": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: No… kufor mám, pas mám. Hm, a kde je Domo?",
+      "plan": {
+        "beats": [
+          "0 muse",
+          "800 tell",
+          "4000 think",
+        ],
+        "ms": 5850,
+        "questions": "4000-5600",
+        "sentences": "0-254 800-2454 4000-5600",
+        "words": "0-254 800-1338 1338-1682 1820-2110 2110-2454 4000-4244 4380-4583 4583-4868 4868-5112 5112-5600",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "dog": 1,
+          "marek": -1,
+          "robot": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 2,
+          },
+        ],
+      },
+    },
+    {
+      "line": "robot: Dobrý večer. Som tu, pán Marek.",
+      "plan": {
+        "beats": [
+          "0 wave",
+          "1150 self",
+        ],
+        "ms": 2750,
+        "sentences": "0-941 1150-2650",
+        "words": "0-493 493-941 1150-1429 1429-1668 1800-2132 2132-2650",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "dog": 1,
+          "marek": 1,
+          "robot": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "marek",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Jéj, to je on? Tvoj nový robot?",
+      "plan": {
+        "beats": [
+          "50 ask",
+          "2400 ask",
+        ],
+        "ms": 3800,
+        "questions": "50-1069 2400-3450",
+        "sentences": "50-1069 2400-3450",
+        "words": "50-336 451-657 657-863 863-1069 2400-2645 2645-3052 3052-3450",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "dog": 1,
+          "marek": -1,
+          "robot": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Áno. Toto je Domo.",
+      "plan": {
+        "beats": [
+          "100 nod",
+          "884 tell",
+        ],
+        "ms": 2200,
+        "sentences": "100-497 884-1850",
+        "words": "100-497 884-1270 1270-1463 1463-1850",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "dog": 1,
+          "marek": -1,
+          "robot": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Domo, a toto je Anna, moja susedka. Kým budem preč, bude ti pomáhať s Dunčom.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "4050 tell",
+        ],
+        "ms": 6800,
+        "sentences": "0-2710 4050-6550",
+        "words": "0-384 491-651 651-1035 1035-1227 1227-1611 1718-2102 2102-2710 4050-4295 4295-4677 4677-4913 5011-5364 5364-5540 5540-6138 6138-6138 6138-6550",
+      },
+      "staging": {
+        "addressee": "robot",
+        "facing": {
+          "anna": 1,
+          "dog": 1,
+          "marek": 1,
+          "robot": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: A toto je Dunčo, môj pes.",
+      "plan": {
+        "beats": [
+          "50 tell",
+        ],
+        "ms": 2200,
+        "sentences": "50-1950",
+        "words": "50-224 224-641 641-849 849-1301 1417-1707 1707-1950",
+      },
+      "staging": {
+        "addressee": "robot",
+        "facing": {
+          "anna": 1,
+          "dog": 1,
+          "marek": 1,
+          "robot": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Dunčo, zajtra ráno poletím do Londýna. A Domo bude s tebou tri dni.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "3950 tell",
+        ],
+        "ms": 5850,
+        "sentences": "0-2809 3950-5650",
+        "words": "0-404 508-943 943-1358 1358-1990 1990-2177 2177-2809 3950-4101 4101-4463 4463-4825 4825-4825 4825-5228 5228-5439 5439-5650",
+      },
+      "staging": {
+        "addressee": "dog",
+        "facing": {
+          "anna": 1,
+          "dog": 1,
+          "marek": -1,
+          "robot": -1,
+        },
+      },
+    },
+    {
+      "line": "dog: Vrrr…",
+      "plan": {
+        "beats": [
+          "0 muse",
+        ],
+        "ms": 1250,
+        "sentences": "0-1250",
+        "words": "0-1250",
+      },
+      "staging": {
+        "addressee": "robot",
+        "facing": {
+          "anna": -1,
+          "dog": 1,
+          "marek": -1,
+          "robot": -1,
+        },
+      },
+    },
+    {
+      "line": "robot: Hm. Dunčo ma ešte nepozná.",
+      "plan": {
+        "beats": [
+          "50 think",
+          "1600 tell",
+        ],
+        "ms": 3600,
+        "sentences": "50-261 1600-3300",
+        "words": "50-261 1600-2031 2031-2229 2229-2627 2627-3300",
+      },
+      "staging": {
+        "addressee": "dog",
+        "facing": {
+          "anna": 1,
+          "dog": 1,
+          "marek": 1,
+          "robot": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Neboj sa, Domo. Ja prídem zajtra ráno. A pôjdeme spolu do parku.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "1300 self",
+          "3700 tell",
+        ],
+        "ms": 5300,
+        "sentences": "50-1012 1300-2712 3700-5300",
+        "words": "50-414 414-582 676-1012 1300-1474 1474-1919 1919-2325 2325-2712 3700-3840 3840-4407 4407-4770 4770-4937 4937-5300",
+      },
+      "staging": {
+        "addressee": "robot",
+        "facing": {
+          "anna": 1,
+          "dog": 1,
+          "marek": -1,
+          "robot": -1,
+        },
+      },
+    },
+    {
+      "line": "robot: Pán Marek, a kedy budete doma?",
+      "plan": {
+        "beats": [
+          "50 ask",
+        ],
+        "ms": 2400,
+        "questions": "50-2250",
+        "sentences": "50-2250",
+        "words": "50-306 306-705 807-961 961-1329 1329-1882 1882-2250",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "dog": 1,
+          "marek": 1,
+          "robot": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: V pondelok večer. O šiestej, ako vždy. Dunčo ma vtedy čaká pri okne.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "2050 tell",
+          "4300 tell",
+        ],
+        "ms": 6200,
+        "sentences": "50-977 2050-3159 4300-5950",
+        "words": "50-50 50-612 612-977 2050-2180 2180-2579 2665-2951 2951-3159 4300-4633 4633-4787 4787-5121 5121-5463 5463-5642 5642-5950",
+      },
+      "staging": {
+        "addressee": "robot",
+        "facing": {
+          "anna": 1,
+          "dog": 1,
+          "marek": 1,
+          "robot": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "robot",
+            "gesture": "nod",
+            "sentence": 2,
+          },
+        ],
+      },
+    },
+    {
+      "line": "robot: O šiestej. Pri okne. Uložím si to.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "1200 tell",
+          "2750 tell",
+        ],
+        "ms": 3800,
+        "sentences": "0-631 1200-1592 2750-3650",
+        "words": "0-155 155-631 1200-1345 1345-1592 2750-3305 3305-3478 3478-3650",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "dog": 1,
+          "marek": 1,
+          "robot": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Dunčo… Budeš mi chýbať. Budeš poslúchať?",
+      "plan": {
+        "beats": [
+          "100 sigh",
+          "1884 tell",
+          "4700 ask",
+        ],
+        "ms": 5950,
+        "questions": "4700-5700",
+        "sentences": "100-583 1884-3123 4700-5700",
+        "words": "100-583 1884-2367 2367-2590 2590-3123 4700-5079 5079-5700",
+      },
+      "staging": {
+        "addressee": "dog",
+        "facing": {
+          "anna": 1,
+          "dog": 1,
+          "marek": -1,
+          "robot": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "dog",
+            "gesture": "lean",
+            "sentence": 2,
+          },
+        ],
+      },
+    },
+    {
+      "line": "dog: Haf.",
+      "plan": {
+        "beats": [
+          "50 tell",
+        ],
+        "ms": 350,
+        "sentences": "50-300",
+        "words": "50-300",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": -1,
+          "dog": 1,
+          "marek": -1,
+          "robot": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "marek",
+            "gesture": "nod",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Neboj sa, Marek. Obaja budú v poriadku.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "2000 tell",
+        ],
+        "ms": 3450,
+        "sentences": "0-964 2000-3300",
+        "words": "0-355 355-518 609-964 2000-2436 2436-2778 2778-2778 2778-3300",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "dog": 1,
+          "marek": -1,
+          "robot": -1,
+        },
+      },
+    },
+  ],
+  "setting": "home",
+  "things": [
+    "muz",
+    "zena",
+    "okno",
+    "taska",
+    "zaves",
+    "obraz",
+    "pohovka",
+    "vankus",
+    "lampa",
+    "koberec",
+    "rastlina",
+  ],
+}
+`;
+
+exports[`every scene, directed > podcast podcast-future-tense-monday 1`] = `
+{
+  "cast": [
+    "dog",
+    "robot",
+    "marek",
+  ],
+  "lines": [
+    {
+      "line": "-: Pondelok. Šesť hodín večer.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "1050 tell",
+        ],
+        "ms": 2500,
+        "sentences": "50-718 1050-2300",
+        "words": "50-718 1050-1333 1333-1840 1840-2300",
+      },
+      "staging": {
+        "addressee": null,
+      },
+    },
+    {
+      "line": "robot: Je šesť hodín, Dunčo. Poďme k oknu.",
+      "plan": {
+        "beats": [
+          "100 tell",
+          "2650 tell",
+        ],
+        "ms": 3600,
+        "sentences": "100-1508 2650-3400",
+        "words": "100-289 289-541 541-993 1098-1508 2650-3040 3040-3040 3040-3400",
+      },
+      "staging": {
+        "addressee": "dog",
+        "facing": {
+          "dog": 1,
+          "marek": -1,
+          "robot": -1,
+        },
+      },
+    },
+    {
+      "line": "dog: Kňu…",
+      "plan": {
+        "beats": [
+          "50 muse",
+        ],
+        "ms": 1600,
+        "sentences": "50-1600",
+        "words": "50-1600",
+      },
+      "staging": {
+        "addressee": "robot",
+        "facing": {
+          "dog": 1,
+          "marek": -1,
+          "robot": -1,
+        },
+      },
+    },
+    {
+      "line": "robot: Ja viem. Ale dnes príde. Uvidíš.",
+      "plan": {
+        "beats": [
+          "0 self",
+          "2000 tell",
+          "3500 tell",
+        ],
+        "ms": 4350,
+        "sentences": "0-522 2000-3009 3500-4150",
+        "words": "0-218 218-522 2000-2333 2333-2575 2575-3009 3500-4150",
+      },
+      "staging": {
+        "addressee": "dog",
+        "facing": {
+          "dog": 1,
+          "marek": -1,
+          "robot": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Ahojte! Už som doma!",
+      "plan": {
+        "beats": [
+          "100 wave",
+          "1300 stress",
+        ],
+        "ms": 2500,
+        "sentences": "100-585 1300-2200",
+        "words": "100-585 1300-1516 1516-1768 1768-2200",
+      },
+      "staging": {
+        "addressee": "dog",
+        "audience": true,
+        "facing": {
+          "dog": 1,
+          "robot": 1,
+        },
+      },
+    },
+    {
+      "line": "dog: Haf! Haf! Haf!",
+      "plan": {
+        "beats": [
+          "50 stress",
+          "750 stress",
+        ],
+        "ms": 1050,
+        "sentences": "50-206 472-628 894-1050",
+        "words": "50-206 472-628 894-1050",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "dog": 1,
+          "marek": -1,
+          "robot": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Dunčo! Poď sem! Aj ty si mi chýbal.",
+      "plan": {
+        "beats": [
+          "0 stress",
+          "850 stress",
+          "2400 tell",
+        ],
+        "ms": 3850,
+        "sentences": "0-422 850-1267 2400-3650",
+        "words": "0-422 850-1059 1059-1267 2400-2596 2596-2791 2791-2987 2987-3183 3183-3650",
+      },
+      "staging": {
+        "addressee": "dog",
+        "facing": {
+          "dog": 1,
+          "marek": -1,
+          "robot": 1,
+        },
+      },
+    },
+    {
+      "line": "marek: Domo, ako ste sa mali, vy dvaja?",
+      "plan": {
+        "beats": [
+          "0 ask",
+        ],
+        "ms": 2500,
+        "questions": "0-2500",
+        "sentences": "0-2500",
+        "words": "0-407 520-894 894-1131 1131-1335 1335-1742 1855-2059 2059-2500",
+      },
+      "staging": {
+        "addressee": "robot",
+        "facing": {
+          "dog": 1,
+          "marek": -1,
+          "robot": 1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "robot",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "robot: Dobre, pán Marek. Každý večer o šiestej sme čakali pri okne. Spolu.",
+      "plan": {
+        "beats": [
+          "0 nod",
+          "2300 tell",
+          "5650 tell",
+        ],
+        "ms": 6400,
+        "sentences": "0-1109 2300-4837 5650-6250",
+        "words": "0-383 481-726 726-1109 2300-2697 2697-3057 3057-3195 3195-3619 3619-3813 3813-4311 4311-4505 4505-4837 5650-6250",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "dog": 1,
+          "marek": -1,
+          "robot": 1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "marek",
+            "gesture": "nod",
+            "sentence": 2,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Spolu? Ďakujem, Domo.",
+      "plan": {
+        "beats": [
+          "100 ask",
+          "1450 nod",
+        ],
+        "ms": 2900,
+        "questions": "100-503",
+        "sentences": "100-503 1450-2650",
+        "words": "100-503 1450-2114 2231-2650",
+      },
+      "staging": {
+        "addressee": "robot",
+        "facing": {
+          "dog": 1,
+          "marek": -1,
+          "robot": 1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "robot",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "dog: Haf!",
+      "plan": {
+        "beats": [
+          "50 stress",
+        ],
+        "ms": 350,
+        "sentences": "50-350",
+        "words": "50-350",
+      },
+      "staging": {
+        "addressee": "robot",
+        "facing": {
+          "dog": 1,
+          "marek": -1,
+          "robot": -1,
+        },
+      },
+    },
+    {
+      "line": "robot: Haf znamená ahoj. Alebo… ďakujem? Uložím si oboje.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "2750 muse",
+          "3450 nod",
+          "5450 tell",
+        ],
+        "ms": 6750,
+        "questions": "3390-4013",
+        "sentences": "0-1290 2750-2996 3390-4013 5450-6550",
+        "words": "0-230 230-897 897-1290 2750-2996 3390-4013 5450-5952 5952-6108 6108-6550",
+      },
+      "staging": {
+        "addressee": "dog",
+        "facing": {
+          "dog": 1,
+          "marek": -1,
+          "robot": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "dog",
+            "gesture": "lean",
+            "sentence": 2,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Oboje je správne, Domo.",
+      "plan": {
+        "beats": [
+          "50 chuckle",
+        ],
+        "ms": 2650,
+        "sentences": "50-2400",
+        "words": "50-781 781-1039 1039-1741 1884-2400",
+      },
+      "staging": {
+        "addressee": "robot",
+        "facing": {
+          "dog": 1,
+          "marek": -1,
+          "robot": 1,
+        },
+      },
+    },
+    {
+      "line": "dog: Haf!",
+      "plan": {
+        "beats": [
+          "50 stress",
+        ],
+        "ms": 350,
+        "sentences": "50-350",
+        "words": "50-350",
+      },
+      "staging": {
+        "addressee": "robot",
+        "facing": {
+          "dog": 1,
+          "marek": -1,
+          "robot": -1,
+        },
+      },
+    },
+    {
+      "line": "robot: Haf.",
+      "plan": {
+        "beats": [
+          "100 tell",
+        ],
+        "ms": 1050,
+        "sentences": "100-800",
+        "words": "100-800",
+      },
+      "staging": {
+        "addressee": "dog",
+        "facing": {
+          "dog": 1,
+          "marek": -1,
+          "robot": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Vidím, že sa už rozumiete.",
+      "plan": {
+        "beats": [
+          "0 chuckle",
+        ],
+        "ms": 2900,
+        "sentences": "0-2550",
+        "words": "0-599 739-989 989-1240 1240-1491 1491-2550",
+      },
+      "staging": {
+        "addressee": "robot",
+        "facing": {
+          "dog": 1,
+          "marek": -1,
+          "robot": 1,
+        },
+      },
+    },
+    {
+      "line": "-: Koniec. Ďakujeme, že ste počúvali.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "1000 nod",
+        ],
+        "ms": 2900,
+        "sentences": "50-471 1000-2750",
+        "words": "50-471 1000-1640 1728-1888 1888-2075 2075-2750",
+      },
+      "staging": {
+        "addressee": null,
+      },
+    },
+  ],
+  "setting": "home",
+  "things": [
+    "muz",
+    "zena",
+    "okno",
+    "taska",
+    "zaves",
+    "obraz",
+    "pohovka",
+    "vankus",
+    "lampa",
+    "koberec",
+    "rastlina",
+  ],
+}
+`;
+
+exports[`every scene, directed > podcast podcast-future-tense-morning 1`] = `
+{
+  "cast": [
+    "dog",
+    "robot",
+    "anna",
+  ],
+  "lines": [
+    {
+      "line": "-: Sobota. Sedem hodín ráno.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "1100 tell",
+        ],
+        "ms": 2500,
+        "sentences": "0-586 1100-2300",
+        "words": "0-586 1100-1484 1484-1907 1907-2300",
+      },
+      "staging": {
+        "addressee": null,
+      },
+    },
+    {
+      "line": "robot: Dobré ráno, Dunčo. Tu sú granule.",
+      "plan": {
+        "beats": [
+          "0 wave",
+          "2150 point",
+        ],
+        "ms": 3200,
+        "sentences": "0-1205 2150-3050",
+        "words": "0-393 393-758 849-1205 2150-2317 2317-2521 2521-3050",
+      },
+      "staging": {
+        "addressee": "dog",
+        "facing": {
+          "anna": -1,
+          "dog": 1,
+          "robot": -1,
+        },
+      },
+    },
+    {
+      "line": "dog: Vrrr…",
+      "plan": {
+        "beats": [
+          "0 muse",
+        ],
+        "ms": 1250,
+        "sentences": "0-1250",
+        "words": "0-1250",
+      },
+      "staging": {
+        "addressee": "robot",
+        "facing": {
+          "anna": -1,
+          "dog": 1,
+          "robot": -1,
+        },
+      },
+    },
+    {
+      "line": "robot: Hm. Ešte stále ma nepoznáš?",
+      "plan": {
+        "beats": [
+          "50 think",
+          "1600 ask",
+        ],
+        "ms": 3550,
+        "questions": "1600-3350",
+        "sentences": "50-259 1600-3350",
+        "words": "50-259 1600-1991 1991-2459 2459-2654 2654-3350",
+      },
+      "staging": {
+        "addressee": "dog",
+        "facing": {
+          "anna": -1,
+          "dog": 1,
+          "robot": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "dog",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Dobré ráno! Tak čo, ako sa máte?",
+      "plan": {
+        "beats": [
+          "0 wave",
+          "1900 ask",
+        ],
+        "ms": 3700,
+        "questions": "1900-3500",
+        "sentences": "0-886 1900-3500",
+        "words": "0-459 459-886 1900-2140 2140-2346 2460-2837 2837-3043 3043-3500",
+      },
+      "staging": {
+        "addressee": "robot",
+        "facing": {
+          "anna": -1,
+          "dog": 1,
+          "robot": 1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "robot",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "robot: Pani Anna, Dunčo nechce jesť. Stále na mňa vrčí.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "3450 tell",
+        ],
+        "ms": 5050,
+        "sentences": "50-2221 3450-4900",
+        "words": "50-475 475-900 1018-1478 1478-1938 1938-2221 3450-3961 3961-4175 4175-4425 4425-4900",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": -1,
+          "dog": 1,
+          "robot": 1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: To nič. Dunčo si na teba zvykne. Vieš čo?",
+      "plan": {
+        "beats": [
+          "50 chuckle",
+          "1733 tell",
+          "4600 ask",
+        ],
+        "ms": 5550,
+        "questions": "4600-5250",
+        "sentences": "50-506 1733-3521 4600-5250",
+        "words": "50-260 260-506 1733-2188 2188-2399 2399-2609 2609-3030 3030-3521 4600-4978 4978-5250",
+      },
+      "staging": {
+        "addressee": "robot",
+        "facing": {
+          "anna": -1,
+          "dog": 1,
+          "robot": 1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "robot",
+            "gesture": "lean",
+            "sentence": 2,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Tu máš jeho loptičku. V parku mu ju hodíš. Uvidíš.",
+      "plan": {
+        "beats": [
+          "50 point",
+          "2350 tell",
+          "3650 tell",
+        ],
+        "ms": 4400,
+        "sentences": "50-1330 2350-3384 3650-4250",
+        "words": "50-216 216-446 446-778 778-1330 2350-2350 2837-3018 3018-3101 3101-3185 3185-3384 3650-4250",
+      },
+      "staging": {
+        "addressee": "robot",
+        "facing": {
+          "anna": -1,
+          "dog": 1,
+          "robot": 1,
+        },
+        "reactions": [
+          {
+            "at": 0.8,
+            "characterId": "robot",
+            "gesture": "show",
+            "sentence": 2,
+          },
+        ],
+      },
+    },
+    {
+      "line": "robot: Hm. Dobre. Skúsim to.",
+      "plan": {
+        "beats": [
+          "50 think",
+          "1650 nod",
+          "2500 tell",
+        ],
+        "ms": 3450,
+        "sentences": "50-273 1650-2060 2500-3300",
+        "words": "50-273 1650-2060 2500-3075 3075-3300",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": -1,
+          "dog": 1,
+          "robot": 1,
+        },
+      },
+    },
+    {
+      "line": "anna: Tak poďme! Dunčo, ideme do parku!",
+      "plan": {
+        "beats": [
+          "0 stress",
+          "1400 stress",
+        ],
+        "ms": 3200,
+        "sentences": "0-559 1400-3000",
+        "words": "0-196 196-559 1400-1797 1899-2419 2419-2603 2603-3000",
+      },
+      "staging": {
+        "addressee": "dog",
+        "facing": {
+          "anna": -1,
+          "dog": 1,
+          "robot": 1,
+        },
+      },
+    },
+    {
+      "line": "dog: Haf! Haf!",
+      "plan": {
+        "beats": [
+          "50 stress",
+        ],
+        "ms": 700,
+        "sentences": "50-212 488-650",
+        "words": "50-212 488-650",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": -1,
+          "dog": 1,
+          "robot": -1,
+        },
+      },
+    },
+  ],
+  "setting": "home",
+  "things": [
+    "muz",
+    "zena",
+    "okno",
+    "taska",
+    "zaves",
+    "obraz",
+    "pohovka",
+    "vankus",
+    "lampa",
+    "koberec",
+    "rastlina",
+  ],
+}
+`;
+
+exports[`every scene, directed > podcast podcast-future-tense-park 1`] = `
+{
+  "cast": [
+    "dog",
+    "anna",
+    "robot",
+  ],
+  "lines": [
+    {
+      "line": "-: Park pri Dunaji. Pol deviatej ráno.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "1600 tell",
+        ],
+        "ms": 3000,
+        "sentences": "50-1090 1600-2750",
+        "words": "50-302 302-523 523-1090 1600-1798 1798-2373 2373-2750",
+      },
+      "staging": {
+        "addressee": null,
+      },
+    },
+    {
+      "line": "anna: Tak, Domo. Teraz mu hoď loptičku.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "2100 tell",
+        ],
+        "ms": 3450,
+        "sentences": "50-752 2100-3300",
+        "words": "50-270 375-752 2100-2439 2439-2596 2596-2778 2778-3300",
+      },
+      "staging": {
+        "addressee": "robot",
+        "facing": {
+          "anna": 1,
+          "dog": 1,
+          "robot": -1,
+        },
+      },
+    },
+    {
+      "line": "robot: Dobre. Hodím loptičku. Teraz!",
+      "plan": {
+        "beats": [
+          "0 nod",
+          "1500 tell",
+          "3200 stress",
+        ],
+        "ms": 4000,
+        "sentences": "0-369 1500-2337 3200-3700",
+        "words": "0-369 1500-1850 1850-2337 3200-3700",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "dog": 1,
+          "robot": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Pozri, ako beží!",
+      "plan": {
+        "beats": [
+          "100 point",
+        ],
+        "ms": 1800,
+        "sentences": "100-1450",
+        "words": "100-532 642-1007 1007-1450",
+      },
+      "staging": {
+        "addressee": "robot",
+        "facing": {
+          "anna": 1,
+          "dog": 1,
+          "robot": -1,
+        },
+      },
+    },
+    {
+      "line": "robot: Dvadsať metrov. Tridsať. Hm, kam beží?",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "1900 tell",
+          "3900 think",
+        ],
+        "ms": 4800,
+        "questions": "3900-4650",
+        "sentences": "0-939 1900-2557 3900-4650",
+        "words": "0-485 485-939 1900-2557 3900-4052 4136-4313 4313-4650",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "dog": 1,
+          "robot": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 2,
+          },
+        ],
+      },
+    },
+    {
+      "line": "dog: Haf! Haf!",
+      "plan": {
+        "beats": [
+          "50 stress",
+        ],
+        "ms": 700,
+        "sentences": "50-212 488-650",
+        "words": "50-212 488-650",
+      },
+      "staging": {
+        "addressee": "robot",
+        "facing": {
+          "anna": -1,
+          "dog": 1,
+          "robot": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.8,
+            "characterId": "robot",
+            "gesture": "show",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "robot: Mne? Nesie loptičku mne?",
+      "plan": {
+        "beats": [
+          "100 ask",
+          "1350 ask",
+        ],
+        "ms": 3150,
+        "questions": "100-338 1350-2900",
+        "sentences": "100-338 1350-2900",
+        "words": "100-338 1350-1862 1862-2631 2631-2900",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "dog": 1,
+          "robot": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Áno, tebe. Už ťa má rád.",
+      "plan": {
+        "beats": [
+          "50 chuckle",
+          "3100 tell",
+        ],
+        "ms": 4250,
+        "sentences": "50-1290 3100-4100",
+        "words": "50-603 752-1290 3100-3317 3317-3534 3534-3799 3799-4100",
+      },
+      "staging": {
+        "addressee": "robot",
+        "facing": {
+          "anna": 1,
+          "dog": 1,
+          "robot": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "robot",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "robot: Má ma rád. Uložím si to.",
+      "plan": {
+        "beats": [
+          "200 tell",
+          "1750 tell",
+        ],
+        "ms": 2900,
+        "sentences": "200-791 1750-2600",
+        "words": "200-400 400-564 564-791 1750-2274 2274-2437 2437-2600",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "dog": 1,
+          "robot": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Počkaj, odfotím vás. Pošlem to Marekovi. Bude sa smiať.",
+      "plan": {
+        "beats": [
+          "100 think",
+          "2700 tell",
+          "4450 tell",
+        ],
+        "ms": 5800,
+        "sentences": "100-1451 2700-3770 4450-5600",
+        "words": "100-511 609-1206 1206-1451 2700-3040 3040-3186 3186-3770 4450-4955 4955-5207 5207-5600",
+      },
+      "staging": {
+        "addressee": "robot",
+        "facing": {
+          "anna": 1,
+          "dog": 1,
+          "robot": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: No, ja už musím ísť. Večer ti napíšem, dobre?",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "2650 ask",
+        ],
+        "ms": 4350,
+        "questions": "2650-4150",
+        "sentences": "0-1356 2650-4150",
+        "words": "0-185 288-473 473-657 657-1099 1099-1356 2650-3000 3000-3162 3162-3710 3800-4150",
+      },
+      "staging": {
+        "addressee": "robot",
+        "facing": {
+          "anna": 1,
+          "dog": 1,
+          "robot": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "robot",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "robot: Dobre. Ďakujem, pani Anna.",
+      "plan": {
+        "beats": [
+          "50 nod",
+          "1650 nod",
+        ],
+        "ms": 3150,
+        "sentences": "50-457 1650-3000",
+        "words": "50-457 1650-2204 2301-2650 2650-3000",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "dog": 1,
+          "robot": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Ahoj, Domo! Ahoj, Dunčo!",
+      "plan": {
+        "beats": [
+          "50 wave",
+          "1750 wave",
+        ],
+        "ms": 3150,
+        "sentences": "50-894 1750-2850",
+        "words": "50-421 524-894 1750-2216 2345-2850",
+      },
+      "staging": {
+        "addressee": "robot",
+        "facing": {
+          "anna": 1,
+          "dog": 1,
+          "robot": -1,
+        },
+      },
+    },
+    {
+      "line": "dog: Haf!",
+      "plan": {
+        "beats": [
+          "50 stress",
+        ],
+        "ms": 350,
+        "sentences": "50-350",
+        "words": "50-350",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": -1,
+          "dog": 1,
+          "robot": -1,
+        },
+      },
+    },
+    {
+      "line": "robot: Ahoj… haf. Haf znamená ahoj. Uložím si to.",
+      "plan": {
+        "beats": [
+          "0 wave",
+          "1150 tell",
+          "2250 tell",
+          "4550 tell",
+        ],
+        "ms": 5550,
+        "sentences": "0-333 1150-1498 2250-3560 4550-5400",
+        "words": "0-333 1150-1498 2250-2483 2483-3160 3160-3560 4550-5074 5074-5237 5237-5400",
+      },
+      "staging": {
+        "addressee": "dog",
+        "facing": {
+          "anna": 1,
+          "dog": 1,
+          "robot": -1,
+        },
+      },
+    },
+  ],
+  "setting": "default",
+  "things": [
+    "hrad",
+    "kopec",
+    "rieka",
+    "strom",
+    "lavicka",
+    "lampa",
+    "oblak",
+    "slnko",
+  ],
+}
+`;
+
+exports[`every scene, directed > podcast podcast-future-tense-six 1`] = `
+{
+  "cast": [
+    "dog",
+    "robot",
+  ],
+  "lines": [
+    {
+      "line": "-: Sobota. Šesť hodín večer.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "1050 tell",
+        ],
+        "ms": 2400,
+        "sentences": "50-656 1050-2250",
+        "words": "50-656 1050-1322 1322-1808 1808-2250",
+      },
+      "staging": {
+        "addressee": null,
+      },
+    },
+    {
+      "line": "dog: Kňu…",
+      "plan": {
+        "beats": [
+          "50 muse",
+        ],
+        "ms": 1600,
+        "sentences": "50-1600",
+        "words": "50-1600",
+      },
+      "staging": {
+        "addressee": "robot",
+        "facing": {
+          "dog": 1,
+          "robot": -1,
+        },
+      },
+    },
+    {
+      "line": "robot: Dunčo? Čo ti je? Dám ti jesť, dobre?",
+      "plan": {
+        "beats": [
+          "50 ask",
+          "950 ask",
+          "2650 ask",
+        ],
+        "ms": 4250,
+        "questions": "50-507 950-1561 2650-4150",
+        "sentences": "50-507 950-1561 2650-4150",
+        "words": "50-507 950-1154 1154-1357 1357-1561 2650-2973 2973-3206 3206-3516 3646-4150",
+      },
+      "staging": {
+        "addressee": "dog",
+        "facing": {
+          "dog": 1,
+          "robot": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "dog",
+            "gesture": "lean",
+            "sentence": 2,
+          },
+        ],
+      },
+    },
+    {
+      "line": "dog: Kňu…",
+      "plan": {
+        "beats": [
+          "50 muse",
+        ],
+        "ms": 1600,
+        "sentences": "50-1600",
+        "words": "50-1600",
+      },
+      "staging": {
+        "addressee": "robot",
+        "facing": {
+          "dog": 1,
+          "robot": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "robot",
+            "gesture": "nod",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "robot: Nechceš jesť… Ani loptičku nechceš.",
+      "plan": {
+        "beats": [
+          "100 muse",
+          "2150 tell",
+        ],
+        "ms": 3950,
+        "sentences": "100-887 2150-3750",
+        "words": "100-601 601-887 2150-2541 2541-3252 3252-3750",
+      },
+      "staging": {
+        "addressee": "dog",
+        "facing": {
+          "dog": 1,
+          "robot": -1,
+        },
+      },
+    },
+    {
+      "line": "robot: Hm. Kňučí… asi je smutný. Ale prečo?",
+      "plan": {
+        "beats": [
+          "50 think",
+          "1400 muse",
+          "2950 shrug",
+          "4550 ask",
+        ],
+        "ms": 5600,
+        "questions": "4550-5450",
+        "sentences": "50-228 1400-1695 2950-3696 4550-5450",
+        "words": "50-228 1400-1695 2950-3204 3204-3342 3342-3696 4550-4963 4963-5450",
+      },
+      "staging": {
+        "addressee": "dog",
+        "facing": {
+          "dog": 1,
+          "robot": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "dog",
+            "gesture": "lean",
+            "sentence": 3,
+          },
+        ],
+      },
+    },
+    {
+      "line": "-: Prečo je Dunčo smutný? Hádajte s nami!",
+      "plan": {
+        "beats": [
+          "50 ask",
+          "1900 stress",
+        ],
+        "ms": 3050,
+        "questions": "50-1496",
+        "sentences": "50-1496 1900-2850",
+        "words": "50-447 447-630 630-1027 1027-1496 1900-2497 2497-2497 2497-2850",
+      },
+      "staging": {
+        "addressee": null,
+      },
+    },
+  ],
+  "setting": "home",
+  "things": [
+    "muz",
+    "zena",
+    "okno",
+    "taska",
+    "zaves",
+    "obraz",
+    "pohovka",
+    "vankus",
+    "lampa",
+    "koberec",
+    "rastlina",
+  ],
+}
+`;
+
+exports[`every scene, directed > podcast podcast-future-tense-window 1`] = `
+{
+  "cast": [
+    "dog",
+    "robot",
+  ],
+  "lines": [
+    {
+      "line": "-: O chvíľu neskôr. Je večer.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "1600 tell",
+        ],
+        "ms": 2500,
+        "sentences": "50-1211 1600-2250",
+        "words": "50-218 218-698 698-1211 1600-1805 1805-2250",
+      },
+      "staging": {
+        "addressee": null,
+      },
+    },
+    {
+      "line": "robot: Šesť hodín. Okno. Už viem!",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "1950 point → okno",
+          "3000 stress",
+        ],
+        "ms": 3950,
+        "sentences": "0-715 1950-2220 3000-3800",
+        "words": "0-256 256-715 1950-2220 3000-3335 3335-3800",
+      },
+      "staging": {
+        "addressee": "dog",
+        "facing": {
+          "dog": 1,
+          "robot": -1,
+        },
+      },
+    },
+    {
+      "line": "robot: Dunčo, ty čakáš na pána Mareka… ",
+      "plan": {
+        "beats": [
+          "50 muse",
+        ],
+        "ms": 2800,
+        "sentences": "50-2650",
+        "words": "50-507 624-835 835-1338 1338-1549 1549-2018 2018-2650",
+      },
+      "staging": {
+        "addressee": "dog",
+        "facing": {
+          "dog": 1,
+          "robot": -1,
+        },
+      },
+    },
+    {
+      "line": "dog: Kňu…",
+      "plan": {
+        "beats": [
+          "50 muse",
+        ],
+        "ms": 1600,
+        "sentences": "50-1600",
+        "words": "50-1600",
+      },
+      "staging": {
+        "addressee": "robot",
+        "facing": {
+          "dog": 1,
+          "robot": -1,
+        },
+      },
+    },
+    {
+      "line": "robot: Ale dnes nepríde. Ani zajtra. Príde až v pondelok.",
+      "plan": {
+        "beats": [
+          "50 sigh",
+          "1996 tell",
+          "4450 tell",
+        ],
+        "ms": 6000,
+        "sentences": "50-1541 1996-2944 4450-5800",
+        "words": "50-467 467-770 770-1541 1996-2413 2413-2944 4450-4930 4930-5131 5131-5131 5131-5800",
+      },
+      "staging": {
+        "addressee": "dog",
+        "facing": {
+          "dog": 1,
+          "robot": -1,
+        },
+      },
+    },
+    {
+      "line": "robot: Poďme k oknu, Dunčo. Budem čakať s tebou.",
+      "plan": {
+        "beats": [
+          "338 point → okno",
+          "2750 tell",
+        ],
+        "ms": 4200,
+        "sentences": "100-1494 2750-4000",
+        "words": "100-538 538-538 538-943 1055-1494 2750-3163 3163-3576 3576-3576 3576-4000",
+      },
+      "staging": {
+        "addressee": "dog",
+        "facing": {
+          "dog": 1,
+          "robot": -1,
+        },
+        "goTo": "okno",
+      },
+    },
+    {
+      "line": "dog: Haf.",
+      "plan": {
+        "beats": [
+          "50 tell",
+        ],
+        "ms": 350,
+        "sentences": "50-300",
+        "words": "50-300",
+      },
+      "staging": {
+        "addressee": "robot",
+        "facing": {
+          "dog": 1,
+          "robot": -1,
+        },
+      },
+    },
+    {
+      "line": "robot: Počkaj, Dunčo… správa. Pani Anna píše, že pán Marek videl fotku a smial sa. Zajtra nám zavolá.",
+      "plan": {
+        "beats": [
+          "50 think",
+          "2200 tell",
+          "3650 tell",
+          "7950 tell",
+        ],
+        "ms": 9300,
+        "sentences": "50-950 2200-2444 3650-6875 7950-9150",
+        "words": "50-465 564-950 2200-2444 3650-3988 3988-4327 4327-4703 4797-4966 4966-5201 5201-5568 5568-5935 5935-6301 6301-6442 6442-6706 6706-6875 7950-8353 8353-8593 8593-9150",
+      },
+      "staging": {
+        "addressee": "dog",
+        "facing": {
+          "dog": 1,
+          "robot": -1,
+        },
+      },
+    },
+    {
+      "line": "robot: Vidíš, Dunčo? Všetko bude v poriadku. A zajtra o šiestej budeme čakať spolu.",
+      "plan": {
+        "beats": [
+          "100 ask",
+          "1300 tell",
+          "3400 tell",
+        ],
+        "ms": 6000,
+        "questions": "100-950",
+        "sentences": "100-950 1300-2568 3400-5850",
+        "words": "100-498 590-950 1300-1683 1683-2012 2012-2012 2012-2568 3400-3547 3547-3959 3959-4106 4106-4556 4556-5086 5086-5468 5468-5850",
+      },
+      "staging": {
+        "addressee": "dog",
+        "facing": {
+          "dog": 1,
+          "robot": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "dog",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "dog: Haf.",
+      "plan": {
+        "beats": [
+          "50 tell",
+        ],
+        "ms": 350,
+        "sentences": "50-300",
+        "words": "50-300",
+      },
+      "staging": {
+        "addressee": "robot",
+        "facing": {
+          "dog": 1,
+          "robot": -1,
+        },
+      },
+    },
+    {
+      "line": "robot: A teraz už budeš jesť?",
+      "plan": {
+        "beats": [
+          "0 ask",
+        ],
+        "ms": 1800,
+        "questions": "0-1650",
+        "sentences": "0-1650",
+        "words": "0-183 183-660 660-880 880-1357 1357-1650",
+      },
+      "staging": {
+        "addressee": "dog",
+        "facing": {
+          "dog": 1,
+          "robot": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "dog",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "dog: Haf!",
+      "plan": {
+        "beats": [
+          "50 stress",
+        ],
+        "ms": 350,
+        "sentences": "50-350",
+        "words": "50-350",
+      },
+      "staging": {
+        "addressee": "robot",
+        "facing": {
+          "dog": 1,
+          "robot": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "robot",
+            "gesture": "nod",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+  ],
+  "setting": "home",
+  "things": [
+    "muz",
+    "zena",
+    "okno",
+    "taska",
+    "zaves",
+    "obraz",
+    "pohovka",
+    "vankus",
+    "lampa",
+    "koberec",
+    "rastlina",
   ],
 }
 `;

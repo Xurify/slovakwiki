@@ -267,11 +267,25 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       drawn(WORDS.hrad, [632, 34, 96, 78]),
       drawn(WORDS.kopec, [520, 84, 440, 110]),
       drawn(WORDS.rieka, [0, 194, 960, 18]),
-      drawn(WORDS.strom, [836, 86, 84, 140], [52, 88, 88, 136]),
+      drawn(WORDS.strom, [792, 82, 92, 144], [108, 86, 86, 140], [290, 98, 64, 128]),
+      drawn(WORDS.lavicka, benchBox(PARTS.default.bench)),
+      drawn(WORDS.lampa, lampBox(PARTS.default.lamp)),
       drawn(WORDS.oblak, [212, 33, 76, 29], [446, 27, 48, 19]),
       drawn(WORDS.slnko, [PARK_SUN.x - 22, PARK_SUN.y - 22, 44, 44]),
     ],
     sounds: ["birds", "wind"],
+    // Nothing of its own, so other scenes here stay as they were: a scene brings what it acts with (setup).
+    set: {
+      pieces: [],
+      objects: [],
+      spots: {
+        // Past each edge of what the widest stage shows, to walk on from or off to.
+        "off-left": { x: 40, facing: 1 },
+        "off-right": { x: 1000, facing: -1 },
+        // Back from a run off the right, facing whoever threw.
+        "back-right": { x: 620, facing: -1 },
+      },
+    },
   },
   home: {
     ground: "wood",
@@ -296,6 +310,26 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     // On the rug (480 ± 250), left of the bag on it so nobody stands on that.
     post: 410,
     glass: { height: 100, width: 130, x: 106, y: 54 },
+    // Nothing of its own, so other scenes here stay as they were: a scene brings what it acts with (setup).
+    set: {
+      pieces: [],
+      objects: [],
+      spots: {
+        // Past each edge of what the widest stage shows, to walk on from.
+        "off-left": { x: -80, facing: 1 },
+        "off-right": { x: 820, facing: -1 },
+        // On the rug, where a cast of three or four stands talking; the right one past the bag on it.
+        "rug-left": { x: 333, facing: 1 },
+        "rug-mid": { x: 410, facing: 1 },
+        "rug-mid-right": { x: 487, facing: -1 },
+        "rug-right": { x: 565, facing: -1 },
+        // A step in from the rug's right, to meet whoever comes in from that side.
+        "to-right": { x: 420, facing: 1 },
+        // At the window, looking out: the dog under the sill, the one waiting with it beside.
+        window: { x: 235, facing: -1 },
+        "window-dog": { x: 155, facing: -1 },
+      },
+    },
   },
   kitchen: {
     // At home people are in slippers on the kitchen tiles: a soft pat and shuffle.

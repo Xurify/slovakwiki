@@ -1,7 +1,10 @@
 <script lang="ts">
+  import { PARTS } from "$lib/stick-figure/backdrop-parts";
+  import Bench from "./Bench.svelte";
   import Castle from "./Castle.svelte";
   import Cloud from "./Cloud.svelte";
   import FloorShade from "./FloorShade.svelte";
+  import StreetLamp from "./StreetLamp.svelte";
 </script>
 
 <!-- By the Danube, with Bratislava Castle on its hill. -->
@@ -23,9 +26,39 @@
 />
 <rect x="-10" y="212" width="980" height="98" class="fill-scene-sage" />
 <FloorShade y={212} />
-<path d="M-10 310V264Q480 236 970 264V310Z" class="fill-scene-sand" />
+<!-- Bushes and flowers on the bank, so the strip reads as a park lawn and not a beach. -->
+{#each [{ x: 330, r: 14 }, { x: 452, r: 10 }, { x: 560, r: 13 }] as bush (bush.x)}
+  <circle
+    cx={bush.x - bush.r * 0.8}
+    cy={240 - bush.r * 0.3}
+    r={bush.r * 0.75}
+    class="fill-scene-leaf"
+  />
+  <circle
+    cx={bush.x + bush.r * 0.8}
+    cy={240 - bush.r * 0.3}
+    r={bush.r * 0.75}
+    class="fill-scene-leaf"
+  />
+  <circle cx={bush.x} cy={240 - bush.r * 0.7} r={bush.r} class="fill-scene-leaf" />
+{/each}
+<path
+  d="M214 234h4v4h-4ZM276 246h4v4h-4ZM392 228h4v4h-4ZM506 244h4v4h-4ZM612 232h4v4h-4ZM736 240h4v4h-4ZM828 230h4v4h-4Z"
+  class="fill-scene-red"
+/>
+<path
+  d="M240 240h4v4h-4ZM418 248h4v4h-4ZM590 246h4v4h-4ZM706 228h4v4h-4ZM800 246h4v4h-4Z"
+  class="fill-scene-honey"
+/>
 
-{#each [{ x: 96, r: 34 }, { x: 878, r: 38 }] as tree (tree.x)}
+<!-- The gravel path the cast walks on, with lawn again in front of it. -->
+<path d="M-10 310V264Q480 236 970 264V310Z" class="fill-scene-sand" />
+<path d="M-10 310V298Q480 284 970 298V310Z" class="fill-scene-sage" />
+
+<StreetLamp lamp={PARTS.default.lamp} />
+<Bench bench={PARTS.default.bench} />
+
+{#each [{ x: 150, r: 36 }, { x: 322, r: 26 }, { x: 836, r: 40 }] as tree (tree.x)}
   <ellipse cx={tree.x} cy="223" rx={tree.r * 1.1} ry="4" class="fill-scene-line/12" />
   <rect x={tree.x - 5} y="150" width="10" height="72" class="fill-scene-wood" />
   <circle cx={tree.x - 24} cy="150" r={tree.r * 0.66} class="fill-scene-leaf" />

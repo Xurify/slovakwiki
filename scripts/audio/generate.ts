@@ -29,6 +29,8 @@ import {
   parseArgs,
   saveManifest,
   sleep,
+  renderSound,
+  soundFor,
   synthesizeElevenLabs,
   type AudioManifest,
   type AudioTarget,
@@ -76,6 +78,7 @@ async function main(): Promise<void> {
     whisperModel,
   } = parseArgs(process.argv.slice(2));
   const config = await loadConfig();
+  const names = Object.values(config.characters ?? {}).map((c) => c.displayName);
   if (model) config.modelId = model;
   const manifest = await loadManifest();
   await ensureAudioDir();
@@ -255,23 +258,29 @@ async function main(): Promise<void> {
         }
       }
 
-      for (const attempt of attempts) {
+      // A bark has no words for Scribe to hear: one take, judged by ear.
+      const sound = soundFor(target);
+
+      for (const attempt of sound ? attempts.slice(0, 1) : attempts) {
         audio = await synthesizeWithRateLimitRetry(() =>
-          synthesizeElevenLabs(target.text, voiceConfig, apiKey, {
-            modelId: attempt.modelId,
-            seed: attempt.seed,
-            languageCode: voiceConfig.languageCode,
-          }),
+          sound
+            ? renderSound(sound, voiceConfig, apiKey)
+            : synthesizeElevenLabs(target.text, voiceConfig, apiKey, {
+                modelId: attempt.modelId,
+                seed: attempt.seed,
+                languageCode: voiceConfig.languageCode,
+              }),
         );
         await writeFile(filePath, audio);
 
-        if (!verify) break;
+        if (!verify || sound) break;
 
         const judged = await judgeClip(target.text, filePath, {
           apiKey,
           mode: judgeMode,
           scribeModel: sttModel,
           whisperModel,
+          names,
         });
         lastJudge = judged;
 

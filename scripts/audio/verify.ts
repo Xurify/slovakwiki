@@ -37,6 +37,7 @@ async function main(): Promise<void> {
   const { lemmasOnly, lessonsOnly, limit, only, sttModel, sttProvider, whisperModel } =
     parseArgs(process.argv.slice(2));
   const config = await loadConfig();
+  const names = Object.values(config.characters ?? {}).map((c) => c.displayName);
   const manifest = await loadManifest();
   const apiKey = process.env.ELEVENLABS_API_KEY;
   const judgeMode = judgeModeFromSttProvider(sttProvider);
@@ -90,6 +91,7 @@ async function main(): Promise<void> {
         mode: judgeMode,
         scribeModel: sttModel,
         whisperModel,
+        names,
       });
       rows.push({
         hash,
