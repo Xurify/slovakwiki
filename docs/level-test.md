@@ -55,7 +55,7 @@ Ordered by how much they limit the results.
 2. **Aspect and word order items sit on their level's anchor.** Choose the Verb and Where Does It Go take their difficulty from the level they were written for, so items within a level do not differ. Choose the Verb offers two verbs, so a guess is right half the time; three sentences a screen make up for it. Word order covers clitics only: the order of the other words is free in Slovak and has no single right answer.
 3. **The AI's counts are checked only on planted errors.** How often a part came up in writing or speech is the scorer's own count. The [scorer eval](../scripts/level-test/eval/README.md) checks the wrong counts, the named mistakes and the rule cases against errors put into correct answers on purpose. The right counts, and the level of a real learner's answer, still need answers rated by hand.
 4. **Pronunciation is measured only as being understood.** Read Aloud compares a speech-recognition transcript with the sentence; recognition repairs accents and length, so it cannot judge them. Phoneme-level scoring needs a pronunciation service that supports Slovak (not yet checked).
-5. **Short or Long covers vowel length only.** Soft consonants (ď, ť, ň, ľ against d, t, n, l) are not tested. Its difficulty is a fixed A2 base nudged by word rarity, not calibrated. Clips are kept only when speech-to-text heard them exactly, which drops about a third of TTS clips; some of those may be speech-recognition bias toward the commoner form rather than a bad clip.
+5. **Short or Long covers vowel length only.** Soft consonants (ď, ť, ň, ľ against d, t, n, l) are not tested. Its difficulty is a judgement, not calibrated: where the length sits and which vowel (A2 for the stressed first syllable, B1 for a/á later in the word, B2 or C1 for e/é and i/í, y/ý in a late syllable, C1 in longer words). Adverb/adjective pairs (pekne/pekné) are capped at 15 of the pairs, so one contrast does not fill the format. Short or Long is still about half of the quick test's listening answers, so a few misses weigh a lot until real answers can calibrate it. Clips are kept only when speech-to-text heard them exactly, which drops about a third of TTS clips; some of those may be speech-recognition bias toward the commoner form rather than a bad clip.
 6. **Formal and informal address (ty / vy) is not tested.** Interactive Listening uses both registers but scores the reply, not the register.
 7. **Writing and speaking need keys.** Without `OPENROUTER_API_KEY` and `ELEVENLABS_API_KEY` those skills show as planned. Interactive Speaking is always planned.
 8. **Retake variety is per device.** Items seen before are stored in `localStorage` and picked last; another browser starts fresh.
@@ -73,7 +73,7 @@ bun scripts/level-test/check-length.ts   # unclear Short or Long clips drop thei
 
 Then `bun scripts/audio/upload.ts` and `bunx vitest run src/lib/catalog/level-test`.
 
-To re-rate the pseudowords already in the bank without drawing new ones (no SNK download, no new audio), run `bun scripts/level-test/build-bank.ts --rescore-pseudowords`.
+To re-rate the pseudowords already in the bank without drawing new ones (no SNK download, no new audio), run `bun scripts/level-test/build-bank.ts --rescore-pseudowords`. `--rescore-lengths` does the same for the Short or Long pairs and drops -ne/-né pairs over the cap.
 
 ## Methodology and prior art
 

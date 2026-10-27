@@ -18857,7 +18857,7 @@
   {
    "id": "ll-dobre",
    "format": "listenLength",
-   "difficulty": 21.2,
+   "difficulty": 60,
    "word": "dobre",
    "short": "dobre",
    "long": "dobré"
@@ -18865,7 +18865,7 @@
   {
    "id": "ll-dobré",
    "format": "listenLength",
-   "difficulty": 21.2,
+   "difficulty": 60,
    "word": "dobré",
    "short": "dobre",
    "long": "dobré"
@@ -18873,7 +18873,7 @@
   {
    "id": "ll-veci",
    "format": "listenLength",
-   "difficulty": 21.3,
+   "difficulty": 60,
    "word": "veci",
    "short": "veci",
    "long": "vecí"
@@ -18881,7 +18881,7 @@
   {
    "id": "ll-vecí",
    "format": "listenLength",
-   "difficulty": 21.3,
+   "difficulty": 60,
    "word": "vecí",
    "short": "veci",
    "long": "vecí"
@@ -18889,7 +18889,7 @@
   {
    "id": "ll-malo",
    "format": "listenLength",
-   "difficulty": 21.3,
+   "difficulty": 20,
    "word": "malo",
    "short": "malo",
    "long": "málo"
@@ -18897,7 +18897,7 @@
   {
    "id": "ll-málo",
    "format": "listenLength",
-   "difficulty": 21.3,
+   "difficulty": 20,
    "word": "málo",
    "short": "malo",
    "long": "málo"
@@ -18905,7 +18905,7 @@
   {
    "id": "ll-svojim",
    "format": "listenLength",
-   "difficulty": 21.4,
+   "difficulty": 60,
    "word": "svojim",
    "short": "svojim",
    "long": "svojím"
@@ -18913,7 +18913,7 @@
   {
    "id": "ll-svojím",
    "format": "listenLength",
-   "difficulty": 21.4,
+   "difficulty": 60,
    "word": "svojím",
    "short": "svojim",
    "long": "svojím"
@@ -18921,7 +18921,7 @@
   {
    "id": "ll-podobne",
    "format": "listenLength",
-   "difficulty": 21.5,
+   "difficulty": 60,
    "word": "podobne",
    "short": "podobne",
    "long": "podobné"
@@ -18929,7 +18929,7 @@
   {
    "id": "ll-podobné",
    "format": "listenLength",
-   "difficulty": 21.5,
+   "difficulty": 60,
    "word": "podobné",
    "short": "podobne",
    "long": "podobné"
@@ -18937,7 +18937,7 @@
   {
    "id": "ll-jasne",
    "format": "listenLength",
-   "difficulty": 22.2,
+   "difficulty": 60,
    "word": "jasne",
    "short": "jasne",
    "long": "jasné"
@@ -18945,7 +18945,7 @@
   {
    "id": "ll-jasné",
    "format": "listenLength",
-   "difficulty": 22.2,
+   "difficulty": 60,
    "word": "jasné",
    "short": "jasne",
    "long": "jasné"
@@ -18953,7 +18953,7 @@
   {
    "id": "ll-spoločne",
    "format": "listenLength",
-   "difficulty": 22.4,
+   "difficulty": 60,
    "word": "spoločne",
    "short": "spoločne",
    "long": "spoločné"
@@ -18961,7 +18961,7 @@
   {
    "id": "ll-spoločné",
    "format": "listenLength",
-   "difficulty": 22.4,
+   "difficulty": 60,
    "word": "spoločné",
    "short": "spoločne",
    "long": "spoločné"
@@ -18969,7 +18969,7 @@
   {
    "id": "ll-hlavne",
    "format": "listenLength",
-   "difficulty": 22.5,
+   "difficulty": 60,
    "word": "hlavne",
    "short": "hlavne",
    "long": "hlavné"
@@ -18977,7 +18977,7 @@
   {
    "id": "ll-hlavné",
    "format": "listenLength",
-   "difficulty": 22.5,
+   "difficulty": 60,
    "word": "hlavné",
    "short": "hlavne",
    "long": "hlavné"
@@ -18985,7 +18985,7 @@
   {
    "id": "ll-slova",
    "format": "listenLength",
-   "difficulty": 22.5,
+   "difficulty": 40,
    "word": "slova",
    "short": "slova",
    "long": "slová"
@@ -18993,7 +18993,7 @@
   {
    "id": "ll-slová",
    "format": "listenLength",
-   "difficulty": 22.5,
+   "difficulty": 40,
    "word": "slová",
    "short": "slova",
    "long": "slová"
@@ -19001,7 +19001,7 @@
   {
    "id": "ll-oči",
    "format": "listenLength",
-   "difficulty": 22.9,
+   "difficulty": 60,
    "word": "oči",
    "short": "oči",
    "long": "očí"
@@ -19009,7 +19009,7 @@
   {
    "id": "ll-očí",
    "format": "listenLength",
-   "difficulty": 22.9,
+   "difficulty": 60,
    "word": "očí",
    "short": "oči",
    "long": "očí"
@@ -19017,7 +19017,7 @@
   {
    "id": "ll-pekne",
    "format": "listenLength",
-   "difficulty": 23.7,
+   "difficulty": 60,
    "word": "pekne",
    "short": "pekne",
    "long": "pekné"
@@ -19025,7 +19025,7 @@
   {
    "id": "ll-pekné",
    "format": "listenLength",
-   "difficulty": 23.7,
+   "difficulty": 60,
    "word": "pekné",
    "short": "pekne",
    "long": "pekné"
@@ -19033,7 +19033,7 @@
   {
    "id": "ll-možnosti",
    "format": "listenLength",
-   "difficulty": 23.8,
+   "difficulty": 75,
    "word": "možnosti",
    "short": "možnosti",
    "long": "možností"
@@ -19041,7 +19041,7 @@
   {
    "id": "ll-možností",
    "format": "listenLength",
-   "difficulty": 23.8,
+   "difficulty": 75,
    "word": "možností",
    "short": "možnosti",
    "long": "možností"
@@ -19049,7 +19049,7 @@
   {
    "id": "ll-osobne",
    "format": "listenLength",
-   "difficulty": 23.9,
+   "difficulty": 60,
    "word": "osobne",
    "short": "osobne",
    "long": "osobné"
@@ -19057,7 +19057,7 @@
   {
    "id": "ll-osobné",
    "format": "listenLength",
-   "difficulty": 23.9,
+   "difficulty": 60,
    "word": "osobné",
    "short": "osobne",
    "long": "osobné"
@@ -19065,7 +19065,7 @@
   {
    "id": "ll-stali",
    "format": "listenLength",
-   "difficulty": 24.9,
+   "difficulty": 20,
    "word": "stali",
    "short": "stali",
    "long": "stáli"
@@ -19073,7 +19073,7 @@
   {
    "id": "ll-stáli",
    "format": "listenLength",
-   "difficulty": 24.9,
+   "difficulty": 20,
    "word": "stáli",
    "short": "stali",
    "long": "stáli"
@@ -19081,7 +19081,7 @@
   {
    "id": "ll-druhy",
    "format": "listenLength",
-   "difficulty": 25.2,
+   "difficulty": 60,
    "word": "druhy",
    "short": "druhy",
    "long": "druhý"
@@ -19089,7 +19089,7 @@
   {
    "id": "ll-druhý",
    "format": "listenLength",
-   "difficulty": 25.2,
+   "difficulty": 60,
    "word": "druhý",
    "short": "druhy",
    "long": "druhý"
@@ -19097,7 +19097,7 @@
   {
    "id": "ll-mysli",
    "format": "listenLength",
-   "difficulty": 25.5,
+   "difficulty": 60,
    "word": "mysli",
    "short": "mysli",
    "long": "myslí"
@@ -19105,7 +19105,7 @@
   {
    "id": "ll-myslí",
    "format": "listenLength",
-   "difficulty": 25.5,
+   "difficulty": 60,
    "word": "myslí",
    "short": "mysli",
    "long": "myslí"
@@ -19113,7 +19113,7 @@
   {
    "id": "ll-verejne",
    "format": "listenLength",
-   "difficulty": 25.7,
+   "difficulty": 60,
    "word": "verejne",
    "short": "verejne",
    "long": "verejné"
@@ -19121,7 +19121,7 @@
   {
    "id": "ll-verejné",
    "format": "listenLength",
-   "difficulty": 25.7,
+   "difficulty": 60,
    "word": "verejné",
    "short": "verejne",
    "long": "verejné"
@@ -19129,7 +19129,7 @@
   {
    "id": "ll-mužstva",
    "format": "listenLength",
-   "difficulty": 25.9,
+   "difficulty": 40,
    "word": "mužstva",
    "short": "mužstva",
    "long": "mužstvá"
@@ -19137,7 +19137,7 @@
   {
    "id": "ll-mužstvá",
    "format": "listenLength",
-   "difficulty": 25.9,
+   "difficulty": 40,
    "word": "mužstvá",
    "short": "mužstva",
    "long": "mužstvá"
@@ -19145,7 +19145,7 @@
   {
    "id": "ll-finančne",
    "format": "listenLength",
-   "difficulty": 25.9,
+   "difficulty": 60,
    "word": "finančne",
    "short": "finančne",
    "long": "finančné"
@@ -19153,7 +19153,7 @@
   {
    "id": "ll-finančné",
    "format": "listenLength",
-   "difficulty": 25.9,
+   "difficulty": 60,
    "word": "finančné",
    "short": "finančne",
    "long": "finančné"
@@ -19161,7 +19161,7 @@
   {
    "id": "ll-časti",
    "format": "listenLength",
-   "difficulty": 25.9,
+   "difficulty": 60,
    "word": "časti",
    "short": "časti",
    "long": "častí"
@@ -19169,7 +19169,7 @@
   {
    "id": "ll-častí",
    "format": "listenLength",
-   "difficulty": 25.9,
+   "difficulty": 60,
    "word": "častí",
    "short": "časti",
    "long": "častí"
@@ -19177,7 +19177,7 @@
   {
    "id": "ll-oblasti",
    "format": "listenLength",
-   "difficulty": 26.7,
+   "difficulty": 75,
    "word": "oblasti",
    "short": "oblasti",
    "long": "oblastí"
@@ -19185,7 +19185,7 @@
   {
    "id": "ll-oblastí",
    "format": "listenLength",
-   "difficulty": 26.7,
+   "difficulty": 75,
    "word": "oblastí",
    "short": "oblasti",
    "long": "oblastí"
@@ -19193,7 +19193,7 @@
   {
    "id": "ll-súčasne",
    "format": "listenLength",
-   "difficulty": 27.2,
+   "difficulty": 60,
    "word": "súčasne",
    "short": "súčasne",
    "long": "súčasné"
@@ -19201,7 +19201,7 @@
   {
    "id": "ll-súčasné",
    "format": "listenLength",
-   "difficulty": 27.2,
+   "difficulty": 60,
    "word": "súčasné",
    "short": "súčasne",
    "long": "súčasné"
@@ -19209,7 +19209,7 @@
   {
    "id": "ll-ročne",
    "format": "listenLength",
-   "difficulty": 27.4,
+   "difficulty": 60,
    "word": "ročne",
    "short": "ročne",
    "long": "ročné"
@@ -19217,7 +19217,7 @@
   {
    "id": "ll-ročné",
    "format": "listenLength",
-   "difficulty": 27.4,
+   "difficulty": 60,
    "word": "ročné",
    "short": "ročne",
    "long": "ročné"
@@ -19225,7 +19225,7 @@
   {
    "id": "ll-tradične",
    "format": "listenLength",
-   "difficulty": 28.1,
+   "difficulty": 60,
    "word": "tradične",
    "short": "tradične",
    "long": "tradičné"
@@ -19233,7 +19233,7 @@
   {
    "id": "ll-tradičné",
    "format": "listenLength",
-   "difficulty": 28.1,
+   "difficulty": 60,
    "word": "tradičné",
    "short": "tradične",
    "long": "tradičné"
@@ -19241,7 +19241,7 @@
   {
    "id": "ll-družstva",
    "format": "listenLength",
-   "difficulty": 28.4,
+   "difficulty": 40,
    "word": "družstva",
    "short": "družstva",
    "long": "družstvá"
@@ -19249,7 +19249,7 @@
   {
    "id": "ll-družstvá",
    "format": "listenLength",
-   "difficulty": 28.4,
+   "difficulty": 40,
    "word": "družstvá",
    "short": "družstva",
    "long": "družstvá"
@@ -19257,7 +19257,7 @@
   {
    "id": "ll-zbytočne",
    "format": "listenLength",
-   "difficulty": 28.5,
+   "difficulty": 60,
    "word": "zbytočne",
    "short": "zbytočne",
    "long": "zbytočné"
@@ -19265,7 +19265,7 @@
   {
    "id": "ll-zbytočné",
    "format": "listenLength",
-   "difficulty": 28.5,
+   "difficulty": 60,
    "word": "zbytočné",
    "short": "zbytočne",
    "long": "zbytočné"
@@ -19273,7 +19273,7 @@
   {
    "id": "ll-úspešne",
    "format": "listenLength",
-   "difficulty": 28.7,
+   "difficulty": 60,
    "word": "úspešne",
    "short": "úspešne",
    "long": "úspešné"
@@ -19281,7 +19281,7 @@
   {
    "id": "ll-úspešné",
    "format": "listenLength",
-   "difficulty": 28.7,
+   "difficulty": 60,
    "word": "úspešné",
    "short": "úspešne",
    "long": "úspešné"
@@ -19289,7 +19289,7 @@
   {
    "id": "ll-konečne",
    "format": "listenLength",
-   "difficulty": 28.9,
+   "difficulty": 60,
    "word": "konečne",
    "short": "konečne",
    "long": "konečné"
@@ -19297,7 +19297,7 @@
   {
    "id": "ll-konečné",
    "format": "listenLength",
-   "difficulty": 28.9,
+   "difficulty": 60,
    "word": "konečné",
    "short": "konečne",
    "long": "konečné"
@@ -19305,7 +19305,7 @@
   {
    "id": "ll-bežne",
    "format": "listenLength",
-   "difficulty": 29,
+   "difficulty": 60,
    "word": "bežne",
    "short": "bežne",
    "long": "bežné"
@@ -19313,111 +19313,15 @@
   {
    "id": "ll-bežné",
    "format": "listenLength",
-   "difficulty": 29,
+   "difficulty": 60,
    "word": "bežné",
    "short": "bežne",
    "long": "bežné"
   },
   {
-   "id": "ll-výborne",
-   "format": "listenLength",
-   "difficulty": 29.3,
-   "word": "výborne",
-   "short": "výborne",
-   "long": "výborné"
-  },
-  {
-   "id": "ll-výborné",
-   "format": "listenLength",
-   "difficulty": 29.3,
-   "word": "výborné",
-   "short": "výborne",
-   "long": "výborné"
-  },
-  {
-   "id": "ll-skutočne",
-   "format": "listenLength",
-   "difficulty": 29.3,
-   "word": "skutočne",
-   "short": "skutočne",
-   "long": "skutočné"
-  },
-  {
-   "id": "ll-skutočné",
-   "format": "listenLength",
-   "difficulty": 29.3,
-   "word": "skutočné",
-   "short": "skutočne",
-   "long": "skutočné"
-  },
-  {
-   "id": "ll-voľne",
-   "format": "listenLength",
-   "difficulty": 29.5,
-   "word": "voľne",
-   "short": "voľne",
-   "long": "voľné"
-  },
-  {
-   "id": "ll-voľné",
-   "format": "listenLength",
-   "difficulty": 29.5,
-   "word": "voľné",
-   "short": "voľne",
-   "long": "voľné"
-  },
-  {
-   "id": "ll-príjemne",
-   "format": "listenLength",
-   "difficulty": 29.7,
-   "word": "príjemne",
-   "short": "príjemne",
-   "long": "príjemné"
-  },
-  {
-   "id": "ll-príjemné",
-   "format": "listenLength",
-   "difficulty": 29.7,
-   "word": "príjemné",
-   "short": "príjemne",
-   "long": "príjemné"
-  },
-  {
-   "id": "ll-výrazne",
-   "format": "listenLength",
-   "difficulty": 29.7,
-   "word": "výrazne",
-   "short": "výrazne",
-   "long": "výrazné"
-  },
-  {
-   "id": "ll-výrazné",
-   "format": "listenLength",
-   "difficulty": 29.7,
-   "word": "výrazné",
-   "short": "výrazne",
-   "long": "výrazné"
-  },
-  {
-   "id": "ll-presne",
-   "format": "listenLength",
-   "difficulty": 30.1,
-   "word": "presne",
-   "short": "presne",
-   "long": "presné"
-  },
-  {
-   "id": "ll-presné",
-   "format": "listenLength",
-   "difficulty": 30.1,
-   "word": "presné",
-   "short": "presne",
-   "long": "presné"
-  },
-  {
    "id": "ll-okna",
    "format": "listenLength",
-   "difficulty": 30.3,
+   "difficulty": 40,
    "word": "okna",
    "short": "okna",
    "long": "okná"
@@ -19425,31 +19329,15 @@
   {
    "id": "ll-okná",
    "format": "listenLength",
-   "difficulty": 30.3,
+   "difficulty": 40,
    "word": "okná",
    "short": "okna",
    "long": "okná"
   },
   {
-   "id": "ll-pôvodne",
-   "format": "listenLength",
-   "difficulty": 30.7,
-   "word": "pôvodne",
-   "short": "pôvodne",
-   "long": "pôvodné"
-  },
-  {
-   "id": "ll-pôvodné",
-   "format": "listenLength",
-   "difficulty": 30.7,
-   "word": "pôvodné",
-   "short": "pôvodne",
-   "long": "pôvodné"
-  },
-  {
    "id": "ll-zostava",
    "format": "listenLength",
-   "difficulty": 31,
+   "difficulty": 40,
    "word": "zostava",
    "short": "zostava",
    "long": "zostáva"
@@ -19457,7 +19345,7 @@
   {
    "id": "ll-zostáva",
    "format": "listenLength",
-   "difficulty": 31,
+   "difficulty": 40,
    "word": "zostáva",
    "short": "zostava",
    "long": "zostáva"
@@ -19465,7 +19353,7 @@
   {
    "id": "ll-činnosti",
    "format": "listenLength",
-   "difficulty": 31.1,
+   "difficulty": 75,
    "word": "činnosti",
    "short": "činnosti",
    "long": "činností"
@@ -19473,7 +19361,7 @@
   {
    "id": "ll-činností",
    "format": "listenLength",
-   "difficulty": 31.1,
+   "difficulty": 75,
    "word": "činností",
    "short": "činnosti",
    "long": "činností"
@@ -19481,7 +19369,7 @@
   {
    "id": "ll-žiadosti",
    "format": "listenLength",
-   "difficulty": 31.1,
+   "difficulty": 75,
    "word": "žiadosti",
    "short": "žiadosti",
    "long": "žiadostí"
@@ -19489,47 +19377,15 @@
   {
    "id": "ll-žiadostí",
    "format": "listenLength",
-   "difficulty": 31.1,
+   "difficulty": 75,
    "word": "žiadostí",
    "short": "žiadosti",
    "long": "žiadostí"
   },
   {
-   "id": "ll-pevne",
-   "format": "listenLength",
-   "difficulty": 31.3,
-   "word": "pevne",
-   "short": "pevne",
-   "long": "pevné"
-  },
-  {
-   "id": "ll-pevné",
-   "format": "listenLength",
-   "difficulty": 31.3,
-   "word": "pevné",
-   "short": "pevne",
-   "long": "pevné"
-  },
-  {
-   "id": "ll-vzájomne",
-   "format": "listenLength",
-   "difficulty": 31.4,
-   "word": "vzájomne",
-   "short": "vzájomne",
-   "long": "vzájomné"
-  },
-  {
-   "id": "ll-vzájomné",
-   "format": "listenLength",
-   "difficulty": 31.4,
-   "word": "vzájomné",
-   "short": "vzájomne",
-   "long": "vzájomné"
-  },
-  {
    "id": "ll-boli",
    "format": "listenLength",
-   "difficulty": 32.1,
+   "difficulty": 60,
    "word": "boli",
    "short": "boli",
    "long": "bolí"
@@ -19537,7 +19393,7 @@
   {
    "id": "ll-bolí",
    "format": "listenLength",
-   "difficulty": 32.1,
+   "difficulty": 60,
    "word": "bolí",
    "short": "boli",
    "long": "bolí"
@@ -19545,7 +19401,7 @@
   {
    "id": "ll-anglicky",
    "format": "listenLength",
-   "difficulty": 33,
+   "difficulty": 75,
    "word": "anglicky",
    "short": "anglicky",
    "long": "anglický"
@@ -19553,7 +19409,7 @@
   {
    "id": "ll-anglický",
    "format": "listenLength",
-   "difficulty": 33,
+   "difficulty": 75,
    "word": "anglický",
    "short": "anglicky",
    "long": "anglický"
@@ -19561,7 +19417,7 @@
   {
    "id": "ll-cirkvi",
    "format": "listenLength",
-   "difficulty": 33,
+   "difficulty": 60,
    "word": "cirkvi",
    "short": "cirkvi",
    "long": "cirkví"
@@ -19569,47 +19425,15 @@
   {
    "id": "ll-cirkví",
    "format": "listenLength",
-   "difficulty": 33,
+   "difficulty": 60,
    "word": "cirkví",
    "short": "cirkvi",
    "long": "cirkví"
   },
   {
-   "id": "ll-významne",
-   "format": "listenLength",
-   "difficulty": 33,
-   "word": "významne",
-   "short": "významne",
-   "long": "významné"
-  },
-  {
-   "id": "ll-významné",
-   "format": "listenLength",
-   "difficulty": 33,
-   "word": "významné",
-   "short": "významne",
-   "long": "významné"
-  },
-  {
-   "id": "ll-silne",
-   "format": "listenLength",
-   "difficulty": 33.3,
-   "word": "silne",
-   "short": "silne",
-   "long": "silné"
-  },
-  {
-   "id": "ll-silné",
-   "format": "listenLength",
-   "difficulty": 33.3,
-   "word": "silné",
-   "short": "silne",
-   "long": "silné"
-  },
-  {
    "id": "ll-zla",
    "format": "listenLength",
-   "difficulty": 33.3,
+   "difficulty": 20,
    "word": "zla",
    "short": "zla",
    "long": "zlá"
@@ -19617,47 +19441,15 @@
   {
    "id": "ll-zlá",
    "format": "listenLength",
-   "difficulty": 33.3,
+   "difficulty": 20,
    "word": "zlá",
    "short": "zla",
    "long": "zlá"
   },
   {
-   "id": "ll-základne",
-   "format": "listenLength",
-   "difficulty": 33.5,
-   "word": "základne",
-   "short": "základne",
-   "long": "základné"
-  },
-  {
-   "id": "ll-základné",
-   "format": "listenLength",
-   "difficulty": 33.5,
-   "word": "základné",
-   "short": "základne",
-   "long": "základné"
-  },
-  {
-   "id": "ll-denne",
-   "format": "listenLength",
-   "difficulty": 33.7,
-   "word": "denne",
-   "short": "denne",
-   "long": "denné"
-  },
-  {
-   "id": "ll-denné",
-   "format": "listenLength",
-   "difficulty": 33.7,
-   "word": "denné",
-   "short": "denne",
-   "long": "denné"
-  },
-  {
    "id": "ll-dobra",
    "format": "listenLength",
-   "difficulty": 33.7,
+   "difficulty": 40,
    "word": "dobra",
    "short": "dobra",
    "long": "dobrá"
@@ -19665,7 +19457,7 @@
   {
    "id": "ll-dobrá",
    "format": "listenLength",
-   "difficulty": 33.7,
+   "difficulty": 40,
    "word": "dobrá",
    "short": "dobra",
    "long": "dobrá"
@@ -19673,7 +19465,7 @@
   {
    "id": "ll-pravom",
    "format": "listenLength",
-   "difficulty": 33.9,
+   "difficulty": 20,
    "word": "pravom",
    "short": "pravom",
    "long": "právom"
@@ -19681,47 +19473,15 @@
   {
    "id": "ll-právom",
    "format": "listenLength",
-   "difficulty": 33.9,
+   "difficulty": 20,
    "word": "právom",
    "short": "pravom",
    "long": "právom"
   },
   {
-   "id": "ll-strašne",
-   "format": "listenLength",
-   "difficulty": 34,
-   "word": "strašne",
-   "short": "strašne",
-   "long": "strašné"
-  },
-  {
-   "id": "ll-strašné",
-   "format": "listenLength",
-   "difficulty": 34,
-   "word": "strašné",
-   "short": "strašne",
-   "long": "strašné"
-  },
-  {
-   "id": "ll-zásadne",
-   "format": "listenLength",
-   "difficulty": 34.2,
-   "word": "zásadne",
-   "short": "zásadne",
-   "long": "zásadné"
-  },
-  {
-   "id": "ll-zásadné",
-   "format": "listenLength",
-   "difficulty": 34.2,
-   "word": "zásadné",
-   "short": "zásadne",
-   "long": "zásadné"
-  },
-  {
    "id": "ll-koni",
    "format": "listenLength",
-   "difficulty": 34.2,
+   "difficulty": 60,
    "word": "koni",
    "short": "koni",
    "long": "koní"
@@ -19729,31 +19489,15 @@
   {
    "id": "ll-koní",
    "format": "listenLength",
-   "difficulty": 34.2,
+   "difficulty": 60,
    "word": "koní",
    "short": "koni",
    "long": "koní"
   },
   {
-   "id": "ll-smutne",
-   "format": "listenLength",
-   "difficulty": 34.5,
-   "word": "smutne",
-   "short": "smutne",
-   "long": "smutné"
-  },
-  {
-   "id": "ll-smutné",
-   "format": "listenLength",
-   "difficulty": 34.5,
-   "word": "smutné",
-   "short": "smutne",
-   "long": "smutné"
-  },
-  {
    "id": "ll-chuti",
    "format": "listenLength",
-   "difficulty": 34.5,
+   "difficulty": 60,
    "word": "chuti",
    "short": "chuti",
    "long": "chutí"
@@ -19761,47 +19505,15 @@
   {
    "id": "ll-chutí",
    "format": "listenLength",
-   "difficulty": 34.5,
+   "difficulty": 60,
    "word": "chutí",
    "short": "chuti",
    "long": "chutí"
   },
   {
-   "id": "ll-hrozne",
-   "format": "listenLength",
-   "difficulty": 35.2,
-   "word": "hrozne",
-   "short": "hrozne",
-   "long": "hrozné"
-  },
-  {
-   "id": "ll-hrozné",
-   "format": "listenLength",
-   "difficulty": 35.2,
-   "word": "hrozné",
-   "short": "hrozne",
-   "long": "hrozné"
-  },
-  {
-   "id": "ll-slobodne",
-   "format": "listenLength",
-   "difficulty": 35.3,
-   "word": "slobodne",
-   "short": "slobodne",
-   "long": "slobodné"
-  },
-  {
-   "id": "ll-slobodné",
-   "format": "listenLength",
-   "difficulty": 35.3,
-   "word": "slobodné",
-   "short": "slobodne",
-   "long": "slobodné"
-  },
-  {
    "id": "ll-kosti",
    "format": "listenLength",
-   "difficulty": 35.4,
+   "difficulty": 60,
    "word": "kosti",
    "short": "kosti",
    "long": "kostí"
@@ -19809,191 +19521,15 @@
   {
    "id": "ll-kostí",
    "format": "listenLength",
-   "difficulty": 35.4,
+   "difficulty": 60,
    "word": "kostí",
    "short": "kosti",
    "long": "kostí"
   },
   {
-   "id": "ll-osobitne",
-   "format": "listenLength",
-   "difficulty": 35.7,
-   "word": "osobitne",
-   "short": "osobitne",
-   "long": "osobitné"
-  },
-  {
-   "id": "ll-osobitné",
-   "format": "listenLength",
-   "difficulty": 35.7,
-   "word": "osobitné",
-   "short": "osobitne",
-   "long": "osobitné"
-  },
-  {
-   "id": "ll-bezpečne",
-   "format": "listenLength",
-   "difficulty": 35.8,
-   "word": "bezpečne",
-   "short": "bezpečne",
-   "long": "bezpečné"
-  },
-  {
-   "id": "ll-bezpečné",
-   "format": "listenLength",
-   "difficulty": 35.8,
-   "word": "bezpečné",
-   "short": "bezpečne",
-   "long": "bezpečné"
-  },
-  {
-   "id": "ll-jemne",
-   "format": "listenLength",
-   "difficulty": 36.2,
-   "word": "jemne",
-   "short": "jemne",
-   "long": "jemné"
-  },
-  {
-   "id": "ll-jemné",
-   "format": "listenLength",
-   "difficulty": 36.2,
-   "word": "jemné",
-   "short": "jemne",
-   "long": "jemné"
-  },
-  {
-   "id": "ll-pracovne",
-   "format": "listenLength",
-   "difficulty": 36.3,
-   "word": "pracovne",
-   "short": "pracovne",
-   "long": "pracovné"
-  },
-  {
-   "id": "ll-pracovné",
-   "format": "listenLength",
-   "difficulty": 36.3,
-   "word": "pracovné",
-   "short": "pracovne",
-   "long": "pracovné"
-  },
-  {
-   "id": "ll-mesačne",
-   "format": "listenLength",
-   "difficulty": 36.3,
-   "word": "mesačne",
-   "short": "mesačne",
-   "long": "mesačné"
-  },
-  {
-   "id": "ll-mesačné",
-   "format": "listenLength",
-   "difficulty": 36.3,
-   "word": "mesačné",
-   "short": "mesačne",
-   "long": "mesačné"
-  },
-  {
-   "id": "ll-šťastne",
-   "format": "listenLength",
-   "difficulty": 36.5,
-   "word": "šťastne",
-   "short": "šťastne",
-   "long": "šťastné"
-  },
-  {
-   "id": "ll-šťastné",
-   "format": "listenLength",
-   "difficulty": 36.5,
-   "word": "šťastné",
-   "short": "šťastne",
-   "long": "šťastné"
-  },
-  {
-   "id": "ll-odborne",
-   "format": "listenLength",
-   "difficulty": 36.7,
-   "word": "odborne",
-   "short": "odborne",
-   "long": "odborné"
-  },
-  {
-   "id": "ll-odborné",
-   "format": "listenLength",
-   "difficulty": 36.7,
-   "word": "odborné",
-   "short": "odborne",
-   "long": "odborné"
-  },
-  {
-   "id": "ll-pokojne",
-   "format": "listenLength",
-   "difficulty": 36.7,
-   "word": "pokojne",
-   "short": "pokojne",
-   "long": "pokojné"
-  },
-  {
-   "id": "ll-pokojné",
-   "format": "listenLength",
-   "difficulty": 36.7,
-   "word": "pokojné",
-   "short": "pokojne",
-   "long": "pokojné"
-  },
-  {
-   "id": "ll-vnútorne",
-   "format": "listenLength",
-   "difficulty": 36.7,
-   "word": "vnútorne",
-   "short": "vnútorne",
-   "long": "vnútorné"
-  },
-  {
-   "id": "ll-vnútorné",
-   "format": "listenLength",
-   "difficulty": 36.7,
-   "word": "vnútorné",
-   "short": "vnútorne",
-   "long": "vnútorné"
-  },
-  {
-   "id": "ll-dočasne",
-   "format": "listenLength",
-   "difficulty": 36.8,
-   "word": "dočasne",
-   "short": "dočasne",
-   "long": "dočasné"
-  },
-  {
-   "id": "ll-dočasné",
-   "format": "listenLength",
-   "difficulty": 36.8,
-   "word": "dočasné",
-   "short": "dočasne",
-   "long": "dočasné"
-  },
-  {
-   "id": "ll-písomne",
-   "format": "listenLength",
-   "difficulty": 36.9,
-   "word": "písomne",
-   "short": "písomne",
-   "long": "písomné"
-  },
-  {
-   "id": "ll-písomné",
-   "format": "listenLength",
-   "difficulty": 36.9,
-   "word": "písomné",
-   "short": "písomne",
-   "long": "písomné"
-  },
-  {
    "id": "ll-rana",
    "format": "listenLength",
-   "difficulty": 37,
+   "difficulty": 20,
    "word": "rana",
    "short": "rana",
    "long": "rána"
@@ -20001,79 +19537,15 @@
   {
    "id": "ll-rána",
    "format": "listenLength",
-   "difficulty": 37,
+   "difficulty": 20,
    "word": "rána",
    "short": "rana",
    "long": "rána"
   },
   {
-   "id": "ll-obyčajne",
-   "format": "listenLength",
-   "difficulty": 37.1,
-   "word": "obyčajne",
-   "short": "obyčajne",
-   "long": "obyčajné"
-  },
-  {
-   "id": "ll-obyčajné",
-   "format": "listenLength",
-   "difficulty": 37.1,
-   "word": "obyčajné",
-   "short": "obyčajne",
-   "long": "obyčajné"
-  },
-  {
-   "id": "ll-kvalitne",
-   "format": "listenLength",
-   "difficulty": 37.2,
-   "word": "kvalitne",
-   "short": "kvalitne",
-   "long": "kvalitné"
-  },
-  {
-   "id": "ll-kvalitné",
-   "format": "listenLength",
-   "difficulty": 37.2,
-   "word": "kvalitné",
-   "short": "kvalitne",
-   "long": "kvalitné"
-  },
-  {
-   "id": "ll-stredne",
-   "format": "listenLength",
-   "difficulty": 37.2,
-   "word": "stredne",
-   "short": "stredne",
-   "long": "stredné"
-  },
-  {
-   "id": "ll-stredné",
-   "format": "listenLength",
-   "difficulty": 37.2,
-   "word": "stredné",
-   "short": "stredne",
-   "long": "stredné"
-  },
-  {
-   "id": "ll-večne",
-   "format": "listenLength",
-   "difficulty": 37.2,
-   "word": "večne",
-   "short": "večne",
-   "long": "večné"
-  },
-  {
-   "id": "ll-večné",
-   "format": "listenLength",
-   "difficulty": 37.2,
-   "word": "večné",
-   "short": "večne",
-   "long": "večné"
-  },
-  {
    "id": "ll-nemecky",
    "format": "listenLength",
-   "difficulty": 37.5,
+   "difficulty": 75,
    "word": "nemecky",
    "short": "nemecky",
    "long": "nemecký"
@@ -20081,47 +19553,15 @@
   {
    "id": "ll-nemecký",
    "format": "listenLength",
-   "difficulty": 37.5,
+   "difficulty": 75,
    "word": "nemecký",
    "short": "nemecky",
    "long": "nemecký"
   },
   {
-   "id": "ll-následne",
-   "format": "listenLength",
-   "difficulty": 37.7,
-   "word": "následne",
-   "short": "následne",
-   "long": "následné"
-  },
-  {
-   "id": "ll-následné",
-   "format": "listenLength",
-   "difficulty": 37.7,
-   "word": "následné",
-   "short": "následne",
-   "long": "následné"
-  },
-  {
-   "id": "ll-povinne",
-   "format": "listenLength",
-   "difficulty": 37.8,
-   "word": "povinne",
-   "short": "povinne",
-   "long": "povinné"
-  },
-  {
-   "id": "ll-povinné",
-   "format": "listenLength",
-   "difficulty": 37.8,
-   "word": "povinné",
-   "short": "povinne",
-   "long": "povinné"
-  },
-  {
    "id": "ll-kolena",
    "format": "listenLength",
-   "difficulty": 37.8,
+   "difficulty": 40,
    "word": "kolena",
    "short": "kolena",
    "long": "kolená"
@@ -20129,7 +19569,7 @@
   {
    "id": "ll-kolená",
    "format": "listenLength",
-   "difficulty": 37.8,
+   "difficulty": 40,
    "word": "kolená",
    "short": "kolena",
    "long": "kolená"

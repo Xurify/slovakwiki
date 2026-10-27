@@ -9,7 +9,8 @@
  * form. Downloads the SNK word-form lists to tmp/snk/ and the OpenSubtitles
  * counts to tmp/opensubtitles/ on the first run.
  * `--rescore-pseudowords` only re-rates the pseudowords already in the bank
- * (no SNK download, no new audio).
+ * (no SNK download, no new audio). `--rescore-lengths` does the same for the
+ * Short or Long pairs, dropping -ne/-né pairs over the cap.
  * Then voice and check the Listen and Select pseudowords, and repeat until
  * check-spoken reports nothing new:
  *   bun scripts/audio/generate.ts -- --level-test-only --missing-only
@@ -97,10 +98,34 @@ const MIN_LENGTH_FORM_COUNT = 300;
 const LENGTH_PAIRS = 80;
 
 /**
- * Not yet calibrated: hearing vowel length is put at A2, nudged up for rarer
- * words, until answers from real learners can place it.
+ * Adverb/adjective pairs (pekne/pekné) are the commonest length pairs by far:
+ * uncapped they were 50 of 80, so the format heard one contrast.
  */
-const LENGTH_BASE_DIFFICULTY = 20;
+const ADVERB_ADJECTIVE_PAIRS = 15;
+
+const SYLLABLE_RE = /ia|ie|iu|ô|[aáäeéiíoóuúyý]/gu;
+
+/**
+ * Not yet calibrated; a judgement until answers from real learners can place
+ * it. Length is easiest to hear in the stressed first syllable and on a/á,
+ * hardest in a late unstressed syllable on i/í and y/ý, where fast speech
+ * often shortens it.
+ */
+function lengthDifficulty(short: string, long: string): number {
+  const at = [...short].findIndex((letter, index) => letter !== [...long][index]);
+  const syllables = [...short.matchAll(SYLLABLE_RE)];
+  const syllable = syllables.filter((match) => (match.index ?? 0) <= at).length;
+  const vowel = [...short][at];
+  if (syllable <= 1) return CEFR_ANCHOR.A2;
+  if (vowel === "a") return CEFR_ANCHOR.B1;
+  if (vowel === "i" || vowel === "y") return syllables.length <= 2 ? CEFR_ANCHOR.B2 : 75;
+  if (vowel === "e") return syllables.length <= 3 ? CEFR_ANCHOR.B2 : 75;
+  return CEFR_ANCHOR.B2;
+}
+
+function isAdverbAdjectivePair(short: string, long: string): boolean {
+  return short.endsWith("ne") && long === `${short.slice(0, -1)}é`;
+}
 
 /** So "desať" or "svoj" does not fill a whole level of pronoun and number gaps. */
 const MAX_SENTENCES_PER_BLANK_WORD = 2;
@@ -572,7 +597,6 @@ interface LengthPair {
  */
 function lengthPairs(
   formCounts: ReadonlyMap<string, number>,
-  form: (word: string) => number,
   checks: Readonly<Record<string, LengthCheck>>,
 ): LengthPair[] {
   const candidates: (LengthPair & { count: number })[] = [];
@@ -595,17 +619,22 @@ function lengthPairs(
         short,
         long,
         count: Math.min(count, longCount),
-        difficulty: LENGTH_BASE_DIFFICULTY + 0.3 * Math.max(form(short), form(long)),
+        difficulty: lengthDifficulty(short, long),
       });
     });
   }
 
   const taken = new Set<string>();
   const pairs: LengthPair[] = [];
+  let adverbAdjective = 0;
   for (const pair of candidates.sort(
     (a, b) => b.count - a.count || a.short.localeCompare(b.short, "sk"),
   )) {
     if (taken.has(pair.short) || taken.has(pair.long)) continue;
+    if (isAdverbAdjectivePair(pair.short, pair.long)) {
+      if (adverbAdjective >= ADVERB_ADJECTIVE_PAIRS) continue;
+      adverbAdjective += 1;
+    }
     taken.add(pair.short);
     taken.add(pair.long);
     pairs.push({ short: pair.short, long: pair.long, difficulty: pair.difficulty });
@@ -628,7 +657,7 @@ async function main(): Promise<void> {
 
   const difficulty = makeDifficulty(formCounts, sortedCounts);
 
-  const lengths = lengthPairs(formCounts, difficulty.form, await loadLengthChecks());
+  const lengths = lengthPairs(formCounts, await loadLengthChecks());
 
   const pseudo = generatePseudowords(real, formCounts);
   assignPseudowordDifficulty(
@@ -932,9 +961,41 @@ async function rescorePseudowords(): Promise<void> {
   console.log(`Wrote ${path.relative(ROOT, OUT_PATH)}`);
 }
 
-(process.argv.includes("--rescore-pseudowords") ? rescorePseudowords() : main()).catch(
-  (error: unknown) => {
-    console.error(error);
-    process.exit(1);
-  },
-);
+/**
+ * Re-rates the Short or Long pairs already in the bank and drops the -ne/-né
+ * pairs over the cap, keeping the commonest (the bank lists pairs commonest
+ * first), so no clip needs voicing again.
+ */
+async function rescoreLengths(): Promise<void> {
+  type BankClip = { short: string; long: string; difficulty: number };
+  const bank = await readJsonFile<Record<string, unknown>>(OUT_PATH, {});
+  const clips = (bank.listenLength ?? []) as BankClip[];
+  const kept = new Set<string>();
+  let adverbAdjective = 0;
+  for (const clip of clips) {
+    if (kept.has(clip.short)) continue;
+    if (isAdverbAdjectivePair(clip.short, clip.long)) {
+      if (adverbAdjective >= ADVERB_ADJECTIVE_PAIRS) continue;
+      adverbAdjective += 1;
+    }
+    kept.add(clip.short);
+  }
+  bank.listenLength = clips
+    .filter((clip) => kept.has(clip.short))
+    .map((clip) => ({ ...clip, difficulty: lengthDifficulty(clip.short, clip.long) }));
+  console.log(`listenLength: kept ${kept.size} of ${clips.length / 2} pairs`);
+
+  await writeFileAtomic(OUT_PATH, `${JSON.stringify(bank, null, 1)}\n`);
+  console.log(`Wrote ${path.relative(ROOT, OUT_PATH)}`);
+}
+
+const run = process.argv.includes("--rescore-pseudowords")
+  ? rescorePseudowords
+  : process.argv.includes("--rescore-lengths")
+    ? rescoreLengths
+    : main;
+
+run().catch((error: unknown) => {
+  console.error(error);
+  process.exit(1);
+});
