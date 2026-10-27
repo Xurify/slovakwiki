@@ -553,7 +553,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       },
       onSet(WORDS.krhla, ["can"], [690, 230, 22, 18]),
       // On the shelf, for tapping only: a line about a book means one in someone's hands, not these.
-      { ...drawn(WORDS.obraz, [686, 30, 70, 52]), quiet: true },
+      { ...drawn(WORDS.platna, [686, 30, 70, 52]), quiet: true },
       { ...drawn(WORDS.knihy, [682, 90, 52, 30]), quiet: true },
       { ...drawn(WORDS.polica, [676, 118, 96, 8]), quiet: true },
       drawn(WORDS.koberec, [190, 256, 580, 40]),
