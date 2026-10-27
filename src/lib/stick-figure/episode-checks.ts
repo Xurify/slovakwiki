@@ -539,6 +539,7 @@ export function checkCues(
     "okno",
     "dvere",
     "obraz",
+    "platna",
     "zaves",
     "hodiny",
     "lampa",
