@@ -876,18 +876,29 @@ export function motionFor(
           keys: [{ at: 0 }, { at: 500, ...hands(hand, PHONE_SCREEN) }],
         },
       };
-    case "hangup":
+    case "hangup": {
+      // Down from the ear to in front of the chest, a look at the screen and a thumb on it, then the hand rests: dropped straight down, it read as a flick.
+      const reading = { tilt: 6, look: 0.8, nod: 1.6 };
       return {
         motion: {
-          ms: 900,
-          takes: 300,
+          ms: 1400,
+          takes: 0,
           keys: [
             { at: 0 },
-            { at: 450, ...hands(hand, { at: { x: 12, y: 72 } }), turn: { [hand]: -10 } },
-            { at: 900 },
+            { at: 450, ...hands(hand, PHONE_SCREEN), body: reading },
+            { at: 750, ...hands(hand, PHONE_SCREEN), body: reading },
+            {
+              at: 850,
+              ...hands(hand, PHONE_SCREEN),
+              turn: { [hand]: -12 },
+              body: reading,
+            },
+            { at: 1000, ...hands(hand, PHONE_SCREEN), body: reading },
+            { at: 1400 },
           ],
         },
       };
+    }
     case "burn": {
       // The spoon goes out of the way, the free hand fans the mouth, and the
       // whole body hops: the soup was hotter than the warning made it sound.
