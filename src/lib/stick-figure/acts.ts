@@ -144,7 +144,13 @@ export type ObjectKind =
   | "headphones"
   | "lead"
   | "ball"
-  | "suitcase";
+  | "suitcase"
+  | "apple"
+  | "bag"
+  | "basket"
+  | "book"
+  | "clipboard"
+  | "umbrella";
 
 /** What is in a pot, a bowl, a spoon, a jug or a cup. */
 export type Fill = "water" | "soup" | "coffee" | "kibble";

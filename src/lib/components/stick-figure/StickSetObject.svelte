@@ -511,6 +511,56 @@
     />
   {:else if kind === "headphones"}
     <StickHeadphones far={{ x: -6, y: -4.5 }} near={{ x: 6, y: -4.5 }} />
+  {:else if kind === "apple"}
+    <path d="M0 -8.6q.4-2 1.8-2.8" fill="none" />
+    <ellipse
+      cx="2.6"
+      cy="-10.6"
+      rx="1.8"
+      ry="0.9"
+      transform="rotate(-25 2.6 -10.6)"
+      class="fill-scene-leaf"
+    />
+    <path
+      d="M0 -8.4q-4.6-1.6-4.6 3q0 4.6 4.6 5q4.6-.4 4.6-5q0-4.6-4.6-3Z"
+      class="fill-scene-leaf"
+    />
+    <circle cx="-2" cy="-5.6" r="1" class="fill-white/60" stroke="none" />
+  {:else if kind === "bag"}
+    <path d="M-4 -12Q-4 -18 0 -18Q4 -18 4 -12" fill="none" stroke-width="1.1" />
+    <path d="M-7 -12h14l-1 12a2 2 0 0 1-2 2h-8a2 2 0 0 1-2-2Z" class="fill-scene-clay" />
+    <path d="M-6.6 -8h13.2" class="stroke-white/50" stroke-width="1.2" />
+  {:else if kind === "basket"}
+    <path d="M-6 -8Q-6 -15 0 -15Q6 -15 6 -8" fill="none" stroke-width="1.1" />
+    <circle cx="-3.6" cy="-8.6" r="2.2" class="fill-scene-red-mid" />
+    <circle cx="0.4" cy="-9.2" r="2.2" class="fill-scene-red-mid" />
+    <circle cx="4" cy="-8.4" r="2.2" class="fill-scene-red-mid" />
+    <path d="M-8 -8h16l-2 8.5h-12Z" class="fill-scene-wood" />
+    <path d="M-7 -5h14M-6.4 -2h12.8" class="stroke-scene-line/40" stroke-width="0.7" />
+  {:else if kind === "book"}
+    <rect x="-4" y="-11.5" width="9" height="11.5" rx="1" class="fill-scene-honey" />
+    <path d="M-2.2 -11.5V0" stroke-width="0.6" />
+    <path d="M0 -8.7h3M0 -6.9h2" class="stroke-portrait-bib" stroke-width="0.7" />
+  {:else if kind === "clipboard"}
+    <rect x="-5" y="-13" width="10" height="13" rx="0.8" class="fill-scene-wood" />
+    <rect x="-4" y="-11.5" width="8" height="10" rx="0.4" class="fill-white" />
+    <path d="M-2.5 -13.5h5v2h-5Z" class="fill-scene-edge" />
+    <path
+      d="M-2.5 -8h5M-2.5 -5h5M-2.5 -2h3"
+      class="stroke-scene-line/40"
+      stroke-width="0.6"
+    />
+  {:else if kind === "umbrella"}
+    <path d="M0 0V-18" stroke-width="1.6" class="stroke-scene-edge" />
+    <path
+      d="M0 0Q0 3 -2.5 3Q-5 3 -5 0.5"
+      fill="none"
+      stroke-width="1.4"
+      class="stroke-scene-wood"
+    />
+    <path d="M-1.5 -18L0 -21L1.5 -18Z" class="fill-scene-edge" />
+    <path d="M-3 -18L-1.5 -3L1.5 -3L3 -18Z" class="fill-scene-sky" />
+    <path d="M-3 -11H3" class="stroke-scene-line" stroke-width="0.8" />
   {/if}
   {#each on as { dx, dy, ...look }, index (index)}
     <g transform="translate({dx} {dy})">

@@ -245,6 +245,12 @@ const HOME_SET: PlaceSet = {
 /** The park's afternoon sun, which a line can point at and Find it can ask for. */
 const PARK_SUN = { x: 562, y: 36 };
 
+/** An empty set for places whose set has no static pieces of its own: a scene brings what it acts with (setup). */
+const EMPTY_SET: PlaceSet = {
+  pieces: [],
+  objects: [],
+};
+
 export const PLACES: Readonly<Record<StageSetting, Place>> = {
   cafe: {
     ground: "wood",
@@ -268,6 +274,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     staff: ["waiter"],
     post: 690,
     glass: { arch: true, height: 166, width: 156, x: 110, y: 34 },
+    set: EMPTY_SET,
   },
   classroom: {
     ground: "wood",
@@ -421,6 +428,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     // Lucia sells at the market in the podcast, from the stall on the right.
     staff: ["lucia"],
     post: 660,
+    set: EMPTY_SET,
   },
   plaza: {
     ground: "stone",
@@ -447,6 +455,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       drawn(WORDS.oblak, [522, 29, 76, 31], [833, 42, 54, 22], [80, 31, 61, 25]),
     ],
     sounds: ["murmur", "birds", "tram"],
+    set: EMPTY_SET,
   },
   registration: {
     ground: "stone",
@@ -463,6 +472,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     sounds: ["hum", "murmur"],
     staff: ["receptionist", "maria"],
     post: 560,
+    set: EMPTY_SET,
   },
   street: {
     ground: "stone",

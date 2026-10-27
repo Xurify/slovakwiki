@@ -7,7 +7,9 @@ import {
   afterThinking,
   lineWriter,
   rightOrWrong,
+  staged,
 } from "../dialogue";
+import type { Cue } from "$lib/stick-figure/acts";
 import type { ListeningChapter, ListeningEpisode } from "../types";
 
 const PREFIX = "podcast-telling-time-";
@@ -533,123 +535,142 @@ const tramStop: ListeningChapter = {
   ],
 };
 
+const CAFE_ACTS: Record<string, Cue[]> = {
+  "waiter-here-two-coffees": [{ do: "raise", what: "cup", on: "páči" }],
+  "anna-when-do-you-close": [{ do: "nod", on: "ďakujeme" }],
+};
+
 const cafe: ListeningChapter = {
   id: `${PREFIX}cafe`,
   stage: "cafe",
   titleSk: "V kaviarni",
   title: "At the café: at three, or in three hours?",
-  lines: [
-    line("anna-now-in-cafe", "Anna", ["Teraz sme v kaviarni."], "Now we're at the café."),
-    line(
-      "waiter-what-will-you-have",
-      "Waiter",
-      ["Dobrý deň! Čo si dáte?"],
-      "Good day! What will you have?",
-    ),
-    line(
-      "marek-two-coffees",
-      "Marek",
-      ["Dobrý deň. Dáme si dve kávy, prosím."],
-      "Good day. We'll have two coffees, please.",
-      { to: "Waiter" },
-    ),
-    line("waiter-right-away", "Waiter", ["Hneď to bude."], "Coming right up."),
-    line(
-      "anna-what-time-cafe",
-      "Anna",
-      ["Marek, ", mark("koľko je hodín"), "?"],
-      "Marek, what time is it?",
-    ),
-    line(
-      "marek-eleven-oh-five",
-      "Marek",
-      ["Je ", mark("jedenásť hodín a päť minút"), "."],
-      "It's five past eleven.",
-    ),
-    line(
-      "anna-guest-at-three",
-      "Anna",
-      ["Dobre. ", mark("O tretej"), " máme v štúdiu hosťa."],
-      "Good. At three we have a guest in the studio.",
-    ),
-    line(
-      "marek-in-three-hours",
-      "Marek",
-      [mark("O tri hodiny"), "? ", PAUSE, "To je o druhej!"],
-      "In three hours? That's at two! (He misheard, on purpose.)",
-    ),
-    line(
-      "anna-not-in-three-hours",
-      "Anna",
-      [
-        "Nie, Marek. Nie ",
-        mark("o tri hodiny"),
-        ". ",
-        mark("O tretej"),
-        ". ",
-        PAUSE,
-        mark("O tretej"),
-        " je čas na hodinách: tri nula nula.",
-      ],
-      "No, Marek. Not in three hours. At three. At three is a time on the clock: three zero zero.",
-    ),
-    line(
-      "marek-at-three-around-two",
-      "Marek",
-      [
-        "Aha! ",
-        mark("O tretej"),
-        ", tri hodiny. ",
-        PAUSE,
-        "A ",
-        mark("o tri hodiny"),
-        " je okolo druhej.",
-      ],
-      "Oh! At three, three o'clock. And in three hours is around two.",
-    ),
-    line(
-      "waiter-here-two-coffees",
-      "Waiter",
-      ["Nech sa páči, dve kávy."],
-      "Here you are, two coffees.",
-    ),
-    line(
-      "anna-when-do-you-close",
-      "Anna",
-      ["Ďakujeme. ", PAUSE, "Kedy zatvárate?"],
-      "Thank you. When do you close?",
-      { to: "Waiter" },
-    ),
-    line(
-      "waiter-close-at-six",
-      "Waiter",
-      ["Dnes zatvárame ", mark("o šiestej"), " večer."],
-      "Today we close at six in the evening.",
-    ),
-    line(
-      "marek-seven-hours-time",
-      "Marek",
-      [mark("O šiestej"), STOP, PAUSE, "to je ", mark("o sedem hodín"), ". Máme čas!"],
-      "At six… that's in seven hours. We have time!",
-    ),
-    line(
-      "anna-back-at-half-past-twelve",
-      "Anna",
-      [
-        "Máme čas na kávu, nie na sedem hodín. ",
-        PAUSE,
-        mark("O pol jednej"),
-        " ideme späť.",
-      ],
-      "We have time for a coffee, not for seven hours. At half past twelve we go back.",
-    ),
-    line(
-      "marek-twelve-thirty",
-      "Marek",
-      [mark("Pol jednej"), STOP, PAUSE, "dvanásť tridsať. Dobre."],
-      "Half past twelve… twelve thirty. OK.",
-    ),
-  ],
+  setup: {
+    objects: [
+      { id: "cup", kind: "cup", start: { where: { hand: "waiter", side: "lead" } } },
+    ],
+  },
+  lines: staged(
+    PREFIX,
+    [
+      line(
+        "anna-now-in-cafe",
+        "Anna",
+        ["Teraz sme v kaviarni."],
+        "Now we're at the café.",
+      ),
+      line(
+        "waiter-what-will-you-have",
+        "Waiter",
+        ["Dobrý deň! Čo si dáte?"],
+        "Good day! What will you have?",
+      ),
+      line(
+        "marek-two-coffees",
+        "Marek",
+        ["Dobrý deň. Dáme si dve kávy, prosím."],
+        "Good day. We'll have two coffees, please.",
+        { to: "Waiter" },
+      ),
+      line("waiter-right-away", "Waiter", ["Hneď to bude."], "Coming right up."),
+      line(
+        "anna-what-time-cafe",
+        "Anna",
+        ["Marek, ", mark("koľko je hodín"), "?"],
+        "Marek, what time is it?",
+      ),
+      line(
+        "marek-eleven-oh-five",
+        "Marek",
+        ["Je ", mark("jedenásť hodín a päť minút"), "."],
+        "It's five past eleven.",
+      ),
+      line(
+        "anna-guest-at-three",
+        "Anna",
+        ["Dobre. ", mark("O tretej"), " máme v štúdiu hosťa."],
+        "Good. At three we have a guest in the studio.",
+      ),
+      line(
+        "marek-in-three-hours",
+        "Marek",
+        [mark("O tri hodiny"), "? ", PAUSE, "To je o druhej!"],
+        "In three hours? That's at two! (He misheard, on purpose.)",
+      ),
+      line(
+        "anna-not-in-three-hours",
+        "Anna",
+        [
+          "Nie, Marek. Nie ",
+          mark("o tri hodiny"),
+          ". ",
+          mark("O tretej"),
+          ". ",
+          PAUSE,
+          mark("O tretej"),
+          " je čas na hodinách: tri nula nula.",
+        ],
+        "No, Marek. Not in three hours. At three. At three is a time on the clock: three zero zero.",
+      ),
+      line(
+        "marek-at-three-around-two",
+        "Marek",
+        [
+          "Aha! ",
+          mark("O tretej"),
+          ", tri hodiny. ",
+          PAUSE,
+          "A ",
+          mark("o tri hodiny"),
+          " je okolo druhej.",
+        ],
+        "Oh! At three, three o'clock. And in three hours is around two.",
+      ),
+      line(
+        "waiter-here-two-coffees",
+        "Waiter",
+        ["Nech sa páči, dve kávy."],
+        "Here you are, two coffees.",
+      ),
+      line(
+        "anna-when-do-you-close",
+        "Anna",
+        ["Ďakujeme. ", PAUSE, "Kedy zatvárate?"],
+        "Thank you. When do you close?",
+        { to: "Waiter" },
+      ),
+      line(
+        "waiter-close-at-six",
+        "Waiter",
+        ["Dnes zatvárame ", mark("o šiestej"), " večer."],
+        "Today we close at six in the evening.",
+      ),
+      line(
+        "marek-seven-hours-time",
+        "Marek",
+        [mark("O šiestej"), STOP, PAUSE, "to je ", mark("o sedem hodín"), ". Máme čas!"],
+        "At six… that's in seven hours. We have time!",
+      ),
+      line(
+        "anna-back-at-half-past-twelve",
+        "Anna",
+        [
+          "Máme čas na kávu, nie na sedem hodín. ",
+          PAUSE,
+          mark("O pol jednej"),
+          " ideme späť.",
+        ],
+        "We have time for a coffee, not for seven hours. At half past twelve we go back.",
+      ),
+      line(
+        "marek-twelve-thirty",
+        "Marek",
+        [mark("Pol jednej"), STOP, PAUSE, "dvanásť tridsať. Dobre."],
+        "Half past twelve… twelve thirty. OK.",
+      ),
+    ],
+    CAFE_ACTS,
+  ),
   checks: [
     {
       id: `${PREFIX}check-guest-when`,
