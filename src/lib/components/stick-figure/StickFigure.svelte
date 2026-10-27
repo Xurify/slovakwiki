@@ -175,6 +175,9 @@
     return to;
   }
 
+  const look = $derived(LOOKS[characterId]);
+  const robot = $derived(look.robot);
+
   const rig = $derived(
     solveRig(carriedRound(robot ? pose : atEar(pose, call)), sit, sitPath),
   );
@@ -237,8 +240,6 @@
       ? `M17.6 25.6A13.4 ${ry} 0 0 1 31 ${top}`
       : `M31 ${top}A13.4 ${ry} 0 0 1 44.4 25.6`;
   }
-  const look = $derived(LOOKS[characterId]);
-  const robot = $derived(look.robot);
   /** The near knee in the torso's own space, turned back by the lean, for a skirt over the lap. */
   const lapKnee = $derived.by(() => {
     const dx = rig.leadLeg.joint.x - rig.hip.x;

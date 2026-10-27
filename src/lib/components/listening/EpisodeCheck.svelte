@@ -17,6 +17,7 @@
     otherChoiceNotes,
   } from "$lib/learning/exercises";
   import type { DialogueTurn } from "$lib/learning/types";
+  import type { SceneLine } from "$lib/stick-figure/scene-line";
   import { focusUnlessTyping } from "$lib/listening/focus";
 
   import EpisodeReplayButton from "./EpisodeReplayButton.svelte";
@@ -42,7 +43,7 @@
     onresolve: (correct: boolean) => void;
     /** Replays the line some other way than its clip alone, such as acted on a stage. */
     playReplay?: (onEnded: () => void) => void;
-    replayLine?: DialogueTurn;
+    replayLine?: DialogueTurn | SceneLine;
     replaySrc?: string;
     stopReplay?: () => void;
     total: number;

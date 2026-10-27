@@ -1,6 +1,7 @@
 <script lang="ts" module>
   export interface SceneSettingToggle {
     description: string;
+    kind?: "toggle";
     label: string;
     on: boolean;
     ontoggle: () => void;

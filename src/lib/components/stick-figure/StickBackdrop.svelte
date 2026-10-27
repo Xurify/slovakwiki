@@ -10,12 +10,7 @@
   } from "$lib/stick-figure/backdrop-geometry";
   import { PLACES, backdropAlign, thingsIn } from "$lib/stick-figure/places";
   import type { StageSetting } from "$lib/stick-figure/stage-setting";
-  import {
-    litKey,
-    thingBoxes,
-    withDrawn,
-    type ThingBox,
-  } from "$lib/stick-figure/thing-words";
+  import { litKey, thingBoxes, type ThingBox } from "$lib/stick-figure/thing-words";
   import { cx } from "$lib/ui/classes";
   import Cafe from "./backdrops/Cafe.svelte";
   import Classroom from "./backdrops/Classroom.svelte";
@@ -82,22 +77,22 @@
   } = $props();
 
   /** Each place's drawing; every one takes the same props and uses what it needs. */
-  const DRAWINGS: Record<
-    StageSetting,
-    Component<{
-      board?: string;
-      hour: number;
-      open?: number;
-      tram: TramState;
-      mood?: SceneMood;
-    }>
-  > = {
-    cafe: Cafe,
+  type Drawing = Component<{
+    board?: string;
+    hour: number;
+    open?: number;
+    tram: TramState;
+    mood?: SceneMood;
+  }>;
+  /** For a drawing that uses none of the props: Svelte types a component without props as refusing any. */
+  const still = (drawing: unknown) => drawing as Drawing;
+  const DRAWINGS: Record<StageSetting, Drawing> = {
+    cafe: still(Cafe),
     classroom: Classroom,
-    default: Park,
+    default: still(Park),
     home: Home,
     kitchen: Kitchen,
-    market: Market,
+    market: still(Market),
     plaza: Plaza,
     registration: Registration,
     street: Street,
@@ -168,24 +163,13 @@
         };
       }
     }
-    drawnAt = withDrawn(things, measured);
+    drawnAt = measured;
   }
 
   function thingElements(id: string): SVGGraphicsElement[] {
     if (!svg) return [];
     return [...svg.querySelectorAll<SVGGraphicsElement>(`[data-thing="${id}"]`)];
   }
-
-  /**
-   * The order the Tab key visits things in: left to right across the scene,
-   * then top to bottom, as they are seen on the screen.
-   */
-  const hitOrder = $derived(
-    boxes
-      .filter(({ thing }) => !thing.of)
-      .slice()
-      .sort((a, b) => a.box.x - b.box.x || a.box.y - b.box.y),
-  );
 
   $effect(() => {
     // Read the props that change what is drawn where, so this runs again when any does.
@@ -214,6 +198,17 @@
     things.flatMap((thing) =>
       thingBoxes(thing).map((box, copy) => ({ box, copy, thing })),
     ),
+  );
+
+  /**
+   * The order the Tab key visits things in: left to right across the scene,
+   * then top to bottom, as they are seen on the screen.
+   */
+  const hitOrder = $derived(
+    boxes
+      .filter(({ thing }) => !thing.of)
+      .slice()
+      .sort((a, b) => a.box.x - b.box.x || a.box.y - b.box.y),
   );
 </script>
 
