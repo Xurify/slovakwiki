@@ -8,10 +8,14 @@ import {
   STOP,
   SURPRISED,
   YAWN,
-  afterThinking,
+  NO_PICK,
   lineWriter,
+  listenerPicks,
+  onPath,
   staged,
+  type Part,
 } from "../dialogue";
+import type { DialogueTurn, ListenerPath } from "$lib/learning/types";
 import type { ListeningChapter, ListeningEpisode } from "../types";
 import type { Cue } from "$lib/stick-figure/acts";
 
@@ -21,6 +25,20 @@ const line = lineWriter(PREFIX);
 /** An imperative, the episode's topic, lit in the transcript. Wrong forms said on purpose stay unlit. */
 function mark(text: string): Exclude<MarkedPart, string> {
   return { role: "imperative", text };
+}
+
+/** A breath before the next ask or the score, so the joke before it can land. */
+const BEAT_MS = 1200;
+
+/** One ending of the listener's game, on one path through their picks: a breath, then its lines. */
+function ending(
+  when: ListenerPath,
+  ...lines: [id: string, speaker: string, parts: Part[], english: string][]
+): DialogueTurn[] {
+  return lines.map(([id, speaker, parts, english], i) => {
+    const turn = onPath(line(id, speaker, parts, english), when);
+    return i === 0 ? { ...turn, wait: BEAT_MS } : turn;
+  });
 }
 
 /**
@@ -1133,134 +1151,685 @@ const table: ListeningChapter = {
   ],
 };
 
-const quiz: ListeningChapter = {
-  id: `${PREFIX}quiz`,
-  titleSk: "Správne alebo nesprávne?",
-  title: "Right or wrong? Anna takes the test",
+const ASK_HOD = `${PREFIX}marek-which-hod`;
+const ASK_SADNITE = `${PREFIX}marek-which-sadnite`;
+const ASK_NECAKAJTE = `${PREFIX}marek-which-necakajte`;
+
+/** What Anna says once more where the listener's picks went mostly wrong. */
+const ONCE_MORE: Part[] = [
+  "Ešte raz, pomaly: ",
+  PAUSE,
+  mark("hoď"),
+  " mrkvu do hrnca, ",
+  PAUSE,
+  mark("sadnite"),
+  " si, ",
+  PAUSE,
+  mark("nečakajte"),
+  " na mňa.",
+];
+
+const help: ListeningChapter = {
+  id: `${PREFIX}help`,
+  titleSk: "Pomôžte Marekovi",
+  title: "Your game: help Marek pick the command",
   lines: [
     line(
-      "marek-right-or-wrong",
-      "Marek",
-      ["A teraz ty, Anna: ", PAUSE, "správne alebo nesprávne?"],
-      "And now it's your turn, Anna: right or wrong?",
+      "anna-one-more-thing",
+      "Anna",
+      [
+        CHUCKLE,
+        "To je vidieť. ",
+        PAUSE,
+        "Keď ti to dnes tak ide, ",
+        mark("skúsme"),
+        " ešte niečo. ",
+        PAUSE,
+        "Ale tentokrát ti nepoviem tvar oni.",
+      ],
+      "It shows. Since it's going so well for you today, let's try one more thing. But this time I won't tell you the oni form.",
     ),
     line(
-      "marek-first-sentence",
+      "marek-no-oni-form",
       "Marek",
-      ["Prvá veta: ", PAUSE, "Píšajte nám."],
-      "First sentence: Píšajte nám. (Wrong on purpose.)",
+      [SURPRISED, "Bez tvaru oni? ", PAUSE, "Ojoj."],
+      "Without the oni form? Uh-oh.",
     ),
-    afterThinking(
+    line(
+      "marek-listeners-help-me",
+      "Marek",
+      [EXCITED, "Milí poslucháči, ", mark("pomôžte"), " mi!"],
+      "Dear listeners, help me!",
+    ),
+    line(
+      "anna-listeners-choose",
+      "Anna",
+      [
+        "Takže predsa len potrebuješ pomoc. ",
+        PAUSE,
+        "No dobre: poslucháči vyberú a ty to povieš.",
+      ],
+      "So you need help after all. Oh well: the listeners will choose and you'll say it.",
+    ),
+    // The forms in the question stay unlit, or the transcript would give the answer away.
+    {
+      ...line(
+        "anna-first-hodit",
+        "Anna",
+        [
+          "Prvé: hodiť. ",
+          PAUSE,
+          "Čo mi včera povedala Mária, keď sme robili polievku? ",
+          PAUSE,
+          "Hod mrkvu do hrnca, alebo hoď mrkvu do hrnca?",
+        ],
+        "First: hodiť, to throw. What did Mária tell me yesterday when we were making the soup? Hod mrkvu do hrnca, or hoď mrkvu do hrnca?",
+      ),
+      wait: BEAT_MS,
+    },
+    listenerPicks(
       line(
-        "anna-piste",
+        "marek-which-hod",
+        "Marek",
+        ["Mrkvu si pamätám, ale slovo nie. ", PAUSE, "Čo poviete, pomocníci?"],
+        "I remember the carrots, but not the word. What do you say, helpers?",
+      ),
+      {
+        prompt: "Čo má Marek povedať?",
+        choices: [
+          {
+            id: "hod",
+            label: "Hod mrkvu do hrnca",
+            english: "Throw the carrots in the pot",
+          },
+          {
+            id: "hod-soft",
+            label: "Hoď mrkvu do hrnca",
+            english: "Throw the carrots in the pot",
+          },
+        ],
+        answerId: "hod-soft",
+        judge: "Anna",
+      },
+    ),
+    onPath(
+      line(
+        "marek-hod-soft-you-say",
+        "Marek",
+        [
+          mark("Hoď"),
+          ", hovoríte? ",
+          PAUSE,
+          "Áno: Anna, ",
+          mark("hoď"),
+          " mrkvu do hrnca!",
+        ],
+        "Hoď, you say? Yes: Anna, throw the carrots in the pot!",
+        { to: "Anna" },
+      ),
+      { ask: ASK_HOD, picks: ["hod-soft"] },
+    ),
+    onPath(
+      line(
+        "marek-hod-you-say",
+        "Marek",
+        ["Hod, hovoríte? ", PAUSE, "Áno: Anna, hod mrkvu do hrnca!"],
+        "Hod, you say? Yes: Anna, throw the carrots in the pot! (Wrong on purpose.)",
+        { to: "Anna" },
+      ),
+      { ask: ASK_HOD, picks: ["hod"] },
+    ),
+    {
+      ...onPath(
+        line(
+          "marek-hod-myself",
+          "Marek",
+          ["Tak si vyberiem sám: ", PAUSE, "Anna, ", mark("hoď"), " mrkvu do hrnca!"],
+          "Then I'll pick myself: Anna, throw the carrots in the pot!",
+          { to: "Anna" },
+        ),
+        { ask: ASK_HOD, picks: [NO_PICK] },
+      ),
+      wait: BEAT_MS,
+    },
+    onPath(
+      line(
+        "anna-hod-right",
+        "Anna",
+        ["Správne! ", PAUSE, "Hodia, takže ", mark("hoď"), "."],
+        "Right! Hodia (they throw), so hoď.",
+      ),
+      { ask: ASK_HOD, picks: ["hod-soft", NO_PICK] },
+    ),
+    onPath(
+      line(
+        "marek-you-cut-carrots",
+        "Marek",
+        ["Ale mrkvu si nakrájala ty."],
+        "But it was you who cut up the carrots.",
+      ),
+      { ask: ASK_HOD, picks: ["hod-soft", NO_PICK] },
+    ),
+    onPath(
+      line(
+        "anna-big-pieces",
+        "Anna",
+        [CHUCKLE, "Hej. ", PAUSE, "Tie veľké kúsky."],
+        "Yeah. Those big pieces.",
+      ),
+      { ask: ASK_HOD, picks: ["hod-soft", NO_PICK] },
+    ),
+    onPath(
+      line(
+        "anna-hod-wrong",
         "Anna",
         [
           "Nesprávne! ",
           PAUSE,
-          "Píšu",
-          STOP,
-          mark("píš"),
+          "Nie hod, ale ",
+          mark("hoď"),
           ". ",
           PAUSE,
-          "Správne je: ",
-          mark("Píšte"),
-          " nám.",
+          "Hodia, takže ",
+          mark("hoď"),
+          ".",
         ],
-        "Wrong! Píšu (they write)… píš. The right one is: Píšte nám, write to us.",
+        "Wrong! Not hod, but hoď. Hodia (they throw), so hoď.",
       ),
+      { ask: ASK_HOD, picks: ["hod"] },
     ),
-    line(
-      "marek-second-sentence",
-      "Marek",
-      ["Druhá veta: ", PAUSE, mark("Buďte"), " ticho, prosím."],
-      "Second sentence: Be quiet, please.",
-    ),
-    afterThinking(
+    onPath(
       line(
-        "anna-budte-right",
+        "marek-carrot-throw",
+        "Marek",
+        [CHUCKLE, "Hod mrkvou", STOP, PAUSE, "To je nejaký nový šport?"],
+        "A carrot throw… Is that some new sport?",
+      ),
+      { ask: ASK_HOD, picks: ["hod"] },
+    ),
+    onPath(
+      line(
+        "anna-hod-the-carrots",
         "Anna",
-        ["Správne! ", PAUSE, mark("Buď"), ", ", mark("buďte"), ", ", mark("buďme"), "."],
-        "Right! Buď, buďte, buďme.",
+        ["Nie, Marek. ", PAUSE, mark("Hoď"), " mrkvu do hrnca."],
+        "No, Marek. Throw the carrots in the pot.",
       ),
+      { ask: ASK_HOD, picks: ["hod"] },
     ),
-    line(
-      "marek-last-sentence",
-      "Marek",
-      ["A posledná veta: ", PAUSE, "Hovoraj pomalšie."],
-      "And the last sentence: Hovoraj pomalšie. (Wrong on purpose.)",
-    ),
-    afterThinking(
+    {
+      ...line(
+        "anna-second-sadnut",
+        "Anna",
+        [
+          "Dobre, ideme ďalej. ",
+          PAUSE,
+          "Druhé: sadnúť si. ",
+          PAUSE,
+          "Čo nám povedala Mária pri stole? ",
+          PAUSE,
+          "Sadni si, alebo sadnite si?",
+        ],
+        "OK, moving on. Second: sadnúť si, to sit down. What did Mária tell us at the table? Sadni si, or sadnite si?",
+      ),
+      wait: BEAT_MS,
+    },
+    listenerPicks(
       line(
-        "anna-hovor",
+        "marek-which-sadnite",
+        "Marek",
+        ["Ja som vtedy myslel len na polievku. ", PAUSE, "Pomôžete mi?"],
+        "I was only thinking about the soup then. Will you help me?",
+      ),
+      {
+        prompt: "Čo má Marek povedať?",
+        choices: [
+          { id: "sadni", label: "Sadni si", english: "Sit down" },
+          { id: "sadnite", label: "Sadnite si", english: "Sit down" },
+        ],
+        answerId: "sadnite",
+        judge: "Anna",
+      },
+    ),
+    onPath(
+      line(
+        "marek-sadnite-you-say",
+        "Marek",
+        [
+          mark("Sadnite"),
+          " si, vravíte? ",
+          PAUSE,
+          "Dobre: milí poslucháči, ",
+          mark("sadnite"),
+          " si!",
+        ],
+        "Sadnite si, you say? OK: dear listeners, sit down!",
+      ),
+      { ask: ASK_SADNITE, picks: ["sadnite"] },
+    ),
+    onPath(
+      line(
+        "marek-sadni-you-say",
+        "Marek",
+        [
+          mark("Sadni"),
+          " si, vravíte? ",
+          PAUSE,
+          "Dobre: milí poslucháči, ",
+          mark("sadni"),
+          " si!",
+        ],
+        "Sadni si, you say? OK: dear listeners, sit down! (Wrong on purpose: sadni is for one person.)",
+      ),
+      { ask: ASK_SADNITE, picks: ["sadni"] },
+    ),
+    {
+      ...onPath(
+        line(
+          "marek-sadnite-guess",
+          "Marek",
+          ["Tak si tipnem: ", PAUSE, "milí poslucháči, ", mark("sadnite"), " si!"],
+          "Then I'll take a guess: dear listeners, sit down!",
+        ),
+        { ask: ASK_SADNITE, picks: [NO_PICK] },
+      ),
+      wait: BEAT_MS,
+    },
+    onPath(
+      line(
+        "anna-sadnite-right",
+        "Anna",
+        [
+          "Správne! ",
+          PAUSE,
+          "Mária to povedala nám všetkým, takže ",
+          mark("sadnite"),
+          " si.",
+        ],
+        "Right! Mária said it to all of us, so sadnite si.",
+      ),
+      { ask: ASK_SADNITE, picks: ["sadnite", NO_PICK] },
+    ),
+    onPath(
+      line(
+        "marek-whoever-sits",
+        "Marek",
+        [CHUCKLE, "A kto už sedí, nech sedí."],
+        "And whoever is already sitting, stay sitting.",
+      ),
+      { ask: ASK_SADNITE, picks: ["sadnite", NO_PICK] },
+    ),
+    onPath(
+      line(
+        "anna-sadnite-wrong",
         "Anna",
         [
           "Nesprávne! ",
           PAUSE,
-          "Hovoria",
-          STOP,
-          mark("hovor"),
-          ". ",
+          mark("Sadni"),
+          " si je pre jedného. ",
           PAUSE,
-          "Správne je: ",
-          mark("Hovor"),
-          " pomalšie, prosím.",
+          "Mária to povedala nám všetkým: ",
+          mark("sadnite"),
+          " si.",
         ],
-        "Wrong! Hovoria (they speak)… hovor. The right one is: Hovor pomalšie, prosím, speak more slowly, please.",
+        "Wrong! Sadni si is for one person. Mária said it to all of us: sadnite si.",
       ),
+      { ask: ASK_SADNITE, picks: ["sadni"] },
     ),
-    line("marek-excellent", "Marek", ["Výborne, Anna!"], "Excellent, Anna!"),
+    onPath(
+      line(
+        "marek-one-sat-down",
+        "Marek",
+        ["Hm. ", PAUSE, "Tak si sadol len jeden poslucháč."],
+        "Hmm. So only one listener sat down.",
+      ),
+      { ask: ASK_SADNITE, picks: ["sadni"] },
+    ),
+    onPath(
+      line(
+        "anna-the-rest-stand",
+        "Anna",
+        [CHUCKLE, "A ostatní stoja."],
+        "And the rest are standing.",
+      ),
+      { ask: ASK_SADNITE, picks: ["sadni"] },
+    ),
+    {
+      ...line(
+        "anna-last-cakat",
+        "Anna",
+        [
+          "A posledné: čakať. ",
+          PAUSE,
+          "Pamätáš si, čo nám včera povedala Lucia po telefóne?",
+        ],
+        "And the last one: čakať, to wait. Do you remember what Lucia told us on the phone yesterday?",
+      ),
+      wait: BEAT_MS,
+    },
+    line("marek-shes-late", "Marek", ["Že mešká."], "That she's late."),
+    line(
+      "anna-and-then",
+      "Anna",
+      [
+        CHUCKLE,
+        "To áno. ",
+        PAUSE,
+        "A potom? ",
+        PAUSE,
+        "Nečakajte na mňa, alebo čakajte na mňa?",
+      ],
+      "Yes, that. And then? Nečakajte na mňa, or čakajte na mňa?",
+    ),
+    listenerPicks(
+      line(
+        "marek-which-necakajte",
+        "Marek",
+        ["Poslucháči, vy ste to počuli. ", PAUSE, "Ktoré to bolo?"],
+        "Listeners, you heard it. Which one was it?",
+      ),
+      {
+        prompt: "Čo má Marek povedať?",
+        // The same gloss for both, or the card would answer for the listener.
+        choices: [
+          { id: "necakajte", label: "Nečakajte na mňa", english: "What Lucia said" },
+          { id: "cakajte", label: "Čakajte na mňa", english: "What Lucia said" },
+        ],
+        answerId: "necakajte",
+        judge: "Anna",
+      },
+    ),
+    onPath(
+      line(
+        "marek-necakajte-you-say",
+        "Marek",
+        [
+          mark("Nečakajte"),
+          "? ",
+          PAUSE,
+          "Jasné: ",
+          mark("nečakajte"),
+          " na mňa, pokojne ",
+          mark("jedzte"),
+          "!",
+        ],
+        "Nečakajte? Sure: don't wait for me, go ahead and eat!",
+      ),
+      { ask: ASK_NECAKAJTE, picks: ["necakajte"] },
+    ),
+    onPath(
+      line(
+        "marek-cakajte-you-say",
+        "Marek",
+        [
+          mark("Čakajte"),
+          "? ",
+          PAUSE,
+          "Jasné: ",
+          mark("čakajte"),
+          " na mňa, pokojne ",
+          mark("jedzte"),
+          "!",
+        ],
+        "Čakajte? Sure: wait for me, go ahead and eat! (Wrong on purpose.)",
+      ),
+      { ask: ASK_NECAKAJTE, picks: ["cakajte"] },
+    ),
+    {
+      ...onPath(
+        line(
+          "marek-necakajte-myself",
+          "Marek",
+          [
+            "Tak si spomeniem sám: ",
+            PAUSE,
+            mark("nečakajte"),
+            " na mňa, pokojne ",
+            mark("jedzte"),
+            "!",
+          ],
+          "Then I'll remember it myself: don't wait for me, go ahead and eat!",
+        ),
+        { ask: ASK_NECAKAJTE, picks: [NO_PICK] },
+      ),
+      wait: BEAT_MS,
+    },
+    onPath(
+      line(
+        "anna-necakajte-right",
+        "Anna",
+        ["Správne! ", PAUSE, "Nechcela, aby sme na ňu čakali."],
+        "Right! She didn't want us to wait for her.",
+      ),
+      { ask: ASK_NECAKAJTE, picks: ["necakajte", NO_PICK] },
+    ),
+    onPath(
+      line(
+        "marek-hungry-again",
+        "Marek",
+        [HAPPY, "Mňam. ", PAUSE, "Už som zase hladný."],
+        "Yum. I'm hungry again already.",
+      ),
+      { ask: ASK_NECAKAJTE, picks: ["necakajte", NO_PICK] },
+    ),
+    onPath(
+      line(
+        "anna-necakajte-wrong",
+        "Anna",
+        ["Nesprávne! ", PAUSE, "Čakať na ňu a pokojne jesť? ", PAUSE, "To naraz nejde."],
+        "Wrong! Wait for her and go ahead and eat? You can't do both at once.",
+      ),
+      { ask: ASK_NECAKAJTE, picks: ["cakajte"] },
+    ),
+    onPath(
+      line(
+        "marek-wait-and-eat",
+        "Marek",
+        ["Prečo nie? ", PAUSE, "Ja viem čakať aj jesť naraz."],
+        "Why not? I can wait and eat at the same time.",
+      ),
+      { ask: ASK_NECAKAJTE, picks: ["cakajte"] },
+    ),
+    onPath(
+      line(
+        "anna-lucia-said",
+        "Anna",
+        [
+          CHUCKLE,
+          "To ti verím. ",
+          PAUSE,
+          "Ale Lucia povedala: ",
+          mark("nečakajte"),
+          " na mňa.",
+        ],
+        "That I believe. But Lucia said: don't wait for me.",
+      ),
+      { ask: ASK_NECAKAJTE, picks: ["cakajte"] },
+    ),
+    ...ending(
+      { score: [3] },
+      [
+        "anna-three-of-three",
+        "Anna",
+        [HAPPY, "Tri z troch! ", PAUSE, "Marek, s pomocníkmi ti to ide ešte lepšie."],
+        "Three out of three! Marek, with helpers it goes even better for you.",
+      ],
+      [
+        "marek-only-ask-them",
+        "Marek",
+        ["Tak sa odteraz budem pýtať už len ich."],
+        "Then from now on I'll ask only them.",
+      ],
+      [
+        "anna-i-can-go-home",
+        "Anna",
+        ["Tak to ja môžem ísť domov."],
+        "Then I can go home.",
+      ],
+      [
+        "marek-no-stay",
+        "Marek",
+        [CHUCKLE, "Nie, nie, ", mark("zostaň"), "!"],
+        "No, no, stay!",
+      ],
+    ),
+    ...ending(
+      { score: [2] },
+      [
+        "anna-two-of-three",
+        "Anna",
+        ["Dve z troch. ", PAUSE, "Skoro výborne."],
+        "Two out of three. Almost excellent.",
+      ],
+      [
+        "marek-like-the-soup",
+        "Marek",
+        [CHUCKLE, "Skoro výborne", STOP, PAUSE, "ako tá polievka."],
+        "Almost excellent… like that soup.",
+      ],
+      [
+        "anna-a-bit-salty",
+        "Anna",
+        [CHUCKLE, "Trochu slaná", STOP, PAUSE, "ale výborná."],
+        "A bit salty… but excellent.",
+      ],
+      ["marek-yeah-yeah", "Marek", [SIGH, "Hej, hej."], "Yeah, yeah."],
+    ),
+    ...ending(
+      { score: [1] },
+      [
+        "anna-one-of-three",
+        "Anna",
+        [
+          "Jedna z troch. ",
+          PAUSE,
+          "Hm",
+          STOP,
+          PAUSE,
+          "Marek, kde si našiel takých pomocníkov?",
+        ],
+        "One out of three. Hmm… Marek, where did you find helpers like that?",
+      ],
+      [
+        "marek-they-found-me",
+        "Marek",
+        [CHUCKLE, "Ja som ich nehľadal. ", PAUSE, "Oni našli mňa!"],
+        "I wasn't looking for them. They found me!",
+      ],
+      [
+        "anna-once-more-one",
+        "Anna",
+        ["Nevadí. ", PAUSE, ...ONCE_MORE],
+        "Never mind. Once more, slowly: throw the carrots in the pot, sit down, don't wait for me.",
+      ],
+      [
+        "marek-got-it-almost",
+        "Marek",
+        [
+          mark("Hoď"),
+          ", ",
+          mark("sadnite"),
+          ", ",
+          mark("nečakajte"),
+          STOP,
+          PAUSE,
+          "Mám to! ",
+          PAUSE,
+          "Skoro.",
+        ],
+        "Hoď, sadnite, nečakajte… Got it! Almost.",
+      ],
+    ),
+    ...ending(
+      { score: [0] },
+      [
+        "anna-none-of-three",
+        "Anna",
+        ["Nula z troch! ", PAUSE, "Nevadí. ", PAUSE, ...ONCE_MORE],
+        "Zero out of three! Never mind. Once more, slowly: throw the carrots in the pot, sit down, don't wait for me.",
+      ],
+      ["marek-and-the-salt", "Marek", ["A soľ?"], "And the salt?"],
+      [
+        "anna-enough-salt",
+        "Anna",
+        [CHUCKLE, "Soli už bolo dosť."],
+        "There's been enough salt already.",
+      ],
+    ),
+    ...ending(
+      { unaided: true },
+      [
+        "anna-nobody-helped",
+        "Anna",
+        [HAPPY, "Všetky tri správne. ", PAUSE, "A nikto ti nepomohol!"],
+        "All three right. And nobody helped you!",
+      ],
+      [
+        "marek-good-sleep",
+        "Marek",
+        ["Vidíš? ", PAUSE, "Stačí sa dobre vyspať."],
+        "See? You just need a good night's sleep.",
+      ],
+      [
+        "anna-sleep-tonight-too",
+        "Anna",
+        [CHUCKLE, "Tak sa ", mark("vyspi"), " aj dnes!"],
+        "Then get a good sleep tonight too!",
+      ],
+      ["marek-promise", "Marek", ["Sľubujem."], "I promise."],
+    ),
   ],
   checks: [
     {
-      id: `${PREFIX}check-correct-sentence`,
-      prompt: "Ktorá veta je podľa Anny správna?",
-      promptEnglish: "Which sentence does Anna call correct?",
+      id: `${PREFIX}check-hod`,
+      gap: "Anna, ___ mrkvu do hrnca.",
+      prompt: "Ako to povedala Mária?",
+      promptEnglish: "How did Mária say it?",
       choices: [
-        { id: "quiet", label: "Buďte ticho, prosím." },
+        { id: "hod-soft", label: "hoď" },
         {
-          id: "write",
-          label: "Píšajte nám.",
+          id: "hod",
+          label: "hod",
           whyWrong:
-            "Anna says **nesprávne**: from **píšu** comes **píš**, so to everyone it is **píšte nám**.",
+            "**Hod** is a noun, a throw: that is Marek's new sport. The command has the soft ď: **hodia**, so **hoď**.",
         },
         {
-          id: "slowly",
-          label: "Hovoraj pomalšie.",
+          id: "hodi",
+          label: "hodí",
           whyWrong:
-            "Anna says **nesprávne**: from **hovoria** comes **hovor**, so **hovor pomalšie**.",
+            "**Hodí** means she will throw: it says what someone will do, it is not a command.",
         },
       ],
-      answerId: "quiet",
+      answerId: "hod-soft",
       feedback: {
-        english: "Be quiet, please.",
-        why: "Anna says **správne** after **buďte ticho, prosím**: **byť** gives **buď**, **buďte**.",
+        english: "Anna, throw the carrots in the pot.",
+        why: "Anna says **hodia, takže hoď**: drop the ending and keep the soft ď.",
       },
     },
     {
-      id: `${PREFIX}check-hovor`,
-      gap: "___ pomalšie, prosím.",
-      prompt: "Ako to Anna povedala správne?",
-      promptEnglish: "How did Anna say it correctly?",
-      replayLineId: `${PREFIX}anna-hovor`,
+      id: `${PREFIX}check-sadnite`,
+      gap: "___ si. A Lucia stále nikde?",
+      prompt: "Čo povedala Mária pri stole?",
+      promptEnglish: "What did Mária say at the table?",
       choices: [
-        { id: "hovor", label: "Hovor" },
+        { id: "sadnite", label: "Sadnite" },
         {
-          id: "hovoraj",
-          label: "Hovoraj",
+          id: "sadni",
+          label: "Sadni",
           whyWrong:
-            "**Hovoraj** is the wrong form Marek reads out, built like **čítaj**. From **hovoria** comes **hovor**.",
+            "**Sadni si** is for one person. Mária says it to the whole table: **sadnite si**.",
         },
         {
-          id: "hovori",
-          label: "Hovori",
+          id: "sadnime",
+          label: "Sadnime",
           whyWrong:
-            "**Hovori** is not a command. Drop the ending of **hovoria** and nothing more: **hovor**.",
+            "**Sadnime si** means let's sit down, with the speaker in it. Mária tells her guests: **sadnite si**.",
         },
       ],
-      answerId: "hovor",
+      answerId: "sadnite",
       feedback: {
-        english: "Speak more slowly, please.",
-        why: "Anna says **hovoria… hovor**: drop the ending, and **hovor pomalšie, prosím**.",
+        english: "Sit down. And Lucia's still not here?",
+        why: "Anna says **sadni si je pre jedného**: Mária says it to the whole table, so **sadnite si**.",
       },
     },
   ],
@@ -1489,7 +2058,7 @@ export const imperativeEpisode: ListeningEpisode = {
   title: "Water that little plant!",
   topic: "rob, robte, robme",
   promise:
-    "Anna and Marek cook soup at Mária's and take Lucia's call, then play a verb game and quiz each other the next morning, while the studio plant waits for water.",
+    "Anna and Marek cook soup at Mária's and take Lucia's call, then play a verb game the next morning while the studio plant waits for water. At the end, Marek needs your help with the commands.",
   grammarSlug: "imperative",
   speakers: ["Anna", "Marek", "Mária", "Lucia"],
   vocabulary: [
@@ -1500,5 +2069,5 @@ export const imperativeEpisode: ListeningEpisode = {
     { slovak: "Choď!", english: "Go!" },
     { slovak: "Nezabudnite!", english: "Don't forget!" },
   ],
-  chapters: [intro, kitchen, table, game, quiz, outro],
+  chapters: [intro, kitchen, table, game, help, outro],
 };
