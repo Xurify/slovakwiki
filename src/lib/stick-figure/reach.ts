@@ -81,6 +81,12 @@ export function mouthOf(pose: StickPose, sit = 0, path?: SitPath): Point {
 
 /** Seated at a table, an idle hand lies on its top in front, from the shoulder: hanging, the arms went down through it. */
 const ON_TABLE: Record<Hand, Point> = { lead: { x: 10, y: 9 }, rear: { x: 6, y: 9.5 } };
+/**
+ * The studio desk's top is 20 below a seated shoulder (StudioDesk's TOP), so
+ * the forearms lie further out on it. Laid at the table's height, the far arm
+ * folded up behind the body and the host read as turned away from the mic.
+ */
+const ON_DESK: Record<Hand, Point> = { lead: { x: 13, y: 19 }, rear: { x: 10, y: 19.5 } };
 /** A talking hand this far out from rest, degrees, has left the table for the beat; overTable has already drawn a beat in to 40% of its swing. */
 const OFF_TABLE = 8;
 
@@ -89,7 +95,11 @@ const OFF_TABLE = 8;
  * standing to 1 seated). An arm out in a beat comes up off it the further
  * it goes; one folded or raised is left be.
  */
-export function restOnTable(pose: StickPose, sit: number): StickPose {
+export function restOnTable(
+  pose: StickPose,
+  sit: number,
+  surface: "table" | "desk" = "table",
+): StickPose {
   if (sit <= 0) return pose;
   const lay = (hand: Hand, raise: number, bend: number) => {
     const out = Math.abs(
@@ -98,7 +108,8 @@ export function restOnTable(pose: StickPose, sit: number): StickPose {
     const folded = bend < -30;
     const on = folded ? 0 : sit * Math.max(0, 1 - out / OFF_TABLE);
     if (on <= 0) return { raise, bend };
-    const laid = reachFor(pose, hand, onShoulder(pose, hand, sit), sit);
+    const at = (surface === "desk" ? ON_DESK : ON_TABLE)[hand];
+    const laid = reachFor(pose, hand, fromShoulder(pose, hand, sit, at), sit);
     const [toRaise, toBend] =
       "leadRaise" in laid
         ? [laid.leadRaise, laid.leadBend]
@@ -116,8 +127,8 @@ export function restOnTable(pose: StickPose, sit: number): StickPose {
   };
 }
 
-function onShoulder(pose: StickPose, hand: Hand, sit: number): Point {
+function fromShoulder(pose: StickPose, hand: Hand, sit: number, at: Point): Point {
   const rig = solveRig(pose, sit);
   const shoulder = hand === "lead" ? rig.leadShoulder : rig.rearShoulder;
-  return { x: shoulder.x + ON_TABLE[hand].x, y: shoulder.y + ON_TABLE[hand].y };
+  return { x: shoulder.x + at.x, y: shoulder.y + at.y };
 }

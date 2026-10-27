@@ -559,6 +559,12 @@
     };
   }
 
+  /** Seated behind the studio desk, in a segment acted from cues or not. */
+  function behindDesk(id: LessonCharacterId): boolean {
+    if (!frame.desk || world?.spots[id] || world?.out?.includes(id)) return false;
+    return frame.seats[direction.cast.indexOf(id)] !== undefined;
+  }
+
   /** Where `id` stands for spot `to`, in figure widths from their mark, the way they face there, and the chair if it is one. */
   function spotOf(
     id: LessonCharacterId,
@@ -1945,6 +1951,7 @@
                 seated={seated[characterId] !== undefined}
                 out={chairOut(perched[characterId])}
                 atTable={perched[characterId] !== undefined}
+                atDesk={behindDesk(characterId)}
                 mic={deskMic(characterId, world, undefined)?.side}
                 onCall={acted
                   ? onCall(characterId)

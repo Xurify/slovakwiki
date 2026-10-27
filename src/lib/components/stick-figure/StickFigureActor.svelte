@@ -64,6 +64,7 @@
     seated = false,
     out = 0,
     atTable = false,
+    atDesk = false,
     mic,
     onCall = false,
     talking = false,
@@ -92,6 +93,8 @@
     out?: number;
     /** At their chair, about to sit or just up. */
     atTable?: boolean;
+    /** Seated behind the studio desk, whose top is lower than a table's. */
+    atDesk?: boolean;
     /** Seated behind a desk mic: 1 on the side they face, -1 turned away from it. */
     mic?: 1 | -1;
     /** On a call: the phone at their ear. */
@@ -237,8 +240,8 @@
     const lead = hands.lead && STEADY.has(hands.lead.kind);
     const rear = hands.rear && STEADY.has(hands.rear.kind);
     // Anything else held hangs from the hand: a beat would swing a full can up to the chest. At the table it lies on it.
-    const leadDown = hands.lead && !lead && !atTable;
-    const rearDown = hands.rear && !rear && !atTable;
+    const leadDown = hands.lead && !lead && !atTable && !atDesk;
+    const rearDown = hands.rear && !rear && !atTable && !atDesk;
     return {
       ...pose,
       ...(lead ? { leadRaise: STEADY_ARM.raise, leadBend: STEADY_ARM.bend } : {}),
@@ -283,7 +286,13 @@
     const seated = busy
       ? { ...talked, ...RESTING_ARMS }
       : overTable(talked, sitting.current);
-    const body = steady(atTable ? restOnTable(seated, sitting.current) : seated);
+    // A desk host is at their chair too, but the desk's top is lower than a table's.
+    const laid = atDesk
+      ? restOnTable(seated, sitting.current, "desk")
+      : atTable
+        ? restOnTable(seated, sitting.current)
+        : seated;
+    const body = steady(laid);
     const stepping = walking ? walkPose(body, walked, walkMs, stepMs(characterId)) : body;
     const sampled = acting ? doing.sample(now, stepping, sitting.current) : undefined;
     if (sampled && entered?.doing !== doing) {
