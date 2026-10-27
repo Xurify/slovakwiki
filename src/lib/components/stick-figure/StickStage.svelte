@@ -1495,7 +1495,7 @@
   }
 
   /** Moves the ball along its arc: level travel, rising and then dropping a stage-fifth. */
-  function arc(node: HTMLElement, path: { from: Point; to: Point }): void {
+  function arc(node: SVGElement | HTMLElement, path: { from: Point; to: Point }): void {
     const { from, to } = path;
     const rise = stageHeight * 0.22;
     const frames = Array.from({ length: 9 }, (_, step) => {
@@ -1602,7 +1602,7 @@
     if (acted) {
       world = actedWorlds?.[Math.min(index, actedWorlds.length - 1)];
       tram = "away";
-      aboard = [];
+      aboard = false;
       outside = world?.out ?? [];
 
       const nextOffsets: Offsets = {};

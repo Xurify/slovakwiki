@@ -8,6 +8,7 @@
       "feat/migrate-legacy-listening-episodes": true,
       "feat/slovak-level-test": true,
       "fix/stage-seek-and-robot-motion": true,
+      "fix/svelte-type-errors": true,
       "master": true
     }
   }
