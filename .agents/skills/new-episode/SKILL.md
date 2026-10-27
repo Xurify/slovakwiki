@@ -124,7 +124,7 @@ Follow **Pull requests** in `AGENTS.md`: QA links to `/listening/<slug>` on the 
 
 Add a **Proof** section of evidence you observed, not claims: the verify output, `silencedetect` results for clips with pauses, lip-sync scores, the critic rounds (findings fixed, rejected with reasons, still open), and links to the contact sheets.
 
-List the branch in `vercel.json` in the push that asks for review. You cannot open the preview past Vercel's login, so say "pushed, preview not verified", never that it plays.
+When the PR asks for review, push its head to `preview/<PR number>` (AGENTS.md → Pull requests); work-branch pushes never deploy. You cannot open the preview past Vercel's login, so say "pushed, preview not verified", never that it plays.
 
 Done when a reviewer can check each segment and each judged line from one click.
 
