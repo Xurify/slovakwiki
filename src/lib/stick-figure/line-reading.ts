@@ -1,5 +1,6 @@
 import type { Cue } from "./acts";
 import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
+import { LOOKS } from "./looks";
 import { lineProps, propForSentence, type StickPropId } from "./props";
 import { foldLine, lineSentences, lineWords, mentions } from "./slovak-text";
 import { thingNamed, type SceneThing } from "./thing-words";
@@ -16,8 +17,8 @@ export interface StageLine {
   stays?: boolean;
   /** Who it is said to, when that is not the person it replies to. */
   to?: LessonCharacterId;
-  /** The phone rings or pings before the line; on a call the speaker answers. */
-  ring?: "call" | "message";
+  /** The phone rings or pings before the line; on a call the speaker answers, on a dial they made it. */
+  ring?: "call" | "dial" | "message";
   /** Said at the far end of a call, by someone not on stage. */
   overPhone?: boolean;
 }
@@ -119,15 +120,18 @@ function takesFrom(
 /**
  * Who the speaker hands what they hold to as the line ends: the one spoken
  * to, when they are on stage, on "Nech sa páči." or "A to jablko je pre
- * teba.", once the speaker has brought something out.
+ * teba.", once the speaker has brought something out; a dog drops what it
+ * carries at their feet.
  */
 function givesTo(
   lines: readonly ReadLine[],
   index: number,
   cast: readonly LessonCharacterId[],
 ): LessonCharacterId | undefined {
-  const { addressee, characterId, sentences } = lines[index];
+  const { addressee, characterId, props, sentences } = lines[index];
   if (!characterId || !addressee || !cast.includes(addressee)) return undefined;
+  // A dog cannot say "Tu máš.": what it brings in its mouth is for the one it barks at.
+  if (LOOKS[characterId].dog) return props.some(Boolean) ? addressee : undefined;
   if (!sentences.some((sentence) => mentions(sentence, GIVING))) return undefined;
 
   const holding = lines

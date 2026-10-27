@@ -104,7 +104,7 @@ export function podcastGroups(): SceneGroup[] {
       id: chapter.id,
       lines: sceneLines(chapter.lines),
       name: chapter.titleSk,
-      order: episode.speakers.map(characterIdForSpeaker),
+      order: (chapter.cast ?? episode.speakers).map(characterIdForSpeaker),
       setting: chapter.stage ?? "studio",
     })),
   }));
@@ -151,7 +151,6 @@ export function episodeStages(episode: ListeningEpisode): {
   scenes: Record<string, StagedScene>;
   thingWords: Record<string, { href?: string; src?: string }>;
 } {
-  const order = episode.speakers.map(characterIdForSpeaker);
   let said: string[] = [];
   /** Each place's set as the last segment there left it: the soup still on the stove, the plant still yellow. */
   const left = new Map<string, World>();
@@ -165,11 +164,11 @@ export function episodeStages(episode: ListeningEpisode): {
       const lines = sceneLines(chapter.lines).map(directedLine);
       const set = PLACES[setting].set;
       // Each segment starts on a wide shot, whatever the last one ended on.
+      // Whoever walked out last time is back by the next segment, unless its own cues walk them in.
+      const { out: _out, ...carried } =
+        left.get(setting) ?? startWorld(set?.objects ?? []);
       const opening = set
-        ? setUp(
-            { ...(left.get(setting) ?? startWorld(set.objects)), camera: WIDE },
-            chapter.setup,
-          )
+        ? setUp({ ...carried, camera: WIDE }, chapter.setup)
         : undefined;
       const start = opening && PLACES[setting].desk ? atDesk(opening, lines) : opening;
       if (set && start) left.set(setting, playedThrough(lines, set, start));
@@ -177,9 +176,19 @@ export function episodeStages(episode: ListeningEpisode): {
         chapter.id,
         {
           ...(index > 0 && before.length > 0 ? { before } : {}),
+          ...(chapter.carrying
+            ? {
+                carried: Object.fromEntries(
+                  Object.entries(chapter.carrying).map(([speaker, prop]) => [
+                    characterIdForSpeaker(speaker),
+                    prop,
+                  ]),
+                ),
+              }
+            : {}),
           ...(start ? { world: start } : {}),
           lines,
-          order,
+          order: (chapter.cast ?? episode.speakers).map(characterIdForSpeaker),
           setting,
         },
       ];

@@ -20,6 +20,7 @@
     characterId ? storyCastForId(characterId) : storyCastForSpeaker(speaker),
   );
   const robot = $derived(LOOKS[cast.id].robot);
+  const dog = $derived(LOOKS[cast.id].dog);
   const dim = $derived(
     size === "xl"
       ? "size-24"
@@ -58,7 +59,49 @@
 
     <StickHead characterId={cast.id} part="back" turn={0} />
 
-    {#if robot}
+    {#if dog}
+      <!-- the dog's chest and red collar under the head -->
+      <path
+        d="M15 64c1-12 8-20 17-20s16 8 17 20Z"
+        class="{dog.coat} stroke-portrait-ink"
+        stroke-width="1.3"
+      />
+      <path d="M22 46.4q10 5 20 0" class={dog.collar} stroke-width="3" />
+      <circle
+        cx="32"
+        cy="50.6"
+        r="2"
+        class="fill-scene-honey stroke-portrait-ink"
+        stroke-width="0.8"
+      />
+    {:else if robot?.metal}
+      <rect
+        x="28.6"
+        y="42"
+        width="6.8"
+        height="4.4"
+        rx="1"
+        class="fill-scene-steel-dark stroke-portrait-ink"
+        stroke-width="1.1"
+      />
+      <path
+        d="M14 64V51.5Q14 46 19.5 46h25Q50 46 50 51.5V64Z"
+        class="fill-scene-steel stroke-portrait-ink"
+        stroke-width="1.3"
+      />
+      <rect
+        x="26"
+        y="50.5"
+        width="12"
+        height="9.5"
+        rx="1.6"
+        class="fill-portrait-ink stroke-portrait-ink"
+        stroke-width="0.9"
+      />
+      <circle cx="32" cy="55.2" r="2" class={robot.chest} />
+      <circle cx="18.4" cy="49.6" r="0.9" class="fill-scene-steel-dark" />
+      <circle cx="45.6" cy="49.6" r="0.9" class="fill-scene-steel-dark" />
+    {:else if robot}
       <!-- light casing with the chest screen -->
       <rect
         x="29"

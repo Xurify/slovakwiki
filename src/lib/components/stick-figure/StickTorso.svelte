@@ -100,6 +100,43 @@
   <circle cx="0" cy="-12.4" r="0.65" class="fill-portrait-bib" />
   <circle cx="0" cy="-8.2" r="0.65" class="fill-portrait-bib" />
   <path d="M-3.4 -31.7v3.2l3.4-1.6ZM3.4 -31.7v3.2l-3.4-1.6Z" class="fill-portrait-ink" />
+{:else if look.robot?.metal}
+  <rect
+    x="-2.2"
+    y="-34.4"
+    width="4.4"
+    height="4"
+    rx="0.8"
+    class="fill-scene-steel-dark stroke-portrait-ink"
+    stroke-width="0.9"
+  />
+  <rect
+    x="-7"
+    y="-31"
+    width="14"
+    height="31.5"
+    rx="2.2"
+    class="fill-scene-steel stroke-portrait-ink"
+    stroke-width="1.3"
+  />
+  <path d="M-5 -29.2H5" class="stroke-scene-steel-light" stroke-width="1" />
+  <rect
+    x="-4.4"
+    y="-25.6"
+    width="8.8"
+    height="8.6"
+    rx="1.2"
+    class="fill-portrait-ink stroke-portrait-ink"
+    stroke-width="0.9"
+  />
+  <circle cx="0" cy="-21.3" r="1.7" class={look.robot.chest} />
+  <path d="M-7 -7.4H7" class="stroke-portrait-ink" stroke-width="0.8" />
+  {#each [[-5, -28.6], [5, -28.6], [-5, -2], [5, -2]] as [x, y] (`${x}${y}`)}
+    <circle cx={x} cy={y} r="0.7" class="fill-scene-steel-dark" />
+  {/each}
+  <circle cx="-2.4" cy="-12.6" r="0.75" class="fill-scene-honey" />
+  <circle cx="0" cy="-12.6" r="0.75" class={look.robot.chest} />
+  <circle cx="2.4" cy="-12.6" r="0.75" class="fill-scene-steel-light" />
 {:else if look.robot}
   <!-- robot chassis to match the visor head: light casing, chest screen -->
   <rect

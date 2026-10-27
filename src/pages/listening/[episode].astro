@@ -17,7 +17,7 @@ export function getStaticPaths() {
       : undefined;
 
     const next = {
-      grammarHref: `/grammar/${episode.grammarSlug}`,
+      grammarHref: episode.grammarSlug ? `/grammar/${episode.grammarSlug}` : undefined,
       lessonHref: lesson ? lessonPath(lesson) : undefined,
       practiceHref: practiceSet ? `/practice/${practiceSet.id}` : undefined,
     };
@@ -41,7 +41,7 @@ const { episode, audio, next, stages } = Astro.props;
 ---
 
 <SiteLayout
-  title={`${episode.titleSk} (${episode.topic}) | Slovak Wiki Listening`}
+  title={`${episode.titleSk}${episode.topic ? ` (${episode.topic})` : ""} | Slovak Wiki Listening`}
   description={episode.promise}
   canonicalPath={`/listening/${episode.slug}`}
   stage

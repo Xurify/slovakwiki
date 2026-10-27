@@ -36,6 +36,16 @@ const styles: Record<StoryCastId, Omit<StoryCastStyle, "id" | "side">> = {
     inkClass: "fill-slate-700",
     accentClass: "fill-blue-600",
   },
+  bobik: {
+    fillClass: "fill-amber-50",
+    inkClass: "fill-amber-900",
+    accentClass: "fill-scene-red",
+  },
+  dog: {
+    fillClass: "fill-amber-50",
+    inkClass: "fill-amber-900",
+    accentClass: "fill-scene-red",
+  },
   guide: {
     fillClass: "fill-slate-100",
     inkClass: "fill-slate-700",
@@ -65,6 +75,16 @@ const styles: Record<StoryCastId, Omit<StoryCastStyle, "id" | "side">> = {
     fillClass: "fill-blue-50",
     inkClass: "fill-blue-900",
     accentClass: "fill-blue-600",
+  },
+  robo: {
+    fillClass: "fill-orange-50",
+    inkClass: "fill-slate-800",
+    accentClass: "fill-orange-500",
+  },
+  robot: {
+    fillClass: "fill-amber-50",
+    inkClass: "fill-slate-700",
+    accentClass: "fill-amber-500",
   },
   waiter: {
     fillClass: "fill-emerald-50",

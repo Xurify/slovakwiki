@@ -135,6 +135,32 @@ describe("handing things over", () => {
     expect(direction.lines[2].held).toEqual({ anna: "basket" });
   });
 
+  it("lets whoever walks on carry in what their hello brings out", () => {
+    const direction = directScene(
+      [
+        { characterId: "robot", slovak: "Dnes príde. Uvidíš." },
+        { characterId: "marek", props: ["suitcase"], slovak: "Dobrý večer!" },
+      ],
+      "home",
+    );
+
+    expect(direction.lines[0].staging.enter?.characterId).toBe("marek");
+    expect(direction.lines[0].held).toEqual({ marek: "suitcase" });
+  });
+
+  it("brings a called dog over past whoever stands between", () => {
+    const direction = directScene(
+      [
+        { characterId: "dog", slovak: "Haf!" },
+        { characterId: "robot", slovak: "Ja viem." },
+        { characterId: "marek", slovak: "Dunčo! Poď sem!", to: "dog" },
+      ],
+      "home",
+    );
+
+    expect(direction.lines[2].staging.approach?.characterId).toBe("dog");
+  });
+
   it("gives nothing when nothing is in hand", () => {
     const direction = directScene(
       [
@@ -342,5 +368,32 @@ describe("a phone call", () => {
     const calls = directScene(joined, "kitchen").lines.map((line) => line.call);
 
     expect(calls).toEqual(["marek", "marek", "marek", "marek", "marek", undefined]);
+  });
+});
+
+describe("a call a robot makes", () => {
+  const lines: DirectedLine[] = [
+    { characterId: "robo", slovak: "Rozumiem. Volám Marekovi." },
+    { characterId: "robo", slovak: "Ahoj, Marek. Tu je Robo.", ring: "dial" },
+    { characterId: "marek", slovak: "Ahoj, Robo. Čo sa deje?", overPhone: true },
+    { characterId: "robo", slovak: "Bobík čaká pri okne." },
+  ];
+
+  it("is on the call from the line it dials, with no phone in hand", () => {
+    const direction = directScene(lines, "home");
+
+    expect(direction.lines.map((line) => line.call)).toEqual([
+      undefined,
+      "robo",
+      "robo",
+      "robo",
+    ]);
+    expect(direction.lines.map((line) => line.held.robo)).not.toContain("phone");
+  });
+
+  it("greets the far end without a wave, since a wave cannot be seen down a line", () => {
+    const [, hello] = directScene(lines, "home").lines;
+
+    expect(hello.plan.beats.map((beat) => beat.gesture)).not.toContain("wave");
   });
 });

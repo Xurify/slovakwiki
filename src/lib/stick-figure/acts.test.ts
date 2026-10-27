@@ -199,6 +199,91 @@ describe("cooking with the kitchen's set", () => {
   });
 });
 
+describe("leaving the flat with a dog", () => {
+  const HOME = PLACES.home.set!;
+  const withLead = setUp(startWorld(HOME.objects), {
+    objects: [{ id: "lead", kind: "lead", start: { where: { on: "pegs", dx: 0 } } }],
+  });
+
+  it("walks someone out by an edge, off their spot, and back in only by entering", () => {
+    const [, gone] = worlds(
+      [{ characterId: "marek", act: [{ do: "leave", to: "left" }] }],
+      HOME,
+      withLead,
+    );
+    expect(gone.out).toEqual(["marek"]);
+    expect(gone.spots.marek).toBeUndefined();
+    expect(() =>
+      worlds(
+        [{ characterId: "marek", act: [{ do: "leave", to: "pegs" }] }],
+        HOME,
+        withLead,
+      ),
+    ).toThrow(CueError);
+  });
+
+  it("clips a lead in hand to the dog, and nothing else", () => {
+    const [, , clipped] = worlds(
+      [
+        { characterId: "robo", act: [{ do: "take", what: "lead" }] },
+        { characterId: "robo", act: [{ do: "leash", what: "lead", to: "bobik" }] },
+      ],
+      HOME,
+      withLead,
+    );
+    expect(clipped.objects.lead.clipped).toBe(true);
+    expect(heldBy(clipped, "robo")).toEqual({ lead: "lead" });
+    expect(() =>
+      worlds(
+        [{ characterId: "robo", act: [{ do: "leash", what: "lead", to: "bobik" }] }],
+        HOME,
+        withLead,
+      ),
+    ).toThrow(CueError);
+  });
+});
+
+describe("a ball for the dog", () => {
+  const PARK = PLACES.default.set!;
+  const start = setUp(startWorld(PARK.objects), {
+    objects: [
+      { id: "ball", kind: "ball", start: { where: { hand: "robot", side: "lead" } } },
+    ],
+  });
+
+  it("is with the dog, out of sight, from the throw until it brings the ball back in its mouth", () => {
+    const after = worlds(
+      [
+        { characterId: "robot", act: [{ do: "throw", what: "ball", to: "dog" }] },
+        { characterId: "dog", act: [{ do: "take", what: "ball" }] },
+      ],
+      PARK,
+      start,
+    );
+
+    expect(heldBy(after[1], "robot")).toEqual({});
+    expect(heldBy(after[1], "dog")).toEqual({});
+    expect(heldBy(after[2], "dog")).toEqual({ lead: "ball" });
+  });
+
+  it("is thrown to someone, and only from the thrower's hand", () => {
+    expect(() =>
+      worlds(
+        [{ characterId: "robot", act: [{ do: "throw", what: "ball" }] }],
+        PARK,
+        start,
+      ),
+    ).toThrow(CueError);
+    expect(() =>
+      worlds(
+        [{ characterId: "anna", act: [{ do: "throw", what: "ball", to: "dog" }] }],
+        PARK,
+        start,
+      ),
+    ).toThrow(CueError);
+  });
+});
+
 describe("cues on the clock", () => {
   const times: LineTimes = {
     lead: 0,

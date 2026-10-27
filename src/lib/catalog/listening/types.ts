@@ -1,3 +1,4 @@
+import type { StickPropId } from "$lib/stick-figure/props";
 import type { DialogueTurn, KeyPhrase } from "$lib/learning/types";
 import type { SetSetup } from "$lib/stick-figure/acts";
 import type { StageSetting } from "$lib/stick-figure/stage-setting";
@@ -23,6 +24,13 @@ export interface ListeningCheck {
 }
 
 export interface ListeningChapter {
+  /**
+   * What the cast walks in holding, by speaker, where the segment goes on from
+   * the one before: Robo still has Bobík on the lead when they reach the square.
+   */
+  carrying?: Record<string, StickPropId>;
+  /** Who stands where, left to right, when the episode's speakers order is wrong here: whoever comes in the door stands at its end. */
+  cast?: string[];
   checks: ListeningCheck[];
   id: string;
   lines: DialogueTurn[];
@@ -39,14 +47,15 @@ export interface ListeningChapter {
 }
 
 export interface EpisodeNextSteps {
-  grammarHref: string;
+  grammarHref?: string;
   lessonHref?: string;
   practiceHref?: string;
 }
 
 export interface ListeningEpisode {
   chapters: ListeningChapter[];
-  grammarSlug: string;
+  /** The grammar page the episode teaches; a story told for its own sake has none. */
+  grammarSlug?: string;
   speakers: string[];
   id: string;
   lessonId?: string;
@@ -57,6 +66,7 @@ export interface ListeningEpisode {
   slug: string;
   title: string;
   titleSk: string;
-  topic: string;
+  /** The grammar label, read as "an episode on …"; none for a story with no topic. */
+  topic?: string;
   vocabulary: KeyPhrase[];
 }

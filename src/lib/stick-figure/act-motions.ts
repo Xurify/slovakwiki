@@ -423,6 +423,24 @@ export function motionFor(
         },
       };
     }
+    case "throw": {
+      // Back over the shoulder, then up and away: the ball leaves the hand at the top of the swing.
+      const back = {
+        ...hands(hand, { up: { x: -8, y: -22 } }),
+        body: { lean: -3, tilt: -2 },
+      };
+      const away = {
+        ...hands(hand, { up: { x: 24, y: -16 } }),
+        body: { lean: 4, tilt: 2 },
+      };
+      return {
+        motion: {
+          ms: 700,
+          takes: 520,
+          keys: [{ at: 0 }, { at: 320, ...back }, { at: 520, ...away }, { at: 700 }],
+        },
+      };
+    }
     case "raise": {
       // Halfway to the mouth, and held there: about to eat, until something stops it. A recorder is held up to be seen, straight up beside the head, where the arm clears a desk mic too.
       const up =
@@ -899,6 +917,24 @@ export function motionFor(
         },
       };
     }
+    case "leash": {
+      // Bent down to the collar with the clip end, then up with the handle: the lead runs from the hand to the dog from then on.
+      const collar = hands(hand, { to, as: "grip" });
+      return {
+        motion: {
+          ms: 1500,
+          face: to,
+          takes: 800,
+          sounds: [{ at: 780, id: "clink" }],
+          keys: [
+            { at: 0 },
+            { at: 550, ...collar, body: { lean: 9, nod: 2, look: 1 } },
+            { at: 850, ...collar, body: { lean: 9, nod: 2, look: 1 } },
+            { at: 1500 },
+          ],
+        },
+      };
+    }
     case "burn": {
       // The spoon goes out of the way, the free hand fans the mouth, and the
       // whole body hops: the soup was hotter than the warning made it sound.
@@ -1283,6 +1319,7 @@ export function motionFor(
       };
     case "go":
     case "enter":
+    case "leave":
     case "sit":
     case "face":
     case "camera":

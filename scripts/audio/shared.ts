@@ -24,6 +24,7 @@ import {
 } from "../../src/lib/catalog/lessons/character-ids";
 import {
   audioConfigForClip,
+  getCharacter,
   keyPhraseCharacterId,
 } from "../../src/lib/catalog/audio/characters";
 import { VOICE_PREVIEW_LINES } from "../../src/lib/catalog/lessons/voice-preview-lines";
@@ -714,6 +715,70 @@ export async function synthesizeElevenLabs(
   if (!response.ok) {
     const bodyText = await response.text();
     throw new Error(`ElevenLabs ${response.status}: ${bodyText.slice(0, 500)}`);
+  }
+
+  return new Uint8Array(await response.arrayBuffer());
+}
+
+/** Where a sound character's line comes from: a prompt, and a recording that wins over it. */
+export interface SoundSource {
+  prompt: string;
+  recording?: string;
+}
+
+/**
+ * The sound behind a line of a character who makes sounds, not speech
+ * (Dunčo's "Haf!"). Undefined for a voice; a sound character's line with no
+ * prompt of its own is an authoring slip, so it throws.
+ */
+export function soundFor(target: AudioTarget): SoundSource | undefined {
+  const character = target.characterId ? getCharacter(target.characterId) : undefined;
+  if (!character?.sounds) return undefined;
+
+  const prompt = character.sounds[target.text];
+  if (!prompt) {
+    throw new Error(
+      `${target.characterId} has no sound for ${JSON.stringify(target.text)}; add it to "sounds" in config.json`,
+    );
+  }
+  return { prompt, recording: character.recordings?.[target.text] };
+}
+
+/** The clip for a sound line: its recording when it has one, else generated from the prompt. */
+export async function renderSound(
+  sound: SoundSource,
+  config: AudioConfig,
+  apiKey: string,
+): Promise<Uint8Array> {
+  if (sound.recording)
+    return new Uint8Array(await readFile(path.join(ROOT, sound.recording)));
+  return synthesizeSound(sound.prompt, config, apiKey);
+}
+
+/** A sound effect from ElevenLabs' sound generation, in the config's output format. */
+export async function synthesizeSound(
+  prompt: string,
+  config: AudioConfig,
+  apiKey: string,
+): Promise<Uint8Array> {
+  const url = new URL("https://api.elevenlabs.io/v1/sound-generation");
+  url.searchParams.set("output_format", config.outputFormat);
+
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "audio/mpeg",
+      "xi-api-key": apiKey,
+    },
+    // A high prompt influence keeps the take to what the prompt asks: one
+    // bark is one bark, not a dog barking on and off for five seconds.
+    body: JSON.stringify({ text: prompt, prompt_influence: 0.7 }),
+  });
+
+  if (!response.ok) {
+    const bodyText = await response.text();
+    throw new Error(`ElevenLabs sound ${response.status}: ${bodyText.slice(0, 500)}`);
   }
 
   return new Uint8Array(await response.arrayBuffer());

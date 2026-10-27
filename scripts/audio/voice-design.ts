@@ -60,6 +60,32 @@ const WAITER_TALK = [
   "Nech sa páči. Keby ste ešte niečo potrebovali, stačí zavolať.",
 ].join(" ");
 
+/**
+ * Robo's own lines in the dog story, so the design hears a robot in a flat
+ * with a dog, not a learner reading an introduction.
+ */
+const ROBO_TALK = [
+  "Dobré ráno. Som Robo, váš nový domáci robot.",
+  "Dobre, Marek. Tykám ti. Viem po slovensky, po anglicky, po nemecky. Viem sto jazykov.",
+  "Prepáč. Tento jazyk neviem.",
+  "Bobík, je jedenásť. Von ideme o dvanástej. Taký je plán.",
+  "Hľadám v slovníku. Haf: zvuk psa. To viem aj ja.",
+  "Bobík? Tento haf je iný. Je tichý. Sedíš pri okne. Čakáš na Mareka.",
+  "Ráno sto. Teraz stojeden.",
+].join(" ");
+
+/**
+ * Domo at Marek's flat, from his own lines: a household robot reading out
+ * his plan and talking to the dog, so the design hears him, not a lesson.
+ */
+const DOMO_TALK = [
+  "Dobrý večer, pani Anna. Tri dni sa budem starať o Dunča.",
+  "To nevadí. Mám plán. O siedmej pôjdem s Dunčom von. O ôsmej mu dám granule. Potom budem upratovať.",
+  "Pán Marek, a kedy budete doma?",
+  "Nerozumiem. Tento jazyk nemám.",
+  "Dobre. Zmením plán. Dnes nebudem upratovať. Budem čakať s tebou.",
+].join(" ");
+
 /** Core lesson cast — designed specifically for Slovak Wiki dialogue. */
 const CAST: CastBrief[] = [
   {
@@ -120,12 +146,30 @@ const CAST: CastBrief[] = [
       "Adult Slovak woman, about 32, hotel or clinic front desk. Polished professional female voice, clear and helpful, medium pitch. Central European accent, calm pacing for check-in questions. Distinct from a casual friend — more formal service tone.",
   },
   {
+    characterId: "robot",
+    displayName: "Domo",
+    gender: "neutral",
+    voiceName: "Slovak Wiki Domo",
+    voiceDescription:
+      "A small, friendly household robot speaking Slovak in a flat at home, to the people there and to their dog. A light, clean, slightly synthetic voice with an even, precise rhythm and very clear diction, polite and a little formal, earnest rather than cold, with a faint electronic sheen but fully human-intelligible. Medium pitch, neither a man nor a woman, close-miked in a quiet room. Not a narrator, not an announcer, not a menacing sci-fi robot, not a vocoder, no heavy effects. Central European accent.",
+    sampleText: DOMO_TALK,
+  },
+  {
     characterId: "guide",
     displayName: "Guide",
     gender: "neutral",
     voiceName: "Slovak Wiki Guide",
     voiceDescription:
       "Clear instructional Slovak voice for key phrases and teaching lines. Neutral adult tone, precise diction, slightly slower than casual chat, high intelligibility for language learners. Central European accent, neither overly deep nor high — balanced guide narrator for apps.",
+  },
+  {
+    characterId: "robo",
+    displayName: "Robo",
+    gender: "male",
+    voiceName: "Slovak Wiki Robo",
+    voiceDescription:
+      "A friendly household robot in a Slovak flat, speaking Slovak to its owner and his dog. A light, clear male-leaning voice with a very slight synthetic evenness: precise consonants, tidy rhythm, short sentences said a little too exactly, as if reading from a log, but with real curiosity and a dry, gentle humour underneath. Warm, never cold or menacing, not a sci-fi villain, no heavy vocoder or metallic effect, no echo. Recorded close in a quiet room. Not a narrator, not an audiobook, not an announcer. Central European accent.",
+    sampleText: ROBO_TALK,
   },
 ];
 

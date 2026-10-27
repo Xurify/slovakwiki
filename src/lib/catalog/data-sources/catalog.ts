@@ -1,6 +1,6 @@
 /** Shared attribution sources for the site and offline utils. */
 
-export type ReferenceGroupId = "dictionary" | "corpus" | "examples";
+export type ReferenceGroupId = "dictionary" | "corpus" | "examples" | "sounds";
 
 export interface ReferenceLink {
   href: string;
@@ -38,6 +38,11 @@ export const referenceGroups: ReferenceGroup[] = [
     id: "examples",
     title: "Example sentences",
     summary: "SK–EN sentence pairs attached to live dictionary entries when available.",
+  },
+  {
+    id: "sounds",
+    title: "Sounds",
+    summary: "Recordings heard in listening episodes that no voice can say.",
   },
 ];
 
@@ -168,6 +173,24 @@ export const referenceSources: ReferenceSource[] = [
       {
         href: "https://en.wiki.tatoeba.org/articles/show/using-the-tatoeba-corpus",
         label: "Using the Tatoeba corpus",
+      },
+    ],
+  },
+  {
+    id: "dog-barking",
+    group: "sounds",
+    name: "Dog barking, by Dr. Nono YesMaybe (Wikimedia Commons)",
+    usedFor:
+      "Every bark of Bobík, the dog in the story Čo hovorí Bobík?, cut from this one recording by scripts/audio/barks.ts.",
+    license: "CC BY-SA 4.0",
+    links: [
+      {
+        href: "https://commons.wikimedia.org/wiki/File:Dog_barking.webm",
+        label: "File:Dog barking.webm",
+      },
+      {
+        href: "https://creativecommons.org/licenses/by-sa/4.0",
+        label: "CC BY-SA 4.0",
       },
     ],
   },

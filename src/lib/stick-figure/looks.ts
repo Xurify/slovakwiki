@@ -22,9 +22,16 @@ export interface Look {
   /**
    * A screen for a face and joints at the knees and elbows: the eyes and an
    * open mouth in `eyes`, the closed mouth in `smile`, the antenna's `light`
-   * and the one on the chest.
+   * and the one on the chest. A `metal` one is a household machine rather
+   * than a companion like the guide: a grey box of a head with a visor,
+   * rivets and metal limbs, so it never reads as the narrator.
    */
-  robot?: { chest: string; eyes: string; light: string; smile: string };
+  robot?: { chest: string; eyes: string; light: string; metal?: boolean; smile: string };
+  /**
+   * Four legs and a tail instead of the rig: the coat (and the coat as a
+   * stroke, for the tail), the ears and patch in `patch`, and the collar.
+   */
+  dog?: { coat: string; collar: string; patch: string; tail: string };
   /** Wrapped round the neck in the snow, in a colour that stands off the outfit. */
   scarfClass?: string;
   shoes?: Shoes;
@@ -60,6 +67,28 @@ export const LOOKS: Readonly<Record<LessonCharacterId, Look>> = {
       eyes: "fill-emerald-300",
       light: "fill-scene-green-mid",
       smile: "stroke-emerald-300",
+    },
+  },
+  // Robo's charge: a sandy dog with darker ears, so he never passes for Dunčo.
+  bobik: {
+    crown: 18,
+    nameClass: "text-amber-800",
+    dog: {
+      coat: "fill-scene-sand",
+      collar: "stroke-scene-red",
+      patch: "fill-scene-wood",
+      tail: "stroke-scene-sand",
+    },
+  },
+  // Marek's dog: a tan mutt with brown ears and a red collar, small beside the cast.
+  dog: {
+    crown: 14,
+    nameClass: "text-amber-800",
+    dog: {
+      coat: "fill-scene-wood",
+      collar: "stroke-scene-red",
+      patch: "fill-scene-potato",
+      tail: "stroke-scene-wood",
     },
   },
   guide: {
@@ -114,6 +143,29 @@ export const LOOKS: Readonly<Record<LessonCharacterId, Look>> = {
     nameClass: "text-blue-700",
     scarfClass: "fill-scene-honey",
     sleeve: { class: "stroke-scene-blue", reach: 1.85 },
+  },
+  // Marek's home robot: a companion like the guide, in warm orange so the two never pass for one.
+  robo: {
+    crown: 7,
+    nameClass: "text-orange-700",
+    robot: {
+      chest: "fill-scene-carrot",
+      eyes: "fill-scene-honey",
+      light: "fill-scene-carrot",
+      metal: true,
+      smile: "stroke-scene-honey",
+    },
+  },
+  // Marek's home robot: the guide's chassis in honey, so it is not mistaken for the guide.
+  robot: {
+    crown: 6.3,
+    nameClass: "text-amber-800",
+    robot: {
+      chest: "fill-scene-carrot",
+      eyes: "fill-amber-300",
+      light: "fill-scene-carrot",
+      smile: "stroke-amber-300",
+    },
   },
   waiter: {
     crown: 8.6,

@@ -13,6 +13,6 @@
   <StickUmbrella {rig} open={held.open ?? false} />
 {:else}
   <g transform="translate({n(rig.leadArm.end.x)} {n(rig.leadArm.end.y)})">
-    <StickProp prop={held.id} />
+    <StickProp clipped={held.id === "leash" && held.open} prop={held.id} />
   </g>
 {/if}

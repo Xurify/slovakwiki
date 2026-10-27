@@ -19,6 +19,7 @@ export const VERBS = [
   // Where people are.
   "go",
   "enter",
+  "leave",
   "sit",
   "stand",
   "face",
@@ -44,6 +45,8 @@ export const VERBS = [
   "switch",
   "call",
   "hangup",
+  "leash",
+  "throw",
   // The body alone.
   "burn",
   "wag",
@@ -88,10 +91,11 @@ export interface Cue {
    * Where to, or to whom: a spot of the set ("sink"), a place on a piece
    * ("place-l"), a piece ("counter"), an object ("pot"), a person, a thing
    * of the backdrop to look at ("clock"), or for the camera "wide". For
-   * `switch`, "on" or "off"; for `chop`, "small" for fine pieces.
+   * `switch`, "on" or "off"; for `chop`, "small" for fine pieces; for
+   * `leave`, the edge walked off by, "left" or "right"; for `leash`, the dog.
    */
   to?: LessonCharacterId | (string & {});
-  /** What it comes out of: the pot a ladle is filled from. */
+  /** What it comes out of: the pot a ladle is filled from; for `enter` where there is no door, the edge spot they walk on from. */
   from?: string;
   on?: CueAnchor;
   /** Rig units along a piece, for `put` straight onto one. */
@@ -135,7 +139,10 @@ export type ObjectKind =
   | "cup"
   | "can"
   | "plant"
-  | "headphones";
+  | "headphones"
+  | "lead"
+  | "ball"
+  | "suitcase";
 
 /** What is in a pot, a bowl, a spoon, a jug or a cup. */
 export type Fill = "water" | "soup" | "coffee";
@@ -154,6 +161,8 @@ export interface ObjectState {
   wilt?: number;
   /** A phone held to the ear: a call is on. */
   call?: boolean;
+  /** A lead clipped to the dog's collar, its other end in a hand. */
+  clipped?: boolean;
   /** Whose it is: the headphones one host wears, bareheaded once they are off. */
   of?: LessonCharacterId;
   /** Drawn mirrored, the way someone facing left holds it: a mug's handle on their far side, so it does not flip as they take or put it. */
@@ -412,7 +421,10 @@ export function applyCue(
       throw new CueError(`${who} sit: "${to}" is not a chair`);
     }
   }
-  if (world.seated?.includes(who) && (cue.do === "go" || cue.do === "enter")) {
+  if (
+    world.seated?.includes(who) &&
+    (cue.do === "go" || cue.do === "enter" || cue.do === "leave")
+  ) {
     throw new CueError(`${who} ${cue.do}: still sitting, a "stand" cue comes first`);
   }
 
@@ -426,6 +438,13 @@ export function applyCue(
       };
     case "go":
       return { ...world, spots: { ...world.spots, [who]: to ?? "" } };
+    case "leave": {
+      if (to !== "left" && to !== "right") {
+        throw new CueError(`${who} leave: by the "left" or the "right" edge?`);
+      }
+      const { [who]: _, ...spots } = world.spots;
+      return { ...world, out: on(world.out, who, true), spots };
+    }
     case "sit":
       return {
         ...world,
@@ -559,12 +578,23 @@ export function applyCue(
       }
       return next;
     }
+    case "throw": {
+      // Thrown to a dog: out of sight with it until it brings the ball back and `take`s it from there.
+      holds(world, who, cue);
+      if (!to || !isPerson(to)) throw new CueError(`${who} throw ${what}: to whom?`);
+      return setObject(world, what!, { where: { pocket: to } });
+    }
     case "call":
       holds(world, who, cue);
       return setObject(world, what!, { call: true });
     case "hangup":
       holds(world, who, cue);
       return setObject(world, what!, { call: false });
+    case "leash":
+      holds(world, who, cue);
+      if (object?.kind !== "lead") throw new CueError(`${who} leash: a lead?`);
+      if (!to || !isPerson(to)) throw new CueError(`${who} leash ${what}: onto whom?`);
+      return setObject(world, what!, { clipped: true });
     case "camera":
       return {
         ...world,

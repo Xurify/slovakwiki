@@ -20,6 +20,7 @@
   import type { Effect } from "$lib/stick-figure/act-motions";
   import { mouthOf, reachFor } from "$lib/stick-figure/reach";
   import { OBJECT_SIZE, tipFromHand } from "$lib/stick-figure/set-pieces";
+  import StickDog from "./StickDog.svelte";
   import StickHead from "./StickHead.svelte";
   import StickSetObject, { type ObjectLook } from "./StickSetObject.svelte";
   import StickHeld from "./StickHeld.svelte";
@@ -65,6 +66,7 @@
     sit = 0,
     sitPath,
     call = 0,
+    relaying = false,
     dress = dressFor("clear"),
     turnDelay = 0,
     hands = {},
@@ -87,6 +89,8 @@
     sitPath?: SitPath;
     /** 0 the phone in hand or none, 1 held at the ear. */
     call?: number;
+    /** A robot playing the far end of its call out loud, from the speaker in its chest. */
+    relaying?: boolean;
     /** What the weather on them does to what they wear. */
     dress?: Dress;
     /** Ms before a change of `facing` starts: a listener turns a beat after the speaker. */
@@ -171,7 +175,11 @@
     return to;
   }
 
-  const rig = $derived(solveRig(carriedRound(atEar(pose, call)), sit, sitPath));
+  const look = $derived(LOOKS[characterId]);
+  const robot = $derived(look.robot);
+  const rig = $derived(
+    solveRig(carriedRound(robot ? pose : atEar(pose, call)), sit, sitPath),
+  );
   /**
    * Headphones in both hands, a cup in each, while the hands are a band's
    * width or so apart. Round the head they are held as worn: the rear hand
@@ -231,8 +239,6 @@
       ? `M17.6 25.6A13.4 ${ry} 0 0 1 31 ${top}`
       : `M31 ${top}A13.4 ${ry} 0 0 1 44.4 25.6`;
   }
-  const look = $derived(LOOKS[characterId]);
-  const robot = $derived(look.robot);
   /** The near knee in the torso's own space, turned back by the lean, for a skirt over the lap. */
   const lapKnee = $derived.by(() => {
     const dx = rig.leadLeg.joint.x - rig.hip.x;
@@ -297,6 +303,10 @@
 
 {#snippet arm(shoulder: Point, limb: StickLimb)}
   <path d={limbPath(shoulder, limb)} class="stroke-portrait-ink" stroke-width="3" />
+  {#if robot?.metal}
+    <path d={limbPath(shoulder, limb)} class="stroke-portrait-ink" stroke-width="4.4" />
+    <path d={limbPath(shoulder, limb)} class="stroke-scene-steel" stroke-width="2.4" />
+  {/if}
 
   {#if look.sleeve}
     <path
@@ -339,7 +349,11 @@
     cx={n(at.x)}
     cy={n(at.y)}
     r="2.3"
-    class="{robot ? 'fill-portrait-bib' : 'fill-portrait-skin'} stroke-portrait-ink"
+    class="{robot?.metal
+      ? 'fill-scene-steel-light'
+      : robot
+        ? 'fill-portrait-bib'
+        : 'fill-portrait-skin'} stroke-portrait-ink"
     stroke-width="1.2"
   />
 {/snippet}
@@ -448,6 +462,33 @@
 
 {#snippet leg(limb: StickLimb)}
   <path d={limbPath(rig.hip, limb)} class="stroke-portrait-ink" stroke-width="3.4" />
+  {#if robot?.metal}
+    <path d={limbPath(rig.hip, limb)} class="stroke-portrait-ink" stroke-width="4.8" />
+    <path d={limbPath(rig.hip, limb)} class="stroke-scene-steel" stroke-width="2.8" />
+  {/if}
+{/snippet}
+
+<!-- A metal foot: a flat sole on the ground, its toe rounded up, and an ankle cap where the leg meets it. -->
+{#snippet plate(at: Point)}
+  <path
+    d="M{n(at.x - 1.4)} {n(
+      at.y + 0.8,
+    )}h7q1.6 0 1.6-1.6q0-2.2-3-2.6l-3.2-0.6h-2.4q-1.6 0-1.6 1.6v1.6q0 1.6 1.6 1.6Z"
+    class="fill-scene-steel stroke-portrait-ink"
+    stroke-width="1.1"
+  />
+  <path
+    d="M{n(at.x - 2.6)} {n(at.y - 0.6)}h7.6"
+    class="stroke-scene-steel-dark"
+    stroke-width="0.7"
+  />
+  <circle
+    cx={n(at.x)}
+    cy={n(at.y - 2.2)}
+    r="1.5"
+    class="fill-scene-steel-dark stroke-portrait-ink"
+    stroke-width="0.9"
+  />
 {/snippet}
 
 {#snippet joint(at: Point, r: number)}
@@ -455,7 +496,9 @@
     cx={n(at.x)}
     cy={n(at.y)}
     {r}
-    class="fill-portrait-bib stroke-portrait-ink"
+    class="{robot?.metal
+      ? 'fill-scene-steel-dark'
+      : 'fill-portrait-bib'} stroke-portrait-ink"
     stroke-width="0.9"
   />
 {/snippet}
@@ -469,134 +512,167 @@
   aria-hidden="true"
 >
   <g transform="scale({n(side * (0.88 + 0.12 * round))} 1)">
-    <ellipse cx="0" cy={GROUND_Y + 0.5} rx="15" ry="2.2" class="fill-portrait-ink/15" />
-
-    <g transform={headTransform}>
-      <!-- Under the hair behind the head as well as the skull: drawn over a lob, the far half framed the face like a hood. -->
-      {#if dress.headwear === "headset"}
-        <path d={headband(0.4, "far")} class="stroke-portrait-ink" stroke-width="1.8" />
-      {/if}
-
-      <StickHead
-        {characterId}
-        part="back"
-        {pose}
-        turn={front ? 0 : undefined}
-        {round}
-        sway={hairSway}
-      />
-    </g>
-
-    {@render arm(rig.rearShoulder, rig.rearArm)}
-    {#if hands.rear && !phoneAtEar}
-      {@render inHand(rig.rearArm.end, hands.rear, "rear")}
-    {/if}
-    {@render hand(rig.rearArm.end, "rear")}
-    {@render leg(rig.rearLeg)}
-    {@render leg(rig.leadLeg)}
-    <path
-      d="M{n(rig.rearLeg.end.x - 1)} {n(rig.rearLeg.end.y - 1)}h5M{n(
-        rig.leadLeg.end.x - 1,
-      )} {n(rig.leadLeg.end.y - 1)}h5"
-      class="stroke-portrait-ink"
-      stroke-width="3.6"
-    />
-
-    {#if robot}
-      {@render joint(rig.rearLeg.joint, 1.6)}
-      {@render joint(rig.leadLeg.joint, 1.6)}
-    {/if}
-
-    <g transform={torsoTransform}>
-      <StickTorso {characterId} knee={lapKnee} scarf={dress.scarf} sit={rig.seated} />
-    </g>
-
-    {#if !leadAtFace}
-      {@render leadSide()}
-    {/if}
-
-    <g transform={headTransform}>
-      <StickHead
+    {#if look.dog}
+      <StickDog
         {characterId}
         {pose}
-        turn={front ? 0 : undefined}
-        {round}
-        sway={hairSway}
-        headphones={dress.headwear === "headphones"}
+        ball={held?.id === "ball" || hands.lead?.kind === "ball"}
       />
+    {:else}
+      <ellipse cx="0" cy={GROUND_Y + 0.5} rx="15" ry="2.2" class="fill-portrait-ink/15" />
 
-      {#if dress.headwear === "headset"}
-        <!-- A headset: slim band, a cup on the near ear, and a boom mic curving to the mouth. -->
-        <path d={headband(0.4, "near")} class="stroke-portrait-ink" stroke-width="1.8" />
-        <circle
-          cx="17.8"
-          cy="29.4"
-          r="3.4"
-          class="fill-scene-line stroke-portrait-ink"
-          stroke-width="1.2"
+      <g transform={headTransform}>
+        <!-- Under the hair behind the head as well as the skull: drawn over a lob, the far half framed the face like a hood. -->
+        {#if dress.headwear === "headset"}
+          <path d={headband(0.4, "far")} class="stroke-portrait-ink" stroke-width="1.8" />
+        {/if}
+
+        <StickHead
+          {characterId}
+          part="back"
+          {pose}
+          turn={front ? 0 : undefined}
+          {round}
+          sway={hairSway}
         />
-        <circle cx="17.8" cy="29.4" r="1.4" class="fill-scene-edge" />
+      </g>
+
+      {@render arm(rig.rearShoulder, rig.rearArm)}
+      {#if hands.rear && !phoneAtEar}
+        {@render inHand(rig.rearArm.end, hands.rear, "rear")}
+      {/if}
+      {@render hand(rig.rearArm.end, "rear")}
+      {@render leg(rig.rearLeg)}
+      {@render leg(rig.leadLeg)}
+      {#if robot?.metal}
+        {@render plate(rig.rearLeg.end)}
+        {@render plate(rig.leadLeg.end)}
+      {:else}
         <path
-          d="M20.4 31.6C22 37.6 26.4 40.6 30.2 40.8"
+          d="M{n(rig.rearLeg.end.x - 1)} {n(rig.rearLeg.end.y - 1)}h5M{n(
+            rig.leadLeg.end.x - 1,
+          )} {n(rig.leadLeg.end.y - 1)}h5"
           class="stroke-portrait-ink"
-          stroke-width="1.3"
-        />
-        <circle
-          cx="31"
-          cy="40.9"
-          r="1.7"
-          class="fill-scene-line stroke-portrait-ink"
-          stroke-width="1"
+          stroke-width="3.6"
         />
       {/if}
-    </g>
 
-    {#if leadAtFace}
-      <!-- At the lips the near arm and what it holds are in front of the face: the spoon goes in, not behind the cheek. -->
-      {@render leadSide()}
-    {/if}
+      {#if robot}
+        {@render joint(rig.rearLeg.joint, 1.6)}
+        {@render joint(rig.leadLeg.joint, 1.6)}
+      {/if}
 
-    {#if emote}
-      {@const mouth = mouthOf(pose, sit, sitPath)}
-      <g transform="translate({n(mouth.x + 8.5)} {n(mouth.y - 1)})">
-        <!-- A CSS animation's transform would replace the attribute's, so it rises in a group of its own. -->
-        <g class="animate-rise">
-          {#if emote === "hot"}
-            <!-- Heat off a burnt tongue: wavy lines fanning out from the open mouth. -->
-            <path
-              d="M1 -2q2-1.5 4 0t4 0M1.5 1q2-1.5 4 0t4 0M1 4q2-1.5 4 0t4 0"
-              class="stroke-scene-red"
-              stroke-width="0.9"
-            />
-          {:else if emote === "sniff"}
-            <!-- The smell of the soup, drifting up to the nose. -->
-            <path
-              d="M12 -2q-2-1.5-4 0t-4 0M13 -5.5q-2-1.5-4 0t-4 0"
-              class="stroke-scene-honey"
-              stroke-width="0.9"
-            />
-          {:else}
-            <path
-              d="M1.5 -1.2h5M2.5 0.6h7M1.5 2.4h5"
-              class="stroke-scene-cool"
-              stroke-width="0.9"
-            />
-          {/if}
+      <g transform={torsoTransform}>
+        <StickTorso {characterId} knee={lapKnee} scarf={dress.scarf} sit={rig.seated} />
+      </g>
+
+      {#if !leadAtFace}
+        {@render leadSide()}
+      {/if}
+
+      <g transform={headTransform}>
+        <StickHead
+          {characterId}
+          calling={call > 0.5}
+          {pose}
+          turn={front ? 0 : undefined}
+          {round}
+          sway={hairSway}
+          headphones={dress.headwear === "headphones"}
+        />
+
+        {#if dress.headwear === "headset"}
+          <!-- A headset: slim band, a cup on the near ear, and a boom mic curving to the mouth. -->
+          <path
+            d={headband(0.4, "near")}
+            class="stroke-portrait-ink"
+            stroke-width="1.8"
+          />
+          <circle
+            cx="17.8"
+            cy="29.4"
+            r="3.4"
+            class="fill-scene-line stroke-portrait-ink"
+            stroke-width="1.2"
+          />
+          <circle cx="17.8" cy="29.4" r="1.4" class="fill-scene-edge" />
+          <path
+            d="M20.4 31.6C22 37.6 26.4 40.6 30.2 40.8"
+            class="stroke-portrait-ink"
+            stroke-width="1.3"
+          />
+          <circle
+            cx="31"
+            cy="40.9"
+            r="1.7"
+            class="fill-scene-line stroke-portrait-ink"
+            stroke-width="1"
+          />
+        {/if}
+      </g>
+
+      {#if leadAtFace}
+        <!-- At the lips the near arm and what it holds are in front of the face: the spoon goes in, not behind the cheek. -->
+        {@render leadSide()}
+      {/if}
+
+      {#if emote}
+        {@const mouth = mouthOf(pose, sit, sitPath)}
+        <g transform="translate({n(mouth.x + 8.5)} {n(mouth.y - 1)})">
+          <!-- A CSS animation's transform would replace the attribute's, so it rises in a group of its own. -->
+          <g class="animate-rise">
+            {#if emote === "hot"}
+              <!-- Heat off a burnt tongue: wavy lines fanning out from the open mouth. -->
+              <path
+                d="M1 -2q2-1.5 4 0t4 0M1.5 1q2-1.5 4 0t4 0M1 4q2-1.5 4 0t4 0"
+                class="stroke-scene-red"
+                stroke-width="0.9"
+              />
+            {:else if emote === "sniff"}
+              <!-- The smell of the soup, drifting up to the nose. -->
+              <path
+                d="M12 -2q-2-1.5-4 0t-4 0M13 -5.5q-2-1.5-4 0t-4 0"
+                class="stroke-scene-honey"
+                stroke-width="0.9"
+              />
+            {:else}
+              <path
+                d="M1.5 -1.2h5M2.5 0.6h7M1.5 2.4h5"
+                class="stroke-scene-cool"
+                stroke-width="0.9"
+              />
+            {/if}
+          </g>
         </g>
-      </g>
-    {/if}
+      {/if}
 
-    {#if pair?.onHead}
-      <StickHeadphones far={pair.lead} near={pair.rear} part="near" />
-      {@render hand(rig.rearArm.end)}
-    {/if}
+      {#if relaying}
+        <g transform={torsoTransform}>
+          {#each [0, 1, 2] as wave (wave)}
+            {@const x = 10 + wave * 4.6}
+            {@const half = 4 + wave * 1.8}
+            <path
+              d="M{x} {-21.3 - half}Q{x + half * 0.9} -21.3 {x} {-21.3 + half}"
+              class="stroke-scene-honey motion-safe:animate-sound-wave"
+              stroke-width="1.8"
+              style:animation-delay="{wave * 400}ms"
+            />
+          {/each}
+        </g>
+      {/if}
 
-    {#if phoneAtEar}
-      <!-- Over the head, so the phone shows against the ear the rear arm reaches round to. -->
-      <g transform="translate({n(rig.rearArm.end.x + 1.5)} {n(rig.rearArm.end.y + 4)})">
-        <StickProp prop="phone" />
-      </g>
-      {@render hand(rig.rearArm.end)}
+      {#if pair?.onHead}
+        <StickHeadphones far={pair.lead} near={pair.rear} part="near" />
+        {@render hand(rig.rearArm.end)}
+      {/if}
+
+      {#if phoneAtEar}
+        <!-- Over the head, so the phone shows against the ear the rear arm reaches round to. -->
+        <g transform="translate({n(rig.rearArm.end.x + 1.5)} {n(rig.rearArm.end.y + 4)})">
+          <StickProp prop="phone" />
+        </g>
+        {@render hand(rig.rearArm.end)}
+      {/if}
     {/if}
   </g>
 

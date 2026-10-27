@@ -49,6 +49,28 @@
         />
       {/if}
     {/each}
+  {:else if picture === "computing"}
+    <rect width={W} height={H} class="fill-portrait-ink" />
+    {#each [0, 1, 2] as dot (dot)}
+      <circle
+        cx={7 + dot * 6}
+        cy="6.4"
+        r="1.7"
+        class="fill-scene-honey motion-safe:animate-compute-dot"
+        style:animation-delay="{dot * 0.3}s"
+      />
+    {/each}
+    <rect x="4" y="11" width="18" height="2.6" rx="1.3" class="fill-scene-line" />
+    <rect
+      x="4"
+      y="11"
+      width="18"
+      height="2.6"
+      rx="1.3"
+      class="fill-scene-honey motion-safe:animate-compute"
+      style:transform-box="fill-box"
+      style:transform-origin="left"
+    />
   {:else if picture === "flag-ca"}
     <rect width={W} height={H} class="fill-white" />
     <rect width="6.5" height={H} class="fill-flag-red" />
