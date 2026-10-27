@@ -67,7 +67,7 @@ function ends(d: string): {
   };
 }
 
-const HUMANS = LESSON_CHARACTER_IDS.filter((id) => !LOOKS[id].robot);
+const HUMANS = LESSON_CHARACTER_IDS.filter((id) => !LOOKS[id].robot && !LOOKS[id].dog);
 /** Facing the listeners, and side-on: the cups move with the turn. */
 const TURNS = [0, 2.6];
 
