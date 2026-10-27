@@ -17,7 +17,7 @@
 </script>
 
 <script lang="ts">
-  import { onDestroy, untrack } from "svelte";
+  import { untrack } from "svelte";
 
   import SceneCaption from "$lib/components/stick-figure/SceneCaption.svelte";
   import StickStage from "$lib/components/stick-figure/StickStage.svelte";
@@ -105,11 +105,15 @@
     else if (live) untrack(listen);
   });
 
-  onDestroy(() => {
-    window.clearTimeout(waiting);
-    stage?.stop();
-    stopCues();
-  });
+  // An effect's teardown, not onDestroy: onDestroy also runs after a server render, where there is no window.
+  $effect(
+    () => () =>
+      untrack(() => {
+        window.clearTimeout(waiting);
+        stage?.stop();
+        stopCues();
+      }),
+  );
 
   export function play(
     index: number,

@@ -130,7 +130,7 @@
   });
 
   const Drawing = $derived(DRAWINGS[setting]);
-  const things = $derived(thingsIn(setting));
+  const things = $derived(thingsIn(PLACES[setting].things, setting, mood));
 
   // The clocks start at the scene's told hour; skipping ahead spins them forward.
   const hour = new Tween(clockHour(mood), {

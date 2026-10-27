@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onDestroy, untrack, type ComponentProps } from "svelte";
+  import { untrack, type ComponentProps } from "svelte";
   import { cubicInOut, sineIn } from "svelte/easing";
   import { Tween } from "svelte/motion";
 
@@ -1820,9 +1820,8 @@
     flight = undefined;
   }
 
-  onDestroy(() => {
-    stop();
-  });
+  // An effect's teardown, not onDestroy: onDestroy also runs after a server render, where there is no window.
+  $effect(() => () => untrack(stop));
 
   /**
    * Walk `id` on from the `from` edge to their mark, as someone coming over
