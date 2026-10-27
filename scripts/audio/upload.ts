@@ -58,6 +58,28 @@ function requireEnv(name: string): string {
   return value;
 }
 
+/**
+ * A cloud session linked to someone's computer cannot reach R2, whatever the
+ * environment's network setting says. Without this probe every HEAD reads as
+ * "not on R2" and the run fails clip by clip; threads lost about 50 minutes
+ * asking for the host to be allowed before finding the real cause.
+ */
+async function assertR2Reachable(aws: AwsClient, url: string): Promise<void> {
+  let detail: string;
+  try {
+    const response = await aws.fetch(url, { signal: AbortSignal.timeout(15_000) });
+    if (response.ok) return;
+    detail = `HTTP ${response.status}`;
+  } catch (error) {
+    detail = error instanceof Error ? error.message : String(error);
+  }
+  throw new Error(
+    `R2 is not reachable (${detail}). Either the R2_* keys are wrong, or this is a ` +
+      "cloud session linked to a computer, which cannot reach R2: hand the upload " +
+      "to an unlinked session (see /mnt/project-files/audio-upload/README.md).",
+  );
+}
+
 async function main(): Promise<void> {
   const {
     concurrency,
@@ -89,6 +111,11 @@ async function main(): Promise<void> {
     service: "s3",
     region: "auto",
   });
+
+  await assertR2Reachable(
+    aws,
+    `https://${endpointHost}/${bucket}?list-type=2&max-keys=1`,
+  );
 
   const config = await loadConfig();
   const manifest = await loadManifest();
