@@ -74,10 +74,11 @@
   let shown = $state(-1);
   let cue = $state(0);
   let speaking = $state(false);
-  let veiled = $state(follows);
+  // Mounted once per segment (ListenStage), so whether it follows on is fixed for its life.
+  let veiled = $state(untrack(() => follows));
   /** A line is playing or about to: the place is heard. */
   let live = $state(false);
-  let settled = !follows;
+  let settled = untrack(() => !follows);
   let waiting = 0;
   /** The line on stage has played to its end, so the next one follows on from it. */
   let finished = true;

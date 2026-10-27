@@ -4,7 +4,7 @@
 # files the commit does not touch. That is CI's job (`format:check`).
 bunx lint-staged
 
-# astro check is ~30s, the one heavy step: only a commit that stages typed code
+# astro check and svelte-check are ~50s, the one heavy step: only a commit that stages typed code
 # or the configs it reads pays for it. CI runs it too, but a push costs a
 # Vercel deploy, so catch it before the push.
 # sh -e: a no-match grep must stay inside `if` or the hook aborts.

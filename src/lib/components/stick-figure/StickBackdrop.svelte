@@ -128,10 +128,13 @@
   const things = $derived(thingsIn(PLACES[setting].things, setting, mood));
 
   // The clocks start at the scene's told hour; skipping ahead spins them forward.
-  const hour = new Tween(clockHour(mood), {
-    duration: 1200,
-    easing: cubicInOut,
-  });
+  const hour = new Tween(
+    untrack(() => clockHour(mood)),
+    {
+      duration: 1200,
+      easing: cubicInOut,
+    },
+  );
   $effect(() => {
     const target = clockHour(mood) + minutes / 60;
     if (skipping) {
