@@ -170,9 +170,22 @@ const FILL_BLANK_REACH = 12;
 const FILL_BLANK_FAR_REACH = 30;
 
 /**
+ * How rarely the C-test and dictation supply each part: Fill in the Blanks
+ * comes before them in each round, so without this its first slots go to
+ * nouns and verbs, and numbers, which natural text hardly has, run short.
+ * Parts left out are supplied plentifully.
+ */
+const SCARCE_IN_TEXT: Partial<Record<StudyArea, number>> = {
+  adjectives: 1,
+  pronouns: 1,
+  numerals: 2,
+};
+
+/**
  * Natural text is mostly nouns and verbs, so a C-test alone leaves adjectives
  * with two or three answers. Among the items close to the target, Fill in the
- * Blanks picks the word class furthest below its share of evidence.
+ * Blanks picks the word class furthest below its share of evidence, serving
+ * the parts natural text rarely supplies first.
  */
 export function pickFillBlank(
   items: readonly AdaptiveItem[],
@@ -190,15 +203,19 @@ export function pickFillBlank(
     return distance <= FILL_BLANK_FAR_REACH && answers < AREA_MINIMUM;
   });
 
+  // Among the parts still short of the target (1 to 5 answers short): scarce
+  // in text first, then the furthest short, then the scarcest.
+  const need = (area: StudyArea): number => {
+    const scarcity = SCARCE_IN_TEXT[area] ?? 0;
+    const short = AREA_TARGET - (coverage.get(area) ?? 0);
+    return (scarcity > 0 ? 100 : 0) + short * 10 + scarcity;
+  };
+
   let neediest: StudyArea | undefined;
-  let deficit = 0;
   for (const item of near) {
     const area = areaForTag(item.tag);
-    const short = AREA_TARGET - (coverage.get(area) ?? 0);
-    if (short > deficit) {
-      deficit = short;
-      neediest = area;
-    }
+    if ((coverage.get(area) ?? 0) >= AREA_TARGET) continue;
+    if (!neediest || need(area) > need(neediest)) neediest = area;
   }
 
   const pool = neediest

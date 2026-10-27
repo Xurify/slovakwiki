@@ -47,6 +47,30 @@ describe("pickFillBlank", () => {
   });
 });
 
+describe("pickFillBlank before the C-test and dictation", () => {
+  const items = [item("n1", "noun"), item("p1", "pronoun"), item("x1", "numeral")];
+
+  it("serves the parts natural text rarely has before nouns and verbs", () => {
+    const coverage = new Map<StudyArea, number>([["pronouns", 3]]);
+    const picked = pickFillBlank(
+      items.slice(0, 2),
+      30,
+      new Set(),
+      coverage,
+      seededRandom(1),
+    );
+    expect(picked?.id).toBe("p1");
+  });
+
+  it("breaks a tie toward numbers, which the other tasks hardly supply", () => {
+    const coverage = new Map<StudyArea, number>([
+      ["pronouns", 1],
+      ["numerals", 1],
+    ]);
+    expect(pickFillBlank(items, 30, new Set(), coverage, seededRandom(1))?.id).toBe("x1");
+  });
+});
+
 describe("pickFillBlank for a strong learner", () => {
   it("reaches an easier item for a part with too few answers", () => {
     const items = [item("n1", "noun", 80), item("p1", "pronoun", 55)];

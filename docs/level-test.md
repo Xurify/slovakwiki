@@ -30,22 +30,22 @@ Word classes come from `tagWord` (`src/lib/catalog/level-test/word-tags.ts`) at 
 
 Simulated with 200 runs per level (answers per part; a part needs 3 to be judged). A part is a strength or a gap only when it differs from the overall level by at least 5 points and by 1.2 times its own uncertainty, and a gap also needs two misses, so one slip is not a gap.
 
-| Part                 | Quick test                     | Full test                                     |
-| -------------------- | ------------------------------ | --------------------------------------------- |
-| Vocabulary           | 24–26                          | 40–48                                         |
-| Noun cases           | 14–19                          | 22–28                                         |
-| Adjective agreement  | 3–6                            | 6–8                                           |
-| Pronouns             | 4–6                            | 6–9                                           |
-| Numbers              | 2–3, under 3 in 21–47% of runs | 3–5                                           |
-| Conjugation          | 13–15                          | 19–22                                         |
-| Function words       | 7–11                           | 11–16                                         |
-| Spelling             | depends on answers             | depends on answers                            |
-| Hearing vowel length | 12                             | 18                                            |
-| Aspect               | 6                              | 9, plus 1 reading gap and one per scored text |
-| Word order           | 6                              | 9, plus 1 reading gap and one per scored text |
-| Being understood     | —                              | 3 (needs a microphone and speech recognition) |
+| Part                 | Quick test                         | Full test                                     |
+| -------------------- | ---------------------------------- | --------------------------------------------- |
+| Vocabulary           | 24–26                              | 40–48                                         |
+| Noun cases           | 14–19                              | 22–28                                         |
+| Adjective agreement  | 3–6                                | 6–8                                           |
+| Pronouns             | 4–6                                | 6–9                                           |
+| Numbers              | 3–4, under 3 in at most 1% of runs | 3–6                                           |
+| Conjugation          | 13–15                              | 19–22                                         |
+| Function words       | 7–11                               | 11–16                                         |
+| Spelling             | depends on answers                 | depends on answers                            |
+| Hearing vowel length | 12                                 | 18                                            |
+| Aspect               | 6                                  | 9, plus 1 reading gap and one per scored text |
+| Word order           | 6                                  | 9, plus 1 reading gap and one per scored text |
+| Being understood     | —                                  | 3 (needs a microphone and speech recognition) |
 
-Coverage is steered, not left to chance: Fill in the Blanks picks the word class furthest below five answers among items within 12 points of the learner's level (`pickFillBlank`), with three per round.
+Coverage is steered, not left to chance: Fill in the Blanks picks the word class furthest below five answers among items within 12 points of the learner's level (`pickFillBlank`), with three per round. It serves the parts the C-test and dictation rarely supply first (numbers, then adjectives and pronouns), since those come later in each round and bring plenty of nouns, verbs and function words.
 
 ## Known gaps
 
@@ -54,12 +54,11 @@ Ordered by how much they limit the results.
 1. **Item difficulty is predicted, not calibrated.** Difficulties come from word frequency, sentence length and the level a text was written for. Calibrating items on real test responses requires collecting response data first.
 2. **Aspect and word order items sit on their level's anchor.** Choose the Verb and Where Does It Go take their difficulty from the level they were written for, so items within a level do not differ. Choose the Verb offers two verbs, so a guess is right half the time; three sentences a screen make up for it. Word order covers clitics only: the order of the other words is free in Slovak and has no single right answer.
 3. **The AI's counts are checked only on planted errors.** How often a part came up in writing or speech is the scorer's own count. The [scorer eval](../scripts/level-test/eval/README.md) checks the wrong counts, the named mistakes and the rule cases against errors put into correct answers on purpose. The right counts, and the level of a real learner's answer, still need answers rated by hand.
-4. **Numbers are thin in the quick test.** Fewer than three answers in up to half of quick runs. More number items, or a short number dictation, would fix it.
-5. **Pronunciation is measured only as being understood.** Read Aloud compares a speech-recognition transcript with the sentence; recognition repairs accents and length, so it cannot judge them. Phoneme-level scoring needs a pronunciation service that supports Slovak (not yet checked).
-6. **Short or Long covers vowel length only.** Soft consonants (ď, ť, ň, ľ against d, t, n, l) are not tested. Its difficulty is a fixed A2 base nudged by word rarity, not calibrated. Clips are kept only when speech-to-text heard them exactly, which drops about a third of TTS clips; some of those may be speech-recognition bias toward the commoner form rather than a bad clip.
-7. **Formal and informal address (ty / vy) is not tested.** Interactive Listening uses both registers but scores the reply, not the register.
-8. **Writing and speaking need keys.** Without `OPENROUTER_API_KEY` and `ELEVENLABS_API_KEY` those skills show as planned. Interactive Speaking is always planned.
-9. **Retake variety is per device.** Items seen before are stored in `localStorage` and picked last; another browser starts fresh.
+4. **Pronunciation is measured only as being understood.** Read Aloud compares a speech-recognition transcript with the sentence; recognition repairs accents and length, so it cannot judge them. Phoneme-level scoring needs a pronunciation service that supports Slovak (not yet checked).
+5. **Short or Long covers vowel length only.** Soft consonants (ď, ť, ň, ľ against d, t, n, l) are not tested. Its difficulty is a fixed A2 base nudged by word rarity, not calibrated. Clips are kept only when speech-to-text heard them exactly, which drops about a third of TTS clips; some of those may be speech-recognition bias toward the commoner form rather than a bad clip.
+6. **Formal and informal address (ty / vy) is not tested.** Interactive Listening uses both registers but scores the reply, not the register.
+7. **Writing and speaking need keys.** Without `OPENROUTER_API_KEY` and `ELEVENLABS_API_KEY` those skills show as planned. Interactive Speaking is always planned.
+8. **Retake variety is per device.** Items seen before are stored in `localStorage` and picked last; another browser starts fresh.
 
 ## Rebuilding the bank
 
