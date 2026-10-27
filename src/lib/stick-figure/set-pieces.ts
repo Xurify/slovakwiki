@@ -142,6 +142,10 @@ export const OBJECT_SIZE: Record<
   plant: { grip: { x: 0, y: 12 }, top: 24, width: 25 },
   // Over-ear, a head's width across: held by the near cup, the band arched over.
   headphones: { grip: { x: 6, y: 4.5 }, top: 18, width: 18 },
+  // Held from underneath in the fingers, the ball over the fist.
+  ball: { grip: { x: 0, y: 0 }, top: 8.4, width: 8.4 },
+  // Carried by the handle on its top, hanging beside the leg.
+  suitcase: { grip: { x: 0, y: 17 }, top: 15, width: 18 },
   // Held by its handle's loop, the strap hanging down to the clip.
   lead: { grip: { x: 0, y: -3 }, top: 0, width: 5 },
 };

@@ -90,6 +90,7 @@
   import StickFigureActor from "./StickFigureActor.svelte";
   import StickFurniture from "./StickFurniture.svelte";
   import StickLeash from "./StickLeash.svelte";
+  import StickProp from "./StickProp.svelte";
   import StickSet from "./StickSet.svelte";
   import type { ObjectLook } from "./StickSetObject.svelte";
   import {
@@ -182,6 +183,10 @@
   } = $props();
 
   const LIT_MS = 1600;
+  /** A dog after a ball runs this many times as fast as anyone walks. */
+  const RUN_PACE = 2.6;
+  /** How long a thrown ball takes to leave the stage. */
+  const THROW_MS = 700;
   /** Turning round to a chair, as far as a person gets before they start to lower. */
   const SIT_TURN_MS = TURN_MS * 0.7;
   /** Where StickDog draws the collar, in its rig space. */
@@ -245,7 +250,9 @@
   );
   /** The chair someone walks to sit on, sits on, or has just got up from, so its pull moves them with it. */
   let perched = $state<Blocking["seated"]>({});
-  let walks = $state<Partial<Record<LessonCharacterId, { cue: number; ms: number }>>>({});
+  let walks = $state<
+    Partial<Record<LessonCharacterId, { cue: number; ms: number; pace?: number }>>
+  >({});
   /** Who is on the move: drawn over whoever stands still, as they pass behind their back. */
   let striding = $state<LessonCharacterId[]>([]);
   /** Who walks past someone standing: a step toward the camera, so they pass in front, not through. */
@@ -256,6 +263,10 @@
   let roomFor = $state<LessonCharacterId[]>([]);
   /** Who stands back in the doorway, or by the door to push it to, on its sill rather than in the room (`doorLane`). */
   let doorway = $state<LessonCharacterId[]>([]);
+  /** A ball in the air, from the thrower's hand off the edge of the stage. */
+  let flight = $state<{ cue: number; from: Point; to: Point }>();
+  /** The line whose throw has left the thrower's hand. */
+  let thrownAt = $state(-1);
   /** The line whose props are in hand: the one playing, or the last one played. */
   let heldAt = $state(-1);
   /** A line that gave something away and has ended, so it is in the new hand. */
@@ -611,7 +622,7 @@
     }
     const from =
       cue.do === "enter"
-        ? spotOf(id, set?.door ?? "door")?.offset
+        ? spotOf(id, set?.door ?? cue.from ?? "door")?.offset
         : ((was ? spotOf(id, was)?.offset : undefined) ?? offsets[id] ?? 0);
     const to = cue.to ? spotOf(id, cue.to)?.offset : undefined;
     const walk =
@@ -619,7 +630,9 @@
         ? 0
         : walkDuration(stepsFor(to - from), id);
     const enter =
-      cue.do === "enter" ? DOOR_MS + TURN_MS * 0.6 + CLOSE_DOOR.ms + TURN_MS : 0;
+      cue.do === "enter" && set?.door
+        ? DOOR_MS + TURN_MS * 0.6 + CLOSE_DOOR.ms + TURN_MS
+        : 0;
     const sit =
       cue.do === "sit" ? SIT_TURN_MS + sitMs(id) + (frame.desk ? 0 : SCOOT_MS) : 0;
     return walk + enter + sit;
@@ -724,8 +737,19 @@
       later(start + at - performance.now(), () => playFoley(sound));
   }
 
+  /** On from the edge spot `from` (a park, a room with no door drawn), walking to `to`. */
+  function walkOn(id: LessonCharacterId, from: string, to: string | undefined): void {
+    const at = spotOf(id, from);
+    const { [id]: _, ...still } = walks;
+    walks = still;
+    if (at) offsets = { ...offsets, [id]: at.offset };
+    outside = outside.filter((other) => other !== id);
+    walkToSpot(id, to);
+  }
+
   /** In through the door: they push it open, step in past it, and push it to behind them. */
-  function comeIn(id: LessonCharacterId, to: string | undefined): void {
+  function comeIn(id: LessonCharacterId, to: string | undefined, from?: string): void {
+    if (!set?.door && from) return walkOn(id, from, to);
     const door = set?.door ?? "door";
     const at = spotOf(id, door);
     const { [id]: _, ...still } = walks;
@@ -785,7 +809,7 @@
       case "camera":
         return;
       case "enter":
-        comeIn(who, cue.to);
+        comeIn(who, cue.to, cue.from);
         return;
       case "leave":
         walkOff(who, cue.to === "left" ? -1 : 1);
@@ -803,6 +827,9 @@
         if (face) facings = { ...facings, [who]: face };
         return;
       }
+      case "throw":
+        later(motion.takes ?? 0, () => throwBall(who, facingOf(who), heldAt));
+        break;
       case "skip":
         dimmed = true;
         later(motion.ms, () => {
@@ -1290,16 +1317,16 @@
   });
 
   /** Walk a figure to `offset` figure widths from its mark, a step at a time. */
-  function walkTo(id: LessonCharacterId, offset: number): void {
+  function walkTo(id: LessonCharacterId, offset: number, pace = 1): void {
     const from = offsets[id] ?? 0;
     if (from === offset) return;
 
     const steps = stepsFor(offset - from);
-    const ms = walkDuration(steps, id);
+    const ms = walkDuration(steps, id) / pace;
     const { [id]: _, ...still } = perched;
     perched = still;
     walkCount += 1;
-    walks = { ...walks, [id]: { cue: walkCount, ms } };
+    walks = { ...walks, [id]: { cue: walkCount, ms, pace } };
     offsets = { ...offsets, [id]: offset };
     striding = [...striding.filter((other) => other !== id), id];
     later(ms, () => (striding = striding.filter((other) => other !== id)));
@@ -1319,7 +1346,7 @@
     // Reduced motion puts the figure there at once, so nobody waits on the walk.
     if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       walkEndsAt[id] = performance.now() + ms;
-      playSteps(steps, stepMs(id), {
+      playSteps(steps, stepMs(id) / pace, {
         ground: PLACES[setting].ground,
         shoes: LOOKS[id].shoes,
       });
@@ -1409,8 +1436,8 @@
     return { aboard, facings, offsets, seated, tram };
   }
 
-  /** Turn everyone as `next` has them at once, and walk whoever it moves. */
-  function block(next: Blocking): void {
+  /** Turn everyone as `next` has them at once, and walk whoever it moves; `running` run. */
+  function block(next: Blocking, running?: LessonCharacterId): void {
     facings = next.facings;
     seated = next.seated;
     settleChairs();
@@ -1418,8 +1445,38 @@
     aboard = next.aboard;
     for (const id of direction.cast) {
       const to = next.offsets[id] ?? 0;
-      if (to !== (offsets[id] ?? 0)) walkTo(id, to);
+      if (to !== (offsets[id] ?? 0)) walkTo(id, to, id === running ? RUN_PACE : 1);
     }
+  }
+
+  /** The ball leaves the thrower's hand and flies off the `side` edge in an arc. */
+  function throwBall(thrower: LessonCharacterId, side: Facing, index: number): void {
+    const facing = facings[thrower] ?? resting[thrower] ?? 1;
+    const from = figureToStage(
+      SHOWN_HAND,
+      standing(markOf(frame, thrower), offsets[thrower]),
+      facing,
+    );
+    thrownAt = index;
+    flight = {
+      cue: (flight?.cue ?? 0) + 1,
+      from,
+      to: { x: side > 0 ? stageWidth + 16 : -16, y: from.y + stageHeight * 0.08 },
+    };
+  }
+
+  /** Moves the ball along its arc: level travel, rising and then dropping a stage-fifth. */
+  function arc(node: HTMLElement, path: { from: Point; to: Point }): void {
+    const { from, to } = path;
+    const rise = stageHeight * 0.22;
+    const frames = Array.from({ length: 9 }, (_, step) => {
+      const t = step / 8;
+      const x = from.x + (to.x - from.x) * t;
+      const y = from.y + (to.y - from.y) * t - rise * 4 * t * (1 - t);
+      return { transform: `translate(${x}px, ${y}px)` };
+    });
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    node.animate(frames, { duration: reduced ? 0 : THROW_MS, fill: "forwards" });
   }
 
   function boardBefore(index: number): string | undefined {
@@ -1430,6 +1487,12 @@
   function heldBy(id: LessonCharacterId): Held | undefined {
     const prop = holding[id];
     if (!prop) return undefined;
+    if (
+      thrownAt === heldAt &&
+      stagings[heldAt]?.throws &&
+      id === lines[heldAt]?.characterId
+    )
+      return undefined;
     if (prop === "umbrella") return { id: prop, open: umbrellas[id] ?? dress.umbrellaUp };
     // A lead is open once it is on the dog.
     if (prop === "leash") return { id: prop, open: dog !== undefined };
@@ -1480,6 +1543,8 @@
     doorway = [];
     heldAt = index - 1;
     handedAt = index - 1;
+    thrownAt = stagings[index - 1]?.throws ? index - 1 : -1;
+    flight = undefined;
     board = boardBefore(index);
 
     clearActs();
@@ -1788,7 +1853,9 @@
         ? aimLine(speaker, plan, Boolean(direction.lines[index]?.held[speaker]))
         : undefined;
     const standingAt = speaker ? offsets[speaker] : undefined;
-    if (staging) block(startLine(blocking(), staging, speaker, frame));
+    if (staging) {
+      block(startLine(blocking(), staging, speaker, frame), staging.returns?.characterId);
+    }
     // A speaker walking somewhere faces the way they go, not where they point.
     if (speaker && aimed?.facing && offsets[speaker] === standingAt) {
       facings = { ...facings, [speaker]: aimed.facing };
@@ -1835,7 +1902,9 @@
       for (const actor of Object.values(actors)) actor.talking = false;
       relaying = undefined;
       if (staging?.gives) handedAt = index;
-      if (staging) block(endLine(blocking(), staging, speaker, frame));
+      if (staging?.throws && speaker) throwBall(speaker, staging.throws.side, index);
+      if (staging)
+        block(endLine(blocking(), staging, speaker, frame), staging.throws?.fetcher);
       if (staging?.boards) foldUmbrellas();
       if (stagings[index + 1]?.arrives) playTramCue();
       release();
@@ -2046,6 +2115,21 @@
         aria-hidden="true"
       ></div>
     </div>
+
+    {#if flight}
+      {#key flight.cue}
+        <svg
+          class="pointer-events-none absolute top-0 left-0 overflow-visible"
+          width={frame.figureWidth * 0.1}
+          height={frame.figureWidth * 0.1}
+          viewBox="-5 -9 10 10"
+          aria-hidden="true"
+          use:arc={flight}
+        >
+          <StickProp prop="ball" />
+        </svg>
+      {/key}
+    {/if}
 
     {#if bubble}
       {@const mark = standing(

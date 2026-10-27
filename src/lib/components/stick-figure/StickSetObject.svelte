@@ -309,6 +309,19 @@
       stroke-width="0.7"
       fill="none"
     />
+  {:else if kind === "ball"}
+    <circle cx="0" cy="-4.2" r="4.2" class="fill-scene-apple" />
+    <path
+      d="M-3.6 -6.2q3.6 2.4 7.2 0"
+      class="stroke-white/70"
+      stroke-width="0.9"
+      fill="none"
+    />
+  {:else if kind === "suitcase"}
+    <path d="M-3 -15V-18h6v3" fill="none" stroke-width="1.1" />
+    <rect x="-9" y="-15" width="18" height="14" rx="1.6" class="fill-portrait-vest" />
+    <path d="M-9 -10.6h18" class="stroke-white/40" stroke-width="1" />
+    <path d="M-5.4 -1v1M5.4 -1v1" stroke-width="1.4" />
   {:else if kind === "phone"}
     {#if flat}
       <rect

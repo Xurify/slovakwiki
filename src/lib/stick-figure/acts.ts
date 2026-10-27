@@ -46,6 +46,7 @@ export const VERBS = [
   "call",
   "hangup",
   "leash",
+  "throw",
   // The body alone.
   "burn",
   "wag",
@@ -94,7 +95,7 @@ export interface Cue {
    * `leave`, the edge walked off by, "left" or "right"; for `leash`, the dog.
    */
   to?: LessonCharacterId | (string & {});
-  /** What it comes out of: the pot a ladle is filled from. */
+  /** What it comes out of: the pot a ladle is filled from; for `enter` where there is no door, the edge spot they walk on from. */
   from?: string;
   on?: CueAnchor;
   /** Rig units along a piece, for `put` straight onto one. */
@@ -139,7 +140,9 @@ export type ObjectKind =
   | "can"
   | "plant"
   | "headphones"
-  | "lead";
+  | "lead"
+  | "ball"
+  | "suitcase";
 
 /** What is in a pot, a bowl, a spoon, a jug or a cup. */
 export type Fill = "water" | "soup" | "coffee";
@@ -574,6 +577,12 @@ export function applyCue(
         }
       }
       return next;
+    }
+    case "throw": {
+      // Thrown to a dog: out of sight with it until it brings the ball back and `take`s it from there.
+      holds(world, who, cue);
+      if (!to || !isPerson(to)) throw new CueError(`${who} throw ${what}: to whom?`);
+      return setObject(world, what!, { where: { pocket: to } });
     }
     case "call":
       holds(world, who, cue);

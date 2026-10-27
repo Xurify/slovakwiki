@@ -30,6 +30,15 @@
     <path d="M-4 6Q-4 -1 0 -1Q4 -1 4 6" fill="none" stroke-width="1.1" />
     <path d="M-7 5h14l-1 12a2 2 0 0 1-2 2h-8a2 2 0 0 1-2-2Z" class="fill-scene-clay" />
     <path d="M-6.6 9h13.2" class="stroke-white/50" stroke-width="1.2" />
+  {:else if prop === "ball"}
+    <!-- A dog's rubber ball, held up in the fingers. -->
+    <circle cx="0" cy="-4.4" r="4.2" class="fill-scene-apple" />
+    <path
+      d="M-3.6 -6.4q3.6 2.4 7.2 0"
+      class="stroke-white/70"
+      stroke-width="0.9"
+      fill="none"
+    />
   {:else if prop === "basket"}
     <path d="M-6 7Q-6 -1 0 -1Q6 -1 6 7" fill="none" stroke-width="1.1" />
     <circle cx="-3.6" cy="6.4" r="2.2" class="fill-scene-red-mid" />
@@ -136,5 +145,11 @@
       class="fill-portrait-ground"
       stroke="none"
     />
+  {:else if prop === "suitcase"}
+    <!-- Carried low by its handle, like the bag, but stiff and boxy. -->
+    <path d="M-3 4V1h6v3" fill="none" stroke-width="1.1" />
+    <rect x="-9" y="4" width="18" height="14" rx="1.6" class="fill-portrait-vest" />
+    <path d="M-9 8.4h18" class="stroke-white/40" stroke-width="1" />
+    <path d="M-5.4 18v1.4M5.4 18v1.4" stroke-width="1.4" />
   {/if}
 </g>

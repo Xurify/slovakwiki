@@ -134,6 +134,42 @@
       "voiceName": "Slovak Wiki Announcer",
       "speakers": ["Announcement"],
       "note": "The first Waiter take, which sounds like a tannoy. Never a person on stage."
+    },
+    "robot": {
+      "displayName": "Domo",
+      "gender": "neutral",
+      "kind": "recurring",
+      "blurb": "Marek's new home robot. He has a plan for everything, says pán and pani to everyone, and is still learning dog.",
+      "voiceId": "k6drZxRFpK8WOJBuujKq",
+      "voiceName": "Slovak Wiki Domo",
+      "speakers": ["Domo"],
+      "note": "Voice Design, briefed on Domo's own lines at Marek's flat. Custom Voice Design."
+    },
+    "dog": {
+      "displayName": "Dunčo",
+      "gender": "male",
+      "kind": "recurring",
+      "blurb": "Marek's dog. He barks hello, growls no, and waits by the window at six for Marek.",
+      "voiceId": "sound-dog",
+      "voiceName": "Sound effects: Dunčo",
+      "speakers": ["Dunčo"],
+      "note": "Not a voice: each line's text is a bark. A line with a recording uses it (CC0, see content/audio/sounds/README.md); otherwise its prompt in `sounds` goes to ElevenLabs sound generation.",
+      "sounds": {
+        "Haf!": "A single friendly bark from a medium-sized family dog, close up in a quiet living room, dry, no music, no voices.",
+        "Haf.": "One soft, quiet, gentle bark from a medium-sized family dog, almost a huff, close up in a quiet living room, dry, no music, no voices.",
+        "Haf! Haf!": "Two quick happy barks from a medium-sized dog running on grass in a park, close up, no music, no voices.",
+        "Haf! Haf! Haf!": "Three excited, overjoyed barks from a medium-sized family dog greeting its owner at the door, close up indoors, no music, no voices.",
+        "Vrrr…": "A short low warning growl from a medium-sized family dog, wary rather than angry, close up in a quiet living room, no barking, no music, no voices.",
+        "Kňu…": "A medium-sized dog whimpering softly once, a sad lonely whine, close up in a quiet living room, no barking, no music, no voices."
+      },
+      "recordings": {
+        "Haf!": "content/audio/sounds/dog/haf.mp3",
+        "Haf.": "content/audio/sounds/dog/haf-soft.mp3",
+        "Haf! Haf!": "content/audio/sounds/dog/haf-haf.mp3",
+        "Haf! Haf! Haf!": "content/audio/sounds/dog/haf-haf-haf.mp3",
+        "Vrrr…": "content/audio/sounds/dog/growl.mp3",
+        "Kňu…": "content/audio/sounds/dog/whine.mp3"
+      }
     }
   }
 }

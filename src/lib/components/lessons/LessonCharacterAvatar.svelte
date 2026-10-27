@@ -60,17 +60,17 @@
     <StickHead characterId={cast.id} part="back" turn={0} />
 
     {#if dog}
-      <!-- the dog's chest and shoulders, and his red collar -->
+      <!-- the dog's chest and red collar under the head -->
       <path
-        d="M15 64c1-11 8-18 17-18s16 7 17 18Z"
+        d="M15 64c1-12 8-20 17-20s16 8 17 20Z"
         class="{dog.coat} stroke-portrait-ink"
         stroke-width="1.3"
       />
-      <path d="M21.6 45.6Q32 51 42.4 45.6" class={dog.collar} stroke-width="2.6" />
+      <path d="M22 46.4q10 5 20 0" class={dog.collar} stroke-width="3" />
       <circle
         cx="32"
-        cy="50.2"
-        r="1.7"
+        cy="50.6"
+        r="2"
         class="fill-scene-honey stroke-portrait-ink"
         stroke-width="0.8"
       />

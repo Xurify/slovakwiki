@@ -104,7 +104,7 @@ export function podcastGroups(): SceneGroup[] {
       id: chapter.id,
       lines: sceneLines(chapter.lines),
       name: chapter.titleSk,
-      order: episode.speakers.map(characterIdForSpeaker),
+      order: (chapter.cast ?? episode.speakers).map(characterIdForSpeaker),
       setting: chapter.stage ?? "studio",
     })),
   }));
@@ -151,7 +151,6 @@ export function episodeStages(episode: ListeningEpisode): {
   scenes: Record<string, StagedScene>;
   thingWords: Record<string, { href?: string; src?: string }>;
 } {
-  const order = episode.speakers.map(characterIdForSpeaker);
   let said: string[] = [];
   /** Each place's set as the last segment there left it: the soup still on the stove, the plant still yellow. */
   const left = new Map<string, World>();
@@ -189,7 +188,7 @@ export function episodeStages(episode: ListeningEpisode): {
             : {}),
           ...(start ? { world: start } : {}),
           lines,
-          order,
+          order: (chapter.cast ?? episode.speakers).map(characterIdForSpeaker),
           setting,
         },
       ];

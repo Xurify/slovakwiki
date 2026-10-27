@@ -7,6 +7,7 @@ export const LESSON_CHARACTER_IDS = [
   "anna",
   "announcer",
   "bobik",
+  "dog",
   "guide",
   "lucia",
   "marek",
@@ -14,6 +15,7 @@ export const LESSON_CHARACTER_IDS = [
   "narrator",
   "receptionist",
   "robo",
+  "robot",
   "waiter",
 ] as const;
 

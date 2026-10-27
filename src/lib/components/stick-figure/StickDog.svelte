@@ -4,18 +4,22 @@
   import { LOOKS } from "$lib/stick-figure/looks";
   import { REST_POSE, type StickPose } from "$lib/stick-figure/pose";
   import { GROUND_Y } from "$lib/stick-figure/rig";
+  import StickProp from "./StickProp.svelte";
 
   /**
    * A dog in figure space, facing +x, standing on the same ground as the
    * cast and about knee-high to them. It reads the pose the stick rig reads:
    * `stride` and `lift` walk its legs, `mouth` opens the jaw on a bark,
    * `nod` and `tilt` move the head, and the arms' raise wags the tail, so a
-   * gesture the words pick (a beat on "Haf!") comes out as a wag.
+   * gesture the words pick (a beat on "Haf!") comes out as a wag. A `ball`
+   * fetched is carried in the mouth.
    */
   let {
+    ball = false,
     characterId,
     pose = REST_POSE,
   }: {
+    ball?: boolean;
     characterId: LessonCharacterId;
     pose?: StickPose;
   } = $props();
@@ -152,6 +156,11 @@
         class="{dog.patch} stroke-portrait-ink"
         stroke-width="1.3"
       />
+      {#if ball}
+        <g transform="translate(28.6 102.4) scale(0.75)">
+          <StickProp prop="ball" />
+        </g>
+      {/if}
     </g>
   </g>
 {/if}

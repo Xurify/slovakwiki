@@ -535,11 +535,11 @@ const GROUND_STEPS: Record<
   },
 };
 
-/** The cues still sounding (footsteps, a phone, the sting, a tram), so a stage that stops or skips can silence them. */
+/** The cues still sounding (footsteps, a phone, the sting, a tram, foley), so a stage that stops or skips can silence them. */
 const sounding = new Set<GainNode>();
 
 /** An output for one cue, silenced by stopCues or let go after `ms`. */
-function cueOut(ctx: AudioContext, level: number, ms: number): GainNode {
+export function cueOut(ctx: AudioContext, level: number, ms: number): GainNode {
   const out = ctx.createGain();
   out.gain.value = level * getAudioVolume();
   out.connect(ctx.destination);

@@ -119,7 +119,7 @@ export function yesThatIs(thing: SceneThing): string {
  * Who asks for each thing and answers each tap: the first of the cast who
  * is on stage from the start, since someone still walking on cannot ask,
  * and someone other than Alex where there is one, since the learner is
- * the one looking. A dog cannot ask.
+ * the one looking. A dog barks and cannot ask.
  */
 export function findAsker(direction: {
   cast: readonly LessonCharacterId[];

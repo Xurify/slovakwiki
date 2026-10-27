@@ -11,6 +11,7 @@ import {
 export const STICK_PROP_IDS = [
   "apple",
   "bag",
+  "ball",
   "basket",
   "book",
   "camera",
@@ -23,6 +24,7 @@ export const STICK_PROP_IDS = [
   "menu",
   "newspaper",
   "phone",
+  "suitcase",
   "umbrella",
 ] as const;
 
@@ -45,6 +47,7 @@ export interface Held {
 const PROP_CUES: Record<StickPropId, WordCues> = {
   apple: { stems: ["jablk", "jablc"] },
   bag: { stems: ["task", "tasiek"] },
+  ball: { stems: ["lopt"] },
   basket: { stems: ["kosik"] },
   book: { stems: ["knih"] },
   camera: { stems: ["fotk", "fotograf"] },
@@ -57,6 +60,7 @@ const PROP_CUES: Record<StickPropId, WordCues> = {
   menu: { words: ["menu"] },
   newspaper: { words: ["noviny", "novin", "novinach", "novinami"] },
   phone: { words: ["telefon", "telefonu", "telefonom", "mobil", "mobilu", "mobilom"] },
+  suitcase: { stems: ["kufor", "kufr"] },
   umbrella: { stems: ["dazdnik"] },
 };
 

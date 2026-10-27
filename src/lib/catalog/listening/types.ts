@@ -29,6 +29,8 @@ export interface ListeningChapter {
    * the one before: Robo still has Bobík on the lead when they reach the square.
    */
   carrying?: Record<string, StickPropId>;
+  /** Who stands where, left to right, when the episode's speakers order is wrong here: whoever comes in the door stands at its end. */
+  cast?: string[];
   checks: ListeningCheck[];
   id: string;
   lines: DialogueTurn[];

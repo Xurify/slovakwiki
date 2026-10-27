@@ -26,6 +26,8 @@ export async function transcribeAudio(
     provider?: SttProvider;
     /** Scribe: scribe_v1 | scribe_v2. Whisper: tiny|base|small|medium|… */
     model?: string;
+    /** Scribe only: words to bias recognition toward. */
+    keyterms?: string[];
   } = {},
 ): Promise<SttResult> {
   const provider = options.provider ?? "elevenlabs";
@@ -47,19 +49,28 @@ export async function transcribeAudio(
     throw new Error("ELEVENLABS_API_KEY missing (needed for Scribe STT)");
   }
 
-  return transcribeWithElevenLabs(audioPath, apiKey, options.model ?? "scribe_v2");
+  return transcribeWithElevenLabs(
+    audioPath,
+    apiKey,
+    options.model ?? "scribe_v2",
+    options.keyterms ?? [],
+  );
 }
 
 async function transcribeWithElevenLabs(
   audioPath: string,
   apiKey: string,
   modelId: string,
+  keyterms: string[],
 ): Promise<SttResult> {
   const bytes = await readFile(audioPath);
   const form = new FormData();
   form.append("file", new Blob([bytes], { type: "audio/mpeg" }), "clip.mp3");
   form.append("model_id", modelId);
   form.append("language_code", "sk");
+  // Tags like [smiech] on a chuckled line would count as words the line doesn't have.
+  form.append("tag_audio_events", "false");
+  for (const term of keyterms) form.append("keyterms", term);
 
   const response = await fetch("https://api.elevenlabs.io/v1/speech-to-text", {
     method: "POST",

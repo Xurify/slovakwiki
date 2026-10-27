@@ -1,7 +1,6 @@
 import { getStoredSfxPreference } from "$lib/audio/sfx";
-import { getAudioVolume } from "$lib/audio/volume";
 import type { FoleyId } from "./act-motions";
-import { cues } from "./ambience";
+import { cueOut, cues } from "./ambience";
 
 /**
  * The small sounds of what the cast does, synthesized like the footsteps so
@@ -14,9 +13,8 @@ export function playFoley(id: FoleyId): void {
   if (!kit) return;
 
   const { ctx, noise } = kit;
-  const out = ctx.createGain();
-  out.gain.value = 0.35 * getAudioVolume();
-  out.connect(ctx.destination);
+  // Through the stage's cue output, so a pause or a skip cuts a sniff or a rattle off mid-sound.
+  const out = cueOut(ctx, 0.35, 2600);
   const now = ctx.currentTime;
 
   /** A struck bit of metal: a few inharmonic partials dying away. */
@@ -197,6 +195,4 @@ export function playFoley(id: FoleyId): void {
         ring([index % 2 ? 1760 : 1397], 0.05, 0.07, at);
       break;
   }
-
-  window.setTimeout(() => out.disconnect(), 2600);
 }
