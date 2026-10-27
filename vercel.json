@@ -4,6 +4,7 @@
     "deploymentEnabled": {
       "**": false,
       "feat/dog-robot-story": true,
+      "feat/faster-lipsync": true,
       "feat/future-tense-story": true,
       "feat/slovak-level-test": true,
       "fix/stage-seek-and-robot-motion": true,
