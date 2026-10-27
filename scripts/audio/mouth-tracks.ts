@@ -4,8 +4,7 @@
  * mouth with the real recording. Used by `mouth.ts` and after `generate.ts`.
  */
 
-import { spawn } from "node:child_process";
-import { access } from "node:fs/promises";
+import { readFile } from "node:fs/promises";
 import path from "node:path";
 
 import type { MouthTracks } from "../../src/lib/catalog/audio/mouth";
@@ -16,6 +15,7 @@ import {
 import { alignSyllables } from "../../src/lib/stick-figure/syllable-align";
 import { readJsonFile, writeFileAtomic } from "../lib/json-file";
 import { ROOT } from "../lib/paths";
+import { decodeMp3 } from "./decode-mp3";
 import {
   AUDIO_DIR,
   audioObjectKey,
@@ -26,61 +26,10 @@ import {
 } from "./shared";
 
 const MOUTH_PATH = path.join(ROOT, "content", "audio", "mouth.json");
-const SAMPLE_RATE = 16_000;
 
-export function decodePcm(input: string | Buffer): Promise<Int16Array> {
-  return new Promise((resolve, reject) => {
-    const child = spawn(
-      "ffmpeg",
-      [
-        "-hide_banner",
-        "-loglevel",
-        "error",
-        "-i",
-        typeof input === "string" ? input : "pipe:0",
-        "-ac",
-        "1",
-        "-ar",
-        String(SAMPLE_RATE),
-        "-f",
-        "s16le",
-        "pipe:1",
-      ],
-      { windowsHide: true },
-    );
-    const chunks: Buffer[] = [];
-    let stderr = "";
-    child.stdout.on("data", (chunk: Buffer) => chunks.push(chunk));
-    child.stderr.on("data", (chunk: Buffer) => {
-      stderr += chunk.toString();
-    });
-    child.on("error", reject);
-    child.on("close", (code) => {
-      if (code !== 0) {
-        reject(new Error(stderr.trim() || `ffmpeg exit ${code}`));
-        return;
-      }
-
-      const pcm = Buffer.concat(chunks);
-      resolve(
-        Int16Array.from({ length: pcm.length >> 1 }, (_, i) => pcm.readInt16LE(i * 2)),
-      );
-    });
-
-    if (typeof input === "string") child.stdin.end();
-    else child.stdin.end(input);
-  });
-}
-
-async function clipSource(
-  hash: string,
-  baseUrl: string | undefined,
-): Promise<string | Buffer> {
-  const local = path.join(AUDIO_DIR, "lesson", `${hash}.mp3`);
-
+async function clipBytes(hash: string, baseUrl: string | undefined): Promise<Uint8Array> {
   try {
-    await access(local);
-    return local;
+    return await readFile(path.join(AUDIO_DIR, "lesson", `${hash}.mp3`));
   } catch {
     if (!baseUrl)
       throw new Error(`no local ${hash}.mp3 and PUBLIC_AUDIO_BASE_URL is unset`);
@@ -90,7 +39,7 @@ async function clipSource(
     `${baseUrl}/${toR2AudioKey(audioObjectKey("lesson", hash))}`,
   );
   if (!response.ok) throw new Error(`${response.status} for ${hash}.mp3`);
-  return Buffer.from(await response.arrayBuffer());
+  return new Uint8Array(await response.arrayBuffer());
 }
 
 export interface MouthTrackReport {
@@ -124,11 +73,11 @@ export async function updateMouthTracks(options: {
   let failed = 0;
   await mapPool(todo, options.concurrency, async ([hash, { generatedAt, text }]) => {
     try {
-      const samples = await decodePcm(await clipSource(hash, baseUrl));
-      const loudness = encodeMouthTrack(samples, SAMPLE_RATE);
+      const { sampleRate, samples } = await decodeMp3(await clipBytes(hash, baseUrl));
+      const loudness = encodeMouthTrack(samples, sampleRate);
       const vowels = encodeVowelTrack(
         loudness,
-        alignSyllables(text, samples, SAMPLE_RATE),
+        alignSyllables(text, samples, sampleRate),
       );
       tracks[hash] = { g: generatedAt, m: loudness, v: vowels };
     } catch (error) {
