@@ -134,15 +134,22 @@ export function estimateSpeechMs(text: string): number {
 export interface TimedSyllable {
   /** Nucleus time from the start of the speech, ms. */
   at: number;
+  shutAfter?: boolean;
+  shutBefore?: boolean;
   vowel: VowelShape;
 }
 
-/** Every syllable's nucleus time and every word's span from the text alone, and the speech length. */
+/**
+ * Every syllable's nucleus time, every word's span and every pause between
+ * words from the text alone, and the speech length.
+ */
 export function textTimeline(text: string): {
+  pauses: LineSpan[];
   speechMs: number;
   syllables: TimedSyllable[];
   words: LineSpan[];
 } {
+  const pauses: LineSpan[] = [];
   const syllables: TimedSyllable[] = [];
   const words: LineSpan[] = [];
   let ms = 0;
@@ -163,19 +170,27 @@ export function textTimeline(text: string): {
 
     let start: number | undefined;
     for (const syllable of slovakSyllables(token)) {
-      if (syllables.length > 0) ms += pendingPause;
+      if (syllables.length > 0 && pendingPause > 0) {
+        pauses.push({ start: ms, end: ms + pendingPause });
+        ms += pendingPause;
+      }
       pendingPause = 0;
       start ??= ms;
 
       const onset = CONSONANT_MS * syllable.consonants;
       const length = NUCLEUS_MS + onset + (syllable.long ? LONG_EXTRA_MS : 0);
-      syllables.push({ at: ms + onset + (length - onset) * 0.45, vowel: syllable.vowel });
+      syllables.push({
+        at: ms + onset + (length - onset) * 0.45,
+        shutAfter: syllable.shutAfter,
+        shutBefore: syllable.shutBefore,
+        vowel: syllable.vowel,
+      });
       ms += length;
     }
     words.push({ start: start ?? ms, end: ms });
   }
 
-  return { speechMs: ms, syllables, words };
+  return { pauses, speechMs: ms, syllables, words };
 }
 
 function nearestPauseEnd(pauses: LineSpan[], at: number): number | undefined {

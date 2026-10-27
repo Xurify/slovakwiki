@@ -70,22 +70,33 @@ export function encodeMouthTrack(samples: ArrayLike<number>, sampleRate: number)
     .join("");
 }
 
-/** One letter per frame: the nearest aligned syllable's vowel, `-` where the mouth is shut. */
+/**
+ * One letter per frame: the nearest aligned syllable's vowel, `-` where the
+ * mouth is shut by silence, `m` where an m, b or p shuts the lips mid-voice.
+ */
 export function encodeVowelTrack(loudness: string, syllables: AlignedSyllable[]): string {
-  return [...loudness]
-    .map((digit, frame) => {
-      if (digit === "0" || syllables.length === 0) return "-";
+  const letters = [...loudness].map((digit, frame): string => {
+    if (digit === "0" || syllables.length === 0) return "-";
 
-      const centre = (frame + 0.5) * MOUTH_FRAME_MS;
-      let nearest = syllables[0];
-      for (const syllable of syllables) {
-        if (Math.abs(syllable.at - centre) < Math.abs(nearest.at - centre))
-          nearest = syllable;
-      }
-      return nearest.vowel;
-    })
-    .join("");
+    const centre = (frame + 0.5) * MOUTH_FRAME_MS;
+    let nearest = syllables[0];
+    for (const syllable of syllables) {
+      if (Math.abs(syllable.at - centre) < Math.abs(nearest.at - centre))
+        nearest = syllable;
+    }
+    return nearest.vowel;
+  });
+
+  for (const at of syllables.flatMap((syllable) => syllable.shut ?? [])) {
+    const frame = Math.floor(at / MOUTH_FRAME_MS);
+    // A loud frame is mostly vowel: shutting there looks worse than no closure.
+    if (letters[frame] !== undefined && letters[frame] !== "-" && loudness[frame] <= "4")
+      letters[frame] = SHUT;
+  }
+  return letters.join("");
 }
+
+const SHUT = "m";
 
 export interface LipShape {
   /** Rounding: 0 spread, 1 fully rounded. */
@@ -108,21 +119,25 @@ export const NEUTRAL_LIPS: LipShape = VOWEL_LIPS.a;
 
 export interface LipTrack {
   round: number[];
+  /** Frames where the lips press shut on an m, b or p. */
+  shut: boolean[];
   width: number[];
 }
 
 export function decodeVowelTrack(track: string): LipTrack {
   const round: number[] = [];
+  const shut: boolean[] = [];
   const width: number[] = [];
   let held = NEUTRAL_LIPS;
 
   for (const letter of track) {
     if (letter in VOWEL_LIPS) held = VOWEL_LIPS[letter as VowelShape];
     round.push(held.round);
+    shut.push(letter === SHUT);
     width.push(held.width);
   }
 
-  return { round, width };
+  return { round, shut, width };
 }
 
 export function lipsFromTrack(lips: LipTrack, timeMs: number): LipShape {
@@ -130,6 +145,14 @@ export function lipsFromTrack(lips: LipTrack, timeMs: number): LipShape {
     round: sampleFrames(lips.round, timeMs, NEUTRAL_LIPS.round),
     width: sampleFrames(lips.width, timeMs, NEUTRAL_LIPS.width),
   };
+}
+
+/**
+ * Whether the lips are pressed shut at a clip time. Not interpolated: eased
+ * in and out over one 50 ms frame, a closure would barely reach shut.
+ */
+export function lipsShutAt(lips: LipTrack, timeMs: number): boolean {
+  return lips.shut[Math.floor((timeMs + MOUTH_LEAD_MS) / MOUTH_FRAME_MS)] ?? false;
 }
 
 export function decodeMouthTrack(track: string): number[] {

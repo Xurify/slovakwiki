@@ -15,7 +15,10 @@ import {
   MOUTH_FRAME_MS,
   MOUTH_LEAD_MS,
   decodeMouthTrack,
+  decodeVowelTrack,
   encodeMouthTrack,
+  encodeVowelTrack,
+  lipsShutAt,
   mouthFromTrack,
   trackPauses,
   trackSpeechSpan,
@@ -210,6 +213,16 @@ describe("slovakSyllables", () => {
     expect(shapes("auto")).toEqual(["a", "o"]);
   });
 
+  it("marks where an m, b or p shuts the lips", () => {
+    expect(slovakSyllables("mám")).toEqual([
+      { consonants: 2, long: true, shutAfter: true, shutBefore: true, vowel: "a" },
+    ]);
+    expect(slovakSyllables("obed").map((syllable) => syllable.shutBefore)).toEqual([
+      undefined,
+      true,
+    ]);
+  });
+
   it("gives onset consonants to their vowel and final ones to the last syllable", () => {
     expect(slovakSyllables("štvrtok")).toEqual([
       { consonants: 3, long: false, vowel: "r" },
@@ -241,6 +254,19 @@ describe("mouth track", () => {
     expect(mouthFromTrack(track, centre)).toBeCloseTo(1, 5);
     expect(mouthFromTrack(track, centre - MOUTH_FRAME_MS / 2)).toBeCloseTo(0.5, 5);
     expect(mouthFromTrack(track, 10_000)).toBe(0);
+  });
+
+  it("shuts the lips on a quiet frame, not on a loud one", () => {
+    const vowels = encodeVowelTrack("0393", [
+      { at: 75, shut: [60], vowel: "a" },
+      { at: 175, shut: [110], vowel: "o" },
+    ]);
+    expect(vowels).toBe("-mao");
+
+    const lips = decodeVowelTrack(vowels);
+    expect(lipsShutAt(lips, 1.5 * MOUTH_FRAME_MS - MOUTH_LEAD_MS)).toBe(true);
+    expect(lipsShutAt(lips, 2.5 * MOUTH_FRAME_MS - MOUTH_LEAD_MS)).toBe(false);
+    expect(lips.round[1]).toBe(lips.round[0]);
   });
 
   it("finds the voiced span and the pauses inside it", () => {

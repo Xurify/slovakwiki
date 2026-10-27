@@ -1,6 +1,6 @@
 import { gestureDuration, gesturePeak, mouthAt, sampleGesture } from "./gestures";
 import type { LineBeat, LinePlan } from "./line-plan";
-import { NEUTRAL_LIPS, lipsFromTrack, mouthFromTrack } from "./mouth-track";
+import { NEUTRAL_LIPS, lipsFromTrack, lipsShutAt, mouthFromTrack } from "./mouth-track";
 import type { StickPictureId } from "./pictures";
 import { REST_POSE, easeInOut, lerpPose, type StickPose } from "./pose";
 
@@ -111,6 +111,7 @@ function mouthAtSpeech(
   let mouth = 0;
   if (plan.track) mouth = mouthFromTrack(plan.track, speechMs);
   else if (speechMs < plan.durationMs) mouth = mouthAt(speechMs);
+  if (plan.lips && lipsShutAt(plan.lips, speechMs)) mouth = 0;
 
   return { mouth, mouthWidth: lips.width, round: lips.round };
 }
