@@ -1,3 +1,4 @@
+import type { Cue } from "$lib/stick-figure/acts";
 import type { TextMark } from "$lib/learning/marked-text";
 import type { StickGestureId } from "$lib/stick-figure/gestures";
 import type { StickPropId } from "$lib/stick-figure/props";
@@ -42,6 +43,12 @@ export type ListenerPath =
   { ask: string; picks: string[] } | { score: number[] } | { unaided: true };
 
 export interface DialogueTurn {
+  /**
+   * What the stick figures do while the line plays, on cue: walk to the
+   * stove, take the spoon, taste the soup. A segment with any cues gets its
+   * props from them alone (stick-figure/acts.ts).
+   */
+  act?: Cue[];
   /** Podcast only: the listener answers this line before the next one plays. */
   ask?: ListenerAsk;
   audio?: AudioCue;

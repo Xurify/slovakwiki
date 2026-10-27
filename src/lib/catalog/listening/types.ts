@@ -1,5 +1,6 @@
 import type { StickPropId } from "$lib/stick-figure/props";
 import type { DialogueTurn, KeyPhrase } from "$lib/learning/types";
+import type { SetSetup } from "$lib/stick-figure/acts";
 import type { StageSetting } from "$lib/stick-figure/stage-setting";
 
 export interface ListeningCheck {
@@ -33,6 +34,12 @@ export interface ListeningChapter {
   lines: DialogueTurn[];
   /** Where the stick-figure stage acts the segment out; the podcast studio unless set. */
   stage?: StageSetting;
+  /**
+   * What the place's set has or looks like as the segment starts, on top of
+   * how the last segment there left it: the yellow plant, the phone in a
+   * pocket, the recorder back on the desk the next morning.
+   */
+  setup?: SetSetup;
   title: string;
   titleSk: string;
 }

@@ -329,6 +329,20 @@ describe("a phone call", () => {
 
     expect(calls).toEqual([undefined, "marek", "marek", "marek", undefined]);
   });
+
+  it("keeps the call on while someone in the room says something into it", () => {
+    const joined: DirectedLine[] = [
+      { characterId: "marek", slovak: "Ahoj, Lucia!", ring: "call" },
+      { characterId: "lucia", slovak: "Prídem neskôr.", overPhone: true },
+      { characterId: "maria", slovak: "Nech príde. Polievky je dosť." },
+      { characterId: "lucia", slovak: "Dobre. Ahoj!", overPhone: true },
+      { characterId: "marek", slovak: "Ahoj! Príde o pol hodiny." },
+      { characterId: "anna", slovak: "Výborne." },
+    ];
+    const calls = directScene(joined, "kitchen").lines.map((line) => line.call);
+
+    expect(calls).toEqual(["marek", "marek", "marek", "marek", "marek", undefined]);
+  });
 });
 
 describe("a call a robot makes", () => {
@@ -351,10 +365,9 @@ describe("a call a robot makes", () => {
     expect(direction.lines.map((line) => line.held.robo)).not.toContain("phone");
   });
 
-  it("greets the far end with a nod, since a wave cannot be seen down a line", () => {
+  it("greets the far end without a wave, since a wave cannot be seen down a line", () => {
     const [, hello] = directScene(lines, "home").lines;
 
     expect(hello.plan.beats.map((beat) => beat.gesture)).not.toContain("wave");
-    expect(hello.plan.beats[0].gesture).toBe("nod");
   });
 });

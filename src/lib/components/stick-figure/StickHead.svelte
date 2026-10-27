@@ -7,6 +7,8 @@
   import { cubicInOut } from "svelte/easing";
   import { prefersReducedMotion, Tween } from "svelte/motion";
 
+  const STILL = { x: 0, y: 0 };
+
   /**
    * A character's head, drawn once: in the 64×64 portrait space, the skull an
    * ellipse at 32,29 with radii 13.2 × 15.2. The stick figure scales it onto
@@ -22,6 +24,9 @@
     part = "face",
     pose = REST_POSE,
     turn,
+    round = 1,
+    sway = STILL,
+    headphones = false,
   }: {
     /** On a call: a robot's antenna light blinks while it talks over the line. */
     calling?: boolean;
@@ -30,8 +35,15 @@
     pose?: StickPose;
     /** How far the features sit toward the facing side: a three-quarter view on stage, 0 for a portrait. */
     turn?: number;
+    /** How far round to the side the body is, 1 side-on and 0 facing the front halfway through a turn. */
+    round?: number;
+    /** Where the ends of long hair are carried from where they hang at rest, in this 64-unit space. */
+    sway?: { x: number; y: number };
+    /** Closed-back studio headphones worn over the hair. */
+    headphones?: boolean;
   } = $props();
 
+  const id = $props.id();
   const look = $derived(LOOKS[characterId]);
   const robot = $derived(look.robot);
   const hair = $derived(look.grey ? "fill-portrait-hair-grey" : "fill-portrait-hair");
@@ -47,7 +59,7 @@
     duration: () => (prefersReducedMotion.current ? 0 : TURN_MS),
     easing: cubicInOut,
   });
-  const aside = $derived(turning.current);
+  const aside = $derived(turning.current * round);
   const eyeX = $derived(aside + pose.look * 2);
   const noseX = $derived(32 + aside * 1.15 + pose.look * 0.8);
   const mouthX = $derived(32 + aside * 0.9 + pose.look * 1.2);
@@ -69,15 +81,97 @@
 
     return `M${n(cx - half)} ${top}Q${n(cx)} ${n(top - arch)} ${n(cx + half)} ${top}Q${n(cx + belly)} ${bottom} ${n(cx)} ${bottom}Q${n(cx - belly)} ${bottom} ${n(cx - half)} ${top}Z`;
   }
+
+  /**
+   * A point of long hair, carried by its share of the sway: none where it
+   * lies on the scalp and down the face, all of it at the ends. `shift` is
+   * how much of the three-quarter turn it follows, for a parting and a
+   * fringe that come round with the face.
+   */
+  function hairAt(x: number, y: number, shift = 0): string {
+    const t = Math.min(1, Math.max(0, (y - 27) / 27));
+    const k = t * t * (3 - 2 * t);
+    return `${n(x + aside * shift + sway.x * k)} ${n(y + sway.y * k)}`;
+  }
+
+  // Anna: long hair falling past the shoulders in a few locks, parted on
+  // the facing side with the fringe swept across to the far temple.
+  const annaBack = $derived.by(() => {
+    const p = hairAt;
+    return `M${p(32, 7.6)}C${p(40.8, 7.4)} ${p(47.8, 12.4)} ${p(48.9, 21)}C${p(49.8, 28)} ${p(48.8, 34.5)} ${p(50, 40.5)}C${p(51, 45)} ${p(52, 49.6)} ${p(50.4, 53.6)}Q${p(48.4, 55.6)} ${p(46.4, 52.6)}Q${p(44.4, 55.2)} ${p(41.6, 52)}L${p(24, 51.6)}Q${p(21, 55.4)} ${p(18.2, 52.8)}Q${p(15.2, 55.4)} ${p(13.4, 52.2)}C${p(12.2, 47.6)} ${p(14.2, 43.6)} ${p(13.8, 38.6)}C${p(13.4, 32.6)} ${p(13.6, 27.2)} ${p(15.1, 21)}C${p(16.6, 12.6)} ${p(23.4, 7.8)} ${p(32, 7.6)}Z`;
+  });
+  const annaBackLocks = $derived(
+    `M${hairAt(17.6, 38)}Q${hairAt(16.4, 45)} ${hairAt(18.2, 52.8)}M${hairAt(46.6, 38.6)}Q${hairAt(48.2, 45.6)} ${hairAt(46.4, 52.6)}`,
+  );
+  /**
+   * Over the skull, so its outline does not show through the hair as a hood
+   * would: the top's outline is the one behind the head, and down the far
+   * side it keeps to the face's own edge, clear of the brow.
+   */
+  const annaTop = $derived.by(() => {
+    const p = hairAt;
+    return `M${p(15.1, 21)}C${p(16.6, 12.6)} ${p(23.4, 7.8)} ${p(32, 7.6)}C${p(40.8, 7.4)} ${p(47.8, 12.4)} ${p(48.9, 21)}C${p(49.3, 24.6)} ${p(49.2, 27.6)} ${p(48.4, 30.4)}Q${p(46.8, 31.4)} ${p(45.14, 30.4)}A13.2 15.2 0 0 0 ${p(43.72, 22)}Q${p(42.8, 16.4, 0.4)} ${p(37.6, 15.2, 0.9)}C${p(34.8, 18.4, 0.8)} ${p(29.6, 20.4, 0.5)} ${p(24.4, 21.4, 0.25)}Q${p(22.4, 22, 0.1)} ${p(22.2, 23.6)}Q${p(20.8, 28)} ${p(20.6, 31.6)}Q${p(20.2, 34)} ${p(19.4, 35.6)}C${p(17.4, 32.6)} ${p(14.8, 27.6)} ${p(15.1, 21)}Z`;
+  });
+  const annaStrands = $derived(
+    `M${hairAt(35.6, 8.2, 0.6)}Q${hairAt(36.6, 11.6, 0.8)} ${hairAt(37.6, 15.2, 0.9)}M${hairAt(34.4, 10.4, 0.7)}Q${hairAt(29.4, 12.6, 0.5)} ${hairAt(25.2, 18.6, 0.3)}M${hairAt(19.6, 22.6)}Q${hairAt(18.4, 28)} ${hairAt(18.8, 33)}`,
+  );
+
+  /**
+   * Worn headphones: a cup over each ear, the far one round behind the face,
+   * and the band over the top of the hair, pressed a little into it so the
+   * hair shows above it. Side-on the cups turn their faces to and from us;
+   * from the front both are seen edge-on.
+   */
+  const phones = $derived.by(() => {
+    const u = Math.min(1, Math.abs(aside) / 2.6);
+    const cy = 29.8;
+    const ry = 5.7;
+    // Each cup's middle on the head's outline, so it hugs the ear; turned, the
+    // far one goes in behind the face. Out past the outline with the band sunk
+    // into the hair, they read as sliding off.
+    const near = { x: 18.4 + 1.6 * u, rx: 2.9 + 0.9 * u };
+    const far = { x: 45.6 - 1.4 * u, rx: 2.9 - 0.7 * u };
+    const top = look.crown + 1.2;
+    const from = { x: near.x + 0.2, y: cy - ry + 0.6 };
+    const to = { x: far.x - 0.2, y: cy - ry + 0.6 };
+    const mid = { x: 31.8 - 0.3 * u, y: top };
+    const rise = from.y - top;
+    const band = `M${n(from.x)} ${n(from.y)}C${n(from.x - 0.6)} ${n(from.y - rise * 0.58)} ${n(mid.x - (mid.x - from.x) * 0.56)} ${n(top)} ${n(mid.x)} ${n(top)}C${n(mid.x + (to.x - mid.x) * 0.56)} ${n(top)} ${n(to.x + 0.6)} ${n(to.y - rise * 0.58)} ${n(to.x)} ${n(to.y)}`;
+    return { cy, ry, near, far, band };
+  });
 </script>
+
+{#snippet cup(x: number, rx: number, toFace: 1 | -1)}
+  <!-- The ear cushion shows on the side toward the head, the shell on the outside. -->
+  <ellipse
+    cx={n(x + toFace * rx * 0.4)}
+    cy={phones.cy}
+    {rx}
+    ry={phones.ry + 0.4}
+    class="fill-portrait-ink stroke-portrait-ink"
+    stroke-width="1.1"
+  />
+  <ellipse
+    cx={n(x)}
+    cy={phones.cy}
+    {rx}
+    ry={phones.ry}
+    class="fill-scene-line stroke-portrait-ink"
+    stroke-width="1.1"
+  />
+  <ellipse
+    cx={n(x - toFace * rx * 0.12)}
+    cy={phones.cy + 0.2}
+    rx={n(rx * 0.5)}
+    ry={phones.ry * 0.58}
+    class="fill-portrait-vest"
+  />
+{/snippet}
 
 {#if part === "back"}
   {#if characterId === "anna"}
-    <path
-      d="M15.4 48.8 14 39 15.2 29 14.2 20 18.2 11.4 25.2 7 33.2 6.4 41.6 8.6 47.8 15.2 50.4 24 48.6 34 50 43.5 47.6 50.8 42.4 47 37.2 51.6 31.4 47.2 25.6 51.4 20.2 47.2Z"
-      class="{hair} stroke-portrait-ink"
-      stroke-width="1.7"
-    />
+    <path d={annaBack} class="{hair} stroke-portrait-ink" stroke-width="1.7" />
+    <path d={annaBackLocks} class="stroke-portrait-ink" stroke-width="1.05" />
   {:else if characterId === "lucia"}
     <path
       d="M39.4 34.2 43.2 32.4 47.8 36.2 46 42.4 50 47.2 46.6 52.6 49.4 58.2 45.6 62.4 39.8 61.2 37.4 55.2 40.2 49.6 36.8 43.8 38.2 38.2Z"
@@ -300,11 +394,8 @@
       stroke-width="1"
     />
   {:else if characterId === "anna"}
-    <path
-      d="M20.4 17.8C23.8 13.6 28.4 12.8 33.2 14.2C38.2 15.6 42.4 18.6 44.6 22.2C41.2 18.4 36.4 16.6 31.6 16.8C27.2 17 23.4 18 20.4 17.8Z"
-      class="{hair} stroke-portrait-ink"
-      stroke-width="1.55"
-    />
+    <path d={annaTop} class="{hair} stroke-portrait-ink" stroke-width="1.7" />
+    <path d={annaStrands} class="stroke-portrait-ink" stroke-width="1.05" />
   {:else if characterId === "lucia"}
     <path
       d="M18.8 23 18 16.4 21.8 10.6 27.6 6.6 33.8 5.8 40.4 8 45.6 13.6 47.6 20.6 47 27.4 45.4 30.4Q44.8 21.6 39 18.4Q35 16.6 31.2 17.6Q27.6 16.4 23.6 17.8Q20.2 19.6 18.8 23Z"
@@ -377,8 +468,21 @@
     class={brows}
     stroke-width="1.25"
   />
-  <circle cx={26.2 + eyeX} cy={eyeY} r="2" class="fill-portrait-ink" />
-  <circle cx={37.8 + eyeX} cy={eyeY} r="2" class="fill-portrait-ink" />
+  {#if pose.shut > 0.5}
+    <path
+      d="M{24 + eyeX} {eyeY + 0.6}q2.2-2 4.4 0M{35.6 + eyeX} {eyeY + 0.6}q2.2-2 4.4 0"
+      class="stroke-portrait-ink"
+      stroke-width="1.3"
+    />
+  {:else if pose.shut > 0}
+    <!-- Lids coming down, as in a blink: shut at 0.5, past that the eyes squeeze. -->
+    {@const ry = Math.max(0.35, 2 * (1 - pose.shut * 2))}
+    <ellipse cx={26.2 + eyeX} cy={eyeY} rx="2" {ry} class="fill-portrait-ink" />
+    <ellipse cx={37.8 + eyeX} cy={eyeY} rx="2" {ry} class="fill-portrait-ink" />
+  {:else}
+    <circle cx={26.2 + eyeX} cy={eyeY} r="2" class="fill-portrait-ink" />
+    <circle cx={37.8 + eyeX} cy={eyeY} r="2" class="fill-portrait-ink" />
+  {/if}
 
   {#if look.glasses}
     <circle
@@ -422,5 +526,20 @@
       class="stroke-portrait-ink"
       stroke-width="1.4"
     />
+  {/if}
+
+  {#if headphones}
+    <clipPath id="{id}-behind-face">
+      <path
+        d="M-40 -40H104V104H-40ZM18.8 29a13.2 15.2 0 1 0 26.4 0a13.2 15.2 0 1 0-26.4 0Z"
+        clip-rule="evenodd"
+      />
+    </clipPath>
+    <g clip-path="url(#{id}-behind-face)">
+      {@render cup(phones.far.x, phones.far.rx, -1)}
+    </g>
+    <path d={phones.band} class="stroke-portrait-ink" stroke-width="2.3" />
+    <path d={phones.band} class="stroke-scene-line" stroke-width="0.9" />
+    {@render cup(phones.near.x, phones.near.rx, 1)}
   {/if}
 {/if}

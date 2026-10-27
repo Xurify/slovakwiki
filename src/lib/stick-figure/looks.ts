@@ -35,12 +35,15 @@ export interface Look {
   /** Wrapped round the neck in the snow, in a colour that stands off the outfit. */
   scarfClass?: string;
   shoes?: Shoes;
+  /** How long each step takes against the usual: two people walking together never step as one. */
+  gait?: number;
   /** Over the ink arm. `reach` runs along it: 1 ends at the elbow, 2 at the wrist. */
   sleeve?: { class: string; reach: number };
 }
 
 export const LOOKS: Readonly<Record<LessonCharacterId, Look>> = {
   alex: {
+    gait: 1.02,
     shoes: "soft",
     crown: 7.6,
     ear: true,
@@ -49,7 +52,8 @@ export const LOOKS: Readonly<Record<LessonCharacterId, Look>> = {
     sleeve: { class: "stroke-scene-blue", reach: 1.85 },
   },
   anna: {
-    crown: 6.4,
+    gait: 0.92,
+    crown: 7.6,
     blush: true,
     nameClass: "text-rose-700",
     scarfClass: "fill-scene-sage",
@@ -85,6 +89,7 @@ export const LOOKS: Readonly<Record<LessonCharacterId, Look>> = {
     },
   },
   lucia: {
+    gait: 0.97,
     crown: 5.8,
     blush: true,
     ear: true,
@@ -93,13 +98,15 @@ export const LOOKS: Readonly<Record<LessonCharacterId, Look>> = {
     sleeve: { class: "stroke-scene-green", reach: 0.6 },
   },
   marek: {
-    crown: 8.7,
+    gait: 1.06,
+    crown: 5.4,
     ear: true,
     nameClass: "text-slate-700",
     scarfClass: "fill-scene-clay",
     sleeve: { class: "stroke-portrait-vest", reach: 1.85 },
   },
   maria: {
+    gait: 1.16,
     shoes: "heels",
     crown: 3.5,
     glasses: true,

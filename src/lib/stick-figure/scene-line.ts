@@ -1,3 +1,4 @@
+import type { World } from "./acts";
 import type { CastProps } from "./props";
 import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
 import type { ListeningCheck } from "$lib/catalog/listening/types";
@@ -72,6 +73,8 @@ export interface StagedScene {
   lines: DirectedLine[];
   order?: LessonCharacterId[];
   setting: StageSetting;
+  /** The set as the segment before, in the same place, left it. */
+  world?: World;
 }
 
 export interface SceneGroup {

@@ -1,8 +1,15 @@
+import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
+import { LOOKS } from "./looks";
 import type { StickPose } from "./pose";
 import { STICK_BOX, STRIDE } from "./rig";
 
 /** One step, foot to foot. A walk is a whole number of them, so it ends feet together. */
 export const STEP_MS = 280;
+
+/** One step of `who`'s: each walks at their own pace. */
+export function stepMs(who?: LessonCharacterId): number {
+  return Math.round(STEP_MS * ((who && LOOKS[who]?.gait) || 1));
+}
 /** Ground a step covers, in figure widths: one foot's whole swing, so the planted foot does not slide. */
 const STEP_WIDTHS = (2 * STRIDE) / STICK_BOX.width;
 /** The legs ease in and out over this long, so a walk does not start or stop mid-stride. */
@@ -18,8 +25,24 @@ export function stepsFor(widths: number): number {
   return Math.max(2, Math.round(Math.abs(widths) / STEP_WIDTHS));
 }
 
-export function walkDuration(steps: number): number {
-  return Math.max(1, Math.round(steps)) * STEP_MS;
+/**
+ * Lowering onto a chair and getting up off it, at `who`'s own pace, so two
+ * people sitting down together never go down as one. At 850 ms eased, the
+ * drop read as a hinge.
+ */
+export const SIT_MS = 1150;
+export const STAND_MS = 950;
+/** A chair scooted in to the table under someone, or pushed back before they get up. */
+export const SCOOT_MS = 600;
+/** Rig units an empty chair at a table stands drawn back, room to step in front of it. */
+export const CHAIR_OUT = 12;
+
+export function sitMs(who?: LessonCharacterId, rising = false): number {
+  return Math.round((rising ? STAND_MS : SIT_MS) * ((who && LOOKS[who]?.gait) || 1));
+}
+
+export function walkDuration(steps: number, who?: LessonCharacterId): number {
+  return Math.max(1, Math.round(steps)) * stepMs(who);
 }
 
 /**
@@ -30,10 +53,11 @@ export function walkPose(
   pose: StickPose,
   elapsed: number,
   durationMs: number,
+  step = STEP_MS,
 ): StickPose {
   if (elapsed <= 0 || elapsed >= durationMs) return pose;
 
-  const phase = (elapsed / STEP_MS) * Math.PI;
+  const phase = (elapsed / step) * Math.PI;
   const ease = Math.min(1, elapsed / EASE_MS, (durationMs - elapsed) / EASE_MS);
   const swing = Math.sin(phase) * ease;
 

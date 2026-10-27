@@ -1,5 +1,7 @@
 <script lang="ts">
-  import type { Component } from "svelte";
+  import { untrack, type Component } from "svelte";
+  import { cubicInOut } from "svelte/easing";
+  import { Tween } from "svelte/motion";
 
   import {
     BACKDROP_HEIGHT,
@@ -8,7 +10,12 @@
   } from "$lib/stick-figure/backdrop-geometry";
   import { PLACES, backdropAlign, thingsIn } from "$lib/stick-figure/places";
   import type { StageSetting } from "$lib/stick-figure/stage-setting";
-  import { litKey, thingBoxes } from "$lib/stick-figure/thing-words";
+  import {
+    litKey,
+    thingBoxes,
+    withDrawn,
+    type ThingBox,
+  } from "$lib/stick-figure/thing-words";
   import { cx } from "$lib/ui/classes";
   import Cafe from "./backdrops/Cafe.svelte";
   import Classroom from "./backdrops/Classroom.svelte";
@@ -29,11 +36,15 @@
   let {
     board,
     class: className = "",
+    door = 0,
+    drawnAt = $bindable({}),
     found = [],
     height = 0,
     hint,
     lit = [],
+    minutes = 0,
     mood = DAYTIME,
+    skipping = false,
     onpick,
     picked,
     setting,
@@ -46,12 +57,20 @@
     /** A line to chalk on the classroom board. */
     board?: string;
     class?: string;
+    /** How far the door has swung in, from 0 shut: someone is coming in. */
+    door?: number;
+    /** Where the set draws its things now, in backdrop units by piece or object id (withDrawn): measured here. */
+    drawnAt?: Record<string, ThingBox | null>;
     /** Things found in a game, ringed in green for the rest of it. */
     found?: readonly string[];
     /** The drawn size in px, once measured, so the slice can sit anywhere along it. */
     height?: number;
     /** Things to light up, named in the line playing: an id, or one copy's litKey. */
     lit?: readonly string[];
+    /** How far the story has skipped ahead: the clock's hands run on that far. */
+    minutes?: number;
+    /** The lights are down for a skip ahead: the hands run round to `minutes` rather than jump. */
+    skipping?: boolean;
     /** Time of day and weather, from the dialogue or picked in the lab. */
     mood?: SceneMood;
     /** Makes each thing a button that reports its id. */
@@ -71,6 +90,7 @@
     Component<{
       board?: string;
       hour: number;
+      open?: number;
       taken?: readonly string[];
       tram: TramState;
     }>
@@ -107,9 +127,69 @@
     const y = BACKDROP_HEIGHT - shown.height;
     return { box: `${x} ${y} ${shown.width} ${shown.height}`, ratio: "none" };
   });
-  const hour = $derived(clockHour(mood));
+  /** The clock's hands sweep on over a skip ahead rather than jump. */
+  const hour = new Tween(
+    untrack(() => clockHour(mood) + minutes / 60),
+    { duration: 1200, easing: cubicInOut },
+  );
+  $effect(() => {
+    const to = clockHour(mood) + minutes / 60;
+    // Untracked: reading the tween here would rerun this every frame, and each set restarts the easing from rest, so the hands crawl.
+    const from = untrack(() => hour.target);
+    if (to === from) return;
+    // Only a skip runs the hands round; a new scene, a seek or the first world just sets them.
+    const run = untrack(() => skipping) && to > from;
+    void hour.set(to, { duration: run ? 1200 : 0 });
+  });
   const Drawing = $derived(DRAWINGS[setting]);
-  const things = $derived(thingsIn(PLACES[setting].things, setting, mood));
+  const things = $derived(
+    withDrawn(thingsIn(PLACES[setting].things, setting, mood), drawnAt),
+  );
+
+  let svg = $state<SVGSVGElement>();
+  const measured = $derived(PLACES[setting].things.flatMap((thing) => thing.of ?? []));
+  // The set and the cast are drawn over this svg in the same camera, so a box
+  // measured in px maps to backdrop units by this svg's own px and viewBox.
+  $effect(() => {
+    const ids = measured;
+    const own = svg;
+    if (!ids.length || !own?.parentElement || !width || !height) return;
+    const [left, top, across] = view.box.split(" ").map(Number);
+    const root = own.parentElement;
+    let frame = requestAnimationFrame(function measure() {
+      const stage = own.getBoundingClientRect();
+      const unit = across / stage.width;
+      let changed = false;
+      const next: Record<string, ThingBox | null> = {};
+      for (const id of ids) {
+        const drawn = root
+          .querySelector(`[data-set-id="${id}"]`)
+          ?.getBoundingClientRect();
+        next[id] =
+          drawn && drawn.width > 0
+            ? {
+                x: left + (drawn.left - stage.left) * unit,
+                y: top + (drawn.top - stage.top) * unit,
+                width: drawn.width * unit,
+                height: drawn.height * unit,
+              }
+            : null;
+        const was = drawnAt[id];
+        const now = next[id];
+        changed ||=
+          !was || !now
+            ? was !== now
+            : Math.abs(was.x - now.x) +
+                Math.abs(was.y - now.y) +
+                Math.abs(was.width - now.width) +
+                Math.abs(was.height - now.height) >
+              1;
+      }
+      if (changed) drawnAt = next;
+      frame = requestAnimationFrame(measure);
+    });
+    return () => cancelAnimationFrame(frame);
+  });
   /** Which thing the Tab key lands on: the last one focused, so leaving and coming back keeps the place. */
   let tabStop = $state(0);
   /** Right and Down go to the next thing, Left and Up to the one before; Home and End to the ends. */
@@ -141,6 +221,7 @@
   stands in front of them.
 -->
 <svg
+  bind:this={svg}
   class="block {className}"
   role={onpick ? "group" : undefined}
   aria-label={onpick ? `Scene: ${PLACES[setting].label}` : undefined}
@@ -157,33 +238,14 @@
       <SkyLayer {mood} {setting} />
     {/if}
 
-    <Drawing {board} {hour} {taken} {tram} />
+    <Drawing {board} hour={hour.current} open={door} {taken} {tram} />
 
     <MoodLayer {mood} {setting} />
     <StageLight />
   </g>
 
-  {#each boxes as { box, copy, thing } (`${thing.id}-${copy}`)}
-    {@const done = found.includes(thing.id)}
-    <rect
-      x={box.x - 5}
-      y={box.y - 5}
-      width={box.width + 10}
-      height={box.height + 10}
-      rx="8"
-      class={cx(
-        "fill-white/20 transition-opacity duration-150 ease-out",
-        done ? "stroke-emerald-500" : "stroke-blue-500",
-        done ||
-          lit.includes(thing.id) ||
-          lit.includes(litKey(thing.id, copy)) ||
-          picked === thing.id ||
-          focused === thing.id
-          ? "opacity-100"
-          : "opacity-0",
-      )}
-      stroke-width="2.5"
-    />
+  {#each boxes.filter(({ thing }) => !thing.of) as ring (`${ring.thing.id}-${ring.copy}`)}
+    {@render lightUp(ring)}
   {/each}
 
   {#if onpick}
@@ -235,3 +297,43 @@
     {/each}
   {/if}
 </svg>
+
+{#if boxes.some(({ thing }) => thing.of)}
+  <!-- The set draws its things over the backdrop, and the ring of a pot in the cupboard was hidden behind the counter. -->
+  <svg
+    class="pointer-events-none absolute inset-0 z-4 size-full"
+    viewBox={view.box}
+    preserveAspectRatio={view.ratio}
+    fill="none"
+    aria-hidden="true"
+  >
+    {#each boxes.filter(({ thing }) => thing.of) as ring (`${ring.thing.id}-${ring.copy}`)}
+      {@render lightUp(ring, true)}
+    {/each}
+  </svg>
+{/if}
+
+{#snippet lightUp({ box, copy, thing }: (typeof boxes)[number], over = false)}
+  {@const done = found.includes(thing.id)}
+  <rect
+    x={box.x - 5}
+    y={box.y - 5}
+    width={box.width + 10}
+    height={box.height + 10}
+    rx="8"
+    class={cx(
+      // Drawn over a thing, a white wash greyed it out.
+      over ? "fill-none" : "fill-white/20",
+      "transition-opacity duration-150 ease-out",
+      done ? "stroke-emerald-500" : "stroke-blue-500",
+      done ||
+        lit.includes(thing.id) ||
+        lit.includes(litKey(thing.id, copy)) ||
+        picked === thing.id ||
+        focused === thing.id
+        ? "opacity-100"
+        : "opacity-0",
+    )}
+    stroke-width="2.5"
+  />
+{/snippet}

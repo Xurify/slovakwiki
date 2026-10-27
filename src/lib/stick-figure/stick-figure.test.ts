@@ -22,7 +22,7 @@ import {
 } from "./mouth-track";
 import { performFrame, startPerformance, type PerformanceInput } from "./performance";
 import { linePictures } from "./pictures";
-import { REST_POSE } from "./pose";
+import { REST_POSE, overTable } from "./pose";
 import { GROUND_Y, solveRig, type Point, type StickLimb } from "./rig";
 import { aimAt, backdropToStage, figureToStage } from "./backdrop-geometry";
 import { PLACES } from "./places";
@@ -72,6 +72,41 @@ describe("solveRig", () => {
     const rig = solveRig({ ...REST_POSE, lean: 10 });
 
     expect(rig.neck.x).toBeGreaterThan(rig.hip.x);
+  });
+
+  it("bows forward halfway down to a chair and sits up once on it", () => {
+    const midway = solveRig(REST_POSE, 0.5);
+    const seated = solveRig(REST_POSE, 1);
+
+    expect(midway.lean).toBeGreaterThan(seated.lean + 10);
+    expect(seated.lean).toBeCloseTo(REST_POSE.lean, 5);
+    expect(midway.hip.x).toBeLessThan(seated.hip.x);
+  });
+});
+
+describe("overTable", () => {
+  const beat = { ...REST_POSE, leadRaise: REST_POSE.leadRaise + 30, leadBend: 20 };
+
+  it("leaves a standing figure's gesture alone", () => {
+    expect(overTable(beat, 0)).toEqual(beat);
+  });
+
+  it("keeps a seated talking hand up and in, clear of what is on the desk", () => {
+    const swung = solveRig(beat, 1);
+    const kept = solveRig(overTable(beat, 1), 1);
+    const reach = (rig: typeof swung) => rig.leadArm.end.x - rig.leadShoulder.x;
+
+    expect(reach(kept)).toBeLessThan(reach(swung));
+    expect(kept.leadArm.end.y).toBeLessThan(swung.leadArm.end.y);
+  });
+
+  it("brings a seated talker's far hand round in front, not back onto the desk behind", () => {
+    const open = { ...REST_POSE, rearRaise: 30, rearBend: 46 };
+    const kept = solveRig(overTable(open, 1), 1);
+
+    expect(solveRig(open, 1).rearArm.end.x).toBeLessThan(kept.rearShoulder.x);
+    expect(kept.rearArm.end.x).toBeGreaterThan(kept.rearShoulder.x + 8);
+    expect(kept.rearArm.end.y).toBeLessThan(kept.rearShoulder.y + 18);
   });
 });
 
@@ -244,6 +279,14 @@ describe("planLine", () => {
     );
     expect(first("Je ešte skoro ráno.", "[yawns] Je ešte skoro ráno.")).toBe("yawn");
     expect(first("Je ešte skoro ráno.", "[pause] Je ešte skoro ráno.")).toBe("tell");
+  });
+
+  it("says a hello into a phone without waving it at the room", () => {
+    const gestures = (phone: boolean) =>
+      planLine("To je ona! Ahoj, Lucia!", { phone }).beats.map((beat) => beat.gesture);
+
+    expect(gestures(false)).toContain("wave");
+    expect(gestures(true)).not.toContain("wave");
   });
 
   it("lets the author override a sentence's gesture", () => {
