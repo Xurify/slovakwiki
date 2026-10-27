@@ -1127,6 +1127,7 @@
     const inside = contents(world!, id);
     return {
       kind: state.kind,
+      bitten: state.bitten,
       fill: state.fill,
       heat: state.heat,
       cut: state.cut,
@@ -1632,6 +1633,7 @@
           if (chair) {
             nextOffsets[id] = onSeat(frame, id, chair.x);
             nextFacings[id] = chair.facing;
+            nextSeated[id] = chairIndex;
           } else {
             nextOffsets[id] = 0;
             nextFacings[id] = resting[id] ?? 1;
@@ -1762,7 +1764,7 @@
 
     window.setTimeout(() => {
       if (token !== playToken) return;
-      facings = { ...facings, ...stagings[heldAt]?.facing };
+      facings = { ...facings, ...turning(stagings[heldAt]?.facing) };
     }, gestureDuration("glance"));
   }
 
@@ -1790,14 +1792,12 @@
   ): LinePlan | undefined {
     if (!plan || deskMic(id, world, undefined)?.side !== 1) return plan;
     const beats = plan.beats.map((beat) =>
-      beat.gesture === "wave"
-        ? { ...beat, gesture: "waveOut" as const }
-        : beat.point
-          ? {
-              ...beat,
-              point: { ...beat.point, reach: "near" as const, rise: DESK_POINT_RISE },
-            }
-          : beat,
+      beat.point
+        ? {
+            ...beat,
+            point: { ...beat.point, reach: "near" as const, rise: DESK_POINT_RISE },
+          }
+        : beat,
     );
     return { ...plan, beats };
   }

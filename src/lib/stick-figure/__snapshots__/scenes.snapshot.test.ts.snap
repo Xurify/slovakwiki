@@ -3678,8 +3678,8 @@ exports[`every scene, directed > podcast podcast-demonstratives-intro 1`] = `
 exports[`every scene, directed > podcast podcast-demonstratives-market 1`] = `
 {
   "cast": [
-    "anna",
     "marek",
+    "anna",
     "lucia",
   ],
   "lines": [
@@ -3698,9 +3698,9 @@ exports[`every scene, directed > podcast podcast-demonstratives-market 1`] = `
       "staging": {
         "addressee": "marek",
         "facing": {
-          "anna": 1,
+          "anna": -1,
           "lucia": -1,
-          "marek": -1,
+          "marek": 1,
         },
         "reactions": [
           {
@@ -3728,7 +3728,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-market 1`] = `
       "staging": {
         "addressee": "lucia",
         "facing": {
-          "anna": 1,
+          "anna": -1,
           "lucia": -1,
           "marek": 1,
         },
@@ -3784,7 +3784,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-market 1`] = `
       "staging": {
         "addressee": "lucia",
         "facing": {
-          "anna": 1,
+          "anna": -1,
           "lucia": -1,
           "marek": 1,
         },
@@ -3839,7 +3839,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-market 1`] = `
       "staging": {
         "addressee": "lucia",
         "facing": {
-          "anna": 1,
+          "anna": -1,
           "lucia": -1,
           "marek": 1,
         },
@@ -3858,9 +3858,9 @@ exports[`every scene, directed > podcast podcast-demonstratives-market 1`] = `
       "staging": {
         "addressee": "marek",
         "facing": {
-          "anna": 1,
+          "anna": -1,
           "lucia": -1,
-          "marek": -1,
+          "marek": 1,
         },
       },
     },
@@ -3903,7 +3903,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-market 1`] = `
         "facing": {
           "anna": 1,
           "lucia": -1,
-          "marek": -1,
+          "marek": 1,
         },
       },
     },
@@ -3950,7 +3950,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-market 1`] = `
       "staging": {
         "addressee": "lucia",
         "facing": {
-          "anna": 1,
+          "anna": -1,
           "lucia": -1,
           "marek": 1,
         },
@@ -3970,9 +3970,9 @@ exports[`every scene, directed > podcast podcast-demonstratives-market 1`] = `
       "staging": {
         "addressee": "marek",
         "facing": {
-          "anna": 1,
+          "anna": -1,
           "lucia": -1,
-          "marek": -1,
+          "marek": 1,
         },
       },
     },

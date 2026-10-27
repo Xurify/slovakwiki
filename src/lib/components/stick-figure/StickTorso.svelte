@@ -217,7 +217,7 @@
     stroke-width="0.7"
   />
 {:else if characterId === "anna"}
-  <!-- rose knit sweater over a white collar, a bag on a strap across -->
+  <!-- rose knit sweater over a white collar -->
   <path
     d="M-5.8 -27.8Q-6.2 -30.9 -3 -31.1L3 -31.1Q6.2 -30.9 5.8 -27.8L5.4 -2.4Q0 -0.6 -5.4 -2.4Z"
     class="fill-scene-red stroke-portrait-ink"
@@ -229,16 +229,6 @@
     stroke-width="0.7"
   />
   <path d="M-5.4 -4.6Q0 -2.8 5.4 -4.6" class="stroke-portrait-ink" stroke-width="0.7" />
-  <path d="M-4.4 -29.6L5.6 -8.6" class="stroke-portrait-hair" stroke-width="1.3" />
-  <rect
-    x="3.4"
-    y="-9.8"
-    width="5.2"
-    height="4.6"
-    rx="1"
-    class="fill-portrait-hair stroke-portrait-ink"
-    stroke-width="0.7"
-  />
 {:else if characterId === "maria"}
   <!-- rose cardigan open over a white blouse, long navy skirt -->
   <path d={longSkirt} class="fill-portrait-suit stroke-portrait-ink" stroke-width="1.1" />

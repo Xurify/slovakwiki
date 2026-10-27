@@ -375,6 +375,7 @@
       >
         <StickSetObject
           kind={state.kind}
+          bitten={state.bitten}
           fill={state.fill}
           heat={state.heat}
           cut={state.cut}

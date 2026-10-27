@@ -208,10 +208,7 @@
    * then top to bottom, as they are seen on the screen.
    */
   const hitOrder = $derived(
-    boxes
-      .filter(({ thing }) => !thing.of)
-      .slice()
-      .sort((a, b) => a.box.x - b.box.x || a.box.y - b.box.y),
+    boxes.slice().sort((a, b) => a.box.x - b.box.x || a.box.y - b.box.y),
   );
 </script>
 
@@ -223,6 +220,9 @@
   fill="none"
   stroke-linecap="round"
   stroke-linejoin="round"
+  role={onpick ? "group" : undefined}
+  aria-label={onpick ? `Scene: ${PLACES[setting].label}` : undefined}
+  aria-hidden={onpick ? undefined : "true"}
 >
   <!-- Paint only: the things below carry the names. -->
   <g aria-hidden="true">
@@ -251,7 +251,7 @@
         height={box.height + 10}
         rx="8"
         fill="transparent"
-        class="cursor-pointer outline-none"
+        class="pointer-events-auto cursor-pointer outline-none"
         role="button"
         tabindex={index === tabStop ? 0 : -1}
         aria-label={hint ? `${hint}: ${thing.word}` : thing.word}

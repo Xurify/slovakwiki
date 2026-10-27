@@ -4,6 +4,8 @@
   /** How an object looks right now: what is in it, how hot, how chopped, how thirsty. */
   export interface ObjectLook {
     kind: ObjectKind;
+    /** A fruit (apple) with a bite taken out of it. */
+    bitten?: boolean;
     fill?: Fill;
     heat?: number;
     cut?: number;
@@ -36,6 +38,7 @@
    * props' ink-outlined style: the same drawing on the stove and in a hand.
    */
   let {
+    bitten = false,
     bits = false,
     clipped = false,
     cut = 0,
@@ -521,11 +524,24 @@
       transform="rotate(-25 2.6 -10.6)"
       class="fill-scene-leaf"
     />
-    <path
-      d="M0 -8.4q-4.6-1.6-4.6 3q0 4.6 4.6 5q4.6-.4 4.6-5q0-4.6-4.6-3Z"
-      class="fill-scene-leaf"
-    />
-    <circle cx="-2" cy="-5.6" r="1" class="fill-white/60" stroke="none" />
+    {#if bitten}
+      <!-- Bitten apple: curved bite taken out of right cheek, pale inner flesh showing -->
+      <path
+        d="M0 -8.4q-4.6-1.6-4.6 3q0 4.6 4.6 5q3.2-.3 4.2-2.2a2.6 2.6 0 0 0-.2-3.8q.6-1 0-2q0-4.6-4-2Z"
+        class="fill-scene-leaf"
+      />
+      <path
+        d="M3.6 -2.6a2.6 2.6 0 0 1 .2-3.8l.6-.2a2.8 2.8 0 0 0-.2 4.2Z"
+        class="fill-amber-100/90"
+        stroke="none"
+      />
+    {:else}
+      <path
+        d="M0 -8.4q-4.6-1.6-4.6 3q0 4.6 4.6 5q4.6-.4 4.6-5q0-4.6-4.6-3Z"
+        class="fill-scene-leaf"
+      />
+      <circle cx="-2" cy="-5.6" r="1" class="fill-white/60" stroke="none" />
+    {/if}
   {:else if kind === "bag"}
     <path d="M-4 -12Q-4 -18 0 -18Q4 -18 4 -12" fill="none" stroke-width="1.1" />
     <path d="M-7 -12h14l-1 12a2 2 0 0 1-2 2h-8a2 2 0 0 1-2-2Z" class="fill-scene-clay" />

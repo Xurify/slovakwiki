@@ -379,6 +379,7 @@ const MARKET_ACTS: Record<string, Cue[]> = {
 const market: ListeningChapter = {
   id: `${PREFIX}market`,
   stage: "market",
+  cast: ["Marek", "Anna", "Lucia"],
   titleSk: "Na trhu",
   title: "At the market: this one or that one?",
   setup: {

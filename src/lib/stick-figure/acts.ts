@@ -163,6 +163,8 @@ export interface ObjectState {
   /** Steaming hot: 0 cold, 1 just off the boil. */
   heat?: number;
   fill?: Fill;
+  /** Whether food (like an apple) has a bite taken out of it. */
+  bitten?: boolean;
   /** A carrot: 0 whole, 1 peeled, 2 in chunks, 3 in small pieces. */
   cut?: number;
   /** Shakes of salt it has had. */
@@ -525,7 +527,7 @@ export function applyCue(
       // A spoonful is gone in one go; a cup of coffee takes more than a sip.
       return object?.kind === "cup"
         ? world
-        : setObject(world, what!, { fill: undefined });
+        : setObject(world, what!, { fill: undefined, bitten: true });
     case "blow":
       holds(world, who, cue);
       return setObject(world, what!, { heat: Math.max(0, (object?.heat ?? 0) - 0.5) });
