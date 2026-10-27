@@ -5,6 +5,7 @@ export const STICK_GESTURE_IDS = [
   "stress",
   "muse",
   "wave",
+  "waveOut",
   "nod",
   "shake",
   "ask",
@@ -20,6 +21,9 @@ export const STICK_GESTURE_IDS = [
   "puzzle",
   "laugh",
   "frown",
+  "chuckle",
+  "sigh",
+  "yawn",
 ] as const;
 
 export type StickGestureId = (typeof STICK_GESTURE_IDS)[number];
@@ -54,13 +58,16 @@ function gesture(peak: Partial<StickPose>, keys: GestureKey[]): StickGesture {
   return { keys, peak: { ...REST_POSE, ...peak } };
 }
 
+// No talking gesture takes the eyes nearer the front than at rest (REST_POSE's look): at 0.2 with the head dropped in a sigh, the face read as turned to the front, away from the person spoken to.
+
 /** A statement, offered on a small open hand turned out at the waist. */
 const telling = { leadRaise: 28, leadBend: 38, tilt: 2, look: 0.6, brow: 0.2 };
 /** An exclamation: a short beat of the hand with a nod on the word. */
 const stressing = { leadRaise: 46, leadBend: 12, nod: 1.6, look: 0.6, brow: 0.5 };
 /** Words that trail off, or a long thought: head on one side, hands still. */
-const musing = { tilt: 6, lean: 1, look: 0.3, brow: 0.35 };
+const musing = { tilt: 6, lean: 1, look: 0.5, brow: 0.35 };
 const waveUp = { leadRaise: 120, tilt: 4, brow: 0.6 };
+const waveOut = { rearRaise: 140, tilt: 4, brow: 0.6 };
 const openHands = {
   leadRaise: 36,
   leadBend: 46,
@@ -88,8 +95,8 @@ const armsUp = {
   bob: -1,
   brow: 1,
 };
-const sorry = { leadRaise: 40, leadBend: -155, nod: 2.5, tilt: -5, brow: -1, look: 0 };
-const handOnChin = { leadRaise: 75, leadBend: -210, tilt: -6, look: -0.4, brow: 0.6 };
+const sorry = { leadRaise: 40, leadBend: -155, nod: 2.5, tilt: -5, brow: -1, look: 0.5 };
+const handOnChin = { leadRaise: 75, leadBend: -210, tilt: -6, look: 0.4, brow: 0.6 };
 const leanIn = { lean: 5, tilt: 6, nod: 0.8, look: 1, brow: 0.6 };
 const holdOut = { leadRaise: 55, leadBend: 45, lean: 2, tilt: 3, look: 1, brow: 0.6 };
 /** Head up a little and eyes ahead: following where someone points. */
@@ -98,7 +105,7 @@ const lookOver = { tilt: -12, look: 1, brow: 0.6, lean: -1 };
 const puzzled = {
   tilt: 13,
   brow: 1,
-  look: -0.5,
+  look: 0.4,
   lean: -1.5,
   rearRaise: 30,
   rearBend: 70,
@@ -112,6 +119,31 @@ const laughing = {
   leadRaise: 32,
   leadBend: -130,
   look: 0.6,
+};
+/** A quiet laugh to oneself: head dipped, a hand loose at the chest, shoulders shaking. */
+const chuckling = {
+  tilt: 4,
+  nod: 1.2,
+  brow: 0.5,
+  look: 0.5,
+  leadRaise: 28,
+  leadBend: -110,
+};
+/** Breath in, shoulders up and head back… */
+const sighIn = { bob: -1.6, tilt: -5, brow: 0.4, lean: -1, look: 0.6 };
+/** …then out, everything dropping: fond exasperation. */
+const sighOut = { bob: 1.2, nod: 2.2, tilt: 3, brow: -0.6, lean: 1, look: 0.5 };
+/**
+ * The near hand up over the mouth and the head back: still half asleep. The
+ * far arm's raise swings it backwards, so it could never reach the mouth.
+ */
+const yawning = {
+  leadRaise: 130,
+  leadBend: 126,
+  tilt: -8,
+  brow: -0.4,
+  look: 0.4,
+  bob: -0.6,
 };
 /** Arms folded, leaning back, brows drawn: politely put out by too familiar a word. */
 const putOut = {
@@ -171,6 +203,23 @@ const STICK_GESTURES: Record<StickGestureId, StickGesture> = {
     key(1020, laughing),
     key(1350),
   ]),
+  chuckle: gesture(chuckling, [
+    key(0),
+    key(200, chuckling),
+    key(360, { ...chuckling, bob: 0.8, nod: 1.8 }),
+    key(520, chuckling),
+    key(680, { ...chuckling, bob: 0.8, nod: 1.8 }),
+    key(840, chuckling),
+    key(1150),
+  ]),
+  sigh: gesture(sighOut, [
+    key(0),
+    key(450, sighIn),
+    key(1000, sighOut),
+    key(1500, sighOut),
+    key(1900),
+  ]),
+  yawn: gesture(yawning, [key(0), key(400, yawning), key(1400, yawning), key(1800)]),
   frown: gesture(putOut, [key(0), key(380, putOut), key(1500, putOut), key(1850)]),
   tell: gesture(telling, [
     key(0),
@@ -193,6 +242,16 @@ const STICK_GESTURES: Record<StickGestureId, StickGesture> = {
     key(640, { ...waveUp, leadBend: 25 }),
     key(820, { ...waveUp, leadBend: -15 }),
     key(1000, { ...waveUp, leadBend: 10 }),
+    key(1350),
+  ]),
+  // With the other hand, up beside the head: seated behind a desk mic, the near one waved into its boom.
+  waveOut: gesture({ ...waveOut, rearBend: -10 }, [
+    key(0),
+    key(280, { ...waveOut, rearBend: -25 }),
+    key(460, { ...waveOut, rearBend: 15 }),
+    key(640, { ...waveOut, rearBend: -25 }),
+    key(820, { ...waveOut, rearBend: 15 }),
+    key(1000, { ...waveOut, rearBend: -10 }),
     key(1350),
   ]),
   nod: gesture({ nod: 3, look: 0.6, brow: 0.3 }, [

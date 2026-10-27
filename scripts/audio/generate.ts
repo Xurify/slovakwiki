@@ -82,7 +82,7 @@ async function main(): Promise<void> {
   await ensureAudioDir();
 
   let targets = collectAudioTargets(
-    { lemmasOnly, lessonsOnly, levelTestOnly, slugs },
+    { fresh: force, lemmasOnly, lessonsOnly, levelTestOnly, slugs },
     config,
   );
   if (examplesOnly) {

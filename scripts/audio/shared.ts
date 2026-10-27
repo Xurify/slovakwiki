@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs";
 /**
  * Shared helpers for ElevenLabs generate / upload / status.
  */
@@ -22,7 +23,7 @@ import {
   type LessonCharacterId,
 } from "../../src/lib/catalog/lessons/character-ids";
 import {
-  audioConfigForCharacter,
+  audioConfigForClip,
   keyPhraseCharacterId,
 } from "../../src/lib/catalog/audio/characters";
 import { VOICE_PREVIEW_LINES } from "../../src/lib/catalog/lessons/voice-preview-lines";
@@ -276,14 +277,19 @@ export function collectDictionaryAudioTargets(options?: {
  * Lesson scene + key-phrase lines and listening episodes, with per-character voices.
  * Note: lesson content may churn — clips are disposable regenerations.
  */
-export function collectLessonAudioTargets(baseConfig: AudioConfig): AudioTarget[] {
+export function collectLessonAudioTargets(
+  baseConfig: AudioConfig,
+  fresh = false,
+): AudioTarget[] {
   const byKey = new Map<string, AudioTarget>();
+  const made = fresh ? {} : readRuntimeIndex();
+  const has = (hash: string) => Object.hasOwn(made, hash);
 
   function addLine(text: string, characterId: LessonCharacterId): void {
     const normalized = normalizeAudioText(text);
     if (!normalized) return;
 
-    const voiceConfig = audioConfigForCharacter(characterId, baseConfig);
+    const voiceConfig = audioConfigForClip(normalized, characterId, has, baseConfig);
     const target: AudioTarget = {
       kind: "lesson",
       text: normalized,
@@ -349,9 +355,25 @@ export function collectLessonAudioTargets(baseConfig: AudioConfig): AudioTarget[
   return sortAudioTargetsByKind([...byKey.values()]);
 }
 
+/**
+ * The clips made so far, by hash, so a character's clip made before its own
+ * voice settings is still found under the settings it was made in.
+ */
+function readRuntimeIndex(): Record<string, unknown> {
+  try {
+    return JSON.parse(
+      readFileSync(path.join(process.cwd(), "content/audio/runtime-index.json"), "utf8"),
+    );
+  } catch {
+    return {};
+  }
+}
+
 /** Listen and Select words and Interactive Listening lines for /level-test. */
 export function collectLevelTestAudioTargets(baseConfig: AudioConfig): AudioTarget[] {
   const byKey = new Map<string, AudioTarget>();
+  const made = readRuntimeIndex();
+  const has = (hash: string) => Object.hasOwn(made, hash);
   for (const clip of levelTestClips()) {
     const text = normalizeAudioText(clip.text);
     if (!text) continue;
@@ -360,7 +382,7 @@ export function collectLevelTestAudioTargets(baseConfig: AudioConfig): AudioTarg
           kind: clip.kind,
           text,
           characterId: clip.characterId,
-          voiceConfig: audioConfigForCharacter(clip.characterId, baseConfig),
+          voiceConfig: audioConfigForClip(text, clip.characterId, has, baseConfig),
         }
       : { kind: clip.kind, text };
     byKey.set(targetKey(target, baseConfig), target);
@@ -371,6 +393,8 @@ export function collectLevelTestAudioTargets(baseConfig: AudioConfig): AudioTarg
 /** Dictionary, lesson and level-test targets (default: all three). */
 export function collectAudioTargets(
   options?: {
+    /** Lesson clips in their characters' settings now, as for a forced re-take, not the settings an existing take was made in. */
+    fresh?: boolean;
     lemmasOnly?: boolean;
     lessonsOnly?: boolean;
     levelTestOnly?: boolean;
@@ -380,7 +404,7 @@ export function collectAudioTargets(
 ): AudioTarget[] {
   if (options?.lessonsOnly) {
     if (!baseConfig) throw new Error("collectAudioTargets(lessonsOnly) needs baseConfig");
-    return collectLessonAudioTargets(baseConfig);
+    return collectLessonAudioTargets(baseConfig, options.fresh);
   }
   if (options?.levelTestOnly) {
     if (!baseConfig)
@@ -397,7 +421,7 @@ export function collectAudioTargets(
   const byKey = new Map<string, AudioTarget>();
   for (const target of [
     ...dictionary,
-    ...collectLessonAudioTargets(baseConfig),
+    ...collectLessonAudioTargets(baseConfig, options?.fresh),
     ...collectLevelTestAudioTargets(baseConfig),
   ]) {
     const key = targetKey(target, baseConfig);

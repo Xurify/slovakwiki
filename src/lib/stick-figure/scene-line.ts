@@ -1,3 +1,4 @@
+import type { World } from "./acts";
 import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
 import type { ListeningCheck } from "$lib/catalog/listening/types";
 import type { TextMark } from "$lib/learning/marked-text";
@@ -61,9 +62,16 @@ export interface Scene {
 
 /** What the stage needs to act a scene out: its lines, the place, and who stands where. */
 export interface StagedScene {
+  /**
+   * What was said here in the segments just before, in the same place, so
+   * a time of day or a clock time told there still holds in this one.
+   */
+  before?: string[];
   lines: DirectedLine[];
   order?: LessonCharacterId[];
   setting: StageSetting;
+  /** The set as the segment before, in the same place, left it. */
+  world?: World;
 }
 
 export interface SceneGroup {

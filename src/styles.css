@@ -31,6 +31,82 @@
   --animate-rise: rise 200ms ease-out both;
   /* Rain and snow on the stage; each layer sets its own duration and --fall-x / --fall-y. */
   --animate-fall: fall 1s linear infinite;
+  /* Steam off a hot pot or spoon: each wisp sets its own duration and delay. Held still, it hangs there. */
+  --animate-steam: steam 2s ease-out infinite;
+  /* Water running from a tap, a jug or a can, and salt falling: dashes slide down the stream. */
+  --animate-pour: pour 0.35s linear infinite;
+  /* Chopped pieces sliding along a tipped board to its far end, where they drop off. */
+  --animate-slide-off: slide-off 0.75s ease-in both;
+  /* Water coming up in a pot under the running tap, over as long as tapFillMotion runs it. */
+  --animate-fill-up: fill-up 2.1s ease-in-out both;
+  /* A gas flame, never quite still. */
+  --animate-flicker: flicker 0.4s ease-in-out infinite alternate;
+  /* A lid lifted by the boil and dropped again. */
+  --animate-rattle: rattle 0.7s ease-in-out infinite;
+
+  @keyframes pour {
+    to {
+      stroke-dashoffset: -4;
+    }
+  }
+
+  /* Faded only once past the board's end (OBJECT_SIZE.board, 11 from its middle) and dropping: faded on the board, they read as vanishing. */
+  @keyframes slide-off {
+    70% {
+      opacity: 1;
+      transform: translateX(12px);
+    }
+
+    to {
+      opacity: 0;
+      transform: translate(16px, 7px);
+    }
+  }
+
+  @keyframes fill-up {
+    from {
+      opacity: 0.5;
+      transform: scale(0.2, 0.35);
+    }
+  }
+
+  @keyframes flicker {
+    to {
+      transform: scaleY(0.75);
+    }
+  }
+
+  @keyframes rattle {
+    0%,
+    60%,
+    100% {
+      transform: none;
+    }
+
+    20% {
+      transform: translateY(-1.2px) rotate(-3deg);
+    }
+
+    40% {
+      transform: translateY(-0.4px) rotate(2deg);
+    }
+  }
+
+  @keyframes steam {
+    from {
+      opacity: 0;
+      transform: translateY(2px) scaleX(0.8);
+    }
+
+    35% {
+      opacity: 0.9;
+    }
+
+    to {
+      opacity: 0;
+      transform: translateY(-9px) scaleX(1.4);
+    }
+  }
 
   @keyframes fall {
     to {
@@ -124,6 +200,10 @@
   --color-scene-cabbage: #c5dba5;
   --color-scene-onion: #d9a35e;
   --color-scene-potato: #b98a58;
+  /* Running and standing water: blue enough to read against the white tiles and in the grey pot. */
+  --color-scene-water: #4f9fd4;
+  /* What is in a cup: dark enough to read as coffee against the white cup. */
+  --color-scene-coffee: #6b4a33;
   /* The studio's on-air sign and screen, and the strawberries: the light theme's red and blue, fixed. */
   --color-scene-red: #c23b35;
   --color-scene-blue: #3b82f6;

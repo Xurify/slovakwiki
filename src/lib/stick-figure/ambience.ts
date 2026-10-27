@@ -372,26 +372,22 @@ export function playAmbience(first: Ambience): AmbiencePlayer | undefined {
  * What you hear on a Bratislava platform as a tram comes in: the driver's
  * bell, the rails starting to hum, the wheels knocking over the rail joints
  * as it gets close, the motor whining down, and the brakes as it stops.
- * About four seconds; plays on its own, background sound or not.
+ * About four seconds; plays on its own, background sound or not, and
+ * stops with the stage like the other cues.
  */
 export function playTramCue(): void {
   if (getStoredSfxPreference() === "off") return;
-  const Context =
-    window.AudioContext ??
-    (window as unknown as { webkitAudioContext?: typeof AudioContext })
-      .webkitAudioContext;
-  if (!Context) return;
+  const cue = cues();
+  if (!cue) return;
 
-  const ctx = new Context();
-  const out = ctx.createGain();
-  out.gain.value = 0.5 * getAudioVolume();
-  out.connect(ctx.destination);
+  const { ctx } = cue;
+  const out = cueOut(ctx, 0.5, 4800);
   const kit: Kit = {
     ctx,
     dark: false,
     every: () => {},
     indoors: false,
-    noise: noiseBuffer(ctx),
+    noise: cue.noise,
     out,
   };
   const now = ctx.currentTime;
@@ -442,14 +438,12 @@ export function playTramCue(): void {
   brake.connect(brakeGain).connect(out);
   brake.start(now + 2.9);
   brake.stop(now + 3.6);
-
-  window.setTimeout(() => void ctx.close(), 4800);
 }
 
 let cueContext: { ctx: AudioContext; noise: AudioBuffer } | undefined;
 
 /** One context for the short cues that follow the figures, made on first use. */
-function cues(): { ctx: AudioContext; noise: AudioBuffer } | undefined {
+export function cues(): { ctx: AudioContext; noise: AudioBuffer } | undefined {
   if (cueContext) {
     if (cueContext.ctx.state === "suspended") void cueContext.ctx.resume();
     return cueContext;
@@ -466,11 +460,10 @@ function cues(): { ctx: AudioContext; noise: AudioBuffer } | undefined {
 }
 
 /**
- * Footsteps for a walk of `steps` steps, `stepMs` apart: a soft heel and
- * the scuff of a sole on each footfall, duller on a floor than on paving.
- * Plays on its own, background sound or not, unless sound is off.
+ * What a footfall sounds like on each ground: the thud of the heel, the
+ * scuff of the sole, any click of the surface, and how much of the top end
+ * the floor lets through. Indoors a step is soft, felt more than heard.
  */
-/** What a footfall sounds like on each ground: the thud of the heel, the scuff of the sole, and any click of the surface. */
 const GROUND_STEPS: Record<
   Ground,
   {
@@ -481,64 +474,98 @@ const GROUND_STEPS: Record<
     sole: number;
     soleHz: number;
     soleDecay: number;
+    /** Above this the step is rolled off, so nothing in it is sharp. */
+    toneHz: number;
   }
 > = {
-  // Pavement and cobbles: a hard, bright footfall with a click to it.
+  // Pavement and cobbles: a firm, bright footfall with a click to it.
   stone: {
-    click: 0.3,
-    heel: 0.45,
+    click: 0.22,
+    heel: 0.4,
     heelHz: 115,
     heelDecay: 0.08,
-    sole: 0.4,
-    soleHz: 1900,
+    sole: 0.3,
+    soleHz: 1700,
     soleDecay: 0.07,
+    toneHz: 3600,
   },
-  // Boards: a hollow knock that rings a little.
+  // Boards: a low, short knock.
   wood: {
-    click: 0.1,
-    heel: 0.6,
-    heelHz: 160,
-    heelDecay: 0.12,
-    sole: 0.25,
-    soleHz: 750,
-    soleDecay: 0.07,
+    click: 0.05,
+    heel: 0.4,
+    heelHz: 125,
+    heelDecay: 0.09,
+    sole: 0.18,
+    soleHz: 700,
+    soleDecay: 0.06,
+    toneHz: 1800,
   },
   // Carpet swallows the click; a soft thud and a brush.
   carpet: {
     click: 0,
-    heel: 0.35,
-    heelHz: 90,
-    heelDecay: 0.08,
-    sole: 0.15,
-    soleHz: 500,
+    heel: 0.28,
+    heelHz: 85,
+    heelDecay: 0.07,
+    sole: 0.12,
+    soleHz: 480,
     soleDecay: 0.06,
+    toneHz: 1200,
   },
   // A path or grass: little heel, a longer crunch.
   soil: {
     click: 0,
-    heel: 0.3,
+    heel: 0.25,
     heelHz: 100,
     heelDecay: 0.08,
-    sole: 0.4,
-    soleHz: 1200,
+    sole: 0.32,
+    soleHz: 1100,
     soleDecay: 0.12,
+    toneHz: 2800,
+  },
+  // Slippers on kitchen tiles: hardly a heel, a light pat and a shuffle.
+  tile: {
+    click: 0.04,
+    heel: 0.18,
+    heelHz: 110,
+    heelDecay: 0.05,
+    sole: 0.2,
+    soleHz: 1000,
+    soleDecay: 0.1,
+    toneHz: 2200,
   },
 };
+
+/** The cues still sounding (footsteps, a phone, the sting, a tram), so a stage that stops or skips can silence them. */
+const sounding = new Set<GainNode>();
+
+/** An output for one cue, silenced by stopCues or let go after `ms`. */
+function cueOut(ctx: AudioContext, level: number, ms: number): GainNode {
+  const out = ctx.createGain();
+  out.gain.value = level * getAudioVolume();
+  out.connect(ctx.destination);
+  sounding.add(out);
+  window.setTimeout(() => {
+    out.disconnect();
+    sounding.delete(out);
+  }, ms);
+  return out;
+}
+
+/**
+ * Silence every cue still sounding: the stage has stopped, handed on to the
+ * next segment, or jumped to another line. Web Audio schedules a whole walk
+ * up front, so without this each skip stacks another walk on the last.
+ */
+export function stopCues(): void {
+  for (const out of sounding) out.disconnect();
+  sounding.clear();
+}
 
 /**
  * Footsteps for a walk of `steps`, one every `stepMs`, on the `ground`
  * underfoot: heels click on it, soft soles land dull, plain shoes are the
  * ground's own sound.
  */
-/** The footsteps still sounding, so a stage that stops can silence them. */
-const stepping = new Set<GainNode>();
-
-/** Silence every walk still sounding: the stage has stopped, or handed on to the next segment. */
-export function stopSteps(): void {
-  for (const out of stepping) out.disconnect();
-  stepping.clear();
-}
-
 export function playSteps(
   steps: number,
   stepMs: number,
@@ -563,15 +590,17 @@ export function playSteps(
         : base;
 
   const { ctx, noise } = kit;
-  const out = ctx.createGain();
-  out.gain.value = 0.3 * getAudioVolume();
-  out.connect(ctx.destination);
-  stepping.add(out);
+  const level = cueOut(ctx, 0.24, steps * stepMs + 500);
+  const out = ctx.createBiquadFilter();
+  out.type = "lowpass";
+  out.frequency.value = sound.toneHz;
+  out.Q.value = 0.5;
+  out.connect(level);
 
   for (let step = 0; step < steps; step += 1) {
     // The heel lands at the widest stride, halfway through each step.
     const at = ctx.currentTime + ((step + 0.5) * stepMs) / 1000 + between(-0.01, 0.01);
-    const level = between(0.6, 1);
+    const loud = between(0.6, 1);
 
     const heel = ctx.createOscillator();
     const heelGain = ctx.createGain();
@@ -581,7 +610,8 @@ export function playSteps(
       at + sound.heelDecay,
     );
     heelGain.gain.setValueAtTime(0.0001, at);
-    heelGain.gain.exponentialRampToValueAtTime(sound.heel * level, at + 0.004);
+    // A rounded onset: a footfall, not a tap on the microphone.
+    heelGain.gain.exponentialRampToValueAtTime(sound.heel * loud, at + 0.012);
     heelGain.gain.exponentialRampToValueAtTime(0.0001, at + sound.heelDecay + 0.01);
     heel.connect(heelGain).connect(out);
     heel.start(at);
@@ -592,10 +622,10 @@ export function playSteps(
     const filter = ctx.createBiquadFilter();
     filter.type = "bandpass";
     filter.frequency.value = sound.soleHz * between(0.85, 1.15);
-    filter.Q.value = 1.2;
+    filter.Q.value = 0.8;
     const soleGain = ctx.createGain();
     soleGain.gain.setValueAtTime(0.0001, at);
-    soleGain.gain.exponentialRampToValueAtTime(sound.sole * level, at + 0.006);
+    soleGain.gain.exponentialRampToValueAtTime(sound.sole * loud, at + 0.016);
     soleGain.gain.exponentialRampToValueAtTime(0.0001, at + sound.soleDecay);
     sole.connect(filter).connect(soleGain).connect(out);
     sole.start(at, Math.random(), sound.soleDecay + 0.01);
@@ -610,20 +640,12 @@ export function playSteps(
       bright.Q.value = 2;
       const clickGain = ctx.createGain();
       clickGain.gain.setValueAtTime(0.0001, at);
-      clickGain.gain.exponentialRampToValueAtTime(sound.click * level, at + 0.002);
+      clickGain.gain.exponentialRampToValueAtTime(sound.click * loud, at + 0.003);
       clickGain.gain.exponentialRampToValueAtTime(0.0001, at + 0.025);
       click.connect(bright).connect(clickGain).connect(out);
       click.start(at, Math.random(), 0.03);
     }
   }
-
-  window.setTimeout(
-    () => {
-      out.disconnect();
-      stepping.delete(out);
-    },
-    steps * stepMs + 500,
-  );
 }
 
 /**
@@ -635,9 +657,7 @@ export function playSegmentCue(): void {
   const kit = cues();
   if (!kit) return;
 
-  const out = kit.ctx.createGain();
-  out.gain.value = 0.35 * getAudioVolume();
-  out.connect(kit.ctx.destination);
+  const out = cueOut(kit.ctx, 0.35, 2000);
   const strikeKit: Kit = {
     ctx: kit.ctx,
     dark: false,
@@ -648,5 +668,47 @@ export function playSegmentCue(): void {
   };
   strike(strikeKit, 659, 0.22, 1.1);
   strike(strikeKit, 988, 0.18, 1.4, 0.16);
-  window.setTimeout(() => out.disconnect(), 2000);
+}
+
+/** How long the phone sounds before the line that answers or reads it, ms. */
+export const PHONE_CUE_MS = { call: 2600, message: 800 } as const;
+
+/**
+ * A phone in the room: a call rings twice, a pair of warbling bursts each;
+ * a message pings once, two quick notes. Plays with background sound off,
+ * like footsteps, but not with sound off.
+ */
+export function playPhoneCue(kind: "call" | "message"): void {
+  if (getStoredSfxPreference() === "off") return;
+  const kit = cues();
+  if (!kit) return;
+
+  const { ctx } = kit;
+  const out = cueOut(ctx, 0.3, 3200);
+  const now = ctx.currentTime;
+
+  const beep = (frequency: number, at: number, length: number, level: number) => {
+    const tone = ctx.createOscillator();
+    const gain = ctx.createGain();
+    tone.type = "triangle";
+    tone.frequency.value = frequency;
+    gain.gain.setValueAtTime(0.0001, now + at);
+    gain.gain.exponentialRampToValueAtTime(level, now + at + 0.012);
+    gain.gain.setValueAtTime(level, now + at + length - 0.02);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + at + length);
+    tone.connect(gain).connect(out);
+    tone.start(now + at);
+    tone.stop(now + at + length + 0.02);
+  };
+
+  if (kind === "message") {
+    beep(1320, 0, 0.09, 0.35);
+    beep(1760, 0.12, 0.16, 0.3);
+  } else {
+    for (const ring of [0, 1.3]) {
+      for (let burst = 0; burst < 10; burst += 1) {
+        beep(burst % 2 ? 1180 : 1480, ring + burst * 0.05, 0.05, 0.22);
+      }
+    }
+  }
 }

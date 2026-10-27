@@ -97,6 +97,18 @@ const POINT_LEAD_MS = 200;
 /** A beat pushed later than this before the voice stops is dropped. */
 const LATE_BEAT_MS = 300;
 
+/** What a voice direction before the words looks like: the sigh or chuckle is seen as well as heard. */
+const DIRECTED: Record<string, StickGestureId> = {
+  chuckles: "chuckle",
+  sighs: "sigh",
+  yawns: "yawn",
+};
+
+function directedGesture(sentence: string): StickGestureId | undefined {
+  const tag = /^\[([^\]]+)\]/.exec(sentence.trim())?.[1]?.toLowerCase();
+  return tag ? DIRECTED[tag] : undefined;
+}
+
 export function estimateSpeechMs(text: string): number {
   let ms = 0;
 
@@ -183,6 +195,8 @@ export interface LineClip {
   /** Per-sentence overrides for the gesture picked from the text; gaps stay automatic. */
   gestures?: ReadonlyArray<StickGestureId | undefined>;
   lips?: LipTrack;
+  /** Said into a phone: its hello or goodbye is to the caller, not waved to anyone here. */
+  phone?: boolean;
   /** Words to point on, from what the scene has to point at. */
   points?: readonly LinePoint[];
   /** The clip's text, when it marks pauses the line does not show (`[pause]`). */
@@ -199,7 +213,7 @@ export interface LineClip {
  */
 export function planLine(
   slovak: string,
-  { gestures, lips, points = [], said, track }: LineClip = {},
+  { gestures, lips, phone, points = [], said, track }: LineClip = {},
 ): LinePlan {
   const sentences = lineSentences(slovak);
   const saidSentences = said ? lineSentences(said) : [];
@@ -232,7 +246,11 @@ export function planLine(
     const start =
       index === 0 ? estimated : (nearestPauseEnd(pauses, estimated) ?? estimated);
     const end = origin + (cursor + lengths[index]) * scale;
-    const gesture = gestures?.[index] ?? gestureForLine(sentence);
+    const picked =
+      gestures?.[index] ??
+      (index === 0 ? directedGesture(saidSentences[0] ?? "") : undefined) ??
+      gestureForLine(sentence);
+    const gesture = phone && picked === "wave" ? "tell" : picked;
 
     beats.push({ at: start, gesture });
 

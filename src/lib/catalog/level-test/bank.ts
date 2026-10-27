@@ -1,6 +1,6 @@
 import items from "../../../../content/level-test/items.json";
-import { audioConfigForCharacter } from "../audio/characters";
-import { audioHash, type AudioConfig, type AudioKind } from "../audio/core";
+import { audioConfigForClip } from "../audio/characters";
+import { audioHash, type AudioKind } from "../audio/core";
 import { audioClipKind, hasAudioClip } from "../audio/manifest";
 import { resolveKeyedAudioSrc } from "../audio/resolve-server";
 import { dictionaryImageView } from "../dictionary/images";
@@ -45,12 +45,10 @@ export function levelDifficulty(level: CefrLevel): number {
   return level === "A1" ? 5 : CEFR_ANCHOR[level];
 }
 
-function voice(characterId?: LessonCharacterId): AudioConfig | undefined {
-  return characterId ? audioConfigForCharacter(characterId) : undefined;
-}
-
 function clipSrc(text: string, kind: AudioKind, characterId?: LessonCharacterId) {
-  const config = voice(characterId);
+  const config = characterId
+    ? audioConfigForClip(text, characterId, hasAudioClip)
+    : undefined;
   if (!hasAudioClip(audioHash(text, config))) return undefined;
   return resolveKeyedAudioSrc(text, kind, config);
 }

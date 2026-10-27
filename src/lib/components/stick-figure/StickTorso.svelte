@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
   import { LOOKS } from "$lib/stick-figure/looks";
+  import type { Point } from "$lib/stick-figure/rig";
 
   /**
    * Clothes from the neck to the hem, drawn in torso space: hip at 0,0, neck
@@ -10,14 +11,42 @@
    */
   let {
     characterId,
+    knee,
     scarf = false,
+    sit = 0,
   }: {
     characterId: LessonCharacterId;
+    /** The near knee in torso space, where a long skirt drapes to when seated. */
+    knee?: Point;
     /** Wrapped round the neck outdoors in the snow. */
     scarf?: boolean;
+    /** 0 standing to 1 seated, as the rig. */
+    sit?: number;
   } = $props();
 
   const look = $derived(LOOKS[characterId]);
+
+  /**
+   * A long skirt from the waist: hanging straight to the hem standing, and
+   * seated, over the lap to the knee and down the shin. A column to the
+   * floor beside bent legs read as someone standing.
+   */
+  const longSkirt = $derived.by(() => {
+    const t = knee ? Math.min(1, Math.max(0, sit)) : 0;
+    const k = knee ?? { x: 0, y: 0 };
+    const at = (standing: Point, seated: Point) =>
+      `${n(standing.x + (seated.x - standing.x) * t)} ${n(standing.y + (seated.y - standing.y) * t)}`;
+    const thigh = at({ x: 6.5, y: 10 }, { x: k.x + 1.5, y: k.y - 2.6 });
+    const front = at({ x: 7.4, y: 22 }, { x: k.x + 3.4, y: k.y + 9 });
+    const fold = at({ x: 0, y: 23.4 }, { x: k.x + 0.4, y: k.y + 11.4 });
+    const back = at({ x: -7.4, y: 22 }, { x: k.x - 3, y: k.y + 10 });
+    const seat = at({ x: -6.5, y: 10 }, { x: -6.6, y: 3 });
+    return `M-5.6 -1L5.6 -1L${thigh}L${front}Q${fold} ${back}L${seat}Z`;
+  });
+
+  function n(value: number): string {
+    return value.toFixed(2);
+  }
 </script>
 
 {#if characterId === "receptionist"}
@@ -175,11 +204,7 @@
   />
 {:else if characterId === "maria"}
   <!-- rose cardigan open over a white blouse, long navy skirt -->
-  <path
-    d="M-5.6 -1L5.6 -1L7.4 22Q0 23.4 -7.4 22Z"
-    class="fill-portrait-suit stroke-portrait-ink"
-    stroke-width="1.1"
-  />
+  <path d={longSkirt} class="fill-portrait-suit stroke-portrait-ink" stroke-width="1.1" />
   <path
     d="M-5 -27.8H5L4.6 -1.4H-4.6Z"
     class="fill-portrait-bib stroke-portrait-ink"

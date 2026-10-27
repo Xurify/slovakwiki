@@ -1,7 +1,11 @@
 import { describe, expect, it } from "vitest";
 
 import { audioHash } from "$lib/catalog/audio/core";
-import { audioConfigForCharacter } from "$lib/catalog/audio/characters";
+import {
+  audioConfigForCharacter,
+  audioConfigForClip,
+} from "$lib/catalog/audio/characters";
+import { hasAudioClip } from "$lib/catalog/audio/manifest";
 import { LESSON_CHARACTER_IDS } from "$lib/catalog/lessons/character-ids";
 import { getVoiceRoster, VOICE_PREVIEW_LINES } from "$lib/catalog/lessons/voice-roster";
 
@@ -18,7 +22,7 @@ describe("voice roster samples", () => {
 
       const characterHash = audioHash(
         preview.sampleSlovak,
-        audioConfigForCharacter(characterId),
+        audioConfigForClip(preview.sampleSlovak, characterId, hasAudioClip),
       );
       const dictionaryHash = audioHash(preview.sampleSlovak);
 
@@ -27,5 +31,27 @@ describe("voice roster samples", () => {
         expect(entry.audioHash).not.toBe(dictionaryHash);
       }
     }
+  });
+});
+
+describe("a character's own voice settings", () => {
+  const settings = audioConfigForCharacter("marek").voiceSettings;
+  const earlier = {
+    ...audioConfigForCharacter("marek"),
+    voiceSettings: audioConfigForCharacter("anna").voiceSettings,
+  };
+
+  it("make new clips in them", () => {
+    expect(settings.stability).toBe(0.85);
+    expect(audioConfigForClip("Nová veta.", "marek", () => false).voiceSettings).toEqual(
+      settings,
+    );
+  });
+
+  it("keep finding a clip made before them", () => {
+    const made = new Set([audioHash("Stará veta.", earlier)]);
+    expect(audioConfigForClip("Stará veta.", "marek", (hash) => made.has(hash))).toEqual(
+      earlier,
+    );
   });
 });
