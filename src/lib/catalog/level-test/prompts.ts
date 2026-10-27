@@ -214,6 +214,85 @@ export const interactiveWritingPrompts: WritingPrompt[] = [
       english: "Is it all right, in your view, to keep a big dog in a flat? Why?",
     },
   },
+  {
+    id: "praca-z-domu",
+    level: "B2",
+    slovak: "Pracovať z domu, alebo v kancelárii? Napíšte, čo vám vyhovuje viac a prečo.",
+    english: "Working from home or in an office? Write which suits you better, and why.",
+    followUp: {
+      slovak: "Aké pravidlá by mali mať firmy pre prácu z domu?",
+      english: "What rules should companies have for working from home?",
+    },
+  },
+  {
+    id: "doprava-zadarmo",
+    level: "B2",
+    slovak: "Mala by byť mestská hromadná doprava zadarmo? Napíšte svoj názor.",
+    english: "Should public transport in towns be free? Give your opinion.",
+    followUp: {
+      slovak: "Kto by ju mal podľa vás zaplatiť?",
+      english: "Who do you think should pay for it?",
+    },
+  },
+  {
+    id: "socialne-siete",
+    level: "B2",
+    slovak:
+      "Ako menia sociálne siete vzťahy medzi ľuďmi? Napíšte svoj názor a uveďte príklad.",
+    english:
+      "How are social networks changing relationships between people? Give your opinion and an example.",
+    followUp: {
+      slovak: "Koľko času na nich trávite vy? Chceli by ste to zmeniť?",
+      english: "How much time do you spend on them? Would you like to change that?",
+    },
+  },
+  {
+    id: "skolske-obedy",
+    level: "B2",
+    slovak:
+      "Kto by mal rozhodovať o tom, čo deti jedia v škole: rodičia, alebo škola? Napíšte svoj názor.",
+    english:
+      "Who should decide what children eat at school: parents or the school? Give your opinion.",
+    followUp: {
+      slovak: "Čo by ste na školských jedálňach zmenili?",
+      english: "What would you change about school canteens?",
+    },
+  },
+  {
+    id: "tradicie",
+    level: "C1",
+    slovak:
+      "Majú tradície v modernej spoločnosti ešte zmysel, alebo nás skôr obmedzujú? Zdôvodnite svoj názor.",
+    english:
+      "Do traditions still make sense in modern society, or do they rather hold us back? Give reasons for your view.",
+    followUp: {
+      slovak: "Ktorú tradíciu by ste zachovali za každú cenu a prečo?",
+      english: "Which tradition would you keep at all costs, and why?",
+    },
+  },
+  {
+    id: "uspech",
+    level: "C1",
+    slovak: "Čo podľa vás znamená úspech? Závisí viac od talentu, alebo od vytrvalosti?",
+    english:
+      "What does success mean to you? Does it depend more on talent or on perseverance?",
+    followUp: {
+      slovak: "Čo by bol úspech pre vás osobne?",
+      english: "What would success be for you personally?",
+    },
+  },
+  {
+    id: "anonymita",
+    level: "C1",
+    slovak:
+      "Mala by byť anonymita na internete chránená, alebo by mal každý vystupovať pod vlastným menom? Zvážte výhody aj riziká.",
+    english:
+      "Should anonymity on the internet be protected, or should everyone appear under their own name? Weigh the benefits and the risks.",
+    followUp: {
+      slovak: "Ako by sa podľa vás dalo bojovať proti nenávistným komentárom?",
+      english: "How do you think hateful comments could be tackled?",
+    },
+  },
 ];
 
 export const writingSamplePrompts: WritingPrompt[] = [
@@ -330,6 +409,38 @@ export const writingSamplePrompts: WritingPrompt[] = [
       "Chodíte všade načas, alebo občas meškáte? Je dochvíľnosť v rôznych krajinách rovnako dôležitá?",
     english:
       "Are you always on time, or are you sometimes late? Is punctuality equally important in different countries?",
+  },
+  {
+    id: "spomienka-z-detstva",
+    level: "B1",
+    slovak:
+      "Napíšte o príjemnej spomienke z detstva. Čo sa stalo a prečo si ju pamätáte?",
+    english:
+      "Write about a happy memory from your childhood. What happened, and why do you remember it?",
+  },
+  {
+    id: "jazyk-a-myslenie",
+    level: "C1",
+    slovak:
+      "Do akej miery formuje jazyk, ktorým hovoríme, náš spôsob myslenia? Uveďte príklady zo svojej skúsenosti.",
+    english:
+      "To what extent does the language we speak shape the way we think? Give examples from your own experience.",
+  },
+  {
+    id: "zakladny-prijem",
+    level: "C1",
+    slovak:
+      "Mal by štát zaviesť základný príjem pre všetkých, ak stroje nahradia veľkú časť práce? Zvážte argumenty za aj proti.",
+    english:
+      "Should the state introduce a basic income for everyone if machines replace a large share of work? Weigh the arguments for and against.",
+  },
+  {
+    id: "pamatniky",
+    level: "C1",
+    slovak:
+      "Mali by mestá odstraňovať pamätníky osobností, ktorých činy dnes hodnotíme negatívne? Zdôvodnite svoj postoj.",
+    english:
+      "Should towns remove monuments to figures whose actions we now judge negatively? Give reasons for your position.",
   },
 ];
 
@@ -497,6 +608,84 @@ export const readThenSpeakPrompts: SpeakingPrompt[] = [
       { slovak: "Kto sa o vás vtedy stará?", english: "Who looks after you then?" },
     ],
   },
+  {
+    id: "praca-o-desat-rokov",
+    level: "B2",
+    slovak: "Porozprávajte nám o práci, ktorú by ste chceli robiť o desať rokov.",
+    english: "Tell us about the job you would like to be doing in ten years.",
+    points: [
+      { slovak: "Čo presne by ste robili?", english: "What exactly would you do?" },
+      { slovak: "Čo vás na tom láka?", english: "What attracts you to it?" },
+      {
+        slovak: "Čo pre to musíte urobiť?",
+        english: "What do you need to do to get there?",
+      },
+    ],
+  },
+  {
+    id: "dolezite-rozhodnutie",
+    level: "B2",
+    slovak: "Porozprávajte nám o rozhodnutí, ktoré zmenilo váš život.",
+    english: "Tell us about a decision that changed your life.",
+    points: [
+      { slovak: "Aké to bolo rozhodnutie?", english: "What was the decision?" },
+      { slovak: "Čo vám pomohlo rozhodnúť sa?", english: "What helped you decide?" },
+      {
+        slovak: "Čo by ste dnes urobili inak?",
+        english: "What would you do differently today?",
+      },
+    ],
+  },
+  {
+    id: "miesto-na-zivot",
+    level: "B2",
+    slovak: "Porozprávajte nám o krajine alebo meste, kde by ste chceli žiť.",
+    english: "Tell us about a country or city where you would like to live.",
+    points: [
+      { slovak: "Prečo práve tam?", english: "Why there in particular?" },
+      { slovak: "Čo by vám tam chýbalo?", english: "What would you miss there?" },
+      {
+        slovak: "Aké prekážky by ste museli prekonať?",
+        english: "What obstacles would you have to overcome?",
+      },
+    ],
+  },
+  {
+    id: "verejna-diskusia",
+    level: "C1",
+    slovak:
+      "Porozprávajte nám o téme, o ktorej sa vo vašej krajine v poslednom čase veľa diskutuje.",
+    english:
+      "Tell us about a topic that has been widely debated in your country recently.",
+    points: [
+      { slovak: "O čo v spore ide?", english: "What is the dispute about?" },
+      {
+        slovak: "Aké sú hlavné argumenty oboch strán?",
+        english: "What are the main arguments on each side?",
+      },
+      {
+        slovak: "Aký postoj zastávate vy a prečo?",
+        english: "What position do you take, and why?",
+      },
+    ],
+  },
+  {
+    id: "pohlad-na-svet",
+    level: "C1",
+    slovak: "Porozprávajte nám o človeku, ktorý ovplyvnil váš pohľad na svet.",
+    english: "Tell us about a person who influenced the way you see the world.",
+    points: [
+      {
+        slovak: "Kto to je a ako ste sa spoznali?",
+        english: "Who is it, and how did you meet?",
+      },
+      {
+        slovak: "Čo konkrétne ste sa od tohto človeka naučili?",
+        english: "What exactly did you learn from this person?",
+      },
+      { slovak: "V čom sa vaše názory líšia?", english: "Where do your views differ?" },
+    ],
+  },
 ];
 
 export const speakingSamplePrompts: SpeakingPrompt[] = [
@@ -589,5 +778,32 @@ export const speakingSamplePrompts: SpeakingPrompt[] = [
       "Je niekedy v poriadku nepovedať celú pravdu? Vysvetlite svoj názor na príkladoch.",
     english:
       "Is it ever all right not to tell the whole truth? Explain your view with examples.",
+  },
+  {
+    id: "o-rodine",
+    level: "A2",
+    slovak:
+      "Porozprávajte nám o svojej rodine. Kto patrí do vašej rodiny a čo radi robíte spolu?",
+    english:
+      "Tell us about your family. Who is in your family, and what do you like doing together?",
+  },
+  {
+    id: "miesto-v-meste",
+    level: "A2",
+    slovak: "Porozprávajte nám o mieste vo vašom meste, kam radi chodíte.",
+    english: "Tell us about a place in your town that you like going to.",
+  },
+  {
+    id: "bezny-vikend",
+    level: "A2",
+    slovak: "Čo zvyčajne robíte cez víkend? Porozprávajte nám o tom.",
+    english: "What do you usually do at the weekend? Tell us about it.",
+  },
+  {
+    id: "dobra-rada",
+    level: "B1",
+    slovak: "Akú najlepšiu radu ste kedy dostali? Ako vám pomohla?",
+    english:
+      "What is the best piece of advice you have ever been given? How did it help you?",
   },
 ];

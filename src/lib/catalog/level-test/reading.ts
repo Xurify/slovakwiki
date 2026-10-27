@@ -183,6 +183,94 @@ export const readingSets: AuthoredReadingSet[] = [
     },
   },
   {
+    id: "novy-sused",
+    level: "A1",
+    kind: "narrative",
+    opening: [
+      "Vo vedľajšom byte býva nový sused. Volá sa Tomáš a je ",
+      {
+        id: "b1",
+        options: ["mladý", "mladá", "mladé", "mladú"],
+        answer: 0,
+        area: "adjectives",
+      },
+      " kuchár. Pracuje v ",
+      {
+        id: "b2",
+        options: ["reštaurácia", "reštaurácie", "reštaurácii", "reštauráciou"],
+        answer: 2,
+        area: "nouns",
+      },
+      " na námestí. Každý večer prichádza domov neskoro a ráno ",
+      { id: "b7", options: ["si dlho", "dlho si"], answer: 0, area: "wordOrder" },
+      " pospí. Dnes je sobota a Tomáš práve ",
+      { id: "b6", options: ["pečie", "upečie"], answer: 0, area: "aspect" },
+      " koláč. Celý byt ",
+      {
+        id: "b3",
+        options: ["vonia", "voniam", "voňajú", "voňať"],
+        answer: 0,
+        area: "conjugation",
+      },
+      " po koláči. Zrazu niekto zazvoní pri dverách. Je to pani Nováková z tretieho ",
+      {
+        id: "b4",
+        options: ["poschodie", "poschodia", "poschodí", "poschodím"],
+        answer: 1,
+        area: "nouns",
+      },
+      ". Tomáš ",
+      {
+        id: "b5",
+        options: ["ona", "ju", "jej", "ňou"],
+        answer: 2,
+        area: "pronouns",
+      },
+      " ponúkne kúsok koláča.",
+    ],
+    missingSentence: {
+      options: [
+        "Pani Nováková sa sťažuje, že Tomáš je hlučný.",
+        "Pani Nováková drží v ruke balík, ktorý prišiel pre Tomáša.",
+        "Tomáš ide do práce do reštaurácie.",
+        "Tomáš nemá rád koláče.",
+      ],
+      answer: 1,
+    },
+    closing:
+      "Kuriér ho včera nechal u nej, lebo Tomáš nebol doma. Tomáš sa poďakuje a pani Nováková si koláč s radosťou vezme. Odvtedy sa susedia často navštevujú.",
+    highlights: [
+      {
+        question: "Kde pracuje Tomáš?",
+        english: "Where does Tomáš work?",
+        answer: "v reštaurácii na námestí",
+      },
+      {
+        question: "Prečo nechal kuriér balík u pani Novákovej?",
+        english: "Why did the courier leave the parcel with Mrs Nováková?",
+        answer: "lebo Tomáš nebol doma",
+      },
+    ],
+    mainIdea: {
+      options: [
+        "Tomáš otvára novú reštauráciu.",
+        "Nový sused a pani Nováková sa zoznámia vďaka balíku a koláču.",
+        "Pani Nováková sa sťahuje na tretie poschodie.",
+        "Tomáš sa učí piecť koláče.",
+      ],
+      answer: 1,
+    },
+    title: {
+      options: [
+        "Nová reštaurácia na námestí",
+        "Ako poslať balík",
+        "Koláč pre susedku",
+        "Hlučný sused",
+      ],
+      answer: 2,
+    },
+  },
+  {
     id: "bicykel",
     level: "A2",
     kind: "narrative",
@@ -700,6 +788,94 @@ export const readingSets: AuthoredReadingSet[] = [
     },
   },
   {
+    id: "bicyklom-do-prace",
+    level: "B1",
+    kind: "expository",
+    opening: [
+      "V posledných rokoch jazdí na bicykli do práce čoraz viac ",
+      {
+        id: "b1",
+        options: ["Slováci", "Slovákov", "Slovákom", "Slovákmi"],
+        answer: 1,
+        area: "nouns",
+      },
+      ". Mestá preto už niekoľko rokov ",
+      { id: "b6", options: ["stavajú", "postavia"], answer: 0, area: "aspect" },
+      " nové cyklotrasy a stojany na ",
+      {
+        id: "b2",
+        options: ["bicykel", "bicykle", "bicyklov", "bicykloch"],
+        answer: 1,
+        area: "nouns",
+      },
+      ". Jazda na bicykli má veľa výhod: je lacná, zdravá a človek ",
+      {
+        id: "b3",
+        options: ["nestojí", "nestoja", "nestojím", "nestáť"],
+        answer: 0,
+        area: "conjugation",
+      },
+      " v zápchach. Mnohí ľudia ",
+      { id: "b7", options: ["sa boja", "boja sa"], answer: 0, area: "wordOrder" },
+      " jazdiť po cestách medzi autami. Ak patríte medzi ",
+      {
+        id: "b5",
+        options: ["oni", "ich", "im", "nich"],
+        answer: 3,
+        area: "pronouns",
+      },
+      ", skúste najprv jazdiť len po cyklotrasách. Najbezpečnejšie sa jazdí tam, kde je cyklotrasa ",
+      {
+        id: "b4",
+        options: ["oddelený", "oddelená", "oddelené", "oddelenú"],
+        answer: 1,
+        area: "adjectives",
+      },
+      " od cesty.",
+    ],
+    missingSentence: {
+      options: [
+        "Bicykle sú však také drahé, že si ich málokto môže dovoliť.",
+        "Mestá preto chcú zakázať bicykle v centre.",
+        "Preto je dôležité, aby boli cyklotrasy bezpečné a dobre prepojené.",
+        "Najlepšie je jazdiť na bicykli v noci, keď je menej áut.",
+      ],
+      answer: 2,
+    },
+    closing:
+      "Tam, kde mestá do cyklotrás investovali, sa počet cyklistov za pár rokov zdvojnásobil. Menej áut v uliciach pritom pomáha všetkým, aj tým, ktorí na bicykli nejazdia.",
+    highlights: [
+      {
+        question: "Aké výhody má jazda na bicykli?",
+        english: "What are the advantages of cycling?",
+        answer: "je lacná, zdravá a človek nestojí v zápchach",
+      },
+      {
+        question: "Čo sa stalo tam, kde mestá investovali do cyklotrás?",
+        english: "What happened where towns invested in cycle paths?",
+        answer: "počet cyklistov za pár rokov zdvojnásobil",
+      },
+    ],
+    mainIdea: {
+      options: [
+        "Bicykel je vo všetkom lepší ako auto.",
+        "Na bicykli jazdí do práce čoraz viac ľudí a mestá im musia vytvoriť bezpečné podmienky.",
+        "Jazda na bicykli je nebezpečná, a preto ju mestá obmedzujú.",
+        "Cyklisti a vodiči áut sa nemajú radi.",
+      ],
+      answer: 1,
+    },
+    title: {
+      options: [
+        "Ako opraviť bicykel",
+        "Zápchy v centre mesta",
+        "Nový zákon pre vodičov",
+        "Na bicykli do práce",
+      ],
+      answer: 3,
+    },
+  },
+  {
     id: "styri-dni",
     level: "B2",
     kind: "expository",
@@ -969,6 +1145,94 @@ export const readingSets: AuthoredReadingSet[] = [
     },
   },
   {
+    id: "nocny-vlak",
+    level: "B2",
+    kind: "narrative",
+    opening: [
+      "Keď Mária nastúpila do nočného vlaku do Košíc, vonku ešte stále ",
+      { id: "b6", options: ["pršalo", "zapršalo"], answer: 0, area: "aspect" },
+      ". V kupé už sedel starší pán, ktorý si čítal ",
+      {
+        id: "b1",
+        options: ["noviny", "novín", "novinách", "novinami"],
+        answer: 0,
+        area: "nouns",
+      },
+      ". Mária si vyložila kufor na poličku a ",
+      { id: "b7", options: ["sadla si", "si sadla"], answer: 0, area: "wordOrder" },
+      " k oknu. Po chvíli sa pán ",
+      {
+        id: "b2",
+        options: ["opýtal", "opýtala", "opýtalo", "opýtali"],
+        answer: 0,
+        area: "conjugation",
+      },
+      ", či by mu nepožičala nabíjačku na telefón, lebo svoju zabudol doma. Mária mu ",
+      {
+        id: "b5",
+        options: ["ona", "ju", "jej", "ňou"],
+        answer: 1,
+        area: "pronouns",
+      },
+      " ochotne podala. Rozprávali sa celú noc: pán bol ",
+      {
+        id: "b3",
+        options: ["bývalý", "bývalá", "bývalého", "bývalým"],
+        answer: 0,
+        area: "adjectives",
+      },
+      " rušňovodič a o vlakoch vedel všetko. Ráno, keď vlak prichádzal do ",
+      {
+        id: "b4",
+        options: ["Košice", "Košíc", "Košiciach", "Košicami"],
+        answer: 1,
+        area: "nouns",
+      },
+      ", pán zrazu zbledol.",
+    ],
+    missingSentence: {
+      options: [
+        "Vlak mal pre poruchu dve hodiny meškanie.",
+        "Mária zaspala a prespala celú cestu.",
+        "Uvedomil si, že nemá peňaženku: zostala doma pri nabíjačke.",
+        "Pán vystúpil už v Žiline a Mária zostala v kupé sama.",
+      ],
+      answer: 2,
+    },
+    closing:
+      "Mária mu ponúkla, že mu požičia peniaze na taxík, a vymenili si telefónne čísla. O týždeň jej prišiel balík: nová nabíjačka, vrátené peniaze a pozvánka na jazdu v rušni, ktorý kedysi viedol.",
+    highlights: [
+      {
+        question: "Prečo si pán požičal nabíjačku?",
+        english: "Why did the man borrow a charger?",
+        answer: "svoju zabudol doma",
+      },
+      {
+        question: "Čo bolo v balíku, ktorý Mária dostala?",
+        english: "What was in the parcel Mária received?",
+        answer: "nová nabíjačka, vrátené peniaze a pozvánka na jazdu v rušni",
+      },
+    ],
+    mainIdea: {
+      options: [
+        "Náhodné stretnutie vo vlaku sa skončilo nečakaným priateľstvom.",
+        "Mária pracuje ako rušňovodička.",
+        "Nočné vlaky na Slovensku často meškajú.",
+        "Starší pán predáva nabíjačky na telefóny.",
+      ],
+      answer: 0,
+    },
+    title: {
+      options: [
+        "Noc v kupé",
+        "Ako sa stať rušňovodičom",
+        "Meškanie na trati",
+        "Nový vlak do Košíc",
+      ],
+      answer: 0,
+    },
+  },
+  {
     id: "pamat",
     level: "C1",
     kind: "expository",
@@ -1144,6 +1408,100 @@ export const readingSets: AuthoredReadingSet[] = [
         "Posledný deň v škole",
       ],
       answer: 2,
+    },
+  },
+  {
+    id: "cena-ticha",
+    level: "C1",
+    kind: "expository",
+    opening: [
+      "Ticho sa v dnešnom svete stáva ",
+      {
+        id: "b1",
+        options: ["luxus", "luxusu", "luxusom", "luxuse"],
+        answer: 2,
+        area: "nouns",
+      },
+      ". Podľa Svetovej zdravotníckej organizácie je hluk po znečistenom ovzduší druhým ",
+      {
+        id: "b2",
+        options: [
+          "najzávažnejší",
+          "najzávažnejšie",
+          "najzávažnejším",
+          "najzávažnejšieho",
+        ],
+        answer: 2,
+        area: "adjectives",
+      },
+      " environmentálnym rizikom pre zdravie v Európe. Ľudia, ktorí dlhodobo ",
+      { id: "b6", options: ["žijú", "prežijú"], answer: 0, area: "aspect" },
+      " pri rušných cestách, horšie spia a častejšie trpia vysokým ",
+      {
+        id: "b3",
+        options: ["tlak", "tlaku", "tlakom", "tlaky"],
+        answer: 2,
+        area: "nouns",
+      },
+      ". Organizmus totiž na hluk ",
+      {
+        id: "b4",
+        options: ["reaguje", "reagujú", "reagujem", "reagovať"],
+        answer: 0,
+        area: "conjugation",
+      },
+      " stresom aj vtedy, keď ",
+      { id: "b7", options: ["si ho", "ho si"], answer: 0, area: "wordOrder" },
+      " vedome nevšímame. Niektoré mestá preto chránia takzvané tiché zóny, parky a nádvoria, kam sa obyvatelia môžu utiahnuť, keď ",
+      {
+        id: "b5",
+        options: ["oni", "ich", "im", "nimi"],
+        answer: 2,
+        area: "pronouns",
+      },
+      " hluk prerastie cez hlavu.",
+    ],
+    missingSentence: {
+      options: [
+        "Hluk však zdraviu neškodí, ak si naň človek zvykne.",
+        "Tiché zóny sa preto v mestách postupne rušia.",
+        "Prvé výsledky sú sľubné: návštevníci týchto miest uvádzajú nižšiu mieru stresu.",
+        "Najhlučnejším mestom v Európe je podľa prieskumov Bratislava.",
+      ],
+      answer: 2,
+    },
+    closing:
+      "Odborníci však upozorňujú, že samotné zóny nestačia. Skutočná zmena si vyžaduje tichšie povrchy ciest, prísnejšie limity pre nočnú dopravu a územné plánovanie, ktoré s hlukom počíta od začiatku.",
+    highlights: [
+      {
+        question: "Čo je podľa WHO väčším rizikom pre zdravie ako hluk?",
+        english: "According to the WHO, what is a bigger health risk than noise?",
+        answer: "znečistenom ovzduší",
+      },
+      {
+        question: "Čo si podľa odborníkov vyžaduje skutočná zmena?",
+        english: "According to experts, what does real change require?",
+        answer:
+          "tichšie povrchy ciest, prísnejšie limity pre nočnú dopravu a územné plánovanie",
+      },
+    ],
+    mainIdea: {
+      options: [
+        "Hluk vážne škodí zdraviu a mestá s ním musia bojovať systematicky, nielen tichými zónami.",
+        "Tiché zóny úplne vyriešili problém hluku v mestách.",
+        "Ľudia v mestách spia lepšie ako na vidieku.",
+        "Svetová zdravotnícka organizácia odporúča sťahovať sa na vidiek.",
+      ],
+      answer: 0,
+    },
+    title: {
+      options: [
+        "Ako sa naučiť spať",
+        "Cena ticha",
+        "Najrušnejšie cesty Európy",
+        "Nové pravidlá pre cyklistov",
+      ],
+      answer: 1,
     },
   },
 ];
