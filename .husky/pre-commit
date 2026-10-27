@@ -4,8 +4,9 @@
 # files the commit does not touch. That is CI's job (`format:check`).
 bunx lint-staged
 
-# astro check is ~30s and CI does not run it, so it stays the one heavy step:
-# only a commit that stages typed code or the configs it reads pays for it.
+# astro check is ~30s, the one heavy step: only a commit that stages typed code
+# or the configs it reads pays for it. CI runs it too, but a push costs a
+# Vercel deploy, so catch it before the push.
 # sh -e: a no-match grep must stay inside `if` or the hook aborts.
 if git diff --cached --name-only --diff-filter=ACMRD | grep -Eq '^(src/|scripts/).+\.(astro|cjs|js|json|mjs|svelte|ts|tsx)$|^(astro\.config\.ts|eslint\.config\.js|package\.json|svelte\.config\.js|tsconfig\.json)$'; then
   bun run check

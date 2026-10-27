@@ -52,14 +52,15 @@
         class="fill-scene-wood"
       />
       {#if piece.desk}
+        <!-- At the table's height: lower, a pupil's resting hands hovered over it. -->
         <path
-          d="M17 {GROUND_Y}V{TABLE_Y + 4}M37 {GROUND_Y}V{TABLE_Y + 4}"
+          d="M17 {GROUND_Y}V{TABLE_Y}M37 {GROUND_Y}V{TABLE_Y}"
           class="stroke-scene-line/60"
           stroke-width="2.6"
         />
         <rect
           x="13"
-          y={TABLE_Y + 1}
+          y={TABLE_Y - 3}
           width="28"
           height="5"
           rx="1.5"
