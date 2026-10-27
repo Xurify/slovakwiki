@@ -97,3 +97,18 @@ From the review of the robot story (#77):
 - **No filler where people use one.** `Výborne. Kde sú moje kľúče?` jumps topic. A real speaker bridges: `No nič…`, `Tak…`, `Dobre, a…`.
 - **An abrupt end.** A good last joke cut short. The last beat gets a set-up, a pause and a reaction.
 - **Kept: the camera.** The stage growing as the scene grew was liked. Open close and widen as people and things come in.
+
+From the frame-by-frame review of episode 5's acted kitchen and studio (rules under **Acting from cues** in `AGENTS.md`):
+
+- **A hand that only nearly does it.** The tasted spoon stopped at the cheek; the pot hung from one hand at the hip like a bag. A spoon goes into the mouth, and each thing is held as its kind is held.
+- **Footsteps louder than the room.** Steps clacked on every floor. They sound like the floor (kitchen tiles pat, carpet thuds) and stay soft indoors.
+- **Furniture that fights the people.** People stood in front of a chair's back as if gripping it, at someone's elbow, or walked through each other to the sink; a watering can hid half behind the desk and the plant's leaves ran off a phone's stage. Spots go in the gaps, the nearer person leads the way, and every prop stays in view on a phone.
+
+From the second frame-by-frame review of the same episode:
+
+- **Close enough is a miss.** Salt shaken beside the pot, water poured past its rim, a spoon above the soup and not in it. The checks now fail each one (`contact/miss`); look at the frame where the thing meets the thing.
+- **A body like a block.** Marek salted the pot standing stiff, and two people sat down in step like a drill. Lean into a reach, flick the wrist, and never start two people's moves on the same beat.
+- **Standing in the furniture.** Anna stood between a chair and the table. A standing spot is clear of the table and its chairs.
+- **A hand that cannot be seen.** The goodbye wave at the desk was hidden behind the mic. A seated wave uses the hand away from it.
+- **Something on a head that looks wrong.** The headphones' band sat on the side of the head like a bow. It goes over the crown, the far half behind the head.
+- **A clock that does not move.** An hour passed in the dark and the hands crawled a minute. They run round while the lights are down, and the camera shows the whole clock.

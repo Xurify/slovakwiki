@@ -73,6 +73,7 @@
       d="M-4 -9h8v4.5a3.5 3 0 0 1-3.5 3h-1a3.5 3 0 0 1-3.5-3Z"
       class="fill-portrait-bib"
     />
+    <ellipse cx="0" cy="-8.6" rx="3.6" ry="0.9" class="fill-scene-coffee" stroke="none" />
     <path d="M-1 -11.6q1-1.2 0-2.4M1.8 -11.6q1-1.2 0-2.4" class="stroke-scene-edge" />
   {:else if prop === "keys"}
     <circle cx="0" cy="-3.6" r="2.2" />

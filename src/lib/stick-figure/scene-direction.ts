@@ -2,6 +2,7 @@ import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
 import type { StickGestureId } from "./gestures";
 import { planLine, type LinePlan } from "./line-plan";
 import { readLines, type StageLine } from "./line-reading";
+import { cueActor, isActed } from "./acts";
 import { decodeMouthTrack, decodeVowelTrack } from "./mouth-track";
 import {
   gesturesWithProps,
@@ -81,7 +82,7 @@ export function castFor(
 /**
  * Who is on the phone during each line: from the line that answers a ringing
  * call to the last line said over it, the one who answered holds it to their
- * ear, through their goodbye. Anyone else on stage speaking ends it.
+ * ear, through their goodbye, whoever else in the room joins in.
  */
 function callers(
   lines: readonly DirectedLine[],
@@ -92,17 +93,43 @@ function callers(
     const answers = line.characterId;
     if (line.ring !== "call" || !answers || !cast.includes(answers)) return;
 
+    // Someone else in the room may say something into the call ("Nech príde."); it lasts to the far end's last line.
     let end = start;
     for (let index = start + 1; index < lines.length; index += 1) {
       const next = lines[index];
+      if (next.ring) break;
       if (next.overPhone) end = index;
-      else if (next.characterId !== answers) break;
     }
     // The goodbye after the far end's last line is said into the phone too.
     while (lines[end + 1]?.characterId === answers && !lines[end + 1].overPhone) end += 1;
     for (let index = start; index <= end; index += 1) on[index] = answers;
   });
   return on;
+}
+
+/** What a line's staging keeps in a scene acted from cues: who it is said to, and their reactions. The cues do the rest. */
+/**
+ * Which acted lines their speaker says into a phone: any line from the one
+ * with their `call` cue to the one with their `hangup`.
+ */
+function intoPhone(lines: readonly StageLine[]): boolean[] {
+  const calling = new Set<LessonCharacterId>();
+  return lines.map(({ act, characterId }) => {
+    let phoned = characterId ? calling.has(characterId) : false;
+    for (const cue of act ?? []) {
+      const who = cueActor(cue, characterId ?? null);
+      if (!who || (cue.do !== "call" && cue.do !== "hangup")) continue;
+      if (cue.do === "call") calling.add(who);
+      else calling.delete(who);
+      if (who === characterId) phoned = true;
+    }
+    return phoned;
+  });
+}
+
+function actedStaging(staging: LineStaging): LineStaging {
+  const { addressee, audience, facing, reactions } = staging;
+  return { addressee, audience, facing, reactions };
 }
 
 export function directScene(
@@ -112,9 +139,14 @@ export function directScene(
 ): SceneDirection {
   const cast = castFor(lines, setting, order);
   const { atMarks, things } = PLACES[setting];
-  const read = readLines(lines, cast, things);
-  const calls = callers(lines, cast);
+  const pointable = things.filter((thing) => !thing.quiet);
+  const read = readLines(lines, cast, pointable);
+  // Acted from cues, the cues alone move people and props: nothing comes out because a word was said.
+  const acted = isActed(lines);
+  const calls = acted ? [] : callers(lines, cast);
+  const phoned = acted ? intoPhone(lines) : [];
   const held = heldProps(read).map((props, index) => {
+    if (acted) return {};
     const caller = calls[index];
     return caller ? { ...props, [caller]: "phone" as const } : props;
   });
@@ -124,36 +156,43 @@ export function directScene(
   const directed = read.map((line, index): LineDirection => {
     const { characterId, gives, props, shownBy, slovak, takes } = line;
     const prop = shownBy ? held[index][shownBy] : undefined;
-    const points = characterId
-      ? linePoints(
-          slovak,
-          things,
-          shownBy && prop ? { holder: shownBy, prop } : undefined,
-          named,
-        )
-      : [];
+    const points =
+      characterId && !acted
+        ? linePoints(
+            slovak,
+            pointable,
+            shownBy && prop ? { holder: shownBy, prop } : undefined,
+            named,
+          )
+        : [];
     for (const { target } of points) {
       if (target.kind === "thing") named.push({ copy: target.copy, id: target.id });
     }
 
-    const staging = stageLine(read, index, cast, things, points);
+    const fromWords = stageLine(read, index, cast, pointable, points);
+    const staging = acted ? actedStaging(fromWords) : fromWords;
     const { gestures, mouth, said, vowels } = lines[index];
     return {
       handed:
-        characterId && gives ? handOver(held[index], characterId, gives) : undefined,
+        characterId && gives && !acted
+          ? handOver(held[index], characterId, gives)
+          : undefined,
       held: held[index],
       plan: planLine(slovak, {
         // Reaching for what is handed over comes before anything the words pick.
-        gestures: gesturesWithProps(
-          props,
-          takes ? ["show", ...(gestures ?? []).slice(1)] : gestures,
-        ),
+        gestures: acted
+          ? gestures
+          : gesturesWithProps(
+              props,
+              takes ? ["show", ...(gestures ?? []).slice(1)] : gestures,
+            ),
         lips: vowels ? decodeVowelTrack(vowels) : undefined,
+        phone: phoned[index],
         points,
         said,
         track: mouth ? decodeMouthTrack(mouth) : undefined,
       }),
-      props,
+      props: acted ? [] : props,
       staging: atMarks ? { ...staging, approach: undefined, goTo: undefined } : staging,
       ...(calls[index] ? { call: calls[index] } : {}),
     };

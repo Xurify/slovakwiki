@@ -136,6 +136,7 @@ const SAID_TIMES: Array<[string, TimeOfDay]> = [
   ["je skoro rano", "morning"],
   ["je este skoro rano", "morning"],
   ["je este strasne skoro", "morning"],
+  ["je strasne skoro", "morning"],
   ["je vecer", "evening"],
   ["je uz vecer", "evening"],
   ["je noc", "night"],

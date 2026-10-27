@@ -34,6 +34,7 @@ Every iteration in the first four episodes came from something nobody had decide
 - [ ] No prop appears from nowhere: it is fetched, handed over or already in view, and stays until someone moves it.
 - [ ] The camera opens close and widens as people and things come in.
 - [ ] How each change of place is said: the last line before (`Poďme na trh!`) and the first after (`Teraz sme na trhu.`), or a scene card (`Trh. Pol piatej.`).
+- [ ] An acted segment (`act` cues) is watched frame by frame at desktop and 390px: hands really do the thing, nobody stands at someone's elbow or in front of a chair's back, no prop is half hidden or cut off. See **Acting from cues** in `AGENTS.md`.
 
 - [ ] A world sheet (each place, what is drawn there, who is there and why, every object and where it starts) and a beat sheet (per segment, what a viewer sees happen, in order, and how it ends) before any dialogue.
 - [ ] The critic loop in **5** on the beat sheet, the script and the staged frames, before the person sees any of them.
@@ -123,7 +124,7 @@ What went wrong, why, and where the fix lives now. The left column is what to lo
 
 **Process**
 
-- Vercel's free plan builds 100 previews a day. A stack of six PRs, each rebased and pushed several times, ran out on 2026-10-22. Ship an episode as one PR and push in batches.
+- Vercel's free plan allows 100 deployments a day for the whole account. It ran out on 2026-10-22 (six stacked PRs, each rebased and pushed several times) and on 2026-10-26 (95 pushes to open PRs and master in a day, 14 on one PR). Ship an episode as one PR, list its branch in `vercel.json` → `git.deploymentEnabled` only when it is ready for review, push once per round of changes, and keep helper branches local. See AGENTS.md → Pull requests.
 - `static/audio/` is gitignored and survives branch switches. Generate and upload from the episode's branch only.
 - `prune-orphans.ts --delete` clears a branch's discarded takes. Before #79 it also dropped manifest entries for other branches' uploaded clips: check the manifest diff removes only your own hashes.
 - A cloud session linked to someone's computer has a narrower network and cannot reach R2, whatever the environment allows. Upload from a session that is not linked.

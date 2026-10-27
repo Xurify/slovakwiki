@@ -1,7 +1,6 @@
 <script lang="ts">
   import { PARTS } from "$lib/stick-figure/backdrop-parts";
   import FloorShade from "./FloorShade.svelte";
-  import Plant from "./Plant.svelte";
   import WallClock from "./WallClock.svelte";
 
   let { hour }: { hour: number } = $props();
@@ -84,4 +83,4 @@
 <path d="M746 120v-10h14v10Z" fill="#e0b39f" />
 <ellipse cx="749" cy="104" rx="5" ry="9" fill="#84ab92" transform="rotate(-20 749 104)" />
 <ellipse cx="757" cy="105" rx="4" ry="8" fill="#bed3c4" transform="rotate(25 757 105)" />
-<Plant plant={PARTS.studio.plant} />
+<!-- The hosts' plant is the set's, drawn at the cast's scale so it can be watered (StickSet.svelte). -->

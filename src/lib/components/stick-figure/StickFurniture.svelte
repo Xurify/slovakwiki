@@ -7,7 +7,14 @@
    * on the seat at any stage size. A chair's back stands behind whoever sits
    * on it: on the left when they face right.
    */
-  let { piece }: { piece: Furniture } = $props();
+  let {
+    id,
+    piece,
+  }: {
+    /** What the backdrop measures to box the thing where it is drawn. */
+    id?: string;
+    piece: Furniture;
+  } = $props();
 
   /** Table top: about a seated figure's elbow. */
   const TABLE_Y = GROUND_Y - 34;
@@ -21,7 +28,7 @@
   aria-hidden="true"
 >
   {#if piece.kind === "chair"}
-    <g transform="scale({piece.facing ?? 1} 1)">
+    <g transform="scale({piece.facing ?? 1} 1)" data-set-id={id}>
       <ellipse cx="0" cy={GROUND_Y + 0.5} rx="13" ry="2" class="fill-portrait-ink/15" />
       <path
         d="M-11 {GROUND_Y}V{SEAT_Y}M9 {GROUND_Y}V{SEAT_Y}M-11 {SEAT_Y}V{SEAT_Y - 26}"

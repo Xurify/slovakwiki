@@ -77,6 +77,7 @@ describe("toldHour", () => {
     expect(sceneMood(["Anna, je ešte skoro ráno."]).time).toBe("morning");
     expect(sceneMood(["Je ráno a sme späť v štúdiu."]).time).toBe("morning");
     expect(sceneMood(["Prepáčte, je ešte strašne skoro."]).time).toBe("morning");
+    expect(sceneMood(["Prepáčte, ešte spím. Je strašne skoro."]).time).toBe("morning");
     expect(sceneMood(["Zajtra ráno poďme skoro."]).time).toBe("day");
   });
 

@@ -355,4 +355,18 @@ describe("a phone call", () => {
 
     expect(calls).toEqual([undefined, "marek", "marek", "marek", undefined]);
   });
+
+  it("keeps the call on while someone in the room says something into it", () => {
+    const joined: DirectedLine[] = [
+      { characterId: "marek", slovak: "Ahoj, Lucia!", ring: "call" },
+      { characterId: "lucia", slovak: "Prídem neskôr.", overPhone: true },
+      { characterId: "maria", slovak: "Nech príde. Polievky je dosť." },
+      { characterId: "lucia", slovak: "Dobre. Ahoj!", overPhone: true },
+      { characterId: "marek", slovak: "Ahoj! Príde o pol hodiny." },
+      { characterId: "anna", slovak: "Výborne." },
+    ];
+    const calls = directScene(joined, "kitchen").lines.map((line) => line.call);
+
+    expect(calls).toEqual(["marek", "marek", "marek", "marek", "marek", undefined]);
+  });
 });

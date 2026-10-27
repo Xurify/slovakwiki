@@ -3297,6 +3297,10 @@ exports[`every scene, directed > podcast podcast-demonstratives-bag 1`] = `
     "stol",
     "mikrofon",
     "rastlina",
+    "krhla",
+    "obraz",
+    "knihy",
+    "polica",
     "koberec",
   ],
 }
@@ -3808,6 +3812,10 @@ exports[`every scene, directed > podcast podcast-demonstratives-intro 1`] = `
     "stol",
     "mikrofon",
     "rastlina",
+    "krhla",
+    "obraz",
+    "knihy",
+    "polica",
     "koberec",
   ],
 }
@@ -4293,6 +4301,10 @@ exports[`every scene, directed > podcast podcast-demonstratives-outro 1`] = `
     "stol",
     "mikrofon",
     "rastlina",
+    "krhla",
+    "obraz",
+    "knihy",
+    "polica",
     "koberec",
   ],
 }
@@ -5695,6 +5707,10 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
     "stol",
     "mikrofon",
     "rastlina",
+    "krhla",
+    "obraz",
+    "knihy",
+    "polica",
     "koberec",
   ],
 }
@@ -7860,6 +7876,3044 @@ exports[`every scene, directed > podcast podcast-future-tense-window 1`] = `
 }
 `;
 
+exports[`every scene, directed > podcast podcast-imperative-game 1`] = `
+{
+  "cast": [
+    "anna",
+    "marek",
+  ],
+  "lines": [
+    {
+      "line": "anna: Je ráno a sme späť v štúdiu.",
+      "plan": {
+        "beats": [
+          "0 tell",
+        ],
+        "ms": 2350,
+        "sentences": "0-2200",
+        "words": "0-225 225-725 725-913 913-1175 1175-1475 1475-1475 1475-2200",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Včera sme u Márie počuli veľa rozkazov. A Lucia vravela, že o pol hodiny… a prišla až o hodinu a pol!",
+      "plan": {
+        "beats": [
+          "100 tell",
+          "3750 muse",
+          "6300 stress",
+        ],
+        "ms": 8250,
+        "sentences": "100-2779 3750-5984 6300-8050",
+        "words": "100-473 473-674 674-818 818-1344 1344-1860 1860-2205 2205-2779 3750-3896 3896-4284 4284-4838 4935-5110 5110-5255 5255-5459 5459-5984 6300-6446 6446-6854 6854-7029 7029-7175 7175-7700 7700-7846 7846-8050",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Ako vždy. No nič, zahráme sa. Ja poviem sloveso v tvare oni, ty z neho urobíš rozkaz.",
+      "plan": {
+        "beats": [
+          "50 chuckle",
+          "2200 tell",
+          "5050 self",
+          "7650 tell",
+        ],
+        "ms": 9000,
+        "sentences": "50-716 2200-3438 5050-8800",
+        "words": "50-436 436-716 2200-2374 2374-2577 2674-3264 3264-3438 5050-5241 5241-5696 5696-6300 6300-6300 6300-6713 6713-7063 7169-7359 7359-7359 7359-7741 7741-8355 8355-8800",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Dobre. Hrajte s nami!",
+      "plan": {
+        "beats": [
+          "0 nod",
+          "750 stress",
+        ],
+        "ms": 1700,
+        "sentences": "0-382 750-1500",
+        "words": "0-382 750-1154 1154-1154 1154-1500",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Napríklad: robia… rob. Prvé sloveso: čítajú.",
+      "plan": {
+        "beats": [
+          "0 muse",
+          "1729 tell",
+          "3153 tell",
+        ],
+        "ms": 6400,
+        "sentences": "0-1322 1729-1967 3153-6250",
+        "words": "0-757 870-1322 1729-1967 3153-3622 3622-4291 5523-6250",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Čítajú… čítaj!",
+      "plan": {
+        "beats": [
+          "0 muse",
+          "1300 stress",
+        ],
+        "ms": 2200,
+        "sentences": "0-576 1300-1950",
+        "words": "0-576 1300-1950",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Správne! Čítaj, čítajte, čítajme. Druhé: spia.",
+      "plan": {
+        "beats": [
+          "50 nod",
+          "1150 tell",
+          "4850 tell",
+        ],
+        "ms": 6500,
+        "sentences": "50-726 1150-3775 4850-6300",
+        "words": "50-726 1150-1760 1902-2768 2910-3775 4850-5649 5835-6300",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Spia… je to spaj?",
+      "plan": {
+        "beats": [
+          "0 muse",
+          "1800 ask",
+        ],
+        "ms": 3050,
+        "questions": "1800-2850",
+        "sentences": "0-375 1800-2850",
+        "words": "0-375 1800-2115 2115-2430 2430-2850",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Nie, to nie je spaj. Končí sa na i.",
+      "plan": {
+        "beats": [
+          "0 shake",
+          "2750 tell",
+        ],
+        "ms": 4100,
+        "sentences": "0-1420 2750-3900",
+        "words": "0-274 399-623 623-897 897-1121 1121-1420 2750-3276 3276-3496 3496-3716 3716-3900",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "marek",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Na i… spi!",
+      "plan": {
+        "beats": [
+          "0 muse",
+          "1650 stress",
+        ],
+        "ms": 2600,
+        "sentences": "0-457 1650-2200",
+        "words": "0-249 249-457 1650-2200",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Výborne! Spi, spite, spime. Tretie: idú.",
+      "plan": {
+        "beats": [
+          "0 cheer",
+          "1000 tell",
+          "4300 tell",
+        ],
+        "ms": 6000,
+        "sentences": "0-868 1000-3074 4300-5850",
+        "words": "0-868 1000-1366 1540-2220 2395-3074 4300-5041 5213-5850",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Idú… idi?",
+      "plan": {
+        "beats": [
+          "50 muse",
+          "1750 ask",
+        ],
+        "ms": 2350,
+        "questions": "1750-2150",
+        "sentences": "50-494 1750-2150",
+        "words": "50-494 1750-2150",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Nie! Ísť má vlastný tvar: choď.",
+      "plan": {
+        "beats": [
+          "0 shake",
+          "1450 tell",
+        ],
+        "ms": 3950,
+        "sentences": "0-297 1450-3750",
+        "words": "0-297 1450-1831 1831-2166 2166-2912 2912-3278 3430-3750",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "marek",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Aha… choď, choďte, choďme.",
+      "plan": {
+        "beats": [
+          "0 muse",
+          "2400 tell",
+        ],
+        "ms": 4100,
+        "sentences": "0-501 2400-3900",
+        "words": "0-501 2400-2665 2791-3282 3408-3900",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Presne tak! A posledné: platia.",
+      "plan": {
+        "beats": [
+          "50 nod",
+          "1900 tell",
+        ],
+        "ms": 3850,
+        "sentences": "50-816 1900-3700",
+        "words": "50-561 561-816 1900-2105 2105-2977 3114-3700",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Platia… plať!",
+      "plan": {
+        "beats": [
+          "100 muse",
+          "1750 stress",
+        ],
+        "ms": 2500,
+        "sentences": "100-638 1750-2250",
+        "words": "100-638 1750-2250",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Super! Pozor, na konci je mäkké ť: plať. Marek, dnes ti to ide!",
+      "plan": {
+        "beats": [
+          "0 cheer",
+          "1700 tell",
+          "5750 stress",
+        ],
+        "ms": 7700,
+        "sentences": "0-494 1700-4371 5750-7500",
+        "words": "0-494 1700-2218 2351-2590 2590-3108 3108-3348 3348-3919 3919-3919 4052-4371 5750-6231 6354-6650 6650-6871 6871-7093 7093-7500",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Lebo som sa vyspal!",
+      "plan": {
+        "beats": [
+          "0 stress",
+        ],
+        "ms": 1700,
+        "sentences": "0-1350",
+        "words": "0-415 415-658 658-865 865-1350",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+  ],
+  "setting": "studio",
+  "things": [
+    "dvere",
+    "hodiny",
+    "stol",
+    "mikrofon",
+    "rastlina",
+    "krhla",
+    "obraz",
+    "knihy",
+    "polica",
+    "koberec",
+  ],
+}
+`;
+
+exports[`every scene, directed > podcast podcast-imperative-help 1`] = `
+{
+  "cast": [
+    "anna",
+    "marek",
+  ],
+  "lines": [
+    {
+      "line": "anna: To je vidieť. Keď ti to dnes tak ide, skúsme ešte niečo. Ale tentokrát ti nepoviem tvar oni.",
+      "plan": {
+        "beats": [
+          "0 chuckle",
+          "2091 tell",
+          "6500 tell",
+        ],
+        "ms": 9200,
+        "sentences": "0-898 2091-5125 6500-9000",
+        "words": "0-205 205-409 409-898 2091-2330 2330-2534 2534-2739 2739-3011 3011-3250 3250-3625 3739-4261 4261-4670 4670-5125 6500-6850 6850-7559 7559-7750 7750-8396 8396-8650 8650-9000",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Bez tvaru oni? Ojoj.",
+      "plan": {
+        "beats": [
+          "50 ask",
+          "2419 tell",
+        ],
+        "ms": 3000,
+        "questions": "50-1163",
+        "sentences": "50-1163 2419-2850",
+        "words": "50-301 301-768 768-1163 2419-2850",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Milí poslucháči, pomôžte mi!",
+      "plan": {
+        "beats": [
+          "50 stress",
+        ],
+        "ms": 2350,
+        "sentences": "50-2150",
+        "words": "50-454 454-1251 1352-1968 1968-2150",
+      },
+      "staging": {
+        "addressee": "anna",
+        "audience": true,
+        "facing": {
+          "anna": 1,
+        },
+      },
+    },
+    {
+      "line": "anna: Takže predsa len potrebuješ pomoc. No dobre: poslucháči vyberú a ty to povieš.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "3350 tell",
+        ],
+        "ms": 6900,
+        "sentences": "50-2391 3350-6700",
+        "words": "50-467 467-916 916-1141 1141-1974 1974-2391 3350-3552 3552-3991 4103-4991 4991-5643 5643-5812 5812-6014 6014-6217 6217-6700",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Prvé: hodiť. Čo mi včera povedala Mária, keď sme robili polievku? Hod mrkvu do hrnca, alebo hoď mrkvu do hrnca?",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "2165 ask",
+          "4765 tell",
+          "7333 ask",
+        ],
+        "ms": 10750,
+        "questions": "2165-6189 7333-10550",
+        "sentences": "50-1020 2165-6189 7333-10550",
+        "words": "50-486 595-1020 2165-2362 2362-2558 2558-2983 2983-3768 3768-4368 4477-4706 4706-4935 4935-5524 5524-6189 7333-7562 7562-7988 7988-8184 8184-8609 8718-9274 9274-9503 9503-9929 9929-10125 10125-10550",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 2,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Mrkvu si pamätám, ale slovo nie. Čo poviete, pomocníci?",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "4000 ask",
+        ],
+        "ms": 5600,
+        "questions": "4000-5450",
+        "sentences": "0-2459 4000-5450",
+        "words": "0-432 432-631 631-1307 1418-1783 1783-2215 2215-2459 4000-4158 4158-4668 4756-5450",
+      },
+      "staging": {
+        "addressee": "anna",
+        "audience": true,
+        "facing": {
+          "anna": 1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Hoď, hovoríte? Áno: Anna, hoď mrkvu do hrnca!",
+      "plan": {
+        "beats": [
+          "0 ask",
+          "2350 nod",
+        ],
+        "ms": 5200,
+        "questions": "0-1255",
+        "sentences": "0-1255 2350-4950",
+        "words": "0-246 364-1255 2350-2808 2932-3378 3501-3761 3761-4244 4244-4467 4467-4950",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Hod, hovoríte? Áno: Anna, hod mrkvu do hrnca!",
+      "plan": {
+        "beats": [
+          "0 ask",
+          "2350 nod",
+        ],
+        "ms": 5150,
+        "questions": "0-1242",
+        "sentences": "0-1242 2350-4900",
+        "words": "0-244 360-1242 2350-2799 2921-3358 3479-3734 3734-4208 4208-4426 4426-4900",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Tak si vyberiem sám: Anna, hoď mrkvu do hrnca!",
+      "plan": {
+        "beats": [
+          "50 stress",
+          "2650 tell",
+        ],
+        "ms": 4250,
+        "sentences": "50-4050",
+        "words": "50-264 264-447 447-1068 1068-1322 2391-2757 2859-3073 3073-3470 3470-3653 3653-4050",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Správne! Hodia, takže hoď.",
+      "plan": {
+        "beats": [
+          "50 nod",
+          "1800 tell",
+        ],
+        "ms": 3850,
+        "sentences": "50-718 1800-3650",
+        "words": "50-718 1800-2473 2641-3297 3297-3650",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Ale mrkvu si nakrájala ty.",
+      "plan": {
+        "beats": [
+          "0 tell",
+        ],
+        "ms": 2100,
+        "sentences": "0-1900",
+        "words": "0-335 335-732 732-914 914-1717 1717-1900",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Hej. Tie veľké kúsky.",
+      "plan": {
+        "beats": [
+          "100 chuckle",
+          "2400 tell",
+        ],
+        "ms": 4100,
+        "sentences": "100-428 2400-3750",
+        "words": "100-428 2400-2675 2675-3213 3213-3750",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Nesprávne! Nie hod, ale hoď. Hodia, takže hoď.",
+      "plan": {
+        "beats": [
+          "0 shake",
+          "1850 shake",
+          "4750 tell",
+        ],
+        "ms": 6600,
+        "sentences": "0-868 1850-3615 4750-6400",
+        "words": "0-868 1850-2213 2213-2559 2724-3268 3268-3615 4750-5350 5500-6085 6085-6400",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Hod mrkvou… To je nejaký nový šport?",
+      "plan": {
+        "beats": [
+          "50 chuckle",
+          "2098 ask",
+        ],
+        "ms": 4250,
+        "questions": "2098-4050",
+        "sentences": "50-826 2098-4050",
+        "words": "50-305 305-826 2098-2317 2317-2535 2535-3238 3238-3723 3723-4050",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Nie, Marek. Hoď mrkvu do hrnca.",
+      "plan": {
+        "beats": [
+          "0 shake",
+          "2100 tell",
+        ],
+        "ms": 3600,
+        "sentences": "0-812 2100-3350",
+        "words": "0-252 366-812 2100-2324 2324-2741 2741-2933 2933-3350",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "marek",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Dobre, ideme ďalej. Druhé: sadnúť si. Čo nám povedala Mária pri stole? Sadni si, alebo sadnite si?",
+      "plan": {
+        "beats": [
+          "0 nod",
+          "2450 tell",
+          "5150 ask",
+          "6604 point → stol",
+          "8220 ask",
+        ],
+        "ms": 10400,
+        "questions": "5150-7142 8220-10200",
+        "sentences": "0-1426 2450-3704 5150-7142 8220-10200",
+        "words": "0-400 503-1026 1026-1426 2450-2911 3018-3511 3511-3704 5150-5306 5306-5522 5522-6146 6146-6622 6622-6804 6804-7142 8220-8620 8620-8804 8907-9430 9430-10015 10015-10200",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 3,
+          },
+        ],
+        "sit": [
+          "marek",
+        ],
+      },
+    },
+    {
+      "line": "marek: Ja som vtedy myslel len na polievku. Pomôžete mi?",
+      "plan": {
+        "beats": [
+          "50 self",
+          "3500 ask",
+        ],
+        "ms": 4500,
+        "questions": "3500-4250",
+        "sentences": "50-2255 3500-4250",
+        "words": "50-230 230-441 441-832 832-1253 1253-1463 1463-1644 1644-2255 3500-4106 4106-4250",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Sadnite si, vravíte? Dobre: milí poslucháči, sadnite si!",
+      "plan": {
+        "beats": [
+          "0 ask",
+          "2600 nod",
+        ],
+        "ms": 5400,
+        "questions": "0-1506",
+        "sentences": "0-1506 2600-5200",
+        "words": "0-588 588-774 877-1506 2600-3001 3104-3515 3515-4326 4429-5015 5015-5200",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+        "sit": [
+          "anna",
+        ],
+      },
+    },
+    {
+      "line": "marek: Sadni si, vravíte? Dobre: milí poslucháči, sadni si!",
+      "plan": {
+        "beats": [
+          "50 ask",
+          "2650 nod",
+        ],
+        "ms": 5450,
+        "questions": "50-1472",
+        "sentences": "50-1472 2650-5250",
+        "words": "50-483 483-683 794-1472 2650-3081 3192-3635 3635-4509 4619-5051 5051-5250",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+        "sit": [
+          "anna",
+        ],
+      },
+    },
+    {
+      "line": "marek: Tak si tipnem: milí poslucháči, sadnite si!",
+      "plan": {
+        "beats": [
+          "50 stress",
+          "2650 tell",
+        ],
+        "ms": 4100,
+        "sentences": "50-3950",
+        "words": "50-260 260-440 440-860 1910-2310 2310-3100 3200-3770 3770-3950",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "sit": [
+          "anna",
+        ],
+      },
+    },
+    {
+      "line": "anna: Správne! Mária to povedala nám všetkým, takže sadnite si.",
+      "plan": {
+        "beats": [
+          "50 nod",
+          "1785 tell",
+          "4385 muse",
+        ],
+        "ms": 5850,
+        "sentences": "50-602 1785-5650",
+        "words": "50-602 1785-2405 2405-2608 2608-3419 3419-3701 3701-4253 4365-4805 4805-5447 5447-5650",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "sit": [
+          "marek",
+        ],
+      },
+    },
+    {
+      "line": "marek: A kto už sedí, nech sedí.",
+      "plan": {
+        "beats": [
+          "0 chuckle",
+        ],
+        "ms": 3150,
+        "sentences": "0-2900",
+        "words": "0-264 264-633 633-949 949-1652 1828-2197 2197-2900",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Nesprávne! Sadni si je pre jedného. Mária to povedala nám všetkým: sadnite si.",
+      "plan": {
+        "beats": [
+          "50 shake",
+          "1850 tell",
+          "3950 tell",
+        ],
+        "ms": 7450,
+        "sentences": "50-704 1850-3260 3950-7250",
+        "words": "50-704 1850-2200 2200-2362 2362-2523 2523-2712 2712-3260 3950-4547 4547-4742 4742-5524 5524-5795 5795-6327 6436-7055 7055-7250",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "sit": [
+          "marek",
+        ],
+      },
+    },
+    {
+      "line": "marek: Hm. Tak si sadol len jeden poslucháč.",
+      "plan": {
+        "beats": [
+          "100 think",
+          "1600 tell",
+        ],
+        "ms": 3950,
+        "sentences": "100-299 1600-3700",
+        "words": "100-299 1600-1818 1818-2005 2005-2411 2411-2629 2629-3035 3035-3700",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: A ostatní stoja.",
+      "plan": {
+        "beats": [
+          "50 chuckle",
+        ],
+        "ms": 2350,
+        "sentences": "50-2150",
+        "words": "50-324 324-1438 1438-2150",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: A posledné: čakať. Pamätáš si, čo nám včera povedala Lucia po telefóne?",
+      "plan": {
+        "beats": [
+          "100 tell",
+          "2564 ask",
+          "5164 tell",
+        ],
+        "ms": 6750,
+        "questions": "2564-6550",
+        "sentences": "100-1453 2564-6550",
+        "words": "100-259 259-935 1041-1453 2564-3209 3209-3399 3505-3695 3695-3959 3959-4372 4372-5133 5133-5556 5556-5746 5746-6550",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Že mešká.",
+      "plan": {
+        "beats": [
+          "0 tell",
+        ],
+        "ms": 1000,
+        "sentences": "0-850",
+        "words": "0-251 251-850",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: To áno. A potom? Nečakajte na mňa, alebo čakajte na mňa?",
+      "plan": {
+        "beats": [
+          "0 chuckle",
+          "2300 ask",
+          "4050 ask",
+        ],
+        "ms": 7400,
+        "questions": "2300-2557 4050-7050",
+        "sentences": "0-657 2300-2557 4050-7050",
+        "words": "0-215 215-657 2300-2371 2371-2557 4050-4880 4880-5080 5080-5312 5423-5987 5987-6618 6618-6818 6818-7050",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 2,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Poslucháči, vy ste to počuli. Ktoré to bolo?",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "3050 ask",
+        ],
+        "ms": 4000,
+        "questions": "3050-3850",
+        "sentences": "50-1941 3050-3850",
+        "words": "50-797 891-1061 1061-1260 1260-1430 1430-1941 3050-3405 3405-3553 3553-3850",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Nečakajte? Jasné: nečakajte na mňa, pokojne jedzte!",
+      "plan": {
+        "beats": [
+          "50 ask",
+          "1950 nod",
+        ],
+        "ms": 5050,
+        "questions": "50-845",
+        "sentences": "50-845 1950-4850",
+        "words": "50-845 1950-2407 2513-3310 3310-3501 3501-3724 3830-4436 4436-4850",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Čakajte? Jasné: čakajte na mňa, pokojne jedzte!",
+      "plan": {
+        "beats": [
+          "50 ask",
+          "1650 nod",
+        ],
+        "ms": 4400,
+        "questions": "50-624",
+        "sentences": "50-624 1650-4250",
+        "words": "50-624 1650-2088 2190-2772 2772-2955 2955-3169 3271-3852 3852-4250",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Tak si spomeniem sám: nečakajte na mňa, pokojne jedzte!",
+      "plan": {
+        "beats": [
+          "50 stress",
+          "2650 tell",
+        ],
+        "ms": 4500,
+        "sentences": "50-4300",
+        "words": "50-247 247-416 416-1016 1016-1251 2236-2940 2940-3108 3108-3306 3399-3934 3934-4300",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Správne! Nechcela, aby sme na ňu čakali.",
+      "plan": {
+        "beats": [
+          "100 nod",
+          "2100 tell",
+        ],
+        "ms": 4250,
+        "sentences": "100-630 2100-4050",
+        "words": "100-630 2100-2627 2719-3024 3024-3218 3218-3385 3385-3551 3551-4050",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Mňam. Už som zase hladný.",
+      "plan": {
+        "beats": [
+          "150 tell",
+          "1600 tell",
+        ],
+        "ms": 3550,
+        "sentences": "150-462 1600-3400",
+        "words": "150-462 1600-1868 1868-2180 2180-2716 2716-3400",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Nesprávne! Čakať na ňu a pokojne jesť? To naraz nejde.",
+      "plan": {
+        "beats": [
+          "50 shake",
+          "1900 ask",
+          "4650 tell",
+        ],
+        "ms": 5950,
+        "questions": "1900-3612",
+        "sentences": "50-746 1900-3612 4650-5700",
+        "words": "50-746 1900-2291 2291-2471 2471-2651 2651-2801 2801-3372 3372-3612 4650-4847 4847-5273 5273-5700",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Prečo nie? Ja viem čakať aj jesť naraz.",
+      "plan": {
+        "beats": [
+          "50 ask",
+          "2050 self",
+        ],
+        "ms": 4400,
+        "questions": "50-829",
+        "sentences": "50-829 2050-4250",
+        "words": "50-548 548-829 2050-2293 2293-2630 2630-3157 3157-3400 3400-3724 3724-4250",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: To ti verím. Ale Lucia povedala: nečakajte na mňa.",
+      "plan": {
+        "beats": [
+          "50 chuckle",
+          "2264 tell",
+        ],
+        "ms": 5700,
+        "sentences": "50-1000 2264-5500",
+        "words": "50-267 267-483 483-1000 2264-2661 2661-3142 3142-4008 4128-5031 5031-5247 5247-5500",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Tri z troch! Marek, s pomocníkmi ti to ide ešte lepšie.",
+      "plan": {
+        "beats": [
+          "100 stress",
+          "1550 tell",
+        ],
+        "ms": 4900,
+        "sentences": "100-572 1550-4600",
+        "words": "100-320 320-320 320-572 1550-1976 1976-1976 2086-2982 2982-3179 3179-3376 3376-3736 3736-4130 4130-4600",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Tak sa odteraz budem pýtať už len ich.",
+      "plan": {
+        "beats": [
+          "50 tell",
+        ],
+        "ms": 2600,
+        "sentences": "50-2400",
+        "words": "50-260 260-440 440-1010 1010-1400 1400-1830 1830-2010 2010-2220 2220-2400",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Tak to ja môžem ísť domov.",
+      "plan": {
+        "beats": [
+          "50 tell",
+        ],
+        "ms": 2200,
+        "sentences": "50-1950",
+        "words": "50-293 293-502 502-710 710-1209 1209-1498 1498-1950",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Nie, nie, zostaň!",
+      "plan": {
+        "beats": [
+          "0 chuckle",
+        ],
+        "ms": 2650,
+        "sentences": "0-2500",
+        "words": "0-519 755-1274 1509-2500",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Dve z troch. Skoro výborne.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "1850 tell",
+        ],
+        "ms": 3200,
+        "sentences": "0-549 1850-3050",
+        "words": "0-256 256-256 256-549 1850-2318 2318-3050",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Skoro výborne… ako tá polievka.",
+      "plan": {
+        "beats": [
+          "50 chuckle",
+          "2650 tell",
+        ],
+        "ms": 3950,
+        "sentences": "50-1187 2650-3700",
+        "words": "50-493 493-1187 2650-2949 2949-3148 3148-3700",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Trochu slaná… ale výborná.",
+      "plan": {
+        "beats": [
+          "0 chuckle",
+          "3050 tell",
+        ],
+        "ms": 4400,
+        "sentences": "0-1208 3050-4200",
+        "words": "0-575 575-1208 3050-3437 3437-4200",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Hej, hej.",
+      "plan": {
+        "beats": [
+          "50 sigh",
+        ],
+        "ms": 2400,
+        "sentences": "50-2100",
+        "words": "50-878 1272-2100",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Jedna z troch. Hm… Marek, kde si našiel takých pomocníkov?",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "1600 think",
+          "2800 ask",
+        ],
+        "ms": 5800,
+        "questions": "2800-5600",
+        "sentences": "0-645 1600-1904 2800-5600",
+        "words": "0-399 399-399 399-645 1600-1904 2800-3227 3336-3566 3566-3763 3763-4233 4233-4703 4703-5600",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 2,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Ja som ich nehľadal. Oni našli mňa!",
+      "plan": {
+        "beats": [
+          "50 chuckle",
+          "3050 stress",
+        ],
+        "ms": 4600,
+        "sentences": "50-1666 3050-4400",
+        "words": "50-299 299-589 589-837 837-1666 3050-3529 3529-4095 4095-4400",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Nevadí. Ešte raz, pomaly: hoď mrkvu do hrnca, sadnite si, nečakajte na mňa.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "1650 tell",
+          "4250 muse",
+          "6850 tell",
+        ],
+        "ms": 8600,
+        "sentences": "50-565 1650-8350",
+        "words": "50-565 1650-1975 1975-2165 2255-2743 3691-3880 3880-4232 4232-4395 4395-4747 5695-6210 6210-6373 7321-7998 7998-8160 8160-8350",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "sit": [
+          "marek",
+        ],
+      },
+    },
+    {
+      "line": "marek: Hoď, sadnite, nečakajte… Mám to! Skoro.",
+      "plan": {
+        "beats": [
+          "0 muse",
+          "3400 stress",
+          "4500 tell",
+        ],
+        "ms": 5450,
+        "sentences": "0-1953 3400-3624 4500-5250",
+        "words": "0-237 350-994 1106-1953 3400-3530 3530-3624 4500-5250",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Nula z troch! Nevadí. Ešte raz, pomaly: hoď mrkvu do hrnca, sadnite si, nečakajte na mňa.",
+      "plan": {
+        "beats": [
+          "0 stress",
+          "1700 tell",
+          "2850 tell",
+          "5450 muse",
+          "8050 tell",
+        ],
+        "ms": 9550,
+        "sentences": "0-507 1700-1885 2850-9300",
+        "words": "0-304 304-304 304-507 1700-1885 2850-3163 3163-3345 3432-3902 4815-4997 4997-5336 5336-5493 5493-5832 6744-7240 7240-7396 8309-8961 8961-9117 9117-9300",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "sit": [
+          "marek",
+        ],
+      },
+    },
+    {
+      "line": "marek: A soľ?",
+      "plan": {
+        "beats": [
+          "0 ask",
+        ],
+        "ms": 750,
+        "questions": "0-600",
+        "sentences": "0-600",
+        "words": "0-250 250-600",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Soli už bolo dosť.",
+      "plan": {
+        "beats": [
+          "50 chuckle",
+        ],
+        "ms": 2500,
+        "sentences": "50-2350",
+        "words": "50-776 776-1139 1139-1866 1866-2350",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "marek",
+            "gesture": "nod",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Všetky tri správne. A nikto ti nepomohol!",
+      "plan": {
+        "beats": [
+          "100 tell",
+          "1950 stress",
+        ],
+        "ms": 3850,
+        "sentences": "100-1162 1950-3550",
+        "words": "100-498 498-697 697-1162 1950-2113 2113-2538 2538-2734 2734-3550",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Vidíš? Stačí sa dobre vyspať.",
+      "plan": {
+        "beats": [
+          "0 ask",
+          "1650 tell",
+        ],
+        "ms": 3200,
+        "questions": "0-452",
+        "sentences": "0-452 1650-3050",
+        "words": "0-452 1650-2074 2074-2251 2251-2636 2636-3050",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Tak sa vyspi aj dnes!",
+      "plan": {
+        "beats": [
+          "50 chuckle",
+        ],
+        "ms": 2600,
+        "sentences": "50-2250",
+        "words": "50-435 435-765 765-1480 1480-1810 1810-2250",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Sľubujem.",
+      "plan": {
+        "beats": [
+          "0 tell",
+        ],
+        "ms": 1000,
+        "sentences": "0-800",
+        "words": "0-800",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+  ],
+  "setting": "studio",
+  "things": [
+    "dvere",
+    "hodiny",
+    "stol",
+    "mikrofon",
+    "rastlina",
+    "krhla",
+    "obraz",
+    "knihy",
+    "polica",
+    "koberec",
+  ],
+}
+`;
+
+exports[`every scene, directed > podcast podcast-imperative-intro 1`] = `
+{
+  "cast": [
+    "anna",
+    "marek",
+  ],
+  "lines": [
+    {
+      "line": "anna: Ahojte, vitajte v podcaste Slovak Wiki! Ja som Anna.",
+      "plan": {
+        "beats": [
+          "50 wave",
+          "3150 self",
+        ],
+        "ms": 4000,
+        "pictures": [
+          "1933 flag-sk",
+        ],
+        "sentences": "50-2745 3150-3900",
+        "words": "50-612 716-1309 1309-1309 1309-1933 1933-2370 2370-2745 3150-3330 3330-3540 3540-3900",
+      },
+      "staging": {
+        "addressee": "marek",
+        "audience": true,
+        "facing": {
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: A ja som Marek. Prepáčte, ešte spím. Je strašne skoro.",
+      "plan": {
+        "beats": [
+          "100 yawn",
+          "2961 apologize",
+          "5750 tell",
+        ],
+        "ms": 7150,
+        "sentences": "100-1444 2961-4956 5750-6950",
+        "words": "100-317 317-577 577-880 880-1444 2961-3886 4031-4551 4551-4956 5750-5962 5962-6491 6491-6950",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Tak pi tú kávu, Marek. A nezaspi!",
+      "plan": {
+        "beats": [
+          "50 chuckle",
+          "2650 stress",
+        ],
+        "ms": 3700,
+        "sentences": "50-1998 2650-3400",
+        "words": "50-323 323-556 556-842 842-1361 1491-1998 2650-2806 2806-3400",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Dobre, dobre. Pijem.",
+      "plan": {
+        "beats": [
+          "0 nod",
+          "1400 tell",
+        ],
+        "ms": 2000,
+        "sentences": "0-945 1400-1750",
+        "words": "0-419 526-945 1400-1750",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Počuli ste? Pi, nezaspi… Samé rozkazy. A práve o tom je dnešná epizóda.",
+      "plan": {
+        "beats": [
+          "50 ask",
+          "1250 muse",
+          "2800 tell",
+          "5000 tell",
+        ],
+        "ms": 7550,
+        "questions": "50-873",
+        "sentences": "50-873 1250-2202 2800-3662 5000-7350",
+        "words": "50-643 643-873 1250-1452 1563-2202 2800-3155 3155-3662 5000-5153 5153-5590 5590-5743 5743-5956 5956-6139 6139-6607 6607-7350",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Hm… Rozkazy. Tak ja mám jeden pre teba: pozri sa na našu rastlinku. Je celá žltá!",
+      "plan": {
+        "beats": [
+          "100 think",
+          "1000 tell",
+          "2700 tell",
+          "5300 muse",
+          "6550 stress",
+        ],
+        "ms": 7950,
+        "sentences": "100-298 1000-1324 2700-6273 6550-7750",
+        "words": "100-298 1000-1324 2700-2918 2918-3105 3105-3365 3365-3770 3770-3988 3988-4362 4466-4871 4871-5058 5058-5245 5245-5619 5619-6273 6550-6770 6770-7260 7260-7750",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Lebo ju nikto nepolieva. Marek, tento týždeň si na rade ty.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "2850 tell",
+        ],
+        "ms": 5400,
+        "sentences": "0-1765 2850-5200",
+        "words": "0-376 376-564 564-971 971-1765 2850-3259 3364-3773 3773-4256 4256-4445 4445-4633 4633-5011 5011-5200",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Ja? Aha… no jasné.",
+      "plan": {
+        "beats": [
+          "100 self",
+          "1150 muse",
+          "2000 tell",
+        ],
+        "ms": 3050,
+        "questions": "100-296",
+        "sentences": "100-296 1150-1796 2000-2850",
+        "words": "100-296 1150-1796 2000-2251 2251-2850",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Tak ju hneď polej, chudinku.",
+      "plan": {
+        "beats": [
+          "100 tell",
+        ],
+        "ms": 2400,
+        "sentences": "100-2150",
+        "words": "100-355 355-573 573-864 864-1337 1459-2150",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Polejem, polejem. Hneď po nahrávaní, sľubujem!",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "2700 stress",
+        ],
+        "ms": 4800,
+        "sentences": "50-1395 2700-4650",
+        "words": "50-668 777-1395 2700-2940 2940-3120 3120-3950 4050-4650",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Uvidíme. Inak, dnes večer ideme k pani Márii.",
+      "plan": {
+        "beats": [
+          "50 chuckle",
+          "2350 tell",
+        ],
+        "ms": 5200,
+        "sentences": "50-892 2350-5000",
+        "words": "50-892 2350-2730 2836-3089 3089-3501 3501-4039 4039-4039 4039-4419 4419-5000",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Jaj, hej! Ukáže nám, ako robí tú svoju polievku. A príde aj Lucia, nie?",
+      "plan": {
+        "beats": [
+          "0 stress",
+          "794 tell",
+          "4100 ask",
+        ],
+        "ms": 5850,
+        "questions": "4100-5650",
+        "sentences": "0-469 794-3367 4100-5650",
+        "words": "0-190 280-469 794-1291 1291-1516 1607-1904 1904-2265 2265-2464 2464-2816 2816-3367 4100-4257 4257-4707 4707-4896 4896-5315 5420-5650",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 2,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Príde. Ale asi zase bude meškať.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "1550 tell",
+        ],
+        "ms": 3550,
+        "sentences": "50-483 1550-3350",
+        "words": "50-483 1550-1880 1880-2210 2210-2570 2570-2930 2930-3350",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "marek",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: A Mária v kuchyni stále len rozkazuje. Zoberieme so sebou mikrofón, tak počúvajte!",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "3450 stress",
+        ],
+        "ms": 6250,
+        "sentences": "50-2384 3450-6050",
+        "words": "50-183 183-671 671-671 671-1151 1151-1532 1532-1719 1719-2384 3450-4092 4092-4244 4244-4581 4581-5121 5206-5383 5383-6050",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+  ],
+  "setting": "studio",
+  "things": [
+    "dvere",
+    "hodiny",
+    "stol",
+    "mikrofon",
+    "rastlina",
+    "krhla",
+    "obraz",
+    "knihy",
+    "polica",
+    "koberec",
+  ],
+}
+`;
+
+exports[`every scene, directed > podcast podcast-imperative-kitchen 1`] = `
+{
+  "cast": [
+    "anna",
+    "marek",
+    "maria",
+  ],
+  "lines": [
+    {
+      "line": "maria: Tak… mrkva, soľ… ",
+      "plan": {
+        "beats": [
+          "50 muse",
+          "750 muse",
+        ],
+        "ms": 2250,
+        "sentences": "50-389 650-2100",
+        "words": "50-389 650-1458 1665-2100",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": 1,
+          "maria": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Dobrý večer, pani Mária!",
+      "plan": {
+        "beats": [
+          "0 wave",
+        ],
+        "ms": 1700,
+        "sentences": "0-1550",
+        "words": "0-364 364-695 779-1084 1084-1550",
+      },
+      "staging": {
+        "addressee": "maria",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+          "maria": -1,
+        },
+      },
+    },
+    {
+      "line": "maria: Anna! Poď ďalej. A kde je Marek?",
+      "plan": {
+        "beats": [
+          "0 stress",
+          "750 tell",
+          "2350 ask",
+        ],
+        "ms": 3700,
+        "questions": "2350-3500",
+        "sentences": "0-382 750-1400 2350-3500",
+        "words": "0-382 750-978 978-1400 2350-2535 2535-2795 2795-3018 3018-3500",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": 1,
+          "maria": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 2,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Dobrý večer! Prepáčte, ešte som parkoval.",
+      "plan": {
+        "beats": [
+          "0 wave",
+          "1150 apologize",
+        ],
+        "ms": 3150,
+        "sentences": "0-783 1150-2950",
+        "words": "0-411 411-783 1150-1753 1847-2187 2187-2385 2385-2950",
+      },
+      "staging": {
+        "addressee": "maria",
+        "facing": {
+          "anna": 1,
+          "marek": 1,
+          "maria": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "maria",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "maria: No, poďte, poďte. Najprv si umyte ruky, tam pri dreze.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "2700 tell",
+        ],
+        "ms": 5150,
+        "sentences": "0-1251 2700-4950",
+        "words": "0-194 302-723 830-1251 2700-3097 3097-3267 3267-3749 3749-4090 4184-4383 4383-4581 4581-4950",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": 1,
+          "maria": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Tak. S čím vám pomôžeme?",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "1300 ask",
+        ],
+        "ms": 2650,
+        "questions": "1300-2500",
+        "sentences": "50-254 1300-2500",
+        "words": "50-254 1300-1300 1845-1975 1975-2105 2105-2500",
+      },
+      "staging": {
+        "addressee": "maria",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+          "maria": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "maria",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "maria: Anna, ošúp a nakrájaj mrkvu. A ty, Marek, zober ten veľký hrniec.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "3400 tell",
+        ],
+        "ms": 5950,
+        "sentences": "0-2144 3400-5750",
+        "words": "0-378 484-904 904-1062 1062-1734 1734-2144 3400-3548 3548-3726 3825-4210 4308-4693 4693-4901 4901-5325 5325-5750",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": 1,
+          "maria": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Tento? No ten je ale ťažký!",
+      "plan": {
+        "beats": [
+          "50 ask",
+          "1400 stress",
+        ],
+        "ms": 3200,
+        "questions": "50-465",
+        "sentences": "50-465 1400-3000",
+        "words": "50-465 1400-1617 1617-1869 1869-2086 2086-2483 2483-3000",
+      },
+      "staging": {
+        "addressee": "maria",
+        "facing": {
+          "anna": 1,
+          "marek": 1,
+          "maria": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "maria",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "maria: Hej, ten. Nalej do neho vodu a daj ho na sporák.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "1300 tell",
+        ],
+        "ms": 3950,
+        "sentences": "50-624 1300-3750",
+        "words": "50-282 392-624 1300-1687 1687-1865 1865-2222 2222-2580 2580-2728 2728-2937 2937-3115 3115-3294 3294-3750",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": 1,
+          "maria": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Pani Mária, takto?",
+      "plan": {
+        "beats": [
+          "50 ask",
+        ],
+        "ms": 1800,
+        "questions": "50-1650",
+        "sentences": "50-1650",
+        "words": "50-461 461-1090 1204-1650",
+      },
+      "staging": {
+        "addressee": "maria",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+          "maria": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "maria",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "maria: Nie, nie, menšie kúsky. Pozri sa, takto.",
+      "plan": {
+        "beats": [
+          "0 shake",
+          "3150 point",
+        ],
+        "ms": 4500,
+        "sentences": "0-1787 3150-4300",
+        "words": "0-262 381-643 762-1275 1275-1787 3150-3573 3573-3768 3877-4300",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": 1,
+          "maria": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "maria: Anna, hoď mrkvu do hrnca. A Marek, daj tam soľ. Ale len trošku!",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "2850 tell",
+          "5100 stress",
+        ],
+        "ms": 6250,
+        "sentences": "0-1668 2850-4043 5100-6100",
+        "words": "0-368 471-686 686-1085 1085-1269 1269-1668 2850-2991 2991-3357 3451-3648 3648-3846 3846-4043 5100-5444 5444-5663 5663-6100",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": 1,
+          "maria": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Trošku… takto?",
+      "plan": {
+        "beats": [
+          "50 muse",
+          "1900 ask",
+        ],
+        "ms": 2600,
+        "questions": "1900-2350",
+        "sentences": "50-569 1900-2350",
+        "words": "50-569 1900-2350",
+      },
+      "staging": {
+        "addressee": "maria",
+        "facing": {
+          "anna": 1,
+          "marek": 1,
+          "maria": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "maria",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "maria: Marek! Preboha, nesyp toľko!",
+      "plan": {
+        "beats": [
+          "50 sigh",
+          "2200 stress",
+        ],
+        "ms": 4400,
+        "sentences": "50-590 2200-4050",
+        "words": "50-590 2200-2927 3055-3552 3552-4050",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": 1,
+          "maria": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "marek",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Nevadí. Dolejeme vodu.",
+      "plan": {
+        "beats": [
+          "50 chuckle",
+          "2250 tell",
+        ],
+        "ms": 3450,
+        "sentences": "50-735 2250-3250",
+        "words": "50-735 2250-2917 2917-3250",
+      },
+      "staging": {
+        "addressee": "maria",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+          "maria": -1,
+        },
+      },
+    },
+    {
+      "line": "maria: Tak. A teraz to necháme hodinku variť.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "1450 tell",
+        ],
+        "ms": 3850,
+        "sentences": "50-265 1450-3650",
+        "words": "50-265 1450-1596 1596-1976 1976-2151 2151-2715 2715-3270 3270-3650",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": 1,
+          "maria": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Mmm, to vonia!",
+      "plan": {
+        "beats": [
+          "50 stress",
+        ],
+        "ms": 2200,
+        "sentences": "50-2050",
+        "words": "50-522 747-1151 1151-2050",
+      },
+      "staging": {
+        "addressee": "maria",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+          "maria": -1,
+        },
+      },
+    },
+    {
+      "line": "maria: Hodinka ubehla. Polievka je hotová. Marek, ochutnaj. Pozor, je horúca!",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "1400 tell",
+          "3150 tell",
+          "4950 stress",
+        ],
+        "ms": 6500,
+        "sentences": "50-1007 1400-2498 3150-4317 4950-6300",
+        "words": "50-541 541-1007 1400-1889 1889-2033 2033-2498 3150-3579 3690-4317 4950-5371 5479-5674 5674-6300",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": 1,
+          "maria": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Au! To páli!",
+      "plan": {
+        "beats": [
+          "50 stress",
+          "1650 stress",
+        ],
+        "ms": 2600,
+        "sentences": "50-280 1650-2250",
+        "words": "50-280 1650-1836 1836-2250",
+      },
+      "staging": {
+        "addressee": "maria",
+        "facing": {
+          "anna": 1,
+          "marek": 1,
+          "maria": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: No povedz, je dobrá?",
+      "plan": {
+        "beats": [
+          "0 chuckle",
+        ],
+        "ms": 2500,
+        "questions": "0-2300",
+        "sentences": "0-2300",
+        "words": "0-323 323-1024 1204-1527 1527-2300",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+          "maria": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Výborná! Trochu slaná… ale výborná.",
+      "plan": {
+        "beats": [
+          "50 stress",
+          "1900 shrug",
+          "3450 tell",
+        ],
+        "ms": 4500,
+        "sentences": "50-766 1900-2825 3450-4300",
+        "words": "50-766 1900-2340 2340-2825 3450-3736 3736-4300",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+          "maria": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 2,
+          },
+        ],
+      },
+    },
+  ],
+  "setting": "kitchen",
+  "things": [
+    "dvere",
+    "chladnicka",
+    "okno",
+    "hodiny",
+    "umyvadlo",
+    "hrniec",
+    "sporak",
+    "stol",
+    "stolicka",
+    "miska",
+    "lyzica",
+    "doska",
+    "mrkva",
+    "noz",
+    "dzban",
+    "sol",
+  ],
+}
+`;
+
+exports[`every scene, directed > podcast podcast-imperative-outro 1`] = `
+{
+  "cast": [
+    "anna",
+    "marek",
+  ],
+  "lines": [
+    {
+      "line": "marek: To je na dnes všetko.",
+      "plan": {
+        "beats": [
+          "100 tell",
+        ],
+        "ms": 1400,
+        "sentences": "100-1200",
+        "words": "100-265 265-430 430-595 595-815 815-1200",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Ďakujeme, že ste nás počúvali. Píšte nám a počúvajte nás aj nabudúce.",
+      "plan": {
+        "beats": [
+          "50 nod",
+          "2300 tell",
+        ],
+        "ms": 5200,
+        "sentences": "50-2109 2300-5050",
+        "words": "50-718 811-978 978-1172 1172-1404 1404-2109 2300-2721 2721-2965 2965-3112 3112-3885 3885-4130 4130-4306 4306-5050",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "marek",
+            "gesture": "nod",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Marek? A tá rastlinka? Včera si sľúbil: hneď po nahrávaní.",
+      "plan": {
+        "beats": [
+          "100 sigh",
+          "1768 ask",
+          "4150 tell",
+        ],
+        "ms": 7050,
+        "questions": "100-552 1768-2927",
+        "sentences": "100-552 1768-2927 4150-6900",
+        "words": "100-552 1768-1942 1942-2197 2197-2927 4150-4601 4601-4809 4809-5340 5456-5733 5733-5941 5941-6900",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Jaj, rastlinka! Už idem!",
+      "plan": {
+        "beats": [
+          "50 stress",
+          "2100 stress",
+        ],
+        "ms": 3050,
+        "sentences": "50-1053 2100-2750",
+        "words": "50-274 381-1053 2100-2317 2317-2750",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Prepáč, rastlinka. Tu máš vodu. A nezaspi!",
+      "plan": {
+        "beats": [
+          "50 apologize",
+          "2500 point",
+          "4050 stress",
+        ],
+        "ms": 5000,
+        "sentences": "50-1228 2500-3048 4050-4800",
+        "words": "50-505 604-1228 2500-2625 2625-2799 2799-3048 4050-4206 4206-4800",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Marek, to povedz sebe, nie rastlinke! A vy, milí poslucháči, nezabudnite: polejte si rastlinky! Majte sa pekne!",
+      "plan": {
+        "beats": [
+          "50 chuckle",
+          "3967 stress",
+          "6567 tell",
+          "10150 wave",
+        ],
+        "ms": 11400,
+        "sentences": "50-2765 3967-8698 10150-11000",
+        "words": "50-497 611-817 817-1264 1264-1676 1791-2043 2043-2765 3967-4139 4139-4345 4460-4918 4918-5823 5937-7003 7117-7770 7770-7976 7976-8698 10150-10495 10495-10655 10655-11000",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Ahojte!",
+      "plan": {
+        "beats": [
+          "50 wave",
+        ],
+        "ms": 750,
+        "sentences": "50-600",
+        "words": "50-600",
+      },
+      "staging": {
+        "addressee": "anna",
+        "audience": true,
+        "facing": {
+          "anna": 1,
+        },
+      },
+    },
+  ],
+  "setting": "studio",
+  "things": [
+    "dvere",
+    "hodiny",
+    "stol",
+    "mikrofon",
+    "rastlina",
+    "krhla",
+    "obraz",
+    "knihy",
+    "polica",
+    "koberec",
+  ],
+}
+`;
+
+exports[`every scene, directed > podcast podcast-imperative-table 1`] = `
+{
+  "cast": [
+    "anna",
+    "marek",
+    "maria",
+  ],
+  "lines": [
+    {
+      "line": "maria: Sadnite si. A Lucia stále nikde? Veď mala prísť.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "2100 ask",
+          "4250 tell",
+        ],
+        "ms": 5450,
+        "questions": "2100-3294",
+        "sentences": "0-779 2100-3294 4250-5300",
+        "words": "0-592 592-779 2100-2231 2231-2579 2579-2954 2954-3294 4250-4501 4501-4930 4930-5300",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": 1,
+          "maria": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Asi zase mešká.",
+      "plan": {
+        "beats": [
+          "0 shrug",
+        ],
+        "ms": 1600,
+        "sentences": "0-1600",
+        "words": "0-471 471-986 986-1600",
+      },
+      "staging": {
+        "addressee": "maria",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+          "maria": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Počkajte, zvoní mi telefón… To je ona! Ahoj, Lucia!",
+      "plan": {
+        "beats": [
+          "50 think",
+          "2300 stress",
+          "3950 tell",
+        ],
+        "ms": 5200,
+        "sentences": "50-2017 2300-3093 3950-5050",
+        "words": "50-665 767-1208 1208-1392 1392-2017 2300-2507 2507-2714 2714-3093 3950-4410 4538-5050",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+          "maria": -1,
+        },
+      },
+    },
+    {
+      "line": "lucia: Ahoj! Prepáčte, ešte som v práci. Asi neprídem. Nečakajte na mňa, pokojne jedzte.",
+      "plan": {
+        "beats": [
+          "0 wave",
+          "900 apologize",
+          "3100 shrug",
+          "5300 tell",
+        ],
+        "ms": 7550,
+        "sentences": "0-376 900-2568 3100-3957 5300-7350",
+        "words": "0-376 900-1514 1610-1955 1955-2156 2156-2156 2156-2568 3100-3392 3392-3957 5300-5999 5999-6167 6167-6362 6455-6987 6987-7350",
+      },
+      "staging": {
+        "addressee": null,
+      },
+    },
+    {
+      "line": "marek: Nie, nie, príď! Polievka je výborná.",
+      "plan": {
+        "beats": [
+          "0 shake",
+          "1388 tell",
+        ],
+        "ms": 3150,
+        "sentences": "0-998 1388-2950",
+        "words": "0-239 347-586 694-998 1388-2050 2050-2245 2245-2950",
+      },
+      "staging": {
+        "addressee": "lucia",
+        "facing": {
+          "anna": 1,
+          "maria": -1,
+        },
+      },
+    },
+    {
+      "line": "maria: Nech príde. Polievky je dosť.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "1150 tell",
+        ],
+        "ms": 2350,
+        "sentences": "0-678 1150-2150",
+        "words": "0-222 222-678 1150-1742 1742-1917 1917-2150",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": 1,
+          "maria": -1,
+        },
+      },
+    },
+    {
+      "line": "lucia: Dobre, tak som tam o pol hodiny. Čau!",
+      "plan": {
+        "beats": [
+          "0 nod",
+          "2950 wave",
+        ],
+        "ms": 3550,
+        "sentences": "0-1990 2950-3350",
+        "words": "0-384 483-690 690-897 897-1104 1104-1251 1251-1458 1458-1990 2950-3350",
+      },
+      "staging": {
+        "addressee": null,
+      },
+    },
+    {
+      "line": "marek: Čau! Príde o pol hodiny.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "1600 tell",
+        ],
+        "ms": 2800,
+        "sentences": "0-323 1600-2650",
+        "words": "0-323 1600-1939 1939-2058 2058-2224 2224-2650",
+      },
+      "staging": {
+        "addressee": "lucia",
+        "facing": {
+          "anna": 1,
+          "maria": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Tak počkajme na ňu.",
+      "plan": {
+        "beats": [
+          "50 tell",
+        ],
+        "ms": 1450,
+        "sentences": "50-1300",
+        "words": "50-274 274-915 915-1108 1108-1300",
+      },
+      "staging": {
+        "addressee": "maria",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+          "maria": -1,
+        },
+      },
+    },
+    {
+      "line": "maria: No dobre, počkáme. Polievku potom zohrejem.",
+      "plan": {
+        "beats": [
+          "50 chuckle",
+          "2955 tell",
+        ],
+        "ms": 5150,
+        "sentences": "50-1646 2955-4950",
+        "words": "50-274 274-761 885-1646 2955-3716 3716-4202 4202-4950",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": 1,
+          "maria": -1,
+        },
+      },
+    },
+  ],
+  "setting": "kitchen",
+  "things": [
+    "dvere",
+    "chladnicka",
+    "okno",
+    "hodiny",
+    "umyvadlo",
+    "hrniec",
+    "sporak",
+    "stol",
+    "stolicka",
+    "miska",
+    "lyzica",
+    "doska",
+    "mrkva",
+    "noz",
+    "dzban",
+    "sol",
+  ],
+}
+`;
+
 exports[`every scene, directed > podcast podcast-past-tense-cafe 1`] = `
 {
   "cast": [
@@ -8598,6 +11652,10 @@ exports[`every scene, directed > podcast podcast-past-tense-closed 1`] = `
     "stol",
     "mikrofon",
     "rastlina",
+    "krhla",
+    "obraz",
+    "knihy",
+    "polica",
     "koberec",
   ],
 }
@@ -9349,6 +12407,10 @@ exports[`every scene, directed > podcast podcast-past-tense-plate 1`] = `
     "stol",
     "mikrofon",
     "rastlina",
+    "krhla",
+    "obraz",
+    "knihy",
+    "polica",
     "koberec",
   ],
 }
@@ -9990,6 +13052,10 @@ exports[`every scene, directed > podcast podcast-past-tense-whodunit 1`] = `
     "stol",
     "mikrofon",
     "rastlina",
+    "krhla",
+    "obraz",
+    "knihy",
+    "polica",
     "koberec",
   ],
 }
@@ -10209,6 +13275,10 @@ exports[`every scene, directed > podcast podcast-possessives-intro 1`] = `
     "stol",
     "mikrofon",
     "rastlina",
+    "krhla",
+    "obraz",
+    "knihy",
+    "polica",
     "koberec",
   ],
 }
@@ -10459,6 +13529,10 @@ exports[`every scene, directed > podcast podcast-possessives-outro 1`] = `
     "stol",
     "mikrofon",
     "rastlina",
+    "krhla",
+    "obraz",
+    "knihy",
+    "polica",
     "koberec",
   ],
 }
@@ -11134,6 +14208,10 @@ exports[`every scene, directed > podcast podcast-possessives-photos 1`] = `
     "stol",
     "mikrofon",
     "rastlina",
+    "krhla",
+    "obraz",
+    "knihy",
+    "polica",
     "koberec",
   ],
 }
@@ -11642,6 +14720,10 @@ exports[`every scene, directed > podcast podcast-possessives-quiz 1`] = `
     "stol",
     "mikrofon",
     "rastlina",
+    "krhla",
+    "obraz",
+    "knihy",
+    "polica",
     "koberec",
   ],
 }
@@ -13317,6 +16399,10 @@ exports[`every scene, directed > podcast podcast-telling-time-clock-game 1`] = `
     "stol",
     "mikrofon",
     "rastlina",
+    "krhla",
+    "obraz",
+    "knihy",
+    "polica",
     "koberec",
   ],
 }
@@ -13541,6 +16627,10 @@ exports[`every scene, directed > podcast podcast-telling-time-intro 1`] = `
     "stol",
     "mikrofon",
     "rastlina",
+    "krhla",
+    "obraz",
+    "knihy",
+    "polica",
     "koberec",
   ],
 }
@@ -13708,6 +16798,10 @@ exports[`every scene, directed > podcast podcast-telling-time-outro 1`] = `
     "stol",
     "mikrofon",
     "rastlina",
+    "krhla",
+    "obraz",
+    "knihy",
+    "polica",
     "koberec",
   ],
 }
@@ -14185,6 +17279,10 @@ exports[`every scene, directed > podcast podcast-telling-time-quiz 1`] = `
     "stol",
     "mikrofon",
     "rastlina",
+    "krhla",
+    "obraz",
+    "knihy",
+    "polica",
     "koberec",
   ],
 }

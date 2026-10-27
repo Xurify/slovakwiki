@@ -121,7 +121,7 @@
     live = true;
     listen();
 
-    let wait = stage?.ready(index) ?? 0;
+    let wait = Math.max(stage?.ready(index) ?? 0, stage?.lead(index) ?? 0);
     if (!settled && index === 0) {
       settled = true;
       playSegmentCue();
@@ -202,6 +202,7 @@
       lines={scene.lines}
       {mood}
       setting={scene.setting}
+      start={scene.world}
       {thingWords}
     />
 
