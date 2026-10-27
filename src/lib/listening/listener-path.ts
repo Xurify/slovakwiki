@@ -47,6 +47,18 @@ export function nextOnPath(
   return undefined;
 }
 
+/** The previous line on the path before `index`, or undefined at the start. */
+export function prevOnPath(
+  lines: readonly DialogueTurn[],
+  picks: Picks,
+  index: number,
+): number | undefined {
+  for (let prev = index - 1; prev >= 0; prev -= 1) {
+    if (onPath(lines[prev]!, lines, picks)) return prev;
+  }
+  return undefined;
+}
+
 /** The asking line whose card shows: held for an answer, or answered until the next ask. */
 export function cardAt(
   lines: readonly DialogueTurn[],

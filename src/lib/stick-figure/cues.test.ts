@@ -99,6 +99,25 @@ describe("cues the stage schedules", () => {
     expect(ctx.live.size).toBe(1);
   });
 
+  it("cuts off cues on seek during an edge enter, throw, or dog run", async () => {
+    const { playSteps, stopCues } = await import("./ambience");
+    const { playFoley } = await import("./foley");
+
+    // Edge enter starts servo steps
+    playSteps(10, 300, { ground: "wood", shoes: "servo" });
+    expect(ctx.live.size).toBe(1);
+
+    // Seeking cuts it off immediately
+    stopCues();
+    expect(ctx.live.size).toBe(0);
+
+    // Compute foley or clink
+    playFoley("compute");
+    expect(ctx.live.size).toBe(1);
+    stopCues();
+    expect(ctx.live.size).toBe(0);
+  });
+
   it("let go of their output on their own once done", async () => {
     const { playPhoneCue } = await import("./ambience");
     const { playFoley } = await import("./foley");

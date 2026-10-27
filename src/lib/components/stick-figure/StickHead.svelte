@@ -47,6 +47,11 @@
   const look = $derived(LOOKS[characterId]);
   const robot = $derived(look.robot);
   const dog = $derived(look.dog);
+  const computing = $derived(
+    Boolean(
+      robot && pose.brow >= 0.7 && pose.tilt <= -6 && pose.nod >= 1.5 && pose.look >= 0.6,
+    ),
+  );
   const hair = $derived(look.grey ? "fill-portrait-hair-grey" : "fill-portrait-hair");
   const brows = $derived(
     look.grey ? "stroke-portrait-hair-grey" : "stroke-portrait-hair",
@@ -257,7 +262,7 @@
     cx="32"
     cy="7.6"
     r="2.2"
-    class="{robot.light} stroke-portrait-ink {calling
+    class="{robot.light} stroke-portrait-ink {calling || computing
       ? 'motion-safe:animate-compute-dot'
       : ''}"
     stroke-width="1.2"
@@ -332,7 +337,7 @@
     cx="32"
     cy="8.5"
     r="2.2"
-    class="{robot.light} stroke-portrait-ink {calling
+    class="{robot.light} stroke-portrait-ink {calling || computing
       ? 'motion-safe:animate-compute-dot'
       : ''}"
     stroke-width="1.2"

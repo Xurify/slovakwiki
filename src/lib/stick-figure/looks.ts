@@ -5,8 +5,8 @@ import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
  * which StickFigure and StickTorso draw: the colours they wear and the
  * small things a glance picks up.
  */
-/** What their steps sound like: heels click on a hard floor, soft soles (trainers) land dull; the rest are plain shoes. */
-export type Shoes = "heels" | "soft";
+/** What their steps sound like: heels click on a hard floor, soft soles (trainers) land dull, servos tick; the rest are plain shoes. */
+export type Shoes = "heels" | "soft" | "servo";
 
 export interface Look {
   /** The top of the hair (a bare head's crown, a robot's antenna light) in the head's 64-unit space, where a headband sits. */
@@ -146,6 +146,8 @@ export const LOOKS: Readonly<Record<LessonCharacterId, Look>> = {
   },
   // Marek's home robot: a companion like the guide, in warm orange so the two never pass for one.
   robo: {
+    gait: 0.85,
+    shoes: "servo",
     crown: 7,
     nameClass: "text-orange-700",
     robot: {
@@ -158,6 +160,8 @@ export const LOOKS: Readonly<Record<LessonCharacterId, Look>> = {
   },
   // Marek's home robot: the guide's chassis in honey, so it is not mistaken for the guide.
   robot: {
+    gait: 0.85,
+    shoes: "servo",
     crown: 6.3,
     nameClass: "text-amber-800",
     robot: {

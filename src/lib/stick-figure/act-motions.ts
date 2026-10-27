@@ -96,7 +96,8 @@ export type FoleyId =
   | "thud"
   | "sniff"
   | "rattle"
-  | "ring";
+  | "ring"
+  | "compute";
 
 /** Something the stage draws while a motion runs: water from the tap, a stream from a jug, salt. */
 export interface Effect {
@@ -928,8 +929,8 @@ export function motionFor(
           sounds: [{ at: 780, id: "clink" }],
           keys: [
             { at: 0 },
-            { at: 550, ...collar, body: { lean: 9, nod: 2, look: 1 } },
-            { at: 850, ...collar, body: { lean: 9, nod: 2, look: 1 } },
+            { at: 550, ...collar, body: { bob: 22, lean: 14, nod: 3, look: 2 } },
+            { at: 850, ...collar, body: { bob: 22, lean: 14, nod: 3, look: 2 } },
             { at: 1500 },
           ],
         },
@@ -1268,6 +1269,49 @@ export function motionFor(
           ],
         },
       };
+    case "kneel": {
+      const target = to || cue.what || "dog";
+      return {
+        motion: {
+          ms: 2800,
+          face: target,
+          keys: [
+            { at: 0 },
+            {
+              at: 600,
+              body: { bob: 22, lean: 14, tilt: 6, brow: 0.2, look: 1 },
+              lead: { to: target, as: "top", dy: -2 },
+            },
+            {
+              at: 2200,
+              body: { bob: 22, lean: 14, tilt: 6, brow: 0.2, look: 1 },
+              lead: { to: target, as: "top", dy: -2 },
+            },
+            { at: 2800 },
+          ],
+        },
+      };
+    }
+    case "compute": {
+      return {
+        motion: {
+          ms: 1800,
+          sounds: [{ at: 100, id: "compute" }],
+          keys: [
+            { at: 0 },
+            {
+              at: 300,
+              body: { tilt: -7, nod: 2, brow: 0.8, look: 0.8 },
+            },
+            {
+              at: 1400,
+              body: { tilt: -7, nod: 2, brow: 0.8, look: 0.8 },
+            },
+            { at: 1800 },
+          ],
+        },
+      };
+    }
     case "laugh": {
       // Mouth open, head tipped back, the shoulders shaking, a hand to the belly: a still smile did not read as a laugh.
       const belly = hands(free, { up: { x: 7, y: 25 } });

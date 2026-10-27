@@ -155,29 +155,39 @@ const WEATHER_CUES: Array<[Weather, WordCues]> = [
  * first greeting or line that names the time of day (`Je ráno.`), the time a line tells for the
  * clocks, and the weather named last by
  * then, so a sky that clouds over and rains changes as the lines say so.
+ * When `before` is passed (e.g. lines from an earlier scene in the same place),
+ * the current scene's explicit time, told hour, and weather take precedence,
+ * falling back to `before` only when this scene leaves them unspecified.
  * Without `upTo`, the weather the scene ends in. Past the last line the
  * scene is over and rain or snow has let up, so it does not end mid-shower.
  */
-export function sceneMood(lines: readonly string[], upTo = lines.length - 1): SceneMood {
+export function sceneMood(
+  lines: readonly string[],
+  upTo = lines.length - 1,
+  before?: readonly string[],
+): SceneMood {
   const folded = lines.map(foldLine);
-  const time =
-    folded
-      .map(
-        (line) =>
-          GREETING_TIMES.find(([greeting]) => opens(line, greeting))?.[1] ??
-          SAID_TIMES.find(([said]) => ` ${line} `.includes(` ${said} `))?.[1] ??
-          toldTimeOfDay(line),
-      )
-      .find(Boolean) ?? "day";
-  const weather =
-    folded
-      .slice(0, upTo + 1)
-      .flatMap((line) => line.split(" "))
-      .map((word) => WEATHER_CUES.find(([, cues]) => matchesWord(word, cues))?.[0])
-      .findLast(Boolean) ?? "clear";
+  const toldTime = folded
+    .map(
+      (line) =>
+        GREETING_TIMES.find(([greeting]) => opens(line, greeting))?.[1] ??
+        SAID_TIMES.find(([said]) => ` ${line} `.includes(` ${said} `))?.[1] ??
+        toldTimeOfDay(line),
+    )
+    .find(Boolean);
+  const beforeTime = before?.length ? sceneMood(before).time : undefined;
+  const time = toldTime ?? beforeTime ?? "day";
+
+  const toldWeather = folded
+    .slice(0, upTo + 1)
+    .flatMap((line) => line.split(" "))
+    .map((word) => WEATHER_CUES.find(([, cues]) => matchesWord(word, cues))?.[0])
+    .findLast(Boolean);
+  const beforeWeather = before?.length ? sceneMood(before).weather : undefined;
+  const weather = toldWeather ?? beforeWeather ?? "clear";
 
   const over = upTo >= lines.length && isFalling(weather);
-  const hour = toldHour(lines);
+  const hour = toldHour(lines) ?? (before?.length ? toldHour(before) : undefined);
   return {
     time,
     weather: over ? "cloudy" : weather,

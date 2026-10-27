@@ -220,6 +220,11 @@ const friday: ListeningChapter = {
       "marek-this-is-anna": [{ do: "point", to: "anna", on: "anna" }],
       "marek-this-is-dunco": [{ do: "point", to: "dog", on: "dunčo" }],
       "marek-monday-evening": [{ do: "point", to: "okno", on: "okne" }],
+      "domo-six-window-save": [{ do: "compute", on: "uložím" }],
+      "marek-ill-miss-you": [
+        { do: "go", to: "dog", on: "before" },
+        { do: "kneel", to: "dog", on: "dunčo" },
+      ],
     },
   ),
   checks: [
@@ -287,6 +292,11 @@ const morning: ListeningChapter = {
   title: "You still don't know me?",
   setup: {
     objects: [
+      {
+        id: "bowl",
+        kind: "bowl",
+        start: { where: { hand: "robot", side: "lead" }, fill: "kibble" },
+      },
       // Anna brings it with her: Marek left it with her.
       { id: "ball", kind: "ball", start: { where: { hand: "anna", side: "lead" } } },
     ],
@@ -377,6 +387,7 @@ const morning: ListeningChapter = {
     {
       "domo-good-morning-food": [
         { do: "enter", from: "off-right", to: "rug-mid", on: "before" },
+        { do: "put", what: "bowl", to: "by-dog", on: "granule" },
       ],
       "anna-good-morning-how-are-you": [
         { do: "enter", from: "off-right", to: "rug-mid-right", on: "before" },
@@ -446,6 +457,11 @@ const park: ListeningChapter = {
   titleSk: "V parku",
   title: "In the park",
   setup: {
+    spots: {
+      anna: "park-left",
+      robot: "park-mid",
+      dog: "park-dog",
+    },
     objects: [
       { id: "ball", kind: "ball", start: { where: { hand: "robot", side: "lead" } } },
       { id: "phone", kind: "phone", start: { where: { pocket: "anna" } } },
@@ -564,6 +580,7 @@ const park: ListeningChapter = {
       ),
     ],
     {
+      "domo-he-likes-me": [{ do: "compute", on: "uložím" }],
       "domo-i-will-throw-now": [
         { do: "face", to: "off-right", on: "hodím" },
         { do: "throw", what: "ball", to: "dog", on: "teraz" },
@@ -574,13 +591,14 @@ const park: ListeningChapter = {
         { do: "take", what: "ball", on: "before" },
         { do: "go", to: "back-right" },
       ],
+      "domo-to-me": [{ do: "look", to: "dog", on: "mne" }],
       "anna-bye-both": [
         { do: "wave", on: "ahoj" },
         { do: "go", to: "off-left", on: "after" },
       ],
+      "domo-haf-means-hi": [{ do: "compute", on: "uložím" }],
       "anna-ill-take-a-photo": [
         { do: "take", what: "phone", on: "počkaj" },
-        { do: "offer", what: "phone", to: "robot", on: "odfotím" },
         { do: "pocket", what: "phone", on: "end" },
       ],
     },
@@ -1029,6 +1047,7 @@ const monday: ListeningChapter = {
         { do: "wave", on: "ahojte" },
       ],
       "marek-missed-you-too": [{ who: "dog", do: "go", to: "to-right", on: "sem" }],
+      "domo-hi-or-thanks": [{ do: "compute", on: "uložím" }],
     },
   ),
   checks: [

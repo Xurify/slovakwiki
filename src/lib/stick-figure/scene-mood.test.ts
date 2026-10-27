@@ -47,6 +47,28 @@ describe("sceneMood", () => {
     expect(sceneMood(["Svieti slnko."], 1).weather).toBe("sunny");
   });
 
+  it("prioritizes current scene lines over before lines", () => {
+    const fridayEvening = ["Piatok večer.", "Dobrý večer, Dunčo!"];
+    const saturdayMorning = [
+      "Sobota. Sedem hodín ráno.",
+      "Dobré ráno, Dunčo. Tu sú granule.",
+    ];
+    const mood = sceneMood(saturdayMorning, saturdayMorning.length - 1, fridayEvening);
+    expect(mood.time).toBe("morning");
+    expect(mood.hour).toBe(7);
+
+    const sevenMorning = ["Sedem hodín ráno."];
+    const elevenDay = ["Jedenásť hodín."];
+    const leadMood = sceneMood(elevenDay, elevenDay.length - 1, sevenMorning);
+    expect(leadMood.hour).toBe(11);
+    expect(leadMood.time).toBe("morning"); // Inherits morning from earlier scene when current scene has no greeting
+
+    const rainyDay = ["Prší!"];
+    const laterScene = ["Ako sa máš?"];
+    const continuingRain = sceneMood(laterScene, laterScene.length - 1, rainyDay);
+    expect(continuingRain.weather).toBe("rain");
+  });
+
   it("knows which places are under the sky", () => {
     const places = ["plaza", "market", "default", "cafe", "home"] as const;
     expect(places.map((place) => isOutdoors(place))).toEqual([

@@ -100,6 +100,16 @@ describe("the line player's timers", () => {
     expect(played).toEqual([0, 2]);
   });
 
+  it("cancels playing immediately on a pause mid-line", () => {
+    const { stage, played, stops } = fakeStage();
+    const player = playerOn(stage);
+
+    player.playFrom(0);
+    expect(played).toEqual([0]);
+    player.pause();
+    expect(stops).toEqual([false]);
+  });
+
   it("does not play on after a pause during the beat after an answer", () => {
     const { stage, played, end } = fakeStage();
     const player = playerOn(stage, (index) => index === 0);
@@ -131,5 +141,65 @@ describe("the line player's timers", () => {
     end(1);
     vi.runAllTimers();
     expect(played).toEqual([0, 1]);
+  });
+});
+
+describe("stepping back", () => {
+  it("replays the current line once BACK_MS has elapsed", () => {
+    const { stage, played } = fakeStage();
+    const player = playerOn(stage);
+
+    player.playFrom(1);
+    vi.advanceTimersByTime(2000);
+    player.back();
+    expect(played).toEqual([1, 1]);
+  });
+
+  it("steps to the previous line when just begun", () => {
+    const { stage, played } = fakeStage();
+    const player = playerOn(stage);
+
+    player.playFrom(1);
+    vi.advanceTimersByTime(100);
+    player.back();
+    expect(played).toEqual([1, 0]);
+  });
+
+  it("follows options.prev when provided instead of flat decrement", () => {
+    const { stage, played } = fakeStage();
+    // Suppose index 3 was preceded by index 1 on the active path (skipping index 2)
+    const player = new LinePlayer(
+      LINES,
+      {},
+      {
+        isLast: (index) => index === LINES.length - 1,
+        onRunEnd: () => {},
+        stage: () => stage,
+        prev: (index) => (index === 3 ? 1 : index > 0 ? index - 1 : undefined),
+      },
+    );
+
+    player.playFrom(3);
+    vi.advanceTimersByTime(100);
+    expect(player.canGoBack).toBe(true);
+    player.back();
+    expect(played).toEqual([3, 1]);
+  });
+
+  it("reports canGoBack false on the first line or when prev returns undefined", () => {
+    const { stage } = fakeStage();
+    const player = new LinePlayer(
+      LINES,
+      {},
+      {
+        isLast: (index) => index === LINES.length - 1,
+        onRunEnd: () => {},
+        stage: () => stage,
+        prev: () => undefined,
+      },
+    );
+
+    player.playFrom(2);
+    expect(player.canGoBack).toBe(false);
   });
 });

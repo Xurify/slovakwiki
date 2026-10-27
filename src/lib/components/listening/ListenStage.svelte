@@ -25,7 +25,7 @@
   import { focusUnlessTyping } from "$lib/listening/focus";
   import LessonCharacterAvatar from "$lib/components/lessons/LessonCharacterAvatar.svelte";
   import { LinePlayer } from "$lib/listening/line-player.svelte";
-  import { cardAt, nextOnPath, onPath } from "$lib/listening/listener-path";
+  import { cardAt, nextOnPath, onPath, prevOnPath } from "$lib/listening/listener-path";
   import type { StagedScene } from "$lib/stick-figure/scene-line";
   import { cx } from "$lib/ui/classes";
 
@@ -106,6 +106,7 @@
     holdsAfter: (index) => playAlong && Boolean(lines[index]?.ask),
     isLast: (index) => nextOnPath(lines, picks, index) === undefined,
     next: (index) => nextOnPath(lines, picks, index),
+    prev: (index) => prevOnPath(lines, picks, index),
     onRunEnd: () => {
       const first = !listened;
       listened = true;
@@ -491,7 +492,7 @@
     <div class="mt-2 -ml-2.5 flex flex-wrap items-center gap-1">
       {#if stage === "listening"}
         <ListenControl onclick={() => player.back()}>
-          {player.justBegun && player.cursor > 0 ? "Previous line" : "Replay line"}
+          {player.justBegun && player.canGoBack ? "Previous line" : "Replay line"}
         </ListenControl>
       {/if}
 

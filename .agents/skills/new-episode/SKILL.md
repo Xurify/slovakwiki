@@ -114,6 +114,8 @@ Work through the one-prompt guide's §4 loop. `bunx vitest run` covers the check
 
 `src/lib/stick-figure/episode-checks.ts` checks the episode against the failure classes in CI; `SLUG=<slug> OUT=<file> bunx vitest run src/lib/stick-figure/episode-checks.test.ts` writes its review flags too. Never add your own errors to `episode-checks.baseline.json`: fix them.
 
+Scrub and seek across each segment's lines (jump forward, jump back, seek during walks/runs/throws). Verify that positions and facings match `actedWorlds[index]`, walking/throwing animations and sounds cancel immediately without lingering or stuck walk-in-place, and subtitles update to the sought line without showing stuck captions. Verify floor objects (bags, cans) do not overlap standing marks or spots (`space/floor-object`). Verify point cues aim at target height (`point/miss`).
+
 Done when every check is clean, you have played the whole episode through once with Play along on, and a Playwright walk of the listener's game has played each path (all right, all wrong, all left to Marek, and one mix) to the right ending, with the transcript never showing an answer before the pick.
 
 ## 7. PR

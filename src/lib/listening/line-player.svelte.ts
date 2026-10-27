@@ -28,6 +28,8 @@ export interface LinePlayerOptions {
   isLast: (index: number) => boolean;
   /** The line after `index`, where some lines are on another path; the following one unless set. */
   next?: (index: number) => number | undefined;
+  /** The line before `index`, where some lines are on another path; the preceding one unless set. */
+  prev?: (index: number) => number | undefined;
   onRunEnd: (index: number) => void;
   /** The stage to play each line on, once there is one; the clip alone until then. */
   stage?: () => LineStage | undefined;
@@ -66,6 +68,10 @@ export class LinePlayer {
 
   get line(): DialogueTurn | undefined {
     return this.#lines[this.cursor];
+  }
+
+  get canGoBack(): boolean {
+    return this.#prev(this.cursor) !== undefined;
   }
 
   playFrom(index: number): void {
@@ -117,8 +123,8 @@ export class LinePlayer {
 
   /** The current line over, or the one before it when this one has only just begun. */
   back(): void {
-    const index =
-      this.#heard() < BACK_MS && this.cursor > 0 ? this.cursor - 1 : this.cursor;
+    const prev = this.#prev(this.cursor);
+    const index = this.#heard() < BACK_MS && prev !== undefined ? prev : this.cursor;
     this.playFrom(index);
   }
 
@@ -154,12 +160,22 @@ export class LinePlayer {
     this.held = false;
     this.playing = true;
     const mine = this.#epoch;
+    this.gapTimeout(
+      mine,
+      () => {
+        const next = this.#next(this.cursor);
+        if (next !== undefined) this.playFrom(next);
+      },
+      ANSWER_BEAT_MS,
+    );
+  }
+
+  private gapTimeout(mine: number, fn: () => void, ms: number): void {
     this.#gap = window.setTimeout(() => {
       this.#gap = 0;
       if (mine !== this.#epoch || !this.playing) return;
-      const next = this.#next(this.cursor);
-      if (next !== undefined) this.playFrom(next);
-    }, ANSWER_BEAT_MS);
+      fn();
+    }, ms);
   }
 
   toggleSlow(): void {
@@ -193,12 +209,9 @@ export class LinePlayer {
 
     const next = this.#next(index);
     if (next === undefined) return;
-    this.#gap = window.setTimeout(
-      () => {
-        this.#gap = 0;
-        if (mine !== this.#epoch || !this.playing) return;
-        this.playFrom(next);
-      },
+    this.gapTimeout(
+      mine,
+      () => this.playFrom(next),
       LINE_GAP_MS + (this.#lines[next]?.wait ?? 0),
     );
   }
@@ -206,6 +219,11 @@ export class LinePlayer {
   #next(index: number): number | undefined {
     if (this.#options.next) return this.#options.next(index);
     return index + 1 < this.#lines.length ? index + 1 : undefined;
+  }
+
+  #prev(index: number): number | undefined {
+    if (this.#options.prev) return this.#options.prev(index);
+    return index > 0 ? index - 1 : undefined;
   }
 
   /** Safe on the server too, where destroy runs after a render and there is no window. */

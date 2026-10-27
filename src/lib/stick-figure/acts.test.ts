@@ -2,7 +2,16 @@ import { describe, expect, it } from "vitest";
 
 import { listeningEpisodes } from "$lib/catalog/listening";
 import { DARK_MS, REACT_MS, scheduleCues, type LineTimes } from "./act-schedule";
-import { CueError, heldBy, setUp, startWorld, worlds, type Cue } from "./acts";
+import {
+  CueError,
+  applyCue,
+  cueActor,
+  heldBy,
+  setUp,
+  startWorld,
+  worlds,
+  type Cue,
+} from "./acts";
 import { PLACES } from "./places";
 import { episodeStages } from "./scene-sources";
 import { foldLine } from "./slovak-text";
@@ -361,6 +370,22 @@ describe("every acted podcast segment", () => {
             expect(words, `${line.id}: on "${cue.on}"`).toContain(foldLine(cue.on));
           }
         }
+      });
+
+      it(`${chapter.id} seeking to every line equals playing straight to that line`, () => {
+        const set = PLACES[scene.setting].set!;
+        const allWorlds = worlds(scene.lines, set, scene.world);
+        expect(allWorlds).toHaveLength(scene.lines.length + 1);
+        let current = allWorlds[0];
+        for (let index = 0; index < scene.lines.length; index += 1) {
+          expect(allWorlds[index]).toEqual(current);
+          const line = scene.lines[index];
+          for (const cue of line.act ?? []) {
+            const who = cueActor(cue, line.characterId);
+            if (who) current = applyCue(current, who, cue, set);
+          }
+        }
+        expect(allWorlds[scene.lines.length]).toEqual(current);
       });
     }
   }

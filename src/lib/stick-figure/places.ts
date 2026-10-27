@@ -219,6 +219,7 @@ const HOME_SET: PlaceSet = {
   pieces: [
     { id: "pegs", kind: "rail", x: 304, width: 24 },
     { id: "by-sofa", kind: "floor", x: 640, width: 24 },
+    { id: "by-dog", kind: "floor", x: 375, width: 24 },
   ],
   objects: [],
   spots: {
@@ -231,12 +232,13 @@ const HOME_SET: PlaceSet = {
     "rug-left": { x: 333, facing: 1 },
     "rug-mid": { x: 410, facing: 1 },
     "rug-mid-right": { x: 487, facing: -1 },
-    "rug-right": { x: 565, facing: -1 },
+    "rug-right": { x: 585, facing: -1 },
     // A step in from the rug's right, to meet whoever comes in from that side.
     "to-right": { x: 420, facing: 1 },
     // At the window, looking out: the dog under the sill, the one waiting with it beside.
     window: { x: 235, facing: -1 },
     "window-dog": { x: 155, facing: -1 },
+    "by-sofa": { piece: "by-sofa", dx: 0, facing: -1 },
   },
 };
 
@@ -313,8 +315,12 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
         // Past each edge of what the widest stage shows, to walk on from or off to.
         "off-left": { x: 40, facing: 1 },
         "off-right": { x: 1000, facing: -1 },
+        // Cast marks in the park: Anna on the left, Domo in the middle, Dunčo ready for the throw on the right.
+        "park-left": { x: 300, facing: 1 },
+        "park-mid": { x: 440, facing: 1 },
+        "park-dog": { x: 540, facing: -1 },
         // Back from a run off the right, facing whoever threw.
-        "back-right": { x: 620, facing: -1 },
+        "back-right": { x: 550, facing: -1 },
       },
     },
   },
