@@ -269,7 +269,7 @@ const CAFE_SET: PlaceSet = {
  */
 const MARKET_SET: PlaceSet = {
   // The stall's counter top behind Lucia, at the hip, where she keeps what she has weighed and wrapped.
-  pieces: [{ id: "counter", kind: "ledge", x: 742, width: 40, height: 44 }],
+  pieces: [{ id: "counter", kind: "ledge", x: 774, width: 40, height: 44 }],
   objects: [],
   spots: {
     stall: { x: 660, facing: 1 },

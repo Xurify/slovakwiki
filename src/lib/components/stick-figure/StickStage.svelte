@@ -227,6 +227,13 @@
    */
   const DEEP_LANE = 0.17;
   const DEEP_SCALE = 1.12;
+  /**
+   * Passing someone seated at the desk, the walker goes round behind their
+   * chair: a step away from the camera, a little smaller, and drawn under
+   * them. In front, he walked between her and her mic, through the desk.
+   */
+  const BEHIND_LANE = -0.12;
+  const BEHIND_SCALE = 0.93;
   /** Half a body, in figure widths: overlapping a counter by this much, a step back would be into it. */
   const BODY_HALF = 0.15;
   /** Half a chair's width, in figure widths: StickFurniture draws one narrower than its box. */
@@ -269,6 +276,8 @@
   let passing = $state<LessonCharacterId[]>([]);
   /** Who passes someone with their back to the counter, so a step further toward the camera. */
   let passingDeep = $state<LessonCharacterId[]>([]);
+  /** Who goes round behind someone seated at the desk (BEHIND_LANE). */
+  let passingBehind = $state<LessonCharacterId[]>([]);
   /** Who is being walked past, and steps back to make room. */
   let roomFor = $state<LessonCharacterId[]>([]);
   /** Who stands back in the doorway, or by the door to push it to, on its sill rather than in the room (`doorLane`). */
@@ -1396,7 +1405,13 @@
     striding = [...striding.filter((other) => other !== id), id];
     later(ms, () => (striding = striding.filter((other) => other !== id)));
     const passed = passedBy(id, from, offset);
-    if (passed.length || passesFurniture(id, from, offset)) {
+    if (passed.length && passed.every((other) => seated[other] !== undefined)) {
+      passingBehind = [...passingBehind.filter((other) => other !== id), id];
+      // Their own seat is behind the desk too: stepping back out in front, they crossed the mics.
+      later(ms, () => {
+        passingBehind = passingBehind.filter((other) => other !== id);
+      });
+    } else if (passed.length || passesFurniture(id, from, offset)) {
       passing = [...passing.filter((other) => other !== id), id];
       // Someone at the counter or the stove has their back to it: stepping back, they went into it.
       const room = passed.filter((other) => !backed(other));
@@ -1620,6 +1635,7 @@
     striding = [];
     passing = [];
     passingDeep = [];
+    passingBehind = [];
     roomFor = [];
     doorway = [];
     heldAt = index - 1;
@@ -2011,8 +2027,14 @@
     if (!acted && staging) {
       block(startLine(blocking(), staging, speaker, frame), staging.returns?.characterId);
     }
-    // A speaker walking somewhere faces the way they go, not where they point.
-    if (speaker && aimed?.facing && offsets[speaker] === standingAt) {
+    // A speaker walking somewhere faces the way they go, not where they point. A walk led in before the line
+    // has not moved them yet while they turn to set off, so it shows as busy, not as a new place.
+    if (
+      speaker &&
+      aimed?.facing &&
+      offsets[speaker] === standingAt &&
+      (busy[speaker] ?? 0) <= performance.now()
+    ) {
       facings = { ...facings, [speaker]: aimed.facing };
     }
     if (speaker && aimed) cueActor(speaker, aimed.plan);
@@ -2197,23 +2219,27 @@
             style:transition-duration="{walks[characterId]?.ms ?? 0}ms, 0ms, 600ms"
             style:opacity={outside.includes(characterId) ? 0 : 1}
             style:filter={shaded.includes(characterId) ? "brightness(0.9)" : "none"}
-            style:z-index={passing.includes(characterId)
-              ? 4
-              : striding.includes(characterId)
-                ? 2
-                : 1}
+            style:z-index={passingBehind.includes(characterId)
+              ? 0
+              : passing.includes(characterId)
+                ? 4
+                : striding.includes(characterId)
+                  ? 2
+                  : 1}
           >
             <div
               class="origin-bottom transition-transform duration-300 ease-in-out"
-              style:transform={passingDeep.includes(characterId)
-                ? `translateY(${frame.figureWidth * DEEP_LANE}px) scale(${DEEP_SCALE})`
-                : passing.includes(characterId)
-                  ? `translateY(${frame.figureWidth * PASS_LANE}px) scale(${PASS_SCALE})`
-                  : doorway.includes(characterId)
-                    ? `translateY(${doorLane * unit}px)`
-                    : roomFor.includes(characterId)
-                      ? `translateY(${frame.figureWidth * ROOM_LANE}px) scale(${ROOM_SCALE})`
-                      : "none"}
+              style:transform={passingBehind.includes(characterId)
+                ? `translateY(${frame.figureWidth * BEHIND_LANE}px) scale(${BEHIND_SCALE})`
+                : passingDeep.includes(characterId)
+                  ? `translateY(${frame.figureWidth * DEEP_LANE}px) scale(${DEEP_SCALE})`
+                  : passing.includes(characterId)
+                    ? `translateY(${frame.figureWidth * PASS_LANE}px) scale(${PASS_SCALE})`
+                    : doorway.includes(characterId)
+                      ? `translateY(${doorLane * unit}px)`
+                      : roomFor.includes(characterId)
+                        ? `translateY(${frame.figureWidth * ROOM_LANE}px) scale(${ROOM_SCALE})`
+                        : "none"}
             >
               <StickFigureActor
                 {characterId}

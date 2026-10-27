@@ -354,13 +354,20 @@
         class="fill-portrait-vest"
       />
     {:else}
-      <rect x="-2" y="-7" width="4" height="7" rx="0.8" class="fill-portrait-vest" />
       <rect
-        x="-1.3"
-        y="-6.2"
-        width="2.6"
-        height="5"
-        rx="0.3"
+        x="-2.4"
+        y="-8.6"
+        width="4.8"
+        height="8.6"
+        rx="0.9"
+        class="fill-portrait-vest"
+      />
+      <rect
+        x="-1.7"
+        y="-7.8"
+        width="3.4"
+        height="6.6"
+        rx="0.4"
         class="fill-scene-sky"
         stroke="none"
       />

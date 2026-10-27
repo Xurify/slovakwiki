@@ -135,7 +135,8 @@ export const OBJECT_SIZE: Record<
   ladle: { grip: { x: 0, y: 4 }, top: 19, width: 6 },
   cutlery: { grip: { x: -4, y: 0.6 }, top: 1, width: 10 },
   towel: { grip: { x: 0, y: -4 }, top: 0, width: 7 },
-  phone: { grip: { x: 0, y: 3.5 }, top: 1, width: 4 },
+  // Held by its lower end, so the screen shows above the fist.
+  phone: { grip: { x: 0, y: 2 }, top: 1, width: 4.8 },
   // Held by the ring, the keys hanging under the fist.
   keys: { grip: { x: 0, y: 6.4 }, top: 1, width: 5 },
   mic: { grip: { x: 0, y: 3.5 }, top: 12.7, width: 5 },
