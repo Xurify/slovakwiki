@@ -170,8 +170,8 @@ const KITCHEN_SET: PlaceSet = {
     chat: { x: 567, facing: -1 },
     // Out of the cooks' way past the table's end, watching.
     aside: { x: 502, facing: 1 },
-    // Short of the counter's end, to set something on it.
-    "counter-end": { piece: "counter", dx: -70, facing: 1 },
+    // Short of the counter's end, to set something on it: further left, a resting hand is at the end chair's back; further right, a head at the sink's.
+    "counter-end": { piece: "counter", dx: -67, facing: 1 },
     // At the stove's left, facing the towel on the oven door.
     "by-towel": { piece: "stove", dx: -24, facing: 1 },
     sink: { piece: "counter", dx: -34, facing: 1 },
