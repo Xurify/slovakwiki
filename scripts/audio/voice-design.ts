@@ -61,6 +61,20 @@ const WAITER_TALK = [
 ].join(" ");
 
 /**
+ * Robo's own lines in the dog story, so the design hears a robot in a flat
+ * with a dog, not a learner reading an introduction.
+ */
+const ROBO_TALK = [
+  "Dobré ráno. Som Robo, váš nový domáci robot.",
+  "Dobre, Marek. Tykám ti. Viem po slovensky, po anglicky, po nemecky. Viem sto jazykov.",
+  "Prepáč. Tento jazyk neviem.",
+  "Bobík, je jedenásť. Von ideme o dvanástej. Taký je plán.",
+  "Hľadám v slovníku. Haf: zvuk psa. To viem aj ja.",
+  "Bobík? Tento haf je iný. Je tichý. Sedíš pri okne. Čakáš na Mareka.",
+  "Ráno sto. Teraz stojeden.",
+].join(" ");
+
+/**
  * Domo at Marek's flat, from his own lines: a household robot reading out
  * his plan and talking to the dog, so the design hears him, not a lesson.
  */
@@ -147,6 +161,15 @@ const CAST: CastBrief[] = [
     voiceName: "Slovak Wiki Guide",
     voiceDescription:
       "Clear instructional Slovak voice for key phrases and teaching lines. Neutral adult tone, precise diction, slightly slower than casual chat, high intelligibility for language learners. Central European accent, neither overly deep nor high — balanced guide narrator for apps.",
+  },
+  {
+    characterId: "robo",
+    displayName: "Robo",
+    gender: "male",
+    voiceName: "Slovak Wiki Robo",
+    voiceDescription:
+      "A friendly household robot in a Slovak flat, speaking Slovak to its owner and his dog. A light, clear male-leaning voice with a very slight synthetic evenness: precise consonants, tidy rhythm, short sentences said a little too exactly, as if reading from a log, but with real curiosity and a dry, gentle humour underneath. Warm, never cold or menacing, not a sci-fi villain, no heavy vocoder or metallic effect, no echo. Recorded close in a quiet room. Not a narrator, not an audiobook, not an announcer. Central European accent.",
+    sampleText: ROBO_TALK,
   },
 ];
 

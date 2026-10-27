@@ -82,7 +82,9 @@
   /** The line on stage has played to its end, so the next one follows on from it. */
   let finished = true;
 
-  const direction = $derived(directScene(scene.lines, scene.setting, scene.order));
+  const direction = $derived(
+    directScene(scene.lines, scene.setting, scene.order, scene.carried),
+  );
   const mood = $derived(
     sceneMood(
       [...(scene.before ?? []), ...scene.lines.map((line) => line.slovak)],

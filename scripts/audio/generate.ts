@@ -15,6 +15,7 @@ import { access, mkdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 import { ROOT } from "../lib/paths";
+import { barkClip, isRecordedVoice } from "./barks";
 import { judgeClip, judgeModeFromSttProvider } from "./judge";
 import { formatMouthTrackReport, updateMouthTracks } from "./mouth-tracks";
 import {
@@ -256,6 +257,13 @@ async function main(): Promise<void> {
             label: `rescue-retry-${r}`,
           });
         }
+      }
+
+      // A dog's barks are cut from a recording: nothing to synthesize, nothing for Scribe to hear.
+      if (isRecordedVoice(voiceConfig)) {
+        audio = await barkClip(target.text);
+        await writeFile(filePath, audio);
+        attempts.length = 0;
       }
 
       // A bark has no words for Scribe to hear: one take, judged by ear.

@@ -285,10 +285,16 @@ export function planLine(
 
   beats.sort((a, b) => a.at - b.at);
   const speechEnd = origin + speechMs * scale;
-  const pictures = linePictures(slovak).map(({ picture, word }) => ({
-    at: words[word]?.start ?? origin,
-    picture,
-  }));
+  // A beat directed to compute shows the working-out over the head, not just on the face.
+  const pictures = [
+    ...beats
+      .filter(({ gesture }) => gesture === "compute")
+      .map(({ at }) => ({ at, picture: "computing" as const })),
+    ...linePictures(slovak).map(({ picture, word }) => ({
+      at: words[word]?.start ?? origin,
+      picture,
+    })),
+  ].sort((a, b) => a.at - b.at);
 
   return {
     beats: spaceBeats(beats, speechEnd),

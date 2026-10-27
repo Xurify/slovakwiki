@@ -1,3 +1,4 @@
+import { LOOKS } from "./looks";
 import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
 import type { StickGestureId } from "./gestures";
 import { planLine, type LinePlan } from "./line-plan";
@@ -91,7 +92,8 @@ function callers(
   const on: Array<LessonCharacterId | undefined> = lines.map(() => undefined);
   lines.forEach((line, start) => {
     const answers = line.characterId;
-    if (line.ring !== "call" || !answers || !cast.includes(answers)) return;
+    if ((line.ring !== "call" && line.ring !== "dial") || !answers) return;
+    if (!cast.includes(answers)) return;
 
     // Someone else in the room may say something into the call ("Nech príde."); it lasts to the far end's last line.
     let end = start;
@@ -136,6 +138,7 @@ export function directScene(
   lines: readonly DirectedLine[],
   setting: StageSetting,
   order?: readonly LessonCharacterId[],
+  carried: CastProps = {},
 ): SceneDirection {
   const cast = castFor(lines, setting, order);
   const { atMarks, things } = PLACES[setting];
@@ -145,10 +148,19 @@ export function directScene(
   const acted = isActed(lines);
   const calls = acted ? [] : callers(lines, cast);
   const phoned = acted ? intoPhone(lines) : [];
-  const held = heldProps(read).map((props, index) => {
+  const walkingIn = Object.fromEntries(
+    Object.entries(carried).filter(([id]) => cast.includes(id as LessonCharacterId)),
+  );
+  const held = heldProps(read, walkingIn).map((props, index) => {
     if (acted) return {};
     const caller = calls[index];
-    return caller ? { ...props, [caller]: "phone" as const } : props;
+    const withCall = caller ? { ...props, [caller]: "phone" as const } : props;
+    // A robot is its own phone: it never takes one out, to call or to show.
+    return Object.fromEntries(
+      Object.entries(withCall).filter(
+        ([id, prop]) => !(prop === "phone" && LOOKS[id as LessonCharacterId].robot),
+      ),
+    ) as typeof withCall;
   });
   // What the scene has named so far, which a bare tamten can point back at.
   const named: NamedThing[] = [];
@@ -187,7 +199,7 @@ export function directScene(
               takes ? ["show", ...(gestures ?? []).slice(1)] : gestures,
             ),
         lips: vowels ? decodeVowelTrack(vowels) : undefined,
-        phone: phoned[index],
+        phone: acted ? phoned[index] : !!characterId && calls[index] === characterId,
         points,
         said,
         track: mouth ? decodeMouthTrack(mouth) : undefined,

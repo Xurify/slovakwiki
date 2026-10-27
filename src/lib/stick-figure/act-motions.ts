@@ -917,6 +917,24 @@ export function motionFor(
         },
       };
     }
+    case "leash": {
+      // Bent down to the collar with the clip end, then up with the handle: the lead runs from the hand to the dog from then on.
+      const collar = hands(hand, { to, as: "grip" });
+      return {
+        motion: {
+          ms: 1500,
+          face: to,
+          takes: 800,
+          sounds: [{ at: 780, id: "clink" }],
+          keys: [
+            { at: 0 },
+            { at: 550, ...collar, body: { lean: 9, nod: 2, look: 1 } },
+            { at: 850, ...collar, body: { lean: 9, nod: 2, look: 1 } },
+            { at: 1500 },
+          ],
+        },
+      };
+    }
     case "burn": {
       // The spoon goes out of the way, the free hand fans the mouth, and the
       // whole body hops: the soup was hotter than the warning made it sound.
@@ -1301,6 +1319,7 @@ export function motionFor(
       };
     case "go":
     case "enter":
+    case "leave":
     case "sit":
     case "face":
     case "camera":

@@ -42,8 +42,13 @@
               </strong>
 
               <span class="mt-0.5 block text-sm leading-snug text-pretty text-slate-600">
-                A {episodeMinutes(episode)}-minute episode on
-                <span lang="sk">{episode.topic}</span>. {episode.promise}
+                {#if episode.topic}
+                  A {episodeMinutes(episode)}-minute episode on
+                  <span lang="sk">{episode.topic}</span>.
+                {:else}
+                  A {episodeMinutes(episode)}-minute story.
+                {/if}
+                {episode.promise}
               </span>
             </span>
 

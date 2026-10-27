@@ -370,3 +370,30 @@ describe("a phone call", () => {
     expect(calls).toEqual(["marek", "marek", "marek", "marek", "marek", undefined]);
   });
 });
+
+describe("a call a robot makes", () => {
+  const lines: DirectedLine[] = [
+    { characterId: "robo", slovak: "Rozumiem. Volám Marekovi." },
+    { characterId: "robo", slovak: "Ahoj, Marek. Tu je Robo.", ring: "dial" },
+    { characterId: "marek", slovak: "Ahoj, Robo. Čo sa deje?", overPhone: true },
+    { characterId: "robo", slovak: "Bobík čaká pri okne." },
+  ];
+
+  it("is on the call from the line it dials, with no phone in hand", () => {
+    const direction = directScene(lines, "home");
+
+    expect(direction.lines.map((line) => line.call)).toEqual([
+      undefined,
+      "robo",
+      "robo",
+      "robo",
+    ]);
+    expect(direction.lines.map((line) => line.held.robo)).not.toContain("phone");
+  });
+
+  it("greets the far end without a wave, since a wave cannot be seen down a line", () => {
+    const [, hello] = directScene(lines, "home").lines;
+
+    expect(hello.plan.beats.map((beat) => beat.gesture)).not.toContain("wave");
+  });
+});

@@ -20,6 +20,7 @@
   import type { Effect } from "$lib/stick-figure/act-motions";
   import { mouthOf, reachFor } from "$lib/stick-figure/reach";
   import { OBJECT_SIZE, tipFromHand } from "$lib/stick-figure/set-pieces";
+  import StickDog from "./StickDog.svelte";
   import StickHead from "./StickHead.svelte";
   import StickSetObject, { type ObjectLook } from "./StickSetObject.svelte";
   import StickHeld from "./StickHeld.svelte";
@@ -65,6 +66,7 @@
     sit = 0,
     sitPath,
     call = 0,
+    relaying = false,
     dress = dressFor("clear"),
     turnDelay = 0,
     hands = {},
@@ -87,6 +89,8 @@
     sitPath?: SitPath;
     /** 0 the phone in hand or none, 1 held at the ear. */
     call?: number;
+    /** A robot playing the far end of its call out loud, from the speaker in its chest. */
+    relaying?: boolean;
     /** What the weather on them does to what they wear. */
     dress?: Dress;
     /** Ms before a change of `facing` starts: a listener turns a beat after the speaker. */
@@ -171,7 +175,9 @@
     return to;
   }
 
-  const rig = $derived(solveRig(carriedRound(atEar(pose, call)), sit, sitPath));
+  const rig = $derived(
+    solveRig(carriedRound(robot ? pose : atEar(pose, call)), sit, sitPath),
+  );
   /**
    * Headphones in both hands, a cup in each, while the hands are a band's
    * width or so apart. Round the head they are held as worn: the rear hand
@@ -233,14 +239,6 @@
   }
   const look = $derived(LOOKS[characterId]);
   const robot = $derived(look.robot);
-  const dog = $derived(look.dog);
-  /** A trot: front and back pairs swing against each other with the walk's stride. */
-  const paw = $derived(pose.stride * 6);
-  /** The tail sits up and wags with each bark, the mouth's own loudness. */
-  const tailAngle = $derived(-28 - pose.mouth * 34);
-  const dogHeadTransform = $derived(
-    `translate(15 ${n(95 + pose.nod * 1.2 + pose.bob)}) rotate(${n(pose.tilt * 0.6)}) scale(0.6) translate(-32 -29)`,
-  );
   /** The near knee in the torso's own space, turned back by the lean, for a skirt over the lap. */
   const lapKnee = $derived.by(() => {
     const dx = rig.leadLeg.joint.x - rig.hip.x;
@@ -305,6 +303,10 @@
 
 {#snippet arm(shoulder: Point, limb: StickLimb)}
   <path d={limbPath(shoulder, limb)} class="stroke-portrait-ink" stroke-width="3" />
+  {#if robot?.metal}
+    <path d={limbPath(shoulder, limb)} class="stroke-portrait-ink" stroke-width="4.4" />
+    <path d={limbPath(shoulder, limb)} class="stroke-scene-steel" stroke-width="2.4" />
+  {/if}
 
   {#if look.sleeve}
     <path
@@ -347,7 +349,11 @@
     cx={n(at.x)}
     cy={n(at.y)}
     r="2.3"
-    class="{robot ? 'fill-portrait-bib' : 'fill-portrait-skin'} stroke-portrait-ink"
+    class="{robot?.metal
+      ? 'fill-scene-steel-light'
+      : robot
+        ? 'fill-portrait-bib'
+        : 'fill-portrait-skin'} stroke-portrait-ink"
     stroke-width="1.2"
   />
 {/snippet}
@@ -456,6 +462,33 @@
 
 {#snippet leg(limb: StickLimb)}
   <path d={limbPath(rig.hip, limb)} class="stroke-portrait-ink" stroke-width="3.4" />
+  {#if robot?.metal}
+    <path d={limbPath(rig.hip, limb)} class="stroke-portrait-ink" stroke-width="4.8" />
+    <path d={limbPath(rig.hip, limb)} class="stroke-scene-steel" stroke-width="2.8" />
+  {/if}
+{/snippet}
+
+<!-- A metal foot: a flat sole on the ground, its toe rounded up, and an ankle cap where the leg meets it. -->
+{#snippet plate(at: Point)}
+  <path
+    d="M{n(at.x - 1.4)} {n(
+      at.y + 0.8,
+    )}h7q1.6 0 1.6-1.6q0-2.2-3-2.6l-3.2-0.6h-2.4q-1.6 0-1.6 1.6v1.6q0 1.6 1.6 1.6Z"
+    class="fill-scene-steel stroke-portrait-ink"
+    stroke-width="1.1"
+  />
+  <path
+    d="M{n(at.x - 2.6)} {n(at.y - 0.6)}h7.6"
+    class="stroke-scene-steel-dark"
+    stroke-width="0.7"
+  />
+  <circle
+    cx={n(at.x)}
+    cy={n(at.y - 2.2)}
+    r="1.5"
+    class="fill-scene-steel-dark stroke-portrait-ink"
+    stroke-width="0.9"
+  />
 {/snippet}
 
 {#snippet joint(at: Point, r: number)}
@@ -463,7 +496,9 @@
     cx={n(at.x)}
     cy={n(at.y)}
     {r}
-    class="fill-portrait-bib stroke-portrait-ink"
+    class="{robot?.metal
+      ? 'fill-scene-steel-dark'
+      : 'fill-portrait-bib'} stroke-portrait-ink"
     stroke-width="0.9"
   />
 {/snippet}
@@ -477,61 +512,15 @@
   aria-hidden="true"
 >
   <g transform="scale({n(side * (0.88 + 0.12 * round))} 1)">
-    <ellipse cx="0" cy={GROUND_Y + 0.5} rx="15" ry="2.2" class="fill-portrait-ink/15" />
-    {#if dog}
-      <!-- A dog about knee-high to the cast, facing +x like everyone: tail, far legs, body, near legs, head. -->
-      <path
-        d="M-15 106q-6 {n(tailAngle * 0.2)}-7 {n(tailAngle * 0.3)}"
-        class="stroke-portrait-ink"
-        stroke-width="4.4"
-        transform="rotate({n(pose.mouth * 18)} -15 106)"
+    {#if look.dog}
+      <StickDog
+        {characterId}
+        {pose}
+        ball={held?.id === "ball" || hands.lead?.kind === "ball"}
       />
-      <path
-        d="M-15 106q-6 {n(tailAngle * 0.2)}-7 {n(tailAngle * 0.3)}"
-        class="stroke-scene-wood"
-        stroke-width="2.4"
-        transform="rotate({n(pose.mouth * 18)} -15 106)"
-      />
-      <path
-        d="M-14 113l{n(-paw)} 16.4M6 113l{n(paw)} 16.4"
-        class="stroke-portrait-ink/70"
-        stroke-width="2.4"
-      />
-      <path d="M7 106q6-4 8-9" class="stroke-portrait-ink" stroke-width="9.4" />
-      <path d="M7 106q6-4 8-9" class="stroke-scene-wood" stroke-width="7" />
-      <ellipse
-        cx="-2"
-        cy="109"
-        rx="15.5"
-        ry="8.2"
-        class="{dog.coat} stroke-portrait-ink"
-        stroke-width="1.4"
-      />
-      <ellipse cx="-7" cy="106.6" rx="5" ry="3.4" class={dog.patch} />
-      <path
-        d="M-9 115l{n(paw)} 14.6M11 114l{n(-paw)} 15.6"
-        class="stroke-portrait-ink"
-        stroke-width="2.6"
-      />
-      <path
-        d={`M${n(-9 + paw)} 129.6h2.6M${n(11 - paw)} 129.6h2.6`}
-        class="stroke-portrait-ink"
-        stroke-width="2.8"
-      />
-      <path d="M10.4 101.2l5.2 3.4" class="stroke-portrait-ink" stroke-width="3.6" />
-      <path d="M10.4 101.2l5.2 3.4" class={dog.collar} stroke-width="2.2" />
-
-      <g transform={dogHeadTransform}>
-        <StickHead {characterId} {pose} turn={front ? 0 : undefined} />
-
-        {#if held?.id === "ball" || hands.lead?.kind === "ball"}
-          <!-- Carried in the mouth, in the head's own 64-unit space. -->
-          <g transform="translate(37.4 43.4) scale(1.5)">
-            <StickProp prop="ball" />
-          </g>
-        {/if}
-      </g>
     {:else}
+      <ellipse cx="0" cy={GROUND_Y + 0.5} rx="15" ry="2.2" class="fill-portrait-ink/15" />
+
       <g transform={headTransform}>
         <!-- Under the hair behind the head as well as the skull: drawn over a lob, the far half framed the face like a hood. -->
         {#if dress.headwear === "headset"}
@@ -555,13 +544,18 @@
       {@render hand(rig.rearArm.end, "rear")}
       {@render leg(rig.rearLeg)}
       {@render leg(rig.leadLeg)}
-      <path
-        d="M{n(rig.rearLeg.end.x - 1)} {n(rig.rearLeg.end.y - 1)}h5M{n(
-          rig.leadLeg.end.x - 1,
-        )} {n(rig.leadLeg.end.y - 1)}h5"
-        class="stroke-portrait-ink"
-        stroke-width="3.6"
-      />
+      {#if robot?.metal}
+        {@render plate(rig.rearLeg.end)}
+        {@render plate(rig.leadLeg.end)}
+      {:else}
+        <path
+          d="M{n(rig.rearLeg.end.x - 1)} {n(rig.rearLeg.end.y - 1)}h5M{n(
+            rig.leadLeg.end.x - 1,
+          )} {n(rig.leadLeg.end.y - 1)}h5"
+          class="stroke-portrait-ink"
+          stroke-width="3.6"
+        />
+      {/if}
 
       {#if robot}
         {@render joint(rig.rearLeg.joint, 1.6)}
@@ -579,6 +573,7 @@
       <g transform={headTransform}>
         <StickHead
           {characterId}
+          calling={call > 0.5}
           {pose}
           turn={front ? 0 : undefined}
           {round}
@@ -648,6 +643,21 @@
               />
             {/if}
           </g>
+        </g>
+      {/if}
+
+      {#if relaying}
+        <g transform={torsoTransform}>
+          {#each [0, 1, 2] as wave (wave)}
+            {@const x = 10 + wave * 4.6}
+            {@const half = 4 + wave * 1.8}
+            <path
+              d="M{x} {-21.3 - half}Q{x + half * 0.9} -21.3 {x} {-21.3 + half}"
+              class="stroke-scene-honey motion-safe:animate-sound-wave"
+              stroke-width="1.8"
+              style:animation-delay="{wave * 400}ms"
+            />
+          {/each}
         </g>
       {/if}
 

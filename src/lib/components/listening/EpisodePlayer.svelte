@@ -155,7 +155,9 @@
       <div class="mt-4 flex flex-wrap items-center gap-x-5 gap-y-3">
         <Button variant="accent" onclick={askQuestions}>Answer the questions</Button>
 
-        <TextLink href={next.grammarHref}>Grammar page</TextLink>
+        {#if next.grammarHref}
+          <TextLink href={next.grammarHref}>Grammar page</TextLink>
+        {/if}
 
         <TextLink onclick={restart}>Start again</TextLink>
       </div>
@@ -176,7 +178,9 @@
           <Button href={next.practiceHref} variant="accent">Practice these forms</Button>
         {/if}
 
-        <TextLink href={next.grammarHref}>Grammar page</TextLink>
+        {#if next.grammarHref}
+          <TextLink href={next.grammarHref}>Grammar page</TextLink>
+        {/if}
 
         {#if next.lessonHref}
           <TextLink href={next.lessonHref}>Lesson</TextLink>

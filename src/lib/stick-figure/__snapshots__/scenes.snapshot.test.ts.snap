@@ -2447,6 +2447,7 @@ exports[`every scene, directed > lesson grammar/possessives 1`] = `
     "vankus",
     "lampa",
     "koberec",
+    "voditko",
     "rastlina",
   ],
 }
@@ -3685,6 +3686,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-home 1`] = `
     "vankus",
     "lampa",
     "koberec",
+    "voditko",
     "rastlina",
   ],
 }
@@ -6188,6 +6190,7 @@ exports[`every scene, directed > podcast podcast-future-tense-friday 1`] = `
     "vankus",
     "lampa",
     "koberec",
+    "voditko",
     "rastlina",
   ],
 }
@@ -6577,6 +6580,7 @@ exports[`every scene, directed > podcast podcast-future-tense-monday 1`] = `
     "vankus",
     "lampa",
     "koberec",
+    "voditko",
     "rastlina",
   ],
 }
@@ -6862,6 +6866,7 @@ exports[`every scene, directed > podcast podcast-future-tense-morning 1`] = `
     "vankus",
     "lampa",
     "koberec",
+    "voditko",
     "rastlina",
   ],
 }
@@ -7411,6 +7416,7 @@ exports[`every scene, directed > podcast podcast-future-tense-six 1`] = `
     "vankus",
     "lampa",
     "koberec",
+    "voditko",
     "rastlina",
   ],
 }
@@ -7686,6 +7692,7 @@ exports[`every scene, directed > podcast podcast-future-tense-window 1`] = `
     "vankus",
     "lampa",
     "koberec",
+    "voditko",
     "rastlina",
   ],
 }
@@ -17342,6 +17349,1876 @@ exports[`every scene, directed > podcast podcast-telling-time-tram-stop 1`] = `
     "zastavka",
     "lavicka",
     "oblak",
+  ],
+}
+`;
+
+exports[`every scene, directed > podcast podcast-what-bobik-says-home 1`] = `
+{
+  "cast": [
+    "marek",
+    "bobik",
+    "robo",
+  ],
+  "lines": [
+    {
+      "line": "-: Pol deviatej večer.",
+      "plan": {
+        "beats": [
+          "50 tell",
+        ],
+        "ms": 1700,
+        "sentences": "50-1350",
+        "words": "50-276 276-931 931-1350",
+      },
+      "staging": {
+        "addressee": null,
+        "enter": {
+          "characterId": "marek",
+          "from": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Ahoj, Bobík! Som doma!",
+      "plan": {
+        "beats": [
+          "0 wave",
+          "1374 self",
+        ],
+        "ms": 2200,
+        "sentences": "0-978 1374-2000",
+        "words": "0-396 505-978 1374-1604 1604-2000",
+      },
+      "staging": {
+        "addressee": "bobik",
+        "facing": {
+          "bobik": -1,
+          "marek": 1,
+          "robo": -1,
+        },
+      },
+    },
+    {
+      "line": "bobik: Haf! Haf! Haf!",
+      "plan": {
+        "beats": [
+          "200 stress",
+        ],
+        "ms": 1450,
+        "sentences": "200-348 601-749 1002-1150",
+        "words": "200-348 601-749 1002-1150",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "bobik": -1,
+          "marek": 1,
+          "robo": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Prepáč, Bobík. Prepáč. Robo, čo hovorí?",
+      "plan": {
+        "beats": [
+          "50 apologize",
+          "1750 apologize",
+          "3400 ask",
+        ],
+        "ms": 5000,
+        "questions": "3400-4750",
+        "sentences": "50-1190 1750-2135 3400-4750",
+        "words": "50-580 695-1190 1750-2135 3400-3798 3909-4108 4108-4750",
+      },
+      "staging": {
+        "addressee": "bobik",
+        "facing": {
+          "bobik": -1,
+          "marek": 1,
+          "robo": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "bobik",
+            "gesture": "lean",
+            "sentence": 2,
+          },
+        ],
+      },
+    },
+    {
+      "line": "robo: Vrtí chvostom. Je šťastný. A hovorí: konečne.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "2150 tell",
+          "4219 tell",
+        ],
+        "ms": 6000,
+        "sentences": "0-991 2150-2995 4219-5850",
+        "words": "0-466 466-991 2150-2377 2377-2995 4219-4393 4393-5069 5186-5850",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "bobik": 1,
+          "marek": 1,
+          "robo": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "marek",
+            "gesture": "nod",
+            "sentence": 2,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Má pravdu. Zmena plánu. Zajtra pracujem z domu. A pôjdeme na námestie. Všetci traja.",
+      "plan": {
+        "beats": [
+          "50 sigh",
+          "1685 tell",
+          "2750 tell",
+          "5179 tell",
+          "7200 tell",
+        ],
+        "ms": 8100,
+        "sentences": "50-669 1685-2479 2750-4163 5179-6718 7200-7850",
+        "words": "50-263 263-669 1685-2063 2063-2479 2750-3180 3180-3794 3794-3794 3794-4163 5179-5324 5324-5915 5915-6089 6089-6718 7200-7537 7537-7850",
+      },
+      "staging": {
+        "addressee": "robo",
+        "facing": {
+          "bobik": -1,
+          "marek": 1,
+          "robo": -1,
+        },
+      },
+    },
+    {
+      "line": "bobik: Haf! Haf!",
+      "plan": {
+        "beats": [
+          "200 stress",
+        ],
+        "ms": 1100,
+        "sentences": "200-375 675-850",
+        "words": "200-375 675-850",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "bobik": -1,
+          "marek": 1,
+          "robo": -1,
+        },
+      },
+    },
+    {
+      "line": "robo: Hovorí: áno. A pozerá na misku. Celý večer nejedol.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "2150 tell",
+          "3950 tell",
+        ],
+        "ms": 5700,
+        "sentences": "0-976 2150-3160 3950-5400",
+        "words": "0-539 632-976 2150-2267 2267-2717 2717-2857 2857-3160 3950-4376 4376-4792 4792-5400",
+      },
+      "staging": {
+        "addressee": "bobik",
+        "facing": {
+          "bobik": 1,
+          "marek": 1,
+          "robo": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Hladný? Konečne! Poď, Bobík, večera!",
+      "plan": {
+        "beats": [
+          "100 ask",
+          "1400 stress",
+          "2550 stress",
+        ],
+        "ms": 4000,
+        "questions": "100-546",
+        "sentences": "100-546 1400-2115 2550-3800",
+        "words": "100-546 1400-2115 2550-2740 2831-3220 3311-3800",
+      },
+      "staging": {
+        "addressee": "bobik",
+        "facing": {
+          "bobik": -1,
+          "marek": 1,
+          "robo": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "bobik",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "bobik: Haf.",
+      "plan": {
+        "beats": [
+          "200 tell",
+        ],
+        "ms": 800,
+        "sentences": "200-550",
+        "words": "200-550",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "bobik": -1,
+          "marek": 1,
+          "robo": -1,
+        },
+      },
+    },
+    {
+      "line": "robo: Tichý haf… Ale Marek je už doma. Neviem.",
+      "plan": {
+        "beats": [
+          "50 compute",
+          "1862 tell",
+          "4350 shrug",
+        ],
+        "ms": 5400,
+        "pictures": [
+          "50 computing",
+        ],
+        "sentences": "50-716 1862-3434 4350-5050",
+        "words": "50-487 487-716 1862-2222 2222-2648 2648-2845 2845-3041 3041-3434 4350-5050",
+      },
+      "staging": {
+        "addressee": "bobik",
+        "facing": {
+          "bobik": 1,
+          "marek": 1,
+          "robo": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Tak to máš úlohu na zajtra.",
+      "plan": {
+        "beats": [
+          "0 chuckle",
+        ],
+        "ms": 2750,
+        "sentences": "0-2500",
+        "words": "0-293 293-545 545-894 894-1662 1662-1913 1913-2500",
+      },
+      "staging": {
+        "addressee": "robo",
+        "facing": {
+          "bobik": -1,
+          "marek": 1,
+          "robo": -1,
+        },
+      },
+    },
+    {
+      "line": "robo: Dnes ráno som vedel sto jazykov. Teraz viem stojeden.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "3300 tell",
+        ],
+        "ms": 5000,
+        "sentences": "0-2250 3300-4800",
+        "words": "0-267 267-713 713-947 947-1381 1381-1615 1615-2250 3300-3772 3772-4074 4074-4800",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "bobik": 1,
+          "marek": 1,
+          "robo": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Stojeden? Celý psí jazyk?",
+      "plan": {
+        "beats": [
+          "100 ask",
+          "1700 ask",
+        ],
+        "ms": 3200,
+        "questions": "100-769 1700-3100",
+        "sentences": "100-769 1700-3100",
+        "words": "100-769 1700-2238 2238-2575 2575-3100",
+      },
+      "staging": {
+        "addressee": "robo",
+        "facing": {
+          "bobik": -1,
+          "marek": 1,
+          "robo": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "robo",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "robo: No… polovicu.",
+      "plan": {
+        "beats": [
+          "0 muse",
+          "1100 tell",
+        ],
+        "ms": 1950,
+        "sentences": "0-162 1100-1750",
+        "words": "0-162 1100-1750",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "bobik": 1,
+          "marek": 1,
+          "robo": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "marek",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "bobik: Haf!",
+      "plan": {
+        "beats": [
+          "200 stress",
+        ],
+        "ms": 800,
+        "sentences": "200-550",
+        "words": "200-550",
+      },
+      "staging": {
+        "addressee": "robo",
+        "facing": {
+          "bobik": 1,
+          "marek": 1,
+          "robo": -1,
+        },
+      },
+    },
+    {
+      "line": "robo: Dobre. Štvrtinu.",
+      "plan": {
+        "beats": [
+          "0 nod",
+          "1300 tell",
+        ],
+        "ms": 2200,
+        "sentences": "0-382 1300-2000",
+        "words": "0-382 1300-2000",
+      },
+      "staging": {
+        "addressee": "bobik",
+        "facing": {
+          "bobik": 1,
+          "marek": 1,
+          "robo": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Vitaj v rodine, Robo.",
+      "plan": {
+        "beats": [
+          "50 wave",
+        ],
+        "ms": 1850,
+        "sentences": "50-1600",
+        "words": "50-485 485-485 485-1087 1199-1600",
+      },
+      "staging": {
+        "addressee": "robo",
+        "facing": {
+          "bobik": -1,
+          "marek": 1,
+          "robo": -1,
+        },
+      },
+    },
+    {
+      "line": "bobik: Haf!",
+      "plan": {
+        "beats": [
+          "200 stress",
+        ],
+        "ms": 800,
+        "sentences": "200-550",
+        "words": "200-550",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "bobik": -1,
+          "marek": 1,
+          "robo": -1,
+        },
+      },
+    },
+    {
+      "line": "robo: Tento haf poznám. Znamená: vitaj. Zapisujem.",
+      "plan": {
+        "beats": [
+          "100 tell",
+          "1800 tell",
+          "3850 tell",
+        ],
+        "ms": 4750,
+        "sentences": "100-1052 1800-2983 3850-4600",
+        "words": "100-450 450-639 639-1052 1800-2456 2564-2983 3850-4600",
+      },
+      "staging": {
+        "addressee": "bobik",
+        "facing": {
+          "bobik": 1,
+          "marek": 1,
+          "robo": -1,
+        },
+      },
+    },
+  ],
+  "setting": "home",
+  "things": [
+    "muz",
+    "zena",
+    "okno",
+    "taska",
+    "zaves",
+    "obraz",
+    "pohovka",
+    "vankus",
+    "lampa",
+    "koberec",
+    "voditko",
+    "rastlina",
+  ],
+}
+`;
+
+exports[`every scene, directed > podcast podcast-what-bobik-says-lead 1`] = `
+{
+  "cast": [
+    "bobik",
+    "robo",
+  ],
+  "lines": [
+    {
+      "line": "-: Jedenásť hodín.",
+      "plan": {
+        "beats": [
+          "0 tell",
+        ],
+        "ms": 1450,
+        "sentences": "0-1300",
+        "words": "0-778 778-1300",
+      },
+      "staging": {
+        "addressee": null,
+      },
+    },
+    {
+      "line": "bobik: Haf! Haf! Haf!",
+      "plan": {
+        "beats": [
+          "200 stress",
+        ],
+        "ms": 1450,
+        "sentences": "200-348 601-749 1002-1150",
+        "words": "200-348 601-749 1002-1150",
+      },
+      "staging": {
+        "addressee": "robo",
+        "facing": {
+          "bobik": 1,
+          "robo": -1,
+        },
+      },
+    },
+    {
+      "line": "robo: Bobík, je jedenásť. Von ideme o dvanástej. Taký je plán.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "2150 tell",
+          "4750 tell",
+        ],
+        "ms": 5800,
+        "sentences": "0-1478 2150-3559 4750-5650",
+        "words": "0-471 580-777 777-1478 2150-2342 2342-2809 2809-2946 2946-3559 4750-5169 5169-5357 5357-5650",
+      },
+      "staging": {
+        "addressee": "bobik",
+        "facing": {
+          "bobik": 1,
+          "robo": -1,
+        },
+      },
+    },
+    {
+      "line": "bobik: Haf! Haf!",
+      "plan": {
+        "beats": [
+          "200 stress",
+        ],
+        "ms": 1100,
+        "sentences": "200-375 675-850",
+        "words": "200-375 675-850",
+      },
+      "staging": {
+        "addressee": "robo",
+        "facing": {
+          "bobik": 1,
+          "robo": -1,
+        },
+      },
+    },
+    {
+      "line": "robo: Hm… Si hladný?",
+      "plan": {
+        "beats": [
+          "50 think",
+          "1400 ask",
+        ],
+        "ms": 2400,
+        "questions": "1400-2200",
+        "sentences": "50-257 1400-2200",
+        "words": "50-257 1400-1625 1625-2200",
+      },
+      "staging": {
+        "addressee": "bobik",
+        "facing": {
+          "bobik": 1,
+          "robo": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "bobik",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "bobik: Haf!",
+      "plan": {
+        "beats": [
+          "200 stress",
+        ],
+        "ms": 800,
+        "sentences": "200-550",
+        "words": "200-550",
+      },
+      "staging": {
+        "addressee": "robo",
+        "facing": {
+          "bobik": 1,
+          "robo": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "robo",
+            "gesture": "nod",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "robo: Je to áno? Alebo nie? To nie je odpoveď.",
+      "plan": {
+        "beats": [
+          "0 ask",
+          "1250 ask",
+          "2850 tell",
+        ],
+        "ms": 4200,
+        "questions": "0-735 1250-1834",
+        "sentences": "0-735 1250-1834 2850-4050",
+        "words": "0-181 181-363 363-735 1250-1658 1658-1834 2850-3038 3038-3267 3267-3455 3455-4050",
+      },
+      "staging": {
+        "addressee": "bobik",
+        "facing": {
+          "bobik": 1,
+          "robo": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "bobik",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "robo: Hľadám v slovníku. Haf: zvuk psa. To viem aj ja.",
+      "plan": {
+        "beats": [
+          "0 compute",
+          "2300 tell",
+          "4500 tell",
+        ],
+        "ms": 5700,
+        "pictures": [
+          "0 computing",
+        ],
+        "sentences": "0-1274 2300-3369 4500-5500",
+        "words": "0-533 533-533 533-1274 2300-2596 2736-3074 3074-3369 4500-4728 4728-5044 5044-5272 5272-5500",
+      },
+      "staging": {
+        "addressee": "bobik",
+        "facing": {
+          "bobik": 1,
+          "robo": -1,
+        },
+      },
+    },
+    {
+      "line": "bobik: Haf! Haf!",
+      "plan": {
+        "beats": [
+          "200 stress",
+        ],
+        "ms": 1100,
+        "sentences": "200-375 675-850",
+        "words": "200-375 675-850",
+      },
+      "staging": {
+        "addressee": "robo",
+        "facing": {
+          "bobik": 1,
+          "robo": -1,
+        },
+      },
+    },
+    {
+      "line": "robo: Prečo pozeráš hore? Čo tam je? Vodítko! Aha. Ty chceš von. Teraz.",
+      "plan": {
+        "beats": [
+          "100 ask",
+          "2418 ask",
+          "3118 stress",
+          "5300 tell",
+          "6000 tell",
+        ],
+        "ms": 7050,
+        "questions": "100-1408 2418-2966",
+        "sentences": "100-1408 2418-2966 3050-3899 5300-5226 5300-6179 6400-6900",
+        "words": "100-475 475-1062 1062-1408 2418-2591 2591-2793 2793-2966 3050-3899 5300-5226 5300-5551 5551-5886 5886-6179 6400-6900",
+      },
+      "staging": {
+        "addressee": "bobik",
+        "facing": {
+          "bobik": 1,
+          "robo": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "bobik",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "bobik: Haf!",
+      "plan": {
+        "beats": [
+          "200 stress",
+        ],
+        "ms": 800,
+        "sentences": "200-550",
+        "words": "200-550",
+      },
+      "staging": {
+        "addressee": "robo",
+        "facing": {
+          "bobik": 1,
+          "robo": -1,
+        },
+      },
+    },
+    {
+      "line": "robo: Zmena plánu. Zapisujem: tento haf znamená von. Vezmem vodítko.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "2050 tell",
+          "5700 tell",
+        ],
+        "ms": 6800,
+        "sentences": "0-883 2050-4459 5700-6700",
+        "words": "0-420 420-883 2050-2846 2952-3366 3366-3589 3589-4237 4237-4459 5700-6108 6108-6700",
+      },
+      "staging": {
+        "addressee": "bobik",
+        "facing": {
+          "bobik": 1,
+          "robo": -1,
+        },
+      },
+    },
+    {
+      "line": "robo: Tak. Ideme na námestie.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "1400 tell",
+        ],
+        "ms": 2750,
+        "sentences": "0-210 1400-2600",
+        "words": "0-210 1400-1857 1857-2018 2018-2600",
+      },
+      "staging": {
+        "addressee": "bobik",
+        "facing": {
+          "bobik": 1,
+          "robo": -1,
+        },
+      },
+    },
+  ],
+  "setting": "home",
+  "things": [
+    "muz",
+    "zena",
+    "okno",
+    "taska",
+    "zaves",
+    "obraz",
+    "pohovka",
+    "vankus",
+    "lampa",
+    "koberec",
+    "voditko",
+    "rastlina",
+  ],
+}
+`;
+
+exports[`every scene, directed > podcast podcast-what-bobik-says-morning 1`] = `
+{
+  "cast": [
+    "marek",
+    "bobik",
+    "robo",
+  ],
+  "lines": [
+    {
+      "line": "-: Pondelok. Sedem hodín ráno. Marekov byt.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "1100 tell",
+          "2700 tell",
+        ],
+        "ms": 3700,
+        "sentences": "50-683 1100-2348 2700-3550",
+        "words": "50-683 1100-1499 1499-1939 1939-2348 2700-3321 3321-3550",
+      },
+      "staging": {
+        "addressee": null,
+      },
+    },
+    {
+      "line": "robo: Systém spustený. Dobré ráno. Som Robo, váš nový domáci robot.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "2500 wave",
+          "3650 self",
+        ],
+        "ms": 6400,
+        "sentences": "0-1221 2500-3308 3650-6250",
+        "words": "0-511 511-1221 2500-2919 2919-3308 3650-3888 3888-4297 4411-4695 4695-5149 5149-5807 5807-6250",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "bobik": 1,
+          "marek": 1,
+          "robo": -1,
+        },
+      },
+    },
+    {
+      "line": "robo: Hovorím po slovensky, po anglicky, po nemecky… Viem sto jazykov.",
+      "plan": {
+        "beats": [
+          "0 muse",
+          "4250 tell",
+        ],
+        "ms": 5850,
+        "pictures": [
+          "853 flag-sk",
+          "2787 flag-de",
+        ],
+        "sentences": "0-3403 4250-5650",
+        "words": "0-659 659-853 853-1534 1642-1837 1837-2485 2593-2787 2787-3403 4250-4590 4590-4875 4875-5650",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "bobik": 1,
+          "marek": 1,
+          "robo": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Super, funguje! Ahoj, Robo! Ja som Marek. Môžeš mi tykať.",
+      "plan": {
+        "beats": [
+          "50 cheer",
+          "2350 wave",
+          "3250 self",
+          "4250 tell",
+        ],
+        "ms": 5300,
+        "sentences": "50-1036 2350-2775 3250-3835 4250-5100",
+        "words": "50-413 506-1036 2350-2537 2588-2775 3250-3385 3385-3543 3543-3835 4250-4616 4616-4769 4769-5100",
+      },
+      "staging": {
+        "addressee": "robo",
+        "facing": {
+          "bobik": -1,
+          "marek": 1,
+          "robo": -1,
+        },
+      },
+    },
+    {
+      "line": "robo: Dobre. Ahoj, Marek.",
+      "plan": {
+        "beats": [
+          "0 nod",
+          "1350 wave",
+        ],
+        "ms": 2350,
+        "sentences": "0-375 1350-2200",
+        "words": "0-375 1350-1710 1810-2200",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "bobik": 1,
+          "marek": 1,
+          "robo": -1,
+        },
+      },
+    },
+    {
+      "line": "bobik: Haf! Haf!",
+      "plan": {
+        "beats": [
+          "200 stress",
+        ],
+        "ms": 1100,
+        "sentences": "200-375 675-850",
+        "words": "200-375 675-850",
+      },
+      "staging": {
+        "addressee": "robo",
+        "facing": {
+          "bobik": 1,
+          "marek": 1,
+          "robo": -1,
+        },
+      },
+    },
+    {
+      "line": "robo: Prepáč. Tomuto jazyku nerozumiem.",
+      "plan": {
+        "beats": [
+          "100 apologize",
+          "1850 tell",
+        ],
+        "ms": 3800,
+        "sentences": "100-583 1850-3650",
+        "words": "100-583 1850-2370 2370-2890 2890-3650",
+      },
+      "staging": {
+        "addressee": "bobik",
+        "facing": {
+          "bobik": 1,
+          "marek": 1,
+          "robo": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "bobik",
+            "gesture": "nod",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: To je Bobík. Môj pes.",
+      "plan": {
+        "beats": [
+          "50 chuckle",
+          "1900 tell",
+        ],
+        "ms": 2750,
+        "sentences": "50-1252 1900-2500",
+        "words": "50-324 324-598 598-1252 1900-2226 2226-2500",
+      },
+      "staging": {
+        "addressee": "robo",
+        "facing": {
+          "bobik": -1,
+          "marek": 1,
+          "robo": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Pozri, musím ísť do práce. Postaráš sa o Bobíka? O dvanástej ho vezmi von, na námestie. Večer mu daj jesť.",
+      "plan": {
+        "beats": [
+          "50 point",
+          "2900 ask",
+          "4500 tell",
+          "7000 tell",
+        ],
+        "ms": 8350,
+        "questions": "2900-4152",
+        "sentences": "50-1717 2900-4152 4500-6858 7000-8150",
+        "words": "50-415 509-912 912-1146 1146-1314 1314-1717 2900-3417 3417-3562 3562-3683 3683-4152 4500-4640 4640-5264 5264-5432 5432-5795 5795-5991 6084-6252 6252-6858 7000-7440 7440-7643 7643-7879 7879-8150",
+      },
+      "staging": {
+        "addressee": "robo",
+        "facing": {
+          "bobik": -1,
+          "marek": 1,
+          "robo": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "robo",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "robo: O dvanástej: von, na námestie. Večer: jesť. Zapisujem.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "3400 tell",
+          "5950 tell",
+        ],
+        "ms": 6800,
+        "sentences": "50-2817 3400-4282 5950-6700",
+        "words": "50-252 252-1152 1286-1568 1702-1944 1944-2817 3400-3871 3992-4282 5950-6700",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "bobik": 1,
+          "marek": 1,
+          "robo": -1,
+        },
+      },
+    },
+    {
+      "line": "marek: Dobre. No nič… Kde mám kľúče?",
+      "plan": {
+        "beats": [
+          "0 nod",
+          "1700 muse",
+          "2850 ask",
+        ],
+        "ms": 4000,
+        "questions": "2850-3800",
+        "sentences": "0-481 1700-2258 2850-3800",
+        "words": "0-481 1700-1957 1957-2258 2850-3074 3074-3341 3341-3800",
+      },
+      "staging": {
+        "addressee": "robo",
+        "facing": {
+          "bobik": -1,
+          "marek": 1,
+          "robo": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "robo",
+            "gesture": "lean",
+            "sentence": 2,
+          },
+        ],
+      },
+    },
+    {
+      "line": "robo: Máš ich v ruke.",
+      "plan": {
+        "beats": [
+          "50 tell",
+        ],
+        "ms": 1300,
+        "sentences": "50-1100",
+        "words": "50-382 382-622 622-622 622-1100",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "bobik": 1,
+          "marek": 1,
+          "robo": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "marek",
+            "gesture": "nod",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "marek: Aha. Prídem domov o siedmej. Majte sa, chlapci!",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "1200 tell",
+          "2750 wave",
+        ],
+        "ms": 3950,
+        "sentences": "0-277 1200-2383 2750-3600",
+        "words": "0-277 1200-1573 1573-1889 1889-2010 2010-2383 2750-3054 3054-3194 3272-3600",
+      },
+      "staging": {
+        "addressee": "robo",
+        "facing": {
+          "bobik": -1,
+          "marek": 1,
+          "robo": -1,
+        },
+      },
+    },
+    {
+      "line": "bobik: Haf.",
+      "plan": {
+        "beats": [
+          "200 tell",
+        ],
+        "ms": 800,
+        "sentences": "200-550",
+        "words": "200-550",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "bobik": -1,
+          "marek": 1,
+          "robo": -1,
+        },
+      },
+    },
+    {
+      "line": "robo: Bobík… Sme sami.",
+      "plan": {
+        "beats": [
+          "0 muse",
+          "1750 tell",
+        ],
+        "ms": 2650,
+        "sentences": "0-524 1750-2500",
+        "words": "0-524 1750-2026 2026-2500",
+      },
+      "staging": {
+        "addressee": "bobik",
+        "facing": {
+          "bobik": 1,
+          "marek": 1,
+          "robo": -1,
+        },
+      },
+    },
+  ],
+  "setting": "home",
+  "things": [
+    "muz",
+    "zena",
+    "okno",
+    "taska",
+    "zaves",
+    "obraz",
+    "pohovka",
+    "vankus",
+    "lampa",
+    "koberec",
+    "voditko",
+    "rastlina",
+  ],
+}
+`;
+
+exports[`every scene, directed > podcast podcast-what-bobik-says-square 1`] = `
+{
+  "cast": [
+    "bobik",
+    "robo",
+    "anna",
+  ],
+  "lines": [
+    {
+      "line": "-: Staré mesto. Pol dvanástej.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "1450 tell",
+        ],
+        "ms": 2600,
+        "sentences": "0-975 1450-2450",
+        "words": "0-511 511-975 1450-1689 1689-2450",
+      },
+      "staging": {
+        "addressee": null,
+        "enter": {
+          "characterId": "anna",
+          "from": 1,
+        },
+      },
+    },
+    {
+      "line": "anna: Ahoj, Bobík! Ahoj, zlatko!",
+      "plan": {
+        "beats": [
+          "50 wave",
+          "1200 wave",
+        ],
+        "ms": 2250,
+        "sentences": "50-907 1200-2100",
+        "words": "50-396 493-907 1200-1568 1670-2100",
+      },
+      "staging": {
+        "addressee": "bobik",
+        "facing": {
+          "anna": -1,
+          "bobik": 1,
+          "robo": 1,
+        },
+      },
+    },
+    {
+      "line": "bobik: Haf! Haf!",
+      "plan": {
+        "beats": [
+          "200 stress",
+        ],
+        "ms": 1100,
+        "sentences": "200-375 675-850",
+        "words": "200-375 675-850",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": -1,
+          "bobik": 1,
+          "robo": -1,
+        },
+      },
+    },
+    {
+      "line": "robo: Aha, kamarátka. Dobrý deň. Som Robo, Marekov nový robot.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "2350 wave",
+          "3400 self",
+        ],
+        "ms": 5800,
+        "sentences": "50-1339 2350-3125 3400-5650",
+        "words": "50-399 504-1339 2350-2871 2871-3125 3400-3633 3633-4032 4143-4774 4774-5218 5218-5650",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": -1,
+          "bobik": 1,
+          "robo": 1,
+        },
+      },
+    },
+    {
+      "line": "anna: Robot? Ahoj, Robo. Tykaj mi, ja som Anna, Marekova kamarátka.",
+      "plan": {
+        "beats": [
+          "150 ask",
+          "1700 wave",
+          "2750 tell",
+        ],
+        "ms": 5850,
+        "questions": "150-519",
+        "sentences": "150-519 1700-2290 2750-5500",
+        "words": "150-519 1700-1959 2031-2290 2750-3104 3104-3267 3358-3521 3521-3712 3712-4039 4130-4783 4783-5500",
+      },
+      "staging": {
+        "addressee": "robo",
+        "facing": {
+          "anna": -1,
+          "bobik": 1,
+          "robo": 1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "robo",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "robo: Bobík hovorí: ahoj, Anna.",
+      "plan": {
+        "beats": [
+          "0 tell",
+        ],
+        "ms": 2500,
+        "sentences": "0-2350",
+        "words": "0-524 524-1230 1352-1790 1912-2350",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": -1,
+          "bobik": 1,
+          "robo": 1,
+        },
+      },
+    },
+    {
+      "line": "anna: Ty rozumieš psom?",
+      "plan": {
+        "beats": [
+          "50 chuckle",
+        ],
+        "ms": 2500,
+        "questions": "50-2200",
+        "sentences": "50-2200",
+        "words": "50-426 426-1699 1699-2200",
+      },
+      "staging": {
+        "addressee": "robo",
+        "facing": {
+          "anna": -1,
+          "bobik": 1,
+          "robo": 1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "robo",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "robo: Učím sa. Zatiaľ viem jedno slovo: von. A teraz asi aj ahoj.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "1800 tell",
+          "5350 tell",
+        ],
+        "ms": 7200,
+        "sentences": "0-698 1800-4090 5350-7050",
+        "words": "0-481 481-698 1800-2356 2356-2680 2680-3185 3185-3689 3819-4090 5350-5531 5531-6001 6001-6399 6399-6616 6616-7050",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": -1,
+          "bobik": 1,
+          "robo": 1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 2,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: A kde je Marek?",
+      "plan": {
+        "beats": [
+          "50 ask",
+        ],
+        "ms": 1450,
+        "questions": "50-1250",
+        "sentences": "50-1250",
+        "words": "50-244 244-515 515-747 747-1250",
+      },
+      "staging": {
+        "addressee": "robo",
+        "facing": {
+          "anna": -1,
+          "bobik": 1,
+          "robo": 1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "robo",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "robo: V práci.",
+      "plan": {
+        "beats": [
+          "0 tell",
+        ],
+        "ms": 900,
+        "sentences": "0-750",
+        "words": "0-0 0-750",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": -1,
+          "bobik": 1,
+          "robo": 1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Ako vždy. Marek veľa pracuje.",
+      "plan": {
+        "beats": [
+          "100 sigh",
+          "2277 tell",
+        ],
+        "ms": 4250,
+        "sentences": "100-866 2277-4050",
+        "words": "100-543 543-866 2277-2801 2801-3284 3284-4050",
+      },
+      "staging": {
+        "addressee": "robo",
+        "facing": {
+          "anna": -1,
+          "bobik": 1,
+          "robo": 1,
+        },
+      },
+    },
+    {
+      "line": "anna: Tak sa to musíš naučiť ty. Vieš, Robo… pes nehovorí len haf. Pozri sa na chvost. Keď vrtí chvostom, je šťastný.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "2550 muse",
+          "4550 tell",
+          "6600 point",
+          "7950 tell",
+        ],
+        "ms": 10100,
+        "sentences": "50-1723 2550-3434 4550-5807 6600-7820 7950-9950",
+        "words": "50-254 254-429 429-604 604-1022 1022-1548 1548-1723 2550-2861 2986-3434 4550-4740 4740-5427 5427-5617 5617-5807 6600-7067 7067-7282 7282-7497 7497-7820 7950-8180 8180-8617 8617-9108 9218-9414 9414-9950",
+      },
+      "staging": {
+        "addressee": "robo",
+        "facing": {
+          "anna": -1,
+          "bobik": 1,
+          "robo": 1,
+        },
+      },
+    },
+    {
+      "line": "robo: Chvost. Zapisujem.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "1650 tell",
+        ],
+        "ms": 2600,
+        "sentences": "0-313 1650-2400",
+        "words": "0-313 1650-2400",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": -1,
+          "bobik": 1,
+          "robo": 1,
+        },
+      },
+    },
+    {
+      "line": "anna: Dobre, musím ísť. Ahojte, chlapci!",
+      "plan": {
+        "beats": [
+          "0 nod",
+          "1750 wave",
+        ],
+        "ms": 2800,
+        "sentences": "0-1197 1750-2650",
+        "words": "0-399 501-941 941-1197 1750-2208 2293-2650",
+      },
+      "staging": {
+        "addressee": "robo",
+        "audience": true,
+        "facing": {
+          "bobik": 1,
+          "robo": 1,
+        },
+      },
+    },
+    {
+      "line": "bobik: Haf!",
+      "plan": {
+        "beats": [
+          "200 stress",
+        ],
+        "ms": 800,
+        "sentences": "200-550",
+        "words": "200-550",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": -1,
+          "bobik": 1,
+          "robo": -1,
+        },
+      },
+    },
+    {
+      "line": "robo: Bobík hovorí: ahoj. Ahoj ako dobrý deň? Alebo ako dovidenia? Psí jazyk je ťažký.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "2800 wave",
+          "4750 ask",
+          "7650 tell",
+        ],
+        "ms": 9300,
+        "questions": "2800-4344 4750-6555",
+        "sentences": "0-1659 2800-4344 4750-6555 7650-9150",
+        "words": "0-485 485-1140 1252-1659 2800-3218 3218-3601 3601-4100 4100-4344 4750-5325 5325-5698 5698-6555 7650-7950 7950-8418 8418-8634 8634-9150",
+      },
+      "staging": {
+        "addressee": "bobik",
+        "facing": {
+          "anna": -1,
+          "bobik": 1,
+          "robo": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "bobik",
+            "gesture": "lean",
+            "sentence": 2,
+          },
+        ],
+      },
+    },
+    {
+      "line": "robo: Poď, Bobík. Ideme domov.",
+      "plan": {
+        "beats": [
+          "100 tell",
+          "1050 tell",
+        ],
+        "ms": 1950,
+        "sentences": "100-729 1050-1800",
+        "words": "100-279 364-729 1050-1475 1475-1800",
+      },
+      "staging": {
+        "addressee": "bobik",
+        "facing": {
+          "anna": -1,
+          "bobik": 1,
+          "robo": -1,
+        },
+      },
+    },
+  ],
+  "setting": "plaza",
+  "things": [
+    "veza",
+    "hodiny",
+    "dom",
+    "lavicka",
+    "lampa",
+    "strom",
+    "oblak",
+  ],
+}
+`;
+
+exports[`every scene, directed > podcast podcast-what-bobik-says-window 1`] = `
+{
+  "cast": [
+    "bobik",
+    "robo",
+  ],
+  "lines": [
+    {
+      "line": "-: Marekov byt. Osem hodín večer.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "1400 tell",
+        ],
+        "ms": 2750,
+        "sentences": "0-857 1400-2550",
+        "words": "0-627 627-857 1400-1751 1751-2170 2170-2550",
+      },
+      "staging": {
+        "addressee": null,
+      },
+    },
+    {
+      "line": "robo: Marek povedal: o siedmej. Teraz je osem.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "3200 tell",
+        ],
+        "ms": 4350,
+        "sentences": "0-1899 3200-4150",
+        "words": "0-443 443-1092 1205-1376 1376-1899 3200-3598 3598-3782 3782-4150",
+      },
+      "staging": {
+        "addressee": "bobik",
+        "facing": {
+          "bobik": 1,
+          "robo": -1,
+        },
+      },
+    },
+    {
+      "line": "bobik: Haf.",
+      "plan": {
+        "beats": [
+          "200 tell",
+        ],
+        "ms": 800,
+        "sentences": "200-550",
+        "words": "200-550",
+      },
+      "staging": {
+        "addressee": "robo",
+        "facing": {
+          "bobik": 1,
+          "robo": -1,
+        },
+      },
+    },
+    {
+      "line": "robo: Bobík? Tento haf je iný. Je tichý.",
+      "plan": {
+        "beats": [
+          "0 ask",
+          "2100 tell",
+          "3850 tell",
+        ],
+        "ms": 4800,
+        "questions": "0-560",
+        "sentences": "0-560 2100-3426 3850-4650",
+        "words": "0-560 2100-2550 2550-2792 2792-2999 2999-3426 3850-4098 4098-4650",
+      },
+      "staging": {
+        "addressee": "bobik",
+        "facing": {
+          "bobik": 1,
+          "robo": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "bobik",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "robo: Chceš von? Nie. Nevrtíš chvostom. Si hladný? Nie. Večera je ešte v miske.",
+      "plan": {
+        "beats": [
+          "50 ask",
+          "1400 shake",
+          "2200 tell",
+          "3950 ask",
+          "5150 shake",
+          "5900 tell",
+        ],
+        "ms": 7550,
+        "questions": "50-464 3950-4496",
+        "sentences": "50-464 1400-1633 2200-2941 3950-4496 5150-5665 5900-7350",
+        "words": "50-271 271-464 1400-1633 2200-2626 2626-2941 3950-4104 4104-4496 5150-5665 5900-6433 6433-6610 6610-6965 6965-6965 6965-7350",
+      },
+      "staging": {
+        "addressee": "bobik",
+        "facing": {
+          "bobik": 1,
+          "robo": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "bobik",
+            "gesture": "lean",
+            "sentence": 3,
+          },
+        ],
+      },
+    },
+    {
+      "line": "robo: Hm… Sedíš pri okne. Celý večer. Pozeráš na ulicu. Čakáš na Mareka.",
+      "plan": {
+        "beats": [
+          "50 compute",
+          "1713 point → okno",
+          "4600 tell",
+          "6350 tell",
+        ],
+        "ms": 7800,
+        "pictures": [
+          "50 computing",
+        ],
+        "sentences": "50-219 1500-2145 2483-3225 4600-5433 6350-7500",
+        "words": "50-219 1500-1777 1777-1913 1913-2145 2483-2859 2859-3225 4600-4991 4991-5106 5106-5433 6350-6780 6780-6960 6960-7500",
+      },
+      "staging": {
+        "addressee": "bobik",
+        "facing": {
+          "bobik": 1,
+          "robo": -1,
+        },
+      },
+    },
+    {
+      "line": "bobik: Haf.",
+      "plan": {
+        "beats": [
+          "200 tell",
+        ],
+        "ms": 800,
+        "sentences": "200-550",
+        "words": "200-550",
+      },
+      "staging": {
+        "addressee": "robo",
+        "facing": {
+          "bobik": 1,
+          "robo": -1,
+        },
+      },
+    },
+    {
+      "line": "robo: Rozumiem. Volám Marekovi.",
+      "plan": {
+        "beats": [
+          "100 tell",
+          "1800 tell",
+        ],
+        "ms": 3000,
+        "sentences": "100-697 1800-2850",
+        "words": "100-697 1800-2193 2193-2850",
+      },
+      "staging": {
+        "addressee": "bobik",
+        "facing": {
+          "bobik": 1,
+          "robo": -1,
+        },
+      },
+    },
+    {
+      "line": "robo: Ahoj, Marek. Tu je Robo.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "1200 point",
+        ],
+        "ms": 1950,
+        "sentences": "0-793 1200-1800",
+        "words": "0-336 429-793 1200-1350 1350-1500 1500-1800",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "bobik": 1,
+        },
+      },
+    },
+    {
+      "line": "marek: Robo? Čo sa stalo? Je všetko v poriadku?",
+      "plan": {
+        "beats": [
+          "100 ask",
+          "1350 ask",
+          "2400 ask",
+        ],
+        "ms": 3600,
+        "questions": "100-423 1350-2040 2400-3450",
+        "sentences": "100-423 1350-2040 2400-3450",
+        "words": "100-423 1350-1516 1516-1681 1681-2040 2400-2556 2556-2921 2921-2921 2921-3450",
+      },
+      "staging": {
+        "addressee": null,
+      },
+    },
+    {
+      "line": "robo: Áno. Ale Bobík sedí pri okne. Čaká na teba. Od siedmej.",
+      "plan": {
+        "beats": [
+          "0 nod",
+          "1550 tell",
+          "2571 point → okno",
+          "4700 tell",
+        ],
+        "ms": 5550,
+        "sentences": "0-363 1550-3092 3500-4368 4700-5350",
+        "words": "0-363 1550-1844 1844-2227 2227-2584 2584-2771 2771-3092 3500-3870 3870-4036 4036-4368 4700-4883 4883-5350",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "bobik": 1,
+        },
+      },
+    },
+    {
+      "line": "marek: Ach jaj. Bobík… Povedz mu, že už idem domov.",
+      "plan": {
+        "beats": [
+          "100 sigh",
+          "1967 muse",
+          "2850 tell",
+        ],
+        "ms": 5550,
+        "sentences": "100-606 1967-2525 2850-5300",
+        "words": "100-333 333-606 1967-2525 2850-3387 3387-3635 3772-4020 4020-4268 4268-4763 4763-5300",
+      },
+      "staging": {
+        "addressee": null,
+      },
+    },
+    {
+      "line": "robo: Bobík. Marek ide domov.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "1850 tell",
+        ],
+        "ms": 3300,
+        "sentences": "0-531 1850-3200",
+        "words": "0-531 1850-2324 2324-2726 2726-3200",
+      },
+      "staging": {
+        "addressee": "bobik",
+        "facing": {
+          "bobik": 1,
+          "robo": -1,
+        },
+      },
+    },
+    {
+      "line": "bobik: Haf! Haf!",
+      "plan": {
+        "beats": [
+          "200 stress",
+        ],
+        "ms": 1100,
+        "sentences": "200-375 675-850",
+        "words": "200-375 675-850",
+      },
+      "staging": {
+        "addressee": "robo",
+        "facing": {
+          "bobik": 1,
+          "robo": -1,
+        },
+      },
+    },
+  ],
+  "setting": "home",
+  "things": [
+    "muz",
+    "zena",
+    "okno",
+    "taska",
+    "zaves",
+    "obraz",
+    "pohovka",
+    "vankus",
+    "lampa",
+    "koberec",
+    "voditko",
+    "rastlina",
   ],
 }
 `;

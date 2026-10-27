@@ -146,6 +146,8 @@ export const OBJECT_SIZE: Record<
   ball: { grip: { x: 0, y: 0 }, top: 8.4, width: 8.4 },
   // Carried by the handle on its top, hanging beside the leg.
   suitcase: { grip: { x: 0, y: 17 }, top: 15, width: 18 },
+  // Held by its handle's loop, the strap hanging down to the clip.
+  lead: { grip: { x: 0, y: -3 }, top: 0, width: 5 },
 };
 
 /**

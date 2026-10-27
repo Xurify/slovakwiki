@@ -67,6 +67,7 @@
     atDesk = false,
     mic,
     onCall = false,
+    relaying = false,
     talking = false,
     turnDelay = 0,
     walk,
@@ -99,6 +100,8 @@
     mic?: 1 | -1;
     /** On a call: the phone at their ear. */
     onCall?: boolean;
+    /** Playing the far end of the call out loud: a robot with no phone to hold. */
+    relaying?: boolean;
     /** True while the line `plan` belongs to plays: this figure's own, or one it reacts to. */
     talking?: boolean;
     /** Ms before a change of `facing` starts. */
@@ -362,6 +365,7 @@
   sit={sitting.current}
   sitPath={{ out, rising: !seated }}
   call={calling.current}
+  {relaying}
   turnDelay={turned ? 0 : turnDelay}
   {emote}
   sign={{

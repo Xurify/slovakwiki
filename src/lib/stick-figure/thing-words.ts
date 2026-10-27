@@ -520,6 +520,13 @@ export const THING_WORDS = {
     id: "veza",
     word: "veža",
   },
+  voditko: {
+    english: "lead",
+    gender: "neuter",
+    id: "voditko",
+    stems: ["voditk"],
+    word: "vodítko",
+  },
   zastavka: {
     english: "tram stop",
     gender: "feminine",

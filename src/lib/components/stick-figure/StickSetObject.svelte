@@ -22,6 +22,8 @@
     on?: Array<ObjectLook & { dx: number; dy: number }>;
     /** Tipped to pour: what lies on it slides off its far end. */
     sliding?: boolean;
+    /** A lead clipped to the dog's collar: StickLeash runs from its handle to the collar. */
+    clipped?: boolean;
   }
 </script>
 
@@ -35,6 +37,7 @@
    */
   let {
     bits = false,
+    clipped = false,
     cut = 0,
     fill,
     flat = false,
@@ -123,7 +126,9 @@
 <g
   class="stroke-portrait-ink"
   stroke-width="0.8"
-  transform={hang && kind !== "lid" && kind !== "towel" ? "rotate(180)" : undefined}
+  transform={hang && kind !== "lid" && kind !== "towel" && kind !== "lead"
+    ? "rotate(180)"
+    : undefined}
 >
   {#if hang && kind === "lid"}
     <circle cx="0" cy="13" r="12.5" class="fill-scene-line" />
@@ -354,6 +359,37 @@
       class="stroke-scene-honey"
       stroke-width="1.1"
     />
+  {:else if kind === "lead"}
+    <!-- Red like the dog's collar: the handle's loop over the hook or round the hand, and the strap hanging to its clip. -->
+    <ellipse cx="0" cy="3" rx="2" ry="3.2" fill="none" stroke-width="2.2" />
+    <ellipse
+      cx="0"
+      cy="3"
+      rx="2"
+      ry="3.2"
+      fill="none"
+      class="stroke-scene-red"
+      stroke-width="1.1"
+    />
+    {#if clipped}
+      <circle
+        cx="0"
+        cy="6"
+        r="0.5"
+        class="fill-scene-red"
+        stroke="none"
+        data-leash-end="hand"
+      />
+    {:else}
+      <path d="M0 6Q-1.2 14 1.4 20Q2.8 23 1.6 26" fill="none" stroke-width="2.2" />
+      <path
+        d="M0 6Q-1.2 14 1.4 20Q2.8 23 1.6 26"
+        fill="none"
+        class="stroke-scene-red"
+        stroke-width="1.1"
+      />
+      <rect x="0.4" y="25.6" width="2.4" height="3" rx="0.6" class="fill-scene-edge" />
+    {/if}
   {:else if kind === "mic"}
     <!-- Silver, so it shows in a hand against a dark jumper or the desk mic. -->
     <rect x="-2" y="-8.6" width="4" height="8.6" rx="0.9" fill="#c9ced4" />

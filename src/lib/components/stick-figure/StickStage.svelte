@@ -89,6 +89,7 @@
   import StickWeather from "./StickWeather.svelte";
   import StickFigureActor from "./StickFigureActor.svelte";
   import StickFurniture from "./StickFurniture.svelte";
+  import StickLeash from "./StickLeash.svelte";
   import StickProp from "./StickProp.svelte";
   import StickSet from "./StickSet.svelte";
   import type { ObjectLook } from "./StickSetObject.svelte";
@@ -188,7 +189,9 @@
   const THROW_MS = 700;
   /** Turning round to a chair, as far as a person gets before they start to lower. */
   const SIT_TURN_MS = TURN_MS * 0.7;
-  const WALKING = new Set<Cue["do"]>(["go", "enter", "sit"]);
+  /** Where StickDog draws the collar, in its rig space. */
+  const DOG_COLLAR = { x: 12.8, y: 102 };
+  const WALKING = new Set<Cue["do"]>(["go", "enter", "leave", "sit"]);
   /** Long enough to read a short line said in a bubble. */
   const BUBBLE_MS = 2800;
   const CARD_WIDTH = 232;
@@ -509,6 +512,10 @@
     }
     const at = stagePoint(stageContext(state), name, as, facing);
     if (at) return at;
+    // A dog's collar, where a lead clips on.
+    if (isCast(name) && LOOKS[name].dog) {
+      return { x: castMiddle(name) + facingOf(name) * DOG_COLLAR.x, y: DOG_COLLAR.y };
+    }
     const thing = things.find((candidate) => candidate.id === name);
     const box = thing && thingBoxes(thing)[0];
     if (!box) return undefined;
@@ -598,12 +605,21 @@
     }
     if (!isCast(to)) return undefined;
     const toward: Facing = castMiddle(to) >= castMiddle(id) ? 1 : -1;
-    return { offset: beside(frame, id, to, toward, offsets, 0.62), facing: toward };
+    // A dog is a body length long: stopping as close as to a person stands on it.
+    const gap = LOOKS[to].dog ? 1 : 0.62;
+    return { offset: beside(frame, id, to, toward, offsets, gap), facing: toward };
   }
 
-  /** How long `go`, `enter` or `sit` takes `id`, from where `before` has them. */
+  /** How long `go`, `enter`, `leave` or `sit` takes `id`, from where `before` has them. */
   function walkMsFor(id: LessonCharacterId, cue: Cue, before: World): number {
     const was = before.spots[id];
+    if (cue.do === "leave") {
+      const from = (was ? spotOf(id, was)?.offset : undefined) ?? offsets[id] ?? 0;
+      return walkDuration(
+        stepsFor(offStage(frame, id, cue.to === "left" ? -1 : 1) - from),
+        id,
+      );
+    }
     const from =
       cue.do === "enter"
         ? spotOf(id, set?.door ?? cue.from ?? "door")?.offset
@@ -650,6 +666,16 @@
   }
 
   /** Walk `id` to spot `to`, facing the way they go, then the way the spot does; onto its chair for `sit`. */
+  /** Walk `id` off the stage by the `side` edge; once out of sight they are out. */
+  function walkOff(id: LessonCharacterId, side: Facing): void {
+    const to = offStage(frame, id, side);
+    facings = { ...facings, [id]: side };
+    walkTo(id, to);
+    later(walkDuration(stepsFor(to - (offsets[id] ?? 0)), id), () => {
+      outside = [...new Set([...outside, id])];
+    });
+  }
+
   function walkToSpot(id: LessonCharacterId, to: string | undefined, sit = false): void {
     const at = to ? spotOf(id, to) : undefined;
     if (!at) return;
@@ -784,6 +810,9 @@
         return;
       case "enter":
         comeIn(who, cue.to, cue.from);
+        return;
+      case "leave":
+        walkOff(who, cue.to === "left" ? -1 : 1);
         return;
       case "go":
         stepDown(who);
@@ -1068,6 +1097,7 @@
       heat: state.heat,
       cut: state.cut,
       wilt: state.wilt,
+      clipped: state.clipped,
       ...(state.kind === "pot"
         ? {
             open: !inside.some((other) => world!.objects[other]?.kind === "lid"),
@@ -1463,10 +1493,23 @@
       id === lines[heldAt]?.characterId
     )
       return undefined;
-    return prop === "umbrella"
-      ? { id: prop, open: umbrellas[id] ?? dress.umbrellaUp }
-      : { id: prop };
+    if (prop === "umbrella") return { id: prop, open: umbrellas[id] ?? dress.umbrellaUp };
+    // A lead is open once it is on the dog.
+    if (prop === "leash") return { id: prop, open: dog !== undefined };
+    return { id: prop };
   }
+
+  const dog = $derived(direction.cast.find((id) => LOOKS[id].dog));
+  /** The robot on a call while the far end speaks: it plays the voice out loud. */
+  let relaying = $state<LessonCharacterId>();
+
+  const leashed = $derived(
+    dog !== undefined &&
+      (direction.cast.some((id) => holding[id] === "leash") ||
+        Object.values(world?.objects ?? {}).some(
+          ({ kind, clipped, where }) => kind === "lead" && clipped && "hand" in where,
+        )),
+  );
 
   /** Put every umbrella down: the rain has stopped, or they are getting on the tram. */
   export function foldUmbrellas(): void {
@@ -1686,6 +1729,7 @@
     bubble = undefined;
     stopStoryLineAudio();
     for (const actor of Object.values(actors)) actor.talking = false;
+    relaying = undefined;
   }
 
   /**
@@ -1792,6 +1836,8 @@
     if (line.characterId === null) board = line.slovak;
 
     for (const actor of Object.values(actors)) actor.talking = false;
+    const caller = direction.lines[index]?.call;
+    relaying = line.overPhone && caller && LOOKS[caller].robot ? caller : undefined;
     spoken = { at: performance.now(), durationMs: plan?.durationMs ?? 1600, rate };
     // A voice over the phone has nobody on stage to move.
     const speaker =
@@ -1854,6 +1900,7 @@
       if (token !== playToken) return;
 
       for (const actor of Object.values(actors)) actor.talking = false;
+      relaying = undefined;
       if (staging?.gives) handedAt = index;
       if (staging?.throws && speaker) throwBall(speaker, staging.throws.side, index);
       if (staging)
@@ -2025,6 +2072,7 @@
                 onCall={acted
                   ? onCall(characterId)
                   : direction.lines[heldAt]?.call === characterId}
+                relaying={relaying === characterId}
                 dress={dressOf(characterId)}
                 talking={actors[characterId]?.talking ?? false}
                 turnDelay={turns[characterId] ?? 0}
@@ -2033,6 +2081,10 @@
             </div>
           </div>
         {/each}
+        {#if leashed}
+          <!-- Short enough to hang in a gentle dip at heel and pull straight a step further off. -->
+          <StickLeash length={frame.figureWidth * 0.8} />
+        {/if}
         <div class="pointer-events-none absolute inset-0 z-3">
           {#if frame.desk}
             <StudioDesk

@@ -39,9 +39,13 @@
         <span aria-hidden="true">·</span>
         <span>{episode.level}</span>
         <span aria-hidden="true">·</span>
-        <TextLink href="/grammar/{episode.grammarSlug}" lang="sk"
-          >{episode.topic}</TextLink
-        >
+        {#if episode.grammarSlug}
+          <TextLink href="/grammar/{episode.grammarSlug}" lang="sk"
+            >{episode.topic}</TextLink
+          >
+        {:else}
+          <span>A story, no grammar topic</span>
+        {/if}
       </p>
     </header>
 

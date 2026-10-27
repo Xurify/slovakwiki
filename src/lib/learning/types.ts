@@ -86,9 +86,10 @@ export interface DialogueTurn {
   /**
    * The phone rings, or pings with a message, before this line. On a call,
    * the line's speaker answers and holds the phone to their ear until the
-   * call's last line.
+   * call's last line. `dial` is a call the speaker makes: it is dialled and
+   * rings at the far end before they speak.
    */
-  ring?: "call" | "message";
+  ring?: "call" | "dial" | "message";
   /** Said at the far end of a call: heard, not seen on stage. */
   overPhone?: boolean;
   /** Podcast only: the line plays only on this path through the listener's answers. */
