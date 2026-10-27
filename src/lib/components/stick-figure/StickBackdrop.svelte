@@ -10,7 +10,12 @@
   } from "$lib/stick-figure/backdrop-geometry";
   import { PLACES, backdropAlign, thingsIn } from "$lib/stick-figure/places";
   import type { StageSetting } from "$lib/stick-figure/stage-setting";
-  import { litKey, thingBoxes, type ThingBox } from "$lib/stick-figure/thing-words";
+  import {
+    litKey,
+    thingBoxes,
+    withDrawn,
+    type ThingBox,
+  } from "$lib/stick-figure/thing-words";
   import { cx } from "$lib/ui/classes";
   import Cafe from "./backdrops/Cafe.svelte";
   import Classroom from "./backdrops/Classroom.svelte";
@@ -125,7 +130,9 @@
   });
 
   const Drawing = $derived(DRAWINGS[setting]);
-  const things = $derived(thingsIn(PLACES[setting].things, setting, mood));
+  const things = $derived(
+    withDrawn(thingsIn(PLACES[setting].things, setting, mood), drawnAt),
+  );
 
   // The clocks start at the scene's told hour; skipping ahead spins them forward.
   const hour = new Tween(
@@ -146,41 +153,46 @@
 
   let svg = $state<SVGSVGElement>();
 
-  /**
-   * Where each thing is drawn now: its bounding box in backdrop units, or
-   * null once hidden. An object without a `start` placement (brought in
-   * later by an act) is not on stage until placed; a backdrop thing hidden
-   * by the act (the cup on the cafe counter once someone takes it) is null.
-   */
-  function measure(): void {
-    if (!svg) return;
-    const measured: Record<string, ThingBox | null> = {};
-    for (const thing of things) {
-      for (const [copy, element] of thingElements(thing.id).entries()) {
-        const box = element.getBBox();
-        measured[litKey(thing.id, copy)] = {
-          height: box.height,
-          width: box.width,
-          x: box.x,
-          y: box.y,
-        };
-      }
-    }
-    drawnAt = measured;
-  }
-
-  function thingElements(id: string): SVGGraphicsElement[] {
-    if (!svg) return [];
-    return [...svg.querySelectorAll<SVGGraphicsElement>(`[data-thing="${id}"]`)];
-  }
-
+  const measured = $derived(PLACES[setting].things.flatMap((thing) => thing.of ?? []));
+  // The set and the cast are drawn over this svg in the same camera, so a box
+  // measured in px maps to backdrop units by this svg's own px and viewBox.
   $effect(() => {
-    // Read the props that change what is drawn where, so this runs again when any does.
-    void setting;
-    void door;
-    void tram;
-    let frame = 0;
-    untrack(() => {
+    const ids = measured;
+    const own = svg;
+    if (!ids.length || !own?.parentElement || !width || !height) return;
+    const [left, top, across] = view.box.split(" ").map(Number);
+    const root = own.parentElement;
+    let frame = requestAnimationFrame(function measure() {
+      const stage = own.getBoundingClientRect();
+      const unit = across / stage.width;
+      let changed = false;
+      const next: Record<string, ThingBox | null> = {};
+      for (const id of ids) {
+        const drawn = root
+          .querySelector(`[data-set-id="${id}"]`)
+          ?.getBoundingClientRect();
+        next[id] =
+          drawn && drawn.width > 0
+            ? {
+                x: left + (drawn.left - stage.left) * unit,
+                y: top + (drawn.top - stage.top) * unit,
+                width: drawn.width * unit,
+                height: drawn.height * unit,
+              }
+            : null;
+        const was = untrack(() => drawnAt[id]);
+        const now = next[id];
+        changed ||=
+          !was || !now
+            ? was !== now
+            : Math.abs(was.x - now.x) +
+                Math.abs(was.y - now.y) +
+                Math.abs(was.width - now.width) +
+                Math.abs(was.height - now.height) >
+              1;
+      }
+      if (changed) drawnAt = next;
+      // Carried things move every frame, so this keeps measuring.
       frame = requestAnimationFrame(measure);
     });
     return () => cancelAnimationFrame(frame);
@@ -209,6 +221,15 @@
    */
   const hitOrder = $derived(
     boxes.slice().sort((a, b) => a.box.x - b.box.x || a.box.y - b.box.y),
+  );
+  /**
+   * The set's things last, on top, as the set is drawn over the backdrop:
+   * the watering can stands on the rug and needs its own tap.
+   */
+  const paintOrder = $derived(
+    hitOrder
+      .map((hit, index) => ({ ...hit, index }))
+      .sort((a, b) => Number(!!a.thing.of) - Number(!!b.thing.of)),
   );
 </script>
 
@@ -242,7 +263,7 @@
 
   {#if onpick}
     <!-- One tab stop for the whole scene; the arrow keys move between its things. -->
-    {#each hitOrder as { box, copy, thing }, index (`${thing.id}-${copy}`)}
+    {#each paintOrder as { box, copy, index, thing } (`${thing.id}-${copy}`)}
       {@const key = litKey(thing.id, copy)}
       <rect
         x={box.x - 5}
@@ -253,6 +274,7 @@
         fill="transparent"
         class="pointer-events-auto cursor-pointer outline-none"
         role="button"
+        data-hit={index}
         tabindex={index === tabStop ? 0 : -1}
         aria-label={hint ? `${hint}: ${thing.word}` : thing.word}
         aria-pressed={picked === key || (picked === thing.id && copy === 0)}
@@ -273,18 +295,15 @@
           const step = ARROW_STEPS[event.key];
           if (step === undefined) return;
           event.preventDefault();
-          const rects = [
-            ...event.currentTarget.ownerSVGElement!.querySelectorAll<SVGRectElement>(
-              'rect[role="button"]',
-            ),
-          ];
-          const at = rects.indexOf(event.currentTarget);
+          const count = hitOrder.length;
           const next = Number.isFinite(step)
-            ? (at + step + rects.length) % rects.length
+            ? (index + step + count) % count
             : step > 0
-              ? rects.length - 1
+              ? count - 1
               : 0;
-          rects[next]?.focus();
+          event.currentTarget.ownerSVGElement
+            ?.querySelector<SVGRectElement>(`rect[data-hit="${next}"]`)
+            ?.focus();
         }}
       />
     {/each}

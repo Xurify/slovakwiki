@@ -390,6 +390,15 @@ export const THING_WORDS = {
     stems: ["ovoc"],
     word: "ovocie",
   },
+  platna: {
+    accusative: "zlatú platňu",
+    english: "gold record",
+    gender: "feminine",
+    id: "platna",
+    lemma: "platňa",
+    stems: ["platn"],
+    word: "zlatá platňa",
+  },
   pocitac: {
     english: "computer",
     gender: "masculine-inanimate",
