@@ -29,7 +29,7 @@ export interface ScheduledCue {
 }
 
 /** Verbs that move someone across the stage: they take as long as the walk. */
-const WALKS = new Set<Cue["do"]>(["go", "enter", "sit"]);
+const WALKS = new Set<Cue["do"]>(["go", "enter", "leave", "sit"]);
 
 /** A pause between one person's cues, so they read as two moves. */
 const BETWEEN_MS = 120;

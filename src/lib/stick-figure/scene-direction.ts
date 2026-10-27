@@ -199,7 +199,7 @@ export function directScene(
               takes ? ["show", ...(gestures ?? []).slice(1)] : gestures,
             ),
         lips: vowels ? decodeVowelTrack(vowels) : undefined,
-        phone: phoned[index],
+        phone: acted ? phoned[index] : !!characterId && calls[index] === characterId,
         points,
         said,
         track: mouth ? decodeMouthTrack(mouth) : undefined,

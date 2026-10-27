@@ -16051,7 +16051,7 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-lead 1`] = `
         "beats": [
           "100 ask",
           "2418 ask",
-          "3118 point → voditko",
+          "3118 stress",
           "5300 tell",
           "6000 tell",
         ],
@@ -16100,7 +16100,7 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-lead 1`] = `
         "beats": [
           "0 tell",
           "2050 tell",
-          "5908 point → voditko",
+          "5700 tell",
         ],
         "ms": 6800,
         "sentences": "0-883 2050-4459 5700-6700",
@@ -16115,9 +16115,6 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-lead 1`] = `
       },
     },
     {
-      "held": {
-        "robo": "leash",
-      },
       "line": "robo: Tak. Ideme na námestie.",
       "plan": {
         "beats": [
@@ -16128,16 +16125,8 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-lead 1`] = `
         "sentences": "0-210 1400-2600",
         "words": "0-210 1400-1857 1857-2018 2018-2600",
       },
-      "props": [
-        "leash",
-        undefined,
-      ],
       "staging": {
         "addressee": "bobik",
-        "approach": {
-          "characterId": "bobik",
-          "toward": 1,
-        },
         "facing": {
           "bobik": 1,
           "robo": -1,
@@ -16394,26 +16383,18 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-morning 1`] = `
       },
     },
     {
-      "held": {
-        "marek": "keys",
-      },
       "line": "marek: Dobre. No nič… Kde mám kľúče?",
       "plan": {
         "beats": [
           "0 nod",
           "1700 muse",
-          "2850 show",
+          "2850 ask",
         ],
         "ms": 4000,
         "questions": "2850-3800",
         "sentences": "0-481 1700-2258 2850-3800",
         "words": "0-481 1700-1957 1957-2258 2850-3074 3074-3341 3341-3800",
       },
-      "props": [
-        undefined,
-        undefined,
-        "keys",
-      ],
       "staging": {
         "addressee": "robo",
         "facing": {
@@ -16432,9 +16413,6 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-morning 1`] = `
       },
     },
     {
-      "held": {
-        "marek": "keys",
-      },
       "line": "robo: Máš ich v ruke.",
       "plan": {
         "beats": [
@@ -16451,7 +16429,6 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-morning 1`] = `
           "marek": 1,
           "robo": -1,
         },
-        "looksAt": "marek",
         "reactions": [
           {
             "at": 1,
@@ -16463,9 +16440,6 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-morning 1`] = `
       },
     },
     {
-      "held": {
-        "marek": "keys",
-      },
       "line": "marek: Aha. Prídem domov o siedmej. Majte sa, chlapci!",
       "plan": {
         "beats": [
@@ -16479,7 +16453,6 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-morning 1`] = `
       },
       "staging": {
         "addressee": "robo",
-        "exit": -1,
         "facing": {
           "bobik": -1,
           "marek": 1,
@@ -17145,7 +17118,7 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-window 1`] = `
       "line": "robo: Ahoj, Marek. Tu je Robo.",
       "plan": {
         "beats": [
-          "0 wave",
+          "0 tell",
           "1200 point",
         ],
         "ms": 1950,

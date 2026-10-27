@@ -19,6 +19,19 @@ import type { ListeningChapter, ListeningEpisode } from "../types";
  */
 
 const PREFIX = "podcast-what-bobik-says-";
+
+/** The dog's bowl by the sofa, in every scene at home. */
+const BOWL = {
+  id: "bowl",
+  kind: "bowl",
+  start: { where: { on: "by-sofa", dx: 0 } },
+} as const;
+/** The lead, on its peg by the window until Robo takes it down. */
+const LEAD = {
+  id: "lead",
+  kind: "lead",
+  start: { where: { on: "pegs", dx: 0 } },
+} as const;
 const line = lineWriter(PREFIX);
 
 /** A scene card: the place and the clock, read by the narrator, nobody on stage. */
@@ -34,6 +47,18 @@ function marekOnCall(id: string, parts: Parameters<typeof line>[2], english: str
 const morning: ListeningChapter = {
   id: `${PREFIX}morning`,
   stage: "home",
+  // Marek has his keys in his hand from the start, so "Kde mám kľúče?" is the joke Robo answers.
+  setup: {
+    objects: [
+      BOWL,
+      LEAD,
+      {
+        id: "keys",
+        kind: "keys",
+        start: { where: { hand: "marek", side: "lead" } },
+      },
+    ],
+  },
   titleSk: "Nový pomocník",
   title: "The new helper",
   lines: [
@@ -91,19 +116,29 @@ const morning: ListeningChapter = {
       "Robo",
       ["O dvanástej: von, na námestie. Večer: jesť. ", PAUSE, "Zapisujem."],
       "At twelve: out, to the square. Evening: food. I'm writing it down.",
+      { act: [{ do: "nod", on: "zapisujem" }] },
     ),
     line(
       "marek-where-keys",
       "Marek",
       ["Dobre. ", PAUSE, "No nič", STOP, "Kde mám kľúče?"],
       "Good. Anyway… where are my keys?",
+      { act: [{ do: "look", to: "pegs", on: "kde" }] },
     ),
-    line("robo-in-your-hand", "Robo", ["Máš ich v ruke."], "They're in your hand."),
+    line("robo-in-your-hand", "Robo", ["Máš ich v ruke."], "They're in your hand.", {
+      act: [{ do: "point", to: "keys", on: "ruke" }],
+    }),
     line(
       "marek-home-at-seven",
       "Marek",
       [SURPRISED, "Aha. ", PAUSE, "Prídem domov o siedmej. Majte sa, chlapci!"],
       "Oh. I'll be home at seven. Bye, boys!",
+      {
+        act: [
+          { do: "raise", what: "keys", on: "aha" },
+          { do: "leave", to: "left", on: "after" },
+        ],
+      },
     ),
     line("bobik-woof-after-marek", "Bobík", ["Haf."], "Woof."),
     line(
@@ -191,6 +226,7 @@ const lead: ListeningChapter = {
       "Robo",
       ["Hm… ", PAUSE, "Si hladný?"],
       "Hmm… are you hungry?",
+      { act: [{ do: "look", to: "bowl", on: "hladny" }] },
     ),
     line("bobik-woof-answer", "Bobík", ["Haf!"], "Woof!"),
     line(
@@ -206,7 +242,9 @@ const lead: ListeningChapter = {
       "I'm looking it up. Woof: the sound a dog makes. I know that myself.",
       { gestures: ["compute"] },
     ),
-    line("bobik-woof-with-lead", "Bobík", ["Haf! Haf!"], "Woof! Woof!"),
+    line("bobik-woof-with-lead", "Bobík", ["Haf! Haf!"], "Woof! Woof!", {
+      act: [{ do: "look", to: "lead", on: "start" }],
+    }),
     line(
       "robo-the-lead",
       "Robo",
@@ -218,8 +256,7 @@ const lead: ListeningChapter = {
         "Aha. Ty chceš von. Teraz.",
       ],
       "Why are you looking up? What's up there? The lead! Oh. You want to go out. Now.",
-      // He points at the lead on its peg; it stays there until they go and get it.
-      { props: [null, null, null, null, null, null], to: "Bobík" },
+      { act: [{ do: "look", to: "lead", on: "voditko" }], to: "Bobík" },
     ),
     line("bobik-woof-yes", "Bobík", ["Haf!"], "Woof!"),
     line(
@@ -233,14 +270,25 @@ const lead: ListeningChapter = {
         "Vezmem vodítko.",
       ],
       "Change of plan. I'm writing it down: this woof means out. I'll take the lead.",
-      { props: [null, null, null] },
+      {
+        act: [
+          { do: "go", to: "pegs", on: "vezmem" },
+          { do: "take", what: "lead" },
+        ],
+      },
     ),
     line(
       "robo-off-to-square",
       "Robo",
       ["Tak. ", PAUSE, "Ideme na námestie."],
       "There. We're going to the square.",
-      { props: ["leash"], to: "Bobík" },
+      {
+        act: [
+          { do: "go", to: "bobik", on: "before" },
+          { do: "leash", what: "lead", to: "bobik" },
+        ],
+        to: "Bobík",
+      },
     ),
   ],
   checks: [
@@ -476,6 +524,13 @@ const square: ListeningChapter = {
 const waiting: ListeningChapter = {
   id: `${PREFIX}window`,
   stage: "home",
+  // Back from the square: the lead on its peg again, and his dinner in the bowl.
+  setup: {
+    state: {
+      lead: { where: { on: "pegs", dx: 0 }, clipped: false },
+      bowl: { fill: "soup" },
+    },
+  },
   titleSk: "Tichý haf",
   title: "A quiet woof",
   lines: [

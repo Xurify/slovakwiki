@@ -209,6 +209,24 @@ const KITCHEN_SET: PlaceSet = {
   door: "door",
 };
 
+/**
+ * Marek's flat: a peg rail on the wall by the window, where the dog's lead
+ * hangs, and the floor by the sofa, where the dog's bowl stands. A scene
+ * that has them adds the lead and the bowl (its `setup`), so a home without
+ * a dog has only the empty rail.
+ */
+const HOME_SET: PlaceSet = {
+  pieces: [
+    { id: "pegs", kind: "rail", x: 304, width: 24 },
+    { id: "by-sofa", kind: "floor", x: 640, width: 24 },
+  ],
+  objects: [],
+  spots: {
+    // Beside the rail, facing it, to take the lead down: a step short, so the reach goes up and out to it.
+    pegs: { piece: "pegs", dx: -26, facing: 1 },
+  },
+};
+
 /** The park's afternoon sun, which a line can point at and Find it can ask for. */
 const PARK_SUN = { x: 562, y: 36 };
 
@@ -290,13 +308,14 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       drawn(WORDS.vankus, [704, 160, 48, 44], [834, 160, 48, 44]),
       drawn(WORDS.lampa, [926, 70, 36, 172]),
       drawn(WORDS.koberec, [230, 259, 500, 36]),
-      drawn(WORDS.voditko, [282, 92, 44, 66]),
+      onSet(WORDS.voditko, ["lead"], [282, 92, 44, 66]),
       drawn(WORDS.rastlina, plantBox(PARTS.home.plant)),
     ],
     sounds: ["hum"],
     // On the rug (480 ± 250), left of the bag on it so nobody stands on that.
     post: 410,
     glass: { height: 100, width: 130, x: 106, y: 54 },
+    set: HOME_SET,
   },
   kitchen: {
     // At home people are in slippers on the kitchen tiles: a soft pat and shuffle.

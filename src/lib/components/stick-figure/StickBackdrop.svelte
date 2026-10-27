@@ -48,7 +48,6 @@
     onpick,
     picked,
     setting,
-    taken = [],
     tram = "away",
     width = 0,
   }: {
@@ -77,8 +76,6 @@
     onpick?: (id: string) => void;
     picked?: string;
     setting: StageSetting;
-    /** Props someone on stage holds, so the place no longer shows them where they are kept. */
-    taken?: readonly string[];
     /** Where the street's tram is. */
     tram?: TramState;
     width?: number;
@@ -87,13 +84,7 @@
   /** Each place's drawing; every one takes the same props and uses what it needs. */
   const DRAWINGS: Record<
     StageSetting,
-    Component<{
-      board?: string;
-      hour: number;
-      open?: number;
-      taken?: readonly string[];
-      tram: TramState;
-    }>
+    Component<{ board?: string; hour: number; open?: number; tram: TramState }>
   > = {
     cafe: Cafe,
     classroom: Classroom,
@@ -238,7 +229,7 @@
       <SkyLayer {mood} {setting} />
     {/if}
 
-    <Drawing {board} hour={hour.current} open={door} {taken} {tram} />
+    <Drawing {board} hour={hour.current} open={door} {tram} />
 
     <MoodLayer {mood} {setting} />
     <StageLight />

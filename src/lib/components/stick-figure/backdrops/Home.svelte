@@ -3,8 +3,6 @@
   import Castle from "./Castle.svelte";
   import Plant from "./Plant.svelte";
   import Room from "./Room.svelte";
-
-  let { taken = [] }: { taken?: readonly string[] } = $props();
 </script>
 
 <Room wall="fill-scene-warm" floor="fill-scene-wood" />
@@ -217,29 +215,6 @@
 <rect x="934" y="238" width="20" height="5" rx="2" class="fill-scene-line/50" />
 <path d="M928 98h32l-6-28h-20Z" class="fill-scene-honey" />
 <path d="M928 98h32l-1-4h-30Z" class="fill-scene-line/12" />
-
-<!-- A peg rail by the window, where the dog's lead hangs until someone takes it. -->
-<rect x="282" y="92" width="44" height="6" rx="2" class="fill-scene-wood" />
-<circle cx="292" cy="101" r="2.4" class="fill-scene-potato" />
-<circle cx="316" cy="101" r="2.4" class="fill-scene-potato" />
-{#if !taken.includes("leash")}
-  <g fill="none" stroke-linecap="round">
-    <ellipse
-      cx="292"
-      cy="108"
-      rx="4"
-      ry="6"
-      class="stroke-scene-red"
-      stroke-width="2.2"
-    />
-    <path
-      d="M292 114Q290 130 296 140Q300 146 297 152"
-      class="stroke-scene-red"
-      stroke-width="2.2"
-    />
-    <rect x="294.6" y="151" width="4.6" height="6" rx="1.2" class="fill-scene-edge" />
-  </g>
-{/if}
 
 <!-- One bag by the far wall and one at the front by the cast: tamtá and táto taška. -->
 {#each [{ paint: "fill-scene-clay", scale: 1, x: 171, y: 227 }, { paint: "fill-scene-honey", scale: 1.25, x: 534, y: 288 }] as bag (bag.x)}
