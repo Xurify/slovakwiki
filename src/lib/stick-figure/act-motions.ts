@@ -268,6 +268,12 @@ export function motionFor(
       }
       // A spoon picked up at the table is held there, the fist on the edge: in the lap it was out of sight behind the table.
       const atTable = object?.kind === "cutlery" && world.seated?.includes(who);
+      // Out of a bag they carry: it comes up in front, and the free hand goes in. What is in it is not drawn,
+      // so with a plain reach the keys came out of a hand that never left the side.
+      const bag = where && "in" in where ? where.in : undefined;
+      const carrying = bag ? handHolding(world, who, bag) : undefined;
+      if (carrying)
+        return { motion: outOfBagMotion(other(carrying), carrying, object?.kind) };
       return {
         motion: {
           ms: 900,
@@ -465,10 +471,16 @@ export function motionFor(
     }
     case "raise": {
       // Halfway to the mouth, and held there: about to eat, until something stops it. A recorder is held up to be seen, straight up beside the head, where the arm clears a desk mic too.
+      // A phone shows its screen at chest height, under a desk mic: at the mouth the mic hid it, and up by the head it went behind the head.
       const up =
         object?.kind === "mic"
           ? { ...hands(hand, { up: { x: 7, y: -26 } }), body: { lean: -1, brow: 0.4 } }
-          : { ...hands(hand, { mouth: true, dx: 18, dy: 10.5 }), turn: { [hand]: -20 } };
+          : object?.kind === "phone"
+            ? { ...hands(hand, { mouth: true, dx: 15, dy: 17 }), body: { brow: 0.3 } }
+            : {
+                ...hands(hand, { mouth: true, dx: 18, dy: 10.5 }),
+                turn: { [hand]: -20 },
+              };
       return {
         motion: {
           ms: 800,
@@ -1570,6 +1582,45 @@ function pocketMotion(way: "in" | "out", what: string, hand: Hand = "lead"): Mot
 }
 
 /** A seated hand resting on the table's edge in front, from the shoulder. */
+/** The carried bag held up at the waist, in front, and the free hand down into it and out with what it finds. */
+function outOfBagMotion(hand: Hand, bagHand: Hand, kind?: ObjectKind): Motion {
+  const bag = { mouth: true, dx: 13, dy: 34 } as const;
+  const lifted = { [bagHand]: bag };
+  return {
+    ms: 1100,
+    takes: 640,
+    sounds: [{ at: 600, id: soundOf(kind) }],
+    keys: [
+      { at: 0 },
+      {
+        at: 360,
+        ...lifted,
+        [hand]: { ...bag, dx: 15, dy: 26 },
+        body: { lean: 3, tilt: 3 },
+      },
+      {
+        at: 560,
+        ...lifted,
+        [hand]: { ...bag, dx: 15, dy: 33 },
+        body: { lean: 4, tilt: 4 },
+      },
+      {
+        at: 700,
+        ...lifted,
+        [hand]: { ...bag, dx: 15, dy: 33 },
+        body: { lean: 4, tilt: 4 },
+      },
+      {
+        at: 900,
+        ...lifted,
+        [hand]: { ...bag, dx: 17, dy: 20 },
+        body: { lean: 2, tilt: 2 },
+      },
+      { at: 1100 },
+    ],
+  };
+}
+
 const ON_TABLE_EDGE = { up: { x: 9, y: 8 } };
 
 /** A phone held up to read who calls: out past the chest, or the far hand holds it behind the body. */

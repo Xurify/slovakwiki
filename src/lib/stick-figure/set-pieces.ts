@@ -135,7 +135,8 @@ export const OBJECT_SIZE: Record<
   ladle: { grip: { x: 0, y: 4 }, top: 19, width: 6 },
   cutlery: { grip: { x: -4, y: 0.6 }, top: 1, width: 10 },
   towel: { grip: { x: 0, y: -4 }, top: 0, width: 7 },
-  phone: { grip: { x: 0, y: 3.5 }, top: 1, width: 4 },
+  // Held by its lower end, so the screen shows above the fist.
+  phone: { grip: { x: 0, y: 2 }, top: 1, width: 4.8 },
   // Held by the ring, the keys hanging under the fist.
   keys: { grip: { x: 0, y: 6.4 }, top: 1, width: 5 },
   mic: { grip: { x: 0, y: 3.5 }, top: 12.7, width: 5 },
@@ -156,6 +157,10 @@ export const OBJECT_SIZE: Record<
   book: { grip: { x: 0, y: 5 }, top: 11.5, width: 9 },
   clipboard: { grip: { x: 0, y: 6 }, top: 14, width: 10 },
   umbrella: { grip: { x: 0, y: 6 }, top: 21, width: 6 },
+  cheese: { grip: { x: 0, y: 3 }, top: 6, width: 11 },
+  plate: { grip: { x: 6, y: 1 }, top: 2.4, width: 15 },
+  // The home backdrop's bag by the window: its opening at the top of the drawn bag.
+  stash: { grip: { x: 0, y: 12 }, top: 20, width: 30 },
 };
 
 /**

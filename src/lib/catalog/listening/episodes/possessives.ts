@@ -161,9 +161,15 @@ const PHOTOS_ACTS: Record<string, Cue[]> = {
     { do: "raise", what: "phone", on: "fotky" },
   ],
   "anna-show-me": [{ do: "nod", on: "ukáž" }],
-  "marek-parents-house": [{ do: "pocket", what: "phone", on: "lese" }],
+  // He holds each photo up to show it, and puts the phone away only once they are done with them.
+  "marek-first-photo": [{ do: "raise", what: "phone", on: "fotka" }],
+  "marek-house-and-car": [{ do: "raise", what: "phone", on: "fotka" }],
+  "marek-old-but-mine": [{ do: "raise", what: "phone", on: "fotka" }],
   "anna-umbrella-not-theirs": [{ do: "point", to: "umbrella", on: "dáždnik" }],
-  "marek-maybe-school": [{ do: "take", what: "umbrella", on: "školy" }],
+  "marek-maybe-school": [
+    { do: "pocket", what: "phone", on: "Nie" },
+    { do: "take", what: "umbrella", on: "školy" },
+  ],
 };
 
 const photos: ListeningChapter = {
@@ -595,7 +601,7 @@ const SQUARE_ACTS: Record<string, Cue[]> = {
     { do: "nod", on: "ďakujem" },
   ],
   "marek-in-my-bag": [
-    { do: "take", what: "keys", on: "tu" },
+    { do: "take", what: "keys", on: "taške" },
     { do: "raise", what: "keys", on: "sú" },
   ],
   "lucia-marek-and-his-keys": [
@@ -617,7 +623,9 @@ const square: ListeningChapter = {
         kind: "umbrella",
         start: { where: { hand: "marek", side: "lead" } },
       },
-      { id: "keys", kind: "keys", start: { where: { pocket: "marek" } } },
+      // His keys are in his bag, as Anna says: he carries it in his other hand.
+      { id: "bag", kind: "bag", start: { where: { hand: "marek", side: "rear" } } },
+      { id: "keys", kind: "keys", start: { where: { in: "bag" } } },
     ],
   },
   lines: staged(
