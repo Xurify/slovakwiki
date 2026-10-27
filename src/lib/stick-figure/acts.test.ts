@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
 
 import { listeningEpisodes } from "$lib/catalog/listening";
 import { DARK_MS, REACT_MS, scheduleCues, type LineTimes } from "./act-schedule";
@@ -19,6 +20,29 @@ import { foldLine } from "./slovak-text";
 const KITCHEN = PLACES.kitchen.set!;
 
 describe("the world the cues leave", () => {
+  it("has a host who comes in late out of their seat until they sit down", () => {
+    const start = { ...startWorld(), seated: ["anna", "marek"] as LessonCharacterId[] };
+    const after = worlds(
+      [
+        { characterId: "anna", act: [] },
+        {
+          characterId: "marek",
+          act: [
+            { do: "enter", to: "inside", on: "before" },
+            { do: "sit", to: "desk-right", on: "start" },
+          ],
+        },
+      ],
+      PLACES.studio.set,
+      start,
+    );
+
+    expect(after[0].out).toEqual(["marek"]);
+    expect(after[0].seated).toEqual(["anna"]);
+    expect(after[2].out ?? []).toEqual([]);
+    expect(after[2].seated).toEqual(["anna", "marek"]);
+  });
+
   it("keeps what someone took in their hand until a cue puts it down or passes it on", () => {
     const after = worlds(
       [

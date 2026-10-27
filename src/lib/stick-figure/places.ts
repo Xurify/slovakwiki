@@ -221,6 +221,8 @@ const HOME_SET: PlaceSet = {
     { id: "pegs", kind: "rail", x: 304, width: 24 },
     { id: "by-sofa", kind: "floor", x: 640, width: 24 },
     { id: "by-dog", kind: "floor", x: 375, width: 24 },
+    // Where the backdrop draws the bag by the window, so a scene can keep something in it.
+    { id: "window-bag", kind: "floor", x: 171, width: 34 },
   ],
   objects: [],
   spots: {
@@ -240,6 +242,8 @@ const HOME_SET: PlaceSet = {
     window: { x: 235, facing: -1 },
     "window-dog": { x: 155, facing: -1 },
     "by-sofa": { piece: "by-sofa", dx: 0, facing: -1 },
+    // Beside the bag by the window, to reach down into it.
+    "window-bag": { piece: "window-bag", dx: 30, facing: -1 },
   },
 };
 
@@ -264,7 +268,8 @@ const CAFE_SET: PlaceSet = {
  * done stands back a step left of the other.
  */
 const MARKET_SET: PlaceSet = {
-  pieces: [],
+  // The stall's counter top behind Lucia, at the hip, where she keeps what she has weighed and wrapped.
+  pieces: [{ id: "counter", kind: "ledge", x: 742, width: 40, height: 44 }],
   objects: [],
   spots: {
     stall: { x: 660, facing: 1 },
@@ -577,7 +582,11 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
         plant: { piece: "corner", dx: -32, facing: 1 },
         "desk-left": { chair: 0 },
         "desk-right": { chair: 1 },
+        // The same door as the kitchen's: in on its latch side, then past it to push it to.
+        door: { x: 244, facing: -1 },
+        inside: { x: 202, facing: 1 },
       },
+      door: "door",
     },
   },
 };

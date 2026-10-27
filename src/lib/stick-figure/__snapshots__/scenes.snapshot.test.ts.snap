@@ -3678,8 +3678,8 @@ exports[`every scene, directed > podcast podcast-demonstratives-intro 1`] = `
 exports[`every scene, directed > podcast podcast-demonstratives-market 1`] = `
 {
   "cast": [
-    "marek",
     "anna",
+    "marek",
     "lucia",
   ],
   "lines": [
@@ -3698,9 +3698,9 @@ exports[`every scene, directed > podcast podcast-demonstratives-market 1`] = `
       "staging": {
         "addressee": "marek",
         "facing": {
-          "anna": -1,
+          "anna": 1,
           "lucia": -1,
-          "marek": 1,
+          "marek": -1,
         },
         "reactions": [
           {
@@ -3728,7 +3728,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-market 1`] = `
       "staging": {
         "addressee": "lucia",
         "facing": {
-          "anna": -1,
+          "anna": 1,
           "lucia": -1,
           "marek": 1,
         },
@@ -3784,7 +3784,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-market 1`] = `
       "staging": {
         "addressee": "lucia",
         "facing": {
-          "anna": -1,
+          "anna": 1,
           "lucia": -1,
           "marek": 1,
         },
@@ -3839,7 +3839,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-market 1`] = `
       "staging": {
         "addressee": "lucia",
         "facing": {
-          "anna": -1,
+          "anna": 1,
           "lucia": -1,
           "marek": 1,
         },
@@ -3858,9 +3858,9 @@ exports[`every scene, directed > podcast podcast-demonstratives-market 1`] = `
       "staging": {
         "addressee": "marek",
         "facing": {
-          "anna": -1,
+          "anna": 1,
           "lucia": -1,
-          "marek": 1,
+          "marek": -1,
         },
       },
     },
@@ -3903,7 +3903,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-market 1`] = `
         "facing": {
           "anna": 1,
           "lucia": -1,
-          "marek": 1,
+          "marek": -1,
         },
       },
     },
@@ -3950,7 +3950,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-market 1`] = `
       "staging": {
         "addressee": "lucia",
         "facing": {
-          "anna": -1,
+          "anna": 1,
           "lucia": -1,
           "marek": 1,
         },
@@ -3970,9 +3970,9 @@ exports[`every scene, directed > podcast podcast-demonstratives-market 1`] = `
       "staging": {
         "addressee": "marek",
         "facing": {
-          "anna": -1,
+          "anna": 1,
           "lucia": -1,
-          "marek": 1,
+          "marek": -1,
         },
       },
     },
@@ -11436,7 +11436,7 @@ exports[`every scene, directed > podcast podcast-past-tense-plate 1`] = `
         "beats": [
           "50 tell",
           "1950 tell",
-          "4869 point → stol",
+          "4250 tell",
           "6850 tell",
         ],
         "ms": 8650,
@@ -15397,7 +15397,7 @@ exports[`every scene, directed > podcast podcast-telling-time-intro 1`] = `
       "plan": {
         "beats": [
           "0 stress",
-          "1142 point → hodiny",
+          "800 ask",
         ],
         "ms": 1950,
         "questions": "800-1750",
@@ -15492,7 +15492,6 @@ exports[`every scene, directed > podcast podcast-telling-time-intro 1`] = `
           "0 shake",
           "1100 tell",
           "4500 tell",
-          "6695 point → hodiny",
         ],
         "ms": 7600,
         "sentences": "0-821 1100-3330 4500-7400",

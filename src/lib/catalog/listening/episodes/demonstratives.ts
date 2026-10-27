@@ -359,11 +359,12 @@ const MARKET_ACTS: Record<string, Cue[]> = {
   "lucia-this-cheese-five": [{ do: "point", to: "syr#near", on: "Tento" }],
   "marek-and-that-cheese": [{ do: "point", to: "syr#far", on: "tamten" }],
   "lucia-that-one-cheaper": [{ do: "point", to: "syr#far", on: "Tamten" }],
-  "marek-ill-take-that-one": [{ do: "point", to: "syr#far", on: "tamten" }],
-  // Marek has his cheese and stands back; Anna steps up to the stall.
+  "marek-ill-take-that-one": [
+    { do: "point", to: "syr#far", on: "tamten" },
+    { who: "lucia", do: "take", what: "cheese", on: "end" },
+  ],
   "anna-want-these-strawberries": [
-    { who: "marek", do: "go", to: "aside", on: "start" },
-    { do: "go", to: "stall" },
+    { who: "lucia", do: "give", what: "cheese", to: "marek", on: "before" },
     { do: "point", to: "jahody#near", on: "tieto" },
   ],
   "lucia-strawberries-from": [
@@ -371,20 +372,26 @@ const MARKET_ACTS: Record<string, Cue[]> = {
     { do: "point", to: "jahody#far", on: "Tamtie" },
   ],
   "anna-those-please": [{ do: "point", to: "jahody#far", on: "tamtie" }],
-  "lucia-here-you-are": [{ do: "give", what: "basket", to: "anna", on: "páči" }],
-  "marek-anna-always-slovak": [{ do: "point", to: "jahody#far", on: "slovenské" }],
+  // Marek is at the stall, between them: the basket comes to Anna through his hands.
+  "lucia-here-you-are": [{ do: "give", what: "basket", to: "marek", on: "páči" }],
+  "marek-anna-always-slovak": [
+    { do: "give", what: "basket", to: "anna", on: "start" },
+    { do: "point", to: "jahody#far", on: "slovenské" },
+  ],
   "anna-lets-go-home": [{ do: "wave", on: "poďme" }],
 };
 
 const market: ListeningChapter = {
   id: `${PREFIX}market`,
   stage: "market",
-  cast: ["Marek", "Anna", "Lucia"],
+  // Marek buys first, so he stands at the stall beside Lucia.
+  cast: ["Anna", "Marek", "Lucia"],
   titleSk: "Na trhu",
   title: "At the market: this one or that one?",
   setup: {
     objects: [
       { id: "basket", kind: "basket", start: { where: { hand: "lucia", side: "lead" } } },
+      { id: "cheese", kind: "cheese", start: { where: { on: "counter", dx: 0 } } },
     ],
   },
   lines: staged(
@@ -549,8 +556,10 @@ const HOME_ACTS: Record<string, Cue[]> = {
     { do: "point", to: "taska#far", on: "tamtej" },
     { do: "point", to: "okno", on: "okne" },
   ],
+  // He goes to the bag by the window and finds the key before he says so; from there he sees the man outside.
   "marek-got-it-who-is-man": [
-    { do: "take", what: "keys", on: "mám" },
+    { do: "go", to: "window-bag", on: "before" },
+    { do: "take", what: "keys" },
     { do: "raise", what: "keys", on: "ho" },
     { do: "point", to: "muz", on: "muž" },
   ],
@@ -566,7 +575,10 @@ const home: ListeningChapter = {
   titleSk: "Doma",
   title: "The lost car key",
   setup: {
-    objects: [{ id: "keys", kind: "keys", start: { where: { pocket: "marek" } } }],
+    objects: [
+      { id: "window-bag", kind: "stash", start: { where: { on: "window-bag", dx: 0 } } },
+      { id: "keys", kind: "keys", start: { where: { in: "window-bag" } } },
+    ],
   },
   lines: staged(
     PREFIX,

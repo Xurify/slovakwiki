@@ -1,9 +1,28 @@
 <script lang="ts">
   import { PARTS } from "$lib/stick-figure/backdrop-parts";
+  import { DOORS, HANDLE, doorPoint } from "$lib/stick-figure/door";
   import FloorShade from "./FloorShade.svelte";
   import WallClock from "./WallClock.svelte";
 
-  let { hour }: { hour: number } = $props();
+  /** `open`: how far the door has swung in, from 0 shut to 1 wide open against the wall. */
+  let { hour, open = 0 }: { hour: number; open?: number } = $props();
+
+  const door = DOORS.studio!;
+
+  function on(u: number, v: number): string {
+    const { x, y } = doorPoint(door, open, u, v);
+    return `${x.toFixed(1)} ${y.toFixed(1)}`;
+  }
+  function quad(u0: number, u1: number, v0: number, v1: number): string {
+    return `M${on(u0, v0)}L${on(u1, v0)}L${on(u1, v1)}L${on(u0, v1)}Z`;
+  }
+  /** The round window, squeezed across as the door turns. */
+  const pane = $derived.by(() => {
+    const { x, y } = doorPoint(door, open, 0.5, 38 / 180);
+    const squeeze =
+      Math.abs(doorPoint(door, open, 1, 0).x - door.hinge) / (door.edge - door.hinge);
+    return { x, y, rx: Math.max(0.5, squeeze) };
+  });
 
   const slats = Array.from({ length: 36 }, (_, index) => 322 + index * 9);
   const books = [
@@ -55,11 +74,18 @@
 
 <!-- The door the hosts came in by. -->
 <rect x="190" y="40" width="72" height="186" rx="2" fill="#f4f1ea" />
-<rect x="196" y="46" width="60" height="180" fill="#8a5a3b" />
-<rect x="202" y="128" width="48" height="86" rx="2" fill="#6e4630" />
-<circle cx="226" cy="84" r="12" fill="#f4f1ea" />
-<circle cx="226" cy="84" r="9" fill="#d8e8ef" />
-<rect x="238" y="140" width="12" height="4" rx="2" fill="#d9b088" />
+{#if open > 0}
+  <!-- The dim hall beyond the open door. -->
+  <rect x="196" y="46" width="60" height="180" fill="#3a2f28" fill-opacity="0.7" />
+{/if}
+<path d={quad(0, 1, 0, 1)} fill="#8a5a3b" />
+<path d={quad(0.1, 0.9, 0.456, 0.933)} fill="#6e4630" />
+<ellipse cx={pane.x} cy={pane.y} rx={12 * pane.rx} ry="12" fill="#f4f1ea" />
+<ellipse cx={pane.x} cy={pane.y} rx={9 * pane.rx} ry="9" fill="#d8e8ef" />
+<path
+  d={quad(HANDLE.u - 0.1, HANDLE.u + 0.1, HANDLE.v - 0.011, HANDLE.v + 0.011)}
+  fill="#d9b088"
+/>
 
 <WallClock clock={PARTS.studio.clock} {hour} />
 

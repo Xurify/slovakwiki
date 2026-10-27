@@ -20,89 +20,111 @@ function mark(text: string): Exclude<MarkedPart, string> {
   return { role: "time", text };
 }
 
+/** Marek comes in late through the studio door, takes his place and sits down. */
+const INTRO_ACTS: Record<string, Cue[]> = {
+  "marek-sorry-late": [
+    { do: "enter", to: "inside", on: "before" },
+    { do: "sit", to: "desk-right", on: "start" },
+  ],
+};
+
 const intro: ListeningChapter = {
   id: `${PREFIX}intro`,
   titleSk: "Úvod",
   title: "Marek is late",
-  lines: [
-    line(
-      "anna-this-is-podcast",
-      "Anna",
-      [
-        "Ahojte! Tu je podcast Slovak Wiki. Ja som Anna. ",
-        PAUSE,
-        "A Marek",
-        STOP,
-        PAUSE,
-        "tu nie je.",
-      ],
-      "Hi! This is the Slovak Wiki podcast. I'm Anna. And Marek… isn't here.",
-    ),
-    line(
-      "marek-sorry-late",
-      "Marek",
-      ["Ahojte! Prepáč, Anna, meškám."],
-      "Hi! Sorry, Anna, I'm late.",
-    ),
-    line(
-      "anna-what-time",
-      "Anna",
-      ["Marek! ", mark("Koľko je hodín"), "?"],
-      "Marek! What time is it?",
-    ),
-    line(
-      "marek-half-past-nine",
-      "Marek",
-      ["Je", STOP, PAUSE, mark("pol desiatej"), "."],
-      "It's… half past nine.",
-    ),
-    line(
-      "anna-recording-half-past-eight",
-      "Anna",
-      [
-        "Áno, je ",
-        mark("pol desiatej"),
-        ". ",
-        PAUSE,
-        "A naša nahrávka je ",
-        mark("o pol deviatej"),
-        "!",
-      ],
-      "Yes, it's half past nine. And our recording is at half past eight!",
-    ),
-    line(
-      "marek-thought-nine-thirty",
-      "Marek",
-      [mark("Pol deviatej"), STOP, PAUSE, "Ja som myslel, že to je deväť tridsať."],
-      "Half past eight… I thought that was nine thirty.",
-    ),
-    line(
-      "anna-eight-thirty-topic",
-      "Anna",
-      [
-        "Nie, Marek. ",
-        mark("Pol deviatej"),
-        " je osem tridsať. ",
-        PAUSE,
-        "A to je dnešná téma: ",
-        mark("koľko je hodín"),
-        ".",
-      ],
-      "No, Marek. Half past eight is eight thirty. And that's today's topic: what time it is.",
-    ),
-    line(
-      "marek-good-topic-for-me",
-      "Marek",
-      ["Dobrá téma. ", PAUSE, "Pre mňa."],
-      "Good topic. For me.",
-    ),
-    line(
-      "anna-yes-for-you",
-      "Anna",
-      ["Áno, pre teba. Ideme na to!"],
-      "Yes, for you. Let's get to it!",
-    ),
-  ],
+  // His headphones wait on the desk at his place until he comes in.
+  setup: {
+    objects: [
+      {
+        id: "marek-headphones",
+        kind: "headphones",
+        start: { where: { on: "desk", dx: 38 }, of: "marek" },
+      },
+    ],
+  },
+  lines: staged(
+    PREFIX,
+    [
+      line(
+        "anna-this-is-podcast",
+        "Anna",
+        [
+          "Ahojte! Tu je podcast Slovak Wiki. Ja som Anna. ",
+          PAUSE,
+          "A Marek",
+          STOP,
+          PAUSE,
+          "tu nie je.",
+        ],
+        "Hi! This is the Slovak Wiki podcast. I'm Anna. And Marek… isn't here.",
+      ),
+      line(
+        "marek-sorry-late",
+        "Marek",
+        ["Ahojte! Prepáč, Anna, meškám."],
+        "Hi! Sorry, Anna, I'm late.",
+      ),
+      line(
+        "anna-what-time",
+        "Anna",
+        ["Marek! ", mark("Koľko je hodín"), "?"],
+        "Marek! What time is it?",
+      ),
+      line(
+        "marek-half-past-nine",
+        "Marek",
+        ["Je", STOP, PAUSE, mark("pol desiatej"), "."],
+        "It's… half past nine.",
+      ),
+      line(
+        "anna-recording-half-past-eight",
+        "Anna",
+        [
+          "Áno, je ",
+          mark("pol desiatej"),
+          ". ",
+          PAUSE,
+          "A naša nahrávka je ",
+          mark("o pol deviatej"),
+          "!",
+        ],
+        "Yes, it's half past nine. And our recording is at half past eight!",
+      ),
+      line(
+        "marek-thought-nine-thirty",
+        "Marek",
+        [mark("Pol deviatej"), STOP, PAUSE, "Ja som myslel, že to je deväť tridsať."],
+        "Half past eight… I thought that was nine thirty.",
+      ),
+      line(
+        "anna-eight-thirty-topic",
+        "Anna",
+        [
+          "Nie, Marek. ",
+          mark("Pol deviatej"),
+          " je osem tridsať. ",
+          PAUSE,
+          "A to je dnešná téma: ",
+          mark("koľko je hodín"),
+          ".",
+        ],
+        "No, Marek. Half past eight is eight thirty. And that's today's topic: what time it is.",
+      ),
+      line(
+        "marek-good-topic-for-me",
+        "Marek",
+        ["Dobrá téma. ", PAUSE, "Pre mňa."],
+        "Good topic. For me.",
+      ),
+      line(
+        "anna-yes-for-you",
+        "Anna",
+        ["Áno, pre teba. Ideme na to!"],
+        "Yes, for you. Let's get to it!",
+      ),
+    ],
+    INTRO_ACTS,
+  ),
   checks: [
     {
       id: `${PREFIX}check-time-marek-arrives`,

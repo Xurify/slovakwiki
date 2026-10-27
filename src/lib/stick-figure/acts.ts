@@ -152,7 +152,11 @@ export type ObjectKind =
   | "basket"
   | "book"
   | "clipboard"
-  | "umbrella";
+  | "umbrella"
+  | "cheese"
+  | "plate"
+  /** A bag the backdrop draws, standing in for it on the set so what is in it can be taken out. */
+  | "stash";
 
 /** What is in a pot, a bowl, a spoon, a jug or a cup. */
 export type Fill = "water" | "soup" | "coffee" | "kibble";
@@ -703,9 +707,14 @@ export function comingIn(lines: readonly ActedLine[]): LessonCharacterId[] {
 /** `start` with whoever comes in through the door during these lines not in yet. */
 export function opening(lines: readonly ActedLine[], start: World): World {
   const entering = comingIn(lines);
-  return entering.length
-    ? { ...start, out: [...new Set([...(start.out ?? []), ...entering])] }
-    : start;
+  if (!entering.length) return start;
+  // Not in yet, they are not in their seat either: the studio sits its hosts down from the start.
+  const seated = start.seated?.filter((who) => !entering.includes(who));
+  return {
+    ...start,
+    out: [...new Set([...(start.out ?? []), ...entering])],
+    ...(seated ? { seated } : {}),
+  };
 }
 
 /** Who comes in through the door or from an edge during these lines, with the way they face. */

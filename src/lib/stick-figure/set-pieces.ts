@@ -156,6 +156,10 @@ export const OBJECT_SIZE: Record<
   book: { grip: { x: 0, y: 5 }, top: 11.5, width: 9 },
   clipboard: { grip: { x: 0, y: 6 }, top: 14, width: 10 },
   umbrella: { grip: { x: 0, y: 6 }, top: 21, width: 6 },
+  cheese: { grip: { x: 0, y: 3 }, top: 6, width: 11 },
+  plate: { grip: { x: 6, y: 1 }, top: 2.4, width: 15 },
+  // The home backdrop's bag by the window: its opening at the top of the drawn bag.
+  stash: { grip: { x: 0, y: 12 }, top: 20, width: 30 },
 };
 
 /**

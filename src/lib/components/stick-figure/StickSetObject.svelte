@@ -553,6 +553,25 @@
     <circle cx="4" cy="-8.4" r="2.2" class="fill-scene-red-mid" />
     <path d="M-8 -8h16l-2 8.5h-12Z" class="fill-scene-wood" />
     <path d="M-7 -5h14M-6.4 -2h12.8" class="stroke-scene-line/40" stroke-width="0.7" />
+  {:else if kind === "plate"}
+    <ellipse cx="0" cy="-1.2" rx="7.5" ry="1.9" class="fill-white" />
+    <ellipse
+      cx="0"
+      cy="-1.5"
+      rx="4.5"
+      ry="0.9"
+      class="stroke-scene-line/30"
+      fill="none"
+      stroke-width="0.5"
+    />
+    <circle cx="-2" cy="-1.5" r="0.45" class="fill-scene-line/60" stroke="none" />
+    <circle cx="1.2" cy="-1.2" r="0.35" class="fill-scene-line/60" stroke="none" />
+    <circle cx="2.6" cy="-1.7" r="0.4" class="fill-scene-line/60" stroke="none" />
+  {:else if kind === "cheese"}
+    <path d="M-5.5 0v-5.5l11 -3v8.5Z" class="fill-scene-honey" />
+    <path d="M-5.5 -5.5l11 -3" stroke-width="0.6" />
+    <circle cx="-1.5" cy="-2.6" r="1" class="fill-scene-wood" stroke="none" />
+    <circle cx="2.6" cy="-4.4" r="0.8" class="fill-scene-wood" stroke="none" />
   {:else if kind === "book"}
     <rect x="-4" y="-11.5" width="9" height="11.5" rx="1" class="fill-scene-honey" />
     <path d="M-2.2 -11.5V0" stroke-width="0.6" />

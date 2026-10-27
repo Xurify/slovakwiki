@@ -24,118 +24,138 @@ function card(id: string, slovak: string, english: string) {
   return line(id, "Scene", [slovak], english);
 }
 
+const PLATE_ACTS: Record<string, Cue[]> = {
+  // He lifts the plate to show it is empty, and sets it down again once Anna has seen it.
+  "marek-brought-cake": [
+    { do: "take", what: "plate", on: "teraz" },
+    { do: "raise", what: "plate", on: "tanier" },
+  ],
+  "anna-empty-plate-who": [
+    { do: "point", to: "plate", on: "tanier" },
+    { who: "marek", do: "put", what: "plate", to: "desk", dx: 17, on: "Kto" },
+  ],
+};
+
 const plate: ListeningChapter = {
   id: `${PREFIX}plate`,
   titleSk: "Prázdny tanier",
   title: "An empty plate",
-  lines: [
-    card(
-      "card-studio-three",
-      "Štvrtok. Tri hodiny popoludní. Štúdio Slovak Wiki.",
-      "Thursday. Three in the afternoon. The Slovak Wiki studio.",
-    ),
-    line(
-      "marek-cake-is-gone",
-      "Marek",
-      ["Anna! ", PAUSE, "Môj koláč je preč!"],
-      "Anna! My cake is gone!",
-    ),
-    line("anna-what-cake", "Anna", ["Aký koláč?"], "What cake?"),
-    line(
-      "marek-brought-cake",
-      "Marek",
-      [
-        "Ráno ",
-        past("som priniesol"),
-        " koláč. Veľký makový koláč. ",
-        past("Bol"),
-        " tu, na stole. ",
-        PAUSE,
-        "A teraz je tu len tanier.",
-      ],
-      "In the morning I brought a cake. A big poppy-seed cake. It was here, on the table. And now there's only a plate here.",
-    ),
-    line(
-      "anna-empty-plate-who",
-      "Anna",
-      ["Hm. Prázdny tanier. ", PAUSE, "Kto ", past("bol"), " dnes v štúdiu?"],
-      "Hmm. An empty plate. Who was in the studio today?",
-    ),
-    line(
-      "marek-three-people",
-      "Marek",
-      ["Ja. Ty. ", PAUSE, "A ešte traja ľudia."],
-      "Me. You. And three more people.",
-    ),
-    line("anna-who", "Anna", ["Kto?"], "Who?"),
-    line(
-      "marek-who-came",
-      "Marek",
-      [
-        "Ráno ",
-        past("prišla"),
-        " Mária zo školy. ",
-        PAUSE,
-        "Na obed ",
-        past("prišiel"),
-        " čašník z kaviarne. ",
-        PAUSE,
-        "A o jednej ",
-        past("prišla"),
-        " Lucia.",
-      ],
-      "In the morning Mária came from the school. At noon the waiter came from the café. And at one Lucia came.",
-    ),
-    line(
-      "marek-and-you-anna",
-      "Marek",
-      ["A ty, Anna? Kde ", past("si bola"), " ty?"],
-      "And you, Anna? Where were you?",
-    ),
-    line(
-      "anna-in-town-all-day",
-      "Anna",
-      [
-        "Ja? Ja ",
-        past("som bola"),
-        " celý deň v meste. ",
-        past("Prišla som"),
-        " o tretej.",
-      ],
-      "Me? I was in town all day. I came at three.",
-    ),
-    line(
-      "anna-and-you-marek",
-      "Anna",
-      ["A ty, Marek? Čo ", past("si robil"), "?"],
-      "And you, Marek? What did you do?",
-    ),
-    line(
-      "marek-worked-all-day",
-      "Marek",
-      [past("Pracoval som"), ". Celý deň ", past("som bol"), " tu."],
-      "I worked. I was here all day.",
-    ),
-    line("anna-and-breakfast", "Anna", ["A raňajky?"], "And breakfast?"),
-    line(
-      "marek-no-time-hungry",
-      "Marek",
-      [past("Nemal som"), " čas. ", PAUSE, "Ráno ", past("som bol"), " veľmi hladný."],
-      "I had no time. In the morning I was very hungry.",
-    ),
-    line(
-      "anna-detective-to-school",
-      "Anna",
-      [
-        "Aha. ",
-        PAUSE,
-        "Dobre. Ja som teraz detektívka. ",
-        PAUSE,
-        "Najprv do školy, za Máriou.",
-      ],
-      "I see. OK. I'm the detective now. First to the school, to see Mária.",
-    ),
-  ],
+  // All that is left of the cake: the plate on the desk, crumbs on it.
+  setup: {
+    objects: [{ id: "plate", kind: "plate", start: { where: { on: "desk", dx: 17 } } }],
+  },
+  lines: staged(
+    PREFIX,
+    [
+      card(
+        "card-studio-three",
+        "Štvrtok. Tri hodiny popoludní. Štúdio Slovak Wiki.",
+        "Thursday. Three in the afternoon. The Slovak Wiki studio.",
+      ),
+      line(
+        "marek-cake-is-gone",
+        "Marek",
+        ["Anna! ", PAUSE, "Môj koláč je preč!"],
+        "Anna! My cake is gone!",
+      ),
+      line("anna-what-cake", "Anna", ["Aký koláč?"], "What cake?"),
+      line(
+        "marek-brought-cake",
+        "Marek",
+        [
+          "Ráno ",
+          past("som priniesol"),
+          " koláč. Veľký makový koláč. ",
+          past("Bol"),
+          " tu, na stole. ",
+          PAUSE,
+          "A teraz je tu len tanier.",
+        ],
+        "In the morning I brought a cake. A big poppy-seed cake. It was here, on the table. And now there's only a plate here.",
+      ),
+      line(
+        "anna-empty-plate-who",
+        "Anna",
+        ["Hm. Prázdny tanier. ", PAUSE, "Kto ", past("bol"), " dnes v štúdiu?"],
+        "Hmm. An empty plate. Who was in the studio today?",
+      ),
+      line(
+        "marek-three-people",
+        "Marek",
+        ["Ja. Ty. ", PAUSE, "A ešte traja ľudia."],
+        "Me. You. And three more people.",
+      ),
+      line("anna-who", "Anna", ["Kto?"], "Who?"),
+      line(
+        "marek-who-came",
+        "Marek",
+        [
+          "Ráno ",
+          past("prišla"),
+          " Mária zo školy. ",
+          PAUSE,
+          "Na obed ",
+          past("prišiel"),
+          " čašník z kaviarne. ",
+          PAUSE,
+          "A o jednej ",
+          past("prišla"),
+          " Lucia.",
+        ],
+        "In the morning Mária came from the school. At noon the waiter came from the café. And at one Lucia came.",
+      ),
+      line(
+        "marek-and-you-anna",
+        "Marek",
+        ["A ty, Anna? Kde ", past("si bola"), " ty?"],
+        "And you, Anna? Where were you?",
+      ),
+      line(
+        "anna-in-town-all-day",
+        "Anna",
+        [
+          "Ja? Ja ",
+          past("som bola"),
+          " celý deň v meste. ",
+          past("Prišla som"),
+          " o tretej.",
+        ],
+        "Me? I was in town all day. I came at three.",
+      ),
+      line(
+        "anna-and-you-marek",
+        "Anna",
+        ["A ty, Marek? Čo ", past("si robil"), "?"],
+        "And you, Marek? What did you do?",
+      ),
+      line(
+        "marek-worked-all-day",
+        "Marek",
+        [past("Pracoval som"), ". Celý deň ", past("som bol"), " tu."],
+        "I worked. I was here all day.",
+      ),
+      line("anna-and-breakfast", "Anna", ["A raňajky?"], "And breakfast?"),
+      line(
+        "marek-no-time-hungry",
+        "Marek",
+        [past("Nemal som"), " čas. ", PAUSE, "Ráno ", past("som bol"), " veľmi hladný."],
+        "I had no time. In the morning I was very hungry.",
+      ),
+      line(
+        "anna-detective-to-school",
+        "Anna",
+        [
+          "Aha. ",
+          PAUSE,
+          "Dobre. Ja som teraz detektívka. ",
+          PAUSE,
+          "Najprv do školy, za Máriou.",
+        ],
+        "I see. OK. I'm the detective now. First to the school, to see Mária.",
+      ),
+    ],
+    PLATE_ACTS,
+  ),
   checks: [
     {
       id: `${PREFIX}check-what-is-gone`,
