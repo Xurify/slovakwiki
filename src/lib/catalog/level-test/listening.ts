@@ -27,6 +27,104 @@ export const LISTENING_NARRATOR: LessonCharacterId = "narrator";
 
 export const listeningSets: AuthoredListeningSet[] = [
   {
+    id: "kava-v-kaviarni",
+    level: "A1",
+    partner: "waiter",
+    partnerName: "Peter",
+    scenario: {
+      text: "Si v kaviarni v Košiciach. Čašník Peter prichádza k tvojmu stolu.",
+      english: "You are in a café in Košice. The waiter, Peter, comes to your table.",
+    },
+    complete: [
+      {
+        before: "Si v kaviarni v",
+        after: ".",
+        english: "You are in a café in ___.",
+        accepted: ["Košiciach"],
+      },
+      {
+        before: "Čašník sa volá",
+        after: ".",
+        english: "The waiter is called ___.",
+        accepted: ["Peter"],
+      },
+      {
+        before: "Peter prichádza k tvojmu",
+        after: ".",
+        english: "Peter comes to your ___.",
+        accepted: ["stolu"],
+      },
+    ],
+    turns: [
+      {
+        line: {
+          text: "Dobrý deň! Čo si dáte?",
+          english: "Hello! What will you have?",
+        },
+        options: ["Dobrý deň. Kávu, prosím.", "Volám sa Peter.", "Dovidenia, dobrú noc."],
+        answer: 0,
+      },
+      {
+        line: {
+          text: "Veľkú, alebo malú?",
+          english: "Large or small?",
+        },
+        options: ["Áno, prosím.", "Kávu pijem ráno.", "Malú, prosím."],
+        answer: 2,
+      },
+      {
+        line: {
+          text: "S mliekom?",
+          english: "With milk?",
+        },
+        options: ["Mlieko je biele.", "Nie, ďakujem, bez mlieka.", "Čaj je v kuchyni."],
+        answer: 1,
+      },
+      {
+        line: {
+          text: "Dáte si aj koláč? Dnes máme jablkový.",
+          english: "Would you like some cake too? Today we have apple cake.",
+        },
+        options: [
+          "Áno, jeden jablkový, prosím.",
+          "Jablko je ovocie.",
+          "Nie, mám dva psy.",
+        ],
+        answer: 0,
+      },
+      {
+        line: {
+          text: "Nech sa páči. Ešte niečo?",
+          english: "Here you are. Anything else?",
+        },
+        options: [
+          "Áno, je to káva.",
+          "Dobré ráno, Peter.",
+          "To je všetko, ďakujem. Koľko to stojí?",
+        ],
+        answer: 2,
+      },
+      {
+        line: {
+          text: "Spolu štyri eurá dvadsať.",
+          english: "That's four euros twenty altogether.",
+        },
+        options: [
+          "Štyri je malé číslo.",
+          "Tu je päť eur. Drobné si nechajte.",
+          "Áno, dvadsať rokov.",
+        ],
+        answer: 1,
+      },
+    ],
+    summaryKey: [
+      "Hosť si dá malú kávu bez mlieka.",
+      "Objedná si aj jablkový koláč.",
+      "Spolu to stojí štyri eurá dvadsať.",
+      "Hosť platí piatimi eurami a drobné nechá čašníkovi.",
+    ],
+  },
+  {
     id: "ucenie-s-marekom",
     level: "A2",
     partner: "marek",
@@ -686,6 +784,120 @@ export const listeningSets: AuthoredListeningSet[] = [
     ],
   },
   {
+    id: "byt-na-prenajom",
+    level: "B1",
+    partner: "anna",
+    partnerName: "Anna",
+    scenario: {
+      text: "Hľadáš byt v Žiline. Voláš na inzerát a telefón dvíha majiteľka bytu, pani Anna Kováčová.",
+      english:
+        "You are looking for a flat in Žilina. You call about an advert, and the owner of the flat, Mrs Anna Kováčová, answers the phone.",
+    },
+    complete: [
+      {
+        before: "Hľadáš byt v",
+        after: ".",
+        english: "You are looking for a flat in ___.",
+        accepted: ["Žiline"],
+      },
+      {
+        before: "Voláš na",
+        after: ".",
+        english: "You are calling about an ___.",
+        accepted: ["inzerát"],
+      },
+      {
+        before: "Anna Kováčová je majiteľka",
+        after: ".",
+        english: "Anna Kováčová is the owner of the ___.",
+        accepted: ["bytu"],
+      },
+    ],
+    turns: [
+      {
+        line: {
+          text: "Prosím, Kováčová.",
+          english: "Hello, Kováčová speaking.",
+        },
+        options: [
+          "Dobrý deň, volám na váš inzerát. Je byt ešte voľný?",
+          "Dobrý deň, môžem hovoriť s pani Kováčovou?",
+          "Ahoj Anna, čo robíš?",
+        ],
+        answer: 0,
+      },
+      {
+        line: {
+          text: "Áno, ešte je. Je to dvojizbový byt na treťom poschodí, ale v dome nie je výťah. Vadí vám to?",
+          english:
+            "Yes, it still is. It's a two-room flat on the third floor, but there's no lift in the building. Does that bother you?",
+        },
+        options: [
+          "Výťah je pre ľudí aj pre veci.",
+          "Nevadí, schody mi nerobia problém.",
+          "Áno, tretie poschodie je nad druhým.",
+        ],
+        answer: 1,
+      },
+      {
+        line: {
+          text: "Nájom je päťsto eur mesačne a k tomu energie, asi sto eur.",
+          english:
+            "The rent is five hundred euros a month, plus utilities of about a hundred euros.",
+        },
+        options: [
+          "Ďakujem, energie mám dosť.",
+          "Mesačne chodím do kina.",
+          "Rozumiem. A platí sa aj záloha vopred?",
+        ],
+        answer: 2,
+      },
+      {
+        line: {
+          text: "Áno, záloha je vo výške jedného nájmu. Kedy by ste si chceli byt pozrieť?",
+          english:
+            "Yes, the deposit is one month's rent. When would you like to see the flat?",
+        },
+        options: [
+          "Hodil by sa mi štvrtok po piatej. Dá sa to?",
+          "Byt je v Žiline.",
+          "Pozerám sa každý deň na televíziu.",
+        ],
+        answer: 0,
+      },
+      {
+        line: {
+          text: "Vo štvrtok som do šiestej v práci. Môže byť o pol siedmej?",
+          english: "On Thursday I'm at work until six. Would half past six be all right?",
+        },
+        options: [
+          "V práci je veľa ľudí.",
+          "O pol siedmej je to v poriadku, prídem.",
+          "Šesť a pol je trinásť.",
+        ],
+        answer: 1,
+      },
+      {
+        line: {
+          text: "Výborne. Adresa je Hurbanova dvanásť. Zazvoňte na Kováčovú.",
+          english: "Great. The address is Hurbanova 12. Ring the bell for Kováčová.",
+        },
+        options: [
+          "Ďakujem, zvonček nepotrebujem.",
+          "Moja adresa je iná.",
+          "Dobre, Hurbanova dvanásť, o pol siedmej. Dovidenia.",
+        ],
+        answer: 2,
+      },
+    ],
+    summaryKey: [
+      "Dvojizbový byt na treťom poschodí bez výťahu je ešte voľný.",
+      "Nájom je päťsto eur mesačne a asi sto eur za energie; záloha je jeden nájom.",
+      "Prehliadka bude vo štvrtok o pol siedmej.",
+      "Adresa je Hurbanova dvanásť, treba zazvoniť na Kováčovú.",
+    ],
+  },
+  {
     id: "grafy-pre-mareka",
     level: "B2",
     partner: "marek",
@@ -916,6 +1128,121 @@ export const listeningSets: AuthoredListeningSet[] = [
     ],
   },
   {
+    id: "zmena-planu-v-tatrach",
+    level: "B2",
+    partner: "lucia",
+    partnerName: "Lucia",
+    scenario: {
+      text: "Si s kolegami na firemnom výlete vo Vysokých Tatrách. Organizátorka výletu Lucia ti volá skoro ráno, lebo sa mení plán.",
+      english:
+        "You are on a company trip in the High Tatras with your colleagues. Lucia, who is organising the trip, calls you early in the morning because the plan is changing.",
+    },
+    complete: [
+      {
+        before: "Si s kolegami na firemnom výlete vo Vysokých",
+        after: ".",
+        english: "You are on a company trip in the High ___.",
+        accepted: ["Tatrách"],
+      },
+      {
+        before: "Lucia je organizátorka",
+        after: ".",
+        english: "Lucia is the organiser of the ___.",
+        accepted: ["výletu"],
+      },
+      {
+        before: "Lucia ti volá, lebo sa mení",
+        after: ".",
+        english: "Lucia is calling because the ___ is changing.",
+        accepted: ["plán"],
+      },
+    ],
+    turns: [
+      {
+        line: {
+          text: "Ahoj, prepáč, že ruším tak skoro ráno. Máme problém s dnešnou túrou.",
+          english:
+            "Hi, sorry to disturb you so early. We've got a problem with today's hike.",
+        },
+        options: [
+          "Túra je dlhá prechádzka po horách.",
+          "Dobré ráno, nič sa nedeje. Čo sa stalo?",
+          "Ruší ma, keď niekto spieva.",
+        ],
+        answer: 1,
+      },
+      {
+        line: {
+          text: "Meteorológovia vydali výstrahu pred búrkami, takže lanovka na Lomnický štít dnes nepremáva.",
+          english:
+            "The forecasters have issued a storm warning, so the cable car to Lomnický štít isn't running today.",
+        },
+        options: [
+          "To je škoda, ale bezpečnosť je dôležitejšia. Máš nejaký náhradný plán?",
+          "Výborne, aspoň sa budeme môcť vyviezť hore.",
+          "Lomnický štít je veľmi vysoký.",
+        ],
+        answer: 0,
+      },
+      {
+        line: {
+          text: "Navrhujem, aby sme namiesto túry išli do aquaparku v Poprade a večer sa vrátili na chatu.",
+          english:
+            "I suggest we go to the water park in Poprad instead of the hike and come back to the chalet in the evening.",
+        },
+        options: [
+          "Poprad je mesto pod Tatrami.",
+          "Chata je drevená a má veľkú terasu.",
+          "Dobrý nápad, ale nemám plavky. Dajú sa tam kúpiť alebo požičať?",
+        ],
+        answer: 2,
+      },
+      {
+        line: {
+          text: "Myslím, že tam majú obchod so športovými potrebami. Autobus odchádza o desiatej. Stihneš to?",
+          english:
+            "I think they have a sports shop there. The bus leaves at ten. Will you make it?",
+        },
+        options: [
+          "Autobus má štyri kolesá.",
+          "O desiatej? Stihnem, len sa ešte naraňajkujem.",
+          "Desať je viac ako deväť.",
+        ],
+        answer: 1,
+      },
+      {
+        line: {
+          text: "Výborne. Môžeš to dať vedieť ostatným z nášho oddelenia?",
+          english: "Great. Can you let the others from our department know?",
+        },
+        options: [
+          "Jasné, napíšem im do skupinového četu.",
+          "Oddelenie je na treťom poschodí.",
+          "Nie, na chate nikdy nejem.",
+        ],
+        answer: 0,
+      },
+      {
+        line: {
+          text: "Super, ďakujem. A pre istotu si zbaľ aj dáždnik.",
+          english: "Great, thanks. And pack an umbrella too, just in case.",
+        },
+        options: [
+          "Dáždnik je v obchode.",
+          "Dážď padá z neba.",
+          "Dobre, vezmem si ho. Uvidíme sa pri autobuse.",
+        ],
+        answer: 2,
+      },
+    ],
+    summaryKey: [
+      "Pre výstrahu pred búrkami dnes nepremáva lanovka na Lomnický štít.",
+      "Namiesto túry pôjdu do aquaparku v Poprade a večer sa vrátia na chatu.",
+      "Autobus odchádza o desiatej; plavky sa dajú kúpiť v obchode so športovými potrebami.",
+      "Kolega dá ostatným vedieť v skupinovom čete a vezme si dáždnik.",
+    ],
+  },
+  {
     id: "pracovny-pohovor",
     level: "C1",
     partner: "receptionist",
@@ -1029,6 +1356,122 @@ export const listeningSets: AuthoredListeningSet[] = [
       "Najlepšie ovláda nemčinu a angličtinu, slovenčinu sa ešte učí.",
       "Pre dvojmesačnú výpovednú lehotu môže nastúpiť najskôr od prvého marca.",
       "Firma sa ozve do konca budúceho týždňa; uchádzač sa pýta na zaškolenie.",
+    ],
+  },
+  {
+    id: "projekt-v-meskani",
+    level: "C1",
+    partner: "marek",
+    partnerName: "Marek",
+    scenario: {
+      text: "Vedieš projekt novej mobilnej aplikácie pre mestskú dopravu. Volá ti tvoj nadriadený Marek, lebo klient sa sťažuje, že sa spustenie aplikácie odkladá.",
+      english:
+        "You are leading a project for a new mobile app for city transport. Your manager, Marek, is calling you because the client is complaining that the app's launch keeps being put off.",
+    },
+    complete: [
+      {
+        before: "Vedieš projekt novej mobilnej",
+        after: "pre mestskú dopravu.",
+        english: "You are leading a project for a new mobile ___ for city transport.",
+        accepted: ["aplikácie"],
+      },
+      {
+        before: "Marek je tvoj",
+        after: ".",
+        english: "Marek is your ___.",
+        accepted: ["nadriadený", "šéf"],
+      },
+      {
+        before: "Klient sa sťažuje, že sa spustenie aplikácie",
+        after: ".",
+        english: "The client is complaining that the app's launch keeps being ___.",
+        accepted: ["odkladá"],
+      },
+    ],
+    turns: [
+      {
+        line: {
+          text: "Ahoj, práve mi volal klient. Je dosť nervózny, že sa termín spustenia znova posúva. Čo sa vlastne deje?",
+          english:
+            "Hi, the client just called me. They're quite nervous that the launch date is slipping again. What's actually going on?",
+        },
+        options: [
+          "Termín spustenia je uvedený v zmluve na štvrtej strane.",
+          "Narazili sme na problém s napojením na systém dopravného podniku. Ich rozhranie nefunguje tak, ako sľúbili.",
+          "Klient je nervózny vždy, to netreba riešiť.",
+        ],
+        answer: 1,
+      },
+      {
+        line: {
+          text: "Koľko času podľa teba potrebujeme navyše?",
+          english: "How much extra time do you think we need?",
+        },
+        options: [
+          "Navyše potrebujeme hlavne lepšiu kávu v kancelárii.",
+          "Čas je relatívny, to vedel už Einstein.",
+          "Ak nám dopravný podnik dodá opravené rozhranie do piatku, stihneme to za dva týždne.",
+        ],
+        answer: 2,
+      },
+      {
+        line: {
+          text: "A čo ak to do piatku nedodajú?",
+          english: "And what if they don't deliver by Friday?",
+        },
+        options: [
+          "Pripravujeme záložné riešenie: aplikácia by spočiatku fungovala bez údajov v reálnom čase.",
+          "Tak to bude ich chyba a nás sa to už netýka.",
+          "Piatok je posledný pracovný deň v týždni.",
+        ],
+        answer: 0,
+      },
+      {
+        line: {
+          text: "To znie rozumne. Bude to však klientovi stačiť? Zaujíma ho hlavne to, či cestujúci uvidia meškania spojov.",
+          english:
+            "That sounds sensible. But will it be enough for the client? What they care about most is whether passengers will see delays.",
+        },
+        options: [
+          "Meškania spojov sú v meste bežné, cestujúci sú na ne zvyknutí.",
+          "Cestovný poriadok uvidia hneď a meškania doplníme v aktualizácii, len čo bude rozhranie fungovať.",
+          "Klient to nemusí vedieť, povieme mu to až po spustení.",
+        ],
+        answer: 1,
+      },
+      {
+        line: {
+          text: "Dobre. Môžeš to klientovi vysvetliť na zajtrajšom stretnutí? A priprav k tomu, prosím, krátku prezentáciu.",
+          english:
+            "OK. Can you explain it to the client at tomorrow's meeting? And please prepare a short presentation for it.",
+        },
+        options: [
+          "Prezentácie sú nudné, radšej to poviem len tak.",
+          "Zajtrajšie stretnutie je v zasadačke na prízemí.",
+          "Jasné. Pošlem ti ju dnes večer, aby si sa na ňu mohol pozrieť.",
+        ],
+        answer: 2,
+      },
+      {
+        line: {
+          text: "Výborne. A ešte jedna vec: nabudúce mi o takom probléme daj vedieť skôr, nie až keď volá klient.",
+          english:
+            "Great. And one more thing: next time let me know about a problem like this sooner, not only when the client calls.",
+        },
+        options: [
+          "Máš pravdu, ospravedlňujem sa. Odteraz ti budem posielať týždenný prehľad rizík.",
+          "Klient volá, kedy sa mu zachce, s tým nič nenarobím.",
+          "Skôr ako klient? Klient predsa volá ráno.",
+        ],
+        answer: 0,
+      },
+    ],
+    summaryKey: [
+      "Spustenie sa odkladá pre problém s rozhraním dopravného podniku.",
+      "Ak podnik dodá opravené rozhranie do piatku, projekt potrebuje ešte dva týždne.",
+      "Záložné riešenie: aplikácia najprv bez údajov v reálnom čase, meškania spojov prídu v aktualizácii.",
+      "Na zajtrajšom stretnutí to vysvetlí klientovi a pripraví krátku prezentáciu.",
+      "Odteraz bude Marekovi posielať týždenný prehľad rizík.",
     ],
   },
 ];
