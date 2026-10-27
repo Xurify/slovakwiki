@@ -22,7 +22,7 @@ function mark(text: string): Exclude<MarkedPart, string> {
 
 /** Marek comes in late through the studio door, takes his place and sits down. */
 const INTRO_ACTS: Record<string, Cue[]> = {
-  "marek-sorry-late": [
+  "marek-right-on-time": [
     { do: "enter", to: "inside", on: "before" },
     { do: "sit", to: "desk-right", on: "start" },
   ],
@@ -58,11 +58,12 @@ const intro: ListeningChapter = {
         ],
         "Hi! This is the Slovak Wiki podcast. I'm Anna. And Marek… isn't here.",
       ),
+      // He thinks pol deviatej is nine thirty, so he believes he is on time.
       line(
-        "marek-sorry-late",
+        "marek-right-on-time",
         "Marek",
-        ["Ahojte! Prepáč, Anna, meškám."],
-        "Hi! Sorry, Anna, I'm late.",
+        ["Ahojte! ", PAUSE, "Dobré ráno, Anna. Som tu včas!"],
+        "Hi! Morning, Anna. I'm right on time!",
       ),
       line(
         "anna-what-time",
@@ -73,22 +74,24 @@ const intro: ListeningChapter = {
       line(
         "marek-half-past-nine",
         "Marek",
-        ["Je", STOP, PAUSE, mark("pol desiatej"), "."],
-        "It's… half past nine.",
+        ["Je", STOP, PAUSE, "deväť tridsať."],
+        "It's… nine thirty.",
       ),
       line(
         "anna-recording-half-past-eight",
         "Anna",
         [
-          "Áno, je ",
+          "Áno, je deväť tridsať, ",
           mark("pol desiatej"),
           ". ",
           PAUSE,
           "A naša nahrávka je ",
           mark("o pol deviatej"),
-          "!",
+          "! ",
+          PAUSE,
+          "Meškáš celú hodinu.",
         ],
-        "Yes, it's half past nine. And our recording is at half past eight!",
+        "Yes, it's nine thirty, half past nine. And our recording is at half past eight! You're a whole hour late.",
       ),
       line(
         "marek-thought-nine-thirty",
@@ -117,10 +120,16 @@ const intro: ListeningChapter = {
         "Good topic. For me.",
       ),
       line(
-        "anna-yes-for-you",
+        "anna-yes-for-you-tram",
         "Anna",
-        ["Áno, pre teba. Ideme na to!"],
-        "Yes, for you. Let's get to it!",
+        [
+          "Áno, pre teba. ",
+          PAUSE,
+          "Dnes nahrávame v meste. Naša električka ide ",
+          mark("o desiatej"),
+          ", tak poďme!",
+        ],
+        "Yes, for you. Today we're recording in town. Our tram goes at ten, so let's go!",
       ),
     ],
     INTRO_ACTS,
@@ -130,14 +139,14 @@ const intro: ListeningChapter = {
       id: `${PREFIX}check-time-marek-arrives`,
       prompt: "Koľko je hodín, keď príde Marek?",
       promptEnglish: "What time is it when Marek arrives?",
-      replayLineId: `${PREFIX}marek-half-past-nine`,
+      replayLineId: `${PREFIX}anna-recording-half-past-eight`,
       choices: [
         { id: "nine-thirty", label: "Pol desiatej, deväť tridsať." },
         {
           id: "eight-thirty",
           label: "Pol deviatej, osem tridsať.",
           whyWrong:
-            "**Pol deviatej** is when the recording starts. Marek says **je pol desiatej**.",
+            "**Pol deviatej** is when the recording starts. Anna says **je pol desiatej**.",
         },
         {
           id: "ten",
@@ -148,8 +157,8 @@ const intro: ListeningChapter = {
       ],
       answerId: "nine-thirty",
       feedback: {
-        english: "It's… half past nine.",
-        why: "**Pol desiatej** names the hour ahead, ten, and means half past nine.",
+        english: "Yes, it's nine thirty, half past nine.",
+        why: "Marek says **deväť tridsať** and Anna names it **pol desiatej**: the hour ahead, ten.",
       },
     },
     {
@@ -176,6 +185,30 @@ const intro: ListeningChapter = {
         why: "Anna says **o pol deviatej**: **o** + the time, so **o pol** for a half hour.",
       },
     },
+    {
+      id: `${PREFIX}check-tram-when`,
+      prompt: "Kedy ide ich električka?",
+      promptEnglish: "When does their tram go?",
+      replayLineId: `${PREFIX}anna-yes-for-you-tram`,
+      choices: [
+        { id: "ten", label: "O desiatej." },
+        {
+          id: "nine",
+          label: "O deviatej.",
+          whyWrong: "**O deviatej** is at nine. Anna says **o desiatej**, at ten.",
+        },
+        {
+          id: "two",
+          label: "O druhej.",
+          whyWrong: "**O druhej** is at two. Anna says **o desiatej**, at ten.",
+        },
+      ],
+      answerId: "ten",
+      feedback: {
+        english: "Our tram goes at ten.",
+        why: "Anna says **o desiatej**: **o** + the hour for a time on the clock.",
+      },
+    },
   ],
 };
 
@@ -185,10 +218,29 @@ const clockGame: ListeningChapter = {
   title: "The clock game",
   lines: [
     line(
+      "anna-back-one-oclock",
+      "Anna",
+      [
+        "Sme späť v štúdiu a ",
+        mark("je jedna hodina"),
+        ". ",
+        PAUSE,
+        "Teraz malá skúška z hodín pre Mareka.",
+      ],
+      "We're back in the studio and it's one o'clock. Now a little test on telling time for Marek.",
+    ),
+    line(
+      "marek-why-me",
+      "Marek",
+      ["Z hodín? ", PAUSE, "Prečo práve ja?"],
+      "Telling time? Why me of all people?",
+    ),
+    line("anna-thats-why", "Anna", [CHUCKLE, "Práve preto."], "That's exactly why."),
+    line(
       "anna-game-rules",
       "Anna",
-      ["Malá hra. ", PAUSE, "Ja poviem čas po slovensky a ty povieš čísla."],
-      "A small game. I'll say the time in Slovak and you'll say the numbers.",
+      ["Ja poviem čas slovami a ty povieš čísla."],
+      "I'll say the time in words and you'll say the numbers.",
     ),
     line("marek-ok", "Marek", ["Dobre."], "OK."),
     line(
@@ -304,16 +356,10 @@ const clockGame: ListeningChapter = {
       "Je jedna hodina. Sú dve hodiny. Je päť hodín. Now I know.",
     ),
     line(
-      "anna-lets-go-to-stop",
+      "anna-now-for-listeners",
       "Anna",
-      [
-        "Super. A teraz poďme von, na zastávku. ",
-        PAUSE,
-        "Naša električka ide ",
-        mark("o desiatej"),
-        ".",
-      ],
-      "Great. And now let's go out, to the tram stop. Our tram goes at ten.",
+      ["Super. ", PAUSE, "A teraz hra pre vás, milí poslucháči."],
+      "Great. And now a game for you, dear listeners.",
     ),
   ],
   checks: [
@@ -367,30 +413,6 @@ const clockGame: ListeningChapter = {
       feedback: {
         english: "It's two o'clock.",
         why: "Two, three and four take **sú** and **hodiny**: **sú dve hodiny**.",
-      },
-    },
-    {
-      id: `${PREFIX}check-tram-when`,
-      prompt: "Kedy ide ich električka?",
-      promptEnglish: "When does their tram go?",
-      replayLineId: `${PREFIX}anna-lets-go-to-stop`,
-      choices: [
-        { id: "ten", label: "O desiatej." },
-        {
-          id: "nine",
-          label: "O deviatej.",
-          whyWrong: "**O deviatej** is at nine. Anna says **o desiatej**, at ten.",
-        },
-        {
-          id: "two",
-          label: "O druhej.",
-          whyWrong: "**O druhej** is at two. Two o'clock was only a time in the game.",
-        },
-      ],
-      answerId: "ten",
-      feedback: {
-        english: "Our tram goes at ten.",
-        why: "Anna says **o desiatej**: **o** + the hour for a time on the clock.",
       },
     },
   ],
@@ -637,10 +659,10 @@ const cafe: ListeningChapter = {
         "Good. At three we have a guest in the studio.",
       ),
       line(
-        "marek-in-three-hours",
+        "marek-so-in-three-hours",
         "Marek",
-        [mark("O tri hodiny"), "? ", PAUSE, "To je o druhej!"],
-        "In three hours? That's at two! (He misheard, on purpose.)",
+        [mark("O tretej"), "? ", PAUSE, "Tak to je ", mark("o tri hodiny"), ", nie?"],
+        "At three? So that's in three hours, right? (He mixes them up, on purpose.)",
       ),
       line(
         "anna-not-in-three-hours",
@@ -733,7 +755,8 @@ const cafe: ListeningChapter = {
         {
           id: "at-two",
           label: "O druhej.",
-          whyWrong: "**O druhej** is at two, Marek's wrong sum. Anna says **o tretej**.",
+          whyWrong:
+            "**O druhej** is at two: three hours from now, **o tri hodiny**. Anna says **o tretej**.",
         },
       ],
       answerId: "at-three",
@@ -800,33 +823,14 @@ const cafe: ListeningChapter = {
 const quiz: ListeningChapter = {
   id: `${PREFIX}quiz`,
   titleSk: "Správne alebo nesprávne?",
-  title: "Right or wrong? Marek takes the test",
+  title: "Your game: is Marek right or wrong?",
   lines: [
-    line(
-      "anna-back-one-oclock",
-      "Anna",
-      [
-        "Sme späť v štúdiu a ",
-        mark("je jedna hodina"),
-        ". ",
-        PAUSE,
-        "Teraz malá skúška z hodín pre Mareka.",
-      ],
-      "We're back in the studio and it's one o'clock. Now a little test on telling time for Marek.",
-    ),
     line(
       "anna-the-rules",
       "Anna",
       ["Marek povie vetu a vy hádajte: je správna, alebo nesprávna?"],
       "Marek says a sentence and you guess: is it right, or wrong?",
     ),
-    line(
-      "marek-why-me",
-      "Marek",
-      ["Z hodín? ", PAUSE, "Prečo práve ja?"],
-      "Telling time? Why me of all people?",
-    ),
-    line("anna-thats-why", "Anna", [CHUCKLE, "Práve preto."], "That's exactly why."),
     rightOrWrong(
       line(
         "marek-third-sentence",
@@ -962,8 +966,8 @@ const quiz: ListeningChapter = {
     line(
       "marek-two-and-two",
       "Marek",
-      ["Dve správne, dve nesprávne. ", PAUSE, "Ujde to."],
-      "Two right, two wrong. Not bad.",
+      ["Dve zo štyroch. ", PAUSE, "Ujde to."],
+      "Two out of four. Not bad.",
     ),
     line(
       "anna-and-you",
@@ -1135,7 +1139,7 @@ export const tellingTimeEpisode: ListeningEpisode = {
   title: "What time is it?",
   topic: "koľko je hodín",
   promise:
-    "Marek is late, so Anna puts him through a clock game, a tram at ten, a café that closes at six and a guest who comes at three.",
+    "Marek is late, then there's a tram at ten, a café that closes at six and a guest who comes at three. Back in the studio, Anna puts him through a clock game.",
   grammarSlug: "telling-time",
   lessonId: "everyday/days-dates-and-time",
   practiceSetId: "days-dates-and-time",
@@ -1148,5 +1152,5 @@ export const tellingTimeEpisode: ListeningEpisode = {
     { slovak: "kaviareň", english: "café" },
     { slovak: "meškať", english: "to be late" },
   ],
-  chapters: [intro, clockGame, tramStop, cafe, quiz, outro],
+  chapters: [intro, tramStop, cafe, clockGame, quiz, outro],
 };
