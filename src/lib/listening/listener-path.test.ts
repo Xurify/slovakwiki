@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import type { DialogueTurn } from "$lib/learning/types";
 
-import { NO_PICK, cardAt, nextOnPath, pathScore } from "./listener-path";
+import { NO_PICK, cardAt, nextOnPath, pathScore, prevOnPath } from "./listener-path";
 
 function turn(id: string, extra: Partial<DialogueTurn> = {}): DialogueTurn {
   return { id, speaker: "Anna", slovak: id, english: id, ...extra };
@@ -41,6 +41,20 @@ function walk(picks: Record<string, string>): string[] {
   return heard;
 }
 
+function walkBack(picks: Record<string, string>): string[] {
+  const path = walk(picks);
+  const reversed: string[] = [];
+  const lastIndex = lines.findIndex((l) => l.id === path[path.length - 1]);
+  for (
+    let at: number | undefined = lastIndex;
+    at !== undefined;
+    at = prevOnPath(lines, picks, at)
+  ) {
+    reversed.push(lines[at]!.id);
+  }
+  return reversed.reverse();
+}
+
 describe("listener path", () => {
   it("follows each pick, and the host's right answer where there is none", () => {
     expect(walk({ q1: "b", q2: "b" })).toEqual(["q1", "q1-b", "q2", "q2-b", "one-right"]);
@@ -49,6 +63,18 @@ describe("listener path", () => {
 
   it("ends on the unaided line when the listener picked nothing", () => {
     expect(walk({})).toEqual(["q1", "q1-a", "q2", "q2-none", "unaided"]);
+  });
+
+  it("steps backward through lines on the active path with prevOnPath", () => {
+    expect(walkBack({ q1: "b", q2: "b" })).toEqual([
+      "q1",
+      "q1-b",
+      "q2",
+      "q2-b",
+      "one-right",
+    ]);
+    expect(walkBack({ q1: "a" })).toEqual(["q1", "q1-a", "q2", "q2-none", "all-right"]);
+    expect(walkBack({})).toEqual(["q1", "q1-a", "q2", "q2-none", "unaided"]);
   });
 
   it("scores a pick left to the host as right", () => {

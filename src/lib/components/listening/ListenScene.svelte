@@ -17,7 +17,7 @@
 </script>
 
 <script lang="ts">
-  import { untrack } from "svelte";
+  import { onDestroy, untrack } from "svelte";
 
   import SceneCaption from "$lib/components/stick-figure/SceneCaption.svelte";
   import StickStage from "$lib/components/stick-figure/StickStage.svelte";
@@ -87,8 +87,9 @@
   );
   const mood = $derived(
     sceneMood(
-      [...(scene.before ?? []), ...scene.lines.map((line) => line.slovak)],
-      (scene.before?.length ?? 0) + Math.max(at, 0),
+      scene.lines.map((line) => line.slovak),
+      Math.max(at, 0),
+      scene.before,
     ),
   );
 
@@ -104,6 +105,12 @@
     else if (live) untrack(listen);
   });
 
+  onDestroy(() => {
+    window.clearTimeout(waiting);
+    stage?.stop();
+    stopCues();
+  });
+
   export function play(
     index: number,
     onEnded: () => void,
@@ -117,6 +124,7 @@
     if (index !== at + 1 || !finished) {
       stage?.stop();
       stage?.place(index);
+      shown = index;
     }
     finished = false;
     at = index;
@@ -167,6 +175,7 @@
     window.clearTimeout(waiting);
     live = false;
     speaking = false;
+    finished = true;
     stage?.stop();
     // A walk-off at the segment's end would go on sounding under the next segment's card.
     stopCues();

@@ -300,7 +300,7 @@
         : seated;
     const body = steady(laid);
     const stepping = walking
-      ? walkPose(body, walked, walkMs, stepMs(characterId) / walkPace)
+      ? walkPose(body, walked, walkMs, stepMs(characterId) / walkPace, characterId)
       : body;
     const sampled = acting ? doing.sample(now, stepping, sitting.current) : undefined;
     if (sampled && entered?.doing !== doing) {

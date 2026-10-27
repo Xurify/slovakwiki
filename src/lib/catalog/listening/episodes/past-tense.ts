@@ -257,6 +257,7 @@ const school: ListeningChapter = {
         " Marekovi formulár.",
       ],
       "Yes, I was there at nine. I brought Marek a form.",
+      { props: [null, null] },
     ),
     line(
       "anna-did-you-see-cake",
@@ -913,7 +914,7 @@ const closed: ListeningChapter = {
       { props: [null, null] },
     ),
     line("marek-here-is-the-bag", "Marek", ["Nech sa páči."], "Here you are.", {
-      props: ["bag"],
+      props: [null],
     }),
     line(
       "anna-crumbs-in-the-bag",

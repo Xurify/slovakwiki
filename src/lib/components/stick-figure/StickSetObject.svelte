@@ -255,23 +255,41 @@
       />
     {/if}
   {:else if kind === "bowl"}
-    <path d="M-7 -5H7Q6.4 0 0 0Q-6.4 0 -7 -5Z" class="fill-portrait-bib" />
-    <path d="M-6.6 -3.6H6.6" class="stroke-scene-blue" stroke-width="0.9" />
-    {#if fill}
+    {#if fill === "kibble"}
+      <!-- Pet food dish: flared non-tip base, wider rim, distinct from soup bowl -->
+      <path d="M-6 -4.5H6L8 0H-8Z" class="fill-scene-clay" />
+      <path d="M-7.6 -0.6H7.6" class="stroke-scene-line" stroke-width="0.7" />
       <ellipse
         cx="0"
-        cy="-5"
-        rx="6.3"
-        ry="1"
-        class="fill-scene-carrot"
+        cy="-4.5"
+        rx="6"
+        ry="1.1"
+        class="fill-scene-wood"
         stroke-width="0.5"
       />
-      {#each [-3, 0.5, 3.5] as x (x)}
-        <circle cx={x} cy="-5" r="0.5" class="fill-scene-honey" stroke="none" />
+      {#each [-3.8, -1.9, 0, 1.9, 3.8] as x (x)}
+        <circle cx={x} cy="-4.8" r="0.9" class="fill-scene-wood" stroke="none" />
+        <circle cx={x + 0.8} cy="-4.1" r="0.7" class="fill-scene-clay" stroke="none" />
       {/each}
-    {/if}
-    {#if fill && heat > 0}
-      {@render wisp(0, -7, 0, 0.7)}
+    {:else}
+      <path d="M-7 -5H7Q6.4 0 0 0Q-6.4 0 -7 -5Z" class="fill-portrait-bib" />
+      <path d="M-6.6 -3.6H6.6" class="stroke-scene-blue" stroke-width="0.9" />
+      {#if fill}
+        <ellipse
+          cx="0"
+          cy="-5"
+          rx="6.3"
+          ry="1"
+          class="fill-scene-carrot"
+          stroke-width="0.5"
+        />
+        {#each [-3, 0.5, 3.5] as x (x)}
+          <circle cx={x} cy="-5" r="0.5" class="fill-scene-honey" stroke="none" />
+        {/each}
+      {/if}
+      {#if fill && heat > 0}
+        {@render wisp(0, -7, 0, 0.7)}
+      {/if}
     {/if}
   {:else if kind === "ladle"}
     <path d="M0 0V-15" stroke-width="2.2" />
@@ -319,7 +337,7 @@
     />
   {:else if kind === "suitcase"}
     <path d="M-3 -15V-18h6v3" fill="none" stroke-width="1.1" />
-    <rect x="-9" y="-15" width="18" height="14" rx="1.6" class="fill-portrait-vest" />
+    <rect x="--9" y="-15" width="18" height="14" rx="1.6" class="fill-portrait-vest" />
     <path d="M-9 -10.6h18" class="stroke-white/40" stroke-width="1" />
     <path d="M-5.4 -1v1M5.4 -1v1" stroke-width="1.4" />
   {:else if kind === "phone"}

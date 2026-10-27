@@ -219,6 +219,49 @@ describe("cues against the set", () => {
       "error props/impossible-cue",
     ]);
   });
+
+  it("flags standing on a floor object like the bag", () => {
+    const HOME_SET = PLACES.home.set!;
+    const HOME_FRAME = stageFrame(
+      ["marek", "anna", "robot"],
+      {},
+      "home",
+      PLACES.home.things,
+      960,
+      480,
+    );
+    const bagThing = {
+      id: "taska",
+      word: "taška",
+      english: "bag",
+      box: { x: 550, y: 240, width: 48, height: 50 },
+      gender: "feminine" as const,
+    };
+    const frameWithBag = {
+      ...HOME_FRAME,
+      things: [bagThing],
+    };
+    const { chapter, lines } = segment("marek", [{ do: "go", to: "rug-right" }]);
+    expect(rules(checkCues(chapter, lines, HOME_SET, frameWithBag))).toContain(
+      "error space/floor-object",
+    );
+  });
+
+  it("flags pointing at a dog at human head height", () => {
+    const PARK_SET = PLACES.default.set!;
+    const PARK_FRAME = stageFrame(
+      ["marek", "dog"],
+      {},
+      "default",
+      PLACES.default.things,
+      960,
+      480,
+    );
+    const { chapter, lines } = segment("marek", [{ do: "point", to: "dog" }]);
+    expect(rules(checkCues(chapter, lines, PARK_SET, PARK_FRAME))).not.toContain(
+      "error point/miss",
+    );
+  });
 });
 
 // For writers: SLUG=<slug> OUT=<file> bunx vitest run src/lib/stick-figure/episode-checks.test.ts

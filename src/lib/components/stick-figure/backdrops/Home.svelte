@@ -1,8 +1,13 @@
 <script lang="ts">
   import { PARTS } from "$lib/stick-figure/backdrop-parts";
+  import { isDark, type SceneMood } from "$lib/stick-figure/scene-mood";
   import Castle from "./Castle.svelte";
   import Plant from "./Plant.svelte";
   import Room from "./Room.svelte";
+
+  let { mood }: { mood?: SceneMood } = $props();
+  const dark = $derived(mood ? isDark(mood.time) : false);
+  const night = $derived(mood?.time === "night");
 </script>
 
 <Room wall="fill-scene-warm" floor="fill-scene-wood" />
@@ -11,154 +16,189 @@
 <ellipse cx="480" cy="277" rx="212" ry="9.5" class="fill-scene-sage" />
 
 <rect x="96" y="44" width="150" height="120" class="fill-portrait-bib" />
-<rect x="106" y="54" width="130" height="100" class="fill-scene-sky" />
-<path d="M106 154V128Q140 108 172 124Q204 104 236 120V154Z" class="fill-scene-sage" />
-<!-- Pán Novák and his sister on the street outside, back from the shop. -->
-<g class="stroke-scene-line/40" stroke-width="0.6" stroke-linejoin="round">
-  <ellipse
-    cx="152"
-    cy="151.6"
-    rx="10"
-    ry="1.4"
-    class="fill-scene-line/15"
-    stroke="none"
-  />
-  <rect x="146.9" y="140.6" width="2.8" height="9" class="fill-portrait-suit" />
-  <rect x="152.3" y="140.6" width="2.8" height="9" class="fill-portrait-suit" />
-  <ellipse cx="148" cy="150.2" rx="2.6" ry="1.2" class="fill-portrait-vest" />
-  <ellipse cx="154.2" cy="150.2" rx="2.6" ry="1.2" class="fill-portrait-vest" />
-  <path
-    d="M157.9 134.6q0-2 1.8-2q1.8 0 1.8 2V151"
-    class="stroke-scene-line"
-    fill="none"
-    stroke-width="1.1"
-    stroke-linecap="round"
-  />
-  <path
-    d="M144.4 122.6Q144.6 121 146.4 120.8H155.6Q157.4 121 157.6 122.6L159.2 141.4H142.8Z"
-    class="fill-scene-wood"
-  />
-  <path d="M151 122.6V141.2" fill="none" />
-  {#each [126.5, 131, 135.5] as y (y)}
-    <circle cx="152.3" cy={y} r="0.5" class="fill-scene-line/50" stroke="none" />
-  {/each}
-  <rect
-    x="-1.4"
-    y="0"
-    width="2.8"
-    height="12"
-    rx="1.4"
-    transform="translate(144.6 122.4) rotate(10)"
-    class="fill-scene-wood"
-  />
-  <rect
-    x="-1.4"
-    y="0"
-    width="2.8"
-    height="12"
-    rx="1.4"
-    transform="translate(157.4 122.4) rotate(-10)"
-    class="fill-scene-wood"
-  />
-  <circle cx="142.5" cy="134.4" r="1.4" class="fill-portrait-skin" />
-  <circle cx="159.6" cy="134.4" r="1.4" class="fill-portrait-skin" />
-  <rect x="148" y="119.4" width="6" height="2.8" rx="1.2" class="fill-scene-clay" />
-  <path d="M153 121.8l1.2 5h-1.9Z" class="fill-scene-clay" />
-  <circle cx="151" cy="116.4" r="4.6" class="fill-portrait-skin" />
-  <path
-    d="M146.6 114Q146.2 116 146.9 117.8L148 117.4Q147.5 115.7 147.9 114ZM155.4 114Q155.8 116 155.1 117.8L154 117.4Q154.5 115.7 154.1 114Z"
-    class="fill-portrait-hair-grey"
-  />
-  <circle cx="149.4" cy="116" r="0.45" class="fill-portrait-ink" stroke="none" />
-  <circle cx="152.6" cy="116" r="0.45" class="fill-portrait-ink" stroke="none" />
-  <path
-    d="M148.6 118.7q1.2-.9 2.4 0q1.2-.9 2.4 0q-1.2 1.1-2.4.3q-1.2.8-2.4-.3Z"
-    class="fill-portrait-hair-grey"
-    stroke="none"
-  />
-  <path
-    d="M146.9 114L147.5 109.6Q147.8 108.2 149.3 108.4L151 109.2L152.7 108.4Q154.2 108.2 154.5 109.6L155.1 114Z"
-    class="fill-portrait-suit"
-  />
-  <path d="M147.2 112.2H154.8L155 113.8H147Z" class="fill-portrait-vest" stroke="none" />
-  <path
-    d="M143.6 114Q151 112.6 158.4 114Q151 115.4 143.6 114Z"
-    class="fill-portrait-suit"
-  />
+<rect
+  x="106"
+  y="54"
+  width="130"
+  height="100"
+  class={dark ? (night ? "fill-portrait-suit" : "fill-scene-clay/80") : "fill-scene-sky"}
+/>
+<path
+  d="M106 154V128Q140 108 172 124Q204 104 236 120V154Z"
+  class={dark ? "fill-scene-line/40" : "fill-scene-sage"}
+/>
 
-  <ellipse
-    cx="195"
-    cy="151.6"
-    rx="11"
-    ry="1.4"
-    class="fill-scene-line/15"
-    stroke="none"
-  />
-  <rect x="190.4" y="140" width="2.2" height="9.6" class="fill-portrait-suit" />
-  <rect x="195.2" y="140" width="2.2" height="9.6" class="fill-portrait-suit" />
-  <ellipse cx="191.3" cy="150.2" rx="2.2" ry="1.1" class="fill-scene-clay" />
-  <ellipse cx="196.5" cy="150.2" rx="2.2" ry="1.1" class="fill-scene-clay" />
-  <path
-    d="M187.6 124Q187.8 122.2 189.6 122H196.4Q198.2 122.2 198.4 124L201 141.4H185Z"
-    class="fill-scene-honey"
-  />
-  <path d="M191 122.2l2 3l2-3Z" class="fill-portrait-bib" />
-  <rect
-    x="186.6"
-    y="130.2"
-    width="12.8"
-    height="1.4"
-    class="fill-scene-line/25"
-    stroke="none"
-  />
-  <rect
-    x="-1.3"
-    y="0"
-    width="2.6"
-    height="11.5"
-    rx="1.3"
-    transform="translate(188.4 123.4) rotate(10)"
-    class="fill-scene-honey"
-  />
-  <rect
-    x="-1.3"
-    y="0"
-    width="2.6"
-    height="11.7"
-    rx="1.3"
-    transform="translate(197.6 123.4) rotate(-22)"
-    class="fill-scene-honey"
-  />
-  <path d="M199.8 137.4l-1.4-5.6a1 1 0 0 1 1.8-.4l1 6Z" class="fill-scene-wood" />
-  <path d="M204.6 137.4l1.6-5.2l1.2.4l-1.4 4.8Z" class="fill-scene-leaf" />
-  <path
-    d="M200.2 137.2Q200.6 133.8 202.5 133.8Q204.4 133.8 204.8 137.2"
-    class="stroke-scene-line/60"
-    fill="none"
-    stroke-width="0.7"
-  />
-  <rect x="198.8" y="137" width="7.4" height="7.4" rx="1" class="fill-portrait-ground" />
-  <circle cx="186.4" cy="134.4" r="1.3" class="fill-portrait-skin" />
-  <circle cx="202.4" cy="134.2" r="1.3" class="fill-portrait-skin" />
-  <path
-    d="M188 121.4C187.2 116.6 188 112 193 112C198 112 198.8 116.6 198 121.4C197.4 122 196.6 122 196.2 121.4L196.4 120C195 121.8 191 121.8 189.6 120L189.8 121.4C189.4 122 188.6 122 188 121.4Z"
-    class="fill-portrait-hair-grey"
-  />
-  <circle cx="193" cy="117.6" r="4.4" class="fill-portrait-skin" />
-  <path
-    d="M188.6 117.6C188.4 114 190.6 112.4 193.2 112.4C196 112.4 197.6 114.2 197.5 117C196.4 115.4 194.6 114.6 192.8 115C191.2 115.4 189.8 116.4 188.6 117.6Z"
-    class="fill-portrait-hair-grey"
-  />
-  <circle cx="191.5" cy="117.9" r="0.45" class="fill-portrait-ink" stroke="none" />
-  <circle cx="194.5" cy="117.9" r="0.45" class="fill-portrait-ink" stroke="none" />
-  <path
-    d="M192.2 119.9q.8.7 1.6 0"
-    class="stroke-portrait-ink/70"
-    fill="none"
-    stroke-width="0.5"
-    stroke-linecap="round"
-  />
-</g>
+{#if !dark}
+  <!-- Pán Novák and his sister on the street outside, back from the shop. -->
+  <g class="stroke-scene-line/40" stroke-width="0.6" stroke-linejoin="round">
+    <ellipse
+      cx="152"
+      cy="151.6"
+      rx="10"
+      ry="1.4"
+      class="fill-scene-line/15"
+      stroke="none"
+    />
+    <rect x="146.9" y="140.6" width="2.8" height="9" class="fill-portrait-suit" />
+    <rect x="152.3" y="140.6" width="2.8" height="9" class="fill-portrait-suit" />
+    <ellipse cx="148" cy="150.2" rx="2.6" ry="1.2" class="fill-portrait-vest" />
+    <ellipse cx="154.2" cy="150.2" rx="2.6" ry="1.2" class="fill-portrait-vest" />
+    <path
+      d="M157.9 134.6q0-2 1.8-2q1.8 0 1.8 2V151"
+      class="stroke-scene-line"
+      fill="none"
+      stroke-width="1.1"
+      stroke-linecap="round"
+    />
+    <path
+      d="M144.4 122.6Q144.6 121 146.4 120.8H155.6Q157.4 121 157.6 122.6L159.2 141.4H142.8Z"
+      class="fill-scene-wood"
+    />
+    <path d="M151 122.6V141.2" fill="none" />
+    {#each [126.5, 131, 135.5] as y (y)}
+      <circle cx="152.3" cy={y} r="0.5" class="fill-scene-line/50" stroke="none" />
+    {/each}
+    <rect
+      x="-1.4"
+      y="0"
+      width="2.8"
+      height="12"
+      rx="1.4"
+      transform="translate(144.6 122.4) rotate(10)"
+      class="fill-scene-wood"
+    />
+    <rect
+      x="-1.4"
+      y="0"
+      width="2.8"
+      height="12"
+      rx="1.4"
+      transform="translate(157.4 122.4) rotate(-10)"
+      class="fill-scene-wood"
+    />
+    <circle cx="142.5" cy="134.4" r="1.4" class="fill-portrait-skin" />
+    <circle cx="159.6" cy="134.4" r="1.4" class="fill-portrait-skin" />
+    <rect x="148" y="119.4" width="6" height="2.8" rx="1.2" class="fill-scene-clay" />
+    <path d="M153 121.8l1.2 5h-1.9Z" class="fill-scene-clay" />
+    <circle cx="151" cy="116.4" r="4.6" class="fill-portrait-skin" />
+    <path
+      d="M146.6 114Q146.2 116 146.9 117.8L148 117.4Q147.5 115.7 147.9 114ZM155.4 114Q155.8 116 155.1 117.8L154 117.4Q154.5 115.7 154.1 114Z"
+      class="fill-portrait-hair-grey"
+    />
+    <circle cx="149.4" cy="116" r="0.45" class="fill-portrait-ink" stroke="none" />
+    <circle cx="152.6" cy="116" r="0.45" class="fill-portrait-ink" stroke="none" />
+    <path
+      d="M148.6 118.7q1.2-.9 2.4 0q1.2-.9 2.4 0q-1.2 1.1-2.4.3q-1.2.8-2.4-.3Z"
+      class="fill-portrait-hair-grey"
+      stroke="none"
+    />
+    <path
+      d="M146.9 114L147.5 109.6Q147.8 108.2 149.3 108.4L151 109.2L152.7 108.4Q154.2 108.2 154.5 109.6L155.1 114Z"
+      class="fill-portrait-suit"
+    />
+    <path
+      d="M147.2 112.2H154.8L155 113.8H147Z"
+      class="fill-portrait-vest"
+      stroke="none"
+    />
+    <path
+      d="M143.6 114Q151 112.6 158.4 114Q151 115.4 143.6 114Z"
+      class="fill-portrait-suit"
+    />
+
+    <ellipse
+      cx="195"
+      cy="151.6"
+      rx="11"
+      ry="1.4"
+      class="fill-scene-line/15"
+      stroke="none"
+    />
+    <rect x="190.4" y="140" width="2.2" height="9.6" class="fill-portrait-suit" />
+    <rect x="195.2" y="140" width="2.2" height="9.6" class="fill-portrait-suit" />
+    <ellipse cx="191.3" cy="150.2" rx="2.2" ry="1.1" class="fill-scene-clay" />
+    <ellipse cx="196.5" cy="150.2" rx="2.2" ry="1.1" class="fill-scene-clay" />
+    <path
+      d="M187.6 124Q187.8 122.2 189.6 122H196.4Q198.2 122.2 198.4 124L201 141.4H185Z"
+      class="fill-scene-honey"
+    />
+    <path d="M191 122.2l2 3l2-3Z" class="fill-portrait-bib" />
+    <rect
+      x="186.6"
+      y="130.2"
+      width="12.8"
+      height="1.4"
+      class="fill-scene-line/25"
+      stroke="none"
+    />
+    <rect
+      x="-1.3"
+      y="0"
+      width="2.6"
+      height="11.5"
+      rx="1.3"
+      transform="translate(188.4 123.4) rotate(10)"
+      class="fill-scene-honey"
+    />
+    <rect
+      x="-1.3"
+      y="0"
+      width="2.6"
+      height="11.7"
+      rx="1.3"
+      transform="translate(197.6 123.4) rotate(-22)"
+      class="fill-scene-honey"
+    />
+    <path d="M199.8 137.4l-1.4-5.6a1 1 0 0 1 1.8-.4l1 6Z" class="fill-scene-wood" />
+    <path d="M204.6 137.4l1.6-5.2l1.2.4l-1.4 4.8Z" class="fill-scene-leaf" />
+    <path
+      d="M200.2 137.2Q200.6 133.8 202.5 133.8Q204.4 133.8 204.8 137.2"
+      class="stroke-scene-line/60"
+      fill="none"
+      stroke-width="0.7"
+    />
+    <rect
+      x="198.8"
+      y="137"
+      width="7.4"
+      height="7.4"
+      rx="1"
+      class="fill-portrait-ground"
+    />
+    <circle cx="186.4" cy="134.4" r="1.3" class="fill-portrait-skin" />
+    <circle cx="202.4" cy="134.2" r="1.3" class="fill-portrait-skin" />
+    <path
+      d="M188 121.4C187.2 116.6 188 112 193 112C198 112 198.8 116.6 198 121.4C197.4 122 196.6 122 196.2 121.4L196.4 120C195 121.8 191 121.8 189.6 120L189.8 121.4C189.4 122 188.6 122 188 121.4Z"
+      class="fill-portrait-hair-grey"
+    />
+    <circle cx="193" cy="117.6" r="4.4" class="fill-portrait-skin" />
+    <path
+      d="M188.6 117.6C188.4 114 190.6 112.4 193.2 112.4C196 112.4 197.6 114.2 197.5 117C196.4 115.4 194.6 114.6 192.8 115C191.2 115.4 189.8 116.4 188.6 117.6Z"
+      class="fill-portrait-hair-grey"
+    />
+    <circle cx="191.5" cy="117.9" r="0.45" class="fill-portrait-ink" stroke="none" />
+    <circle cx="194.5" cy="117.9" r="0.45" class="fill-portrait-ink" stroke="none" />
+    <path
+      d="M192.2 119.9q.8.7 1.6 0"
+      class="stroke-portrait-ink/70"
+      fill="none"
+      stroke-width="0.5"
+      stroke-linecap="round"
+    />
+  </g>
+{:else}
+  <!-- Evening / night street scene through the window: dark silhouettes and quiet lantern light -->
+  {#if night}
+    <circle cx="205" cy="78" r="7" class="fill-scene-honey/70" />
+    <circle cx="202" cy="76" r="6" class="fill-portrait-suit" />
+  {:else}
+    <!-- Dusk: warm street lamp across the street -->
+    <path d="M192 148v-26" class="stroke-scene-line" stroke-width="1.2" />
+    <circle cx="192" cy="122" r="3" class="fill-scene-honey" />
+    <circle cx="192" cy="122" r="7" class="fill-scene-honey/30" />
+  {/if}
+{/if}
+
 <!-- The glass catches the light in the upper panes, so the street reads as outside. -->
 <path d="M112 98L132 58H142L122 98ZM180 98L200 58H206L186 98Z" class="fill-white/20" />
 <path d="M169 54h4v100h-4ZM106 102h130v4H106Z" class="fill-portrait-bib" />

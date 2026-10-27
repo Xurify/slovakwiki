@@ -15,12 +15,13 @@ import {
   lineWords,
   mentions,
 } from "$lib/stick-figure/slovak-text";
-import { thingCenter, thingNamed } from "$lib/stick-figure/thing-words";
+import { thingBoxes, thingCenter, thingNamed } from "$lib/stick-figure/thing-words";
 import { propForSentence } from "$lib/stick-figure/props";
 import {
   CueError,
   applyCue,
   cueActor,
+  cueEntrances,
   heldBy,
   isActed,
   opening,
@@ -166,16 +167,20 @@ export function checkEpisode(episode: ListeningEpisode): Finding[] {
     const direction = directScene(scene.lines, setting, scene.order);
     const stagings = direction.lines.map((line) => line.staging);
     const speakers = scene.lines.map((line) => line.characterId);
+    const set = PLACES[setting].set ?? { pieces: [], objects: [] };
+    const entrances = {
+      ...walkOns(stagings),
+      ...cueEntrances(scene.lines, set),
+    };
     const frame = stageFrame(
       direction.cast,
-      walkOns(stagings),
+      entrances,
       setting,
       direction.things,
       WIDTH,
       HEIGHT,
     );
     if (acted) {
-      const set = PLACES[setting].set ?? { pieces: [], objects: [] };
       findings.push(...checkCues(chapter, scene.lines, set, frame, scene.world));
     }
     const at = (index: number) => {
@@ -507,6 +512,24 @@ export function checkCues(
     return undefined;
   };
 
+  /** What floor object a person standing at cast x `x` stands on: a bag, plant, etc. */
+  const floorObjectAt = (x: number): string | undefined => {
+    for (const thing of frame.things) {
+      if (thing.id !== "taska" && thing.id !== "krhla") continue;
+      for (const box of thingBoxes(thing)) {
+        if (box.y + box.height >= 230) {
+          const left = castX(box.x);
+          const right = castX(box.x + box.width);
+          const [minX, maxX] = left < right ? [left, right] : [right, left];
+          if (x > minX - BODY && x < maxX + BODY) {
+            return `overlaps the ${thing.id}`;
+          }
+        }
+      }
+    }
+    return undefined;
+  };
+
   /** The way `who` faces there: their spot's, their chair's or desk seat's, then round to what the cue works on. */
   const facingFor = (world: World, who: LessonCharacterId, toward?: string): Facing => {
     const spot = world.spots[who];
@@ -735,6 +758,23 @@ export function checkCues(
   };
 
   let world = opening(lines, start ?? layout);
+  for (const who of frame.cast) {
+    if (world.out?.includes(who) || world.seated?.includes(who)) continue;
+    const pos = standsAt(world, who);
+    if (pos === undefined) continue;
+    const onFloorObject = floorObjectAt(pos);
+    if (onFloorObject) {
+      const turn = chapter.lines[0];
+      findings.push({
+        rule: "space/floor-object",
+        level: "error",
+        chapter: chapter.id,
+        line: turn?.id ?? "",
+        slovak: turn?.slovak ?? "",
+        message: `${who} starts at ${world.spots[who] ?? "their mark"}, which ${onFloorObject}. Move the spot or the object so they do not overlap.`,
+      });
+    }
+  }
   lines.forEach((line, index) => {
     const turn = chapter.lines[index];
     const at = { chapter: chapter.id, line: turn.id, slovak: turn.slovak };
@@ -821,6 +861,36 @@ export function checkCues(
           ...at,
           message: `${who} stands at ${after.spots[who]}, ${blocked}. A standing spot is clear of the table and its chairs.`,
         });
+      }
+      const onFloorObject =
+        there !== undefined && !after.seated?.includes(who)
+          ? floorObjectAt(there)
+          : undefined;
+      if (onFloorObject) {
+        findings.push({
+          rule: "space/floor-object",
+          level: "error",
+          ...at,
+          message: `${who} stands at ${after.spots[who]}, which ${onFloorObject}. Move the spot or the object so they do not overlap.`,
+        });
+      }
+      if (cue.do === "point" && cue.to) {
+        const isDog =
+          cue.to === "dog" || Boolean(LOOKS[cue.to as LessonCharacterId]?.dog);
+        const target = stagePoint(
+          stageContext(world),
+          cue.to,
+          "top",
+          facingFor(world, who, cue.to),
+        );
+        if (target && isDog && target.y < 85) {
+          findings.push({
+            rule: "point/miss",
+            level: "error",
+            ...at,
+            message: `${who} points at ${cue.to} at height y=${Math.round(target.y)}, but a dog is knee-high (y~94). Aim down at the dog.`,
+          });
+        }
       }
       const walked = from !== undefined && !world.out?.includes(who) && cue.on !== "dark";
       for (const other of there === undefined || !walked ? [] : frame.cast) {

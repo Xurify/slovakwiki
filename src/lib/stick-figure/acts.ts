@@ -22,6 +22,7 @@ export const VERBS = [
   "leave",
   "sit",
   "stand",
+  "kneel",
   "face",
   "look",
   // Hands and objects.
@@ -49,6 +50,7 @@ export const VERBS = [
   "throw",
   // The body alone.
   "burn",
+  "compute",
   "wag",
   "beckon",
   "wipe",
@@ -145,7 +147,7 @@ export type ObjectKind =
   | "suitcase";
 
 /** What is in a pot, a bowl, a spoon, a jug or a cup. */
-export type Fill = "water" | "soup" | "coffee";
+export type Fill = "water" | "soup" | "coffee" | "kibble";
 
 export interface ObjectState {
   kind: ObjectKind;
@@ -453,6 +455,9 @@ export function applyCue(
       };
     case "stand":
       return { ...world, seated: on(world.seated, who, false) };
+    case "kneel":
+    case "compute":
+      return world;
     case "take": {
       if (!what || !object) throw new CueError(`${who} take: what?`);
       if (handHolding(world, who, what)) return world;
@@ -675,6 +680,31 @@ export function opening(lines: readonly ActedLine[], start: World): World {
   return entering.length
     ? { ...start, out: [...new Set([...(start.out ?? []), ...entering])] }
     : start;
+}
+
+/** Who comes in through the door or from an edge during these lines, with the way they face. */
+export function cueEntrances(
+  lines: readonly ActedLine[],
+  setPlan?: SetPlan,
+): Partial<Record<LessonCharacterId, Side>> {
+  const result: Partial<Record<LessonCharacterId, Side>> = {};
+  for (const who of comingIn(lines)) {
+    let facing: Side = 1;
+    for (const line of lines) {
+      const enterCue = line.act?.find(
+        (cue) => cue.do === "enter" && cueActor(cue, line.characterId) === who,
+      );
+      if (enterCue) {
+        const spot = enterCue.from ? setPlan?.spots?.[enterCue.from] : undefined;
+        facing =
+          (spot && "facing" in spot ? spot.facing : undefined) ??
+          (enterCue.from?.includes("right") ? -1 : 1);
+        break;
+      }
+    }
+    result[who] = facing;
+  }
+  return result;
 }
 
 /** The world before each line and after the last: what the cues have done so far. */

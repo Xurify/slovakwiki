@@ -587,7 +587,17 @@ export function playSteps(
             sole: base.sole * 0.75,
             soleHz: base.soleHz * 0.7,
           }
-        : base;
+        : shoes === "servo"
+          ? {
+              ...base,
+              click: 0.12,
+              heel: base.heel * 0.4,
+              heelHz: 1200,
+              heelDecay: 0.02,
+              sole: base.sole * 0.35,
+              soleHz: base.soleHz * 0.8,
+            }
+          : base;
 
   const { ctx, noise } = kit;
   const level = cueOut(ctx, 0.24, steps * stepMs + 500);
@@ -636,7 +646,8 @@ export function playSteps(
       click.buffer = noise;
       const bright = ctx.createBiquadFilter();
       bright.type = "bandpass";
-      bright.frequency.value = (shoes === "heels" ? 3400 : 2800) * between(0.9, 1.1);
+      bright.frequency.value =
+        (shoes === "servo" ? 4200 : shoes === "heels" ? 3400 : 2800) * between(0.9, 1.1);
       bright.Q.value = 2;
       const clickGain = ctx.createGain();
       clickGain.gain.setValueAtTime(0.0001, at);

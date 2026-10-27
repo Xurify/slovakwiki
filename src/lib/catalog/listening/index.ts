@@ -17,8 +17,8 @@ export const listeningEpisodes: ListeningEpisode[] = [
   tellingTimeEpisode,
   pastTenseEpisode,
   imperativeEpisode,
-  futureTenseEpisode,
   whatBobikSaysEpisode,
+  futureTenseEpisode,
 ];
 
 export const episodeBySlug = new Map(
@@ -136,7 +136,13 @@ export function validateListeningEpisodes(): string[] {
   }
 
   const numbers = new Set<number>();
-  for (const episode of listeningEpisodes) {
+  for (let i = 0; i < listeningEpisodes.length; i += 1) {
+    const episode = listeningEpisodes[i]!;
+    if (episode.number !== i + 1) {
+      issues.push(
+        `Episode ${episode.id} has number ${episode.number} but is listed at position ${i + 1}`,
+      );
+    }
     claim(episode.id, episode.id);
     if (episodeBySlug.get(episode.slug) !== episode) {
       issues.push(`Duplicate slug: ${episode.slug}`);

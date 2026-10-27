@@ -84,7 +84,13 @@
   /** Each place's drawing; every one takes the same props and uses what it needs. */
   const DRAWINGS: Record<
     StageSetting,
-    Component<{ board?: string; hour: number; open?: number; tram: TramState }>
+    Component<{
+      board?: string;
+      hour: number;
+      open?: number;
+      tram: TramState;
+      mood?: SceneMood;
+    }>
   > = {
     cafe: Cafe,
     classroom: Classroom,
@@ -108,75 +114,86 @@
    */
   const view = $derived.by(() => {
     if (!width || !height) {
-      const x = align === 0 ? "xMin" : align === 1 ? "xMax" : "xMid";
-      return { box: `0 0 ${BACKDROP_WIDTH} ${BACKDROP_HEIGHT}`, ratio: `${x}YMax slice` };
+      return {
+        box: `0 0 ${BACKDROP_WIDTH} ${BACKDROP_HEIGHT}`,
+        ratio: "xMidYMid slice" as const,
+      };
     }
-
     const scale = backdropScale(width, height);
-    const shown = { height: height / scale, width: width / scale };
-    const x = (BACKDROP_WIDTH - shown.width) * align;
-    const y = BACKDROP_HEIGHT - shown.height;
-    return { box: `${x} ${y} ${shown.width} ${shown.height}`, ratio: "none" };
+    const visibleWidth = width / scale;
+    const excess = BACKDROP_WIDTH - visibleWidth;
+    const x = Math.max(0, Math.min(excess, excess * align));
+    return {
+      box: `${x} 0 ${visibleWidth} ${BACKDROP_HEIGHT}`,
+      ratio: "xMidYMid meet" as const,
+    };
   });
-  /** The clock's hands sweep on over a skip ahead rather than jump. */
-  const hour = new Tween(
-    untrack(() => clockHour(mood) + minutes / 60),
-    { duration: 1200, easing: cubicInOut },
-  );
-  $effect(() => {
-    const to = clockHour(mood) + minutes / 60;
-    // Untracked: reading the tween here would rerun this every frame, and each set restarts the easing from rest, so the hands crawl.
-    const from = untrack(() => hour.target);
-    if (to === from) return;
-    // Only a skip runs the hands round; a new scene, a seek or the first world just sets them.
-    const run = untrack(() => skipping) && to > from;
-    void hour.set(to, { duration: run ? 1200 : 0 });
-  });
+
   const Drawing = $derived(DRAWINGS[setting]);
-  const things = $derived(
-    withDrawn(thingsIn(PLACES[setting].things, setting, mood), drawnAt),
-  );
+  const things = $derived(thingsIn(setting));
+
+  // The clocks start at the scene's told hour; skipping ahead spins them forward.
+  const hour = new Tween(clockHour(mood), {
+    duration: 1200,
+    easing: cubicInOut,
+  });
+  $effect(() => {
+    const target = clockHour(mood) + minutes / 60;
+    if (skipping) {
+      hour.target = target;
+    } else {
+      untrack(() => hour.set(target, { duration: 0 }));
+    }
+  });
 
   let svg = $state<SVGSVGElement>();
-  const measured = $derived(PLACES[setting].things.flatMap((thing) => thing.of ?? []));
-  // The set and the cast are drawn over this svg in the same camera, so a box
-  // measured in px maps to backdrop units by this svg's own px and viewBox.
-  $effect(() => {
-    const ids = measured;
-    const own = svg;
-    if (!ids.length || !own?.parentElement || !width || !height) return;
-    const [left, top, across] = view.box.split(" ").map(Number);
-    const root = own.parentElement;
-    let frame = requestAnimationFrame(function measure() {
-      const stage = own.getBoundingClientRect();
-      const unit = across / stage.width;
-      let changed = false;
-      const next: Record<string, ThingBox | null> = {};
-      for (const id of ids) {
-        const drawn = root
-          .querySelector(`[data-set-id="${id}"]`)
-          ?.getBoundingClientRect();
-        next[id] =
-          drawn && drawn.width > 0
-            ? {
-                x: left + (drawn.left - stage.left) * unit,
-                y: top + (drawn.top - stage.top) * unit,
-                width: drawn.width * unit,
-                height: drawn.height * unit,
-              }
-            : null;
-        const was = drawnAt[id];
-        const now = next[id];
-        changed ||=
-          !was || !now
-            ? was !== now
-            : Math.abs(was.x - now.x) +
-                Math.abs(was.y - now.y) +
-                Math.abs(was.width - now.width) +
-                Math.abs(was.height - now.height) >
-              1;
+
+  /**
+   * Where each thing is drawn now: its bounding box in backdrop units, or
+   * null once hidden. An object without a `start` placement (brought in
+   * later by an act) is not on stage until placed; a backdrop thing hidden
+   * by the act (the cup on the cafe counter once someone takes it) is null.
+   */
+  function measure(): void {
+    if (!svg) return;
+    const measured: Record<string, ThingBox | null> = {};
+    for (const thing of things) {
+      for (const [copy, element] of thingElements(thing.id).entries()) {
+        const box = element.getBBox();
+        measured[litKey(thing.id, copy)] = {
+          height: box.height,
+          width: box.width,
+          x: box.x,
+          y: box.y,
+        };
       }
-      if (changed) drawnAt = next;
+    }
+    drawnAt = withDrawn(things, measured);
+  }
+
+  function thingElements(id: string): SVGGraphicsElement[] {
+    if (!svg) return [];
+    return [...svg.querySelectorAll<SVGGraphicsElement>(`[data-thing="${id}"]`)];
+  }
+
+  /**
+   * The order the Tab key visits things in: left to right across the scene,
+   * then top to bottom, as they are seen on the screen.
+   */
+  const hitOrder = $derived(
+    boxes
+      .filter(({ thing }) => !thing.of)
+      .slice()
+      .sort((a, b) => a.box.x - b.box.x || a.box.y - b.box.y),
+  );
+
+  $effect(() => {
+    // Read the props that change what is drawn where, so this runs again when any does.
+    void setting;
+    void door;
+    void tram;
+    let frame = 0;
+    untrack(() => {
       frame = requestAnimationFrame(measure);
     });
     return () => cancelAnimationFrame(frame);
@@ -198,25 +215,11 @@
       thingBoxes(thing).map((box, copy) => ({ box, copy, thing })),
     ),
   );
-  // The smallest on top, so the clock on the tower gets its own tap.
-  const hitOrder = $derived(
-    [...boxes].sort((a, b) => b.box.width * b.box.height - a.box.width * a.box.height),
-  );
 </script>
 
-<!--
-  960×300 with the floor line at y 226. Slice keeps the floor on the bottom
-  edge and trims the sides on a narrow stage, so what names the place sits
-  near the middle (or the end the setting keeps) or above head height
-  (y < 70). Shapes are flat, without outlines, so the ink-outlined cast
-  stands in front of them.
--->
 <svg
   bind:this={svg}
-  class="block {className}"
-  role={onpick ? "group" : undefined}
-  aria-label={onpick ? `Scene: ${PLACES[setting].label}` : undefined}
-  aria-hidden={onpick ? undefined : "true"}
+  class={cx("pointer-events-none absolute inset-0 size-full", className)}
   viewBox={view.box}
   preserveAspectRatio={view.ratio}
   fill="none"
@@ -229,7 +232,7 @@
       <SkyLayer {mood} {setting} />
     {/if}
 
-    <Drawing {board} hour={hour.current} open={door} {tram} />
+    <Drawing {board} hour={hour.current} open={door} {tram} {mood} />
 
     <MoodLayer {mood} {setting} />
     <StageLight />
@@ -242,6 +245,7 @@
   {#if onpick}
     <!-- One tab stop for the whole scene; the arrow keys move between its things. -->
     {#each hitOrder as { box, copy, thing }, index (`${thing.id}-${copy}`)}
+      {@const key = litKey(thing.id, copy)}
       <rect
         x={box.x - 5}
         y={box.y - 5}
@@ -253,10 +257,10 @@
         role="button"
         tabindex={index === tabStop ? 0 : -1}
         aria-label={hint ? `${hint}: ${thing.word}` : thing.word}
-        aria-pressed={picked === thing.id}
-        onclick={() => onpick(thing.id)}
+        aria-pressed={picked === key || (picked === thing.id && copy === 0)}
+        onclick={() => onpick(key)}
         onfocus={() => {
-          focused = thing.id;
+          focused = key;
           tabStop = index;
         }}
         onblur={() => {
@@ -265,7 +269,7 @@
         onkeydown={(event) => {
           if (event.key === "Enter" || event.key === " ") {
             event.preventDefault();
-            onpick(thing.id);
+            onpick(key);
             return;
           }
           const step = ARROW_STEPS[event.key];
@@ -306,6 +310,7 @@
 
 {#snippet lightUp({ box, copy, thing }: (typeof boxes)[number], over = false)}
   {@const done = found.includes(thing.id)}
+  {@const key = litKey(thing.id, copy)}
   <rect
     x={box.x - 5}
     y={box.y - 5}
@@ -319,9 +324,11 @@
       done ? "stroke-emerald-500" : "stroke-blue-500",
       done ||
         lit.includes(thing.id) ||
-        lit.includes(litKey(thing.id, copy)) ||
-        picked === thing.id ||
-        focused === thing.id
+        lit.includes(key) ||
+        picked === key ||
+        (picked === thing.id && copy === 0) ||
+        focused === key ||
+        (focused === thing.id && copy === 0)
         ? "opacity-100"
         : "opacity-0",
     )}

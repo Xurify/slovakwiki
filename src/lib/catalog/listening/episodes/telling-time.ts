@@ -157,8 +157,8 @@ const intro: ListeningChapter = {
 
 const clockGame: ListeningChapter = {
   id: `${PREFIX}clock-game`,
-  titleSk: "Hra s hodinami",
-  title: "The clock game",
+  titleSk: "Čas na hodinách",
+  title: "Reading the clock",
   lines: [
     line(
       "anna-game-rules",
@@ -612,6 +612,7 @@ const cafe: ListeningChapter = {
       "Waiter",
       ["Nech sa páči, dve kávy."],
       "Here you are, two coffees.",
+      { props: [null] },
     ),
     line(
       "anna-when-do-you-close",
@@ -642,6 +643,7 @@ const cafe: ListeningChapter = {
         " ideme späť.",
       ],
       "We have time for a coffee, not for seven hours. At half past twelve we go back.",
+      { props: [null, null] },
     ),
     line(
       "marek-twelve-thirty",

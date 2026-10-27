@@ -1,4 +1,6 @@
+import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
 import type { ObjectKind, SetPlan, World } from "./acts";
+import { LOOKS } from "./looks";
 import { GROUND_Y, SEAT_Y, type Point } from "./rig";
 
 /**
@@ -348,7 +350,13 @@ export function stagePoint(
   const piece = surfaceAt(geometry, name);
   if (piece) return piece;
   const middle = context.middleOf(name);
-  if (middle !== undefined) return { x: middle, y: 50 };
+  if (middle !== undefined) {
+    const isDog = Boolean(LOOKS[name as LessonCharacterId]?.dog);
+    if (isDog) {
+      return { x: middle, y: as === "top" ? 94 : as === "base" ? 112 : 102 };
+    }
+    return { x: middle, y: as === "top" ? 50 : as === "base" ? 112 : 68 };
+  }
   const spot = set?.spots?.[name];
   if (spot && "chair" in spot) {
     const x = context.seatX(spot.chair);

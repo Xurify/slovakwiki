@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { untrack, type ComponentProps } from "svelte";
+  import { onDestroy, untrack, type ComponentProps } from "svelte";
   import { cubicInOut, sineIn } from "svelte/easing";
   import { Tween } from "svelte/motion";
 
@@ -108,6 +108,8 @@
     WIDE,
     applyCue,
     contents,
+    cueActor as actorOfCue,
+    cueEntrances,
     heldBy as heldIn,
     isActed,
     startWorld,
@@ -333,19 +335,25 @@
   /** The set's things where they are drawn now, as the backdrop measures them. */
   let drawnAt = $state<Record<string, ThingBox | null>>({});
   const things = $derived(withDrawn(fixedThings, drawnAt));
+  const entrances = $derived({
+    ...walkOns(stagings),
+    ...cueEntrances(lines, set),
+  });
   const frame = $derived(
-    stageFrame(
-      direction.cast,
-      walkOns(stagings),
-      setting,
-      fixedThings,
-      stageWidth,
-      stageHeight,
-    ),
+    stageFrame(direction.cast, entrances, setting, fixedThings, stageWidth, stageHeight),
   );
   /** Someone on a chair faces the way it does, whoever points or talks. */
   const sitting = $derived(seatedFacings(seated, frame));
-  const pickedThing = $derived(things.find((thing) => thing.id === picked));
+  const pickedParsed = $derived.by(() => {
+    if (!picked) return undefined;
+    const [id, copyStr] = picked.split("#");
+    const thing = things.find((candidate) => candidate.id === id);
+    if (!thing) return undefined;
+    const copy = copyStr !== undefined ? Number.parseInt(copyStr, 10) : 0;
+    const box = thingBoxes(thing)[copy] ?? thing.box;
+    return { thing, copy, box };
+  });
+  const pickedThing = $derived(pickedParsed?.thing);
 
   /** The world before each line, and after the last; a scene nobody acts keeps the one it starts with. */
   const actedWorlds = $derived.by((): World[] | undefined => {
@@ -1266,10 +1274,10 @@
    * neither side, so the card covers its middle rather than leave the stage.
    */
   const card = $derived.by(() => {
-    if (!pickedThing) return undefined;
+    if (!pickedThing || !pickedParsed) return undefined;
 
     const align = backdropAlign(setting);
-    const { box } = pickedThing;
+    const { box } = pickedParsed;
     const top = backdropToStage(box, stageWidth, stageHeight, align);
     const bottom = backdropToStage(
       { x: box.x + box.width / 2, y: box.y + box.height },
@@ -1277,12 +1285,7 @@
       stageHeight,
       align,
     );
-    const centre = backdropToStage(
-      thingCenter(pickedThing),
-      stageWidth,
-      stageHeight,
-      align,
-    );
+    const centre = backdropToStage(boxCenter(box), stageWidth, stageHeight, align);
     const lowest = stageHeight - cardHeight - 8;
     const under = bottom.y + 10;
     const over = top.y - 10 - cardHeight;
@@ -1516,24 +1519,40 @@
     umbrellas = Object.fromEntries(Object.keys(umbrellas).map((id) => [id, false]));
   }
 
+  /** Where an offstage figure stands before walking on, or after leaving. */
+  function entrySpot(id: LessonCharacterId): { offset: number; facing: Facing } {
+    for (const line of lines) {
+      const enterCue = line.act?.find(
+        (cue) => cue.do === "enter" && actorOfCue(cue, line.characterId) === id,
+      );
+      if (enterCue) {
+        const at = enterCue.from ? spotOf(id, enterCue.from) : undefined;
+        if (at) return at;
+        const side: Facing = enterCue.from?.includes("left") ? -1 : 1;
+        return {
+          offset: offStage(frame, id, side),
+          facing: (side === -1 ? 1 : -1) as Facing,
+        };
+      }
+    }
+    for (const line of lines) {
+      const leaveCue = line.act?.find(
+        (cue) => cue.do === "leave" && actorOfCue(cue, line.characterId) === id,
+      );
+      if (leaveCue) {
+        const side: Facing = leaveCue.to === "left" ? -1 : 1;
+        return { offset: offStage(frame, id, side), facing: side };
+      }
+    }
+    return { offset: offStage(frame, id, 1), facing: -1 };
+  }
+
   /** Put everyone where line `index` finds them, as if the scene had played to it, without walking there. */
   export function place(index: number): void {
     // Nobody walks there, so no walk scheduled before should go on sounding.
     stopCues();
-    const placed = blockingBefore(
-      index,
-      lines.map((line) => line.characterId),
-      stagings,
-      frame,
-    );
 
     umbrellas = {};
-    facings = placed.facings;
-    offsets = placed.offsets;
-    seated = placed.seated;
-    settleChairs();
-    tram = placed.tram;
-    aboard = placed.aboard;
     walks = {};
     walkEndsAt = {};
     striding = [];
@@ -1552,9 +1571,74 @@
     acts = {};
     turned = {};
     glancing = [];
+    shaded = [];
+
+    if (acted) {
+      world = actedWorlds?.[Math.min(index, actedWorlds.length - 1)];
+      tram = "away";
+      aboard = [];
+      outside = world?.out ?? [];
+
+      const nextOffsets: Offsets = {};
+      const nextFacings: Partial<Record<LessonCharacterId, Facing>> = {};
+      const nextSeated: Partial<Record<LessonCharacterId, number>> = {};
+
+      for (const id of direction.cast) {
+        if (world?.out?.includes(id)) {
+          const entry = entrySpot(id);
+          nextOffsets[id] = entry.offset;
+          nextFacings[id] = entry.facing;
+        } else if (world?.spots[id]) {
+          const at = spotOf(id, world.spots[id]);
+          if (at) {
+            nextOffsets[id] = at.offset;
+            nextFacings[id] = at.facing;
+            if (world.seated?.includes(id) && at.chair !== undefined) {
+              nextSeated[id] = at.chair;
+            }
+          } else {
+            nextOffsets[id] = 0;
+            nextFacings[id] = resting[id] ?? 1;
+          }
+        } else if (behindDesk(id)) {
+          const chairIndex = direction.cast.indexOf(id);
+          const chair = frame.seats[chairIndex];
+          if (chair) {
+            nextOffsets[id] = onSeat(frame, id, chair.x);
+            nextFacings[id] = chair.facing;
+          } else {
+            nextOffsets[id] = 0;
+            nextFacings[id] = resting[id] ?? 1;
+          }
+        } else {
+          nextOffsets[id] = 0;
+          nextFacings[id] = resting[id] ?? 1;
+        }
+      }
+
+      offsets = nextOffsets;
+      facings = nextFacings;
+      seated = nextSeated;
+      settleChairs();
+      for (const id of direction.cast) if (carrying(id)) carry(id);
+      return;
+    }
+
+    const placed = blockingBefore(
+      index,
+      lines.map((line) => line.characterId),
+      stagings,
+      frame,
+    );
+
+    facings = placed.facings;
+    offsets = placed.offsets;
+    seated = placed.seated;
+    settleChairs();
+    tram = placed.tram;
+    aboard = placed.aboard;
     world = actedWorlds?.[Math.min(index, actedWorlds.length - 1)];
     outside = [];
-    shaded = [];
     if (!world) return;
     placeSpots(world);
     for (const id of direction.cast) if (carrying(id)) carry(id);
@@ -1730,7 +1814,15 @@
     stopStoryLineAudio();
     for (const actor of Object.values(actors)) actor.talking = false;
     relaying = undefined;
+    walks = {};
+    walkEndsAt = {};
+    striding = [];
+    flight = undefined;
   }
+
+  onDestroy(() => {
+    stop();
+  });
 
   /**
    * Walk `id` on from the `from` edge to their mark, as someone coming over
@@ -1853,7 +1945,7 @@
         ? aimLine(speaker, plan, Boolean(direction.lines[index]?.held[speaker]))
         : undefined;
     const standingAt = speaker ? offsets[speaker] : undefined;
-    if (staging) {
+    if (!acted && staging) {
       block(startLine(blocking(), staging, speaker, frame), staging.returns?.characterId);
     }
     // A speaker walking somewhere faces the way they go, not where they point.
@@ -1903,7 +1995,7 @@
       relaying = undefined;
       if (staging?.gives) handedAt = index;
       if (staging?.throws && speaker) throwBall(speaker, staging.throws.side, index);
-      if (staging)
+      if (!acted && staging)
         block(endLine(blocking(), staging, speaker, frame), staging.throws?.fetcher);
       if (staging?.boards) foldUmbrellas();
       if (stagings[index + 1]?.arrives) playTramCue();

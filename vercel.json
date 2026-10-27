@@ -6,6 +6,7 @@
       "feat/dog-robot-story": true,
       "feat/future-tense-story": true,
       "feat/slovak-level-test": true,
+      "fix/stage-seek-and-robot-motion": true,
       "master": true
     }
   }
