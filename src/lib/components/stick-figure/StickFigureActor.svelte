@@ -23,6 +23,7 @@
   import type { Dress } from "$lib/stick-figure/dress";
   import type { Held } from "$lib/stick-figure/props";
   import { alive } from "$lib/stick-figure/idle";
+  import { restOnTable } from "$lib/stick-figure/reach";
   import { sitMs, stepMs, walkPose } from "$lib/stick-figure/walk";
   import {
     headClearOfMic,
@@ -235,9 +236,9 @@
   function steady(pose: StickPose): StickPose {
     const lead = hands.lead && STEADY.has(hands.lead.kind);
     const rear = hands.rear && STEADY.has(hands.rear.kind);
-    // Anything else held hangs from the hand: a beat would swing a full can up to the chest.
-    const leadDown = hands.lead && !lead;
-    const rearDown = hands.rear && !rear;
+    // Anything else held hangs from the hand: a beat would swing a full can up to the chest. At the table it lies on it.
+    const leadDown = hands.lead && !lead && !atTable;
+    const rearDown = hands.rear && !rear && !atTable;
     return {
       ...pose,
       ...(lead ? { leadRaise: STEADY_ARM.raise, leadBend: STEADY_ARM.bend } : {}),
@@ -279,9 +280,10 @@
     // Busy hands do not talk: a beat would swing the can that is pouring, or the hand the cue leaves alone.
     // Getting onto a chair or off it, the hands go to that; a talker's open hand swung into whoever sat beside.
     const busy = acting || (atTable && sitting.current < 1);
-    const body = steady(
-      busy ? { ...talked, ...RESTING_ARMS } : overTable(talked, sitting.current),
-    );
+    const seated = busy
+      ? { ...talked, ...RESTING_ARMS }
+      : overTable(talked, sitting.current);
+    const body = steady(atTable ? restOnTable(seated, sitting.current) : seated);
     const stepping = walking ? walkPose(body, walked, walkMs, stepMs(characterId)) : body;
     const sampled = acting ? doing.sample(now, stepping, sitting.current) : undefined;
     if (sampled && entered?.doing !== doing) {
