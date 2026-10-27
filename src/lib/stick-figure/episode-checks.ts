@@ -512,10 +512,38 @@ export function checkCues(
     return undefined;
   };
 
-  /** What floor object a person standing at cast x `x` stands on: a bag, plant, etc. */
+  const NOT_FLOOR_OBJECT = new Set([
+    "koberec",
+    "podlaha",
+    "dlazba",
+    "trotoar",
+    "chodnik",
+    "cesta",
+    "trava",
+    "zem",
+    "stol",
+    "stolicka",
+    "pohovka",
+    "kreslo",
+    "pult",
+    "chladnicka",
+    "sporak",
+    "umyvadlo",
+    "skrinka",
+    "postel",
+    "okno",
+    "dvere",
+    "obraz",
+    "zaves",
+    "hodiny",
+    "lampa",
+    "stena",
+  ]);
+
+  /** What floor object a person standing at cast x `x` stands on: a bag, plant, dog bowl, suitcase, etc. */
   const floorObjectAt = (x: number): string | undefined => {
     for (const thing of frame.things) {
-      if (thing.id !== "taska" && thing.id !== "krhla") continue;
+      if (NOT_FLOOR_OBJECT.has(thing.id)) continue;
       for (const box of thingBoxes(thing)) {
         if (box.y + box.height >= 230) {
           const left = castX(box.x);

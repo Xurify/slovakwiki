@@ -54,14 +54,13 @@ const intro: ListeningChapter = {
       "Marek",
       ["Dobrá téma. Mám tu dáždnik. ", PAUSE, "Čí je to dáždnik?"],
       "Good topic. I have an umbrella here. Whose umbrella is it?",
-      { props: [null, null, null] },
     ),
     line(
       "anna-not-mine",
       "Anna",
       ["Hm… ", PAUSE, mark("Môj"), " nie. ", mark("Môj"), " dáždnik je doma."],
       "Hmm… not mine. My umbrella is at home.",
-      { props: [null, null, null] },
+      { props: [null, null] },
     ),
     line(
       "marek-so-whose",
@@ -135,14 +134,14 @@ const intro: ListeningChapter = {
 const photos: ListeningChapter = {
   id: `${PREFIX}photos`,
   titleSk: "Kto je to?",
-  title: "Family photos",
+  title: "The photo game",
   lines: [
     line(
       "marek-phone-photos",
       "Marek",
       ["Anna, mám tu telefón. Na telefóne mám fotky."],
       "Anna, I have my phone here. I have photos on the phone.",
-      { props: [null, null] },
+      { props: ["phone", "phone"] },
     ),
     line("anna-show-me", "Anna", ["Ukáž! Kto je to?"], "Show me! Who is it?"),
     line(
@@ -150,7 +149,7 @@ const photos: ListeningChapter = {
       "Marek",
       ["Prvá fotka. ", PAUSE, "Hádaj: kto je ten muž?"],
       "First photo. Guess: who is that man?",
-      { props: [null, null] },
+      { props: ["phone", "phone"] },
     ),
     line(
       "anna-your-brother",
@@ -171,7 +170,7 @@ const photos: ListeningChapter = {
         " kamarát Peter.",
       ],
       "No, that's not my brother. That's my friend Peter.",
-      { props: [null, null] },
+      { props: ["phone", "phone"] },
     ),
     line(
       "anna-his-dog",
@@ -184,7 +183,7 @@ const photos: ListeningChapter = {
       "Marek",
       ["Áno, to je ", mark("jeho"), " pes. Volá sa Dunčo."],
       "Yes, that's his dog. He's called Dunčo.",
-      { props: [null, null] },
+      { props: ["phone", "phone"] },
     ),
     line(
       "anna-dog-big-second",
@@ -198,7 +197,7 @@ const photos: ListeningChapter = {
       "Marek",
       ["Druhá fotka: dom a auto."],
       "Second photo: a house and a car.",
-      { props: [null] },
+      { props: ["phone"] },
     ),
     line(
       "anna-your-house",
@@ -218,7 +217,7 @@ const photos: ListeningChapter = {
         " dom je pri lese.",
       ],
       "No, that's my parents' house. Their house is by the forest.",
-      { props: [null, null] },
+      { props: ["phone", "phone"] },
     ),
     line(
       "anna-their-car",
@@ -231,7 +230,7 @@ const photos: ListeningChapter = {
       "Marek",
       ["Nie, to je ", mark("moje"), " auto. ", mark("Ich"), " auto je červené."],
       "No, that's my car. Their car is red.",
-      { props: [null, null] },
+      { props: ["phone", "phone"] },
     ),
     line(
       "anna-your-car-old",
@@ -244,7 +243,7 @@ const photos: ListeningChapter = {
       "Marek",
       ["Staré, ale ", mark("moje"), "! ", PAUSE, "A tretia fotka: žena a dievča."],
       "Old, but mine! And the third photo: a woman and a girl.",
-      { props: [null, null] },
+      { props: ["phone", "phone"] },
     ),
     line(
       "anna-your-sister",
@@ -265,7 +264,7 @@ const photos: ListeningChapter = {
         " dcéra Ema.",
       ],
       "Exactly! That's my sister Zuzana. And that's her daughter Ema.",
-      { props: [null, null] },
+      { props: ["phone", "phone"] },
     ),
     line(
       "anna-her-daughter-age",
@@ -274,7 +273,7 @@ const photos: ListeningChapter = {
       "Her daughter is sweet. How old is she?",
     ),
     line("marek-five-years", "Marek", ["Má päť rokov."], "She's five.", {
-      props: [null],
+      props: ["phone"],
     }),
     line(
       "anna-umbrella-not-theirs",
@@ -382,7 +381,6 @@ const school: ListeningChapter = {
       "Anna",
       ["Teraz sme v jazykovej škole, na registrácii."],
       "Now we're at the language school, at the registration desk.",
-      { props: [null] },
     ),
     line("marek-good-day", "Marek", ["Dobrý deň!"], "Good day!", { to: "Mária" }),
     line(
@@ -396,7 +394,6 @@ const school: ListeningChapter = {
       "Marek",
       ["Máme tu dáždnik. Nie je ", mark("náš"), ". ", PAUSE, "Je ", mark("váš"), "?"],
       "We have an umbrella here. It's not ours. Is it yours?",
-      { props: [null, null, null] },
     ),
     line(
       "maria-mine-is-black",
@@ -410,7 +407,7 @@ const school: ListeningChapter = {
         " dáždnik je čierny a tento je modrý.",
       ],
       "Hmm… not mine. My umbrella is black and this one is blue.",
-      { props: [null, null, null] },
+      { props: [null, null] },
     ),
     line(
       "anna-your-students",
@@ -572,23 +569,19 @@ const square: ListeningChapter = {
       "I'm looking for my umbrella. It's not at school and it's not at home.",
       { props: [null, null] },
     ),
-    line("marek-blue-umbrella", "Marek", ["Modrý dáždnik?"], "A blue umbrella?", {
-      props: [null],
-    }),
+    line("marek-blue-umbrella", "Marek", ["Modrý dáždnik?"], "A blue umbrella?"),
     line("lucia-yes-blue", "Lucia", ["Áno! Modrý."], "Yes! Blue."),
     line(
       "marek-whose-is-this",
       "Marek",
       ["Čí je tento dáždnik?"],
       "Whose umbrella is this?",
-      { props: [null] },
     ),
     line(
       "lucia-mine",
       "Lucia",
       [mark("Môj"), "! To je ", mark("môj"), " dáždnik! Ďakujem!"],
       "Mine! That's my umbrella! Thank you!",
-      { props: [null, null, null] },
     ),
     line(
       "anna-it-was-in-studio",
@@ -629,7 +622,7 @@ const square: ListeningChapter = {
       "Marek",
       ["V ", mark("mojej"), " taške… ", PAUSE, "Áno! Tu sú."],
       "In my bag… Yes! Here they are.",
-      { props: [null, null] },
+      { props: [null, "keys"] },
     ),
     line(
       "lucia-marek-and-his-keys",
@@ -746,7 +739,6 @@ const quiz: ListeningChapter = {
         "Tak teraz malá skúška, Marek.",
       ],
       "We're back in the studio. Lucia has her umbrella and you have your keys. So now a little test, Marek.",
-      { props: [null, null, null] },
     ),
     line(
       "anna-the-rules",
@@ -1006,14 +998,13 @@ const outro: ListeningChapter = {
       "Marek",
       ["Nech sa páči, tu máš ", mark("môj"), "."],
       "Here you are, take mine.",
-      { props: [null] },
+      { props: ["umbrella"] },
     ),
     line(
       "anna-yours-is-small",
       "Anna",
       ["Ďakujem! ", PAUSE, mark("Tvoj"), " dáždnik je naozaj malý."],
       "Thanks! Your umbrella is really small.",
-      { props: [null, null] },
     ),
     line(
       "marek-small-but-mine",

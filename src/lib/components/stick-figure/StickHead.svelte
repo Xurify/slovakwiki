@@ -47,7 +47,11 @@
   const look = $derived(LOOKS[characterId]);
   const robot = $derived(look.robot);
   const dog = $derived(look.dog);
-  const computing = $derived(Boolean(robot && pose.brow >= 0.7 && pose.tilt < -5));
+  const computing = $derived(
+    Boolean(
+      robot && pose.brow >= 0.7 && pose.tilt <= -6 && pose.nod >= 1.5 && pose.look >= 0.6,
+    ),
+  );
   const hair = $derived(look.grey ? "fill-portrait-hair-grey" : "fill-portrait-hair");
   const brows = $derived(
     look.grey ? "stroke-portrait-hair-grey" : "stroke-portrait-hair",

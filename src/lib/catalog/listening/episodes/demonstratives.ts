@@ -100,14 +100,13 @@ const intro: ListeningChapter = {
 const bag: ListeningChapter = {
   id: `${PREFIX}bag`,
   titleSk: "Čo je to?",
-  title: "Three things in the bag",
+  title: "The bag game",
   lines: [
     line(
       "marek-bag-three-things",
       "Marek",
       ["Anna, mám tu tašku. V taške sú tri veci."],
       "Anna, I have a bag here. There are three things in the bag.",
-      { props: [null, null] },
     ),
     line(
       "anna-what-is-it",
@@ -133,7 +132,6 @@ const bag: ListeningChapter = {
       "Marek",
       ["Správne! ", mark("Ten"), " kľúč je od auta."],
       "Right! That key is for the car.",
-      { props: [null, null] },
     ),
     line(
       "anna-second-thing",
@@ -158,7 +156,7 @@ const bag: ListeningChapter = {
         "a vnútri je papier.",
       ],
       "It's yellow… it's heavy… and there's paper inside.",
-      { props: [null, null, null] },
+      { props: ["bag"] },
     ),
     line(
       "anna-is-it-a-box",
@@ -184,21 +182,19 @@ const bag: ListeningChapter = {
       "Marek",
       ["Presne tak! ", mark("Tá"), " žltá kniha je slovník."],
       "Exactly! That yellow book is a dictionary.",
-      { props: [null, null] },
     ),
     line(
       "anna-third-thing",
       "Anna",
       [mark("Tá"), " kniha je veľká! A ", mark("tá"), " tretia vec?"],
       "That book is big! And that third thing?",
-      { props: [null, null] },
     ),
     line(
       "marek-green-sweet",
       "Marek",
       ["Je ", mark("to"), " zelené", STOP, PAUSE, "a je ", mark("to"), " sladké."],
       "It's green… and it's sweet.",
-      { props: [null, null] },
+      { props: ["bag"] },
     ),
     line(
       "anna-a-pear",
@@ -224,7 +220,6 @@ const bag: ListeningChapter = {
       "Marek",
       ["Výborne! A ", mark("to"), " jablko je pre teba."],
       "Excellent! And that apple is for you.",
-      { props: [null, null] },
     ),
     line("anna-hungry", "Anna", ["Ďakujem! Mám hlad."], "Thanks! I'm hungry."),
     line(
@@ -377,7 +372,7 @@ const market: ListeningChapter = {
       "Those over there, then, please.",
     ),
     line("lucia-here-you-are", "Lucia", ["Nech sa páči."], "Here you are.", {
-      props: [null],
+      props: ["basket"],
     }),
     line(
       "marek-anna-always-slovak",
@@ -516,7 +511,7 @@ const home: ListeningChapter = {
       "Marek",
       ["Aha, mám ho. ", PAUSE, "A kto je ", mark("ten"), " muž vonku?"],
       "Got it. And who is that man outside?",
-      { props: [null, null] },
+      { props: ["keys"] },
     ),
     line(
       "anna-neighbour-you-know-him",
@@ -649,7 +644,6 @@ const quiz: ListeningChapter = {
       "Marek",
       ["Áno. A ", mark("ten"), " kľúč mám tu."],
       "Yes. And I have that key here.",
-      { props: [null, null] },
     ),
     line(
       "anna-dont-lose-it",
@@ -673,7 +667,6 @@ const quiz: ListeningChapter = {
         ".",
       ],
       "Well, you have the key. And now a little test for Marek: ten, tá, to.",
-      { props: [null, null] },
     ),
     line(
       "marek-never-get-these",

@@ -247,7 +247,7 @@ describe("cues against the set", () => {
     );
   });
 
-  it("flags pointing at a dog at human head height", () => {
+  it("allows pointing at a dog at knee height", () => {
     const PARK_SET = PLACES.default.set!;
     const PARK_FRAME = stageFrame(
       ["marek", "dog"],
@@ -259,6 +259,25 @@ describe("cues against the set", () => {
     );
     const { chapter, lines } = segment("marek", [{ do: "point", to: "dog" }]);
     expect(rules(checkCues(chapter, lines, PARK_SET, PARK_FRAME))).not.toContain(
+      "error point/miss",
+    );
+  });
+
+  it("flags pointing at a dog at human head height", () => {
+    const PARK_SET = {
+      ...PLACES.default.set!,
+      spots: { dog: { x: 300, facing: 1 as const } },
+    };
+    const PARK_FRAME = stageFrame(
+      ["marek"],
+      {},
+      "default",
+      PLACES.default.things,
+      960,
+      480,
+    );
+    const { chapter, lines } = segment("marek", [{ do: "point", to: "dog" }]);
+    expect(rules(checkCues(chapter, lines, PARK_SET, PARK_FRAME))).toContain(
       "error point/miss",
     );
   });
