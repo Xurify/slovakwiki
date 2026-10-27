@@ -78,6 +78,7 @@ async function main(): Promise<void> {
     whisperModel,
   } = parseArgs(process.argv.slice(2));
   const config = await loadConfig();
+  const names = Object.values(config.characters ?? {}).map((c) => c.displayName);
   if (model) config.modelId = model;
   const manifest = await loadManifest();
   await ensureAudioDir();
@@ -279,6 +280,7 @@ async function main(): Promise<void> {
           mode: judgeMode,
           scribeModel: sttModel,
           whisperModel,
+          names,
         });
         lastJudge = judged;
 
