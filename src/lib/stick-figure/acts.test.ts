@@ -199,6 +199,47 @@ describe("cooking with the kitchen's set", () => {
   });
 });
 
+describe("a ball for the dog", () => {
+  const PARK = PLACES.default.set!;
+  const start = setUp(startWorld(PARK.objects), {
+    objects: [
+      { id: "ball", kind: "ball", start: { where: { hand: "robot", side: "lead" } } },
+    ],
+  });
+
+  it("is with the dog, out of sight, from the throw until it brings the ball back in its mouth", () => {
+    const after = worlds(
+      [
+        { characterId: "robot", act: [{ do: "throw", what: "ball", to: "dog" }] },
+        { characterId: "dog", act: [{ do: "take", what: "ball" }] },
+      ],
+      PARK,
+      start,
+    );
+
+    expect(heldBy(after[1], "robot")).toEqual({});
+    expect(heldBy(after[1], "dog")).toEqual({});
+    expect(heldBy(after[2], "dog")).toEqual({ lead: "ball" });
+  });
+
+  it("is thrown to someone, and only from the thrower's hand", () => {
+    expect(() =>
+      worlds(
+        [{ characterId: "robot", act: [{ do: "throw", what: "ball" }] }],
+        PARK,
+        start,
+      ),
+    ).toThrow(CueError);
+    expect(() =>
+      worlds(
+        [{ characterId: "anna", act: [{ do: "throw", what: "ball", to: "dog" }] }],
+        PARK,
+        start,
+      ),
+    ).toThrow(CueError);
+  });
+});
+
 describe("cues on the clock", () => {
   const times: LineTimes = {
     lead: 0,

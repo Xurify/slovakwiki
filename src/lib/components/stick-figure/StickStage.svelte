@@ -606,7 +606,7 @@
     const was = before.spots[id];
     const from =
       cue.do === "enter"
-        ? spotOf(id, set?.door ?? "door")?.offset
+        ? spotOf(id, set?.door ?? cue.from ?? "door")?.offset
         : ((was ? spotOf(id, was)?.offset : undefined) ?? offsets[id] ?? 0);
     const to = cue.to ? spotOf(id, cue.to)?.offset : undefined;
     const walk =
@@ -614,7 +614,9 @@
         ? 0
         : walkDuration(stepsFor(to - from), id);
     const enter =
-      cue.do === "enter" ? DOOR_MS + TURN_MS * 0.6 + CLOSE_DOOR.ms + TURN_MS : 0;
+      cue.do === "enter" && set?.door
+        ? DOOR_MS + TURN_MS * 0.6 + CLOSE_DOOR.ms + TURN_MS
+        : 0;
     const sit =
       cue.do === "sit" ? SIT_TURN_MS + sitMs(id) + (frame.desk ? 0 : SCOOT_MS) : 0;
     return walk + enter + sit;
@@ -709,8 +711,19 @@
       later(start + at - performance.now(), () => playFoley(sound));
   }
 
+  /** On from the edge spot `from` (a park, a room with no door drawn), walking to `to`. */
+  function walkOn(id: LessonCharacterId, from: string, to: string | undefined): void {
+    const at = spotOf(id, from);
+    const { [id]: _, ...still } = walks;
+    walks = still;
+    if (at) offsets = { ...offsets, [id]: at.offset };
+    outside = outside.filter((other) => other !== id);
+    walkToSpot(id, to);
+  }
+
   /** In through the door: they push it open, step in past it, and push it to behind them. */
-  function comeIn(id: LessonCharacterId, to: string | undefined): void {
+  function comeIn(id: LessonCharacterId, to: string | undefined, from?: string): void {
+    if (!set?.door && from) return walkOn(id, from, to);
     const door = set?.door ?? "door";
     const at = spotOf(id, door);
     const { [id]: _, ...still } = walks;
@@ -770,7 +783,7 @@
       case "camera":
         return;
       case "enter":
-        comeIn(who, cue.to);
+        comeIn(who, cue.to, cue.from);
         return;
       case "go":
         stepDown(who);
@@ -785,6 +798,9 @@
         if (face) facings = { ...facings, [who]: face };
         return;
       }
+      case "throw":
+        later(motion.takes ?? 0, () => throwBall(who, facingOf(who), heldAt));
+        break;
       case "skip":
         dimmed = true;
         later(motion.ms, () => {

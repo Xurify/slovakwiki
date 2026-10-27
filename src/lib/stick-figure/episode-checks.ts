@@ -30,6 +30,7 @@ import {
   type ObjectKind,
   type World,
 } from "$lib/stick-figure/acts";
+import { LOOKS } from "$lib/stick-figure/looks";
 import { PLACES, type PlaceSet } from "$lib/stick-figure/places";
 import { HEAD_RADIUS, STICK_BOX, solveRig, type Point } from "$lib/stick-figure/rig";
 import { REST_POSE } from "$lib/stick-figure/pose";
@@ -632,7 +633,8 @@ export function checkCues(
     const facing = facingFor(world, who, motion.face ?? cue.what);
     const head = middle + facing * Math.sin((lean * Math.PI) / 180) * HEAD_ABOVE_HIP;
     return frame.cast.flatMap((other) => {
-      if (other === who || world.out?.includes(other)) return [];
+      // A dog's head is at the knee, under any head that leans its way.
+      if (other === who || world.out?.includes(other) || LOOKS[other].dog) return [];
       const there = standsAt(world, other);
       if (there === undefined) return [];
       const apart = Math.abs(head - there);

@@ -5738,10 +5738,6 @@ exports[`every scene, directed > podcast podcast-future-tense-friday 1`] = `
       },
       "staging": {
         "addressee": null,
-        "enter": {
-          "characterId": "anna",
-          "from": -1,
-        },
       },
     },
     {
@@ -5775,14 +5771,11 @@ exports[`every scene, directed > podcast podcast-future-tense-friday 1`] = `
       },
     },
     {
-      "held": {
-        "marek": "suitcase",
-      },
       "line": "marek: No… kufor mám, pas mám. Hm, a kde je Domo?",
       "plan": {
         "beats": [
           "0 muse",
-          "800 show",
+          "800 tell",
           "4000 think",
         ],
         "ms": 5850,
@@ -5790,21 +5783,8 @@ exports[`every scene, directed > podcast podcast-future-tense-friday 1`] = `
         "sentences": "0-254 800-2454 4000-5600",
         "words": "0-254 800-1338 1338-1682 1820-2110 2110-2454 4000-4244 4380-4583 4583-4868 4868-5112 5112-5600",
       },
-      "props": [
-        undefined,
-        "suitcase",
-        undefined,
-      ],
       "staging": {
         "addressee": "anna",
-        "approach": {
-          "characterId": "anna",
-          "toward": 1,
-        },
-        "enter": {
-          "characterId": "robot",
-          "from": 1,
-        },
         "facing": {
           "anna": 1,
           "dog": 1,
@@ -6070,7 +6050,6 @@ exports[`every scene, directed > podcast podcast-future-tense-friday 1`] = `
           "50 tell",
           "2050 tell",
           "4300 tell",
-          "5442 point → okno",
         ],
         "ms": 6200,
         "sentences": "50-977 2050-3159 4300-5950",
@@ -6099,7 +6078,7 @@ exports[`every scene, directed > podcast podcast-future-tense-friday 1`] = `
       "plan": {
         "beats": [
           "0 tell",
-          "1200 point → okno",
+          "1200 tell",
           "2750 tell",
         ],
         "ms": 3800,
@@ -6242,7 +6221,7 @@ exports[`every scene, directed > podcast podcast-future-tense-monday 1`] = `
       "plan": {
         "beats": [
           "100 tell",
-          "2840 point → okno",
+          "2650 tell",
         ],
         "ms": 3600,
         "sentences": "100-1508 2650-3400",
@@ -6255,7 +6234,6 @@ exports[`every scene, directed > podcast podcast-future-tense-monday 1`] = `
           "marek": -1,
           "robot": -1,
         },
-        "goTo": "okno",
       },
     },
     {
@@ -6278,9 +6256,6 @@ exports[`every scene, directed > podcast podcast-future-tense-monday 1`] = `
       },
     },
     {
-      "held": {
-        "marek": "suitcase",
-      },
       "line": "robot: Ja viem. Ale dnes príde. Uvidíš.",
       "plan": {
         "beats": [
@@ -6294,10 +6269,6 @@ exports[`every scene, directed > podcast podcast-future-tense-monday 1`] = `
       },
       "staging": {
         "addressee": "dog",
-        "enter": {
-          "characterId": "marek",
-          "from": 1,
-        },
         "facing": {
           "dog": 1,
           "marek": -1,
@@ -6306,29 +6277,18 @@ exports[`every scene, directed > podcast podcast-future-tense-monday 1`] = `
       },
     },
     {
-      "held": {
-        "marek": "suitcase",
-      },
       "line": "marek: Ahojte! Už som doma!",
       "plan": {
         "beats": [
-          "100 show",
-          "1300 show",
+          "100 wave",
+          "1300 stress",
         ],
         "ms": 2500,
         "sentences": "100-585 1300-2200",
         "words": "100-585 1300-1516 1516-1768 1768-2200",
       },
-      "props": [
-        "suitcase",
-        "suitcase",
-      ],
       "staging": {
         "addressee": "dog",
-        "approach": {
-          "characterId": "dog",
-          "toward": 1,
-        },
         "audience": true,
         "facing": {
           "dog": 1,
@@ -6337,9 +6297,6 @@ exports[`every scene, directed > podcast podcast-future-tense-monday 1`] = `
       },
     },
     {
-      "held": {
-        "marek": "suitcase",
-      },
       "line": "dog: Haf! Haf! Haf!",
       "plan": {
         "beats": [
@@ -6357,13 +6314,9 @@ exports[`every scene, directed > podcast podcast-future-tense-monday 1`] = `
           "marek": -1,
           "robot": -1,
         },
-        "looksAt": "marek",
       },
     },
     {
-      "held": {
-        "marek": "suitcase",
-      },
       "line": "marek: Dunčo! Poď sem! Aj ty si mi chýbal.",
       "plan": {
         "beats": [
@@ -6377,10 +6330,6 @@ exports[`every scene, directed > podcast podcast-future-tense-monday 1`] = `
       },
       "staging": {
         "addressee": "dog",
-        "approach": {
-          "characterId": "dog",
-          "toward": 1,
-        },
         "facing": {
           "dog": 1,
           "marek": -1,
@@ -6389,9 +6338,6 @@ exports[`every scene, directed > podcast podcast-future-tense-monday 1`] = `
       },
     },
     {
-      "held": {
-        "marek": "suitcase",
-      },
       "line": "marek: Domo, ako ste sa mali, vy dvaja?",
       "plan": {
         "beats": [
@@ -6425,7 +6371,6 @@ exports[`every scene, directed > podcast podcast-future-tense-monday 1`] = `
         "beats": [
           "0 nod",
           "2300 tell",
-          "4305 point → okno",
           "5650 tell",
         ],
         "ms": 6400,
@@ -6658,10 +6603,6 @@ exports[`every scene, directed > podcast podcast-future-tense-morning 1`] = `
       },
       "staging": {
         "addressee": null,
-        "enter": {
-          "characterId": "robot",
-          "from": -1,
-        },
       },
     },
     {
@@ -6717,10 +6658,6 @@ exports[`every scene, directed > podcast podcast-future-tense-morning 1`] = `
       },
       "staging": {
         "addressee": "dog",
-        "enter": {
-          "characterId": "anna",
-          "from": 1,
-        },
         "facing": {
           "anna": -1,
           "dog": 1,
@@ -6824,16 +6761,10 @@ exports[`every scene, directed > podcast podcast-future-tense-morning 1`] = `
       },
     },
     {
-      "handed": {
-        "robot": "ball",
-      },
-      "held": {
-        "anna": "ball",
-      },
       "line": "anna: Tu máš jeho loptičku. V parku mu ju hodíš. Uvidíš.",
       "plan": {
         "beats": [
-          "50 show",
+          "50 point",
           "2350 tell",
           "3650 tell",
         ],
@@ -6841,23 +6772,13 @@ exports[`every scene, directed > podcast podcast-future-tense-morning 1`] = `
         "sentences": "50-1330 2350-3384 3650-4250",
         "words": "50-216 216-446 446-778 778-1330 2350-2350 2837-3018 3018-3101 3101-3185 3185-3384 3650-4250",
       },
-      "props": [
-        "ball",
-        undefined,
-        undefined,
-      ],
       "staging": {
         "addressee": "robot",
-        "approach": {
-          "characterId": "robot",
-          "toward": 1,
-        },
         "facing": {
           "anna": -1,
           "dog": 1,
           "robot": 1,
         },
-        "gives": "robot",
         "reactions": [
           {
             "at": 0.8,
@@ -6869,9 +6790,6 @@ exports[`every scene, directed > podcast podcast-future-tense-morning 1`] = `
       },
     },
     {
-      "held": {
-        "robot": "ball",
-      },
       "line": "robot: Hm. Dobre. Skúsim to.",
       "plan": {
         "beats": [
@@ -6893,9 +6811,6 @@ exports[`every scene, directed > podcast podcast-future-tense-morning 1`] = `
       },
     },
     {
-      "held": {
-        "robot": "ball",
-      },
       "line": "anna: Tak poďme! Dunčo, ideme do parku!",
       "plan": {
         "beats": [
@@ -6916,9 +6831,6 @@ exports[`every scene, directed > podcast podcast-future-tense-morning 1`] = `
       },
     },
     {
-      "held": {
-        "robot": "ball",
-      },
       "line": "dog: Haf! Haf!",
       "plan": {
         "beats": [
@@ -6999,39 +6911,23 @@ exports[`every scene, directed > podcast podcast-future-tense-park 1`] = `
       },
     },
     {
-      "held": {
-        "robot": "ball",
-      },
       "line": "robot: Dobre. Hodím loptičku. Teraz!",
       "plan": {
         "beats": [
           "0 nod",
-          "1500 show",
+          "1500 tell",
           "3200 stress",
         ],
         "ms": 4000,
         "sentences": "0-369 1500-2337 3200-3700",
         "words": "0-369 1500-1850 1850-2337 3200-3700",
       },
-      "props": [
-        undefined,
-        "ball",
-        undefined,
-      ],
       "staging": {
         "addressee": "anna",
-        "approach": {
-          "characterId": "anna",
-          "toward": 1,
-        },
         "facing": {
           "anna": 1,
           "dog": 1,
           "robot": -1,
-        },
-        "throws": {
-          "fetcher": "dog",
-          "side": 1,
         },
       },
     },
@@ -7052,7 +6948,6 @@ exports[`every scene, directed > podcast podcast-future-tense-park 1`] = `
           "dog": 1,
           "robot": -1,
         },
-        "looksAt": "robot",
       },
     },
     {
@@ -7086,25 +6981,15 @@ exports[`every scene, directed > podcast podcast-future-tense-park 1`] = `
       },
     },
     {
-      "handed": {
-        "robot": "ball",
-      },
-      "held": {
-        "dog": "ball",
-      },
       "line": "dog: Haf! Haf!",
       "plan": {
         "beats": [
-          "50 show",
+          "50 stress",
         ],
         "ms": 700,
         "sentences": "50-212 488-650",
         "words": "50-212 488-650",
       },
-      "props": [
-        "ball",
-        undefined,
-      ],
       "staging": {
         "addressee": "robot",
         "facing": {
@@ -7112,7 +6997,6 @@ exports[`every scene, directed > podcast podcast-future-tense-park 1`] = `
           "dog": 1,
           "robot": -1,
         },
-        "gives": "robot",
         "reactions": [
           {
             "at": 0.8,
@@ -7121,38 +7005,22 @@ exports[`every scene, directed > podcast podcast-future-tense-park 1`] = `
             "sentence": 1,
           },
         ],
-        "returns": {
-          "characterId": "dog",
-          "from": 1,
-          "to": "robot",
-        },
       },
     },
     {
-      "held": {
-        "robot": "ball",
-      },
       "line": "robot: Mne? Nesie loptičku mne?",
       "plan": {
         "beats": [
           "100 ask",
-          "1350 show",
+          "1350 ask",
         ],
         "ms": 3150,
         "questions": "100-338 1350-2900",
         "sentences": "100-338 1350-2900",
         "words": "100-338 1350-1862 1862-2631 2631-2900",
       },
-      "props": [
-        undefined,
-        "ball",
-      ],
       "staging": {
         "addressee": "anna",
-        "approach": {
-          "characterId": "anna",
-          "toward": 1,
-        },
         "facing": {
           "anna": 1,
           "dog": 1,
@@ -7169,9 +7037,6 @@ exports[`every scene, directed > podcast podcast-future-tense-park 1`] = `
       },
     },
     {
-      "held": {
-        "robot": "ball",
-      },
       "line": "anna: Áno, tebe. Už ťa má rád.",
       "plan": {
         "beats": [
@@ -7189,7 +7054,6 @@ exports[`every scene, directed > podcast podcast-future-tense-park 1`] = `
           "dog": 1,
           "robot": -1,
         },
-        "looksAt": "robot",
         "reactions": [
           {
             "at": 1,
@@ -7201,9 +7065,6 @@ exports[`every scene, directed > podcast podcast-future-tense-park 1`] = `
       },
     },
     {
-      "held": {
-        "robot": "ball",
-      },
       "line": "robot: Má ma rád. Uložím si to.",
       "plan": {
         "beats": [
@@ -7224,45 +7085,27 @@ exports[`every scene, directed > podcast podcast-future-tense-park 1`] = `
       },
     },
     {
-      "held": {
-        "anna": "phone",
-        "robot": "ball",
-      },
       "line": "anna: Počkaj, odfotím vás. Pošlem to Marekovi. Bude sa smiať.",
       "plan": {
         "beats": [
-          "100 show",
-          "2700 show",
-          "4450 show",
+          "100 think",
+          "2700 tell",
+          "4450 tell",
         ],
         "ms": 5800,
         "sentences": "100-1451 2700-3770 4450-5600",
         "words": "100-511 609-1206 1206-1451 2700-3040 3040-3186 3186-3770 4450-4955 4955-5207 5207-5600",
       },
-      "props": [
-        "phone",
-        "phone",
-        "phone",
-      ],
       "staging": {
         "addressee": "robot",
-        "approach": {
-          "characterId": "robot",
-          "toward": -1,
-        },
         "facing": {
           "anna": 1,
           "dog": 1,
           "robot": -1,
         },
-        "looksAt": "robot",
       },
     },
     {
-      "held": {
-        "anna": "phone",
-        "robot": "ball",
-      },
       "line": "anna: No, ja už musím ísť. Večer ti napíšem, dobre?",
       "plan": {
         "beats": [
@@ -7281,7 +7124,6 @@ exports[`every scene, directed > podcast podcast-future-tense-park 1`] = `
           "dog": 1,
           "robot": -1,
         },
-        "looksAt": "robot",
         "reactions": [
           {
             "at": 0.5,
@@ -7293,10 +7135,6 @@ exports[`every scene, directed > podcast podcast-future-tense-park 1`] = `
       },
     },
     {
-      "held": {
-        "anna": "phone",
-        "robot": "ball",
-      },
       "line": "robot: Dobre. Ďakujem, pani Anna.",
       "plan": {
         "beats": [
@@ -7314,7 +7152,6 @@ exports[`every scene, directed > podcast podcast-future-tense-park 1`] = `
           "dog": 1,
           "robot": -1,
         },
-        "looksAt": "anna",
         "reactions": [
           {
             "at": 1,
@@ -7326,10 +7163,6 @@ exports[`every scene, directed > podcast podcast-future-tense-park 1`] = `
       },
     },
     {
-      "held": {
-        "anna": "phone",
-        "robot": "ball",
-      },
       "line": "anna: Ahoj, Domo! Ahoj, Dunčo!",
       "plan": {
         "beats": [
@@ -7347,7 +7180,6 @@ exports[`every scene, directed > podcast podcast-future-tense-park 1`] = `
           "dog": 1,
           "robot": -1,
         },
-        "looksAt": "robot",
       },
     },
     {
@@ -7502,29 +7334,18 @@ exports[`every scene, directed > podcast podcast-future-tense-six 1`] = `
       },
     },
     {
-      "held": {
-        "robot": "ball",
-      },
       "line": "robot: Nechceš jesť… Ani loptičku nechceš.",
       "plan": {
         "beats": [
           "100 muse",
-          "2150 show",
+          "2150 tell",
         ],
         "ms": 3950,
         "sentences": "100-887 2150-3750",
         "words": "100-601 601-887 2150-2541 2541-3252 3252-3750",
       },
-      "props": [
-        undefined,
-        "ball",
-      ],
       "staging": {
         "addressee": "dog",
-        "approach": {
-          "characterId": "dog",
-          "toward": 1,
-        },
         "facing": {
           "dog": 1,
           "robot": -1,
@@ -7532,9 +7353,6 @@ exports[`every scene, directed > podcast podcast-future-tense-six 1`] = `
       },
     },
     {
-      "held": {
-        "robot": "ball",
-      },
       "line": "robot: Hm. Kňučí… asi je smutný. Ale prečo?",
       "plan": {
         "beats": [
@@ -7565,9 +7383,6 @@ exports[`every scene, directed > podcast podcast-future-tense-six 1`] = `
       },
     },
     {
-      "held": {
-        "robot": "ball",
-      },
       "line": "-: Prečo je Dunčo smutný? Hádajte s nami!",
       "plan": {
         "beats": [
