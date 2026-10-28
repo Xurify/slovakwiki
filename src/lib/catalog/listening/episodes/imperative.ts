@@ -281,245 +281,6 @@ const intro: ListeningChapter = {
   ],
 };
 
-/** The next morning: the recorder is back on the desk, at its far end, out of the way of the mugs. */
-const GAME_ACTS: Record<string, Cue[]> = {
-  "marek-slept": [{ do: "thumbs", on: "vyspal" }],
-};
-
-const game: ListeningChapter = {
-  id: `${PREFIX}game`,
-  titleSk: "Hra so slovesami",
-  title: "The verb game",
-  setup: { state: { recorder: { where: { on: "desk", dx: -70 } } } },
-  lines: staged(
-    PREFIX,
-    [
-      line(
-        "anna-back-in-studio",
-        "Anna",
-        ["Je ráno a sme späť v štúdiu."],
-        "It's morning and we're back in the studio.",
-      ),
-      line(
-        "marek-game-now",
-        "Marek",
-        [
-          "Včera sme u Márie počuli veľa rozkazov. ",
-          PAUSE,
-          "A Lucia vravela, že o pol hodiny",
-          STOP,
-          "a prišla až o hodinu a pol!",
-        ],
-        "Yesterday at Mária's we heard lots of commands. And Lucia said half an hour… and only came an hour and a half later!",
-      ),
-      line(
-        "anna-game-rules",
-        "Anna",
-        [
-          CHUCKLE,
-          "Ako vždy. ",
-          PAUSE,
-          "No nič, zahráme sa. ",
-          PAUSE,
-          "Ja poviem sloveso v tvare oni, ty z neho urobíš rozkaz.",
-        ],
-        "As always. Anyway, let's play. I'll say a verb in the oni (they) form, you turn it into a command.",
-      ),
-      line(
-        "marek-guess-with-us",
-        "Marek",
-        ["Dobre. ", mark("Hrajte"), " s nami!"],
-        "OK. Play along with us!",
-      ),
-      line(
-        "anna-first-verb",
-        "Anna",
-        [
-          "Napríklad: robia",
-          STOP,
-          mark("rob"),
-          ". ",
-          PAUSE,
-          "Prvé sloveso: ",
-          PAUSE,
-          "čítajú.",
-        ],
-        "For example: robia (they do)… rob, do. First verb: čítajú, they read.",
-      ),
-      line(
-        "marek-citaj",
-        "Marek",
-        ["Čítajú… ", PAUSE, mark("čítaj"), "!"],
-        "Čítajú… čítaj, read!",
-      ),
-      line(
-        "anna-citaj-second-verb",
-        "Anna",
-        [
-          "Správne! ",
-          mark("Čítaj"),
-          ", ",
-          mark("čítajte"),
-          ", ",
-          mark("čítajme"),
-          ". ",
-          PAUSE,
-          "Druhé: spia.",
-        ],
-        "Right! Čítaj, čítajte, čítajme. Second: spia, they sleep.",
-      ),
-      line(
-        "marek-spaj",
-        "Marek",
-        ["Spia… ", PAUSE, "je to spaj?"],
-        "Spia… is it spaj? (Wrong: built like čítaj.)",
-      ),
-      line(
-        "anna-ends-in-i",
-        "Anna",
-        ["Nie, to nie je spaj. ", PAUSE, "Končí sa na i."],
-        "No, not spaj. It ends in i.",
-      ),
-      line(
-        "marek-spi",
-        "Marek",
-        ["Na i… ", PAUSE, mark("spi"), "!"],
-        "In i… spi, sleep!",
-      ),
-      line(
-        "anna-spi-right",
-        "Anna",
-        [
-          "Výborne! ",
-          mark("Spi"),
-          ", ",
-          mark("spite"),
-          ", ",
-          mark("spime"),
-          ". ",
-          PAUSE,
-          "Tretie: idú.",
-        ],
-        "Excellent! Spi, spite, spime. Third: idú, they go.",
-      ),
-      line(
-        "marek-idi",
-        "Marek",
-        ["Idú… ", PAUSE, "idi?"],
-        "Idú… idi? (Wrong: ísť has its own form.)",
-      ),
-      line(
-        "anna-own-form",
-        "Anna",
-        ["Nie! ", PAUSE, "Ísť má vlastný tvar: ", mark("choď"), "."],
-        "No! Ísť has its own form: choď, go.",
-      ),
-      line(
-        "marek-chod",
-        "Marek",
-        [
-          "Aha",
-          STOP,
-          PAUSE,
-          mark("choď"),
-          ", ",
-          mark("choďte"),
-          ", ",
-          mark("choďme"),
-          ".",
-        ],
-        "Oh… choď, choďte, choďme.",
-      ),
-      line(
-        "anna-last-verb",
-        "Anna",
-        ["Presne tak! ", PAUSE, "A posledné: platia."],
-        "Exactly! And the last one: platia, they pay.",
-      ),
-      line(
-        "marek-plat",
-        "Marek",
-        ["Platia… ", PAUSE, mark("plať"), "!"],
-        "Platia… plať, pay!",
-      ),
-      line(
-        "anna-good-today",
-        "Anna",
-        [
-          "Super! ",
-          PAUSE,
-          "Pozor, na konci je mäkké ť: ",
-          mark("plať"),
-          ". ",
-          PAUSE,
-          "Marek, dnes ti to ide!",
-        ],
-        "Great! Careful, there's a soft ť at the end: plať. Marek, you're on a roll today!",
-      ),
-      line(
-        "marek-slept",
-        "Marek",
-        ["Lebo som sa vyspal!"],
-        "Because I got a good night's sleep!",
-      ),
-    ],
-    GAME_ACTS,
-  ),
-  checks: [
-    {
-      id: `${PREFIX}check-spi`,
-      gap: "Výborne! ___, spite, spime.",
-      prompt: "Ktoré slovo povedala Anna?",
-      promptEnglish: "Which word did Anna say?",
-      replayLineId: `${PREFIX}anna-spi-right`,
-      choices: [
-        { id: "spi", label: "spi" },
-        {
-          id: "spaj",
-          label: "spaj",
-          whyWrong:
-            "**Spaj** is Marek's wrong guess, built like **čítaj**. Anna says it ends in i: **spi**.",
-        },
-        {
-          id: "spis",
-          label: "spíš",
-          whyWrong: "**Spíš** means you sleep: it says what you do, it is not a command.",
-        },
-      ],
-      answerId: "spi",
-      feedback: {
-        english: "Excellent! Spi, spite, spime.",
-        why: "**Spia** leaves just **sp-**, which needs an i: **spi**, **spite**, **spime**.",
-      },
-    },
-    {
-      id: `${PREFIX}check-chod`,
-      prompt: "Aký je rozkaz od slovesa ísť?",
-      promptEnglish: "What is the command for ísť, to go?",
-      replayLineId: `${PREFIX}anna-own-form`,
-      choices: [
-        { id: "chod", label: "Choď!" },
-        {
-          id: "idi",
-          label: "Idi!",
-          whyWrong:
-            "**Idi** is Marek's wrong guess, built from **idú**. Anna says **nie**: ísť has its own form, **choď**.",
-        },
-        {
-          id: "ides",
-          label: "Ideš!",
-          whyWrong: "**Ideš** means you go: it says what you do, it is not a command.",
-        },
-      ],
-      answerId: "chod",
-      feedback: {
-        english: "Ísť has its own form: choď.",
-        why: "**Ísť** has its own imperative: **choď**, **choďte**, **choďme**.",
-      },
-    },
-  ],
-};
-
 /**
  * Mária's kitchen. Anna and Marek come in at the door, wash at the sink and
  * work at the counter while Mária runs the stove: Anna peels and chops, Marek
@@ -994,7 +755,7 @@ const TABLE_ACTS: Record<string, Cue[]> = {
     { do: "stand", on: "polievku" },
     { do: "go", to: "cook" },
     { do: "switch", what: "stove", to: "off" },
-    // Hungry, he checks how long half an hour is; the game picks up from there.
+    // Hungry, he checks how long half an hour is.
     { who: "marek", do: "look", to: "hodiny", on: "after" },
     { who: "anna", do: "laugh", on: "after" },
   ],
@@ -1175,25 +936,40 @@ const help: ListeningChapter = {
   title: "Your game: help Marek pick the command",
   lines: [
     line(
-      "anna-one-more-thing",
+      "anna-back-in-studio",
+      "Anna",
+      ["Je ráno a sme späť v štúdiu."],
+      "It's morning and we're back in the studio.",
+    ),
+    line(
+      "marek-yesterday-orders",
+      "Marek",
+      [
+        "Včera sme u Márie počuli veľa rozkazov. ",
+        PAUSE,
+        "A Lucia vravela, že o pol hodiny",
+        STOP,
+        "a prišla až o hodinu a pol!",
+      ],
+      "Yesterday at Mária's we heard lots of commands. And Lucia said half an hour… and only came an hour and a half later!",
+    ),
+    line(
+      "anna-do-you-remember",
       "Anna",
       [
         CHUCKLE,
-        "To je vidieť. ",
+        "Ako vždy. ",
         PAUSE,
-        "Keď ti to dnes tak ide, ",
-        mark("skúsme"),
-        " ešte niečo. ",
-        PAUSE,
-        "Ale tentokrát ti nepoviem tvar oni.",
+        "No nič. Marek, pamätáš si, čo ti včera všetko hovorila Mária?",
       ],
-      "It shows. Since it's going so well for you today, let's try one more thing. But this time I won't tell you the oni form.",
+      "As always. Anyway. Marek, do you remember everything Mária told you yesterday?",
+      { to: "Marek" },
     ),
     line(
-      "marek-no-oni-form",
+      "marek-lots-of-them",
       "Marek",
-      [SURPRISED, "Bez tvaru oni? ", PAUSE, "Ojoj."],
-      "Without the oni form? Uh-oh.",
+      [SURPRISED, "Ja? ", PAUSE, "Ojoj… ", PAUSE, "bolo toho veľa."],
+      "Me? Uh-oh… there was a lot of it.",
     ),
     line(
       "marek-listeners-help-me",
@@ -2058,7 +1834,7 @@ export const imperativeEpisode: ListeningEpisode = {
   title: "Water that little plant!",
   topic: "rob, robte, robme",
   promise:
-    "Anna and Marek cook soup at Mária's and take Lucia's call, then play a verb game the next morning while the studio plant waits for water. At the end, Marek needs your help with the commands.",
+    "Anna and Marek cook soup at Mária's and take Lucia's call. The next morning, with the studio plant still waiting for water, Marek needs your help with the commands.",
   grammarSlug: "imperative",
   speakers: ["Anna", "Marek", "Mária", "Lucia"],
   vocabulary: [
@@ -2069,5 +1845,5 @@ export const imperativeEpisode: ListeningEpisode = {
     { slovak: "Choď!", english: "Go!" },
     { slovak: "Nezabudnite!", english: "Don't forget!" },
   ],
-  chapters: [intro, kitchen, table, game, help, outro],
+  chapters: [intro, kitchen, table, help, outro],
 };
