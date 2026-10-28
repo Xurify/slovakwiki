@@ -212,10 +212,10 @@ const intro: ListeningChapter = {
   ],
 };
 
-const clockGame: ListeningChapter = {
-  id: `${PREFIX}clock-game`,
-  titleSk: "Hra s hodinami",
-  title: "The clock game",
+const clockLesson: ListeningChapter = {
+  id: `${PREFIX}clock-lesson`,
+  titleSk: "Hodiny pre Mareka",
+  title: "The clock, once more for Marek",
   lines: [
     line(
       "anna-back-one-oclock",
@@ -225,15 +225,15 @@ const clockGame: ListeningChapter = {
         mark("je jedna hodina"),
         ". ",
         PAUSE,
-        "Teraz malá skúška z hodín pre Mareka.",
+        "Marek, ešte raz si prejdeme hodiny.",
       ],
-      "We're back in the studio and it's one o'clock. Now a little test on telling time for Marek.",
+      "We're back in the studio and it's one o'clock. Marek, let's go over the clock once more.",
     ),
     line(
       "marek-why-me",
       "Marek",
-      ["Z hodín? ", PAUSE, "Prečo práve ja?"],
-      "Telling time? Why me of all people?",
+      ["Znova hodiny? ", PAUSE, "Prečo práve ja?"],
+      "The clock again? Why me of all people?",
     ),
     line("anna-thats-why", "Anna", [CHUCKLE, "Práve preto."], "That's exactly why."),
     line(
@@ -358,8 +358,8 @@ const clockGame: ListeningChapter = {
     line(
       "anna-now-for-listeners",
       "Anna",
-      ["Super. ", PAUSE, "A teraz hra pre vás, milí poslucháči."],
-      "Great. And now a game for you, dear listeners.",
+      ["Super. ", PAUSE, "A teraz vy, milí poslucháči."],
+      "Great. And now you, dear listeners.",
     ),
   ],
   checks: [
@@ -1139,7 +1139,7 @@ export const tellingTimeEpisode: ListeningEpisode = {
   title: "What time is it?",
   topic: "koľko je hodín",
   promise:
-    "Marek is late, then there's a tram at ten, a café that closes at six and a guest who comes at three. Back in the studio, Anna puts him through a clock game.",
+    "Marek is late, then there's a tram at ten, a café that closes at six and a guest who comes at three. Back in the studio, Anna goes over the clock with him once more, and then it's your turn.",
   grammarSlug: "telling-time",
   lessonId: "everyday/days-dates-and-time",
   practiceSetId: "days-dates-and-time",
@@ -1152,5 +1152,5 @@ export const tellingTimeEpisode: ListeningEpisode = {
     { slovak: "kaviareň", english: "café" },
     { slovak: "meškať", english: "to be late" },
   ],
-  chapters: [intro, tramStop, cafe, clockGame, quiz, outro],
+  chapters: [intro, tramStop, cafe, clockLesson, quiz, outro],
 };

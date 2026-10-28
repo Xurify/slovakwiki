@@ -86,298 +86,13 @@ const intro: ListeningChapter = {
           id: "food",
           label: "Jedlo.",
           whyWrong:
-            "**Jedlo** is food. An apple turns up later, but the topic is **ten, tá, to**.",
+            "**Jedlo** is food. Strawberries turn up at the market, but the topic is **ten, tá, to**.",
         },
       ],
       answerId: "demonstratives",
       feedback: {
         english: "Today we have a small topic: ten, tá, to.",
         why: "Anna says: **Dnes máme malú tému: ten, tá, to.**",
-      },
-    },
-  ],
-};
-
-const BAG_ACTS: Record<string, Cue[]> = {
-  "marek-key-is-here": [
-    { do: "take", what: "keys", on: "kľúč" },
-    { do: "raise", what: "keys", on: "tu" },
-  ],
-  "anna-dont-lose-it": [{ do: "point", to: "keys", on: "nestrať" }],
-  // Somewhere safe: the bag on the desk, which is where the game finds it.
-  "marek-i-wont": [{ do: "put", what: "keys", to: "bag", on: "nestratím" }],
-  "marek-bag-three-things": [{ do: "point", to: "bag", on: "tašku" }],
-  "marek-small-opens-doors": [{ do: "point", to: "dvere", on: "dvere" }],
-  "anna-its-a-key": [{ do: "nod", on: "kľúč" }],
-  "marek-car-key": [
-    { do: "take", what: "keys", on: "správne" },
-    { do: "raise", what: "keys", on: "kľúč" },
-    { do: "put", what: "keys", to: "bag", on: "auta" },
-  ],
-  "marek-dictionary": [
-    { do: "take", what: "book", on: "presne" },
-    { do: "raise", what: "book", on: "kniha" },
-    { do: "put", what: "book", to: "bag", on: "slovník" },
-  ],
-  "marek-not-a-pear": [{ do: "shrug", on: "nie" }],
-  "anna-apple": [{ do: "nod", on: "jablko" }],
-  "marek-apple-for-you": [
-    { do: "take", what: "apple", on: "výborne" },
-    { do: "raise", what: "apple", on: "to" },
-    { do: "put", what: "apple", to: "desk", dx: 31, on: "jablko" },
-    { do: "slide", what: "apple", to: "desk", dx: -20, on: "teba" },
-  ],
-  "anna-hungry": [
-    { do: "take", what: "apple", on: "ďakujem" },
-    { do: "taste", what: "apple", on: "hlad" },
-    { do: "put", what: "apple", to: "desk", dx: -26, on: "after" },
-  ],
-};
-
-const bag: ListeningChapter = {
-  id: `${PREFIX}bag`,
-  titleSk: "Čo je to?",
-  title: "The bag game",
-  setup: {
-    objects: [
-      { id: "bag", kind: "bag", start: { where: { on: "desk", dx: 8 } } },
-      { id: "keys", kind: "keys", start: { where: { pocket: "marek" } } },
-      { id: "book", kind: "book", start: { where: { in: "bag" } } },
-      { id: "apple", kind: "apple", start: { where: { in: "bag" } } },
-    ],
-  },
-  lines: staged(
-    PREFIX,
-    [
-      line(
-        "anna-back-in-studio",
-        "Anna",
-        ["Tak, sme späť v štúdiu."],
-        "So, we're back in the studio.",
-      ),
-      line(
-        "marek-key-is-here",
-        "Marek",
-        ["Áno. A ", mark("ten"), " kľúč mám tu."],
-        "Yes. And I have that key here.",
-      ),
-      line(
-        "anna-dont-lose-it",
-        "Anna",
-        [CHUCKLE, "Tak ho už nestrať!"],
-        "Then don't lose it again!",
-      ),
-      line("marek-i-wont", "Marek", ["Nestratím, sľubujem."], "I won't, I promise."),
-      line(
-        "marek-bag-three-things",
-        "Marek",
-        ["Anna, mám tu tašku. V taške sú tri veci."],
-        "Anna, I have a bag here. There are three things in the bag.",
-      ),
-      line(
-        "anna-what-is-it",
-        "Anna",
-        ["Dobre. Čo je ", mark("to"), "?"],
-        "OK. What is it?",
-      ),
-      line(
-        "marek-small-opens-doors",
-        "Marek",
-        ["Prvá vec. ", PAUSE, "Je ", mark("to"), " malé", STOP, PAUSE, "a otvára dvere."],
-        "First thing. It's small… and it opens doors.",
-      ),
-      line(
-        "anna-its-a-key",
-        "Anna",
-        [
-          "Hm… ",
-          PAUSE,
-          mark("to"),
-          " je ",
-          mark("ten"),
-          " kľúč! ",
-          PAUSE,
-          "Veď si ho tam práve dal.",
-        ],
-        "Hmm… it's that key! You just put it in there.",
-      ),
-      line(
-        "marek-car-key",
-        "Marek",
-        ["Správne! ", mark("Ten"), " kľúč je od auta."],
-        "Right! That key is for the car.",
-      ),
-      line(
-        "anna-second-thing",
-        "Anna",
-        ["Super! A druhá vec?"],
-        "Great! And the second thing?",
-      ),
-      line(
-        "marek-heavy-paper",
-        "Marek",
-        [
-          "Je ",
-          mark("to"),
-          " žlté",
-          STOP,
-          PAUSE,
-          "je ",
-          mark("to"),
-          " ťažké",
-          STOP,
-          PAUSE,
-          "a vnútri je papier.",
-        ],
-        "It's yellow… it's heavy… and there's paper inside.",
-      ),
-      line(
-        "anna-is-it-a-box",
-        "Anna",
-        ["Žlté a ťažké… ", PAUSE, "je ", mark("to"), " krabica?"],
-        "Yellow and heavy… is it a box?",
-      ),
-      line(
-        "marek-not-a-box",
-        "Marek",
-        [
-          "Nie, nie je ",
-          mark("to"),
-          " krabica. ",
-          PAUSE,
-          "Je ",
-          mark("to"),
-          " z papiera.",
-        ],
-        "No, it's not a box. It's made of paper.",
-      ),
-      line(
-        "anna-is-it-a-book",
-        "Anna",
-        ["Z papiera… ", PAUSE, "je ", mark("to"), " kniha?"],
-        "Made of paper… is it a book?",
-      ),
-      line(
-        "marek-dictionary",
-        "Marek",
-        ["Presne tak! ", mark("Tá"), " žltá kniha je slovník."],
-        "Exactly! That yellow book is a dictionary.",
-      ),
-      line(
-        "anna-third-thing",
-        "Anna",
-        [mark("Tá"), " kniha je veľká! A ", mark("tá"), " tretia vec?"],
-        "That book is big! And that third thing?",
-      ),
-      line(
-        "marek-green-sweet",
-        "Marek",
-        ["Je ", mark("to"), " zelené", STOP, PAUSE, "a je ", mark("to"), " sladké."],
-        "It's green… and it's sweet.",
-      ),
-      line(
-        "anna-a-pear",
-        "Anna",
-        ["Zelené a sladké… ", PAUSE, "hruška?"],
-        "Green and sweet… a pear?",
-      ),
-      line(
-        "marek-not-a-pear",
-        "Marek",
-        ["Nie, hruška nie. ", PAUSE, "Je ", mark("to"), " okrúhle."],
-        "No, not a pear. It's round.",
-      ),
-      line(
-        "anna-apple",
-        "Anna",
-        ["Okrúhle a sladké… ", PAUSE, "jablko! ", mark("To"), " je jablko."],
-        "Round and sweet… an apple! It's an apple.",
-      ),
-      line(
-        "marek-apple-for-you",
-        "Marek",
-        ["Výborne! A ", mark("to"), " jablko je pre teba."],
-        "Excellent! And that apple is for you.",
-      ),
-      line("anna-hungry", "Anna", ["Ďakujem! Mám hlad."], "Thanks! I'm hungry."),
-    ],
-    BAG_ACTS,
-  ),
-  checks: [
-    {
-      id: `${PREFIX}check-first-thing`,
-      prompt: "Čo je prvá vec v Marekovej taške?",
-      promptEnglish: "What is the first thing in Marek's bag?",
-      replayLineId: `${PREFIX}marek-small-opens-doors`,
-      choices: [
-        { id: "key", label: "Kľúč." },
-        {
-          id: "book",
-          label: "Kniha.",
-          whyWrong:
-            "**Kniha** is a book, the second thing: yellow, heavy, with paper inside.",
-        },
-        {
-          id: "apple",
-          label: "Jablko.",
-          whyWrong: "**Jablko** is an apple, the third thing: green and sweet.",
-        },
-      ],
-      answerId: "key",
-      feedback: {
-        english: "It's small… and it opens doors.",
-        why: "Marek says **otvára dvere**, it opens doors, so Anna guesses **kľúč**.",
-      },
-    },
-    {
-      id: `${PREFIX}check-key-form`,
-      gap: "___ kľúč je od auta.",
-      prompt: "Ktoré slovo povedal Marek?",
-      promptEnglish: "Which word did Marek say?",
-      replayLineId: `${PREFIX}marek-car-key`,
-      choices: [
-        { id: "ten", label: "ten" },
-        {
-          id: "ta",
-          label: "tá",
-          whyWrong: "**Tá** goes with feminine nouns like **kniha**.",
-        },
-        {
-          id: "to",
-          label: "to",
-          whyWrong: "**To** goes with neuter nouns like **jablko**.",
-        },
-      ],
-      answerId: "ten",
-      feedback: {
-        english: "That key is for the car.",
-        why: "**Kľúč** is masculine, so **ten kľúč**.",
-      },
-    },
-    {
-      id: `${PREFIX}check-apple-for`,
-      prompt: "Pre koho je jablko?",
-      promptEnglish: "Who is the apple for?",
-      replayLineId: `${PREFIX}marek-apple-for-you`,
-      choices: [
-        { id: "anna", label: "Pre Annu." },
-        {
-          id: "marek",
-          label: "Pre Mareka.",
-          whyWrong:
-            "**Pre Mareka** means for Marek, but he is giving it away: **pre teba**, for you, to Anna.",
-        },
-        {
-          id: "listeners",
-          label: "Pre poslucháčov.",
-          whyWrong:
-            "**Pre poslucháčov** means for the listeners. Marek says **pre teba**, for you, to Anna.",
-        },
-      ],
-      answerId: "anna",
-      feedback: {
-        english: "And that apple is for you.",
-        why: "Marek says **to jablko je pre teba**, and he is talking to Anna.",
       },
     },
   ],
@@ -782,7 +497,7 @@ const quiz: ListeningChapter = {
         "anna-now-test-for-you",
         "Anna",
         [
-          "Mňam. ",
+          "Tak, sme späť v štúdiu. ",
           PAUSE,
           "A teraz malá skúška pre teba, Marek: ",
           mark("ten"),
@@ -792,7 +507,7 @@ const quiz: ListeningChapter = {
           mark("to"),
           ".",
         ],
-        "Yum. And now a little test for you, Marek: ten, tá, to.",
+        "So, we're back in the studio. And now a little test for you, Marek: ten, tá, to.",
       ),
       line(
         "marek-never-get-these",
@@ -1350,10 +1065,10 @@ const outro: ListeningChapter = {
       choices: [
         { id: "keys", label: "Kľúče." },
         {
-          id: "apple",
-          label: "Jablko.",
+          id: "mic",
+          label: "Mikrofón.",
           whyWrong:
-            "**Jablko** is an apple, from the bag game. Now Marek asks **kde sú tie kľúče?**",
+            "**Mikrofón** is the microphone, on the desk. Marek asks **kde sú tie kľúče?**",
         },
         {
           id: "bag",
@@ -1380,18 +1095,15 @@ export const demonstrativesEpisode: ListeningEpisode = {
   title: "Where is that key?",
   topic: "ten, tá, to",
   promise:
-    "Anna and Marek shop at the market, lose the car key at home and play a guessing game back in the studio. At the end, Marek needs your help.",
+    "Anna and Marek shop at the market and lose the car key at home. Back in the studio, Marek needs your help with the little words.",
   grammarSlug: "demonstratives",
   lessonId: "grammar/demonstratives",
   practiceSetId: "demonstratives",
   speakers: ["Anna", "Marek", "Lucia"],
   vocabulary: [
     { slovak: "kľúč", english: "key" },
-    { slovak: "kniha", english: "book" },
-    { slovak: "jablko", english: "apple" },
     { slovak: "syr", english: "cheese" },
     { slovak: "jahody", english: "strawberries" },
-    { slovak: "Čo je to?", english: "What is it?" },
   ],
-  chapters: [intro, market, home, bag, quiz, outro],
+  chapters: [intro, market, home, quiz, outro],
 };

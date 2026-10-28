@@ -175,7 +175,7 @@ const PHOTOS_ACTS: Record<string, Cue[]> = {
 const photos: ListeningChapter = {
   id: `${PREFIX}photos`,
   titleSk: "Kto je to?",
-  title: "The photo game",
+  title: "Marek's photos",
   // Each place keeps its own set, so the studio still has the umbrella Marek gave back on the square.
   setup: {
     state: { umbrella: { where: { pocket: "lucia" } } },
@@ -187,8 +187,8 @@ const photos: ListeningChapter = {
       line(
         "anna-back-marek-has-game",
         "Anna",
-        ["Sme späť v štúdiu. ", PAUSE, "A Marek má pre nás hru."],
-        "We're back in the studio. And Marek has a game for us.",
+        ["Sme späť v štúdiu. ", PAUSE, "Marek má pre nás nejaké fotky."],
+        "We're back in the studio. Marek has some photos for us.",
       ),
       line(
         "marek-phone-photos",
@@ -823,8 +823,8 @@ const quiz: ListeningChapter = {
       line(
         "anna-photos-now-test",
         "Anna",
-        ["Pekné fotky, Marek. ", PAUSE, "A teraz malá skúška, tentoraz pre teba."],
-        "Nice photos, Marek. And now a little test, this time for you.",
+        ["Pekné fotky, Marek. ", PAUSE, "A teraz malá skúška pre teba."],
+        "Nice photos, Marek. And now a little test for you.",
       ),
       line(
         "anna-the-rules",
@@ -1168,7 +1168,7 @@ export const possessivesEpisode: ListeningEpisode = {
   title: "Whose umbrella is this?",
   topic: "môj, jeho, svoj",
   promise:
-    "Anna and Marek find an umbrella nobody owns, ask at the language school, find Lucia on the square and play a game with family photos back in the studio.",
+    "Anna and Marek find an umbrella nobody owns, ask at the language school, find Lucia on the square and look at Marek's family photos back in the studio. At the end, you decide whether Marek got it right.",
   grammarSlug: "possessives",
   lessonId: "grammar/possessives",
   practiceSetId: "possessives",
