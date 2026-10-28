@@ -13,7 +13,7 @@ What stays with a person, at review time and not before: how a voice sounds, how
 
 ## The members
 
-Each member is a fresh agent, on a different model from the writer's (Sonnet when the writer is Opus). A member gets the question, the options and the evidence (script tables, contact sheets) and nothing else: no plan, no grammar goals, no other member's answer, and no word on which option the writer prefers.
+Each member is a fresh agent started with `model: "sonnet"`; an agent started without it runs on the writer's model, and Opus validators took 6 to 11 minutes where Sonnet took 2.5. A member gets the question, the options and the evidence (script tables, contact sheets) and nothing else: no plan, no grammar goals, no other member's answer, and no word on which option the writer prefers.
 
 1. **Native ear.** An adult Slovak editor. Is it correct, and is it what a Slovak would say here, in this register? When unsure, says so instead of guessing.
 2. **First-time viewer.** Watches the episode once. Does the story hold together, does the picture match the words, does each scene end naturally and the episode end with a laugh?

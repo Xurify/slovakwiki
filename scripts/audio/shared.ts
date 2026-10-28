@@ -471,7 +471,7 @@ export function parseArgs(
   let only: string | undefined;
   let slugs: Set<string> | undefined;
   let retries = 2;
-  let sttProvider: "elevenlabs" | "whisper" | "dual" = "dual";
+  let sttProvider: "elevenlabs" | "whisper" | "dual" = "elevenlabs";
   let sttModel = "scribe_v2";
   let whisperModel = "small";
   let verify = false;

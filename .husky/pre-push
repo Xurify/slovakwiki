@@ -1,0 +1,7 @@
+# astro check is ~30s, the one heavy step, so it runs once per push, not on
+# every commit: iterating threads commit often. A push can cost a Vercel deploy,
+# so catch type errors here before it leaves.
+# sh -e: a no-match grep must stay inside `if` or the hook aborts.
+if git diff --name-only --diff-filter=ACMRD "$(git merge-base HEAD origin/master 2>/dev/null || echo HEAD~1)" HEAD | grep -Eq '^(src/|scripts/).+\.(astro|cjs|js|json|mjs|svelte|ts|tsx)$|^(astro\.config\.ts|eslint\.config\.js|package\.json|svelte\.config\.js|tsconfig\.json)$'; then
+  bun run check
+fi
