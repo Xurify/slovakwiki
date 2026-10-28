@@ -482,7 +482,7 @@ const kitchen: ListeningChapter = {
       line(
         "maria-counting-veg",
         "Mária",
-        ["Tak", STOP, "mrkva,", PAUSE, "soľ", STOP],
+        ["Tak", STOP, "mrkva", PAUSE, "soľ", STOP],
         "Right… carrots, salt…",
       ),
       line(

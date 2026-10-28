@@ -8450,15 +8450,15 @@ exports[`every scene, directed > podcast podcast-imperative-kitchen 1`] = `
   ],
   "lines": [
     {
-      "line": "maria: Tak… mrkva,soľ… ",
+      "line": "maria: Tak… mrkvasoľ… ",
       "plan": {
         "beats": [
           "50 muse",
-          "750 muse",
+          "850 muse",
         ],
-        "ms": 3200,
-        "sentences": "50-317 700-3000",
-        "words": "50-317 700-1244 2707-3000",
+        "ms": 3050,
+        "sentences": "50-315 850-2850",
+        "words": "50-315 850-2850 2010-2220",
       },
       "staging": {
         "addressee": "anna",
