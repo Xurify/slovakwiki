@@ -8,7 +8,7 @@
     "dev": "astro dev --host 0.0.0.0",
     "build": "astro build",
     "check": "astro check && svelte-check --tsconfig ./tsconfig.json --fail-on-warnings",
-    "lint": "prettier --check . && eslint src/lib scripts",
+    "lint": "bun fmt --check . && eslint src/lib scripts",
     "typecheck": "bun run check",
     "preview": "astro preview --host 0.0.0.0",
     "test": "vitest run",
@@ -17,8 +17,8 @@
     "cwv:check": "bun scripts/cwv/check-dictionary-size.ts",
     "audio:check": "bun scripts/audio/check-build.ts",
     "fouc:boot": "bun scripts/fouc/generate.ts",
-    "format": "prettier --write .",
-    "format:check": "prettier --check .",
+    "format": "bun fmt",
+    "format:check": "bun fmt --check",
     "prepare": "husky"
   },
   "dependencies": {
@@ -41,12 +41,10 @@
     "aws4fetch": "^1.0.20",
     "eslint": "^10.8.1",
     "husky": "^9.1.7",
-    "lint-staged": "^17.3.0",
     "mpg123-decoder": "1.0.3",
     "pagefind": "^1.5.2",
     "prettier": "^3.9.6",
     "prettier-plugin-astro": "^0.14.1",
-    "prettier-plugin-svelte": "^4.1.1",
     "seek-bzip": "^2.0.0",
     "svelte": "^5.55.9",
     "svelte-check": "^4.7.7",
@@ -55,9 +53,5 @@
     "typescript-eslint": "^8.67.0",
     "vite": "^8.0.14",
     "vitest": "^4.1.7"
-  },
-  "lint-staged": {
-    "*": "prettier --write --ignore-unknown",
-    "{src/lib,scripts}/**/*.{cjs,js,mjs,svelte,ts}": "eslint --no-warn-ignored"
   }
 }
