@@ -63,10 +63,10 @@ const intro: ListeningChapter = {
       "Small? That's not a small topic, Anna!",
     ),
     line(
-      "anna-lets-go",
+      "anna-recording-at-market",
       "Anna",
-      ["Dobre, dobre. Poďme na trh!"],
-      "OK, OK. Let's go to the market!",
+      ["Dobre, dobre. ", PAUSE, "Dnes nahrávame na trhu. Poďme!"],
+      "OK, OK. Today we're recording at the market. Let's go!",
     ),
   ],
   checks: [
@@ -99,13 +99,20 @@ const intro: ListeningChapter = {
 };
 
 const BAG_ACTS: Record<string, Cue[]> = {
+  "marek-key-is-here": [
+    { do: "take", what: "keys", on: "kľúč" },
+    { do: "raise", what: "keys", on: "tu" },
+  ],
+  "anna-dont-lose-it": [{ do: "point", to: "keys", on: "nestrať" }],
+  // Somewhere safe: the bag on the desk, which is where the game finds it.
+  "marek-i-wont": [{ do: "put", what: "keys", to: "bag", on: "nestratím" }],
   "marek-bag-three-things": [{ do: "point", to: "bag", on: "tašku" }],
   "marek-small-opens-doors": [{ do: "point", to: "dvere", on: "dvere" }],
   "anna-its-a-key": [{ do: "nod", on: "kľúč" }],
   "marek-car-key": [
-    { do: "take", what: "key", on: "správne" },
-    { do: "raise", what: "key", on: "kľúč" },
-    { do: "put", what: "key", to: "bag", on: "auta" },
+    { do: "take", what: "keys", on: "správne" },
+    { do: "raise", what: "keys", on: "kľúč" },
+    { do: "put", what: "keys", to: "bag", on: "auta" },
   ],
   "marek-dictionary": [
     { do: "take", what: "book", on: "presne" },
@@ -134,7 +141,7 @@ const bag: ListeningChapter = {
   setup: {
     objects: [
       { id: "bag", kind: "bag", start: { where: { on: "desk", dx: 8 } } },
-      { id: "key", kind: "keys", start: { where: { in: "bag" } } },
+      { id: "keys", kind: "keys", start: { where: { pocket: "marek" } } },
       { id: "book", kind: "book", start: { where: { in: "bag" } } },
       { id: "apple", kind: "apple", start: { where: { in: "bag" } } },
     ],
@@ -143,10 +150,29 @@ const bag: ListeningChapter = {
     PREFIX,
     [
       line(
+        "anna-back-in-studio",
+        "Anna",
+        ["Tak, sme späť v štúdiu."],
+        "So, we're back in the studio.",
+      ),
+      line(
+        "marek-key-is-here",
+        "Marek",
+        ["Áno. A ", mark("ten"), " kľúč mám tu."],
+        "Yes. And I have that key here.",
+      ),
+      line(
+        "anna-dont-lose-it",
+        "Anna",
+        [CHUCKLE, "Tak ho už nestrať!"],
+        "Then don't lose it again!",
+      ),
+      line("marek-i-wont", "Marek", ["Nestratím, sľubujem."], "I won't, I promise."),
+      line(
         "marek-bag-three-things",
         "Marek",
-        ["Sme späť v štúdiu. Anna, mám tu tašku. V taške sú tri veci."],
-        "We're back in the studio. Anna, I have a bag here. There are three things in the bag.",
+        ["Anna, mám tu tašku. V taške sú tri veci."],
+        "Anna, I have a bag here. There are three things in the bag.",
       ),
       line(
         "anna-what-is-it",
@@ -163,8 +189,17 @@ const bag: ListeningChapter = {
       line(
         "anna-its-a-key",
         "Anna",
-        ["Hm… ", PAUSE, mark("to"), " je kľúč!"],
-        "Hmm… it's a key!",
+        [
+          "Hm… ",
+          PAUSE,
+          mark("to"),
+          " je ",
+          mark("ten"),
+          " kľúč! ",
+          PAUSE,
+          "Veď si ho tam práve dal.",
+        ],
+        "Hmm… it's that key! You just put it in there.",
       ),
       line(
         "marek-car-key",
@@ -265,12 +300,6 @@ const bag: ListeningChapter = {
         "Excellent! And that apple is for you.",
       ),
       line("anna-hungry", "Anna", ["Ďakujem! Mám hlad."], "Thanks! I'm hungry."),
-      line(
-        "anna-now-the-quiz",
-        "Anna",
-        ["Jablko je výborné. A teraz malá skúška pre Mareka!"],
-        "The apple is delicious. And now a little test for Marek!",
-      ),
     ],
     BAG_ACTS,
   ),
@@ -462,7 +491,12 @@ const market: ListeningChapter = {
         ["Anna vždy kupuje slovenské jahody."],
         "Anna always buys Slovak strawberries.",
       ),
-      line("anna-lets-go-home", "Anna", ["Dobre. Poďme domov!"], "OK. Let's go home!"),
+      line(
+        "anna-lets-go-home",
+        "Anna",
+        ["Dobre. Poďme domov na obed!"],
+        "OK. Let's go home for lunch!",
+      ),
     ],
     MARKET_ACTS,
   ),
@@ -587,8 +621,8 @@ const home: ListeningChapter = {
       line(
         "marek-where-is-key",
         "Marek",
-        ["Anna, kde je ", mark("ten"), " malý kľúč?"],
-        "Anna, where is that small key?",
+        ["Anna, kde je ", mark("ten"), " malý kľúč? ", PAUSE, "Nikde ho nevidím."],
+        "Anna, where is that small key? I can't see it anywhere.",
       ),
       line(
         "anna-car-or-flat",
@@ -737,23 +771,20 @@ const home: ListeningChapter = {
   ],
 };
 
-const QUIZ_ACTS: Record<string, Cue[]> = {};
-
 const quiz: ListeningChapter = {
   id: `${PREFIX}quiz`,
   titleSk: "Pomôžte Marekovi",
-  title: "Quiz: help Marek pick the word",
-  setup: {
-    objects: [{ id: "keys", kind: "keys", start: { where: { pocket: "marek" } } }],
-  },
+  title: "Your game: help Marek pick the word",
   lines: staged(
     PREFIX,
     [
       line(
-        "anna-test-for-marek",
+        "anna-now-test-for-you",
         "Anna",
         [
-          "A teraz malá skúška pre Mareka: ",
+          "Mňam. ",
+          PAUSE,
+          "A teraz malá skúška pre teba, Marek: ",
           mark("ten"),
           ", ",
           mark("tá"),
@@ -761,7 +792,7 @@ const quiz: ListeningChapter = {
           mark("to"),
           ".",
         ],
-        "And now a little test for Marek: ten, tá, to.",
+        "Yum. And now a little test for you, Marek: ten, tá, to.",
       ),
       line(
         "marek-never-get-these",
@@ -975,9 +1006,9 @@ const quiz: ListeningChapter = {
             " deti. ",
             PAUSE,
             mark("Tí"),
-            " je pre mužov a chlapcov.",
+            " patrí k slovám muži, chlapci, ľudia.",
           ],
-          "Right! Tie deti. Tí is for men and boys.",
+          "Right! Tie deti. Tí belongs to words like muži, chlapci, ľudia.",
         ),
         { ask: `${PREFIX}marek-tie-or-ti`, picks: ["tie", NO_PICK] },
       ),
@@ -993,13 +1024,13 @@ const quiz: ListeningChapter = {
             "Nesprávne! ",
             PAUSE,
             mark("Tí"),
-            " je pre mužov a chlapcov. ",
+            " patrí k slovám muži, chlapci, ľudia. ",
             PAUSE,
             "Ale ",
             mark("tie"),
             " deti.",
           ],
-          "Wrong! Tí is for men and boys. But tie deti.",
+          "Wrong! Tí belongs to words like muži, chlapci, ľudia. But tie deti.",
           { gestures: ["shake"] },
         ),
         { ask: `${PREFIX}marek-tie-or-ti`, picks: ["ti"] },
@@ -1030,12 +1061,12 @@ const quiz: ListeningChapter = {
             "A posledná veta: poznám",
             STOP,
             PAUSE,
-            mark("tohto"),
+            mark("toho"),
             " muža, alebo ",
-            mark("tohoto"),
-            " muža?",
+            mark("ten"),
+            " muž?",
           ],
-          "And the last sentence: I know… tohto muža, or tohoto muža?",
+          "And the last sentence: I know… toho muža, or ten muž?",
         ),
         wait: BEAT_MS,
       },
@@ -1049,87 +1080,81 @@ const quiz: ListeningChapter = {
         {
           prompt: "Čo má Marek povedať?",
           choices: [
-            { id: "tohto", label: "Poznám tohto muža", english: "I know this man" },
-            { id: "tohoto", label: "Poznám tohoto muža", english: "I know this man" },
+            { id: "toho", label: "Poznám toho muža", english: "I know that man" },
+            { id: "ten", label: "Poznám ten muž", english: "I know that man" },
           ],
-          answerId: "tohto",
+          answerId: "toho",
           judge: "Anna",
         },
       ),
       onPath(
         line(
-          "marek-tohto-muza",
+          "marek-toho-muza",
           "Marek",
           [
-            mark("Tohto"),
+            mark("Toho"),
             " muža, hovoríte? ",
             PAUSE,
             "Dobre: poznám ",
-            mark("tohto"),
+            mark("toho"),
             " muža.",
           ],
-          "Tohto muža, you say? OK: I know this man.",
+          "Toho muža, you say? OK: I know that man.",
         ),
-        { ask: `${PREFIX}marek-so-helpers`, picks: ["tohto"] },
+        { ask: `${PREFIX}marek-so-helpers`, picks: ["toho"] },
       ),
       onPath(
         line(
-          "marek-tohoto-muza",
+          "marek-ten-muz",
           "Marek",
-          [
-            mark("Tohoto"),
-            " muža, hovoríte? ",
-            PAUSE,
-            "Dobre: poznám ",
-            mark("tohoto"),
-            " muža.",
-          ],
-          "Tohoto muža, you say? OK: I know this man.",
+          ["Ten muž, hovoríte? ", PAUSE, "Dobre: poznám ten muž."],
+          "Ten muž, you say? OK: I know that man. (Said wrong on purpose.)",
         ),
-        { ask: `${PREFIX}marek-so-helpers`, picks: ["tohoto"] },
+        { ask: `${PREFIX}marek-so-helpers`, picks: ["ten"] },
       ),
       onPath(
         line(
-          "marek-silence-tohto",
+          "marek-silence-toho",
           "Marek",
-          ["Ticho? ", PAUSE, "Dobre. Poznám ", mark("tohto"), " muža."],
-          "Silence? OK. I know this man.",
+          ["Ticho? ", PAUSE, "Dobre. Poznám ", mark("toho"), " muža."],
+          "Silence? OK. I know that man.",
         ),
         { ask: `${PREFIX}marek-so-helpers`, picks: [NO_PICK] },
       ),
       onPath(
         line(
-          "anna-tohto-right",
+          "anna-toho-right",
           "Anna",
-          ["Správne! ", PAUSE, mark("Tohto"), ". Tohoto je po česky."],
-          "Right! Tohto. Tohoto is Czech.",
+          ["Správne! ", PAUSE, "Poznám koho? ", mark("Toho"), " muža."],
+          "Right! I know whom? Toho muža.",
         ),
-        { ask: `${PREFIX}marek-so-helpers`, picks: ["tohto", NO_PICK] },
+        { ask: `${PREFIX}marek-so-helpers`, picks: ["toho", NO_PICK] },
       ),
       onPath(
         line(
-          "anna-tohto-not-tohoto",
+          "anna-toho-not-ten",
           "Anna",
           [
             "Skoro, ale nie celkom. ",
             PAUSE,
-            "Tohoto je po česky. Po slovensky hovoríme ",
-            mark("tohto"),
-            ".",
+            mark("Ten"),
+            " muž stojí vonku. Ale poznám ",
+            mark("toho"),
+            " muža.",
           ],
-          "Close, but not quite. Tohoto is Czech. In Slovak we say tohto.",
+          "Close, but not quite. Ten muž is standing outside. But poznám toho muža.",
           { gestures: ["shake"] },
         ),
-        { ask: `${PREFIX}marek-so-helpers`, picks: ["tohoto"] },
+        { ask: `${PREFIX}marek-so-helpers`, picks: ["ten"] },
       ),
       onPath(
         line(
-          "marek-that-czech",
+          "marek-like-mr-novak",
           "Marek",
-          ["Aha. ", PAUSE, "Tá čeština!"],
-          "Oh. That Czech!",
+          ["Aha. ", PAUSE, "Ako pán Novák: ", mark("toho"), " muža poznám."],
+          "Oh. Like Mr Novák: toho muža poznám.",
         ),
-        { ask: `${PREFIX}marek-so-helpers`, picks: ["tohoto"] },
+        { ask: `${PREFIX}marek-so-helpers`, picks: ["ten"] },
       ),
       onPath(
         line(
@@ -1138,7 +1163,7 @@ const quiz: ListeningChapter = {
           ["Uf. ", PAUSE, "To bolo ťažké."],
           "Phew. That was hard.",
         ),
-        { ask: `${PREFIX}marek-so-helpers`, picks: ["tohto", NO_PICK] },
+        { ask: `${PREFIX}marek-so-helpers`, picks: ["toho", NO_PICK] },
       ),
       ...ending(
         { score: [3] },
@@ -1198,7 +1223,7 @@ const quiz: ListeningChapter = {
         ],
       ),
     ],
-    QUIZ_ACTS,
+    { "anna-now-test-for-you": [{ do: "nod", on: "skúška" }] },
   ),
   checks: [
     {
@@ -1224,32 +1249,33 @@ const quiz: ListeningChapter = {
       answerId: "tie",
       feedback: {
         english: "Those children.",
-        why: "Anna says **tí je pre mužov a chlapcov**, so children take **tie**.",
+        why: "Anna says **tí** goes with words like **muži, chlapci, ľudia**; children take **tie**.",
       },
     },
     {
-      id: `${PREFIX}check-tohto`,
-      gap: "Poznám ___ muža.",
-      prompt: "Ako sa to povie po slovensky?",
-      promptEnglish: "How do you say it in Slovak?",
-      replayLineId: `${PREFIX}anna-tohto-right`,
+      id: `${PREFIX}check-ten-stands`,
+      gap: "___ muž stojí vonku.",
+      prompt: "Ktoré slovo povedala Anna?",
+      promptEnglish: "Which word did Anna say?",
+      replayLineId: `${PREFIX}anna-toho-not-ten`,
       choices: [
-        { id: "tohto", label: "tohto" },
+        { id: "ten", label: "Ten" },
         {
-          id: "tohoto",
-          label: "tohoto",
-          whyWrong: "**Tohoto** is the Czech form. Slovak drops the middle o: **tohto**.",
+          id: "toho",
+          label: "Toho",
+          whyWrong:
+            "**Toho muža** is the man you know or see. Here the man does something himself: **ten muž stojí vonku**.",
         },
         {
-          id: "tato",
-          label: "táto",
-          whyWrong: "**Táto** is feminine; **muž** is masculine.",
+          id: "ta",
+          label: "Tá",
+          whyWrong: "**Tá** is feminine, as in **tá žena**; **muž** is masculine.",
         },
       ],
-      answerId: "tohto",
+      answerId: "ten",
       feedback: {
-        english: "I know this man.",
-        why: "Anna says **tohoto je po česky**: in Slovak it is **tohto**.",
+        english: "Ten muž is standing outside.",
+        why: "The man stands, so he is the subject: **ten muž**. Whom you know takes **toho muža**.",
       },
     },
   ],
@@ -1354,7 +1380,7 @@ export const demonstrativesEpisode: ListeningEpisode = {
   title: "Where is that key?",
   topic: "ten, tá, to",
   promise:
-    "Anna and Marek play a guessing game, shop at the market and lose the car key. At the end, Marek needs your help.",
+    "Anna and Marek shop at the market, lose the car key at home and play a guessing game back in the studio. At the end, Marek needs your help.",
   grammarSlug: "demonstratives",
   lessonId: "grammar/demonstratives",
   practiceSetId: "demonstratives",
