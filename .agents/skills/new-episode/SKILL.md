@@ -13,6 +13,8 @@ The critic briefs and the rubric are `docs/critics/` and the frame tools `script
 
 ## 1. Read
 
+Start with `docs/listening-card.md` (one page: the order of work and the rules that cost the most time). Open the full documents below section by section when a step needs them, not all at the start.
+
 - `docs/listening-authoring.md` in full, including §2b (the game the listener plays) and **Slips we shipped**, and `docs/listening-one-prompt.md` sections 3 to 6 (section 6 is the failure classes and what catches each).
 - `AGENTS.md` → **Audio** and **Stick-figure scenes**.
 - The reference episode for the shape you pick (step 2), and `src/lib/catalog/listening/dialogue.ts` for the parts a line is made of (`PAUSE`, `SIGH`, `CHUCKLE`, `STOP`, `afterThinking`, `guess`, `listenerPicks`, `onPath`, `NO_PICK`, and `to` / `props` / `gestures` on a line).
