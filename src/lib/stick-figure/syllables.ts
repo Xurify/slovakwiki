@@ -1,6 +1,7 @@
 const VOWELS = new Set("aáäeéiíoóôuúyý");
 const LONG_VOWELS = new Set("áéíóúýô");
 const SYLLABIC_LIQUIDS = new Set("rŕlĺ");
+const BILABIALS = new Set("mbp");
 
 /** What the lips do on a syllable: `r` is a syllabic r/l or a hum, held near neutral. */
 export type VowelShape = "a" | "e" | "i" | "o" | "u" | "r";
@@ -28,6 +29,10 @@ export interface SlovakSyllable {
   consonants: number;
   /** Long vowel or diphthong. */
   long: boolean;
+  /** An m, b or p in the onset shuts the lips before the vowel. */
+  shutBefore?: boolean;
+  /** A word-final m, b or p shuts them after it (`som`, `mám`). */
+  shutAfter?: boolean;
   vowel: VowelShape;
 }
 
@@ -49,6 +54,7 @@ export function slovakSyllables(word: string): SlovakSyllable[] {
   ];
   const syllables: SlovakSyllable[] = [];
   let consonants = 0;
+  let shut = false;
 
   for (let index = 0; index < letters.length; index += 1) {
     const letter = letters[index];
@@ -67,9 +73,11 @@ export function slovakSyllables(word: string): SlovakSyllable[] {
       syllables.push({
         consonants,
         long: diphthong || LONG_VOWELS.has(letter),
+        ...(shut && { shutBefore: true }),
         vowel: VOWEL_SHAPES[shapeLetter],
       });
       consonants = 0;
+      shut = false;
       if (diphthong) index += 1;
       continue;
     }
@@ -81,16 +89,26 @@ export function slovakSyllables(word: string): SlovakSyllable[] {
       !VOWELS.has(next);
 
     if (syllabic) {
-      syllables.push({ consonants, long: letter === "ŕ" || letter === "ĺ", vowel: "r" });
+      syllables.push({
+        consonants,
+        long: letter === "ŕ" || letter === "ĺ",
+        ...(shut && { shutBefore: true }),
+        vowel: "r",
+      });
       consonants = 0;
+      shut = false;
       continue;
     }
 
     consonants += 1;
+    shut ||= BILABIALS.has(letter);
   }
 
   const last = syllables.at(-1);
-  if (last) last.consonants += consonants;
+  if (last) {
+    last.consonants += consonants;
+    if (shut) last.shutAfter = true;
+  }
   // A one-letter word (`v`, `s`, `z`, `k`) is said with the next one, but an
   // interjection with no vowel (`hm`, `pst`) is a syllable of its own.
   else if (letters.length > 1) {

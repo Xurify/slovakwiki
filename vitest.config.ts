@@ -7,6 +7,9 @@ export default defineConfig({
   plugins: [svelte()],
   test: {
     include: ["src/**/*.test.ts", "scripts/**/*.test.ts"],
+    // Most of a run is importing the catalog and dictionary content again in every file
+    // (import 115 s vs tests 12 s); sharing modules per worker cut the suite from 55 s to 20 s.
+    isolate: false,
   },
   resolve: {
     alias: {
