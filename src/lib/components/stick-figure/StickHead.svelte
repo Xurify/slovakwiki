@@ -123,26 +123,26 @@
   );
 
   /**
-   * Worn headphones: a cup over each ear, the far one round behind the face,
-   * and the band over the top of the hair, pressed a little into it so the
-   * hair shows above it. Side-on the cups turn their faces to and from us;
-   * from the front both are seen edge-on.
+   * Worn headphones: a cup over each ear, just outside the face so it stays
+   * clear of the eyes, the far one round behind the face. The band rises
+   * straight from a yoke on each cup and rounds over the top of the hair.
+   * Side-on the cups turn their faces to and from us; from the front both are
+   * seen edge-on.
    */
   const phones = $derived.by(() => {
     const u = Math.min(1, Math.abs(aside) / 2.6);
     const cy = 29.8;
     const ry = 6.6;
-    // Each cup's middle on the head's outline, so it hugs the ear; turned, the
-    // far one goes in behind the face. Out past the outline with the band sunk
-    // into the hair, they read as sliding off.
-    const near = { x: 18.4 + 1.6 * u, rx: 3.4 + 1 * u };
-    const far = { x: 45.6 - 0.1 * u, rx: 3.2 - 0.4 * u };
-    const top = look.crown - 1.2;
+    // Each cup's middle a little past the head's outline, so it sits on the
+    // ear and not on the eye; turned, the far one goes in behind the face.
+    const near = { x: 15.8 + 1.6 * u, rx: 3.4 + 1 * u };
+    const far = { x: 47.7 - 0.1 * u, rx: 3.2 - 0.4 * u };
+    const top = look.crown - 2.4;
     const from = { x: near.x + 0.2, y: cy - ry + 0.6 };
     const to = { x: far.x - 0.2, y: cy - ry + 0.6 };
     const mid = { x: 31.8 - 0.3 * u, y: top };
     const rise = from.y - top;
-    const band = `M${n(from.x)} ${n(from.y)}C${n(from.x - 1.8)} ${n(from.y - rise * 0.55)} ${n(mid.x - (mid.x - from.x) * 0.5)} ${n(top)} ${n(mid.x)} ${n(top)}C${n(mid.x + (to.x - mid.x) * 0.5)} ${n(top)} ${n(to.x + 1.8)} ${n(to.y - rise * 0.55)} ${n(to.x)} ${n(to.y)}`;
+    const band = `M${n(from.x)} ${n(from.y)}C${n(from.x - 1.2)} ${n(from.y - rise * 0.85)} ${n(mid.x - (mid.x - from.x) * 0.6)} ${n(top)} ${n(mid.x)} ${n(top)}C${n(mid.x + (to.x - mid.x) * 0.6)} ${n(top)} ${n(to.x + 1.2)} ${n(to.y - rise * 0.85)} ${n(to.x)} ${n(to.y)}`;
     return { cy, ry, near, far, band };
   });
 </script>
@@ -563,8 +563,24 @@
     <g clip-path="url(#{id}-behind-face)">
       {@render cup(phones.far.x, phones.far.rx, -1)}
     </g>
-    <path d={phones.band} class="stroke-portrait-ink" stroke-width="3.6" />
-    <path d={phones.band} class="stroke-scene-line" stroke-width="2" />
+    <path d={phones.band} class="stroke-portrait-ink" stroke-width="3.8" />
+    <path d={phones.band} class="stroke-scene-line" stroke-width="2.2" />
     {@render cup(phones.near.x, phones.near.rx, 1)}
+    <!-- The yoke: the band's end running down to the pivot in each cup. -->
+    {#each [phones.near, phones.far] as side (side)}
+      <path
+        d="M{n(side.x)} {n(phones.cy - phones.ry - 0.8)}V{phones.cy}"
+        class="stroke-portrait-ink"
+        stroke-width="3.4"
+        stroke-linecap="round"
+      />
+      <path
+        d="M{n(side.x)} {n(phones.cy - phones.ry - 0.8)}V{phones.cy}"
+        class="stroke-scene-line"
+        stroke-width="1.7"
+        stroke-linecap="round"
+      />
+      <circle cx={n(side.x)} cy={phones.cy} r="1.3" class="fill-portrait-ink" />
+    {/each}
   {/if}
 {/if}
