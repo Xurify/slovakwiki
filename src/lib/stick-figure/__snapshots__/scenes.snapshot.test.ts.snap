@@ -7706,14 +7706,16 @@ exports[`every scene, directed > podcast podcast-imperative-help 1`] = `
   ],
   "lines": [
     {
-      "line": "anna: Je ráno a sme späť v štúdiu.",
+      "line": "anna: Dobré ráno! Sme späť v štúdiu. A rastlinka je stále žltá.",
       "plan": {
         "beats": [
-          "0 tell",
+          "0 wave",
+          "1050 tell",
+          "3500 point → rastlina",
         ],
-        "ms": 2350,
-        "sentences": "0-2200",
-        "words": "0-225 225-725 725-913 913-1175 1175-1475 1475-1475 1475-2200",
+        "ms": 6000,
+        "sentences": "0-951 1050-2545 3500-5800",
+        "words": "0-493 493-951 1050-1355 1355-1703 1703-1703 1703-2545 3500-3693 3693-4502 4502-4734 4734-5286 5286-5800",
       },
       "staging": {
         "addressee": "marek",

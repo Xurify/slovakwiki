@@ -938,8 +938,8 @@ const help: ListeningChapter = {
     line(
       "anna-back-in-studio",
       "Anna",
-      ["Je ráno a sme späť v štúdiu."],
-      "It's morning and we're back in the studio.",
+      ["Dobré ráno! Sme späť v štúdiu. ", PAUSE, "A rastlinka je stále žltá."],
+      "Good morning! We're back in the studio. And the little plant is still yellow.",
     ),
     line(
       "marek-yesterday-orders",
