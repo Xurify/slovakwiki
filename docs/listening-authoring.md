@@ -8,7 +8,7 @@ A listening episode is a short podcast in simple Slovak for one grammar topic: t
 - [ ] Name it like a story, after a line the learner will hear: `titleSk: "Kde je ten kľúč?"`, with the English gloss in `title`. The grammar label goes in `topic` (`"ten, tá, to"`), lowercase because it is read in the first sentence: "A 4-minute episode on ten, tá, to."
 - [ ] 4–6 chapters of 4–14 lines (a guessing game may run to 20). Each chapter is one situation (an intro, a game, a shop, a quiz, an outro) and brings in its own nouns, so the target forms turn up in different company.
 - [ ] Cover every row and every column of the grammar page's tables, the other cases too, not only the nominative, and each contrast frame. A big table (the imperative's 39 cells) is heard one form per row, not cell by cell.
-- [ ] Give the chapters a thread: something from an early chapter comes back later. The car key lost at home turns up, and again in the last line.
+- [ ] Give the chapters a thread: something from an early chapter comes back later. The car key is lost at home, and again in the last line.
 - [ ] Keep the Slovak inside the level: present tense, high-frequency nouns, fixed chunks. Repetition is a feature: a learner should hear the taught forms many times.
 - [ ] Speakers come from the roster in `content/audio/config.json` (`characters[*].speakers`): `Anna`, `Marek`, `Lucia`, `Mária`, `Waiter` (also `Conductor`), `Receptionist`, `You` (Alex), plus `Scene` for a narrator's scene card and `Announcement` for a tannoy. List them in the episode's `speakers`; any other label falls back to the narrator voice and fails the speaker test.
 - [ ] Each chapter's `stage` is where the stick figures act it out (`studio` unless set; `cafe`, `classroom`, `home`, `market`, `plaza`, `registration`, `street`). What a line points at or brings out must be drawn there or be a prop.
@@ -28,7 +28,7 @@ A listening episode is a short podcast in simple Slovak for one grammar topic: t
 
 ## 2b. The game at the end: the listener plays
 
-Every show episode ends on a game the listener plays, and it comes after the forms, never in the first two segments. The default is **Pomôžte Marekovi**: a host is set a short test, asks the listeners for help, and says whatever form they pick. Reference: the `quiz` chapter of `demonstratives.ts`. These are decisions, not suggestions:
+Every show episode ends on a game the listener plays, and it comes after the forms, never in the first two segments. **A show has one game: the listener's.** The hosts do not play a game of their own earlier (a verb game, a bag game), because two games in one show felt like the same thing twice (Xurify, 2026-10-28). A host exercise the story needs becomes a scene with a place and a reason, not a segment titled as a game, and the listener's game opens with a line that says why it starts now. CI: `pacing/one-game`. The default is **Pomôžte Marekovi**: a host is set a short test, asks the listeners for help, and says whatever form they pick. Reference: the `quiz` chapter of `demonstratives.ts`. These are decisions, not suggestions:
 
 - [ ] The listener chooses what a host says, and the story follows the choice. A right-or-wrong verdict on a host's sentence (`rightOrWrong`) is the fallback for a topic with no forms to pick between.
 - [ ] Three asks, each on one word. The other host gives the word (`Prvé slovo: dievča. Tá dievča, alebo to dievča?`); no sentence about something the stage does not show (`ten muž tam`) and no prop from nowhere.

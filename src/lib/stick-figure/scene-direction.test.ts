@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import { characterIdForSpeaker } from "$lib/catalog/lessons/character-ids";
 import { demonstrativesEpisode } from "$lib/catalog/listening/episodes/demonstratives";
+import { possessivesEpisode } from "$lib/catalog/listening/episodes/possessives";
 import { readLines, type StageLine } from "./line-reading";
 import { heldProps, propForSentence } from "./props";
 import { castFor, directScene, type DirectedLine } from "./scene-direction";
@@ -318,11 +319,11 @@ describe("the tram stop", () => {
 });
 
 describe("the podcast studio", () => {
-  it("keeps the hosts at their mics while Marek shows Anna what is in the bag", () => {
-    const bag = demonstrativesEpisode.chapters.find((chapter) =>
-      chapter.id.endsWith("bag"),
+  it("keeps the hosts at their mics while Marek shows Anna his photos", () => {
+    const photos = possessivesEpisode.chapters.find((chapter) =>
+      chapter.id.endsWith("photos"),
     );
-    const lines = (bag?.lines ?? []).map((line) => ({
+    const lines = (photos?.lines ?? []).map((line) => ({
       characterId: characterIdForSpeaker(line.speaker),
       props: line.props,
       slovak: line.slovak,

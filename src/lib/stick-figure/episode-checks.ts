@@ -213,6 +213,17 @@ export function checkEpisode(episode: ListeningEpisode): Finding[] {
       });
     }
 
+    const isGameChapter = (other: (typeof episode.chapters)[number]) =>
+      GAME.test(other.title) || GAME.test(other.titleSk);
+    if (isGame && episode.chapters.slice(0, chapterIndex).some(isGameChapter)) {
+      findings.push({
+        rule: "pacing/one-game",
+        level: "error",
+        chapter: chapter.id,
+        message: `"${chapter.titleSk}" is a second game or quiz. A show has one game, the listener's, at the end.`,
+      });
+    }
+
     direction.lines.forEach((directed, index) => {
       const line = scene.lines[index];
       const turn = chapter.lines[index];
