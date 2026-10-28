@@ -11,6 +11,7 @@ Domain-specific authoring and pipelines live next to the work — not here:
 | Create or expand a lesson                   | [`docs/lesson-authoring.md`](docs/lesson-authoring.md) · `new-lesson` skill |
 | Write a listening episode (podcast)         | [`docs/listening-authoring.md`](docs/listening-authoring.md)                |
 | Brief a new episode in one prompt           | [`docs/listening-one-prompt.md`](docs/listening-one-prompt.md)              |
+| Start an episode: one-page card             | [`docs/listening-card.md`](docs/listening-card.md)                          |
 | Write and stage an episode, step by step    | [`new-episode` skill](.agents/skills/new-episode/SKILL.md)                  |
 | Voice roster                                | [`content/audio/README.md`](content/audio/README.md)                        |
 | FOUC / blocking pre-paint boots             | [`src/lib/fouc/README.md`](src/lib/fouc/README.md)                          |
