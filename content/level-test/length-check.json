@@ -1,1202 +1,1774 @@
 {
-  "akcii": {
-    "heard": "akcií",
-    "clear": false
-  },
-  "akcií": {
-    "heard": "akcií",
-    "clear": true
-  },
-  "anglicky": {
-    "heard": "anglicky",
-    "clear": true
-  },
-  "anglický": {
-    "heard": "anglický",
-    "clear": true
-  },
-  "auta": {
-    "heard": "autá",
-    "clear": false
-  },
-  "autá": {
-    "heard": "autá",
-    "clear": true
-  },
-  "bezpečne": {
-    "heard": "bezpečne",
-    "clear": true
-  },
-  "bezpečné": {
-    "heard": "bezpečné",
-    "clear": true
-  },
-  "bežne": {
-    "heard": "bežne",
-    "clear": true
-  },
-  "bežné": {
-    "heard": "bežné",
-    "clear": true
-  },
-  "boji": {
-    "heard": "boj",
-    "clear": false
-  },
-  "bojí": {
-    "heard": "bojí",
-    "clear": true
-  },
-  "boli": {
-    "heard": "boli",
-    "clear": true
-  },
-  "bolí": {
-    "heard": "bolí",
-    "clear": true
-  },
-  "bývala": {
-    "heard": "bývala",
-    "clear": true
-  },
-  "bývalá": {
-    "heard": "bývala",
-    "clear": false
-  },
-  "bývali": {
-    "heard": "bývali",
-    "clear": true
-  },
-  "bývalí": {
-    "heard": "bývalý",
-    "clear": false
-  },
-  "celkove": {
-    "heard": "celkové",
-    "clear": false
-  },
-  "celkové": {
-    "heard": "celkové",
-    "clear": true
-  },
-  "centra": {
-    "heard": "centrá",
-    "clear": false
-  },
-  "centrá": {
-    "heard": "centrá",
-    "clear": true
-  },
-  "cirkvi": {
-    "heard": "cirkvi",
-    "clear": true
-  },
-  "cirkví": {
-    "heard": "cirkví",
-    "clear": true
-  },
-  "časti": {
-    "heard": "časti",
-    "clear": true
-  },
-  "častí": {
-    "heard": "častí",
-    "clear": true
-  },
-  "činnosti": {
-    "heard": "činnosti",
-    "clear": true
-  },
-  "činností": {
-    "heard": "činností",
-    "clear": true
-  },
-  "dani": {
-    "heard": "dani",
-    "clear": true
-  },
-  "daní": {
-    "heard": "danny",
-    "clear": false
-  },
-  "denne": {
-    "heard": "denne",
-    "clear": true
-  },
-  "denné": {
-    "heard": "denné",
-    "clear": true
-  },
-  "deti": {
-    "heard": "deti",
-    "clear": true
-  },
-  "detí": {
-    "heard": "deti",
-    "clear": false
-  },
-  "dlhu": {
-    "heard": "duhu",
-    "clear": false
-  },
-  "dlhú": {
-    "heard": "duhu",
-    "clear": false
-  },
-  "dlhy": {
-    "heard": "duhy",
-    "clear": false
-  },
-  "dlhý": {
-    "heard": "duhy",
-    "clear": false
-  },
-  "dni": {
-    "heard": "dni",
-    "clear": true
-  },
-  "dní": {
-    "heard": "dni",
-    "clear": false
-  },
-  "dobra": {
-    "heard": "dobra",
-    "clear": true
-  },
-  "dobrá": {
-    "heard": "dobrá",
-    "clear": true
-  },
-  "dobre": {
-    "heard": "dobre",
-    "clear": true
-  },
-  "dobré": {
-    "heard": "dobré",
-    "clear": true
-  },
-  "dočasne": {
-    "heard": "dočasne",
-    "clear": true
-  },
-  "dočasné": {
-    "heard": "dočasné",
-    "clear": true
-  },
-  "druhu": {
-    "heard": "druhu",
-    "clear": true
-  },
-  "druhú": {
-    "heard": "druhu",
-    "clear": false
-  },
-  "druhy": {
-    "heard": "druhy",
-    "clear": true
-  },
-  "druhý": {
-    "heard": "druhý",
-    "clear": true
-  },
-  "družstva": {
-    "heard": "družstva",
-    "clear": true
-  },
-  "družstvá": {
-    "heard": "družstvá",
-    "clear": true
-  },
-  "eura": {
-    "heard": "eurá",
-    "clear": false
-  },
-  "eurá": {
-    "heard": "eurá",
-    "clear": true
-  },
-  "finančne": {
-    "heard": "finančne",
-    "clear": true
-  },
-  "finančné": {
-    "heard": "finančné",
-    "clear": true
-  },
-  "funkcii": {
-    "heard": "funkcií",
-    "clear": false
-  },
-  "funkcií": {
-    "heard": "funkcií",
-    "clear": true
-  },
-  "hlavne": {
-    "heard": "hlavne",
-    "clear": true
-  },
-  "hlavné": {
-    "heard": "hlavné",
-    "clear": true
-  },
-  "hra": {
-    "heard": "hra",
-    "clear": true
-  },
-  "hrá": {
-    "heard": "ara",
-    "clear": false
-  },
-  "hračky": {
-    "heard": "hračky",
-    "clear": true
-  },
-  "hráčky": {
-    "heard": "hračky",
-    "clear": false
-  },
-  "hrozne": {
-    "heard": "hrozne",
-    "clear": true
-  },
-  "hrozné": {
-    "heard": "hrozné",
-    "clear": true
-  },
-  "chuti": {
-    "heard": "chuti",
-    "clear": true
-  },
-  "chutí": {
-    "heard": "chutí",
-    "clear": true
-  },
-  "chyba": {
-    "heard": "chyba",
-    "clear": true
-  },
-  "chýba": {
-    "heard": "chyba",
-    "clear": false
-  },
-  "jasne": {
-    "heard": "jasne",
-    "clear": true
-  },
-  "jasné": {
-    "heard": "jasné",
-    "clear": true
-  },
-  "jedla": {
-    "heard": "jedlá",
-    "clear": false
-  },
-  "jedlá": {
-    "heard": "jedlá",
-    "clear": true
-  },
-  "jemne": {
-    "heard": "jemne",
-    "clear": true
-  },
-  "jemné": {
-    "heard": "jemné",
-    "clear": true
-  },
-  "kola": {
-    "heard": "cola",
-    "clear": false
-  },
-  "kolá": {
-    "heard": "kolá",
-    "clear": true
-  },
-  "kolena": {
-    "heard": "kolena",
-    "clear": true
-  },
-  "kolená": {
-    "heard": "kolená",
-    "clear": true
-  },
-  "komisii": {
-    "heard": "komisii",
-    "clear": true
-  },
-  "komisií": {
-    "heard": "komisi",
-    "clear": false
-  },
-  "konečne": {
-    "heard": "konečne",
-    "clear": true
-  },
-  "konečné": {
-    "heard": "konečné",
-    "clear": true
-  },
-  "koni": {
-    "heard": "koni",
-    "clear": true
-  },
-  "koní": {
-    "heard": "koní",
-    "clear": true
-  },
-  "kosti": {
-    "heard": "kosti",
-    "clear": true
-  },
-  "kostí": {
-    "heard": "kostí",
-    "clear": true
-  },
-  "kvalitne": {
-    "heard": "kvalitne",
-    "clear": true
-  },
-  "kvalitné": {
-    "heard": "kvalitné",
-    "clear": true
-  },
-  "lietadla": {
-    "heard": "lietadlá",
-    "clear": false
-  },
-  "lietadlá": {
-    "heard": "lietadlá",
-    "clear": true
-  },
-  "lodi": {
-    "heard": "logy",
-    "clear": false
-  },
-  "lodí": {
-    "heard": "logy",
-    "clear": false
-  },
-  "mala": {
-    "heard": "malá",
-    "clear": false
-  },
-  "malá": {
-    "heard": "malá",
-    "clear": true
-  },
-  "mali": {
-    "heard": "mali",
-    "clear": true
-  },
-  "malí": {
-    "heard": "mali",
-    "clear": false
-  },
-  "malo": {
-    "heard": "malo",
-    "clear": true
-  },
-  "málo": {
-    "heard": "málo",
-    "clear": true
-  },
-  "mame": {
-    "heard": "máme",
-    "clear": false
-  },
-  "máme": {
-    "heard": "máme",
-    "clear": true
-  },
-  "mena": {
-    "heard": "muž",
-    "clear": false
-  },
-  "mená": {
-    "heard": "mená",
-    "clear": true
-  },
-  "mesačne": {
-    "heard": "mesačne",
-    "clear": true
-  },
-  "mesačné": {
-    "heard": "mesačné",
-    "clear": true
-  },
-  "mojim": {
-    "heard": "mojim",
-    "clear": true
-  },
-  "mojím": {
-    "heard": "mojim",
-    "clear": false
-  },
-  "možnosti": {
-    "heard": "možnosti",
-    "clear": true
-  },
-  "možností": {
-    "heard": "možností",
-    "clear": true
-  },
-  "mužstva": {
-    "heard": "mužstva",
-    "clear": true
-  },
-  "mužstvá": {
-    "heard": "mužstvá",
-    "clear": true
-  },
-  "mysli": {
-    "heard": "mysli",
-    "clear": true
-  },
-  "myslí": {
-    "heard": "myslí",
-    "clear": true
-  },
-  "následne": {
-    "heard": "následne",
-    "clear": true
-  },
-  "následné": {
-    "heard": "následné",
-    "clear": true
-  },
-  "našim": {
-    "heard": "naším",
-    "clear": false
-  },
-  "naším": {
-    "heard": "naším",
-    "clear": true
-  },
-  "nemecky": {
-    "heard": "nemecky",
-    "clear": true
-  },
-  "nemecký": {
-    "heard": "nemecký",
-    "clear": true
-  },
-  "nim": {
-    "heard": "mim",
-    "clear": false
-  },
-  "ním": {
-    "heard": "neem",
-    "clear": false
-  },
-  "obci": {
-    "heard": "obci",
-    "clear": true
-  },
-  "obcí": {
-    "heard": "opcií",
-    "clear": false
-  },
-  "oblasti": {
-    "heard": "oblasti",
-    "clear": true
-  },
-  "oblastí": {
-    "heard": "oblastí",
-    "clear": true
-  },
-  "obyčajne": {
-    "heard": "obyčajne",
-    "clear": true
-  },
-  "obyčajné": {
-    "heard": "obyčajné",
-    "clear": true
-  },
-  "oči": {
-    "heard": "oči",
-    "clear": true
-  },
-  "očí": {
-    "heard": "očí",
-    "clear": true
-  },
-  "odborne": {
-    "heard": "odborne",
-    "clear": true
-  },
-  "odborné": {
-    "heard": "odborné",
-    "clear": true
-  },
-  "okna": {
-    "heard": "okna",
-    "clear": true
-  },
-  "okná": {
-    "heard": "okná",
-    "clear": true
-  },
-  "operácii": {
-    "heard": "operácií",
-    "clear": false
-  },
-  "operácií": {
-    "heard": "operácií",
-    "clear": true
-  },
-  "osobitne": {
-    "heard": "osobitne",
-    "clear": true
-  },
-  "osobitné": {
-    "heard": "osobitné",
-    "clear": true
-  },
-  "osobne": {
-    "heard": "osobne",
-    "clear": true
-  },
-  "osobné": {
-    "heard": "osobné",
-    "clear": true
-  },
-  "pani": {
-    "heard": "dani",
-    "clear": false
-  },
-  "páni": {
-    "heard": "páni",
-    "clear": true
-  },
-  "pas": {
-    "heard": "pass",
-    "clear": false
-  },
-  "pás": {
-    "heard": "pass",
-    "clear": false
-  },
-  "pekne": {
-    "heard": "pekne",
-    "clear": true
-  },
-  "pekné": {
-    "heard": "pekné",
-    "clear": true
-  },
-  "percenta": {
-    "heard": "percentá",
-    "clear": false
-  },
-  "percentá": {
-    "heard": "percentá",
-    "clear": true
-  },
-  "pevne": {
-    "heard": "pevne",
-    "clear": true
-  },
-  "pevné": {
-    "heard": "pevné",
-    "clear": true
-  },
-  "písomne": {
-    "heard": "písomne",
-    "clear": true
-  },
-  "písomné": {
-    "heard": "písomné",
-    "clear": true
-  },
-  "plne": {
-    "heard": "to nie",
-    "clear": false
-  },
-  "plné": {
-    "heard": "to ne",
-    "clear": false
-  },
-  "podoba": {
-    "heard": "podoba",
-    "clear": true
-  },
-  "podobá": {
-    "heard": "podoba",
-    "clear": false
-  },
-  "podobne": {
-    "heard": "podobne",
-    "clear": true
-  },
-  "podobné": {
-    "heard": "podobné",
-    "clear": true
-  },
-  "pokojne": {
-    "heard": "pokojne",
-    "clear": true
-  },
-  "pokojné": {
-    "heard": "pokojné",
-    "clear": true
-  },
-  "ponuka": {
-    "heard": "ponuka",
-    "clear": true
-  },
-  "ponúka": {
-    "heard": "ponuka",
-    "clear": false
-  },
-  "povinne": {
-    "heard": "povinne",
-    "clear": true
-  },
-  "povinné": {
-    "heard": "povinné",
-    "clear": true
-  },
-  "pozícii": {
-    "heard": "pozícií",
-    "clear": false
-  },
-  "pozícií": {
-    "heard": "pozícií",
-    "clear": true
-  },
-  "pôvodne": {
-    "heard": "pôvodne",
-    "clear": true
-  },
-  "pôvodné": {
-    "heard": "pôvodné",
-    "clear": true
-  },
-  "pracovne": {
-    "heard": "pracovne",
-    "clear": true
-  },
-  "pracovné": {
-    "heard": "pracovné",
-    "clear": true
-  },
-  "pravom": {
-    "heard": "pravom",
-    "clear": true
-  },
-  "právom": {
-    "heard": "právom",
-    "clear": true
-  },
-  "predajni": {
-    "heard": "predajní",
-    "clear": false
-  },
-  "predajní": {
-    "heard": "predajní",
-    "clear": true
-  },
-  "presne": {
-    "heard": "presne",
-    "clear": true
-  },
-  "presné": {
-    "heard": "presné",
-    "clear": true
-  },
-  "príjemne": {
-    "heard": "príjemne",
-    "clear": true
-  },
-  "príjemné": {
-    "heard": "príjemné",
-    "clear": true
-  },
-  "rad": {
-    "heard": "rád",
-    "clear": false
-  },
-  "rád": {
-    "heard": "rád",
-    "clear": true
-  },
-  "rana": {
-    "heard": "rana",
-    "clear": true
-  },
-  "rána": {
-    "heard": "rána",
-    "clear": true
-  },
-  "rastu": {
-    "heard": "rastú",
-    "clear": false
-  },
-  "rastú": {
-    "heard": "rastú",
-    "clear": true
-  },
-  "rizika": {
-    "heard": "riziká",
-    "clear": false
-  },
-  "riziká": {
-    "heard": "riziká",
-    "clear": true
-  },
-  "ročne": {
-    "heard": "ročne",
-    "clear": true
-  },
-  "ročné": {
-    "heard": "ročné",
-    "clear": true
-  },
-  "sieti": {
-    "heard": "sieťi",
-    "clear": false
-  },
-  "sietí": {
-    "heard": "cieči",
-    "clear": false
-  },
-  "silne": {
-    "heard": "silne",
-    "clear": true
-  },
-  "silné": {
-    "heard": "silné",
-    "clear": true
-  },
-  "situácii": {
-    "heard": "situácií",
-    "clear": false
-  },
-  "situácií": {
-    "heard": "situácii",
-    "clear": false
-  },
-  "skutočne": {
-    "heard": "skutočne",
-    "clear": true
-  },
-  "skutočné": {
-    "heard": "skutočné",
-    "clear": true
-  },
-  "skvele": {
-    "heard": "skvelé",
-    "clear": false
-  },
-  "skvelé": {
-    "heard": "skvelé",
-    "clear": true
-  },
-  "slobodne": {
-    "heard": "slobodne",
-    "clear": true
-  },
-  "slobodné": {
-    "heard": "slobodné",
-    "clear": true
-  },
-  "slova": {
-    "heard": "slova",
-    "clear": true
-  },
-  "slová": {
-    "heard": "slová",
-    "clear": true
-  },
-  "smutne": {
-    "heard": "smutne",
-    "clear": true
-  },
-  "smutné": {
-    "heard": "smutné",
-    "clear": true
-  },
-  "spoločne": {
-    "heard": "spoločne",
-    "clear": true
-  },
-  "spoločné": {
-    "heard": "spoločné",
-    "clear": true
-  },
-  "stal": {
-    "heard": "stál",
-    "clear": false
-  },
-  "stál": {
-    "heard": "stál",
-    "clear": true
-  },
-  "stala": {
-    "heard": "stála",
-    "clear": false
-  },
-  "stála": {
-    "heard": "stála",
-    "clear": true
-  },
-  "stali": {
-    "heard": "stali",
-    "clear": true
-  },
-  "stáli": {
-    "heard": "stáli",
-    "clear": true
-  },
-  "stalo": {
-    "heard": "stálo",
-    "clear": false
-  },
-  "stálo": {
-    "heard": "stálo",
-    "clear": true
-  },
-  "stať": {
-    "heard": "stať",
-    "clear": true
-  },
-  "stáť": {
-    "heard": "štart",
-    "clear": false
-  },
-  "stavajú": {
-    "heard": "stávajú",
-    "clear": false
-  },
-  "stávajú": {
-    "heard": "stávajú",
-    "clear": true
-  },
-  "strašne": {
-    "heard": "strašne",
-    "clear": true
-  },
-  "strašné": {
-    "heard": "strašné",
-    "clear": true
-  },
-  "stredne": {
-    "heard": "stredne",
-    "clear": true
-  },
-  "stredné": {
-    "heard": "stredné",
-    "clear": true
-  },
-  "súčasne": {
-    "heard": "súčasne",
-    "clear": true
-  },
-  "súčasné": {
-    "heard": "súčasné",
-    "clear": true
-  },
-  "super": {
-    "heard": "super",
-    "clear": true
-  },
-  "súper": {
-    "heard": "super",
-    "clear": false
-  },
-  "súťaži": {
-    "heard": "súťaží",
-    "clear": false
-  },
-  "súťaží": {
-    "heard": "súťaží",
-    "clear": true
-  },
-  "svetla": {
-    "heard": "svetlá",
-    "clear": false
-  },
-  "svetlá": {
-    "heard": "svetlá",
-    "clear": true
-  },
-  "svojim": {
-    "heard": "svojim",
-    "clear": true
-  },
-  "svojím": {
-    "heard": "svojím",
-    "clear": true
-  },
-  "šťastne": {
-    "heard": "šťastne",
-    "clear": true
-  },
-  "šťastné": {
-    "heard": "šťastné",
-    "clear": true
-  },
-  "tajne": {
-    "heard": "tajne",
-    "clear": true
-  },
-  "tajné": {
-    "heard": "dajne",
-    "clear": false
-  },
-  "ťažkosti": {
-    "heard": "ťažkosti",
-    "clear": true
-  },
-  "ťažkostí": {
-    "heard": "ťažkosti",
-    "clear": false
-  },
-  "tela": {
-    "heard": "čo je vám",
-    "clear": false
-  },
-  "telá": {
-    "heard": "čo je vám",
-    "clear": false
-  },
-  "tepla": {
-    "heard": "teplo",
-    "clear": false
-  },
-  "teplá": {
-    "heard": "teplá",
-    "clear": true
-  },
-  "tlači": {
-    "heard": "tlačí",
-    "clear": false
-  },
-  "tlačí": {
-    "heard": "tlačí",
-    "clear": true
-  },
-  "tradícii": {
-    "heard": "tradícií",
-    "clear": false
-  },
-  "tradícií": {
-    "heard": "tradícií",
-    "clear": true
-  },
-  "tradične": {
-    "heard": "tradične",
-    "clear": true
-  },
-  "tradičné": {
-    "heard": "tradičné",
-    "clear": true
-  },
-  "tvar": {
-    "heard": "tvára",
-    "clear": false
-  },
-  "tvár": {
-    "heard": "tvára",
-    "clear": false
-  },
-  "tvare": {
-    "heard": "tváre",
-    "clear": false
-  },
-  "tváre": {
-    "heard": "tváre",
-    "clear": true
-  },
-  "udalosti": {
-    "heard": "udalostí",
-    "clear": false
-  },
-  "udalostí": {
-    "heard": "udalostí",
-    "clear": true
-  },
-  "úplne": {
-    "heard": "úplne",
-    "clear": true
-  },
-  "úplné": {
-    "heard": "úplne",
-    "clear": false
-  },
-  "úspešne": {
-    "heard": "úspešne",
-    "clear": true
-  },
-  "úspešné": {
-    "heard": "úspešné",
-    "clear": true
-  },
-  "veci": {
-    "heard": "veci",
-    "clear": true
-  },
-  "vecí": {
-    "heard": "vecí",
-    "clear": true
-  },
-  "večne": {
-    "heard": "večne",
-    "clear": true
-  },
-  "večné": {
-    "heard": "večné",
-    "clear": true
-  },
-  "vedu": {
-    "heard": "vedú",
-    "clear": false
-  },
-  "vedú": {
-    "heard": "vedú",
-    "clear": true
-  },
-  "verejne": {
-    "heard": "verejne",
-    "clear": true
-  },
-  "verejné": {
-    "heard": "verejné",
-    "clear": true
-  },
-  "vnútorne": {
-    "heard": "vnútorne",
-    "clear": true
-  },
-  "vnútorné": {
-    "heard": "vnútorné",
-    "clear": true
-  },
-  "voľne": {
-    "heard": "voľne",
-    "clear": true
-  },
-  "voľné": {
-    "heard": "voľné",
-    "clear": true
-  },
-  "vozidla": {
-    "heard": "vozidlá",
-    "clear": false
-  },
-  "vozidlá": {
-    "heard": "vozidlá",
-    "clear": true
-  },
-  "výborne": {
-    "heard": "výborne",
-    "clear": true
-  },
-  "výborné": {
-    "heard": "výborné",
-    "clear": true
-  },
-  "výrazne": {
-    "heard": "výrazne",
-    "clear": true
-  },
-  "výrazné": {
-    "heard": "výrazné",
-    "clear": true
-  },
-  "významne": {
-    "heard": "významne",
-    "clear": true
-  },
-  "významné": {
-    "heard": "významné",
-    "clear": true
-  },
-  "vzájomne": {
-    "heard": "vzájomne",
-    "clear": true
-  },
-  "vzájomné": {
-    "heard": "vzájomné",
-    "clear": true
-  },
-  "základne": {
-    "heard": "základne",
-    "clear": true
-  },
-  "základné": {
-    "heard": "základné",
-    "clear": true
-  },
-  "zásadne": {
-    "heard": "zásadne",
-    "clear": true
-  },
-  "zásadné": {
-    "heard": "zásadné",
-    "clear": true
-  },
-  "zbytočne": {
-    "heard": "zbytočne",
-    "clear": true
-  },
-  "zbytočné": {
-    "heard": "zbytočné",
-    "clear": true
-  },
-  "zelene": {
-    "heard": "zelené",
-    "clear": false
-  },
-  "zelené": {
-    "heard": "zelené",
-    "clear": true
-  },
-  "zla": {
-    "heard": "zla",
-    "clear": true
-  },
-  "zlá": {
-    "heard": "zlá",
-    "clear": true
-  },
-  "zlata": {
-    "heard": "zlatá",
-    "clear": false
-  },
-  "zlatá": {
-    "heard": "zlatá",
-    "clear": true
-  },
-  "zle": {
-    "heard": "zlé",
-    "clear": false
-  },
-  "zlé": {
-    "heard": "zlé",
-    "clear": true
-  },
-  "značne": {
-    "heard": "znacznie",
-    "clear": false
-  },
-  "značné": {
-    "heard": "značné",
-    "clear": true
-  },
-  "zostava": {
-    "heard": "zostava",
-    "clear": true
-  },
-  "zostáva": {
-    "heard": "zostáva",
-    "clear": true
-  },
-  "žiadosti": {
-    "heard": "žiadosti",
-    "clear": true
-  },
-  "žiadostí": {
-    "heard": "žiadostí",
-    "clear": true
-  }
+ "akcii": {
+  "heard": "akcií",
+  "clear": false
+ },
+ "akcií": {
+  "heard": "akcií",
+  "clear": true
+ },
+ "anglicky": {
+  "heard": "anglicky",
+  "clear": true,
+  "speechMs": 707
+ },
+ "anglický": {
+  "heard": "anglický",
+  "clear": true,
+  "speechMs": 853
+ },
+ "auta": {
+  "heard": "autá",
+  "clear": false
+ },
+ "autá": {
+  "heard": "autá",
+  "clear": true
+ },
+ "bezpečne": {
+  "heard": "bezpečne",
+  "clear": true
+ },
+ "bezpečné": {
+  "heard": "bezpečné",
+  "clear": true
+ },
+ "bežne": {
+  "heard": "bežne",
+  "clear": true,
+  "speechMs": 519
+ },
+ "bežné": {
+  "heard": "bežné",
+  "clear": true,
+  "speechMs": 651
+ },
+ "boji": {
+  "heard": "boj",
+  "clear": false
+ },
+ "bojí": {
+  "heard": "bojí",
+  "clear": true
+ },
+ "boli": {
+  "heard": "boli",
+  "clear": true
+ },
+ "bolí": {
+  "heard": "bolí",
+  "clear": true
+ },
+ "bývala": {
+  "heard": "bývala",
+  "clear": true
+ },
+ "bývalá": {
+  "heard": "bývala",
+  "clear": false
+ },
+ "bývali": {
+  "heard": "bývali",
+  "clear": true
+ },
+ "bývalí": {
+  "heard": "bývalý",
+  "clear": false
+ },
+ "celkove": {
+  "heard": "celkové",
+  "clear": false
+ },
+ "celkové": {
+  "heard": "celkové",
+  "clear": true
+ },
+ "centra": {
+  "heard": "centrá",
+  "clear": false
+ },
+ "centrá": {
+  "heard": "centrá",
+  "clear": true
+ },
+ "cirkvi": {
+  "heard": "cirkvi",
+  "clear": true
+ },
+ "cirkví": {
+  "heard": "cirkví",
+  "clear": true
+ },
+ "časti": {
+  "heard": "časti",
+  "clear": true,
+  "speechMs": 575
+ },
+ "častí": {
+  "heard": "častí",
+  "clear": true,
+  "speechMs": 721
+ },
+ "činnosti": {
+  "heard": "činnosti",
+  "clear": true,
+  "speechMs": 740
+ },
+ "činností": {
+  "heard": "činností",
+  "clear": true,
+  "speechMs": 883
+ },
+ "dani": {
+  "heard": "dani",
+  "clear": true
+ },
+ "daní": {
+  "heard": "danny",
+  "clear": false
+ },
+ "denne": {
+  "heard": "denne",
+  "clear": true
+ },
+ "denné": {
+  "heard": "denné",
+  "clear": true
+ },
+ "deti": {
+  "heard": "deti",
+  "clear": true
+ },
+ "detí": {
+  "heard": "deti",
+  "clear": false
+ },
+ "diskusii": {
+  "heard": "diskusii",
+  "clear": true,
+  "speechMs": 902
+ },
+ "diskusií": {
+  "heard": "diskusii",
+  "clear": false,
+  "speechMs": 975
+ },
+ "divadla": {
+  "heard": "divadlo a",
+  "clear": false,
+  "speechMs": 701
+ },
+ "divadlá": {
+  "heard": "divadlá",
+  "clear": true,
+  "speechMs": 787
+ },
+ "dlhu": {
+  "heard": "duhu",
+  "clear": false
+ },
+ "dlhú": {
+  "heard": "duhu",
+  "clear": false
+ },
+ "dlhy": {
+  "heard": "duhy",
+  "clear": false
+ },
+ "dlhý": {
+  "heard": "duhy",
+  "clear": false
+ },
+ "dni": {
+  "heard": "dni",
+  "clear": true
+ },
+ "dní": {
+  "heard": "dni",
+  "clear": false
+ },
+ "dobra": {
+  "heard": "dobra",
+  "clear": true,
+  "speechMs": 490
+ },
+ "dobrá": {
+  "heard": "dobrá",
+  "clear": true,
+  "speechMs": 587
+ },
+ "dobre": {
+  "heard": "dobre",
+  "clear": true,
+  "speechMs": 440
+ },
+ "dobré": {
+  "heard": "dobré",
+  "clear": true,
+  "speechMs": 571
+ },
+ "dočasne": {
+  "heard": "dočasne",
+  "clear": true
+ },
+ "dočasné": {
+  "heard": "dočasné",
+  "clear": true
+ },
+ "dokonale": {
+  "heard": "dokonale",
+  "clear": true,
+  "speechMs": 810
+ },
+ "dokonalé": {
+  "heard": "dokonalé",
+  "clear": true,
+  "speechMs": 874
+ },
+ "dospeli": {
+  "heard": "dospelí",
+  "clear": false,
+  "speechMs": 719
+ },
+ "dospelí": {
+  "heard": "dospelí",
+  "clear": true,
+  "speechMs": 782
+ },
+ "druhu": {
+  "heard": "druhu",
+  "clear": true
+ },
+ "druhú": {
+  "heard": "druhu",
+  "clear": false
+ },
+ "druhy": {
+  "heard": "druhy",
+  "clear": true,
+  "speechMs": 602
+ },
+ "druhý": {
+  "heard": "druhý",
+  "clear": true,
+  "speechMs": 648
+ },
+ "družstva": {
+  "heard": "družstva",
+  "clear": true,
+  "speechMs": 711
+ },
+ "družstvá": {
+  "heard": "družstvá",
+  "clear": true,
+  "speechMs": 856
+ },
+ "eura": {
+  "heard": "eurá",
+  "clear": false
+ },
+ "eurá": {
+  "heard": "eurá",
+  "clear": true
+ },
+ "finančne": {
+  "heard": "finančne",
+  "clear": true,
+  "speechMs": 776
+ },
+ "finančné": {
+  "heard": "finančné",
+  "clear": true,
+  "speechMs": 844
+ },
+ "funkcii": {
+  "heard": "funkcií",
+  "clear": false
+ },
+ "funkcií": {
+  "heard": "funkcií",
+  "clear": true
+ },
+ "hesla": {
+  "heard": "heslá",
+  "clear": false,
+  "speechMs": 570
+ },
+ "heslá": {
+  "heard": "heslá",
+  "clear": true,
+  "speechMs": 687
+ },
+ "hlavne": {
+  "heard": "hlavne",
+  "clear": true,
+  "speechMs": 643
+ },
+ "hlavné": {
+  "heard": "hlavné",
+  "clear": true,
+  "speechMs": 730
+ },
+ "hra": {
+  "heard": "hra",
+  "clear": true
+ },
+ "hrá": {
+  "heard": "ara",
+  "clear": false
+ },
+ "hračka": {
+  "heard": "hračka",
+  "clear": true,
+  "speechMs": 669
+ },
+ "hráčka": {
+  "heard": "hráčka",
+  "clear": true,
+  "speechMs": 750
+ },
+ "hračky": {
+  "heard": "hračky",
+  "clear": true
+ },
+ "hráčky": {
+  "heard": "hračky",
+  "clear": false
+ },
+ "hrozne": {
+  "heard": "hrozne",
+  "clear": true
+ },
+ "hrozné": {
+  "heard": "hrozné",
+  "clear": true
+ },
+ "chuti": {
+  "heard": "chuti",
+  "clear": true
+ },
+ "chutí": {
+  "heard": "chutí",
+  "clear": true
+ },
+ "chyba": {
+  "heard": "chyba",
+  "clear": true
+ },
+ "chýba": {
+  "heard": "chyba",
+  "clear": false
+ },
+ "ihriska": {
+  "heard": "ihriská",
+  "clear": false,
+  "speechMs": 766
+ },
+ "ihriská": {
+  "heard": "ihriská",
+  "clear": true,
+  "speechMs": 829
+ },
+ "jasne": {
+  "heard": "jasne",
+  "clear": true,
+  "speechMs": 512
+ },
+ "jasné": {
+  "heard": "jasné",
+  "clear": true,
+  "speechMs": 626
+ },
+ "jedla": {
+  "heard": "jedlá",
+  "clear": false
+ },
+ "jedlá": {
+  "heard": "jedlá",
+  "clear": true
+ },
+ "jedna": {
+  "heard": "jedna",
+  "clear": true,
+  "speechMs": 501
+ },
+ "jedná": {
+  "heard": "jedna",
+  "clear": false,
+  "speechMs": 627
+ },
+ "jemne": {
+  "heard": "jemne",
+  "clear": true
+ },
+ "jemné": {
+  "heard": "jemné",
+  "clear": true
+ },
+ "kina": {
+  "heard": "čína",
+  "clear": false,
+  "speechMs": 457
+ },
+ "kiná": {
+  "heard": "kina",
+  "clear": false,
+  "speechMs": 559
+ },
+ "kola": {
+  "heard": "cola",
+  "clear": false
+ },
+ "kolá": {
+  "heard": "kolá",
+  "clear": true
+ },
+ "kolena": {
+  "heard": "kolena",
+  "clear": true,
+  "speechMs": 567
+ },
+ "kolená": {
+  "heard": "kolená",
+  "clear": true,
+  "speechMs": 634
+ },
+ "komisii": {
+  "heard": "komisii",
+  "clear": true
+ },
+ "komisií": {
+  "heard": "komisi",
+  "clear": false
+ },
+ "konečne": {
+  "heard": "konečne",
+  "clear": true,
+  "speechMs": 677
+ },
+ "konečné": {
+  "heard": "konečné",
+  "clear": true,
+  "speechMs": 736
+ },
+ "koni": {
+  "heard": "koni",
+  "clear": true
+ },
+ "koní": {
+  "heard": "koní",
+  "clear": true
+ },
+ "kosti": {
+  "heard": "kosti",
+  "clear": true
+ },
+ "kostí": {
+  "heard": "kostí",
+  "clear": true
+ },
+ "kritéria": {
+  "heard": "kritériá",
+  "clear": false,
+  "speechMs": 803
+ },
+ "kritériá": {
+  "heard": "kritériá",
+  "clear": true,
+  "speechMs": 914
+ },
+ "kriticky": {
+  "heard": "kriticky",
+  "clear": true,
+  "speechMs": 692
+ },
+ "kritický": {
+  "heard": "kritický",
+  "clear": true,
+  "speechMs": 801
+ },
+ "kvalitne": {
+  "heard": "kvalitne",
+  "clear": true
+ },
+ "kvalitné": {
+  "heard": "kvalitné",
+  "clear": true
+ },
+ "lekárni": {
+  "heard": "lekárni",
+  "clear": true,
+  "speechMs": 781
+ },
+ "lekární": {
+  "heard": "lekární",
+  "clear": true,
+  "speechMs": 840
+ },
+ "lietadla": {
+  "heard": "lietadlá",
+  "clear": false
+ },
+ "lietadlá": {
+  "heard": "lietadlá",
+  "clear": true
+ },
+ "lodi": {
+  "heard": "logy",
+  "clear": false
+ },
+ "lodí": {
+  "heard": "logy",
+  "clear": false
+ },
+ "maďarsky": {
+  "heard": "maďarsky",
+  "clear": true,
+  "speechMs": 735
+ },
+ "maďarský": {
+  "heard": "maďarský",
+  "clear": true,
+  "speechMs": 841
+ },
+ "mala": {
+  "heard": "malá",
+  "clear": false
+ },
+ "malá": {
+  "heard": "malá",
+  "clear": true
+ },
+ "mali": {
+  "heard": "mali",
+  "clear": true
+ },
+ "malí": {
+  "heard": "mali",
+  "clear": false
+ },
+ "malo": {
+  "heard": "malo",
+  "clear": true,
+  "speechMs": 486
+ },
+ "málo": {
+  "heard": "málo",
+  "clear": true,
+  "speechMs": 594
+ },
+ "mame": {
+  "heard": "máme",
+  "clear": false
+ },
+ "máme": {
+  "heard": "máme",
+  "clear": true
+ },
+ "média": {
+  "heard": "media",
+  "clear": false,
+  "speechMs": 639
+ },
+ "médiá": {
+  "heard": "media",
+  "clear": false,
+  "speechMs": 786
+ },
+ "mena": {
+  "heard": "muž",
+  "clear": false
+ },
+ "mená": {
+  "heard": "mená",
+  "clear": true
+ },
+ "mesačne": {
+  "heard": "mesačne",
+  "clear": true
+ },
+ "mesačné": {
+  "heard": "mesačné",
+  "clear": true
+ },
+ "mojim": {
+  "heard": "mojim",
+  "clear": true
+ },
+ "mojím": {
+  "heard": "mojim",
+  "clear": false
+ },
+ "možnosti": {
+  "heard": "možnosti",
+  "clear": true,
+  "speechMs": 790
+ },
+ "možností": {
+  "heard": "možností",
+  "clear": true,
+  "speechMs": 896
+ },
+ "mužstva": {
+  "heard": "mužstva",
+  "clear": true,
+  "speechMs": 691
+ },
+ "mužstvá": {
+  "heard": "mužstvá",
+  "clear": true,
+  "speechMs": 829
+ },
+ "mysli": {
+  "heard": "mysli",
+  "clear": true,
+  "speechMs": 596
+ },
+ "myslí": {
+  "heard": "myslí",
+  "clear": true,
+  "speechMs": 646
+ },
+ "nádeji": {
+  "heard": "nadí",
+  "clear": false,
+  "speechMs": 735
+ },
+ "nádejí": {
+  "heard": "nádherný",
+  "clear": false,
+  "speechMs": 852
+ },
+ "napadne": {
+  "heard": "napadne",
+  "clear": true,
+  "speechMs": 728
+ },
+ "nápadne": {
+  "heard": "nápadne",
+  "clear": true,
+  "speechMs": 762
+ },
+ "naraz": {
+  "heard": "naraz",
+  "clear": true,
+  "speechMs": 655
+ },
+ "náraz": {
+  "heard": "náraz",
+  "clear": true,
+  "speechMs": 744
+ },
+ "následne": {
+  "heard": "následne",
+  "clear": true
+ },
+ "následné": {
+  "heard": "následné",
+  "clear": true
+ },
+ "našim": {
+  "heard": "naším",
+  "clear": false
+ },
+ "naším": {
+  "heard": "naším",
+  "clear": true
+ },
+ "nemecky": {
+  "heard": "nemecky",
+  "clear": true,
+  "speechMs": 687
+ },
+ "nemecký": {
+  "heard": "nemecký",
+  "clear": true,
+  "speechMs": 726
+ },
+ "nim": {
+  "heard": "mim",
+  "clear": false
+ },
+ "ním": {
+  "heard": "neem",
+  "clear": false
+ },
+ "obava": {
+  "heard": "obava",
+  "clear": true,
+  "speechMs": 568
+ },
+ "obáva": {
+  "heard": "obava",
+  "clear": false,
+  "speechMs": 655
+ },
+ "obci": {
+  "heard": "obci",
+  "clear": true
+ },
+ "obcí": {
+  "heard": "opcií",
+  "clear": false
+ },
+ "oblasti": {
+  "heard": "oblasti",
+  "clear": true,
+  "speechMs": 716
+ },
+ "oblastí": {
+  "heard": "oblastí",
+  "clear": true,
+  "speechMs": 812
+ },
+ "obyčajne": {
+  "heard": "obyčajne",
+  "clear": true,
+  "speechMs": 747
+ },
+ "obyčajné": {
+  "heard": "obyčajné",
+  "clear": true,
+  "speechMs": 831
+ },
+ "oči": {
+  "heard": "oči",
+  "clear": true,
+  "speechMs": 469
+ },
+ "očí": {
+  "heard": "očí",
+  "clear": true,
+  "speechMs": 598
+ },
+ "odborne": {
+  "heard": "odborne",
+  "clear": true
+ },
+ "odborné": {
+  "heard": "odborné",
+  "clear": true
+ },
+ "odpovedi": {
+  "heard": "odpovedí",
+  "clear": false,
+  "speechMs": 711
+ },
+ "odpovedí": {
+  "heard": "odpovedí",
+  "clear": true,
+  "speechMs": 811
+ },
+ "okamžite": {
+  "heard": "okamžite",
+  "clear": true,
+  "speechMs": 729
+ },
+ "okamžité": {
+  "heard": "okamžité",
+  "clear": true,
+  "speechMs": 884
+ },
+ "okna": {
+  "heard": "okna",
+  "clear": true,
+  "speechMs": 524
+ },
+ "okná": {
+  "heard": "okná",
+  "clear": true,
+  "speechMs": 624
+ },
+ "operácii": {
+  "heard": "operácií",
+  "clear": false
+ },
+ "operácií": {
+  "heard": "operácií",
+  "clear": true
+ },
+ "osobitne": {
+  "heard": "osobitne",
+  "clear": true,
+  "speechMs": 802
+ },
+ "osobitné": {
+  "heard": "osobitné",
+  "clear": true,
+  "speechMs": 870
+ },
+ "osobne": {
+  "heard": "osobne",
+  "clear": true,
+  "speechMs": 601
+ },
+ "osobné": {
+  "heard": "osobné",
+  "clear": true,
+  "speechMs": 713
+ },
+ "pani": {
+  "heard": "dani",
+  "clear": false
+ },
+ "páni": {
+  "heard": "páni",
+  "clear": true
+ },
+ "pary": {
+  "heard": "pár",
+  "clear": false,
+  "speechMs": 356
+ },
+ "páry": {
+  "heard": "pary",
+  "clear": false,
+  "speechMs": 476
+ },
+ "pas": {
+  "heard": "pass",
+  "clear": false
+ },
+ "pás": {
+  "heard": "pass",
+  "clear": false
+ },
+ "pasu": {
+  "heard": "pasú",
+  "clear": false,
+  "speechMs": 489
+ },
+ "pásu": {
+  "heard": "pásom",
+  "clear": false,
+  "speechMs": 553
+ },
+ "pasy": {
+  "heard": "pasi",
+  "clear": false,
+  "speechMs": 448
+ },
+ "pásy": {
+  "heard": "pásy",
+  "clear": true,
+  "speechMs": 571
+ },
+ "pekne": {
+  "heard": "pekne",
+  "clear": true,
+  "speechMs": 442
+ },
+ "pekné": {
+  "heard": "pekné",
+  "clear": true,
+  "speechMs": 514
+ },
+ "percenta": {
+  "heard": "percentá",
+  "clear": false
+ },
+ "percentá": {
+  "heard": "percentá",
+  "clear": true
+ },
+ "pevne": {
+  "heard": "pevne",
+  "clear": true
+ },
+ "pevné": {
+  "heard": "pevné",
+  "clear": true
+ },
+ "písomne": {
+  "heard": "písomne",
+  "clear": true
+ },
+ "písomné": {
+  "heard": "písomné",
+  "clear": true
+ },
+ "platne": {
+  "heard": "platne",
+  "clear": true,
+  "speechMs": 507
+ },
+ "plátne": {
+  "heard": "plátne",
+  "clear": true,
+  "speechMs": 626
+ },
+ "plne": {
+  "heard": "to nie",
+  "clear": false
+ },
+ "plné": {
+  "heard": "to ne",
+  "clear": false
+ },
+ "podoba": {
+  "heard": "podoba",
+  "clear": true
+ },
+ "podobá": {
+  "heard": "podoba",
+  "clear": false
+ },
+ "podobne": {
+  "heard": "podobne",
+  "clear": true,
+  "speechMs": 558
+ },
+ "podobné": {
+  "heard": "podobné",
+  "clear": true,
+  "speechMs": 665
+ },
+ "pokojne": {
+  "heard": "pokojne",
+  "clear": true
+ },
+ "pokojné": {
+  "heard": "pokojné",
+  "clear": true
+ },
+ "ponuka": {
+  "heard": "ponuka",
+  "clear": true
+ },
+ "ponúka": {
+  "heard": "ponuka",
+  "clear": false
+ },
+ "povinne": {
+  "heard": "povinne",
+  "clear": true
+ },
+ "povinné": {
+  "heard": "povinné",
+  "clear": true
+ },
+ "pozícii": {
+  "heard": "pozícií",
+  "clear": false
+ },
+ "pozícií": {
+  "heard": "pozícií",
+  "clear": true
+ },
+ "pôvodne": {
+  "heard": "pôvodne",
+  "clear": true
+ },
+ "pôvodné": {
+  "heard": "pôvodné",
+  "clear": true
+ },
+ "pracovne": {
+  "heard": "pracovne",
+  "clear": true
+ },
+ "pracovné": {
+  "heard": "pracovné",
+  "clear": true
+ },
+ "pravom": {
+  "heard": "pravom",
+  "clear": true,
+  "speechMs": 548
+ },
+ "právom": {
+  "heard": "právom",
+  "clear": true,
+  "speechMs": 607
+ },
+ "predajni": {
+  "heard": "predajní",
+  "clear": false
+ },
+ "predajní": {
+  "heard": "predajní",
+  "clear": true
+ },
+ "presne": {
+  "heard": "presne",
+  "clear": true
+ },
+ "presné": {
+  "heard": "presné",
+  "clear": true
+ },
+ "príjemne": {
+  "heard": "príjemne",
+  "clear": true
+ },
+ "príjemné": {
+  "heard": "príjemné",
+  "clear": true
+ },
+ "rad": {
+  "heard": "rád",
+  "clear": false
+ },
+ "rád": {
+  "heard": "rád",
+  "clear": true
+ },
+ "radia": {
+  "heard": "rádia",
+  "clear": false,
+  "speechMs": 634
+ },
+ "rádia": {
+  "heard": "rádia",
+  "clear": true,
+  "speechMs": 649
+ },
+ "ramena": {
+  "heard": "ramena",
+  "clear": true,
+  "speechMs": 612
+ },
+ "ramená": {
+  "heard": "ramena",
+  "clear": false,
+  "speechMs": 719
+ },
+ "rana": {
+  "heard": "rana",
+  "clear": true,
+  "speechMs": 484
+ },
+ "rána": {
+  "heard": "rána",
+  "clear": true,
+  "speechMs": 553
+ },
+ "rastu": {
+  "heard": "rastú",
+  "clear": false
+ },
+ "rastú": {
+  "heard": "rastú",
+  "clear": true
+ },
+ "reakcii": {
+  "heard": "reakcií",
+  "clear": false,
+  "speechMs": 815
+ },
+ "reakcií": {
+  "heard": "reakcií",
+  "clear": true,
+  "speechMs": 882
+ },
+ "relácii": {
+  "heard": "relácií",
+  "clear": false,
+  "speechMs": 839
+ },
+ "relácií": {
+  "heard": "relácií",
+  "clear": true,
+  "speechMs": 937
+ },
+ "rizika": {
+  "heard": "riziká",
+  "clear": false
+ },
+ "riziká": {
+  "heard": "riziká",
+  "clear": true
+ },
+ "ročne": {
+  "heard": "ročne",
+  "clear": true,
+  "speechMs": 629
+ },
+ "ročné": {
+  "heard": "ročné",
+  "clear": true,
+  "speechMs": 683
+ },
+ "sieti": {
+  "heard": "sieťi",
+  "clear": false
+ },
+ "sietí": {
+  "heard": "cieči",
+  "clear": false
+ },
+ "silne": {
+  "heard": "silne",
+  "clear": true
+ },
+ "silné": {
+  "heard": "silné",
+  "clear": true
+ },
+ "situácii": {
+  "heard": "situácií",
+  "clear": false
+ },
+ "situácií": {
+  "heard": "situácii",
+  "clear": false
+ },
+ "skla": {
+  "heard": "skla",
+  "clear": true,
+  "speechMs": 562
+ },
+ "sklá": {
+  "heard": "skla",
+  "clear": false,
+  "speechMs": 625
+ },
+ "skutočne": {
+  "heard": "skutočne",
+  "clear": true
+ },
+ "skutočné": {
+  "heard": "skutočné",
+  "clear": true
+ },
+ "skvele": {
+  "heard": "skvelé",
+  "clear": false
+ },
+ "skvelé": {
+  "heard": "skvelé",
+  "clear": true
+ },
+ "slobodne": {
+  "heard": "slobodne",
+  "clear": true
+ },
+ "slobodné": {
+  "heard": "slobodné",
+  "clear": true
+ },
+ "slova": {
+  "heard": "slova",
+  "clear": true,
+  "speechMs": 578
+ },
+ "slová": {
+  "heard": "slová",
+  "clear": true,
+  "speechMs": 674
+ },
+ "smutne": {
+  "heard": "smutne",
+  "clear": true
+ },
+ "smutné": {
+  "heard": "smutné",
+  "clear": true
+ },
+ "spi": {
+  "heard": "sp í",
+  "clear": false,
+  "speechMs": 1064
+ },
+ "spí": {
+  "heard": "spi",
+  "clear": false,
+  "speechMs": 607
+ },
+ "spoločne": {
+  "heard": "spoločne",
+  "clear": true,
+  "speechMs": 807
+ },
+ "spoločné": {
+  "heard": "spoločné",
+  "clear": true,
+  "speechMs": 891
+ },
+ "sprava": {
+  "heard": "sprava",
+  "clear": true,
+  "speechMs": 643
+ },
+ "správa": {
+  "heard": "sprava",
+  "clear": false,
+  "speechMs": 720
+ },
+ "stal": {
+  "heard": "stál",
+  "clear": false
+ },
+ "stál": {
+  "heard": "stál",
+  "clear": true
+ },
+ "stala": {
+  "heard": "stála",
+  "clear": false
+ },
+ "stála": {
+  "heard": "stála",
+  "clear": true
+ },
+ "stali": {
+  "heard": "stali",
+  "clear": true,
+  "speechMs": 570
+ },
+ "stáli": {
+  "heard": "stáli",
+  "clear": true,
+  "speechMs": 714
+ },
+ "stalo": {
+  "heard": "stálo",
+  "clear": false
+ },
+ "stálo": {
+  "heard": "stálo",
+  "clear": true
+ },
+ "starosti": {
+  "heard": "starosti",
+  "clear": true,
+  "speechMs": 810
+ },
+ "starostí": {
+  "heard": "starostí",
+  "clear": true,
+  "speechMs": 901
+ },
+ "stať": {
+  "heard": "stať",
+  "clear": true
+ },
+ "stáť": {
+  "heard": "štart",
+  "clear": false
+ },
+ "stavajú": {
+  "heard": "stávajú",
+  "clear": false
+ },
+ "stávajú": {
+  "heard": "stávajú",
+  "clear": true
+ },
+ "staval": {
+  "heard": "staval",
+  "clear": true,
+  "speechMs": 663
+ },
+ "stával": {
+  "heard": "stával",
+  "clear": true,
+  "speechMs": 806
+ },
+ "stavali": {
+  "heard": "stavali",
+  "clear": true,
+  "speechMs": 710
+ },
+ "stávali": {
+  "heard": "stávali",
+  "clear": true,
+  "speechMs": 735
+ },
+ "strašne": {
+  "heard": "strašne",
+  "clear": true
+ },
+ "strašné": {
+  "heard": "strašné",
+  "clear": true
+ },
+ "stredne": {
+  "heard": "stredne",
+  "clear": true
+ },
+ "stredné": {
+  "heard": "stredné",
+  "clear": true
+ },
+ "súčasne": {
+  "heard": "súčasne",
+  "clear": true,
+  "speechMs": 807
+ },
+ "súčasné": {
+  "heard": "súčasné",
+  "clear": true,
+  "speechMs": 926
+ },
+ "super": {
+  "heard": "super",
+  "clear": true
+ },
+ "súper": {
+  "heard": "super",
+  "clear": false
+ },
+ "súťaži": {
+  "heard": "súťaží",
+  "clear": false
+ },
+ "súťaží": {
+  "heard": "súťaží",
+  "clear": true
+ },
+ "svetla": {
+  "heard": "svetlá",
+  "clear": false
+ },
+ "svetlá": {
+  "heard": "svetlá",
+  "clear": true
+ },
+ "svojim": {
+  "heard": "svojim",
+  "clear": true,
+  "speechMs": 695
+ },
+ "svojím": {
+  "heard": "svojím",
+  "clear": true,
+  "speechMs": 721
+ },
+ "šťastne": {
+  "heard": "šťastne",
+  "clear": true
+ },
+ "šťastné": {
+  "heard": "šťastné",
+  "clear": true
+ },
+ "štúdia": {
+  "heard": "štúdia",
+  "clear": true,
+  "speechMs": 720
+ },
+ "štúdiá": {
+  "heard": "štúdiá",
+  "clear": true,
+  "speechMs": 843
+ },
+ "štúdii": {
+  "heard": "štúdii",
+  "clear": true,
+  "speechMs": 775
+ },
+ "štúdií": {
+  "heard": "studí",
+  "clear": false,
+  "speechMs": 855
+ },
+ "tajne": {
+  "heard": "tajne",
+  "clear": true
+ },
+ "tajné": {
+  "heard": "dajne",
+  "clear": false
+ },
+ "ťažkosti": {
+  "heard": "ťažkosti",
+  "clear": true
+ },
+ "ťažkostí": {
+  "heard": "ťažkosti",
+  "clear": false
+ },
+ "tela": {
+  "heard": "čo je vám",
+  "clear": false
+ },
+ "telá": {
+  "heard": "čo je vám",
+  "clear": false
+ },
+ "tepla": {
+  "heard": "teplo",
+  "clear": false
+ },
+ "teplá": {
+  "heard": "teplá",
+  "clear": true
+ },
+ "ticha": {
+  "heard": "tichá",
+  "clear": false,
+  "speechMs": 497
+ },
+ "tichá": {
+  "heard": "tichá",
+  "clear": true,
+  "speechMs": 605
+ },
+ "tlači": {
+  "heard": "tlačí",
+  "clear": false
+ },
+ "tlačí": {
+  "heard": "tlačí",
+  "clear": true
+ },
+ "tonu": {
+  "heard": "tonon",
+  "clear": false,
+  "speechMs": 408
+ },
+ "tónu": {
+  "heard": "tónu",
+  "clear": true,
+  "speechMs": 534
+ },
+ "tony": {
+  "heard": "tony",
+  "clear": true,
+  "speechMs": 431
+ },
+ "tóny": {
+  "heard": "tony",
+  "clear": false,
+  "speechMs": 486
+ },
+ "tradícii": {
+  "heard": "tradícií",
+  "clear": false
+ },
+ "tradícií": {
+  "heard": "tradícií",
+  "clear": true
+ },
+ "tradične": {
+  "heard": "tradične",
+  "clear": true,
+  "speechMs": 639
+ },
+ "tradičné": {
+  "heard": "tradičné",
+  "clear": true,
+  "speechMs": 735
+ },
+ "tvar": {
+  "heard": "tvára",
+  "clear": false
+ },
+ "tvár": {
+  "heard": "tvára",
+  "clear": false
+ },
+ "tvare": {
+  "heard": "tváre",
+  "clear": false
+ },
+ "tváre": {
+  "heard": "tváre",
+  "clear": true
+ },
+ "typicky": {
+  "heard": "typicky",
+  "clear": true,
+  "speechMs": 615
+ },
+ "typický": {
+  "heard": "typický",
+  "clear": true,
+  "speechMs": 703
+ },
+ "udalosti": {
+  "heard": "udalostí",
+  "clear": false
+ },
+ "udalostí": {
+  "heard": "udalostí",
+  "clear": true
+ },
+ "umelecky": {
+  "heard": "umelecký",
+  "clear": false,
+  "speechMs": 725
+ },
+ "umelecký": {
+  "heard": "umelecký",
+  "clear": true,
+  "speechMs": 785
+ },
+ "úplne": {
+  "heard": "úplne",
+  "clear": true
+ },
+ "úplné": {
+  "heard": "úplne",
+  "clear": false
+ },
+ "úspešne": {
+  "heard": "úspešne",
+  "clear": true,
+  "speechMs": 729
+ },
+ "úspešné": {
+  "heard": "úspešné",
+  "clear": true,
+  "speechMs": 857
+ },
+ "veci": {
+  "heard": "veci",
+  "clear": true,
+  "speechMs": 542
+ },
+ "vecí": {
+  "heard": "vecí",
+  "clear": true,
+  "speechMs": 641
+ },
+ "večne": {
+  "heard": "večne",
+  "clear": true
+ },
+ "večné": {
+  "heard": "večné",
+  "clear": true
+ },
+ "vedu": {
+  "heard": "vedú",
+  "clear": false
+ },
+ "vedú": {
+  "heard": "vedú",
+  "clear": true
+ },
+ "verejne": {
+  "heard": "verejne",
+  "clear": true,
+  "speechMs": 720
+ },
+ "verejné": {
+  "heard": "verejné",
+  "clear": true,
+  "speechMs": 733
+ },
+ "videa": {
+  "heard": "videá",
+  "clear": false,
+  "speechMs": 596
+ },
+ "videá": {
+  "heard": "videá",
+  "clear": true,
+  "speechMs": 621
+ },
+ "vina": {
+  "heard": "vína",
+  "clear": false,
+  "speechMs": 526
+ },
+ "vína": {
+  "heard": "vína",
+  "clear": true,
+  "speechMs": 573
+ },
+ "vine": {
+  "heard": "víne",
+  "clear": false,
+  "speechMs": 495
+ },
+ "víne": {
+  "heard": "víne",
+  "clear": true,
+  "speechMs": 621
+ },
+ "vnútorne": {
+  "heard": "vnútorne",
+  "clear": true
+ },
+ "vnútorné": {
+  "heard": "vnútorné",
+  "clear": true
+ },
+ "vojska": {
+  "heard": "vojska",
+  "clear": true,
+  "speechMs": 677
+ },
+ "vojská": {
+  "heard": "vojská",
+  "clear": true,
+  "speechMs": 778
+ },
+ "voľna": {
+  "heard": "voľná",
+  "clear": false,
+  "speechMs": 643
+ },
+ "voľná": {
+  "heard": "voľná",
+  "clear": true,
+  "speechMs": 725
+ },
+ "voľne": {
+  "heard": "voľne",
+  "clear": true
+ },
+ "voľné": {
+  "heard": "voľné",
+  "clear": true
+ },
+ "vozidla": {
+  "heard": "vozidlá",
+  "clear": false
+ },
+ "vozidlá": {
+  "heard": "vozidlá",
+  "clear": true
+ },
+ "výborne": {
+  "heard": "výborne",
+  "clear": true,
+  "speechMs": 740
+ },
+ "výborné": {
+  "heard": "výborné",
+  "clear": true,
+  "speechMs": 823
+ },
+ "výrazne": {
+  "heard": "výrazne",
+  "clear": true
+ },
+ "výrazné": {
+  "heard": "výrazné",
+  "clear": true
+ },
+ "vystrel": {
+  "heard": "výstrel",
+  "clear": false,
+  "speechMs": 735
+ },
+ "výstrel": {
+  "heard": "výstrel",
+  "clear": true,
+  "speechMs": 795
+ },
+ "významne": {
+  "heard": "významne",
+  "clear": true
+ },
+ "významné": {
+  "heard": "významné",
+  "clear": true
+ },
+ "vzájomne": {
+  "heard": "vzájomne",
+  "clear": true
+ },
+ "vzájomné": {
+  "heard": "vzájomné",
+  "clear": true
+ },
+ "základne": {
+  "heard": "základne",
+  "clear": true
+ },
+ "základné": {
+  "heard": "základné",
+  "clear": true
+ },
+ "zasadne": {
+  "heard": "zasadne",
+  "clear": true,
+  "speechMs": 741
+ },
+ "zásadne": {
+  "heard": "zásadne",
+  "clear": true,
+  "speechMs": 814
+ },
+ "zásadné": {
+  "heard": "zásadné",
+  "clear": true
+ },
+ "zbytočne": {
+  "heard": "zbytočne",
+  "clear": true,
+  "speechMs": 835
+ },
+ "zbytočné": {
+  "heard": "zbytočné",
+  "clear": true,
+  "speechMs": 894
+ },
+ "zelene": {
+  "heard": "zelené",
+  "clear": false
+ },
+ "zelené": {
+  "heard": "zelené",
+  "clear": true
+ },
+ "zla": {
+  "heard": "zla",
+  "clear": true,
+  "speechMs": 486
+ },
+ "zlá": {
+  "heard": "zlá",
+  "clear": true,
+  "speechMs": 588
+ },
+ "zlata": {
+  "heard": "zlatá",
+  "clear": false
+ },
+ "zlatá": {
+  "heard": "zlatá",
+  "clear": true
+ },
+ "zle": {
+  "heard": "zlé",
+  "clear": false
+ },
+ "zlé": {
+  "heard": "zlé",
+  "clear": true
+ },
+ "zlu": {
+  "heard": "zlu",
+  "clear": true,
+  "speechMs": 510
+ },
+ "zlú": {
+  "heard": "zlu",
+  "clear": false,
+  "speechMs": 572
+ },
+ "značne": {
+  "heard": "znacznie",
+  "clear": false
+ },
+ "značné": {
+  "heard": "značné",
+  "clear": true
+ },
+ "zostava": {
+  "heard": "zostava",
+  "clear": true,
+  "speechMs": 708
+ },
+ "zostáva": {
+  "heard": "zostáva",
+  "clear": true,
+  "speechMs": 796
+ },
+ "žiadosti": {
+  "heard": "žiadosti",
+  "clear": true,
+  "speechMs": 833
+ },
+ "žiadostí": {
+  "heard": "žiadostí",
+  "clear": true,
+  "speechMs": 898
+ }
 }

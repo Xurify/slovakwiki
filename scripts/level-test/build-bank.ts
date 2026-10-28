@@ -10,7 +10,9 @@
  * counts to tmp/opensubtitles/ on the first run.
  * `--rescore-pseudowords` only re-rates the pseudowords already in the bank
  * (no SNK download, no new audio). `--rescore-lengths` does the same for the
- * Short or Long pairs, dropping -ne/-né pairs over the cap.
+ * Short or Long pairs, dropping -ne/-né pairs over the cap. `--add-lengths`
+ * refills the Short or Long pairs from the SNK and leaves the rest of the bank
+ * as it is, so only the new pairs need voicing.
  * Then voice and check the Listen and Select pseudowords, and repeat until
  * check-spoken reports nothing new:
  *   bun scripts/audio/generate.ts -- --level-test-only --missing-only
@@ -36,7 +38,12 @@ import { ROOT } from "../lib/paths";
 
 import { CharModel, foldDiacritics, isPlausibleSlovak, seededRandom } from "./char-model";
 import { loadSnkFormCounts } from "./snk-forms";
-import { loadLengthChecks, loadSpokenChecks, type LengthCheck } from "./spoken-check";
+import {
+  lengthAudible,
+  loadLengthChecks,
+  loadSpokenChecks,
+  type LengthCheck,
+} from "./spoken-check";
 
 const OUT_PATH = path.join(ROOT, "content", "level-test", "items.json");
 const SUBTITLES_URL =
@@ -95,7 +102,8 @@ const LONG_VOWEL: Readonly<Record<string, string>> = {
 
 /** Short/long pairs for Short or Long; both forms must be this common in the SNK. */
 const MIN_LENGTH_FORM_COUNT = 300;
-const LENGTH_PAIRS = 80;
+/** Pairs per difficulty band, so every level has clips near it. */
+const LENGTH_PAIRS_PER_BAND = 20;
 
 /**
  * Adverb/adjective pairs (pekne/pekné) are the commonest length pairs by far:
@@ -103,7 +111,9 @@ const LENGTH_PAIRS = 80;
  */
 const ADVERB_ADJECTIVE_PAIRS = 15;
 
-const SYLLABLE_RE = /ia|ie|iu|ô|[aáäeéiíoóuúyý]/gu;
+/** Vowels and diphthongs, plus r and l between consonants (štvrtý, vlna). */
+const SYLLABLE_RE =
+  /ia|ie|iu|ô|[aáäeéiíoóuúyý]|(?<=[^aáäeéiíoóuúyý])[rlŕĺ](?=[^aáäeéiíoóuúyý])/gu;
 
 /**
  * Not yet calibrated; a judgement until answers from real learners can place
@@ -592,8 +602,8 @@ interface LengthPair {
 /**
  * Real word pairs that differ only in one vowel's length (dobre/dobré,
  * mala/malá, rad/rád), commonest first. Names and misspellings drop out because
- * both forms must be plain dictionary words or their forms; a pair whose clip
- * speech-to-text did not hear exactly is dropped too.
+ * both forms must be plain dictionary words or their forms; a pair whose long
+ * clip is barely longer than its short one is dropped too (check-length.ts).
  */
 function lengthPairs(
   formCounts: ReadonlyMap<string, number>,
@@ -614,7 +624,7 @@ function lengthPairs(
       const longCount = formCounts.get(long) ?? 0;
       if (longCount < MIN_LENGTH_FORM_COUNT) return;
       if (!isCommonWord(short) || !isCommonWord(long)) return;
-      if (checks[short]?.clear === false || checks[long]?.clear === false) return;
+      if (!lengthAudible(short, long, checks)) return;
       candidates.push({
         short,
         long,
@@ -626,19 +636,22 @@ function lengthPairs(
 
   const taken = new Set<string>();
   const pairs: LengthPair[] = [];
+  const perBand = new Map<number, number>();
   let adverbAdjective = 0;
   for (const pair of candidates.sort(
     (a, b) => b.count - a.count || a.short.localeCompare(b.short, "sk"),
   )) {
     if (taken.has(pair.short) || taken.has(pair.long)) continue;
+    const inBand = perBand.get(pair.difficulty) ?? 0;
+    if (inBand >= LENGTH_PAIRS_PER_BAND) continue;
     if (isAdverbAdjectivePair(pair.short, pair.long)) {
       if (adverbAdjective >= ADVERB_ADJECTIVE_PAIRS) continue;
       adverbAdjective += 1;
     }
+    perBand.set(pair.difficulty, inBand + 1);
     taken.add(pair.short);
     taken.add(pair.long);
     pairs.push({ short: pair.short, long: pair.long, difficulty: pair.difficulty });
-    if (pairs.length >= LENGTH_PAIRS) break;
   }
   return pairs;
 }
@@ -989,11 +1002,43 @@ async function rescoreLengths(): Promise<void> {
   console.log(`Wrote ${path.relative(ROOT, OUT_PATH)}`);
 }
 
+async function addLengths(): Promise<void> {
+  const [formCounts, checks] = await Promise.all([
+    loadSnkFormCounts(),
+    loadLengthChecks(),
+  ]);
+  const bank = await readJsonFile<Record<string, unknown>>(OUT_PATH, {});
+  const before = new Set(
+    ((bank.listenLength ?? []) as { short: string }[]).map((clip) => clip.short),
+  );
+  const pairs = lengthPairs(formCounts, checks);
+  bank.listenLength = pairs.flatMap((pair) =>
+    [pair.short, pair.long].map((word) => ({
+      id: `ll-${word}`,
+      format: "listenLength" as const,
+      difficulty: round(pair.difficulty),
+      word,
+      short: pair.short,
+      long: pair.long,
+    })),
+  );
+  const added = pairs.filter((pair) => !before.has(pair.short));
+  console.log(
+    `listenLength: ${pairs.length} pairs, ${added.length} new: ` +
+      added.map((pair) => `${pair.short}/${pair.long} (${pair.difficulty})`).join(", "),
+  );
+
+  await writeFileAtomic(OUT_PATH, `${JSON.stringify(bank, null, 1)}\n`);
+  console.log(`Wrote ${path.relative(ROOT, OUT_PATH)}`);
+}
+
 const run = process.argv.includes("--rescore-pseudowords")
   ? rescorePseudowords
   : process.argv.includes("--rescore-lengths")
     ? rescoreLengths
-    : main;
+    : process.argv.includes("--add-lengths")
+      ? addLengths
+      : main;
 
 run().catch((error: unknown) => {
   console.error(error);

@@ -18903,22 +18903,6 @@
    "long": "málo"
   },
   {
-   "id": "ll-svojim",
-   "format": "listenLength",
-   "difficulty": 60,
-   "word": "svojim",
-   "short": "svojim",
-   "long": "svojím"
-  },
-  {
-   "id": "ll-svojím",
-   "format": "listenLength",
-   "difficulty": 60,
-   "word": "svojím",
-   "short": "svojim",
-   "long": "svojím"
-  },
-  {
    "id": "ll-podobne",
    "format": "listenLength",
    "difficulty": 60,
@@ -19079,22 +19063,6 @@
    "long": "stáli"
   },
   {
-   "id": "ll-druhy",
-   "format": "listenLength",
-   "difficulty": 60,
-   "word": "druhy",
-   "short": "druhy",
-   "long": "druhý"
-  },
-  {
-   "id": "ll-druhý",
-   "format": "listenLength",
-   "difficulty": 60,
-   "word": "druhý",
-   "short": "druhy",
-   "long": "druhý"
-  },
-  {
    "id": "ll-mysli",
    "format": "listenLength",
    "difficulty": 60,
@@ -19109,22 +19077,6 @@
    "word": "myslí",
    "short": "mysli",
    "long": "myslí"
-  },
-  {
-   "id": "ll-verejne",
-   "format": "listenLength",
-   "difficulty": 60,
-   "word": "verejne",
-   "short": "verejne",
-   "long": "verejné"
-  },
-  {
-   "id": "ll-verejné",
-   "format": "listenLength",
-   "difficulty": 60,
-   "word": "verejné",
-   "short": "verejne",
-   "long": "verejné"
   },
   {
    "id": "ll-mužstva",
@@ -19319,6 +19271,22 @@
    "long": "bežné"
   },
   {
+   "id": "ll-výborne",
+   "format": "listenLength",
+   "difficulty": 60,
+   "word": "výborne",
+   "short": "výborne",
+   "long": "výborné"
+  },
+  {
+   "id": "ll-výborné",
+   "format": "listenLength",
+   "difficulty": 60,
+   "word": "výborné",
+   "short": "výborne",
+   "long": "výborné"
+  },
+  {
    "id": "ll-okna",
    "format": "listenLength",
    "difficulty": 40,
@@ -19383,22 +19351,6 @@
    "long": "žiadostí"
   },
   {
-   "id": "ll-boli",
-   "format": "listenLength",
-   "difficulty": 60,
-   "word": "boli",
-   "short": "boli",
-   "long": "bolí"
-  },
-  {
-   "id": "ll-bolí",
-   "format": "listenLength",
-   "difficulty": 60,
-   "word": "bolí",
-   "short": "boli",
-   "long": "bolí"
-  },
-  {
    "id": "ll-anglicky",
    "format": "listenLength",
    "difficulty": 75,
@@ -19413,22 +19365,6 @@
    "word": "anglický",
    "short": "anglicky",
    "long": "anglický"
-  },
-  {
-   "id": "ll-cirkvi",
-   "format": "listenLength",
-   "difficulty": 60,
-   "word": "cirkvi",
-   "short": "cirkvi",
-   "long": "cirkví"
-  },
-  {
-   "id": "ll-cirkví",
-   "format": "listenLength",
-   "difficulty": 60,
-   "word": "cirkví",
-   "short": "cirkvi",
-   "long": "cirkví"
   },
   {
    "id": "ll-zla",
@@ -19479,54 +19415,6 @@
    "long": "právom"
   },
   {
-   "id": "ll-koni",
-   "format": "listenLength",
-   "difficulty": 60,
-   "word": "koni",
-   "short": "koni",
-   "long": "koní"
-  },
-  {
-   "id": "ll-koní",
-   "format": "listenLength",
-   "difficulty": 60,
-   "word": "koní",
-   "short": "koni",
-   "long": "koní"
-  },
-  {
-   "id": "ll-chuti",
-   "format": "listenLength",
-   "difficulty": 60,
-   "word": "chuti",
-   "short": "chuti",
-   "long": "chutí"
-  },
-  {
-   "id": "ll-chutí",
-   "format": "listenLength",
-   "difficulty": 60,
-   "word": "chutí",
-   "short": "chuti",
-   "long": "chutí"
-  },
-  {
-   "id": "ll-kosti",
-   "format": "listenLength",
-   "difficulty": 60,
-   "word": "kosti",
-   "short": "kosti",
-   "long": "kostí"
-  },
-  {
-   "id": "ll-kostí",
-   "format": "listenLength",
-   "difficulty": 60,
-   "word": "kostí",
-   "short": "kosti",
-   "long": "kostí"
-  },
-  {
    "id": "ll-rana",
    "format": "listenLength",
    "difficulty": 20,
@@ -19543,22 +19431,6 @@
    "long": "rána"
   },
   {
-   "id": "ll-nemecky",
-   "format": "listenLength",
-   "difficulty": 75,
-   "word": "nemecky",
-   "short": "nemecky",
-   "long": "nemecký"
-  },
-  {
-   "id": "ll-nemecký",
-   "format": "listenLength",
-   "difficulty": 75,
-   "word": "nemecký",
-   "short": "nemecky",
-   "long": "nemecký"
-  },
-  {
    "id": "ll-kolena",
    "format": "listenLength",
    "difficulty": 40,
@@ -19573,6 +19445,694 @@
    "word": "kolená",
    "short": "kolena",
    "long": "kolená"
+  },
+  {
+   "id": "ll-dokonale",
+   "format": "listenLength",
+   "difficulty": 75,
+   "word": "dokonale",
+   "short": "dokonale",
+   "long": "dokonalé"
+  },
+  {
+   "id": "ll-dokonalé",
+   "format": "listenLength",
+   "difficulty": 75,
+   "word": "dokonalé",
+   "short": "dokonale",
+   "long": "dokonalé"
+  },
+  {
+   "id": "ll-starosti",
+   "format": "listenLength",
+   "difficulty": 75,
+   "word": "starosti",
+   "short": "starosti",
+   "long": "starostí"
+  },
+  {
+   "id": "ll-starostí",
+   "format": "listenLength",
+   "difficulty": 75,
+   "word": "starostí",
+   "short": "starosti",
+   "long": "starostí"
+  },
+  {
+   "id": "ll-kriticky",
+   "format": "listenLength",
+   "difficulty": 75,
+   "word": "kriticky",
+   "short": "kriticky",
+   "long": "kritický"
+  },
+  {
+   "id": "ll-kritický",
+   "format": "listenLength",
+   "difficulty": 75,
+   "word": "kritický",
+   "short": "kriticky",
+   "long": "kritický"
+  },
+  {
+   "id": "ll-dospeli",
+   "format": "listenLength",
+   "difficulty": 75,
+   "word": "dospeli",
+   "short": "dospeli",
+   "long": "dospelí"
+  },
+  {
+   "id": "ll-dospelí",
+   "format": "listenLength",
+   "difficulty": 75,
+   "word": "dospelí",
+   "short": "dospeli",
+   "long": "dospelí"
+  },
+  {
+   "id": "ll-jedna",
+   "format": "listenLength",
+   "difficulty": 40,
+   "word": "jedna",
+   "short": "jedna",
+   "long": "jedná"
+  },
+  {
+   "id": "ll-jedná",
+   "format": "listenLength",
+   "difficulty": 40,
+   "word": "jedná",
+   "short": "jedna",
+   "long": "jedná"
+  },
+  {
+   "id": "ll-diskusii",
+   "format": "listenLength",
+   "difficulty": 75,
+   "word": "diskusii",
+   "short": "diskusii",
+   "long": "diskusií"
+  },
+  {
+   "id": "ll-diskusií",
+   "format": "listenLength",
+   "difficulty": 75,
+   "word": "diskusií",
+   "short": "diskusii",
+   "long": "diskusií"
+  },
+  {
+   "id": "ll-ticha",
+   "format": "listenLength",
+   "difficulty": 40,
+   "word": "ticha",
+   "short": "ticha",
+   "long": "tichá"
+  },
+  {
+   "id": "ll-tichá",
+   "format": "listenLength",
+   "difficulty": 40,
+   "word": "tichá",
+   "short": "ticha",
+   "long": "tichá"
+  },
+  {
+   "id": "ll-odpovedi",
+   "format": "listenLength",
+   "difficulty": 75,
+   "word": "odpovedi",
+   "short": "odpovedi",
+   "long": "odpovedí"
+  },
+  {
+   "id": "ll-odpovedí",
+   "format": "listenLength",
+   "difficulty": 75,
+   "word": "odpovedí",
+   "short": "odpovedi",
+   "long": "odpovedí"
+  },
+  {
+   "id": "ll-média",
+   "format": "listenLength",
+   "difficulty": 40,
+   "word": "média",
+   "short": "média",
+   "long": "médiá"
+  },
+  {
+   "id": "ll-médiá",
+   "format": "listenLength",
+   "difficulty": 40,
+   "word": "médiá",
+   "short": "média",
+   "long": "médiá"
+  },
+  {
+   "id": "ll-štúdii",
+   "format": "listenLength",
+   "difficulty": 75,
+   "word": "štúdii",
+   "short": "štúdii",
+   "long": "štúdií"
+  },
+  {
+   "id": "ll-štúdií",
+   "format": "listenLength",
+   "difficulty": 75,
+   "word": "štúdií",
+   "short": "štúdii",
+   "long": "štúdií"
+  },
+  {
+   "id": "ll-tony",
+   "format": "listenLength",
+   "difficulty": 20,
+   "word": "tony",
+   "short": "tony",
+   "long": "tóny"
+  },
+  {
+   "id": "ll-tóny",
+   "format": "listenLength",
+   "difficulty": 20,
+   "word": "tóny",
+   "short": "tony",
+   "long": "tóny"
+  },
+  {
+   "id": "ll-reakcii",
+   "format": "listenLength",
+   "difficulty": 75,
+   "word": "reakcii",
+   "short": "reakcii",
+   "long": "reakcií"
+  },
+  {
+   "id": "ll-reakcií",
+   "format": "listenLength",
+   "difficulty": 75,
+   "word": "reakcií",
+   "short": "reakcii",
+   "long": "reakcií"
+  },
+  {
+   "id": "ll-okamžite",
+   "format": "listenLength",
+   "difficulty": 75,
+   "word": "okamžite",
+   "short": "okamžite",
+   "long": "okamžité"
+  },
+  {
+   "id": "ll-okamžité",
+   "format": "listenLength",
+   "difficulty": 75,
+   "word": "okamžité",
+   "short": "okamžite",
+   "long": "okamžité"
+  },
+  {
+   "id": "ll-ihriska",
+   "format": "listenLength",
+   "difficulty": 40,
+   "word": "ihriska",
+   "short": "ihriska",
+   "long": "ihriská"
+  },
+  {
+   "id": "ll-ihriská",
+   "format": "listenLength",
+   "difficulty": 40,
+   "word": "ihriská",
+   "short": "ihriska",
+   "long": "ihriská"
+  },
+  {
+   "id": "ll-štúdia",
+   "format": "listenLength",
+   "difficulty": 40,
+   "word": "štúdia",
+   "short": "štúdia",
+   "long": "štúdiá"
+  },
+  {
+   "id": "ll-štúdiá",
+   "format": "listenLength",
+   "difficulty": 40,
+   "word": "štúdiá",
+   "short": "štúdia",
+   "long": "štúdiá"
+  },
+  {
+   "id": "ll-platne",
+   "format": "listenLength",
+   "difficulty": 20,
+   "word": "platne",
+   "short": "platne",
+   "long": "plátne"
+  },
+  {
+   "id": "ll-plátne",
+   "format": "listenLength",
+   "difficulty": 20,
+   "word": "plátne",
+   "short": "platne",
+   "long": "plátne"
+  },
+  {
+   "id": "ll-divadla",
+   "format": "listenLength",
+   "difficulty": 40,
+   "word": "divadla",
+   "short": "divadla",
+   "long": "divadlá"
+  },
+  {
+   "id": "ll-divadlá",
+   "format": "listenLength",
+   "difficulty": 40,
+   "word": "divadlá",
+   "short": "divadla",
+   "long": "divadlá"
+  },
+  {
+   "id": "ll-relácii",
+   "format": "listenLength",
+   "difficulty": 75,
+   "word": "relácii",
+   "short": "relácii",
+   "long": "relácií"
+  },
+  {
+   "id": "ll-relácií",
+   "format": "listenLength",
+   "difficulty": 75,
+   "word": "relácií",
+   "short": "relácii",
+   "long": "relácií"
+  },
+  {
+   "id": "ll-kina",
+   "format": "listenLength",
+   "difficulty": 40,
+   "word": "kina",
+   "short": "kina",
+   "long": "kiná"
+  },
+  {
+   "id": "ll-kiná",
+   "format": "listenLength",
+   "difficulty": 40,
+   "word": "kiná",
+   "short": "kina",
+   "long": "kiná"
+  },
+  {
+   "id": "ll-voľna",
+   "format": "listenLength",
+   "difficulty": 40,
+   "word": "voľna",
+   "short": "voľna",
+   "long": "voľná"
+  },
+  {
+   "id": "ll-voľná",
+   "format": "listenLength",
+   "difficulty": 40,
+   "word": "voľná",
+   "short": "voľna",
+   "long": "voľná"
+  },
+  {
+   "id": "ll-ramena",
+   "format": "listenLength",
+   "difficulty": 40,
+   "word": "ramena",
+   "short": "ramena",
+   "long": "ramená"
+  },
+  {
+   "id": "ll-ramená",
+   "format": "listenLength",
+   "difficulty": 40,
+   "word": "ramená",
+   "short": "ramena",
+   "long": "ramená"
+  },
+  {
+   "id": "ll-typicky",
+   "format": "listenLength",
+   "difficulty": 75,
+   "word": "typicky",
+   "short": "typicky",
+   "long": "typický"
+  },
+  {
+   "id": "ll-typický",
+   "format": "listenLength",
+   "difficulty": 75,
+   "word": "typický",
+   "short": "typicky",
+   "long": "typický"
+  },
+  {
+   "id": "ll-nádeji",
+   "format": "listenLength",
+   "difficulty": 75,
+   "word": "nádeji",
+   "short": "nádeji",
+   "long": "nádejí"
+  },
+  {
+   "id": "ll-nádejí",
+   "format": "listenLength",
+   "difficulty": 75,
+   "word": "nádejí",
+   "short": "nádeji",
+   "long": "nádejí"
+  },
+  {
+   "id": "ll-lekárni",
+   "format": "listenLength",
+   "difficulty": 75,
+   "word": "lekárni",
+   "short": "lekárni",
+   "long": "lekární"
+  },
+  {
+   "id": "ll-lekární",
+   "format": "listenLength",
+   "difficulty": 75,
+   "word": "lekární",
+   "short": "lekárni",
+   "long": "lekární"
+  },
+  {
+   "id": "ll-umelecky",
+   "format": "listenLength",
+   "difficulty": 75,
+   "word": "umelecky",
+   "short": "umelecky",
+   "long": "umelecký"
+  },
+  {
+   "id": "ll-umelecký",
+   "format": "listenLength",
+   "difficulty": 75,
+   "word": "umelecký",
+   "short": "umelecky",
+   "long": "umelecký"
+  },
+  {
+   "id": "ll-sprava",
+   "format": "listenLength",
+   "difficulty": 20,
+   "word": "sprava",
+   "short": "sprava",
+   "long": "správa"
+  },
+  {
+   "id": "ll-správa",
+   "format": "listenLength",
+   "difficulty": 20,
+   "word": "správa",
+   "short": "sprava",
+   "long": "správa"
+  },
+  {
+   "id": "ll-maďarsky",
+   "format": "listenLength",
+   "difficulty": 75,
+   "word": "maďarsky",
+   "short": "maďarsky",
+   "long": "maďarský"
+  },
+  {
+   "id": "ll-maďarský",
+   "format": "listenLength",
+   "difficulty": 75,
+   "word": "maďarský",
+   "short": "maďarsky",
+   "long": "maďarský"
+  },
+  {
+   "id": "ll-obava",
+   "format": "listenLength",
+   "difficulty": 40,
+   "word": "obava",
+   "short": "obava",
+   "long": "obáva"
+  },
+  {
+   "id": "ll-obáva",
+   "format": "listenLength",
+   "difficulty": 40,
+   "word": "obáva",
+   "short": "obava",
+   "long": "obáva"
+  },
+  {
+   "id": "ll-vystrel",
+   "format": "listenLength",
+   "difficulty": 20,
+   "word": "vystrel",
+   "short": "vystrel",
+   "long": "výstrel"
+  },
+  {
+   "id": "ll-výstrel",
+   "format": "listenLength",
+   "difficulty": 20,
+   "word": "výstrel",
+   "short": "vystrel",
+   "long": "výstrel"
+  },
+  {
+   "id": "ll-vojska",
+   "format": "listenLength",
+   "difficulty": 40,
+   "word": "vojska",
+   "short": "vojska",
+   "long": "vojská"
+  },
+  {
+   "id": "ll-vojská",
+   "format": "listenLength",
+   "difficulty": 40,
+   "word": "vojská",
+   "short": "vojska",
+   "long": "vojská"
+  },
+  {
+   "id": "ll-kritéria",
+   "format": "listenLength",
+   "difficulty": 40,
+   "word": "kritéria",
+   "short": "kritéria",
+   "long": "kritériá"
+  },
+  {
+   "id": "ll-kritériá",
+   "format": "listenLength",
+   "difficulty": 40,
+   "word": "kritériá",
+   "short": "kritéria",
+   "long": "kritériá"
+  },
+  {
+   "id": "ll-hesla",
+   "format": "listenLength",
+   "difficulty": 40,
+   "word": "hesla",
+   "short": "hesla",
+   "long": "heslá"
+  },
+  {
+   "id": "ll-heslá",
+   "format": "listenLength",
+   "difficulty": 40,
+   "word": "heslá",
+   "short": "hesla",
+   "long": "heslá"
+  },
+  {
+   "id": "ll-naraz",
+   "format": "listenLength",
+   "difficulty": 20,
+   "word": "naraz",
+   "short": "naraz",
+   "long": "náraz"
+  },
+  {
+   "id": "ll-náraz",
+   "format": "listenLength",
+   "difficulty": 20,
+   "word": "náraz",
+   "short": "naraz",
+   "long": "náraz"
+  },
+  {
+   "id": "ll-pary",
+   "format": "listenLength",
+   "difficulty": 20,
+   "word": "pary",
+   "short": "pary",
+   "long": "páry"
+  },
+  {
+   "id": "ll-páry",
+   "format": "listenLength",
+   "difficulty": 20,
+   "word": "páry",
+   "short": "pary",
+   "long": "páry"
+  },
+  {
+   "id": "ll-hračka",
+   "format": "listenLength",
+   "difficulty": 20,
+   "word": "hračka",
+   "short": "hračka",
+   "long": "hráčka"
+  },
+  {
+   "id": "ll-hráčka",
+   "format": "listenLength",
+   "difficulty": 20,
+   "word": "hráčka",
+   "short": "hračka",
+   "long": "hráčka"
+  },
+  {
+   "id": "ll-vine",
+   "format": "listenLength",
+   "difficulty": 20,
+   "word": "vine",
+   "short": "vine",
+   "long": "víne"
+  },
+  {
+   "id": "ll-víne",
+   "format": "listenLength",
+   "difficulty": 20,
+   "word": "víne",
+   "short": "vine",
+   "long": "víne"
+  },
+  {
+   "id": "ll-pasy",
+   "format": "listenLength",
+   "difficulty": 20,
+   "word": "pasy",
+   "short": "pasy",
+   "long": "pásy"
+  },
+  {
+   "id": "ll-pásy",
+   "format": "listenLength",
+   "difficulty": 20,
+   "word": "pásy",
+   "short": "pasy",
+   "long": "pásy"
+  },
+  {
+   "id": "ll-skla",
+   "format": "listenLength",
+   "difficulty": 20,
+   "word": "skla",
+   "short": "skla",
+   "long": "sklá"
+  },
+  {
+   "id": "ll-sklá",
+   "format": "listenLength",
+   "difficulty": 20,
+   "word": "sklá",
+   "short": "skla",
+   "long": "sklá"
+  },
+  {
+   "id": "ll-zlu",
+   "format": "listenLength",
+   "difficulty": 20,
+   "word": "zlu",
+   "short": "zlu",
+   "long": "zlú"
+  },
+  {
+   "id": "ll-zlú",
+   "format": "listenLength",
+   "difficulty": 20,
+   "word": "zlú",
+   "short": "zlu",
+   "long": "zlú"
+  },
+  {
+   "id": "ll-zasadne",
+   "format": "listenLength",
+   "difficulty": 20,
+   "word": "zasadne",
+   "short": "zasadne",
+   "long": "zásadne"
+  },
+  {
+   "id": "ll-zásadne",
+   "format": "listenLength",
+   "difficulty": 20,
+   "word": "zásadne",
+   "short": "zasadne",
+   "long": "zásadne"
+  },
+  {
+   "id": "ll-pasu",
+   "format": "listenLength",
+   "difficulty": 20,
+   "word": "pasu",
+   "short": "pasu",
+   "long": "pásu"
+  },
+  {
+   "id": "ll-pásu",
+   "format": "listenLength",
+   "difficulty": 20,
+   "word": "pásu",
+   "short": "pasu",
+   "long": "pásu"
+  },
+  {
+   "id": "ll-tonu",
+   "format": "listenLength",
+   "difficulty": 20,
+   "word": "tonu",
+   "short": "tonu",
+   "long": "tónu"
+  },
+  {
+   "id": "ll-tónu",
+   "format": "listenLength",
+   "difficulty": 20,
+   "word": "tónu",
+   "short": "tonu",
+   "long": "tónu"
+  },
+  {
+   "id": "ll-staval",
+   "format": "listenLength",
+   "difficulty": 20,
+   "word": "staval",
+   "short": "staval",
+   "long": "stával"
+  },
+  {
+   "id": "ll-stával",
+   "format": "listenLength",
+   "difficulty": 20,
+   "word": "stával",
+   "short": "staval",
+   "long": "stával"
   }
  ],
  "readComplete": [
