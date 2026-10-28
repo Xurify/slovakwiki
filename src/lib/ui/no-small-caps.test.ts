@@ -16,7 +16,7 @@ function sourceFiles(dir: string): string[] {
 }
 
 describe("labels", () => {
-  // AGENTS.md "Avoid the generated look": uppercase on its own is fine for
+  // src/AGENTS.md "Avoid the generated look": uppercase on its own is fine for
   // acronyms like JSON; uppercase plus letter-spacing is the small-caps label.
   it("never pairs uppercase with wide tracking", () => {
     const offenders: string[] = [];

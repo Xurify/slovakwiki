@@ -126,6 +126,8 @@ Add a **Proof** section of evidence you observed, not claims: the verify output,
 
 When the PR asks for review, push its head to `preview/<PR number>` (AGENTS.md → Pull requests); work-branch pushes never deploy. You cannot open the preview past Vercel's login, so say "pushed, preview not verified", never that it plays.
 
+Speed: start renders and long generate runs with `run_in_background` and carry on (never a loop that polls the log); name a segment exactly; run the full test suite once at the end of a round, not after each step (`bunx vitest run src/lib/stick-figure` while iterating); refresh snapshots once. After the final report, merge the PR when CI is green or unsubscribe from it: every PR event wakes the thread and re-reads its whole context.
+
 Done when a reviewer can check each segment and each judged line from one click.
 
 ## 8. Learn from the review
