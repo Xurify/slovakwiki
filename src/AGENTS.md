@@ -163,7 +163,7 @@ Pick the loading pattern by wait type:
 
 ## Svelte readability (flags.games-style)
 
-Prettier wraps lines; **airiness is manual**. Keep markup breathable:
+The formatter wraps lines; **airiness is manual**. Keep markup breathable:
 
 1. Blank line between script clusters: imports → props → state → derived → effects/lifecycle → functions.
 2. Never crush control flow: `{#if}` / `{:else}` / `{#each}` / `{#key}` open on their own line, body indented, close on its own line.
@@ -177,7 +177,7 @@ Prettier wraps lines; **airiness is manual**. Keep markup breathable:
 - TypeScript strict; no `any`.
 - Keep changes focused: don't drive-by refactor unrelated files.
 - Don't invent docs the user didn't ask for.
-- **Format before done.** After any TS / Svelte / Astro / content / script edit: run `bun run format` (or at least `bun run format:check`). Not UI-only — lessons, practice, learning helpers, and tests count. Pre-commit `lint-staged` also runs Prettier on staged files, but agents often skip hooks; CI `format:check` still fails the PR. After Prettier, re-check Svelte `{#if}` / `{#each}` blocks weren't re-crushed. Skip reformatting pipeline JSON — `words.json`, related-clusters, curated-examples, frequency dumps, audio/image manifests are in `.prettierignore`.
+- **Format before done.** After any TS / Svelte / Astro / content / script edit: run `bun run format` (or at least `bun run format:check`). Not UI-only — lessons, practice, learning helpers, and tests count. Pre-commit `bun fmt --staged` also formats staged files, but agents often skip hooks; CI `format:check` still fails the PR. After formatting, re-check Svelte `{#if}` / `{#each}` blocks weren't re-crushed. Skip reformatting pipeline JSON — `words.json`, related-clusters, curated-examples, frequency dumps, audio/image manifests are in `.prettierignore`.
 - **Lint + typecheck when risk is high.** Run `bun run lint` and `bun run typecheck` (alias: `bun run check`) before calling done when:
   - many files changed in one pass, or
   - types, exports, shared helpers, content loaders, learning/session logic, Astro pages/islands, or package scripts/config likely shifted
