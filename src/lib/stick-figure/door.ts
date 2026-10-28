@@ -23,6 +23,7 @@ export interface Door {
 /** The places whose door swings open on stage. */
 export const DOORS: Partial<Record<StageSetting, Door>> = {
   kitchen: { hinge: 196, edge: 256, top: 46, height: 180 },
+  studio: { hinge: 196, edge: 256, top: 46, height: 180 },
 };
 
 /** The handle, `u` across from the hinge and `v` down the door. */

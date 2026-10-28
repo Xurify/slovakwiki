@@ -142,6 +142,7 @@
   let sign = $state<Partial<Record<"lead" | "rear", Sign>>>();
 
   let pose = $state<StickPose>(REST_POSE);
+  let rawPose: StickPose = REST_POSE;
   // Linear: the rig shapes the hips' path and the bow along it.
   const sitting = new Tween(0);
   const calling = new Tween(0, { easing: cubicInOut });
@@ -181,7 +182,7 @@
 
     untrack(() => {
       startedAt = performance.now();
-      act = startPerformance(startedAt, $state.snapshot(pose));
+      act = startPerformance(startedAt, rawPose);
       run();
     });
   });
@@ -286,6 +287,7 @@
     const walking = walked < walkMs && !reducedMotion;
     const acting = doing && now < doing.until;
     const talked = next?.pose ?? REST_POSE;
+    rawPose = talked;
     // Busy hands do not talk: a beat would swing the can that is pouring, or the hand the cue leaves alone.
     // Getting onto a chair or off it, the hands go to that; a talker's open hand swung into whoever sat beside.
     const busy = acting || (atTable && sitting.current < 1);

@@ -2,13 +2,12 @@
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
     "allowJs": true,
-    "baseUrl": ".",
     "checkJs": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "paths": {
-      "@/*": ["src/*"],
-      "$lib/*": ["src/lib/*"]
+      "@/*": ["./src/*"],
+      "$lib/*": ["./src/lib/*"]
     },
     "resolveJsonModule": true,
     "skipLibCheck": true,

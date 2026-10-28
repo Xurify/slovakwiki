@@ -29,28 +29,37 @@
   };
 
   /**
-   * Five to a crate, 14 apart. The vegetable crate is heaped with what a
-   * Slovak stall sells in autumn: cibuľa, zemiaky and kaleráb at the back,
-   * mrkva, cvikla, kapusta and paprika in front, the cabbage last so it
-   * sits in front of its neighbours.
+   * The crates are heaped with seasonal Slovak market produce: a back row
+   * sitting slightly higher and a front row in the foreground to give
+   * authentic depth.
    */
-  const items = $derived<Array<{ at: number; back?: boolean; item: Item }>>(
-    crate === "vegetables"
+  const items = $derived<Array<{ at: number; back?: boolean; item: Item }>>([
+    ...(crate === "vegetables"
       ? [
-          { at: 0.5, back: true, item: "onion" },
-          { at: 1.6, back: true, item: "potato" },
-          { at: 3.5, back: true, item: "kohlrabi" },
-          { at: 0, item: "carrots" },
-          { at: 1, item: "beet" },
-          { at: 3, item: "pepper" },
-          { at: 4, item: "yellow-pepper" },
-          { at: 2, item: "cabbage" },
+          { at: 0.5, back: true, item: "onion" as const },
+          { at: 1.6, back: true, item: "potato" as const },
+          { at: 3.5, back: true, item: "kohlrabi" as const },
+          { at: 0, item: "carrots" as const },
+          { at: 1, item: "beet" as const },
+          { at: 3, item: "pepper" as const },
+          { at: 4, item: "yellow-pepper" as const },
+          { at: 2, item: "cabbage" as const },
         ]
-      : [0, 1, 2, 3, 4].map((at) => ({ at, item: ITEMS[crate] })),
-  );
+      : [
+          { at: 0.5, back: true, item: ITEMS[crate] },
+          { at: 1.5, back: true, item: ITEMS[crate] },
+          { at: 2.5, back: true, item: ITEMS[crate] },
+          { at: 3.5, back: true, item: ITEMS[crate] },
+          { at: 0, item: ITEMS[crate] },
+          { at: 1, item: ITEMS[crate] },
+          { at: 2, item: ITEMS[crate] },
+          { at: 3, item: ITEMS[crate] },
+          { at: 4, item: ITEMS[crate] },
+        ]),
+  ]);
 </script>
 
-{#each items as { at, back, item } (at)}
+{#each items as { at, back, item }, i (`${back ? "b" : "f"}-${at}-${i}`)}
   {@const c = x + 10 + at * 14}
 
   <!-- The back row sits a little higher, behind the front one. -->
@@ -70,14 +79,27 @@
         transform="rotate(-25 {c + 2.8} 136.6)"
         class="fill-scene-leaf"
       />
-      <circle cx={c} cy="145" r="6.5" class="fill-scene-apple" />
-      <circle cx={c - 2.2} cy="142.6" r="1.8" class="fill-white/40" />
+      <path
+        d="M{c} 140C{c + 3.8} 138.2 {c + 7} 141.5 {c + 6.6} 146C{c + 6} 150 {c +
+          2.8} 151.8 {c} 151.2C{c - 2.8} 151.8 {c - 6} 150 {c - 6.6} 146C{c -
+          7} 141.5 {c - 3.8} 138.2 {c} 140Z"
+        class="fill-scene-apple"
+      />
+      <circle cx={c - 2.2} cy="142.8" r="1.6" class="fill-white/35" />
     {:else if item === "pear"}
       <path
         d="M{c} 137l.6-2.8"
         class="stroke-scene-wood"
         stroke-width="1.1"
         fill="none"
+      />
+      <ellipse
+        cx={c + 2.4}
+        cy="134.8"
+        rx="2"
+        ry="0.9"
+        transform="rotate(-20 {c + 2.4} 134.8)"
+        class="fill-scene-leaf"
       />
       <path
         d="M{c} 136.6C{c + 2.6} 136.6 {c + 2.8} 140 {c + 3.6} 142C{c + 6.8} 145 {c +
@@ -87,14 +109,41 @@
       />
       <circle cx={c - 2.2} cy="145" r="1.5" class="fill-white/35" />
     {:else if item === "plum"}
-      <ellipse cx={c} cy="146" rx="5" ry="6" class="fill-scene-plum" />
+      <!-- Plums with stems, leaves, teardrop shape, cleft groove and bloom highlight -->
       <path
-        d="M{c} 140.4Q{c + 2} 146 {c} 151.6"
-        class="stroke-white/25"
+        d="M{c} 139.8q.3-2.6 1.6-3.6"
+        class="stroke-scene-wood"
+        stroke-width="0.9"
+        fill="none"
+      />
+      <ellipse
+        cx={c + 2.4}
+        cy="136.6"
+        rx="1.9"
+        ry="0.9"
+        transform="rotate(-20 {c + 2.4} 136.6)"
+        class="fill-scene-leaf"
+      />
+      <path
+        d="M{c} 140.5C{c + 5.2} 140.5 {c + 6.2} 145.5 {c + 4.5} 149.5C{c +
+          3} 152.8 {c} 153.2 {c} 153.2C{c} 153.2 {c - 3} 152.8 {c - 4.5} 149.5C{c -
+          6.2} 145.5 {c - 5.2} 140.5 {c} 140.5Z"
+        class="fill-scene-plum"
+      />
+      <path
+        d="M{c} 140.8Q{c + 1.2} 146 {c} 152.2"
+        class="stroke-black/20"
         stroke-width="0.8"
         fill="none"
       />
-      <circle cx={c - 1.8} cy="143.4" r="1.4" class="fill-white/30" />
+      <ellipse
+        cx={c - 2.2}
+        cy="144.5"
+        rx="1.5"
+        ry="3"
+        transform="rotate(-15 {c - 2.2} 144.5)"
+        class="fill-white/25"
+      />
     {:else if item === "strawberry"}
       <path
         d="M{c - 6} 142Q{c} 140 {c + 6} 142Q{c + 5} 150 {c} 154Q{c - 5} 150 {c - 6} 142Z"
@@ -183,16 +232,10 @@
       <!-- A bell pepper: three lobes at the bottom, a green stalk on top. -->
       <path
         d="M{c - 5.5} 141Q{c - 7} 149 {c - 3.5} 151.5Q{c} 150 {c + 3.5} 151.5Q{c +
-          7} 149 {c + 5.5} 141Q{c} 138.5 {c - 5.5} 141Z"
-        class={item === "pepper" ? "fill-scene-apple" : "fill-scene-honey"}
+          7} 149 {c + 5.5} 141Q{c + 4.5} 138 {c} 138Q{c - 4.5} 138 {c - 5.5} 141Z"
+        class={item === "pepper" ? "fill-scene-red" : "fill-scene-honey"}
       />
-      <path d="M{c} 141.6V150" class="stroke-black/10" stroke-width="0.8" fill="none" />
-      <path
-        d="M{c} 140v-2.6l1.6-1"
-        class="stroke-scene-leaf"
-        stroke-width="1.4"
-        fill="none"
-      />
+      <path d="M{c} 138.5V135" class="stroke-scene-leaf" stroke-width="1.3" fill="none" />
     {/if}
   </g>
 {/each}

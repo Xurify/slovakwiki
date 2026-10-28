@@ -78,9 +78,10 @@
   const COUNT_WORDS = ["one", "two", "three", "four", "five"];
 
   let root: HTMLElement | undefined = $state();
-  let listened = $state(done !== null || heard);
-  let checkAt = $state(done ? chapter.checks.length : 0);
-  let correct = $state(done?.correct ?? 0);
+  // Keyed by its segment (EpisodePlayer): it starts from what the episode knows of it, then keeps its own state.
+  let listened = $state(untrack(() => done !== null || heard));
+  let checkAt = $state(untrack(() => (done ? chapter.checks.length : 0)));
+  let correct = $state(untrack(() => done?.correct ?? 0));
   let textOpen = $state(false);
   let english = $state(false);
   let placeSound = $state(true);
@@ -94,33 +95,37 @@
   /** The ask whose answer has started to be heard, so the pick can be marked. */
   let revealedFor = $state<string | null>(null);
 
-  const lines = chapter.lines;
+  const lines = untrack(() => chapter.lines);
   const speakers = [...new Set(lines.map((line) => line.speaker))];
   // Switching questions on mid-segment changes only what comes at its end.
   const checks = $derived(questions ? chapter.checks : []);
 
   const asks = lines.some((line) => line.ask);
 
-  const player = new LinePlayer(lines, audioSrcs, {
-    stage: () => sceneStage,
-    holdsAfter: (index) => playAlong && Boolean(lines[index]?.ask),
-    isLast: (index) => nextOnPath(lines, picks, index) === undefined,
-    next: (index) => nextOnPath(lines, picks, index),
-    prev: (index) => prevOnPath(lines, picks, index),
-    onRunEnd: () => {
-      const first = !listened;
-      listened = true;
-      // Every play-through goes on to the next segment, not only the first.
-      onlistened?.();
-      if (!questions || !first) return;
-      if (checks.length === 0) {
-        onfinish?.(0);
-        void reveal("[data-listen-done]", true);
-        return;
-      }
-      void reveal("[data-listen-checks]");
+  const player = new LinePlayer(
+    lines,
+    untrack(() => audioSrcs),
+    {
+      stage: () => sceneStage,
+      holdsAfter: (index) => playAlong && Boolean(lines[index]?.ask),
+      isLast: (index) => nextOnPath(lines, picks, index) === undefined,
+      next: (index) => nextOnPath(lines, picks, index),
+      prev: (index) => prevOnPath(lines, picks, index),
+      onRunEnd: () => {
+        const first = !listened;
+        listened = true;
+        // Every play-through goes on to the next segment, not only the first.
+        onlistened?.();
+        if (!questions || !first) return;
+        if (checks.length === 0) {
+          onfinish?.(0);
+          void reveal("[data-listen-done]", true);
+          return;
+        }
+        void reveal("[data-listen-checks]");
+      },
     },
-  });
+  );
 
   const askAt = $derived(cardAt(lines, picks, player.cursor, player.held));
   /** The lines this listener's answers lead through, in order. */

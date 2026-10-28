@@ -68,7 +68,7 @@ const stressing = { leadRaise: 46, leadBend: 12, nod: 1.6, look: 0.6, brow: 0.5 
 /** Words that trail off, or a long thought: head on one side, hands still. */
 const musing = { tilt: 6, lean: 1, look: 0.5, brow: 0.35 };
 const waveUp = { leadRaise: 120, tilt: 4, brow: 0.6 };
-const waveOut = { rearRaise: 140, tilt: 4, brow: 0.6 };
+const waveOut = { rearRaise: -130, tilt: 4, brow: 0.6 };
 const openHands = {
   leadRaise: 36,
   leadBend: 46,

@@ -1,3 +1,4 @@
+import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
 const clockInternals = {
@@ -20,7 +21,7 @@ const catalogWords = {
  * eslint-plugin-boundaries v7 file selectors did not apply to relative TS imports here;
  * no-restricted-imports enforces the same edges.
  */
-export default tseslint.config(
+export default defineConfig(
   {
     ignores: ["dist/**", "node_modules/**", "static/**", "**/*.generated.ts"],
   },

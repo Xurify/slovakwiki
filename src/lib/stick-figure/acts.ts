@@ -29,6 +29,7 @@ export const VERBS = [
   "take",
   "give",
   "put",
+  "slide",
   "pocket",
   "offer",
   "raise",
@@ -94,13 +95,14 @@ export interface Cue {
    * ("place-l"), a piece ("counter"), an object ("pot"), a person, a thing
    * of the backdrop to look at ("clock"), or for the camera "wide". For
    * `switch`, "on" or "off"; for `chop`, "small" for fine pieces; for
-   * `leave`, the edge walked off by, "left" or "right"; for `leash`, the dog.
+   * `leave`, the edge walked off by, "left" or "right"; for `leash`, the dog;
+   * for `slide`, the piece it is pushed along, to `dx`.
    */
   to?: LessonCharacterId | (string & {});
   /** What it comes out of: the pot a ladle is filled from; for `enter` where there is no door, the edge spot they walk on from. */
   from?: string;
   on?: CueAnchor;
-  /** Rig units along a piece, for `put` straight onto one. */
+  /** Rig units along a piece, for `put` straight onto one or `slide` along it. */
   dx?: number;
   /** The camera's zoom on `to`: 1 is the whole stage. */
   zoom?: number;
@@ -144,7 +146,17 @@ export type ObjectKind =
   | "headphones"
   | "lead"
   | "ball"
-  | "suitcase";
+  | "suitcase"
+  | "apple"
+  | "bag"
+  | "basket"
+  | "book"
+  | "clipboard"
+  | "umbrella"
+  | "cheese"
+  | "plate"
+  /** A bag the backdrop draws, standing in for it on the set so what is in it can be taken out. */
+  | "stash";
 
 /** What is in a pot, a bowl, a spoon, a jug or a cup. */
 export type Fill = "water" | "soup" | "coffee" | "kibble";
@@ -155,6 +167,8 @@ export interface ObjectState {
   /** Steaming hot: 0 cold, 1 just off the boil. */
   heat?: number;
   fill?: Fill;
+  /** Whether food (like an apple) has a bite taken out of it. */
+  bitten?: boolean;
   /** A carrot: 0 whole, 1 peeled, 2 in chunks, 3 in small pieces. */
   cut?: number;
   /** Shakes of salt it has had. */
@@ -487,6 +501,22 @@ export function applyCue(
       holds(world, who, cue);
       return setObject(world, what, { where: putDown(plan, world, cue), call: false });
     }
+    case "slide": {
+      // Pushed along the surface it stands on, to someone too far off to hand it to across a desk.
+      const where = object?.where;
+      if (!where || !("on" in where)) {
+        throw new CueError(
+          `${who} slide ${what}: put it down first, it slides along a surface`,
+        );
+      }
+      const there = putDown(plan, world, cue);
+      if (!("on" in there) || there.on !== where.on) {
+        throw new CueError(
+          `${who} slide ${what}: along the ${where.on} it stands on, not onto another`,
+        );
+      }
+      return setObject(world, what!, { where: there });
+    }
     case "pocket":
       holds(world, who, cue);
       return setObject(world, what!, { where: { pocket: who }, call: false });
@@ -501,7 +531,7 @@ export function applyCue(
       // A spoonful is gone in one go; a cup of coffee takes more than a sip.
       return object?.kind === "cup"
         ? world
-        : setObject(world, what!, { fill: undefined });
+        : setObject(world, what!, { fill: undefined, bitten: true });
     case "blow":
       holds(world, who, cue);
       return setObject(world, what!, { heat: Math.max(0, (object?.heat ?? 0) - 0.5) });
@@ -677,9 +707,14 @@ export function comingIn(lines: readonly ActedLine[]): LessonCharacterId[] {
 /** `start` with whoever comes in through the door during these lines not in yet. */
 export function opening(lines: readonly ActedLine[], start: World): World {
   const entering = comingIn(lines);
-  return entering.length
-    ? { ...start, out: [...new Set([...(start.out ?? []), ...entering])] }
-    : start;
+  if (!entering.length) return start;
+  // Not in yet, they are not in their seat either: the studio sits its hosts down from the start.
+  const seated = start.seated?.filter((who) => !entering.includes(who));
+  return {
+    ...start,
+    out: [...new Set([...(start.out ?? []), ...entering])],
+    ...(seated ? { seated } : {}),
+  };
 }
 
 /** Who comes in through the door or from an edge during these lines, with the way they face. */
