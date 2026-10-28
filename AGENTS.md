@@ -31,7 +31,7 @@ Domain-specific authoring and pipelines live next to the work — not here:
 
 ### Scripts (`scripts/`)
 
-`bun run typecheck` (`astro check`) typechecks **`scripts/**` as well as `src/`**. Husky pre-push runs it (about 30 s) when the push changes `src/` or `scripts/` code (or `package.json`, `tsconfig.json`, `astro.config.ts`, `svelte.config.js`, `eslint.config.js`); commits only run Prettier and ESLint, so iterating stays fast. Manifest and other content-only pushes skip it. New or edited scripts must still pass `bun run typecheck` before push.
+`bun run typecheck` (`astro check`, then `svelte-check`) typechecks **`scripts/**` as well as `src/`**. `astro check` does not type-check inside `.svelte` files; `svelte-check` does, and fails on its warnings too. Run it from the project (`bun run typecheck`), not `bunx svelte-check`: bunx brings its own Svelte, and its types then clash with the project's in seven made-up errors. Husky pre-commit runs it after Prettier when the commit stages `src/` or `scripts/` code (or `package.json`, `tsconfig.json`, `astro.config.ts`, `svelte.config.js`, `eslint.config.js`). Manifest and other content-only commits skip it. New or edited scripts must still pass `bun run typecheck` before commit.
 
 **Copy existing patterns; don't invent Bun-only APIs.**
 
@@ -186,6 +186,50 @@ A segment whose lines carry `act` cues is acted, not read: nothing comes out or 
 - A talk has a casual topic, and its intro says who the person is to Alex. When a talk gets long or its topic deserves more, give it a game of its own rather than lengthen the day.
 - Say it records in the browser and keeps the take there. Nothing is uploaded.
 - Every voiced scene line gets a clip and a mouth track (see **Audio**), slip answers included. Talks reach the generator through `dayTurns()` in `scripts/audio/shared.ts`.
+
+## Loading states
+
+Pick the loading pattern by wait type:
+
+- **Real async waits** (e.g. Pagefind search): use `src/lib/components/ui/DotLoader.svelte`.
+- **Client hydration gates** / known layout placeholders: use **layout skeletons**, not the dot loader.
+
+**Keep skeletons honest.** Any skeleton must stay a recognizable stand-in for the real UI it replaces. If that target layout changes drastically, update the matching skeleton in the same change. Do not leave a stale skeleton that no longer resembles the loaded page.
+
+## Svelte readability (flags.games-style)
+
+Prettier wraps lines; **airiness is manual**. Keep markup breathable:
+
+1. Blank line between script clusters: imports → props → state → derived → effects/lifecycle → functions.
+2. Never crush control flow: `{#if}` / `{:else}` / `{#each}` / `{#key}` open on their own line, body indented, close on its own line.
+3. Blank line between major markup sections (`<nav>`, `<header>`, each `<section>`, `<footer>`).
+4. Long Tailwind: split into a multiline `cx("…", "…")` on the element. Do not hoist classes into local `const …Class = "…"` variables in the script; keep them on the markup they style.
+5. Sibling interactive elements (`<a>`, `<button>`, `<span>`) on separate lines inside flex/grid rows.
+
+## Stack habits
+
+- Svelte 5 runes (`$props`, `$state`, …) as used in the repo.
+- TypeScript strict; no `any`.
+- Keep changes focused: don't drive-by refactor unrelated files.
+- Don't invent docs the user didn't ask for.
+- **Format before done.** After any TS / Svelte / Astro / content / script edit: run `bun run format` (or at least `bun run format:check`). Not UI-only — lessons, practice, learning helpers, and tests count. Pre-commit `lint-staged` also runs Prettier on staged files, but agents often skip hooks; CI `format:check` still fails the PR. After Prettier, re-check Svelte `{#if}` / `{#each}` blocks weren't re-crushed. Skip reformatting pipeline JSON — `words.json`, related-clusters, curated-examples, frequency dumps, audio/image manifests are in `.prettierignore`.
+- **Lint + typecheck when risk is high.** Run `bun run lint` and `bun run typecheck` (alias: `bun run check`) before calling done when:
+  - many files changed in one pass, or
+  - types, exports, shared helpers, content loaders, learning/session logic, Astro pages/islands, or package scripts/config likely shifted
+  - **any** new or edited file under `scripts/` (see **Scripts** above — mandatory)
+  - Skip for tiny copy-only or pure Tailwind class tweaks if `format` already ran. Fix failures before finishing — pre-commit runs `bun run check` only when staged files include `src/` or `scripts/` code (or root TS/Astro config); CI runs `bun run typecheck` on every push.
+
+## Checklist before finishing UI work
+
+- [ ] Ran `bun run format` (or `format:check` clean)
+- [ ] If multi-file / type-touching / shared-logic change: `bun run lint` + `bun run typecheck` clean
+- [ ] No new selectors added to `styles.css` for one-off layout/look
+- [ ] Styling done with Tailwind utilities and/or an existing/shared component
+- [ ] Used theme tokens (`slate` / `blue` / `rose` / `emerald`, `font-serif`, …) not one-off hex in components
+- [ ] Nothing from **Avoid the generated look**: no small caps, kickers, meta strips over titles, dot legends or copy that contradicts the UI
+- [ ] Desktop + mobile still look correct
+- [ ] If a layout with a skeleton changed drastically: matching skeleton updated
+- [ ] Hydration: no new full-page `client:*` on mostly-static shells (see **Astro islands**)
 
 ## Pull requests
 

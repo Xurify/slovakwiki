@@ -53,7 +53,7 @@
     segmentsOpen = window.matchMedia("(min-width: 640px)").matches;
   });
 
-  const totalChecks = episodeCheckCount(episode);
+  const totalChecks = $derived(episodeCheckCount(episode));
   const chapter = $derived(episode.chapters[active]!);
   const allDone = $derived(
     episode.chapters.every((entry) => scores[entry.id] !== undefined),

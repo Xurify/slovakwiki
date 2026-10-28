@@ -165,13 +165,10 @@ export function episodeStages(episode: ListeningEpisode): {
       const set = PLACES[setting].set;
       // Each segment starts on a wide shot, whatever the last one ended on.
       // Whoever walked out last time is back by the next segment, unless its own cues walk them in.
-      const { out: _out, ...carried } =
-        left.get(setting) ?? startWorld(set?.objects ?? []);
-      const opening = set
-        ? setUp({ ...carried, camera: WIDE }, chapter.setup)
-        : undefined;
-      const start = opening && PLACES[setting].desk ? atDesk(opening, lines) : opening;
-      if (set && start) left.set(setting, playedThrough(lines, set, start));
+      const { out: _out, ...carried } = left.get(setting) ?? startWorld(set.objects);
+      const opening = setUp({ ...carried, camera: WIDE }, chapter.setup);
+      const start = PLACES[setting].desk ? atDesk(opening, lines) : opening;
+      left.set(setting, playedThrough(lines, set, start));
       return [
         chapter.id,
         {
@@ -186,7 +183,7 @@ export function episodeStages(episode: ListeningEpisode): {
                 ),
               }
             : {}),
-          ...(start ? { world: start } : {}),
+          world: start,
           lines,
           order: (chapter.cast ?? episode.speakers).map(characterIdForSpeaker),
           setting,

@@ -1,7 +1,7 @@
 <script lang="ts">
   import PageShell from "$lib/components/ui/PageShell.svelte";
 
-  import { onMount, tick } from "svelte";
+  import { onMount, tick, untrack } from "svelte";
   import {
     readPracticeState,
     saveRecentItem,
@@ -38,8 +38,9 @@
   } = $props();
 
   let hintMode = $state<"inline" | "rail">("inline");
-  let sessionItems = $state<PracticeItem[]>(ssrPracticeSession(data.set));
-  let sectionTitle = $state(practiceTaskKicker(sessionItems[0]?.task));
+  // The server's session first; onMount swaps in the reader's own.
+  let sessionItems = $state<PracticeItem[]>(untrack(() => ssrPracticeSession(data.set)));
+  let sectionTitle = $state(untrack(() => practiceTaskKicker(sessionItems[0]?.task)));
 
   onMount(() => {
     void (async () => {

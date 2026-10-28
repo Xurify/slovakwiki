@@ -15,7 +15,12 @@ import {
   lineWords,
   mentions,
 } from "$lib/stick-figure/slovak-text";
-import { thingBoxes, thingCenter, thingNamed } from "$lib/stick-figure/thing-words";
+import {
+  pointedThing,
+  thingBoxes,
+  thingCenter,
+  thingNamed,
+} from "$lib/stick-figure/thing-words";
 import { propForSentence } from "$lib/stick-figure/props";
 import {
   CueError,
@@ -167,7 +172,7 @@ export function checkEpisode(episode: ListeningEpisode): Finding[] {
     const direction = directScene(scene.lines, setting, scene.order);
     const stagings = direction.lines.map((line) => line.staging);
     const speakers = scene.lines.map((line) => line.characterId);
-    const set = PLACES[setting].set ?? { pieces: [], objects: [] };
+    const set = PLACES[setting].set;
     const entrances = {
       ...walkOns(stagings),
       ...cueEntrances(scene.lines, set),
@@ -545,6 +550,7 @@ export function checkCues(
     "okno",
     "dvere",
     "obraz",
+    "platna",
     "zaves",
     "hodiny",
     "lampa",
@@ -930,6 +936,14 @@ export function checkCues(
             message: `${who} points at ${cue.to} at height y=${Math.round(target.y)}, but a dog is knee-high (y~94). Aim down at the dog.`,
           });
         }
+        if (!target && !world.objects[cue.to] && !pointedThing(frame.things, cue.to)) {
+          findings.push({
+            rule: "point/nothing-there",
+            level: "error",
+            ...at,
+            message: `${who} points at "${cue.to}", which this place does not have: no one, no object or spot of its set, and no thing of its backdrop (twins by #near or #far).`,
+          });
+        }
       }
       const walked = from !== undefined && !world.out?.includes(who) && cue.on !== "dark";
       for (const other of there === undefined || !walked ? [] : frame.cast) {
@@ -978,6 +992,7 @@ function workedOn(
   };
   switch (cue.do) {
     case "take":
+    case "slide":
       return base(world, cue.what);
     case "put":
       return base(after, cue.what);
