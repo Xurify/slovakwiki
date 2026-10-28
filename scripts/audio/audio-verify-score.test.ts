@@ -5,6 +5,7 @@ import {
   lastWordDisagreement,
   nearMissEndings,
   prefersNearMissEnding,
+  quietStart,
   weakLastLogprob,
 } from "./judge";
 import {
@@ -151,5 +152,26 @@ describe("heardAsWritten", () => {
     ).toBe(true);
     expect(heardAsWritten("Je to kniha?", "Je to krabica?")).toBe(false);
     expect(heardAsWritten("Ten kľúč je od auta.", "Ten kľúč je od")).toBe(false);
+  });
+});
+
+describe("quietStart", () => {
+  const rate = 8000;
+  const tone = (seconds: number, amplitude: number) =>
+    Float32Array.from(
+      { length: Math.round(seconds * rate) },
+      (_, i) => amplitude * Math.sin(i / 5),
+    );
+  const join = (...parts: Float32Array[]) =>
+    Float32Array.from(parts.flatMap((p) => [...p]));
+
+  it("flags a take whose first words are far quieter than the rest", () => {
+    expect(quietStart(join(tone(1.5, 0.003), tone(1.7, 0.3)), rate)).toBe(true);
+  });
+
+  it("passes a take at one level, with a short pause", () => {
+    expect(quietStart(join(tone(0.5, 0.3), tone(0.3, 0.001), tone(2, 0.3)), rate)).toBe(
+      false,
+    );
   });
 });
