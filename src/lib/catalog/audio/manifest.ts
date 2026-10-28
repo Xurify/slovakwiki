@@ -1,8 +1,8 @@
-import { readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import type { AudioKind } from "./core";
+import { cachedJson } from "./cached-json";
 
 export interface RuntimeIndexEntry {
   /** Clip kind (`lemma` / `example` / `lesson`). */
@@ -26,20 +26,12 @@ const RUNTIME_INDEX_PATHS = [
   path.join(process.cwd(), "content/audio/runtime-index.json"),
 ];
 
-let cache: AudioRuntimeIndex | undefined;
+const readRuntimeIndex = cachedJson<AudioRuntimeIndex>(RUNTIME_INDEX_PATHS);
 
 /** Server-only: load the slim runtime index (hash → kind + generatedAt). */
 export function loadRuntimeIndex(): AudioRuntimeIndex {
-  if (cache) return cache;
-
-  for (const candidate of RUNTIME_INDEX_PATHS) {
-    try {
-      cache = JSON.parse(readFileSync(candidate, "utf8")) as AudioRuntimeIndex;
-      return cache;
-    } catch {
-      continue;
-    }
-  }
+  const index = readRuntimeIndex();
+  if (index) return index;
 
   // An empty index silently strips every lesson, grammar, and cloze clip from a build.
   if (import.meta.env.PROD) {

@@ -1,7 +1,7 @@
-import { readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { cachedJson } from "./cached-json";
 import { loadRuntimeIndex } from "./manifest";
 
 export interface MouthTrackEntry {
@@ -24,22 +24,11 @@ const MOUTH_TRACK_PATHS = [
   path.join(process.cwd(), "content/audio/mouth.json"),
 ];
 
-let cache: MouthTracks | undefined;
+const readMouthTracks = cachedJson<MouthTracks>(MOUTH_TRACK_PATHS);
 
 function loadMouthTracks(): MouthTracks {
-  if (cache) return cache;
-
-  for (const candidate of MOUTH_TRACK_PATHS) {
-    try {
-      cache = JSON.parse(readFileSync(candidate, "utf8")) as MouthTracks;
-      return cache;
-    } catch {
-      continue;
-    }
-  }
-
   // Tracks are optional: without one the figure falls back to a text-timed flap.
-  return {};
+  return readMouthTracks() ?? {};
 }
 
 /** Server-only: the clip's mouth track, unless it was measured from an older take. */

@@ -82,20 +82,20 @@ describe("headwear on the head", () => {
           e.class?.startsWith("fill-scene-line"),
         );
         const band = tags(body, "path").find(
-          (p) => p.class === "stroke-portrait-ink" && p["stroke-width"] === "2.3",
+          (p) => p.class === "stroke-portrait-ink" && p["stroke-width"] === "3.8",
         );
         expect(near && far && band, "headphones drawn").toBeTruthy();
 
-        // Each cup hugs the head's outline: out past it they slide off, deep in they sink into the face.
+        // Each cup sits just outside the skull's edge: in on the face it crowds the eyes, far out it slides off.
         for (const cup of [near, far]) {
           const off = pastSkull(num(cup, "cx"), num(cup, "cy"));
-          expect(off, `cup ${off.toFixed(1)} off the skull's edge`).toBeLessThan(0.6);
-          expect(off).toBeGreaterThan(-1.8);
+          expect(off, `cup ${off.toFixed(1)} off the skull's edge`).toBeLessThan(3.6);
+          expect(off).toBeGreaterThan(0.8);
         }
         if (LOOKS[characterId].ear)
           expect(inEllipse(EAR, near), "near cup over the ear").toBe(true);
 
-        // The band runs from cup to cup over the top, pressed a little into the hair.
+        // The band runs from cup to cup over the top of the hair, as in over-ear headphones, not sunk into it.
         const { from, to } = ends(band!.d);
         expect(inEllipse(from, near, 0.6), "band starts on the near cup").toBe(true);
         expect(inEllipse(to, far, 0.6), "band ends on the far cup").toBe(true);
@@ -106,8 +106,8 @@ describe("headwear on the head", () => {
             .filter((_, i) => i % 2 === 1),
         );
         const crown = LOOKS[characterId].crown;
-        expect(top - crown, "band over the crown").toBeGreaterThanOrEqual(0);
-        expect(top - crown, "band sunk into the hair").toBeLessThanOrEqual(2);
+        expect(top - crown, "band floating over the crown").toBeGreaterThanOrEqual(-3);
+        expect(top - crown, "band sunk into the hair").toBeLessThanOrEqual(0);
       });
     }
 

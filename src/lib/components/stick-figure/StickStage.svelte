@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { untrack, type ComponentProps } from "svelte";
+  import { tick, untrack, type ComponentProps } from "svelte";
   import { cubicInOut, sineIn } from "svelte/easing";
   import { Tween } from "svelte/motion";
 
@@ -304,6 +304,8 @@
   let stageHeight = $state(0);
   /** The page has measured the stage, so marks and walk-ons are known. */
   const measured = $derived(stageWidth > 0 && stageHeight > 0);
+  /** The first placing is done and painted: the room warms up into view once, instead of the cast popping in. */
+  let revealed = $state(false);
 
   /** When each walk in flight ends, on the `performance.now()` clock. */
   let walkEndsAt: Partial<Record<LessonCharacterId, number>> = {};
@@ -1392,6 +1394,8 @@
       lit = [];
       place(0);
     });
+    // After the cast has been seated unseen, and a frame so the fade has a start.
+    void tick().then(() => requestAnimationFrame(() => (revealed = true)));
   });
 
   /** Walk a figure to `offset` figure widths from its mark, a step at a time. */
@@ -2151,8 +2155,10 @@
     bind:clientHeight={stageHeight}
   >
     <div
-      class="absolute inset-0 isolate origin-top-left transition-transform duration-900 ease-in-out"
+      class="absolute inset-0 isolate origin-top-left transition-[transform,opacity,filter] duration-900 ease-in-out motion-reduce:transition-none"
       style:transform={camera}
+      style:opacity={revealed ? 1 : 0}
+      style:filter={revealed ? "none" : "brightness(0.78) saturate(0.8)"}
     >
       <StickBackdrop
         class="absolute inset-0 size-full"
@@ -2259,6 +2265,7 @@
                 doing={acts[characterId]}
                 hands={handsOf(characterId)}
                 seated={seated[characterId] !== undefined}
+                arrived={revealed}
                 out={chairOut(perched[characterId])}
                 atTable={perched[characterId] !== undefined}
                 atDesk={behindDesk(characterId)}

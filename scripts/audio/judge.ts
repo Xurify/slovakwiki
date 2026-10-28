@@ -14,6 +14,8 @@ import {
   editDistance,
 } from "./verify-score";
 import { transcribeAudio, type SttProvider, type SttResult } from "./stt";
+import { decodeMp3 } from "./decode-mp3";
+import { readFile } from "node:fs/promises";
 
 export type JudgeMode = "dual" | "elevenlabs" | "whisper";
 
@@ -134,6 +136,25 @@ export function heardAsWritten(expected: string, heard: string): boolean {
   return words(expected) === words(heard);
 }
 
+/** How far below the whole clip the first second may be before a listener misses the start. */
+const QUIET_START_DB = 15;
+
+/**
+ * The clip's opening is near-silent next to the rest of it: a take that mumbles
+ * its first words ("Tak… mrkva" at −50 dB, the rest at −20) passes speech-to-text
+ * and is inaudible on the page.
+ */
+export function quietStart(samples: Float32Array, sampleRate: number): boolean {
+  const head = Math.min(Math.round(sampleRate), Math.floor(samples.length * 0.4));
+  if (head < sampleRate * 0.2) return false;
+  const level = (from: number, to: number) => {
+    let sum = 0;
+    for (let index = from; index < to; index += 1) sum += samples[index] ** 2;
+    return 10 * Math.log10(sum / (to - from) + 1e-12);
+  };
+  return level(0, head) < level(0, samples.length) - QUIET_START_DB;
+}
+
 export async function judgeClip(
   clipText: string,
   audioPath: string,
@@ -214,6 +235,12 @@ export async function judgeClip(
       `disagree:${lastContentToken(scribe.text)}≠${lastContentToken(whisper.text)}`,
     );
     score = Math.min(score, 0.8);
+  }
+
+  const { samples, sampleRate } = await decodeMp3(await readFile(audioPath));
+  if (quietStart(samples, sampleRate)) {
+    reasons.push("quiet-start");
+    score = Math.min(score, 0.7);
   }
 
   return {

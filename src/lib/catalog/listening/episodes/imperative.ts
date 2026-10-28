@@ -291,14 +291,18 @@ const KITCHEN_ACTS: Record<string, Cue[]> = {
   // Mária checks what she has out: the carrot on the board, the salt by her.
   "maria-counting-veg": [
     { do: "point", to: "carrot", on: "mrkva" },
+    { do: "look", to: "salt", on: "soľ" },
     { do: "take", what: "salt", on: "soľ" },
     { do: "put", what: "salt", to: "salt-place" },
     { who: "anna", do: "knock", on: "after" },
     { do: "look", to: "door", on: "after" },
   ],
+  // Mária turns from the stove to the door as it opens, and nods the greeting back.
   "anna-good-evening": [
     { do: "enter", to: "inside", on: "before" },
     { who: "maria", do: "wipe", on: "before" },
+    { who: "maria", do: "look", to: "door", on: "before" },
+    { who: "maria", do: "nod", on: "večer" },
   ],
   "maria-come-in": [
     { do: "beckon", to: "anna", on: "poď" },
@@ -306,9 +310,14 @@ const KITCHEN_ACTS: Record<string, Cue[]> = {
     { who: "anna", do: "look", to: "door", on: "kde" },
     { do: "look", to: "door", on: "marek" },
   ],
+  // Both in the room turn to the door as it opens; Anna, who has just been greeted herself, waves him in.
   "marek-parking": [
     { do: "enter", to: "inside", on: "before" },
-    { who: "anna", do: "look", to: "marek", on: "dobrý" },
+    { who: "anna", do: "look", to: "marek", on: "before" },
+    { who: "maria", do: "look", to: "door", on: "before" },
+    { do: "nod", on: "dobrý" },
+    { who: "maria", do: "nod", on: "dobrý" },
+    { who: "anna", do: "wave", on: "večer" },
     { do: "pocket", what: "keys", on: "parkoval" },
   ],
   // The recorder goes on the counter's end, to catch the cooking and stay for supper; then Marek waits his turn at the sink.
@@ -473,7 +482,7 @@ const kitchen: ListeningChapter = {
       line(
         "maria-counting-veg",
         "Mária",
-        ["Tak", STOP, "mrkva, soľ", STOP],
+        ["Tak", STOP, "mrkva, ", PAUSE, "soľ", STOP],
         "Right… carrots, salt…",
       ),
       line(
@@ -938,8 +947,8 @@ const help: ListeningChapter = {
     line(
       "anna-back-in-studio",
       "Anna",
-      ["Je ráno a sme späť v štúdiu."],
-      "It's morning and we're back in the studio.",
+      ["Dobré ráno! Sme späť v štúdiu. ", PAUSE, "A rastlinka je stále žltá."],
+      "Good morning! We're back in the studio. And the little plant is still yellow.",
     ),
     line(
       "marek-yesterday-orders",
