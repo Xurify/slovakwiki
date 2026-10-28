@@ -62,6 +62,7 @@
     held,
     dress,
     seated = false,
+    arrived = true,
     out = 0,
     atTable = false,
     atDesk = false,
@@ -88,6 +89,8 @@
     held?: Held;
     /** What the weather on them does to what they wear. */
     dress?: Dress;
+    /** The stage has shown the cast: until then a seat is taken at once, not sat down into. */
+    arrived?: boolean;
     /** On a chair: they sit once any walk there is over, and get up before walking on. */
     seated?: boolean;
     /** Rig units their chair is drawn back from its place, while they get on or off it. */
@@ -215,6 +218,7 @@
       placedAt ||= performance.now();
       const still =
         window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+        !arrived ||
         performance.now() - placedAt < 250;
       const walkLeft = Math.max(0, walkStartedAt + walkMs - performance.now());
       void sitting.set(down ? 1 : 0, {

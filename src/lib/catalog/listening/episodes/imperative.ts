@@ -291,6 +291,7 @@ const KITCHEN_ACTS: Record<string, Cue[]> = {
   // Mária checks what she has out: the carrot on the board, the salt by her.
   "maria-counting-veg": [
     { do: "point", to: "carrot", on: "mrkva" },
+    { do: "look", to: "salt", on: "soľ" },
     { do: "take", what: "salt", on: "soľ" },
     { do: "put", what: "salt", to: "salt-place" },
     { who: "anna", do: "knock", on: "after" },
