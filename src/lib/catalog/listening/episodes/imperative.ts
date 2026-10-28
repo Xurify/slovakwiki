@@ -297,9 +297,12 @@ const KITCHEN_ACTS: Record<string, Cue[]> = {
     { who: "anna", do: "knock", on: "after" },
     { do: "look", to: "door", on: "after" },
   ],
+  // Mária turns from the stove to the door as it opens, and nods the greeting back.
   "anna-good-evening": [
     { do: "enter", to: "inside", on: "before" },
     { who: "maria", do: "wipe", on: "before" },
+    { who: "maria", do: "look", to: "door", on: "before" },
+    { who: "maria", do: "nod", on: "večer" },
   ],
   "maria-come-in": [
     { do: "beckon", to: "anna", on: "poď" },
@@ -307,9 +310,14 @@ const KITCHEN_ACTS: Record<string, Cue[]> = {
     { who: "anna", do: "look", to: "door", on: "kde" },
     { do: "look", to: "door", on: "marek" },
   ],
+  // Both in the room turn to the door as it opens; Anna, who has just been greeted herself, waves him in.
   "marek-parking": [
     { do: "enter", to: "inside", on: "before" },
-    { who: "anna", do: "look", to: "marek", on: "dobrý" },
+    { who: "anna", do: "look", to: "marek", on: "before" },
+    { who: "maria", do: "look", to: "door", on: "before" },
+    { do: "nod", on: "dobrý" },
+    { who: "maria", do: "nod", on: "dobrý" },
+    { who: "anna", do: "wave", on: "večer" },
     { do: "pocket", what: "keys", on: "parkoval" },
   ],
   // The recorder goes on the counter's end, to catch the cooking and stay for supper; then Marek waits his turn at the sink.
