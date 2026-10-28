@@ -135,7 +135,7 @@
     // Each cup's middle on the head's outline, so it hugs the ear; turned, the
     // far one goes in behind the face. Out past the outline with the band sunk
     // into the hair, they read as sliding off.
-    const near = { x: 18.2 + 1.6 * u, rx: 3.4 + 1 * u };
+    const near = { x: 18.4 + 1.6 * u, rx: 3.4 + 1 * u };
     const far = { x: 45.6 - 0.1 * u, rx: 3.2 - 0.4 * u };
     const top = look.crown - 1.2;
     const from = { x: near.x + 0.2, y: cy - ry + 0.6 };
