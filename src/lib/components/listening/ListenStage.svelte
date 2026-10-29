@@ -305,7 +305,7 @@
   }
 
   onMount(() => {
-    // styles.css hides the chrome that listenPrefsBootScript turns off until data-listen-hydrated is set.
+    // ListenPrefsBoot hides the chrome the learner turned off until this marker is set.
     document.documentElement.dataset.listenHydrated = "1";
     volume = getAudioVolume();
 

@@ -112,7 +112,6 @@
     return playClockFrame(() => (veiled = false));
   });
 
-  // The learner turns the sound of the place on or off as it plays.
   $effect(() => {
     if (!sound) hush(0);
     else if (live) untrack(listen);
@@ -196,7 +195,6 @@
     speaking = false;
     finished = true;
     stage?.stop();
-    // A walk-off at the segment's end would go on sounding under the next segment's card.
     stopCues();
     hush(leaving ? HANDOVER_MS : 0);
   }

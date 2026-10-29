@@ -434,13 +434,6 @@
     color: var(--muted);
   }
 
-  /* Until the listening island hydrates, hide the captions and faces the learner turned off.
-     `!important`: Tailwind's display utilities sit in a later cascade layer. */
-  html[data-story-subtitles="off"]:not([data-listen-hydrated]) [data-listen-captions],
-  html[data-listen-voices="off"]:not([data-listen-hydrated]) [data-listen-speakers] {
-    display: none !important;
-  }
-
   body {
     margin: 0;
     min-width: 0;
