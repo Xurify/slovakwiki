@@ -22,6 +22,7 @@
 
 <script lang="ts">
   import { untrack } from "svelte";
+  import { slide } from "svelte/transition";
 
   import SceneCaption from "$lib/components/stick-figure/SceneCaption.svelte";
   import StickStage from "$lib/components/stick-figure/StickStage.svelte";
@@ -29,7 +30,12 @@
   import { directScene } from "$lib/stick-figure/scene-direction";
   import type { StagedScene } from "$lib/stick-figure/scene-line";
   import { sceneMood } from "$lib/stick-figure/scene-mood";
+  import { animateResize } from "$lib/ui/animate-resize";
   import { cx } from "$lib/ui/classes";
+
+  /** This repo's motion convention (see `StickWeather.svelte`): read live, not cached, since the setting can change mid-visit. */
+  const reducedMotion = (): boolean =>
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /**
    * A podcast segment acted out on the stick-figure stage: the segment's
@@ -268,29 +274,42 @@
   {#if subtitles}
     {@const turn = turns[shown]}
 
-    <!-- A line tall before the first line comes, so the controls do not jump then. -->
+    <!--
+      A caption band with a floor, not a fixed height: the floor gives a short line and its
+      English row their room from the start, so the controls don't move on load or on pause.
+      A longer line still grows past it, but `animateResize` eases that growth instead of
+      snapping, and `transition:slide` eases the band's own mount/unmount when subtitles are
+      turned on or off, rather than the row beneath it jumping.
+    -->
     <div
-      class="min-h-[3.6rem] border-t border-slate-200/70 px-4 py-3 max-[600px]:min-h-[3.25rem] sm:px-5"
-      aria-live="polite"
+      class="border-t border-slate-200/70"
+      data-listen-captions
+      transition:slide={{ duration: reducedMotion() ? 0 : 200 }}
     >
-      {#if turn}
-        {#key shown}
-          <SceneCaption
-            clock={() => stage?.clock()}
-            {cue}
-            english={turn.english}
-            marks={turn.marks}
-            onthing={(id) => stage?.light(id)}
-            plan={direction.lines[shown]?.plan}
-            playing={speaking}
-            {showEnglish}
-            slovak={turn.slovak}
-            things={direction.things}
-          />
-        {/key}
-      {:else if hint}
-        <p class="m-0 text-sm leading-snug text-pretty text-slate-500">{hint}</p>
-      {/if}
+      <div
+        class="min-h-[5.4375rem] px-4 py-3 max-[600px]:min-h-[5.125rem] sm:px-5"
+        aria-live="polite"
+        use:animateResize
+      >
+        {#if turn}
+          {#key shown}
+            <SceneCaption
+              clock={() => stage?.clock()}
+              {cue}
+              english={turn.english}
+              marks={turn.marks}
+              onthing={(id) => stage?.light(id)}
+              plan={direction.lines[shown]?.plan}
+              playing={speaking}
+              {showEnglish}
+              slovak={turn.slovak}
+              things={direction.things}
+            />
+          {/key}
+        {:else if hint}
+          <p class="m-0 text-sm leading-snug text-pretty text-slate-500">{hint}</p>
+        {/if}
+      </div>
     </div>
   {/if}
 </div>

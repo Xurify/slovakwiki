@@ -84,13 +84,15 @@
   let checkAt = $state(untrack(() => (done ? chapter.checks.length : 0)));
   let correct = $state(untrack(() => done?.correct ?? 0));
   let textOpen = $state(false);
-  let english = $state(false);
-  let placeSound = $state(true);
-  let subtitles = $state(true);
+  // Read up front, not only in onMount: corrected after mount, a stored "off" still painted
+  // "on" for the island's first client render, collapsing the subtitle band under the learner.
+  let english = $state(untrack(() => getStoryShowEnglish() === "on"));
+  let placeSound = $state(untrack(() => getStoryPlaceSound() === "on"));
+  let subtitles = $state(untrack(() => getStorySubtitles() === "on"));
   let volume = $state(1);
   let sceneStage = $state<ReturnType<typeof ListenScene>>();
-  let playAlong = $state(true);
-  let showVoices = $state(true);
+  let playAlong = $state(untrack(() => getListenPlayAlong() === "on"));
+  let showVoices = $state(untrack(() => getListenShowVoices() === "on"));
   /** The listener's answer to each line that asks for one, this time through. */
   let picks = $state<Record<string, string>>({});
   /** The ask whose answer has started to be heard, so the pick can be marked. */
@@ -185,6 +187,7 @@
   });
   const firstListen = $derived(stage === "idle" || stage === "listening");
 
+  /** Before the first play, the caption band would otherwise sit empty. */
   const idleCopy = $derived(
     !questions
       ? "Listen straight through, or read along."
@@ -194,15 +197,6 @@
           ? "Listen first, then answer one short question."
           : `Listen first, then answer ${COUNT_WORDS[checks.length - 1] ?? checks.length} short questions.`,
   );
-
-  const hintInStrip = $derived(Boolean(scene) && subtitles);
-
-  const note = $derived.by(() => {
-    // Paused mid-line the voice is still held, so Paused comes before the speaker's name.
-    if (player.paused || (stage === "listening" && !player.playing)) return "Paused";
-    if (stage === "idle" && !hintInStrip) return idleCopy;
-    return "";
-  });
 
   const voice = $derived(stage === "listening" ? (player.line?.speaker ?? null) : null);
   /** Only just begun, the back button goes to the line before, as a player's previous does. */
@@ -312,11 +306,9 @@
   }
 
   onMount(() => {
-    english = getStoryShowEnglish() === "on";
-    placeSound = getStoryPlaceSound() === "on";
-    subtitles = getStorySubtitles() === "on";
-    playAlong = getListenPlayAlong() === "on";
-    showVoices = getListenShowVoices() === "on";
+    // The head script hides the chrome the learner turned off until now (styles.css);
+    // from here the player's own state is what shows it or doesn't.
+    document.documentElement.dataset.listenHydrated = "1";
     volume = getAudioVolume();
 
     function onVolumeChange(): void {
@@ -425,25 +417,27 @@
       {/each}
     </ol>
 
-    <div class="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1">
-      <div class="flex items-center gap-1">
-        {#if !player.held}
-          <Button
-            class={cx(
-              "min-h-12 max-sm:size-12 max-sm:rounded-full max-sm:p-0",
-              "sm:min-w-32 sm:pr-5 sm:pl-4",
-            )}
-            variant={firstListen ? "accent" : "secondary"}
-            onclick={() => player.toggle()}
-          >
-            <SceneIcon class="size-5" name={player.playing ? "pause" : "play"} />
-            <span class="max-sm:sr-only">{playLabel}</span>
-          </Button>
-        {/if}
+    <div class="mt-3 flex flex-wrap items-center gap-x-1.5 gap-y-1">
+      <div class="flex items-center gap-1.5">
+        <!-- Hidden rather than removed while a question holds the line, so the replay button does not move. -->
+        <Button
+          class={cx(
+            "min-h-12 max-sm:size-12 max-sm:rounded-full max-sm:p-0",
+            "sm:min-w-32 sm:pr-5 sm:pl-4",
+            player.held && "invisible",
+          )}
+          disabled={player.held}
+          variant={firstListen ? "accent" : "secondary"}
+          onclick={() => player.toggle()}
+        >
+          <SceneIcon class="size-5" name={player.playing ? "pause" : "play"} />
+          <span class="max-sm:sr-only">{playLabel}</span>
+        </Button>
 
-        <!-- Held in place when it has nothing to replay, so the play button never moves under the pointer. -->
+        <!-- Shown disabled rather than hidden when it has nothing to replay yet, so the row
+             isn't left with a blank gap before the first play, and the play button still
+             never moves once there is something to replay. -->
         <ToolButton
-          class={cx(stage !== "listening" && "invisible")}
           disabled={stage !== "listening"}
           icon={back ? "previous" : "replay"}
           label={back ? "Previous line" : "Replay line"}
@@ -451,43 +445,53 @@
         />
       </div>
 
-      {#if !player.held}
-        <div class="flex min-w-0 flex-1 flex-wrap items-center gap-x-2.5 gap-y-1">
-          {#if showVoices}
-            <ul class="m-0 flex shrink-0 list-none p-0" aria-label="Speakers">
-              {#each speakers as speaker, index (speaker)}
-                {@const lit = speaker === voice}
+      <!-- Kept in layout while a question holds the line, so the bar never changes shape. -->
+      <div
+        class={cx(
+          "flex min-w-0 flex-1 items-center gap-x-2.5",
+          player.held && "invisible",
+        )}
+      >
+        {#if showVoices}
+          <ul
+            class="m-0 flex shrink-0 list-none p-0"
+            data-listen-speakers
+            aria-label="Speakers"
+          >
+            {#each speakers as speaker, index (speaker)}
+              {@const lit = speaker === voice}
 
-                <li
+              <li
+                class={cx(
+                  "relative flex rounded-full bg-surface p-0.5 shadow-[0_0_0_0_transparent] transition-shadow duration-150 ease-out",
+                  index > 0 && "-ml-3",
+                  lit && "z-10 shadow-[0_0_10px_3px] shadow-amber-300/80",
+                )}
+                title={episodeSpeakerName(speaker)}
+              >
+                <!-- The ring itself stays opaque so overlapping avatars cut a clean edge;
+                     dimming the ring too let a dimmed disc's translucency double up over
+                     its neighbour, muddying the overlap instead of just fading a face. -->
+                <LessonCharacterAvatar
+                  {speaker}
+                  size="sm"
                   class={cx(
-                    "relative rounded-full bg-surface p-0.5 shadow-[0_0_0_0_transparent] transition-[box-shadow,opacity] duration-150 ease-out",
-                    index > 0 && "-ml-3",
-                    lit && "z-10 shadow-[0_0_10px_3px] shadow-amber-300/80",
+                    "transition-opacity duration-150 ease-out",
                     voice && !lit && "opacity-55",
                   )}
-                  title={episodeSpeakerName(speaker)}
-                >
-                  <LessonCharacterAvatar {speaker} size="sm" />
-                  <span class="sr-only">{episodeSpeakerName(speaker)}</span>
-                </li>
-              {/each}
-            </ul>
-          {/if}
+                />
+                <span class="sr-only">{episodeSpeakerName(speaker)}</span>
+              </li>
+            {/each}
+          </ul>
+        {/if}
 
-          <p
-            class="m-0 min-w-40 flex-1 text-sm leading-snug text-slate-600 empty:hidden"
-            aria-live="polite"
-          >
-            {note}
+        {#if voice}
+          <p class="m-0 min-w-0 truncate text-sm font-semibold text-slate-900">
+            {episodeSpeakerName(voice)}
           </p>
-
-          {#if !note && voice}
-            <p class="m-0 min-w-0 truncate text-sm font-semibold text-slate-900">
-              {episodeSpeakerName(voice)}
-            </p>
-          {/if}
-        </div>
-      {/if}
+        {/if}
+      </div>
 
       <div
         class="-mr-2.5 flex items-center max-sm:-ml-2.5 max-sm:w-full max-sm:justify-between sm:ml-auto"

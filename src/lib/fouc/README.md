@@ -155,7 +155,7 @@ import { PRACTICE_FOUC } from "$lib/practice/fouc";
 - Generate: `bun run fouc:boot -- practice-clock`
 - Q1 boot includes the listen control on each scene line, and **Reveal answer** when the task is typed, so those controls don’t pop in after hydrate.
 
-Theme / sfx / story-English prefs stay a tiny head IIFE in `SiteLayout.astro` (`data-theme*`, `data-sfx-preference`, `data-story-show-english`).
+Theme / sfx / story-English / listening-subtitles / speaker-faces prefs stay a tiny head IIFE in `SiteLayout.astro` (`data-theme*`, `data-sfx-preference`, `data-story-show-english`, `data-story-subtitles`, `data-listen-voices`). `styles.css` hides the player chrome those turn off until the island sets `data-listen-hydrated`, so the first paint already matches and the player's own state takes over without a shift.
 
 ## Do / don't
 

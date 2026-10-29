@@ -70,6 +70,14 @@ function writePreference(
     document.documentElement.dataset.storyShowEnglish = value;
   }
 
+  if (typeof document !== "undefined" && key === STORY_SUBTITLES_KEY) {
+    document.documentElement.dataset.storySubtitles = value;
+  }
+
+  if (typeof document !== "undefined" && key === LISTEN_SHOW_VOICES_KEY) {
+    document.documentElement.dataset.listenVoices = value;
+  }
+
   if (typeof window !== "undefined") {
     window.dispatchEvent(new Event(STORY_PREFS_CHANGE_EVENT));
   }
@@ -114,6 +122,11 @@ export function setStoryPlaceSound(
 }
 
 export function getStorySubtitles(storage?: StorageLike): StoryBoolPreference {
+  if (!storage && typeof document !== "undefined") {
+    const fromDom = document.documentElement.dataset.storySubtitles;
+    if (isStoryBoolPreference(fromDom)) return fromDom;
+  }
+
   return readPreference(STORY_SUBTITLES_KEY, STORY_SUBTITLES_DEFAULT, storage);
 }
 

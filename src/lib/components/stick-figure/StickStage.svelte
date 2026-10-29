@@ -2197,10 +2197,8 @@
     bind:clientHeight={stageHeight}
   >
     <div
-      class="absolute inset-0 isolate origin-top-left transition-[transform,opacity,filter] duration-900 ease-in-out motion-reduce:transition-none"
+      class="absolute inset-0 isolate origin-top-left transition-transform duration-900 ease-in-out motion-reduce:transition-none"
       style:transform={camera}
-      style:opacity={revealed ? 1 : 0}
-      style:filter={revealed ? "none" : "brightness(0.78) saturate(0.8)"}
     >
       <StickBackdrop
         class="absolute inset-0 size-full"
@@ -2222,137 +2220,145 @@
       />
       <StickWeather height={stageHeight} {mood} {setting} width={stageWidth} />
 
-      <!-- Unmeasured, the server's render and the first frame would draw the cast tiny in a corner. -->
-      {#if measured}
-        {#if set && world}
-          <StickSet
-            {geometry}
-            {gliding}
-            layer="behind"
-            {running}
-            view={castView}
-            {world}
-          />
-        {/if}
-        {#each PLACES[setting].furniture ?? [] as piece, index (index)}
-          {@const chair = (PLACES[setting].furniture ?? [])
-            .slice(0, index)
-            .filter(({ kind }) => kind === "chair").length}
-          <div
-            class="pointer-events-none absolute"
-            style:bottom="{FLOOR}px"
-            style:left="{stageX(frame, { x: piece.x, y: 0 }) -
-              frame.figureWidth / 2 -
-              (piece.kind === 'chair'
-                ? (piece.facing ?? 1) * chairOut(chair) * unit
-                : 0)}px"
-            style:width="{frame.figureWidth}px"
-          >
-            <StickFurniture
-              {piece}
-              id={piece.kind === "chair" ? `chair-${chair}` : undefined}
-            />
-          </div>
-        {/each}
-        {#if frame.desk}
-          <StudioDesk
-            height={stageHeight}
-            layer="behind"
-            seats={frame.seats}
-            {unit}
-            width={stageWidth}
-          />
-        {/if}
-        {#each direction.cast as characterId (characterId)}
-          <div
-            class="pointer-events-none absolute transition-[transform,opacity,filter] ease-linear"
-            style:bottom="{FLOOR}px"
-            style:left="{frame.marks[characterId] ?? 0}px"
-            style:width="{frame.figureWidth}px"
-            style:transform="translateX({(offsets[characterId] ?? 0) * 100}%)"
-            style:transition-duration="{walks[characterId]?.ms ?? 0}ms, 0ms, 600ms"
-            style:opacity={outside.includes(characterId) ? 0 : 1}
-            style:filter={shaded.includes(characterId) ? "brightness(0.9)" : "none"}
-            style:z-index={passingBehind.includes(characterId)
-              ? 0
-              : passing.includes(characterId)
-                ? 4
-                : striding.includes(characterId)
-                  ? 2
-                  : 1}
-          >
-            <div
-              class="origin-bottom transition-transform duration-300 ease-in-out"
-              style:transform={passingBehind.includes(characterId)
-                ? `translateY(${frame.figureWidth * BEHIND_LANE}px) scale(${BEHIND_SCALE})`
-                : passingDeep.includes(characterId)
-                  ? `translateY(${frame.figureWidth * DEEP_LANE}px) scale(${DEEP_SCALE})`
-                  : passing.includes(characterId)
-                    ? `translateY(${frame.figureWidth * PASS_LANE}px) scale(${PASS_SCALE})`
-                    : doorway.includes(characterId)
-                      ? `translateY(${doorLane * unit}px)`
-                      : roomFor.includes(characterId)
-                        ? `translateY(${frame.figureWidth * ROOM_LANE}px) scale(${ROOM_SCALE})`
-                        : "none"}
-            >
-              <StickFigureActor
-                {characterId}
-                {clock}
-                cue={actors[characterId]?.cue ?? 0}
-                facing={facingOf(characterId)}
-                front={front === characterId || glancing.includes(characterId)}
-                onbeat={onBeat}
-                plan={actors[characterId]?.plan}
-                held={acted ? undefined : heldBy(characterId)}
-                doing={acts[characterId]}
-                hands={handsOf(characterId)}
-                seated={seated[characterId] !== undefined}
-                arrived={revealed}
-                out={chairOut(perched[characterId])}
-                atTable={perched[characterId] !== undefined}
-                atDesk={behindDesk(characterId)}
-                mic={deskMic(characterId, world, undefined)?.side}
-                onCall={acted
-                  ? onCall(characterId)
-                  : direction.lines[heldAt]?.call === characterId}
-                relaying={relaying === characterId}
-                dress={dressOf(characterId)}
-                talking={actors[characterId]?.talking ?? false}
-                turnDelay={turns[characterId] ?? 0}
-                walk={walks[characterId]}
-              />
-            </div>
-          </div>
-        {/each}
-        {#if leashed}
-          <!-- Short enough to hang in a gentle dip at heel and pull straight a step further off. -->
-          <StickLeash length={frame.figureWidth * 0.8} />
-        {/if}
-        <div class="pointer-events-none absolute inset-0 z-3">
-          {#if frame.desk}
-            <StudioDesk
-              height={stageHeight}
-              layer="front"
-              mugs={!Object.values(world?.objects ?? {}).some(
-                ({ kind }) => kind === "cup",
-              )}
-              seats={frame.seats}
-              {unit}
-              width={stageWidth}
-            />
-          {/if}
+      <!-- The place is drawn from the server's HTML, so the first paint shows it. Only the cast
+           waits to be measured and seated, and fades in once it is. -->
+      <div
+        class="pointer-events-none absolute inset-0 transition-[opacity,filter] duration-900 ease-in-out motion-reduce:transition-none"
+        style:opacity={revealed ? 1 : 0}
+        style:filter={revealed ? "none" : "brightness(0.78) saturate(0.8)"}
+      >
+        <!-- Unmeasured, the server's render and the first frame would draw the cast tiny in a corner. -->
+        {#if measured}
           {#if set && world}
             <StickSet
               {geometry}
               {gliding}
-              layer="front"
+              layer="behind"
               {running}
               view={castView}
               {world}
             />
           {/if}
-        </div>
-      {/if}
+          {#each PLACES[setting].furniture ?? [] as piece, index (index)}
+            {@const chair = (PLACES[setting].furniture ?? [])
+              .slice(0, index)
+              .filter(({ kind }) => kind === "chair").length}
+            <div
+              class="pointer-events-none absolute"
+              style:bottom="{FLOOR}px"
+              style:left="{stageX(frame, { x: piece.x, y: 0 }) -
+                frame.figureWidth / 2 -
+                (piece.kind === 'chair'
+                  ? (piece.facing ?? 1) * chairOut(chair) * unit
+                  : 0)}px"
+              style:width="{frame.figureWidth}px"
+            >
+              <StickFurniture
+                {piece}
+                id={piece.kind === "chair" ? `chair-${chair}` : undefined}
+              />
+            </div>
+          {/each}
+          {#if frame.desk}
+            <StudioDesk
+              height={stageHeight}
+              layer="behind"
+              seats={frame.seats}
+              {unit}
+              width={stageWidth}
+            />
+          {/if}
+          {#each direction.cast as characterId (characterId)}
+            <div
+              class="pointer-events-none absolute transition-[transform,opacity,filter] ease-linear"
+              style:bottom="{FLOOR}px"
+              style:left="{frame.marks[characterId] ?? 0}px"
+              style:width="{frame.figureWidth}px"
+              style:transform="translateX({(offsets[characterId] ?? 0) * 100}%)"
+              style:transition-duration="{walks[characterId]?.ms ?? 0}ms, 0ms, 600ms"
+              style:opacity={outside.includes(characterId) ? 0 : 1}
+              style:filter={shaded.includes(characterId) ? "brightness(0.9)" : "none"}
+              style:z-index={passingBehind.includes(characterId)
+                ? 0
+                : passing.includes(characterId)
+                  ? 4
+                  : striding.includes(characterId)
+                    ? 2
+                    : 1}
+            >
+              <div
+                class="origin-bottom transition-transform duration-300 ease-in-out"
+                style:transform={passingBehind.includes(characterId)
+                  ? `translateY(${frame.figureWidth * BEHIND_LANE}px) scale(${BEHIND_SCALE})`
+                  : passingDeep.includes(characterId)
+                    ? `translateY(${frame.figureWidth * DEEP_LANE}px) scale(${DEEP_SCALE})`
+                    : passing.includes(characterId)
+                      ? `translateY(${frame.figureWidth * PASS_LANE}px) scale(${PASS_SCALE})`
+                      : doorway.includes(characterId)
+                        ? `translateY(${doorLane * unit}px)`
+                        : roomFor.includes(characterId)
+                          ? `translateY(${frame.figureWidth * ROOM_LANE}px) scale(${ROOM_SCALE})`
+                          : "none"}
+              >
+                <StickFigureActor
+                  {characterId}
+                  {clock}
+                  cue={actors[characterId]?.cue ?? 0}
+                  facing={facingOf(characterId)}
+                  front={front === characterId || glancing.includes(characterId)}
+                  onbeat={onBeat}
+                  plan={actors[characterId]?.plan}
+                  held={acted ? undefined : heldBy(characterId)}
+                  doing={acts[characterId]}
+                  hands={handsOf(characterId)}
+                  seated={seated[characterId] !== undefined}
+                  arrived={revealed}
+                  out={chairOut(perched[characterId])}
+                  atTable={perched[characterId] !== undefined}
+                  atDesk={behindDesk(characterId)}
+                  mic={deskMic(characterId, world, undefined)?.side}
+                  onCall={acted
+                    ? onCall(characterId)
+                    : direction.lines[heldAt]?.call === characterId}
+                  relaying={relaying === characterId}
+                  dress={dressOf(characterId)}
+                  talking={actors[characterId]?.talking ?? false}
+                  turnDelay={turns[characterId] ?? 0}
+                  walk={walks[characterId]}
+                />
+              </div>
+            </div>
+          {/each}
+          {#if leashed}
+            <!-- Short enough to hang in a gentle dip at heel and pull straight a step further off. -->
+            <StickLeash length={frame.figureWidth * 0.8} />
+          {/if}
+          <div class="pointer-events-none absolute inset-0 z-3">
+            {#if frame.desk}
+              <StudioDesk
+                height={stageHeight}
+                layer="front"
+                mugs={!Object.values(world?.objects ?? {}).some(
+                  ({ kind }) => kind === "cup",
+                )}
+                seats={frame.seats}
+                {unit}
+                width={stageWidth}
+              />
+            {/if}
+            {#if set && world}
+              <StickSet
+                {geometry}
+                {gliding}
+                layer="front"
+                {running}
+                view={castView}
+                {world}
+              />
+            {/if}
+          </div>
+        {/if}
+      </div>
 
       <!-- The lights go down while the story skips ahead, all but a pool on the clock as its hands run on.
            Inside the camera, so the pool stays on the clock however close the shot is. -->

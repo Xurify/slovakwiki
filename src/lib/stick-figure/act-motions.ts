@@ -1329,6 +1329,8 @@ export function motionFor(
         motion: {
           ms: 2800,
           face: target,
+          // Back on his feet by 2800, the gaze stays down: he's still talking to the dog, not an adult at eye level.
+          hold: "line",
           keys: [
             { at: 0 },
             {
@@ -1341,7 +1343,7 @@ export function motionFor(
               body: { bob: 22, lean: 14, tilt: 6, brow: 0.2, look: 1 },
               lead: { to: target, as: "top", dy: -2 },
             },
-            { at: 2800 },
+            { at: 2800, body: { tilt: 10, nod: 1.5, brow: 0.2, look: 1 } },
           ],
         },
       };

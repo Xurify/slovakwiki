@@ -448,6 +448,15 @@
     display: none;
   }
 
+  /* The player's own chrome is rendered from SSR defaults, so the head attrs hide
+     what the learner turned off until the island hydrates. After that its state
+     takes over, and the subtitle toggle keeps its slide. `!important` because a
+     Tailwind `display` utility sits in a later layer than these base rules. */
+  html[data-story-subtitles="off"]:not([data-listen-hydrated]) [data-listen-captions],
+  html[data-listen-voices="off"]:not([data-listen-hydrated]) [data-listen-speakers] {
+    display: none !important;
+  }
+
   body {
     margin: 0;
     min-width: 0;
