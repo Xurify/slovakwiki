@@ -1303,7 +1303,7 @@ export function motionFor(
         },
       };
     case "pat": {
-      // Checking for something: the free hand goes to the inside pocket and pats it twice, the head dipped to look, as someone does for a passport.
+      // Checking for something, as for a passport: the free hand pats the inside pocket twice, head dipped to look.
       const hand = freeHand(world, who) ?? "lead";
       const pocket = { up: { x: 4, y: 16 } };
       const patted = { up: { x: 4, y: 13 } };
@@ -1329,6 +1329,8 @@ export function motionFor(
         motion: {
           ms: 2800,
           face: target,
+          // Standing again by 2800, his gaze stays down: he is still talking to the dog, not an adult at eye level.
+          hold: "line",
           keys: [
             { at: 0 },
             {
@@ -1341,7 +1343,7 @@ export function motionFor(
               body: { bob: 22, lean: 14, tilt: 6, brow: 0.2, look: 1 },
               lead: { to: target, as: "top", dy: -2 },
             },
-            { at: 2800 },
+            { at: 2800, body: { tilt: 10, nod: 1.5, brow: 0.2, look: 1 } },
           ],
         },
       };

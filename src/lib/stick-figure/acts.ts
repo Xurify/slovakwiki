@@ -109,7 +109,7 @@ export interface Cue {
   zoom?: number;
   /** How far `skip` moves the clock on. */
   minutes?: number;
-  /** For `go` by a dog: at a run, bounding over the same ground in a shorter time. */
+  /** With `go` by a dog: a gallop over the same ground, in less time. */
   run?: boolean;
 }
 

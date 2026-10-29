@@ -155,7 +155,7 @@ import { PRACTICE_FOUC } from "$lib/practice/fouc";
 - Generate: `bun run fouc:boot -- practice-clock`
 - Q1 boot includes the listen control on each scene line, and **Reveal answer** when the task is typed, so those controls don’t pop in after hydrate.
 
-Theme / sfx / story-English prefs stay a tiny head IIFE in `SiteLayout.astro` (`data-theme*`, `data-sfx-preference`, `data-story-show-english`).
+Theme and sfx prefs stay a tiny head IIFE in `SiteLayout.astro` (`data-theme*`, `data-sfx-preference`), since the header's sound toggle is on every page. The listening episode fills the layout's `head` slot with `ListenPrefsBoot.astro`: a script that sets `data-story-subtitles` and `data-listen-voices` before first paint (`listenPrefsBootScript()` in `lesson-story/prefs.ts`), and the rule that hides the chrome those turn off until the island sets `data-listen-hydrated`. The first paint already matches, and the player's own state takes over without a shift. The rule is unlayered, so it beats Tailwind's layered utilities without `!important`. The English gloss needs no head attribute: lesson story lines are not in the server HTML, and each line reads its own pref on mount.
 
 ## Do / don't
 

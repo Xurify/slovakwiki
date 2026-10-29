@@ -298,7 +298,7 @@ const morning: ListeningChapter = {
   titleSk: "Ešte stále ma nepoznáš?",
   title: "You still don't know me?",
   setup: {
-    // Off the spot Domo comes to: the bowl is set down in front of him, not behind.
+    // Dunčo starts at rug-left, off the spot Domo comes to, so the bowl is set down in front of him, not behind.
     spots: { dog: "rug-left" },
     objects: [
       {

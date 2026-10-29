@@ -220,7 +220,7 @@ const HOME_SET: PlaceSet = {
   pieces: [
     { id: "pegs", kind: "rail", x: 304, width: 24 },
     { id: "by-sofa", kind: "floor", x: 640, width: 24 },
-    // In front of the dog's nose on the rug's left, where its bowl stands: a dog at rug-left faces right.
+    // Floor spot in front of the dog's nose at rug-left, where its bowl stands; a dog there faces right.
     { id: "by-dog", kind: "floor", x: 380, width: 24 },
     // Where the backdrop draws the bag by the window, so a scene can keep something in it.
     { id: "window-bag", kind: "floor", x: 171, width: 34 },
@@ -239,7 +239,7 @@ const HOME_SET: PlaceSet = {
     "rug-right": { x: 585, facing: -1 },
     // A step in from the rug's right, to meet whoever comes in from that side.
     "to-right": { x: 420, facing: 1 },
-    // The dog's place by the rug's left edge, and beside its head on the side toward the room, where someone kneels to reach it.
+    // The dog's spot at the rug's left edge, and where someone kneels by its head on the room side.
     "dog-spot": { x: 300, facing: 1 },
     "kneel-by-dog": { x: 355, facing: -1 },
     // At the window, looking out: the dog under the sill, the one waiting with it beside.

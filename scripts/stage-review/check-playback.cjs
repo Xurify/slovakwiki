@@ -87,14 +87,6 @@ async function run(browser, width) {
   const line = (index) => page.locator('ol[aria-label="Lines"] button').nth(index);
   const lineCount = () => page.locator('ol[aria-label="Lines"] button').count();
   const report = (name) => console.log(`PASS ${width}px ${name}`);
-  const setting = async (name) => {
-    await button("Listening settings").click();
-    await page
-      .locator("#scene-settings")
-      .getByRole("button", { name: new RegExp(`^${name} `) })
-      .click();
-    await page.keyboard.press("Escape");
-  };
   try {
     await instrument(page);
     await page.goto(`${base}${episodePath}`, {
@@ -137,8 +129,8 @@ async function run(browser, width) {
       "Stage sound stays suspended",
     );
     assert(held.highlight, "The caption test starts on a highlighted word");
-    await setting("Subtitles");
-    await setting("Subtitles");
+    await button("Subtitles").click();
+    await button("Subtitles").click();
     assert.equal(
       (await sample(page)).highlight,
       held.highlight,
@@ -172,7 +164,7 @@ async function run(browser, width) {
     }
     report("next/previous from playing and paused, including rapid switches");
 
-    // Complete the first segment, return, then pause its last line during replay.
+    // Only a finished segment exercises the replay path, so finish segment one first.
     const nextTitle = await segment(1).locator('span[lang="sk"]').first().textContent();
     await segment(0).click();
     const lastLine = (await lineCount()) - 1;
@@ -212,13 +204,13 @@ async function run(browser, width) {
       await segment(index).click();
       await line(1).click();
       await page.waitForTimeout(300);
-      // A line that holds for the listener's answer hides the pause control.
+      // A line that waits for the listener's answer has no pause control.
       if (await button("Pause").count()) await button("Pause").click();
       if (index + 1 < count) await button("Next segment").click();
       else await button("Previous segment").click();
       await onePlayer(page);
     }
-    // Boundary buttons cannot activate even through a synthetic click.
+    // A disabled boundary button must not move on, even when a click is forced onto it.
     for (const [index, name] of [
       [0, "Previous segment"],
       [count - 1, "Next segment"],

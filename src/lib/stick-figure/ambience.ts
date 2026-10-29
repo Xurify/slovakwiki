@@ -299,7 +299,7 @@ export function playAmbience(first: Ambience): AmbiencePlayer | undefined {
     out.gain.setTargetAtTime(1, ctx.currentTime, FADE_S / 3);
     out.connect(master);
 
-    // Cancels of the layer's repeats, which wait on play time like the rest of the stage.
+    // Cancel functions for the layer's repeats; they wait on play time like the rest of the stage.
     const timers = new Set<() => void>();
     const sources = new Set<AudioScheduledSourceNode>();
     LAYERS[layer]({
@@ -365,7 +365,7 @@ export function playAmbience(first: Ambience): AmbiencePlayer | undefined {
       for (const stop of running.values()) stop();
       running.clear();
       if (soundHeld) {
-        // Held, nothing sounds until the thaw: silence it now, not as a fade that starts on the thaw.
+        // Held, nothing should sound: silence now, since a fade would only start on the thaw.
         master.gain.cancelScheduledValues(ctx.currentTime);
         master.gain.setValueAtTime(0, ctx.currentTime);
       } else {
@@ -475,7 +475,7 @@ export function holdStageSound(): void {
 
 export function releaseStageSound(): void {
   soundHeld = false;
-  // Every context, whatever its state now: a suspend still on its way lands before this resume, so none is left held.
+  // Resume every context, whatever its state: a suspend still in flight lands first, so none stays held.
   for (const ctx of contexts) void ctx.resume().catch(() => undefined);
 }
 
@@ -581,7 +581,7 @@ export function cueOut(ctx: AudioContext, level: number, ms: number): GainNode {
   out.gain.value = level * getAudioVolume();
   out.connect(ctx.destination);
   sounding.add(out);
-  // On play time, so a pause does not cut the cue short before its sound has played out.
+  // Counted in play time, so a pause does not cut the cue short before its sound has played out.
   playClockTimeout(() => {
     out.disconnect();
     sounding.delete(out);

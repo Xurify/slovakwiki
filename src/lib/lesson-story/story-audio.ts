@@ -27,10 +27,10 @@ let storyAudioUnlocked = false;
 let playGeneration = 0;
 let playAttempt = 0;
 let cancelDwell: (() => void) | undefined;
-/** The clip was paused by `pauseStoryLineAudio` and is waiting to be played on. */
+/** Set while `pauseStoryLineAudio` holds the clip mid-way; resuming plays it on. */
 let pausedMidClip = false;
 let muteListenerAttached = false;
-/** A clip on its way: what its end, and a play that does not start, need. */
+/** A clip being played: what its end, and a play that fails to start, need. */
 interface Clip {
   generation: number;
   onEnded?: () => void;
@@ -110,11 +110,11 @@ function stopAll(): void {
  */
 function silenceClip(): void {
   const clip = currentClip;
-  // A missing/already muted clip still has a dwell timer. Muting again must not cancel it.
+  // Already silent, or nothing playing: keep the dwell timer, so muting again does not cancel it.
   if (!clip) return;
 
   const elapsed = playClockNow() - clip.startedAt;
-  // The media's seconds left, as play time: a clip at a slower rate takes longer to play them out.
+  // Seconds of media left, as play time: at a slower rate each second takes longer.
   const left = currentAudio ? currentAudio.duration - currentAudio.currentTime : NaN;
   const remainingMs = Number.isFinite(left) ? Math.max(0, (left * 1000) / clip.rate) : 0;
   stopAll();
@@ -158,7 +158,7 @@ function attachPlayback(
 }
 
 /**
- * A play that did not start: a blocked clip waits for a gesture, a broken one
+ * A play that never started: a blocked clip waits for a tap; a broken one
  * ends its line as a missing clip would, so the line never stalls.
  */
 function playFailed(clip: Clip, reason: unknown): void {
@@ -249,7 +249,7 @@ export function storyAudioClock(): StoryAudioClock | undefined {
  * lines can play the real ElevenLabs MP3.
  */
 export function unlockStoryAudio(): void {
-  // A pause holds a waiting clip back too: it plays when the pause ends.
+  // A pause holds a waiting clip too: it plays when the pause ends.
   if (!pending || audioMuted() || playClockFrozen()) return;
 
   const clip = pending;
@@ -263,7 +263,7 @@ export function unlockStoryAudio(): void {
   pending = undefined;
   pausedMidClip = false;
 
-  // Retrying a blocked Resume must not assign src again: that rewinds the clip.
+  // Retrying a blocked resume must not set src again: that rewinds the clip.
   if (currentAudio && currentClip === clip) {
     startPlayback(currentAudio, clip);
     return;
@@ -341,8 +341,8 @@ export function stopStoryLineAudio(): void {
 }
 
 /**
- * Hold the clip where it is, for a pause. Its dwell waits on the play clock,
- * which the pause freezes too, so the clip and the stage stop together.
+ * Holds the clip where it is. Its dwell waits on the play clock, which a
+ * pause freezes too, so the clip and the stage stop together.
  */
 export function pauseStoryLineAudio(): void {
   if (!currentAudio || currentAudio.paused) return;
@@ -351,7 +351,7 @@ export function pauseStoryLineAudio(): void {
   pausedMidClip = true;
 }
 
-/** Play on from where `pauseStoryLineAudio` held the clip. */
+/** Plays on from where `pauseStoryLineAudio` held the clip; does nothing if none was held. */
 export function resumeStoryLineAudio(): void {
   // A clip the browser held back for a tap plays now: resuming is a tap.
   if (hasPendingStoryAudio()) {
@@ -362,6 +362,6 @@ export function resumeStoryLineAudio(): void {
   pausedMidClip = false;
   if (!currentAudio || !currentClip || currentAudio.ended) return;
 
-  // Pressing Resume is a gesture, so the browser lets the clip play on.
+  // Resume is a user gesture, so the browser lets the clip play on.
   startPlayback(currentAudio, currentClip);
 }

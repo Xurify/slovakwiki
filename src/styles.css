@@ -434,20 +434,6 @@
     color: var(--muted);
   }
 
-  .story-en-gloss {
-    display: none;
-  }
-
-  html[data-story-show-english="on"] .story-en-gloss,
-  [data-story-en-open] .story-en-gloss {
-    display: block;
-  }
-
-  html[data-story-show-english="on"] .story-en-toggle,
-  [data-story-en-open] .story-en-toggle {
-    display: none;
-  }
-
   body {
     margin: 0;
     min-width: 0;

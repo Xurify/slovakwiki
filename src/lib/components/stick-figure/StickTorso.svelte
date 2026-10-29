@@ -217,18 +217,50 @@
     stroke-width="0.7"
   />
 {:else if characterId === "anna"}
-  <!-- rose knit sweater over a white collar, side-facing profile -->
+  <!-- Rose knit sweater, slightly nipped at the waist, with a cream roll neck, honey belt and ribbed hem. -->
   <path
-    d="M-4.6 -28Q-4.8 -30.8 -2.2 -31L3.2 -31Q5.4 -30.8 5.0 -28Q5.8 -18 5.6 -12Q5.4 -5 5.0 -2.4L-4.4 -2.4Z"
+    d="M-4.8 -28Q-5 -30.8 -2.2 -31L3.2 -31Q5.6 -30.8 5.2 -28Q6 -20 5.2 -14.4Q5 -12.8 5.3 -11Q6 -6 5.6 -2.4L-5 -2.4Q-5.4 -6 -4.7 -11Q-4.5 -13 -4.7 -14.4Q-5.4 -20 -4.8 -28Z"
     class="fill-scene-red stroke-portrait-ink"
     stroke-width="1.1"
   />
   <path
-    d="M-2.2 -31Q0 -28 1.4 -28.8Q2.6 -27.8 3.2 -31Z"
+    d="M-3.6 -31.6Q0 -33.4 3.8 -31.6L4.2 -28.6Q0 -26.8 -4 -28.6Z"
     class="fill-portrait-bib stroke-portrait-ink"
-    stroke-width="0.7"
+    stroke-width="0.8"
   />
-  <path d="M-4.4 -4.2L5.0 -4.2" class="stroke-portrait-ink" stroke-width="0.7" />
+  <path
+    d="M-3.8 -29.8Q0 -28.2 4 -29.8"
+    class="stroke-portrait-ink"
+    stroke-width="0.5"
+  />
+  <path
+    d="M-0.6 -24.4V-15.6M1.8 -24.4V-15.6"
+    class="stroke-portrait-ink opacity-30"
+    stroke-width="0.6"
+  />
+  <rect
+    x="-5.1"
+    y="-12.4"
+    width="10.6"
+    height="1.9"
+    rx="0.5"
+    class="fill-scene-honey stroke-portrait-ink"
+    stroke-width="0.6"
+  />
+  <rect
+    x="-0.8"
+    y="-12.7"
+    width="2.4"
+    height="2.5"
+    rx="0.4"
+    class="fill-portrait-bib stroke-portrait-ink"
+    stroke-width="0.5"
+  />
+  <path
+    d="M-5 -4.4H5.6M-3.4 -4.4V-2.4M-1.2 -4.4V-2.4M1 -4.4V-2.4M3.2 -4.4V-2.4"
+    class="stroke-portrait-ink"
+    stroke-width="0.55"
+  />
 {:else if characterId === "maria"}
   <!-- rose cardigan open over a white blouse, long navy skirt -->
   <path d={longSkirt} class="fill-portrait-suit stroke-portrait-ink" stroke-width="1.1" />

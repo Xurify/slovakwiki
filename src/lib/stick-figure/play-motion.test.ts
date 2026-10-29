@@ -5,7 +5,7 @@ import { PlaySpring, PlayTween } from "./play-motion.svelte";
 
 beforeEach(() => {
   vi.useFakeTimers({ toFake: ["setTimeout", "clearTimeout", "performance"] });
-  // A frame every 16 ms, on the fake clock, as a browser would give.
+  // A frame every 16 ms on the fake clock, as a browser gives.
   vi.stubGlobal("requestAnimationFrame", (callback: FrameRequestCallback) =>
     setTimeout(() => callback(performance.now()), 16),
   );
@@ -54,7 +54,7 @@ describe("PlayTween", () => {
 
   it("takes the easing given to set", () => {
     const tween = new PlayTween(0);
-    // A curve that is already at the end at the first frame, so the value shows it.
+    // An easing already at 1, so the first frame lands on the target and shows it was used.
     void tween.set(10, { duration: 100, easing: () => 1 });
 
     vi.advanceTimersByTime(20);

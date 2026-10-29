@@ -14,7 +14,7 @@
 
   /** One sound of the place for the episode: the next segment fades it over to its own. */
   let place: AmbiencePlayer | undefined;
-  /** Cancels the place's sound going quiet. */
+  /** Cancels the pending hush of the place's sound. */
   let quiet: (() => void) | undefined;
   /** When the sound is due to stop; an earlier call keeps its earlier time. */
   let quietAt = Number.POSITIVE_INFINITY;
@@ -22,6 +22,7 @@
 
 <script lang="ts">
   import { untrack } from "svelte";
+  import { slide } from "svelte/transition";
 
   import SceneCaption from "$lib/components/stick-figure/SceneCaption.svelte";
   import StickStage from "$lib/components/stick-figure/StickStage.svelte";
@@ -29,7 +30,12 @@
   import { directScene } from "$lib/stick-figure/scene-direction";
   import type { StagedScene } from "$lib/stick-figure/scene-line";
   import { sceneMood } from "$lib/stick-figure/scene-mood";
+  import { animateResize } from "$lib/ui/animate-resize";
   import { cx } from "$lib/ui/classes";
+
+  /** Read on each call, not cached, since the setting can change mid-visit (as in `StickWeather.svelte`). */
+  const reducedMotion = (): boolean =>
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /**
    * A podcast segment acted out on the stick-figure stage: the segment's
@@ -39,6 +45,7 @@
   let {
     class: className = "",
     follows = false,
+    hint,
     scene,
     showEnglish = false,
     sound = true,
@@ -53,6 +60,7 @@
      * before anyone speaks.
      */
     follows?: boolean;
+    hint?: string;
     scene: StagedScene;
     /** The English under the subtitle. */
     showEnglish?: boolean;
@@ -104,7 +112,6 @@
     return playClockFrame(() => (veiled = false));
   });
 
-  // The learner turns the sound of the place on or off as it plays.
   $effect(() => {
     if (!sound) hush(0);
     else if (live) untrack(listen);
@@ -188,18 +195,16 @@
     speaking = false;
     finished = true;
     stage?.stop();
-    // A walk-off at the segment's end would go on sounding under the next segment's card.
     stopCues();
     hush(leaving ? HANDOVER_MS : 0);
   }
 
-  /** A pause holds the stage where it is: its motion, and the sound of the place and the steps. */
+  /** Holds the stage's motion and its sound, the place and the steps, at a pause. */
   export function freeze(): void {
     holdStageSound();
     stage?.freeze();
   }
 
-  /** Carry on from `freeze`. */
   export function thaw(): void {
     releaseStageSound();
     stage?.thaw();
@@ -217,8 +222,8 @@
   }
 
   function hush(after: number): void {
-    // With no delay the place falls silent at once, even while a pause holds play time, so it does not wait for the thaw.
-    // A later stop counts play time, so a pause holds it until the thaw.
+    // No delay: the place falls silent now, even during a pause, rather than at the thaw.
+    // A delayed hush counts play time, so a pause holds it until the thaw.
     if (after <= 0) {
       quiet?.();
       quiet = undefined;
@@ -266,27 +271,40 @@
   {#if subtitles}
     {@const turn = turns[shown]}
 
-    <!-- A line tall before the first line comes, so the controls do not jump then. -->
+    <!--
+      A minimum height, not a fixed one, so a short line and its English row do not move the
+      controls on load or pause. A longer line grows past it, eased by `animateResize`, and
+      `transition:slide` eases the band's own mount and unmount when subtitles are toggled.
+    -->
     <div
-      class="min-h-[3.6rem] border-t border-slate-200/70 px-4 py-3 max-[600px]:min-h-[3.25rem] sm:px-5"
-      aria-live="polite"
+      class="border-t border-slate-200/70"
+      data-listen-captions
+      transition:slide={{ duration: reducedMotion() ? 0 : 200 }}
     >
-      {#if turn}
-        {#key shown}
-          <SceneCaption
-            clock={() => stage?.clock()}
-            {cue}
-            english={turn.english}
-            marks={turn.marks}
-            onthing={(id) => stage?.light(id)}
-            plan={direction.lines[shown]?.plan}
-            playing={speaking}
-            {showEnglish}
-            slovak={turn.slovak}
-            things={direction.things}
-          />
-        {/key}
-      {/if}
+      <div
+        class="min-h-[5.4375rem] px-4 py-3 max-[600px]:min-h-[5.125rem] sm:px-5"
+        aria-live="polite"
+        use:animateResize
+      >
+        {#if turn}
+          {#key shown}
+            <SceneCaption
+              clock={() => stage?.clock()}
+              {cue}
+              english={turn.english}
+              marks={turn.marks}
+              onthing={(id) => stage?.light(id)}
+              plan={direction.lines[shown]?.plan}
+              playing={speaking}
+              {showEnglish}
+              slovak={turn.slovak}
+              things={direction.things}
+            />
+          {/key}
+        {:else if hint}
+          <p class="m-0 text-sm leading-snug text-pretty text-slate-500">{hint}</p>
+        {/if}
+      </div>
     </div>
   {/if}
 </div>

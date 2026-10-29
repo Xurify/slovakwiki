@@ -1,0 +1,11 @@
+---
+import { listenPrefsBootScript } from "$lib/lesson-story/prefs";
+---
+
+<script is:inline set:html={listenPrefsBootScript()} />
+<style is:inline>
+  html[data-story-subtitles="off"]:not([data-listen-hydrated]) [data-listen-captions],
+  html[data-listen-voices="off"]:not([data-listen-hydrated]) [data-listen-speakers] {
+    display: none;
+  }
+</style>

@@ -156,7 +156,7 @@
   /** The way a point in flight turns the figure, when its target is behind it. */
   let turned = $state<1 | -1>();
 
-  /** Cancels the next frame of the loop. Frames run on play time, so a pause holds them. */
+  /** Cancels the pending frame. Frames run on play time, so a pause holds them. */
   let frame: (() => void) | undefined;
   let startedAt = 0;
   let act: PerformanceState = startPerformance();
@@ -276,7 +276,6 @@
 
   // Between lines the loop keeps the figure breathing and blinking (idle.ts);
   // with reduced motion it parks on the rest pose once nothing is in flight.
-  // A pause holds the next frame on play time, so nothing here runs while frozen.
   function tick(): void {
     const now = playClockNow();
     const next = plan
@@ -310,7 +309,7 @@
         ? restOnTable(seated, sitting.current)
         : seated;
     const body = steady(laid);
-    // A dog at a run bounds: its legs leave the ground, which a quicker walk never does.
+    // A dog at a run (walkPace above 1) bounds: its legs leave the ground, which a walk never does.
     const bounds = walkPace > 1 && Boolean(LOOKS[characterId].dog);
     const stepping = walking
       ? bounds

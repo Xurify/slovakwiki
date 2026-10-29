@@ -115,9 +115,12 @@
    */
   const view = $derived.by(() => {
     if (!width || !height) {
+      // Unmeasured, as in the server's HTML: slice toward the place's alignment,
+      // so the first measured frame barely moves.
+      const toward = align < 1 / 3 ? "xMin" : align > 2 / 3 ? "xMax" : "xMid";
       return {
         box: `0 0 ${BACKDROP_WIDTH} ${BACKDROP_HEIGHT}`,
-        ratio: "xMidYMid slice" as const,
+        ratio: `${toward}YMid slice`,
       };
     }
     const scale = backdropScale(width, height);

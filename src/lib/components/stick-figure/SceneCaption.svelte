@@ -65,8 +65,8 @@
     }
 
     const startedAt = playClockNow();
-    // A caption remounted while paused still needs the word at the held position;
-    // its first animation frame will not run until playback resumes.
+    // A caption mounted while paused needs the word at the held position now;
+    // its first frame waits until playback resumes.
     current = untrack(() => wordAt(plan, planTime(plan, clock(), 0)));
     const tick = () => {
       current = wordAt(plan, planTime(plan, clock(), playClockNow() - startedAt));

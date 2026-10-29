@@ -32,11 +32,11 @@ export interface LineStage {
   /** `leaving` when the player is done with the segment, not pausing it. */
   stop(leaving?: boolean): void;
   /**
-   * A pause holds the stage where it is: its motion and sound. Its timers
-   * are held by the play clock, which the player freezes itself.
+   * Holds the stage's motion and sound on a pause. Its timers stop with the
+   * play clock, which the player freezes.
    */
   freeze(): void;
-  /** Carry on from `freeze`, where the stage was held. */
+  /** Resumes the stage from where `freeze` held it. */
   thaw(): void;
 }
 
@@ -54,8 +54,8 @@ export interface LinePlayerOptions {
 }
 
 /**
- * Only one player owns the page's clock and shared audio, including during
- * gaps and pauses. Replaced players must not stop their successor on teardown.
+ * One player at a time owns the page's play clock and shared audio, through
+ * gaps and pauses. A replaced player must not stop its successor on teardown.
  */
 let activePlayer: LinePlayer | undefined;
 
@@ -73,7 +73,7 @@ export class LinePlayer {
   #epoch = 0;
   /** Cancels the `justBegun` timer. */
   #begun: (() => void) | undefined;
-  /** Cancels the wait between lines. */
+  /** Cancels the wait between lines, or the answer beat. */
   #gap: (() => void) | undefined;
   /** How long the current line's voice has been heard, over its pauses. */
   #heardMs = 0;
@@ -84,11 +84,11 @@ export class LinePlayer {
   #rate = 1;
   /** The line's voice, or its stage, is still going: the line has not ended. */
   #voicing = false;
-  /** This run reached its end, unlike a pause on its last line. */
+  /** True once the run's last line has ended; a pause on that line does not set it. */
   #ended = false;
-  /** Keep the frozen instance even if Svelte clears its binding before teardown. */
+  /** The stage a pause froze, kept in case Svelte clears its binding before teardown. */
   #frozenStage: LineStage | undefined;
-  /** The stage that actually started this run, not a potentially cleared binding. */
+  /** The stage that started this run, so teardown does not depend on the binding. */
   #stage: LineStage | undefined;
   readonly #lines: DialogueTurn[];
   readonly #srcs: Record<string, string>;
@@ -112,7 +112,7 @@ export class LinePlayer {
     return this.#prev(this.cursor) !== undefined;
   }
 
-  /** Held by `pause`, from the first line on: `resume` carries on from it. */
+  /** True while a pause holds the line, on any line, until `resume`, a seek or a stop. */
   get paused(): boolean {
     return this.#frozen;
   }
@@ -158,18 +158,15 @@ export class LinePlayer {
     }
   }
 
-  /**
-   * A transcript row's play: the paused line carries on from its pause, and any
-   * other line starts again from its top.
-   */
+  /** A transcript row's play: resumes the paused line, and starts any other line from its top. */
   playLine(index: number): void {
     if (this.#frozen && index === this.cursor) this.resume();
     else this.playFrom(index);
   }
 
   /**
-   * Hold the line where it is: its voice, its stage and the wait after it stop
-   * with play time, and `resume` carries on from there.
+   * Holds the line where it is: its voice, its stage and the wait after it stop
+   * with play time, until `resume`.
    */
   pause(): void {
     if (!this.playing) return;
@@ -182,10 +179,10 @@ export class LinePlayer {
   }
 
   /**
-   * Carry on from a pause, from where the line was held. A line held mid-voice
-   * whose speed was changed starts again from its top at the new speed, as a
-   * change of speed does while it plays. Held in a gap or an answer beat, the
-   * line has ended, so the next one simply takes the new speed.
+   * Carries on from a pause. A line paused mid-voice after a speed change starts
+   * again from its top at the new speed, as a speed change does while it plays.
+   * Paused in a gap or an answer beat the line has ended, so the next one takes
+   * the new speed.
    */
   resume(): void {
     if (this.playing || !this.#frozen) return;
@@ -240,7 +237,7 @@ export class LinePlayer {
     );
   }
 
-  /** Start play time again after a pause, for a seek or a stop; `resume` also starts the voice. */
+  /** Thaws play time and the stage after a pause, for a seek or a stop; `resume` also resumes the voice. */
   #release(): void {
     if (!this.#frozen) return;
     this.#frozen = false;
@@ -282,9 +279,9 @@ export class LinePlayer {
   }
 
   /**
-   * While a line is voicing, it starts again at the new speed (`resume` does that
-   * for a paused one). In a gap or an answer beat the line has ended, so the next
-   * line plays at the new speed rather than the one just ended playing again.
+   * A line still voicing restarts at the new speed (`resume` does that for a paused
+   * one). In a gap or an answer beat the line has ended, so the next line takes the
+   * new speed.
    */
   toggleSlow(): void {
     this.slow = !this.slow;
@@ -296,7 +293,7 @@ export class LinePlayer {
   }
 
   destroy(): void {
-    // Play time is shared by the whole page, so a player that goes must not leave it held.
+    // Play time is shared by the page, so a destroyed player must not leave it frozen.
     this.#release();
     this.#epoch += 1;
     this.playing = false;
@@ -307,8 +304,8 @@ export class LinePlayer {
   }
 
   #stopStage(leaving = false): void {
-    // openChapter halts before Svelte unmounts the old segment. Destruction
-    // must not repeat its global stop once the next segment has started.
+    // openChapter halts the old segment before Svelte unmounts it. Once the next one
+    // has started, destroy must not repeat the global stop.
     if (activePlayer !== this) return;
     activePlayer = undefined;
     const stage = this.#stage;
@@ -322,10 +319,10 @@ export class LinePlayer {
 
     this.speaking = false;
     this.#voicing = false;
-    // The line is heard to its end. Its time stops there, so the wait after it does not count toward Replay or Previous.
+    // The line was heard to its end, so the wait after it must not count toward Replay or Previous.
     this.#heardMs = this.#heard();
     this.#speakingSince = null;
-    // The timer set at the voice's start may fire in the wait after a short line, so settle it from the time heard.
+    // The timer armed at the voice's start can fire in the wait after a short line, so re-mark from the time heard.
     this.#markBegun();
     if (this.#options.holdsAfter?.(index) && !this.#options.isLast(index)) {
       this.playing = false;

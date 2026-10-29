@@ -1,8 +1,7 @@
 /**
- * Tweens and springs that move on play time (see `$lib/audio/play-clock`).
- * They take the same steps as svelte/motion's `Tween` and `Spring`, but
- * Svelte's run on the wall clock, so a figure would keep settling while the
- * stage is paused. These hold still with the rest of the stage.
+ * Tweens and springs on play time (`$lib/audio/play-clock`), so they hold still
+ * while the stage is paused. They take the same steps as svelte/motion's `Tween`
+ * and `Spring`, which run on the wall clock and would keep settling in a pause.
  */
 import { untrack } from "svelte";
 
@@ -53,7 +52,7 @@ export class PlayTween {
   /** Cancels the next frame of the move under way. */
   #cancelFrame: (() => void) | undefined;
   #settled: Array<() => void> = [];
-  /** The curve of the move under way, as `set` chose it. */
+  /** The curve of the move under way, as the latest `set` chose it. */
   #easing: Easing;
   readonly #options: PlayTweenOptions;
 
@@ -158,8 +157,8 @@ export class PlaySpring<T extends Numbers> {
   #at = 0;
   /** Cancels the next frame of the spring. */
   #cancelFrame: (() => void) | undefined;
-  // Hair retargets each frame. Keep one completion rather than accumulating
-  // a resolver per frame until the figure eventually stops moving.
+  // Hair retargets every frame, so share one pending completion rather than a
+  // new resolver each frame until the figure settles.
   #settled: Promise<void> | undefined;
   #resolve: (() => void) | undefined;
   readonly #stiffness: number;

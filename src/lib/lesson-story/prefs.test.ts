@@ -1,3 +1,4 @@
+import { runInNewContext } from "node:vm";
 import { describe, expect, it } from "vitest";
 import {
   STORY_AUTO_ADVANCE_DEFAULT,
@@ -5,6 +6,8 @@ import {
   getStoryAutoAdvance,
   getStoryShowEnglish,
   getStorySubtitles,
+  listenPrefsBootScript,
+  setListenShowVoices,
   setStoryAutoAdvance,
   setStoryShowEnglish,
   setStorySubtitles,
@@ -46,5 +49,39 @@ describe("lesson story prefs", () => {
     expect(getStorySubtitles(storage)).toBe("on");
     setStorySubtitles("off", storage);
     expect(getStorySubtitles(storage)).toBe("off");
+  });
+});
+
+describe("listen prefs boot script", () => {
+  function boot(localStorage: { getItem(key: string): string | null }) {
+    const dataset: Record<string, string> = {};
+    runInNewContext(listenPrefsBootScript(), {
+      document: { documentElement: { dataset } },
+      localStorage,
+    });
+    return dataset;
+  }
+
+  it("shows subtitles and faces when nothing is stored", () => {
+    expect(boot(memoryStorage())).toEqual({ storySubtitles: "on", listenVoices: "on" });
+  });
+
+  it("reads what the setters stored", () => {
+    const storage = memoryStorage();
+    setStorySubtitles("off", storage);
+    setListenShowVoices("off", storage);
+    expect(boot(storage)).toEqual({ storySubtitles: "off", listenVoices: "off" });
+  });
+
+  it("keeps the defaults for a stray value or storage that throws", () => {
+    const stray = memoryStorage({ "slovak.wiki.story-subtitles": "maybe" });
+    expect(boot(stray).storySubtitles).toBe("on");
+
+    const blocked = {
+      getItem(): never {
+        throw new Error("storage is blocked");
+      },
+    };
+    expect(boot(blocked)).toEqual({ storySubtitles: "on", listenVoices: "on" });
   });
 });

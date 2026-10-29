@@ -243,12 +243,16 @@
       : [
           {
             description: "Translations under the Slovak lines",
+            group: "On screen",
+            icon: "globe" as const,
             label: "Show English",
             on: showEnglish,
             ontoggle: toggleEnglish,
           },
           {
-            description: "Lines play at three-quarter speed",
+            description: "Play at 75% of normal speed",
+            group: "Playback",
+            icon: "gauge" as const,
             label: "Slower",
             on: slower,
             ontoggle: () => {
@@ -258,6 +262,8 @@
           {
             description:
               "Hear each line before you read it, then go on when you are ready",
+            group: "Playback",
+            icon: "listen" as const,
             label: "Listen first",
             on: listenFirst,
             ontoggle: () => {
@@ -266,7 +272,9 @@
           },
         ]),
     {
-      description: "The sound of the place, quieter under the voices",
+      description: "Quiet sounds of the place behind the voices",
+      group: "Sound",
+      icon: "wind",
       label: "Background sound",
       on: ambient,
       ontoggle: () => {

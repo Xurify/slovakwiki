@@ -74,8 +74,8 @@ afterEach(() => {
 });
 
 describe("cues the stage schedules", () => {
-  // The dynamic imports go cold when the full suite shares a worker; a timed-out
-  // import then lands in the next test's fake context and fails it instead.
+  // When the full suite shares a worker, these imports load slowly. A timed-out one
+  // would land in the next test's fake context and fail that test instead.
   it(
     "are all cut off by stopCues: steps, a phone, the sting, a tram, foley",
     { timeout: 20_000 },
