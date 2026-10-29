@@ -150,6 +150,15 @@ export class LinePlayer {
   }
 
   /**
+   * A transcript row's play: the paused line carries on from its pause, and any
+   * other line starts again from its top.
+   */
+  playLine(index: number): void {
+    if (this.#frozen && index === this.cursor) this.resume();
+    else this.playFrom(index);
+  }
+
+  /**
    * Hold the line where it is: its voice, its stage and the wait after it stop
    * with play time, and `resume` carries on from there.
    */

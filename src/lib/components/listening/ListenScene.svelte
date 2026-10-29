@@ -217,7 +217,8 @@
   }
 
   function hush(after: number): void {
-    // Now, not on play time: a pause holds play time, and a place turned off while held must not wait for the thaw.
+    // With no delay the place falls silent at once, even while a pause holds play time, so it does not wait for the thaw.
+    // A later stop counts play time, so a pause holds it until the thaw.
     if (after <= 0) {
       quiet?.();
       quiet = undefined;

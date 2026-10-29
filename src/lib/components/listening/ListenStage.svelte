@@ -588,7 +588,7 @@
             current={(player.playing || stage === "listening") && player.cursor === index}
             playing={player.playing && player.cursor === index}
             showEnglish={english}
-            onplay={() => player.playFrom(index)}
+            onplay={() => player.playLine(index)}
             onpause={() => player.pause()}
           />
         {/each}

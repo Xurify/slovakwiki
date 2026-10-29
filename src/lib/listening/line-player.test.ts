@@ -146,6 +146,21 @@ describe("the line player's timers", () => {
     expect(stops).toEqual([]);
   });
 
+  it("resumes a paused line from its row, and starts any other line afresh", () => {
+    const { stage, played, holds } = fakeStage();
+    const player = playerOn(stage);
+
+    player.playFrom(0);
+    player.pause();
+    player.playLine(0);
+    expect(player.playing).toBe(true);
+    expect(played).toEqual([0]);
+    expect(holds.thaws).toBe(1);
+
+    player.playLine(2);
+    expect(played).toEqual([0, 2]);
+  });
+
   it("does not play on after a pause during the beat after an answer", () => {
     const { stage, played, end } = fakeStage();
     const player = playerOn(stage, (index) => index === 0);
