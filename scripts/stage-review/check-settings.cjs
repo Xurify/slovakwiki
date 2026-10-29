@@ -17,7 +17,6 @@ const surfaces = [
   {
     path: "/listening/future-tense",
     label: "Listening settings",
-    // What a listener changes mid-episode sits in the bar, not in the panel.
     bar: ["Subtitles", "Show English", "Slower", "Transcript"],
     groups: [],
     switches: ["Background sound", "Speaker faces", "Pause at questions"],
@@ -47,7 +46,6 @@ async function run(browser, width, theme, surface) {
   page.on("pageerror", (error) => errors.push(error.message));
   const trigger = page.getByRole("button", { name: surface.label, exact: true });
   const dialog = page.getByRole("dialog", { name: surface.label, exact: true });
-  // Only a phone's sheet has a close button; on a wide screen the panel sits by its gear.
   const close = dialog.getByRole("button", { name: "Close settings", exact: true });
   const firstControl = dialog.locator("button:visible, input:visible").first();
   const setting = (name) => dialog.getByRole("switch", { name, exact: true });

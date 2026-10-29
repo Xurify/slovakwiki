@@ -195,7 +195,6 @@
           : `Listen first, then answer ${COUNT_WORDS[checks.length - 1] ?? checks.length} short questions.`,
   );
 
-  /** Before the first line, what comes goes in the empty subtitle strip, where the lines will appear. */
   const hintInStrip = $derived(Boolean(scene) && subtitles);
 
   const note = $derived.by(() => {
@@ -205,7 +204,6 @@
     return "";
   });
 
-  /** Whose line is on: lit among the faces and named beside them. */
   const voice = $derived(stage === "listening" ? (player.line?.speaker ?? null) : null);
   /** Only just begun, the back button goes to the line before, as a player's previous does. */
   const back = $derived(player.justBegun && player.canGoBack);
@@ -236,8 +234,6 @@
     setStoryShowEnglish(english ? "on" : "off");
   }
 
-  // What a listener changes mid-episode (speed, subtitles, English) sits in the
-  // bar under the player. The panel keeps what is set once.
   const settings = $derived<SceneSetting[]>([
     {
       kind: "volume",

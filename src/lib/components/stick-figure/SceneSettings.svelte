@@ -54,7 +54,6 @@
   let menu: HTMLDivElement;
   let toggle = $state<HTMLButtonElement>();
 
-  // Volume leads on a row of its own; the switches follow in their groups.
   const blocks = $derived.by(() => {
     const volumes = settings.filter((setting) => setting.kind === "volume");
     const grouped = new Map<string, SceneSetting[]>();
@@ -90,7 +89,6 @@
     if (returnFocus) toggle?.focus({ preventScroll: true });
   }
 
-  /** Keep the desktop panel inside the viewport, even when its gear is near an edge. */
   function place(): void {
     if (!open || !toggle) return;
     if (window.innerWidth < 640) {
@@ -177,7 +175,6 @@
     role="dialog"
     aria-labelledby="{id}-title"
   >
-    <!-- A phone's sheet gets a title and a close button; on a wide screen the panel sits by its gear. -->
     <div
       class="flex shrink-0 items-center justify-between gap-3 border-b border-slate-200/70 py-1 pr-1.5 pl-4 sm:hidden"
     >

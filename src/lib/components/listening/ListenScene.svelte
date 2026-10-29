@@ -54,7 +54,6 @@
      * before anyone speaks.
      */
     follows?: boolean;
-    /** Said in the subtitle strip before the first line comes, so it is not an empty band. */
     hint?: string;
     scene: StagedScene;
     /** The English under the subtitle. */
