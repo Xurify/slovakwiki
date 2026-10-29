@@ -39,6 +39,7 @@
   let {
     class: className = "",
     follows = false,
+    hint,
     scene,
     showEnglish = false,
     sound = true,
@@ -53,6 +54,8 @@
      * before anyone speaks.
      */
     follows?: boolean;
+    /** Said in the subtitle strip before the first line comes, so it is not an empty band. */
+    hint?: string;
     scene: StagedScene;
     /** The English under the subtitle. */
     showEnglish?: boolean;
@@ -286,6 +289,8 @@
             things={direction.things}
           />
         {/key}
+      {:else if hint}
+        <p class="m-0 text-sm leading-snug text-pretty text-slate-500">{hint}</p>
       {/if}
     </div>
   {/if}

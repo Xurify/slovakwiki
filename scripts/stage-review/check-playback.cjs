@@ -87,14 +87,6 @@ async function run(browser, width) {
   const line = (index) => page.locator('ol[aria-label="Lines"] button').nth(index);
   const lineCount = () => page.locator('ol[aria-label="Lines"] button').count();
   const report = (name) => console.log(`PASS ${width}px ${name}`);
-  const setting = async (name) => {
-    await button("Listening settings").click();
-    await page
-      .locator("#scene-settings")
-      .getByRole("button", { name: new RegExp(`^${name} `) })
-      .click();
-    await page.keyboard.press("Escape");
-  };
   try {
     await instrument(page);
     await page.goto(`${base}${episodePath}`, {
@@ -137,8 +129,8 @@ async function run(browser, width) {
       "Stage sound stays suspended",
     );
     assert(held.highlight, "The caption test starts on a highlighted word");
-    await setting("Subtitles");
-    await setting("Subtitles");
+    await button("Subtitles").click();
+    await button("Subtitles").click();
     assert.equal(
       (await sample(page)).highlight,
       held.highlight,

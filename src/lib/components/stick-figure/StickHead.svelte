@@ -423,6 +423,19 @@
   {:else if characterId === "anna"}
     <path d={annaTop} class="{hair} stroke-portrait-ink" stroke-width="1.7" />
     <path d={annaStrands} class="stroke-portrait-ink" stroke-width="1.05" />
+    <!-- a honey hair clip holding the swept fringe -->
+    <path
+      d="M{hairAt(21.6, 18.2, 0.15)}L{hairAt(26.4, 15.6, 0.3)}"
+      class="stroke-portrait-ink"
+      stroke-width="3"
+      stroke-linecap="round"
+    />
+    <path
+      d="M{hairAt(21.6, 18.2, 0.15)}L{hairAt(26.4, 15.6, 0.3)}"
+      class="stroke-scene-honey"
+      stroke-width="1.6"
+      stroke-linecap="round"
+    />
   {:else if characterId === "lucia"}
     <path
       d="M18.8 23 18 16.4 21.8 10.6 27.6 6.6 33.8 5.8 40.4 8 45.6 13.6 47.6 20.6 47 27.4 45.4 30.4Q44.8 21.6 39 18.4Q35 16.6 31.2 17.6Q27.6 16.4 23.6 17.8Q20.2 19.6 18.8 23Z"

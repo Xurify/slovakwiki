@@ -9,6 +9,7 @@
   } from "$lib/audio/volume";
   import type { ListeningChapter } from "$lib/catalog/listening/types";
   import Button from "$lib/components/ui/Button.svelte";
+  import ToolButton from "$lib/components/ui/ToolButton.svelte";
   import {
     getListenPlayAlong,
     getListenShowVoices,
@@ -24,7 +25,7 @@
   import { hasPendingStoryAudio, primeStoryAudio } from "$lib/lesson-story/story-audio";
   import { focusUnlessTyping } from "$lib/listening/focus";
   import LessonCharacterAvatar from "$lib/components/lessons/LessonCharacterAvatar.svelte";
-  import { LinePlayer } from "$lib/listening/line-player.svelte";
+  import { LinePlayer, SLOW_RATE } from "$lib/listening/line-player.svelte";
   import { cardAt, nextOnPath, onPath, prevOnPath } from "$lib/listening/listener-path";
   import type { StagedScene } from "$lib/stick-figure/scene-line";
   import { cx } from "$lib/ui/classes";
@@ -33,8 +34,8 @@
   import EpisodeLine from "./EpisodeLine.svelte";
   import ListenerAsk from "./ListenerAsk.svelte";
   import { episodeSpeakerName } from "./episode-speaker";
-  import ListenControl from "./ListenControl.svelte";
   import ListenScene from "./ListenScene.svelte";
+  import SceneIcon from "$lib/components/stick-figure/SceneIcon.svelte";
   import SceneSettings, {
     type SceneSetting,
   } from "$lib/components/stick-figure/SceneSettings.svelte";
@@ -194,16 +195,20 @@
           : `Listen first, then answer ${COUNT_WORDS[checks.length - 1] ?? checks.length} short questions.`,
   );
 
-  const status = $derived.by(() => {
-    const line = player.line;
+  /** Before the first line, what comes goes in the empty subtitle strip, where the lines will appear. */
+  const hintInStrip = $derived(Boolean(scene) && subtitles);
+
+  const note = $derived.by(() => {
     // Paused mid-line the voice is still held, so Paused comes before the speaker's name.
     if (player.paused || (stage === "listening" && !player.playing)) return "Paused";
-    if (player.speaking && line)
-      return showVoices ? "" : episodeSpeakerName(line.speaker);
-    if (stage === "idle") return idleCopy;
+    if (stage === "idle" && !hintInStrip) return idleCopy;
     return "";
   });
 
+  /** Whose line is on: lit among the faces and named beside them. */
+  const voice = $derived(stage === "listening" ? (player.line?.speaker ?? null) : null);
+  /** Only just begun, the back button goes to the line before, as a player's previous does. */
+  const back = $derived(player.justBegun && player.canGoBack);
   const playLabel = $derived.by(() => {
     if (player.playing) return "Pause";
     if (player.paused) return "Resume";
@@ -221,9 +226,20 @@
     return player.playing;
   }
 
+  function toggleSubtitles(): void {
+    subtitles = !subtitles;
+    setStorySubtitles(subtitles ? "on" : "off");
+  }
+
+  function toggleEnglish(): void {
+    english = !english;
+    setStoryShowEnglish(english ? "on" : "off");
+  }
+
+  // What a listener changes mid-episode (speed, subtitles, English) sits in the
+  // bar under the player. The panel keeps what is set once.
   const settings = $derived<SceneSetting[]>([
     {
-      description: "How loud the episode and the place under it play",
       kind: "volume",
       label: "Volume",
       oninput: (value) => {
@@ -234,35 +250,7 @@
     ...(scene
       ? [
           {
-            description: "The line being said, under the stage",
-            label: "Subtitles",
-            on: subtitles,
-            ontoggle: () => {
-              subtitles = !subtitles;
-              setStorySubtitles(subtitles ? "on" : "off");
-            },
-          },
-        ]
-      : []),
-    {
-      description: "Translations under the Slovak lines and the subtitles",
-      label: "Show English",
-      on: english,
-      ontoggle: () => {
-        english = !english;
-        setStoryShowEnglish(english ? "on" : "off");
-      },
-    },
-    {
-      description: "Lines play at four-fifths speed",
-      label: "Slower",
-      on: player.slow,
-      ontoggle: () => player.toggleSlow(),
-    },
-    ...(scene
-      ? [
-          {
-            description: "The sound of the place, quieter under the voices",
+            icon: "wind" as const,
             label: "Background sound",
             on: placeSound,
             ontoggle: () => {
@@ -273,8 +261,8 @@
         ]
       : []),
     {
-      description: "The hosts' faces beside the play button",
-      label: "Voices",
+      icon: "people",
+      label: "Speaker faces",
       on: showVoices,
       ontoggle: () => {
         showVoices = !showVoices;
@@ -284,7 +272,8 @@
     ...(asks
       ? [
           {
-            description: "Stop when the hosts ask you to guess along",
+            description: "Pause when the hosts invite you to guess",
+            icon: "ask" as const,
             label: "Play along",
             on: playAlong,
             ontoggle: () => {
@@ -297,7 +286,7 @@
     ...(ontogglequestions
       ? [
           {
-            description: "Pause at the end of each segment for its questions",
+            icon: "hold" as const,
             label: "Pause at questions",
             on: questions,
             ontoggle: ontogglequestions,
@@ -379,6 +368,7 @@
       bind:this={sceneStage}
       class="mt-3 border-y border-slate-200/70"
       follows={autoplay}
+      hint={stage === "idle" ? idleCopy : undefined}
       {scene}
       showEnglish={english}
       sound={placeSound}
@@ -439,73 +429,113 @@
       {/each}
     </ol>
 
-    {#if !player.held}
-      <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2">
-        <Button
-          class="min-h-12 pr-5 pl-4"
-          variant={firstListen ? "accent" : "secondary"}
-          onclick={() => player.toggle()}
-        >
-          <svg class="size-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            {#if player.playing}
-              <rect x="6.5" y="5" width="4" height="14" rx="1" />
-              <rect x="13.5" y="5" width="4" height="14" rx="1" />
-            {:else}
-              <path d="M8 5v14l11-7Z" />
-            {/if}
-          </svg>
-
-          {playLabel}
-        </Button>
-
-        <p class="m-0 text-sm text-slate-700 empty:hidden" aria-live="polite">{status}</p>
-
-        {#if showVoices}
-          <ul class="m-0 ml-auto flex list-none gap-3 p-0" aria-label="Voices">
-            {#each speakers as speaker (speaker)}
-              {@const speaking =
-                player.playing && player.speaking && player.line?.speaker === speaker}
-
-              <li class="flex flex-col items-center gap-1">
-                <LessonCharacterAvatar
-                  {speaker}
-                  size="md"
-                  class={speaking
-                    ? "ring-2 ring-blue-600 ring-offset-2 ring-offset-surface"
-                    : ""}
-                />
-
-                <span
-                  class="text-xs font-semibold {speaking
-                    ? 'text-blue-800'
-                    : 'text-slate-500'}"
-                >
-                  {episodeSpeakerName(speaker)}
-                </span>
-              </li>
-            {/each}
-          </ul>
+    <div class="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1">
+      <div class="flex items-center gap-1">
+        {#if !player.held}
+          <Button
+            class={cx(
+              "min-h-12 max-sm:size-12 max-sm:rounded-full max-sm:p-0",
+              "sm:min-w-32 sm:pr-5 sm:pl-4",
+            )}
+            variant={firstListen ? "accent" : "secondary"}
+            onclick={() => player.toggle()}
+          >
+            <SceneIcon class="size-5" name={player.playing ? "pause" : "play"} />
+            <span class="max-sm:sr-only">{playLabel}</span>
+          </Button>
         {/if}
-      </div>
-    {/if}
 
-    <div class="mt-2 -ml-2.5 flex flex-wrap items-center gap-1">
-      {#if stage === "listening"}
-        <ListenControl onclick={() => player.back()}>
-          {player.justBegun && player.canGoBack ? "Previous line" : "Replay line"}
-        </ListenControl>
+        <!-- Held in place when it has nothing to replay, so the play button never moves under the pointer. -->
+        <ToolButton
+          class={cx(stage !== "listening" && "invisible")}
+          disabled={stage !== "listening"}
+          icon={back ? "previous" : "replay"}
+          label={back ? "Previous line" : "Replay line"}
+          onclick={() => player.back()}
+        />
+      </div>
+
+      {#if !player.held}
+        <div class="flex min-w-0 flex-1 flex-wrap items-center gap-x-2.5 gap-y-1">
+          {#if showVoices}
+            <ul class="m-0 flex shrink-0 list-none p-0" aria-label="Speakers">
+              {#each speakers as speaker, index (speaker)}
+                {@const lit = speaker === voice}
+
+                <li
+                  class={cx(
+                    "relative rounded-full bg-surface p-0.5 shadow-[0_0_0_0_transparent] transition-[box-shadow,opacity] duration-150 ease-out",
+                    index > 0 && "-ml-3",
+                    lit && "z-10 shadow-[0_0_10px_3px] shadow-amber-300/80",
+                    voice && !lit && "opacity-55",
+                  )}
+                  title={episodeSpeakerName(speaker)}
+                >
+                  <LessonCharacterAvatar {speaker} size="sm" />
+                  <span class="sr-only">{episodeSpeakerName(speaker)}</span>
+                </li>
+              {/each}
+            </ul>
+          {/if}
+
+          <p
+            class="m-0 min-w-40 flex-1 text-sm leading-snug text-slate-600 empty:hidden"
+            aria-live="polite"
+          >
+            {note}
+          </p>
+
+          {#if !note && voice}
+            <p class="m-0 min-w-0 truncate text-sm font-semibold text-slate-900">
+              {episodeSpeakerName(voice)}
+            </p>
+          {/if}
+        </div>
       {/if}
 
-      <ListenControl onclick={() => (textOpen = !textOpen)}>
-        {textOpen ? "Hide transcript" : "Show transcript"}
-      </ListenControl>
+      <div
+        class="-mr-2.5 flex items-center max-sm:-ml-2.5 max-sm:w-full max-sm:justify-between sm:ml-auto"
+        role="group"
+        aria-label="Player options"
+      >
+        {#if scene}
+          <ToolButton
+            icon="captions"
+            label="Subtitles"
+            pressed={subtitles}
+            onclick={toggleSubtitles}
+          />
+        {/if}
 
-      <SceneSettings
-        class="ml-auto -mr-1.5"
-        label="Listening settings"
-        {settings}
-        side="top"
-      />
+        <ToolButton
+          icon="translate"
+          label="Show English"
+          pressed={english}
+          tip="English translation"
+          onclick={toggleEnglish}
+        />
+
+        <ToolButton
+          label="Slower"
+          pressed={player.slow}
+          tip={player.slow ? "Normal speed" : "Slower speed"}
+          onclick={() => player.toggleSlow()}
+        >
+          <span class="text-[0.8125rem] leading-none font-bold tabular-nums">
+            {player.slow ? `${SLOW_RATE}×` : "1×"}
+          </span>
+        </ToolButton>
+
+        <ToolButton
+          icon="transcript"
+          label="Transcript"
+          pressed={textOpen}
+          tip={textOpen ? "Hide transcript" : "Show transcript"}
+          onclick={() => (textOpen = !textOpen)}
+        />
+
+        <SceneSettings label="Listening settings" {settings} side="top" />
+      </div>
     </div>
   </div>
 
