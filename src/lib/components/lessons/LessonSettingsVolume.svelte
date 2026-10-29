@@ -16,7 +16,7 @@
     value: number;
   } = $props();
 
-  // Keep the last audible level while this panel is closed as well as open.
+  // The last audible level, so unmuting restores it; kept while the menu is closed too.
   let restoreVolume = 1;
 
   const percent = $derived(Math.round(value * 100));

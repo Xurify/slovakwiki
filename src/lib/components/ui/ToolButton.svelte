@@ -24,10 +24,10 @@
     icon?: SceneIconName;
     /** The button's name, and its tooltip unless `tip` says otherwise. */
     label: string;
-    /** Makes it a toggle: on, it turns blue with a short bar under it. */
+    /** Makes it a toggle: when on, it turns blue and shows a short bar underneath. */
     pressed?: boolean;
     ref?: HTMLButtonElement;
-    /** `false` for none, as while the menu it opens is showing. */
+    /** `false` hides it, as while the menu it opens is showing. */
     tip?: string | false;
     tipSide?: "bottom" | "top";
   } = $props();

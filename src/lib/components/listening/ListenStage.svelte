@@ -84,8 +84,7 @@
   let checkAt = $state(untrack(() => (done ? chapter.checks.length : 0)));
   let correct = $state(untrack(() => done?.correct ?? 0));
   let textOpen = $state(false);
-  // Read up front, not only in onMount: corrected after mount, a stored "off" still painted
-  // "on" for the island's first client render, collapsing the subtitle band under the learner.
+  // Read at setup, not in onMount, so the island's first client render already shows the stored prefs.
   let english = $state(untrack(() => getStoryShowEnglish() === "on"));
   let placeSound = $state(untrack(() => getStoryPlaceSound() === "on"));
   let subtitles = $state(untrack(() => getStorySubtitles() === "on"));
@@ -199,7 +198,7 @@
   );
 
   const voice = $derived(stage === "listening" ? (player.line?.speaker ?? null) : null);
-  /** Only just begun, the back button goes to the line before, as a player's previous does. */
+  /** Just begun, the back button goes to the line before, as a player's Previous does. */
   const back = $derived(player.justBegun && player.canGoBack);
   const playLabel = $derived.by(() => {
     if (player.playing) return "Pause";
@@ -209,7 +208,7 @@
     return "Listen again";
   });
 
-  /** Stop the segment: its line and voice, so the next play starts the line again. */
+  /** Stops the segment's line and voice, so the next play starts that line from the top. */
   export function halt(): void {
     player.halt();
   }
@@ -306,8 +305,7 @@
   }
 
   onMount(() => {
-    // The head script hides the chrome the learner turned off until now (styles.css);
-    // from here the player's own state is what shows it or doesn't.
+    // styles.css hides the chrome that listenPrefsBootScript turns off until data-listen-hydrated is set.
     document.documentElement.dataset.listenHydrated = "1";
     volume = getAudioVolume();
 
@@ -419,7 +417,7 @@
 
     <div class="mt-3 flex flex-wrap items-center gap-x-1.5 gap-y-1">
       <div class="flex items-center gap-1.5">
-        <!-- Hidden rather than removed while a question holds the line, so the replay button does not move. -->
+        <!-- Kept in layout while a question holds the line, so the play button does not move. -->
         <Button
           class={cx(
             "min-h-12 max-sm:size-12 max-sm:rounded-full max-sm:p-0",
@@ -434,9 +432,7 @@
           <span class="max-sm:sr-only">{playLabel}</span>
         </Button>
 
-        <!-- Shown disabled rather than hidden when it has nothing to replay yet, so the row
-             isn't left with a blank gap before the first play, and the play button still
-             never moves once there is something to replay. -->
+        <!-- Disabled rather than hidden outside the listening stage, so the row does not shift. -->
         <ToolButton
           disabled={stage !== "listening"}
           icon={back ? "previous" : "replay"}
@@ -469,9 +465,8 @@
                 )}
                 title={episodeSpeakerName(speaker)}
               >
-                <!-- The ring itself stays opaque so overlapping avatars cut a clean edge;
-                     dimming the ring too let a dimmed disc's translucency double up over
-                     its neighbour, muddying the overlap instead of just fading a face. -->
+                <!-- The ring stays opaque so overlapping avatars keep a clean edge. Dimming it too
+                     would double the translucency over the neighbour; only the avatar fades. -->
                 <LessonCharacterAvatar
                   {speaker}
                   size="sm"

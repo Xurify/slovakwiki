@@ -202,7 +202,7 @@
   const SET_OFF_MS = TURN_MS / 2;
   /** Where StickDog draws the collar, in its rig space. */
   const DOG_COLLAR = { x: 12.8, y: 102 };
-  /** The top of StickDog's head, in its rig space, forward of its middle: where a hand rests on it. */
+  /** Where StickDog draws the top of its head, in its rig space, for a hand to rest on. */
   const DOG_HEAD = { x: 15, y: 87.8 };
   const WALKING = new Set<Cue["do"]>(["go", "enter", "leave", "sit"]);
   /** Long enough to read a short line said in a bubble. */
@@ -307,7 +307,7 @@
   let stageWidth = $state(0);
   let stageHeight = $state(0);
   let root: HTMLElement | undefined;
-  /** The animations a pause has held, to play on from the pause. */
+  /** Animations that `freeze` paused, for `thaw` to resume. */
   let heldAnimations: Animation[] = [];
   /** The page has measured the stage, so marks and walk-ons are known. */
   const measured = $derived(stageWidth > 0 && stageHeight > 0);
@@ -319,7 +319,7 @@
   /** Never reset, so a figure's next walk always has a cue it has not seen. */
   let walkCount = 0;
   let playToken = 0;
-  /** Cancels the wait for a line with no clip to end it. */
+  /** Cancels the timer that ends a line with no clip. */
   let lineTimer: (() => void) | undefined;
   /** The line being said, for the clock the figures move to when no clip plays. */
   let spoken = { at: 0, durationMs: 0, rate: 1 };
@@ -552,7 +552,7 @@
       const handle = doorPoint(door, doorSwing.current, HANDLE.u, HANDLE.v);
       return { x: castX(handle.x), y: castY(handle.y) };
     }
-    // A dog's head, where a hand rests on it: forward of its middle, on the side it faces, not under it.
+    // A dog's head, where a hand rests: ahead of its middle, on the side it faces.
     if (as === "top" && isCast(name) && LOOKS[name].dog) {
       return { x: castMiddle(name) + facingOf(name) * DOG_HEAD.x, y: DOG_HEAD.y };
     }
@@ -1927,9 +1927,8 @@
   }
 
   /**
-   * The CSS and Web Animations on the stage (rain, a thrown ball, a fade) run
-   * on the wall clock, so a pause holds the ones running. The walks, turns and
-   * cues run on play time, which the player freezes.
+   * Pauses the stage's CSS and Web Animations (rain, a thrown ball, a fade),
+   * which run on the wall clock. Walks, turns and cues follow play time instead.
    */
   export function freeze(): void {
     if (!root) return;
@@ -1940,7 +1939,7 @@
     }
   }
 
-  /** Carry on from `freeze`: only the animations it held. */
+  /** Resumes the animations `freeze` paused. */
   export function thaw(): void {
     for (const animation of heldAnimations) {
       if (animation.playState === "paused") animation.play();
@@ -2021,7 +2020,7 @@
 
   /**
    * Where the line being said is, for every figure acting it out: its clip,
-   * or with none playing (no clip, or sound off) the wall clock at the
+   * or with none playing (no clip, or sound off) play time at the
    * line's rate, so a slowed line and the timer that ends it agree.
    */
   export function clock(): SpeechClock | undefined {
@@ -2152,7 +2151,7 @@
       return;
     }
 
-    // No clip yet: run the line for its text-timed length on the wall clock.
+    // No clip yet: run the line for its text-timed length on play time.
     stopStoryLineAudio();
     lineTimer?.();
     lineTimer = playClockTimeout(() => {
@@ -2220,8 +2219,8 @@
       />
       <StickWeather height={stageHeight} {mood} {setting} width={stageWidth} />
 
-      <!-- The place is drawn from the server's HTML, so the first paint shows it. Only the cast
-           waits to be measured and seated, and fades in once it is. -->
+      <!-- The place is in the server's HTML, so the first paint shows it. Only the cast
+           waits to be measured and seated, then fades in. -->
       <div
         class="pointer-events-none absolute inset-0 transition-[opacity,filter] duration-900 ease-in-out motion-reduce:transition-none"
         style:opacity={revealed ? 1 : 0}

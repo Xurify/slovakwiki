@@ -55,7 +55,7 @@ interface GainMock {
 /** Just enough of an AudioContext for the stage's sound: its state, and nodes that do nothing. */
 class FakeAudioContext {
   static made: FakeAudioContext[] = [];
-  /** Every gain node made, in order: a place's master is the first of its own. */
+  /** Every gain node made, in order; each place's master gain is the first made for it. */
   static gains: GainMock[] = [];
   readonly sampleRate = 8000;
   readonly destination = {};
@@ -148,7 +148,7 @@ describe("holding the stage's sound on a pause", () => {
     const ambience = await loadAmbience();
     ambience.cues();
     const [ctx] = FakeAudioContext.made;
-    // The suspend is still on its way: the state has not changed yet.
+    // The suspend is still pending, so the state has not changed yet.
     ctx?.suspend.mockImplementationOnce(() => new Promise<void>(() => {}));
 
     ambience.holdStageSound();

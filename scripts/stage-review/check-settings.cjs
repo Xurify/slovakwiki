@@ -30,7 +30,7 @@ const surfaces = [
   {
     path: "/lessons/everyday/meet-someone",
     label: "Lesson settings",
-    // Volume leads the panel without a heading, so Sound has nothing left under it.
+    // Volume sits first with no heading, so the panel has no Sound group.
     groups: ["Story", "Display"],
     switches: ["Auto-advance", "Show English", "Dark mode"],
   },
@@ -63,7 +63,7 @@ async function run(browser, width, theme, surface) {
     if (await close.isVisible()) await close.click();
     else await page.keyboard.press("Escape");
   };
-  // Escape and the close button hand focus back to the gear; a click or Tab elsewhere keeps its own.
+  // Escape and the close button return focus to the gear; a click or Tab elsewhere does not.
   const closed = async (restoresFocus = true) => {
     await dialog.waitFor({ state: "hidden" });
     if (restoresFocus) {
@@ -166,7 +166,7 @@ async function run(browser, width, theme, surface) {
     await closed(false);
     await open();
 
-    // Switch labels stay stable while their state and the app preference change.
+    // Show English keeps its name while its state flips, and the state survives a reload.
     const english = surface.bar ? barButton("Show English") : setting("Show English");
     const state = surface.bar ? "aria-pressed" : "aria-checked";
     const before = await english.getAttribute(state);
@@ -176,7 +176,7 @@ async function run(browser, width, theme, surface) {
       await english.click();
       assert.notEqual(await english.getAttribute(state), before);
     } else {
-      // Read before closing: a closed panel's switches are hidden from role queries.
+      // Read the state while the panel is open: role queries cannot find its switches once it closes.
       await english.focus();
       await page.keyboard.press("Space");
       assert.notEqual(await english.getAttribute(state), before);
@@ -185,7 +185,7 @@ async function run(browser, width, theme, surface) {
     }
     await page.reload({ waitUntil: "networkidle" });
     await hydrated();
-    // A bar button is read with the panel shut: a phone's sheet covers the bar.
+    // Bar buttons are read with the panel shut, since a phone's sheet covers the bar.
     if (!surface.bar) await open();
     assert.notEqual(await english.getAttribute(state), before);
     await english.click();
@@ -243,7 +243,7 @@ async function run(browser, width, theme, surface) {
     await closed(false);
 
     if (surface.bar && width >= 640) {
-      // The player stays in reach while the panel is open: one click plays and closes it.
+      // The bar's Listen button works with the panel open: one click plays and closes it.
       await open();
       await barButton("Listen").click();
       await dialog.waitFor({ state: "hidden" });
@@ -251,7 +251,7 @@ async function run(browser, width, theme, surface) {
       await barButton("Pause").click();
     }
 
-    // A short landscape screen keeps the last control reachable; resizing while open is safe.
+    // The last setting must stay reachable on a short landscape screen, and resizing with the panel open must be safe.
     await page.setViewportSize({ width: 740, height: 360 });
     await open();
     const last = setting(surface.switches.at(-1));

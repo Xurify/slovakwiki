@@ -1,23 +1,22 @@
 /**
- * Play time: the clock a podcast segment's stage, its figures, its caption and
- * its clips keep. It runs with the wall clock until a pause freezes it. Nothing
- * on it moves while frozen, so a gesture, a walk, a timer, a frame and a clip's
- * place all stop where they are and carry on from there when it thaws.
+ * Play time: the clock a podcast segment's stage, figures, caption and clips
+ * keep. It runs on the wall clock until a pause freezes it. Nothing on it moves
+ * while frozen: a gesture, a walk, a timer, a frame or a clip stops where it is
+ * and carries on when it thaws.
  */
 
 interface PlayTimer {
-  /** Play time it is due at. A frame has none: it runs on the next one. */
+  /** Play time it is due at; a frame has none and runs on the next one. */
   due: number;
   run: () => void;
-  /** An animation frame rather than a timeout. */
+  /** Whether this is an animation frame rather than a timeout. */
   frame: boolean;
-  /** The browser's timer, while it is running. */
+  /** The browser's timer id while armed; 0 when not. */
   handle: number;
 }
 
-/** Wall time the clock was frozen at, while it is frozen. */
+/** Wall time the clock froze at; undefined while it runs. */
 let frozenAt: number | undefined;
-/** Wall time spent frozen so far. */
 let frozenFor = 0;
 const timers = new Set<PlayTimer>();
 

@@ -27,7 +27,7 @@ describe("classifyPlayFailure", () => {
 class FakeAudio {
   static instances: FakeAudio[] = [];
   static allowPlay = false;
-  /** When set, every play is refused with this DOMException name. */
+  /** When set, every play is refused with a DOMException of this name. */
   static refuse: string | undefined = undefined;
 
   onended: (() => void) | null = null;
@@ -69,7 +69,6 @@ class FakeAudio {
 
 /** Window listeners the story audio adds, so a test can send the events it listens for. */
 let windowListeners: Array<{ type: string; listener: () => void }> = [];
-/** What the stub storage holds for the sound preference. */
 let storedSfx: string | null = null;
 
 async function loadStoryAudio(): Promise<typeof import("./story-audio")> {

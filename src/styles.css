@@ -434,24 +434,8 @@
     color: var(--muted);
   }
 
-  .story-en-gloss {
-    display: none;
-  }
-
-  html[data-story-show-english="on"] .story-en-gloss,
-  [data-story-en-open] .story-en-gloss {
-    display: block;
-  }
-
-  html[data-story-show-english="on"] .story-en-toggle,
-  [data-story-en-open] .story-en-toggle {
-    display: none;
-  }
-
-  /* The player's own chrome is rendered from SSR defaults, so the head attrs hide
-     what the learner turned off until the island hydrates. After that its state
-     takes over, and the subtitle toggle keeps its slide. `!important` because a
-     Tailwind `display` utility sits in a later layer than these base rules. */
+  /* Until the listening island hydrates, hide the captions and faces the learner turned off.
+     `!important`: Tailwind's display utilities sit in a later cascade layer. */
   html[data-story-subtitles="off"]:not([data-listen-hydrated]) [data-listen-captions],
   html[data-listen-voices="off"]:not([data-listen-hydrated]) [data-listen-speakers] {
     display: none !important;

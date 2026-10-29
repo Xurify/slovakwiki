@@ -164,7 +164,7 @@ async function run(browser, width) {
     }
     report("next/previous from playing and paused, including rapid switches");
 
-    // Complete the first segment, return, then pause its last line during replay.
+    // Only a finished segment exercises the replay path, so finish segment one first.
     const nextTitle = await segment(1).locator('span[lang="sk"]').first().textContent();
     await segment(0).click();
     const lastLine = (await lineCount()) - 1;
@@ -204,13 +204,13 @@ async function run(browser, width) {
       await segment(index).click();
       await line(1).click();
       await page.waitForTimeout(300);
-      // A line that holds for the listener's answer hides the pause control.
+      // A line that waits for the listener's answer has no pause control.
       if (await button("Pause").count()) await button("Pause").click();
       if (index + 1 < count) await button("Next segment").click();
       else await button("Previous segment").click();
       await onePlayer(page);
     }
-    // Boundary buttons cannot activate even through a synthetic click.
+    // A disabled boundary button must not move on, even when a click is forced onto it.
     for (const [index, name] of [
       [0, "Previous segment"],
       [count - 1, "Next segment"],

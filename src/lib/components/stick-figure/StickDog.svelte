@@ -30,10 +30,10 @@
   /** A bounding run: the feet reach this far and lift this high, in dog units. */
   const BOUND_REACH = 9;
   const BOUND_LIFT = 7;
-  /** The hind pair lags the fore pair by this much of a bound, and the far side a little more. */
+  /** Phase lags in radians: the hind pair lags the fore pair, and the far side lags a little more. */
   const HIND_LAG = 1.1;
   const FAR_LAG = 0.25;
-  /** The body rises this far in the flight, at the top of each bound. */
+  /** How far the body rises at the top of each bound, in dog units. */
   const BOUND_RISE = 4;
 
   /** A foot's swing (−1 back … 1 forward) and how far it is off the ground, at a bound's phase. */
@@ -77,7 +77,6 @@
     return `M${n(hipX)} ${HIP_Y}Q${n(kneeX)} ${n(kneeY)} ${n(footX)} ${n(footY)}h2.6`;
   }
 
-  /** The far legs, drawn before the body so it covers their tops: hip, swing, lift and reach. */
   const farLegs = $derived(
     bounding
       ? [

@@ -66,18 +66,6 @@ function writePreference(
     // Ignore quota / private-mode failures.
   }
 
-  if (typeof document !== "undefined" && key === STORY_SHOW_ENGLISH_KEY) {
-    document.documentElement.dataset.storyShowEnglish = value;
-  }
-
-  if (typeof document !== "undefined" && key === STORY_SUBTITLES_KEY) {
-    document.documentElement.dataset.storySubtitles = value;
-  }
-
-  if (typeof document !== "undefined" && key === LISTEN_SHOW_VOICES_KEY) {
-    document.documentElement.dataset.listenVoices = value;
-  }
-
   if (typeof window !== "undefined") {
     window.dispatchEvent(new Event(STORY_PREFS_CHANGE_EVENT));
   }
@@ -95,11 +83,6 @@ export function setStoryAutoAdvance(
 }
 
 export function getStoryShowEnglish(storage?: StorageLike): StoryBoolPreference {
-  if (!storage && typeof document !== "undefined") {
-    const fromDom = document.documentElement.dataset.storyShowEnglish;
-    if (isStoryBoolPreference(fromDom)) return fromDom;
-  }
-
   return readPreference(STORY_SHOW_ENGLISH_KEY, STORY_SHOW_ENGLISH_DEFAULT, storage);
 }
 
@@ -122,11 +105,6 @@ export function setStoryPlaceSound(
 }
 
 export function getStorySubtitles(storage?: StorageLike): StoryBoolPreference {
-  if (!storage && typeof document !== "undefined") {
-    const fromDom = document.documentElement.dataset.storySubtitles;
-    if (isStoryBoolPreference(fromDom)) return fromDom;
-  }
-
   return readPreference(STORY_SUBTITLES_KEY, STORY_SUBTITLES_DEFAULT, storage);
 }
 
@@ -157,6 +135,23 @@ export function setListenShowVoices(
   storage?: StorageLike,
 ): void {
   writePreference(LISTEN_SHOW_VOICES_KEY, value, storage);
+}
+
+/** Sets the listening player's subtitle and speaker prefs on `<html>` before first paint. */
+export function listenPrefsBootScript(): string {
+  const prefs = JSON.stringify([
+    {
+      attr: "storySubtitles",
+      key: STORY_SUBTITLES_KEY,
+      fallback: STORY_SUBTITLES_DEFAULT,
+    },
+    {
+      attr: "listenVoices",
+      key: LISTEN_SHOW_VOICES_KEY,
+      fallback: LISTEN_SHOW_VOICES_DEFAULT,
+    },
+  ]);
+  return `(function(){var root=document.documentElement;${prefs}.forEach(function(p){var v=p.fallback;try{var s=localStorage.getItem(p.key);if(s==="on"||s==="off")v=s;}catch(e){}root.dataset[p.attr]=v;});})();`;
 }
 
 export function toggleStoryBool(value: StoryBoolPreference): StoryBoolPreference {

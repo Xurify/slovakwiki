@@ -15,7 +15,7 @@ const LINES = ["Ahoj.", "Ako sa máš?", "Dobre.", "Tak poď."].map(
   (slovak, index) => ({ id: `l${index}`, slovak }) as DialogueTurn,
 );
 
-/** Every player a test makes: play time is shared, so none may keep a timer past its test. */
+/** Every player a test makes; play time is shared, so each is destroyed after its test. */
 const players: LinePlayer[] = [];
 
 function track(player: LinePlayer): LinePlayer {
@@ -524,7 +524,7 @@ describe("stepping back", () => {
     end(1);
     expect(player.held).toBe(true);
 
-    // The timer set at the voice's start has run out by now, though only 300 ms was heard.
+    // The voice-start timer has run out by now, though only 300 ms was heard.
     vi.advanceTimersByTime(BACK_MS);
     expect(player.justBegun).toBe(true);
     player.back();

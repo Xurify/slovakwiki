@@ -1,13 +1,10 @@
 /**
- * Smooths a jump in an element's natural height (its content changed, not a
- * `transition:` mount/unmount) into a short animation, instead of the box
- * snapping straight to its new size. A caption swapping to a longer or
- * shorter line, or an English line toggling on, is a content change like
- * this, not a mount: Svelte's own `transition:` directives only run on
- * mount/destroy, so they never see it.
+ * Eases a change in an element's natural height (a caption swapping to a longer or
+ * shorter line, or an English line toggling on) instead of letting it snap. Svelte's
+ * `transition:` runs only on mount and destroy, so it never sees these changes.
  *
- * Skipped under `prefers-reduced-motion: reduce`, per this repo's motion
- * convention (see `StickWeather.svelte`'s local `reducedMotion()`).
+ * Skipped under `prefers-reduced-motion: reduce`, as in `StickWeather.svelte`'s
+ * `reducedMotion()`.
  */
 export function animateResize(node: HTMLElement): { destroy(): void } {
   let previousHeight = node.getBoundingClientRect().height;

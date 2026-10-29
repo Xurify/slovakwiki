@@ -15,7 +15,7 @@
   let path = $state("");
 
   onMount(() => {
-    // On play time: a pause holds the figures, so there is nothing new for the lead to follow until it thaws.
+    // On play time, so the lead stops following while paused, as the figures do.
     let cancel = playClockFrame(follow);
 
     function follow(): void {

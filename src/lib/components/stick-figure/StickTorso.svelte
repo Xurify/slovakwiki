@@ -217,7 +217,7 @@
     stroke-width="0.7"
   />
 {:else if characterId === "anna"}
-  <!-- rose knit sweater, slightly nipped at the waist, with a cream roll neck, ribbed hem and a honey belt -->
+  <!-- Rose knit sweater, slightly nipped at the waist, with a cream roll neck, honey belt and ribbed hem. -->
   <path
     d="M-4.8 -28Q-5 -30.8 -2.2 -31L3.2 -31Q5.6 -30.8 5.2 -28Q6 -20 5.2 -14.4Q5 -12.8 5.3 -11Q6 -6 5.6 -2.4L-5 -2.4Q-5.4 -6 -4.7 -11Q-4.5 -13 -4.7 -14.4Q-5.4 -20 -4.8 -28Z"
     class="fill-scene-red stroke-portrait-ink"

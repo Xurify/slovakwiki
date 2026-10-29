@@ -14,7 +14,7 @@
 
   /** One sound of the place for the episode: the next segment fades it over to its own. */
   let place: AmbiencePlayer | undefined;
-  /** Cancels the place's sound going quiet. */
+  /** Cancels the pending hush of the place's sound. */
   let quiet: (() => void) | undefined;
   /** When the sound is due to stop; an earlier call keeps its earlier time. */
   let quietAt = Number.POSITIVE_INFINITY;
@@ -33,7 +33,7 @@
   import { animateResize } from "$lib/ui/animate-resize";
   import { cx } from "$lib/ui/classes";
 
-  /** This repo's motion convention (see `StickWeather.svelte`): read live, not cached, since the setting can change mid-visit. */
+  /** Read on each call, not cached, since the setting can change mid-visit (as in `StickWeather.svelte`). */
   const reducedMotion = (): boolean =>
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -201,13 +201,12 @@
     hush(leaving ? HANDOVER_MS : 0);
   }
 
-  /** A pause holds the stage where it is: its motion, and the sound of the place and the steps. */
+  /** Holds the stage's motion and its sound, the place and the steps, at a pause. */
   export function freeze(): void {
     holdStageSound();
     stage?.freeze();
   }
 
-  /** Carry on from `freeze`. */
   export function thaw(): void {
     releaseStageSound();
     stage?.thaw();
@@ -225,8 +224,8 @@
   }
 
   function hush(after: number): void {
-    // With no delay the place falls silent at once, even while a pause holds play time, so it does not wait for the thaw.
-    // A later stop counts play time, so a pause holds it until the thaw.
+    // No delay: the place falls silent now, even during a pause, rather than at the thaw.
+    // A delayed hush counts play time, so a pause holds it until the thaw.
     if (after <= 0) {
       quiet?.();
       quiet = undefined;
@@ -275,11 +274,9 @@
     {@const turn = turns[shown]}
 
     <!--
-      A caption band with a floor, not a fixed height: the floor gives a short line and its
-      English row their room from the start, so the controls don't move on load or on pause.
-      A longer line still grows past it, but `animateResize` eases that growth instead of
-      snapping, and `transition:slide` eases the band's own mount/unmount when subtitles are
-      turned on or off, rather than the row beneath it jumping.
+      A minimum height, not a fixed one, so a short line and its English row do not move the
+      controls on load or pause. A longer line grows past it, eased by `animateResize`, and
+      `transition:slide` eases the band's own mount and unmount when subtitles are toggled.
     -->
     <div
       class="border-t border-slate-200/70"

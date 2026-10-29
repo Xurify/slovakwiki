@@ -72,14 +72,14 @@ export function walkPose(
   };
 }
 
-/** A dog leans into a run this many degrees. */
+/** How far a dog leans into a gallop, in degrees. */
 const GALLOP_LEAN = 8;
 
 /**
- * A dog's bounding run, one bound to every two steps: the phase runs on
- * with the steps, and the legs ease in and out as a walk's do. StickDog draws
- * the bound from `gallop` and `gallopAmp`, so the legs swing far enough to
- * leave the ground rather than shuffle at walking reach.
+ * A dog's gallop, one bound to every two steps. The phase advances with the
+ * steps, and the legs ease in and out as a walk's do. StickDog draws the bound
+ * from `gallop` and `gallopAmp`, swinging the legs clear of the ground rather
+ * than shuffling them at walking reach.
  */
 export function gallopPose(
   pose: StickPose,

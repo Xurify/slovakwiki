@@ -2,7 +2,7 @@
   import type { SceneIconName } from "./SceneIcon.svelte";
 
   interface SceneSettingBase {
-    /** Only where the label alone does not say what the setting does. */
+    /** Only where the label does not already say what the setting does. */
     description?: string;
     group?: string;
     label: string;
@@ -70,8 +70,8 @@
     ];
   });
 
-  // Not modal: the page stays live, so the player can be played or paused and
-  // the stage stays in view while a setting changes it.
+  // Not modal: the page stays live, so the player still works and the stage stays in view
+  // while a setting changes it.
   function show(): void {
     open = true;
     at = undefined;
