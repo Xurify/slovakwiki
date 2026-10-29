@@ -63,6 +63,23 @@ describe("PlayTween", () => {
 });
 
 describe("PlaySpring", () => {
+  it("shares one pending completion when retargeted every frame", async () => {
+    const spring = new PlaySpring({ x: 0 });
+    const settled = spring.set({ x: 1 });
+    for (let frame = 0; frame < 1000; frame++) {
+      expect(spring.set({ x: 1 + (frame % 2) })).toBe(settled);
+      vi.advanceTimersByTime(16);
+    }
+    void spring.set({ x: 3 });
+    vi.advanceTimersByTime(3000);
+    await settled;
+    expect(spring.current.x).toBe(3);
+    const next = spring.set({ x: 4 });
+    expect(next).not.toBe(settled);
+    void spring.set({ x: 4 }, { instant: true });
+    await next;
+  });
+
   it("does not move on while the play clock is frozen", () => {
     const spring = new PlaySpring({ x: 0 });
     void spring.set({ x: 1 });

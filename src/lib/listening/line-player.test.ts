@@ -196,6 +196,43 @@ describe("the line player's timers", () => {
 });
 
 describe("pausing and resuming", () => {
+  it("resumes the last line on replay, and restarts only after that run ends", () => {
+    const { stage, played, end } = fakeStage();
+    const player = playerOn(stage);
+    player.playFrom(3);
+    end(3);
+    player.toggle();
+    expect(played).toEqual([3, 0]);
+    player.playFrom(3);
+    player.pause();
+    player.toggle();
+    expect(played).toEqual([3, 0, 3]);
+    end(3);
+    player.toggle();
+    expect(played).toEqual([3, 0, 3, 0]);
+  });
+
+  it("releases the frozen stage even after its component binding is cleared", () => {
+    const { stage, holds } = fakeStage();
+    let bound: LineStage | undefined = stage;
+    const player = track(
+      new LinePlayer(
+        LINES,
+        {},
+        {
+          isLast: () => false,
+          onRunEnd: () => {},
+          stage: () => bound,
+        },
+      ),
+    );
+    player.playFrom(0);
+    player.pause();
+    bound = undefined;
+    player.destroy();
+    expect(holds.thaws).toBe(1);
+    expect(playClockFrozen()).toBe(false);
+  });
   it("reads as paused from the first line on, until it resumes", () => {
     const { stage } = fakeStage();
     const player = playerOn(stage);
@@ -406,6 +443,33 @@ describe("changing speed between lines", () => {
 });
 
 describe("sharing the play clock", () => {
+  it("halts a playing predecessor before another player starts", () => {
+    const old = fakeStage();
+    const next = fakeStage();
+    const first = playerOn(old.stage);
+    const second = playerOn(next.stage);
+    first.playFrom(0);
+    old.end(0);
+    second.playFrom(0);
+    vi.advanceTimersByTime(LINE_GAP_MS);
+    expect(first.playing).toBe(false);
+    expect(old.played).toEqual([0]);
+    expect(next.played).toEqual([0]);
+  });
+
+  it("does not stop shared playback twice when a halted segment is later destroyed", () => {
+    const old = fakeStage();
+    const next = fakeStage();
+    const first = playerOn(old.stage);
+    const second = playerOn(next.stage);
+    first.playFrom(0);
+    first.pause();
+    first.halt();
+    second.playFrom(0);
+    first.destroy();
+    expect(old.stops).toEqual([false]);
+    expect(second.playing).toBe(true);
+  });
   it("a player that starts a line takes the clock from one paused elsewhere", () => {
     const paused = fakeStage();
     const other = fakeStage();

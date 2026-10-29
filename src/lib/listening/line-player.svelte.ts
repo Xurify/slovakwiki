@@ -54,10 +54,10 @@ export interface LinePlayerOptions {
 }
 
 /**
- * The player a pause holds play time for. Play time is shared by the page, so a
- * player that starts a line takes it from this one, which is halted.
+ * Only one player owns the page's clock and shared audio, including during
+ * gaps and pauses. Replaced players must not stop their successor on teardown.
  */
-let heldBy: LinePlayer | undefined;
+let activePlayer: LinePlayer | undefined;
 
 export class LinePlayer {
   cursor = $state(0);
@@ -84,6 +84,12 @@ export class LinePlayer {
   #rate = 1;
   /** The line's voice, or its stage, is still going: the line has not ended. */
   #voicing = false;
+  /** This run reached its end, unlike a pause on its last line. */
+  #ended = false;
+  /** Keep the frozen instance even if Svelte clears its binding before teardown. */
+  #frozenStage: LineStage | undefined;
+  /** The stage that actually started this run, not a potentially cleared binding. */
+  #stage: LineStage | undefined;
   readonly #lines: DialogueTurn[];
   readonly #srcs: Record<string, string>;
   readonly #options: LinePlayerOptions;
@@ -115,13 +121,15 @@ export class LinePlayer {
     const line = this.#lines[index];
     if (!line) return;
 
-    if (heldBy && heldBy !== this) heldBy.halt();
+    if (activePlayer && activePlayer !== this) activePlayer.halt();
+    activePlayer = this;
     this.#release();
     this.#clearGap();
     this.#epoch += 1;
     const mine = this.#epoch;
     this.cursor = index;
     this.held = false;
+    this.#ended = false;
     this.playing = true;
     this.#voicing = true;
     this.speaking = false;
@@ -139,6 +147,7 @@ export class LinePlayer {
       this.#markBegun();
     };
     const stage = this.#options.stage?.();
+    this.#stage = stage;
     if (stage) stage.play(index, onEnded, rate, onStart);
     else {
       onStart();
@@ -166,10 +175,10 @@ export class LinePlayer {
     if (!this.playing) return;
     this.playing = false;
     this.#frozen = true;
-    heldBy = this;
     freezePlayClock();
     pauseStoryLineAudio();
-    this.#options.stage?.()?.freeze();
+    this.#frozenStage = this.#stage;
+    this.#frozenStage?.freeze();
   }
 
   /**
@@ -201,8 +210,7 @@ export class LinePlayer {
     this.#heardMs = this.#heard();
     this.#speakingSince = null;
     this.#markBegun();
-    this.#options.stage?.()?.stop();
-    stopStoryLineAudio();
+    this.#stopStage();
   }
 
   /** The current line over, or the one before it when this one has only just begun. */
@@ -236,16 +244,17 @@ export class LinePlayer {
   #release(): void {
     if (!this.#frozen) return;
     this.#frozen = false;
-    if (heldBy === this) heldBy = undefined;
     thawPlayClock();
-    this.#options.stage?.()?.thaw();
+    const stage = this.#frozenStage;
+    this.#frozenStage = undefined;
+    stage?.thaw();
   }
 
   toggle(): void {
     if (this.playing) this.pause();
     else if (this.held) this.answered();
     else if (this.#frozen) this.resume();
-    else this.playFrom(this.cursor);
+    else this.playFrom(this.#ended ? 0 : this.cursor);
   }
 
   /** On from a held line, after a beat: the listener has done the thinking the next line's wait is for. */
@@ -294,7 +303,17 @@ export class LinePlayer {
     this.#voicing = false;
     this.#clearGap();
     this.#clearBegun();
-    this.#options.stage?.()?.stop(true);
+    this.#stopStage(true);
+  }
+
+  #stopStage(leaving = false): void {
+    // openChapter halts before Svelte unmounts the old segment. Destruction
+    // must not repeat its global stop once the next segment has started.
+    if (activePlayer !== this) return;
+    activePlayer = undefined;
+    const stage = this.#stage;
+    this.#stage = undefined;
+    stage?.stop(leaving);
     stopStoryLineAudio();
   }
 
@@ -315,6 +334,7 @@ export class LinePlayer {
     }
     if (this.#options.isLast(index)) {
       this.playing = false;
+      this.#ended = true;
       this.#options.onRunEnd(index);
       return;
     }

@@ -25,6 +25,7 @@ let currentAudio: HTMLAudioElement | undefined;
 let storyAudio: HTMLAudioElement | undefined;
 let storyAudioUnlocked = false;
 let playGeneration = 0;
+let playAttempt = 0;
 let cancelDwell: (() => void) | undefined;
 /** The clip was paused by `pauseStoryLineAudio` and is waiting to be played on. */
 let pausedMidClip = false;
@@ -109,10 +110,8 @@ function stopAll(): void {
  */
 function silenceClip(): void {
   const clip = currentClip;
-  if (!clip) {
-    stopAll();
-    return;
-  }
+  // A missing/already muted clip still has a dwell timer. Muting again must not cancel it.
+  if (!clip) return;
 
   const elapsed = playClockNow() - clip.startedAt;
   // The media's seconds left, as play time: a clip at a slower rate takes longer to play them out.
@@ -133,7 +132,7 @@ function scheduleEnded(
   onEnded?: () => void,
   silentMs = 0,
 ): void {
-  if (!onEnded) return;
+  if (generation !== playGeneration || !onEnded) return;
 
   clearDwell();
   const dwell = Math.max(MIN_STORY_DWELL_MS, silentMs);
@@ -176,6 +175,21 @@ function playFailed(clip: Clip, reason: unknown): void {
   scheduleEnded(clip.generation, clip.startedAt, clip.onEnded, clip.silentMs);
 }
 
+function startPlayback(audio: HTMLAudioElement, clip: Clip): void {
+  const attempt = ++playAttempt;
+  const current = () => clip.generation === playGeneration && attempt === playAttempt;
+  void audio.play().then(
+    () => {
+      if (!current()) return;
+      storyAudioUnlocked = true;
+      pending = undefined;
+    },
+    (reason: unknown) => {
+      if (current()) playFailed(clip, reason);
+    },
+  );
+}
+
 function tryPlay(
   src: string,
   generation: number,
@@ -198,13 +212,7 @@ function tryPlay(
   currentClip = clip;
   attachPlayback(audio, generation, startedAt, onEnded, silentMs);
 
-  void audio.play().then(
-    () => {
-      storyAudioUnlocked = true;
-      pending = undefined;
-    },
-    (reason: unknown) => playFailed(clip, reason),
-  );
+  startPlayback(audio, clip);
 }
 
 /** True when a clip is waiting for a user gesture after autoplay was blocked. */
@@ -244,7 +252,8 @@ export function unlockStoryAudio(): void {
   // A pause holds a waiting clip back too: it plays when the pause ends.
   if (!pending || audioMuted() || playClockFrozen()) return;
 
-  const { generation, onEnded, rate, silentMs, src, startedAt } = pending;
+  const clip = pending;
+  const { generation, onEnded, rate, silentMs, src, startedAt } = clip;
   if (generation !== playGeneration) {
     pending = undefined;
     return;
@@ -252,6 +261,13 @@ export function unlockStoryAudio(): void {
 
   clearDwell();
   pending = undefined;
+  pausedMidClip = false;
+
+  // Retrying a blocked Resume must not assign src again: that rewinds the clip.
+  if (currentAudio && currentClip === clip) {
+    startPlayback(currentAudio, clip);
+    return;
+  }
 
   if (currentAudio) {
     currentAudio.pause();
@@ -330,6 +346,7 @@ export function stopStoryLineAudio(): void {
  */
 export function pauseStoryLineAudio(): void {
   if (!currentAudio || currentAudio.paused) return;
+  playAttempt += 1;
   currentAudio.pause();
   pausedMidClip = true;
 }
@@ -345,12 +362,6 @@ export function resumeStoryLineAudio(): void {
   pausedMidClip = false;
   if (!currentAudio || !currentClip || currentAudio.ended) return;
 
-  const clip = currentClip;
   // Pressing Resume is a gesture, so the browser lets the clip play on.
-  void currentAudio.play().then(
-    () => {
-      storyAudioUnlocked = true;
-    },
-    (reason: unknown) => playFailed(clip, reason),
-  );
+  startPlayback(currentAudio, currentClip);
 }

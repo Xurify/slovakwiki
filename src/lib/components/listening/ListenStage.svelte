@@ -197,7 +197,7 @@
   const status = $derived.by(() => {
     const line = player.line;
     // Paused mid-line the voice is still held, so Paused comes before the speaker's name.
-    if (stage === "listening" && !player.playing) return "Paused";
+    if (player.paused || (stage === "listening" && !player.playing)) return "Paused";
     if (player.speaking && line)
       return showVoices ? "" : episodeSpeakerName(line.speaker);
     if (stage === "idle") return idleCopy;
@@ -206,6 +206,7 @@
 
   const playLabel = $derived.by(() => {
     if (player.playing) return "Pause";
+    if (player.paused) return "Resume";
     if (stage === "idle") return "Listen";
     if (stage === "listening") return "Resume";
     return "Listen again";
@@ -304,15 +305,6 @@
         ]
       : []),
   ]);
-
-  function togglePlay(): void {
-    const atEnd =
-      listened &&
-      !player.playing &&
-      nextOnPath(lines, picks, player.cursor) === undefined;
-    if (atEnd) player.playFrom(0);
-    else player.toggle();
-  }
 
   function resolveCheck(isCorrect: boolean): void {
     if (isCorrect) correct += 1;
@@ -452,7 +444,7 @@
         <Button
           class="min-h-12 pr-5 pl-4"
           variant={firstListen ? "accent" : "secondary"}
-          onclick={togglePlay}
+          onclick={() => player.toggle()}
         >
           <svg class="size-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             {#if player.playing}
@@ -585,7 +577,7 @@
           <EpisodeLine
             {line}
             number={step + 1}
-            current={(player.playing || stage === "listening") && player.cursor === index}
+            current={(player.playing || player.paused || stage === "listening") && player.cursor === index}
             playing={player.playing && player.cursor === index}
             showEnglish={english}
             onplay={() => player.playLine(index)}

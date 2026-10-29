@@ -158,7 +158,10 @@ export class PlaySpring<T extends Numbers> {
   #at = 0;
   /** Cancels the next frame of the spring. */
   #cancelFrame: (() => void) | undefined;
-  #settled: Array<() => void> = [];
+  // Hair retargets each frame. Keep one completion rather than accumulating
+  // a resolver per frame until the figure eventually stops moving.
+  #settled: Promise<void> | undefined;
+  #resolve: (() => void) | undefined;
   readonly #stiffness: number;
   readonly #damping: number;
   readonly #precision: number;
@@ -194,7 +197,9 @@ export class PlaySpring<T extends Numbers> {
       return Promise.resolve();
     }
 
-    const settled = new Promise<void>((resolve) => this.#settled.push(resolve));
+    const settled = (this.#settled ??= new Promise<void>((resolve) => {
+      this.#resolve = resolve;
+    }));
     if (!this.#cancelFrame) {
       this.#at = playClockNow();
       this.#cancelFrame = playClockFrame(this.#step);
@@ -250,8 +255,9 @@ export class PlaySpring<T extends Numbers> {
   }
 
   #flush(): void {
-    const settled = this.#settled;
-    this.#settled = [];
-    for (const resolve of settled) resolve();
+    const resolve = this.#resolve;
+    this.#resolve = undefined;
+    this.#settled = undefined;
+    resolve?.();
   }
 }

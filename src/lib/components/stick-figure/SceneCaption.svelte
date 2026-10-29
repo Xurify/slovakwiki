@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { untrack } from "svelte";
   import { playClockFrame, playClockNow } from "$lib/audio/play-clock";
   import { storyAudioClock } from "$lib/lesson-story/story-audio";
   import { markRoleClass, type TextMark } from "$lib/learning/marked-text";
@@ -64,6 +65,9 @@
     }
 
     const startedAt = playClockNow();
+    // A caption remounted while paused still needs the word at the held position;
+    // its first animation frame will not run until playback resumes.
+    current = untrack(() => wordAt(plan, planTime(plan, clock(), 0)));
     const tick = () => {
       current = wordAt(plan, planTime(plan, clock(), playClockNow() - startedAt));
       cancel = playClockFrame(tick);

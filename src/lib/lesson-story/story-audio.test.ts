@@ -35,7 +35,14 @@ class FakeAudio {
   paused = true;
   playbackRate = 1;
   preload = "";
-  src = "";
+  #src = "";
+  get src(): string {
+    return this.#src;
+  }
+  set src(value: string) {
+    this.#src = value;
+    this.currentTime = 0;
+  }
   volume = 1;
   currentTime = 0;
   duration = Number.NaN;
@@ -175,6 +182,48 @@ describe("pausing a story line", () => {
     vi.unstubAllGlobals();
   });
 
+  it("does not let an old play promise clear a newer autoplay block", async () => {
+    const audio = await loadStoryAudio();
+    let finishOld!: () => void;
+    vi.spyOn(FakeAudio.prototype, "play").mockImplementationOnce(
+      () =>
+        new Promise<void>((resolve) => {
+          finishOld = resolve;
+        }),
+    );
+    audio.playStoryLineAudio("/old.mp3", "");
+    audio.playStoryLineAudio("/new.mp3", "");
+    await flushPromises();
+    expect(audio.hasPendingStoryAudio()).toBe(true);
+    finishOld();
+    await flushPromises();
+    expect(audio.hasPendingStoryAudio()).toBe(true);
+    FakeAudio.allowPlay = true;
+    audio.unlockStoryAudio();
+    await flushPromises();
+    expect(FakeAudio.instances[0]?.src).toBe("/new.mp3");
+    expect(FakeAudio.instances[0]?.paused).toBe(false);
+  });
+
+  it("keeps its media position if a resumed clip is blocked and retried", async () => {
+    const audio = await loadStoryAudio();
+    FakeAudio.allowPlay = true;
+    audio.playStoryLineAudio("/clip.mp3", "");
+    await flushPromises();
+    const clip = FakeAudio.instances[0]!;
+    clip.currentTime = 1.2;
+    audio.pauseStoryLineAudio();
+    FakeAudio.refuse = "NotAllowedError";
+    audio.resumeStoryLineAudio();
+    await flushPromises();
+    expect(audio.hasPendingStoryAudio()).toBe(true);
+    FakeAudio.refuse = undefined;
+    audio.resumeStoryLineAudio();
+    await flushPromises();
+    expect(clip.currentTime).toBe(1.2);
+    expect(clip.paused).toBe(false);
+  });
+
   it("holds the clip where it is and plays on from there, without starting it again", async () => {
     const audio = await loadStoryAudio();
     FakeAudio.allowPlay = true;
@@ -305,6 +354,34 @@ describe("muting a story line", () => {
   afterEach(() => {
     vi.useRealTimers();
     vi.unstubAllGlobals();
+  });
+
+  it("keeps a silent line's end scheduled when sound is toggled again", async () => {
+    vi.useFakeTimers({ toFake: ["setTimeout", "clearTimeout", "performance"] });
+    const audio = await loadStoryAudio();
+    storedSfx = "off";
+    const onEnded = vi.fn();
+    audio.playStoryLineAudio("/clip.mp3", "", { onEnded, silentMs: 3000 });
+    vi.advanceTimersByTime(500);
+    storedSfx = "on";
+    sendWindowEvent(SFX_CHANGE_EVENT);
+    storedSfx = "off";
+    sendWindowEvent(SFX_CHANGE_EVENT);
+    vi.advanceTimersByTime(2500);
+    expect(onEnded).toHaveBeenCalledTimes(1);
+  });
+
+  it("does not let a stale media event cancel the current line's end", async () => {
+    vi.useFakeTimers({ toFake: ["setTimeout", "clearTimeout", "performance"] });
+    const audio = await loadStoryAudio();
+    FakeAudio.allowPlay = true;
+    audio.playStoryLineAudio("/old.mp3", "", { onEnded: vi.fn() });
+    const staleEnd = FakeAudio.instances[0]!.onended!;
+    const onEnded = vi.fn();
+    audio.playStoryLineAudio(undefined, "", { onEnded, silentMs: 3000 });
+    staleEnd();
+    vi.advanceTimersByTime(3000);
+    expect(onEnded).toHaveBeenCalledTimes(1);
   });
 
   it("ends a line muted mid-clip where the clip would have, so the segment carries on", async () => {

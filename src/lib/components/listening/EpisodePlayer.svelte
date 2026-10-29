@@ -74,6 +74,7 @@
   });
 
   function openChapter(index: number, play = false, scroll = true): void {
+    if (!episode.chapters[index]) return;
     stage?.halt();
     active = index;
     autoplay = play;
@@ -223,6 +224,7 @@
           )}
           type="button"
           aria-label="Previous segment"
+          disabled={active === 0}
           title="Previous segment"
           onclick={() => openChapter(active - 1, stage?.playing() ?? false, false)}
         >
@@ -251,6 +253,7 @@
           )}
           type="button"
           aria-label="Next segment"
+          disabled={active === episode.chapters.length - 1}
           title="Next segment"
           onclick={() => openChapter(active + 1, stage?.playing() ?? false, false)}
         >
