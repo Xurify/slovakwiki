@@ -1,7 +1,8 @@
 <script lang="ts">
   import { untrack, type Component } from "svelte";
   import { cubicInOut } from "svelte/easing";
-  import { Tween } from "svelte/motion";
+
+  import { PlayTween } from "$lib/stick-figure/play-motion.svelte";
 
   import {
     BACKDROP_HEIGHT,
@@ -135,7 +136,7 @@
   );
 
   // The clocks start at the scene's told hour; skipping ahead spins them forward.
-  const hour = new Tween(
+  const hour = new PlayTween(
     untrack(() => clockHour(mood)),
     {
       duration: 1200,

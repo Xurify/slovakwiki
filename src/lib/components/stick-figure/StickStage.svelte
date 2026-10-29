@@ -1,9 +1,9 @@
 <script lang="ts">
   import { tick, untrack, type ComponentProps } from "svelte";
   import { cubicInOut, sineIn } from "svelte/easing";
-  import { Tween } from "svelte/motion";
 
   import AudioButton from "$lib/audio/AudioButton.svelte";
+  import { playClockFrame, playClockNow, playClockTimeout } from "$lib/audio/play-clock";
   import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
   import { nounGenderLabel } from "$lib/catalog/types";
   import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
@@ -76,6 +76,7 @@
   import type { StageSetting } from "$lib/stick-figure/stage-setting";
   import { restFacing, type CastFacing, type Facing } from "$lib/stick-figure/staging";
   import { playSteps, playTramCue, stopCues } from "$lib/stick-figure/ambience";
+  import { PlayTween } from "$lib/stick-figure/play-motion.svelte";
   import type { TramState } from "$lib/stick-figure/street";
   import {
     CHAIR_OUT,
@@ -201,6 +202,8 @@
   const SET_OFF_MS = TURN_MS / 2;
   /** Where StickDog draws the collar, in its rig space. */
   const DOG_COLLAR = { x: 12.8, y: 102 };
+  /** The top of StickDog's head, in its rig space, forward of its middle: where a hand rests on it. */
+  const DOG_HEAD = { x: 15, y: 87.8 };
   const WALKING = new Set<Cue["do"]>(["go", "enter", "leave", "sit"]);
   /** Long enough to read a short line said in a bubble. */
   const BUBBLE_MS = 2800;
@@ -263,7 +266,7 @@
    */
   const chairsOut = Array.from(
     { length: 6 },
-    () => new Tween(CHAIR_OUT, { easing: cubicInOut }),
+    () => new PlayTween(CHAIR_OUT, { easing: cubicInOut }),
   );
   /** The chair someone walks to sit on, sits on, or has just got up from, so its pull moves them with it. */
   let perched = $state<Blocking["seated"]>({});
@@ -295,24 +298,29 @@
   let cardHeight = $state(120);
   let board = $state<string>();
   let bubble = $state<{ characterId: LessonCharacterId; cue: number; text: string }>();
-  let bubbleTimer = 0;
+  /** Cancels the bubble's timeout. */
+  let bubbleTimer: (() => void) | undefined;
   let bubbleHeight = $state(0);
   let tram = $state<TramState>("away");
   /** Everyone has got on the tram, out of the weather. */
   let aboard = $state(false);
   let stageWidth = $state(0);
   let stageHeight = $state(0);
+  let root: HTMLElement | undefined;
+  /** The animations a pause has held, to play on from the pause. */
+  let heldAnimations: Animation[] = [];
   /** The page has measured the stage, so marks and walk-ons are known. */
   const measured = $derived(stageWidth > 0 && stageHeight > 0);
   /** The first placing is done and painted: the room warms up into view once, instead of the cast popping in. */
   let revealed = $state(false);
 
-  /** When each walk in flight ends, on the `performance.now()` clock. */
+  /** When each walk in flight ends, on the play clock. */
   let walkEndsAt: Partial<Record<LessonCharacterId, number>> = {};
   /** Never reset, so a figure's next walk always has a cue it has not seen. */
   let walkCount = 0;
   let playToken = 0;
-  let lineTimer = 0;
+  /** Cancels the wait for a line with no clip to end it. */
+  let lineTimer: (() => void) | undefined;
   /** The line being said, for the clock the figures move to when no clip plays. */
   let spoken = { at: 0, durationMs: 0, rate: 1 };
 
@@ -409,7 +417,7 @@
   // While the story skips ahead the whole place shows, so the clock in its pool of light is never cut by a close shot.
   const shot = $derived(dimmed ? WIDE : (world?.camera ?? WIDE));
   /** How far the door has swung in, from 0 shut. */
-  const doorSwing = new Tween(0);
+  const doorSwing = new PlayTween(0);
   /** Who has not come in yet. */
   let outside = $state<LessonCharacterId[]>([]);
   /** In the doorway, the hall dark behind them. */
@@ -420,7 +428,8 @@
   let leading: { index: number; at: number; cues: ScheduledCue[] } | undefined;
   /** When the last cue of the line playing is over. */
   let actsEnd = 0;
-  let actTimers: number[] = [];
+  /** Cancels each cue still on the clock. */
+  let actTimers: Array<() => void> = [];
   /** How long a motion takes to take over from the one before it. */
   const TAKE_OVER_MS = 260;
   /** From the door opening to the one coming in stepping through it, as their hand leaves it (OPEN_DOOR). */
@@ -542,6 +551,10 @@
     if (name === "door-handle" && door) {
       const handle = doorPoint(door, doorSwing.current, HANDLE.u, HANDLE.v);
       return { x: castX(handle.x), y: castY(handle.y) };
+    }
+    // A dog's head, where a hand rests on it: forward of its middle, on the side it faces, not under it.
+    if (as === "top" && isCast(name) && LOOKS[name].dog) {
+      return { x: castMiddle(name) + facingOf(name) * DOG_HEAD.x, y: DOG_HEAD.y };
     }
     const at = stagePoint(stageContext(state), name, as, facing);
     if (at) return at;
@@ -674,11 +687,12 @@
         ? spotOf(id, set?.door ?? cue.from ?? "door")?.offset
         : ((was ? spotOf(id, was)?.offset : undefined) ?? offsets[id] ?? 0);
     const to = cue.to ? spotOf(id, cue.to)?.offset : undefined;
+    const pace = cue.run ? RUN_PACE : 1;
     const walk =
       from === undefined || to === undefined || Math.abs(to - from) < 0.05
         ? 0
         : (cue.do === "enter" ? 0 : setOffFor(id, to > from ? 1 : -1)) +
-          walkDuration(stepsFor(to - from), id);
+          Math.round(walkDuration(stepsFor(to - from), id) / pace);
     const enter =
       cue.do === "enter" && set?.door
         ? DOOR_MS + TURN_MS * 0.6 + CLOSE_DOOR.ms + TURN_MS
@@ -702,16 +716,13 @@
     return x > middle ? 1 : -1;
   }
 
-  /** Run `then` in `ms`, unless the stage stops or jumps first. */
+  /** Run `then` in `ms` of play time, unless the stage stops or jumps first. */
   function later(ms: number, then: () => void): void {
     const token = actToken;
     actTimers.push(
-      window.setTimeout(
-        () => {
-          if (token === actToken) then();
-        },
-        Math.max(0, ms),
-      ),
+      playClockTimeout(() => {
+        if (token === actToken) then();
+      }, Math.max(0, ms)),
     );
   }
 
@@ -732,6 +743,7 @@
     id: LessonCharacterId,
     to: string | undefined,
     sit = false,
+    pace = 1,
   ): number {
     const at = to ? spotOf(id, to) : undefined;
     if (!at) return 0;
@@ -740,9 +752,11 @@
     const walking = at.offset > from ? 1 : -1;
     const setOff = moves ? setOffFor(id, walking) : 0;
     if (moves) turnTo(id, walking);
-    if (setOff) later(setOff, () => walkTo(id, at.offset));
-    else walkTo(id, at.offset);
-    const there = moves ? setOff + walkDuration(stepsFor(at.offset - from), id) : 0;
+    if (setOff) later(setOff, () => walkTo(id, at.offset, pace));
+    else walkTo(id, at.offset, pace);
+    const there = moves
+      ? setOff + Math.round(walkDuration(stepsFor(at.offset - from), id) / pace)
+      : 0;
     later(there, () => (facings = { ...facings, [id]: at.facing }));
     if (!sit || at.chair === undefined) return there;
     // Back to the chair before lowering onto it: a bow begun mid-turn bends away from the table.
@@ -793,7 +807,7 @@
   function performHeard(id: LessonCharacterId, motion: Motion, start: number): void {
     perform(id, motion, start);
     for (const { at, id: sound } of motion.sounds ?? [])
-      later(start + at - performance.now(), () => playFoley(sound));
+      later(start + at - playClockNow(), () => playFoley(sound));
   }
 
   /** On from the edge spot `from` (a park, a room with no door drawn), walking to `to`. */
@@ -825,7 +839,7 @@
     swingDoor(true);
     shaded = [...shaded, id];
     doorway = [...doorway, id];
-    performHeard(id, OPEN_DOOR, performance.now());
+    performHeard(id, OPEN_DOOR, playClockNow());
     later(DOOR_OPENING_MS, () => {
       outside = outside.filter((other) => other !== id);
     });
@@ -843,7 +857,7 @@
         const handle = castPoint("door-handle", "grip", facingOf(id));
         const back: Facing = handle && handle.x < castMiddle(id) ? -1 : 1;
         facings = { ...facings, [id]: back };
-        performHeard(id, CLOSE_DOOR, performance.now() + TURN_MS * 0.6);
+        performHeard(id, CLOSE_DOOR, playClockNow() + TURN_MS * 0.6);
         later(TURN_MS * 0.6 + CLOSE_DOOR.takes!, () => swingDoor(false));
         later(TURN_MS * 0.6 + CLOSE_DOOR.ms, () => {
           facings = { ...facings, [id]: inside.facing };
@@ -878,7 +892,7 @@
         return 0;
       case "go":
         stepDown(who);
-        walkToSpot(who, cue.to);
+        walkToSpot(who, cue.to, false, cue.run ? RUN_PACE : 1);
         return 0;
       case "sit":
         stepDown(who);
@@ -1027,7 +1041,7 @@
     const around = surroundings(id, item);
     // A new motion takes over from the one still going over a moment, so a spoon held out is handed over from where it is, not from a dropped arm.
     const previous = acts[id];
-    const from = previous && performance.now() < previous.until ? previous : undefined;
+    const from = previous && playClockNow() < previous.until ? previous : undefined;
     const act: Act = {
       line: motion.hold === "line",
       until: motion.hold ? Number.POSITIVE_INFINITY : start + motion.ms,
@@ -1046,7 +1060,7 @@
     acts = { ...acts, [id]: act };
     // Done: still holding the pot, the arms stay on its handles; turned on a chair, back round.
     if (!motion.hold) {
-      later(start + motion.ms - performance.now(), () => {
+      later(start + motion.ms - playClockNow(), () => {
         if (acts[id] !== act) return;
         if (carrying(id)) carry(id);
         unturn(id);
@@ -1075,7 +1089,7 @@
           { at: 1, ...hold },
         ],
       },
-      performance.now(),
+      playClockNow(),
     );
   }
 
@@ -1085,7 +1099,7 @@
       [LessonCharacterId, Act | undefined]
     >) {
       if (act?.line)
-        perform(id, { ms: 500, keys: [{ at: 0 }, { at: 500 }] }, performance.now());
+        perform(id, { ms: 500, keys: [{ at: 0 }, { at: 500 }] }, playClockNow());
     }
   }
 
@@ -1098,7 +1112,7 @@
 
   /** Run cues on the clock: each starts on time and changes the world as it takes effect. */
   function runCues(items: readonly ScheduledCue[]): void {
-    const now = performance.now();
+    const now = playClockNow();
     for (const item of items) {
       const takes = WALKING.has(item.cue.do) ? 0 : (item.motion.takes ?? item.motion.ms);
       const effects = item.cue.on !== "dark" && !item.partner;
@@ -1115,7 +1129,7 @@
 
   function clearActs(): void {
     actToken += 1;
-    for (const timer of actTimers) window.clearTimeout(timer);
+    for (const cancel of actTimers) cancel();
     actTimers = [];
     busy = {};
     actsEnd = 0;
@@ -1274,7 +1288,7 @@
     const cues = line.act.slice(0, count);
     try {
       const ms = leadTime(cues, line.characterId, world, walkMsFor, set);
-      const at = performance.now();
+      const at = playClockNow();
       const times: LineTimes = {
         lead: at,
         speech: at + ms,
@@ -1301,7 +1315,7 @@
 
   /** When everything the line's cues do is done: the next line waits for it. */
   function actsLeft(): number {
-    return Math.max(0, actsEnd - performance.now());
+    return Math.max(0, actsEnd - playClockNow());
   }
 
   /** The world as the line's leading cues leave it. */
@@ -1433,7 +1447,7 @@
     }
     // Reduced motion puts the figure there at once, so nobody waits on the walk.
     if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      walkEndsAt[id] = performance.now() + ms;
+      walkEndsAt[id] = playClockNow() + ms;
       playSteps(steps, stepMs(id) / pace, {
         ground: PLACES[setting].ground,
         shoes: LOOKS[id].shoes,
@@ -1510,7 +1524,7 @@
   /** Who turns to the one talking: in an acted scene, only those not at a spot of the set and not busy with a cue. */
   function turning(facing: CastFacing | undefined): CastFacing {
     if (!acted || !facing) return facing ?? {};
-    const now = performance.now();
+    const now = playClockNow();
     return Object.fromEntries(
       Object.entries(facing).filter(
         ([id]) =>
@@ -1785,7 +1799,7 @@
   export function light(id: string, copy?: number): void {
     const key = litKey(id, copy);
     lit = [...lit, key];
-    window.setTimeout(() => {
+    playClockTimeout(() => {
       const at = lit.indexOf(key);
       if (at !== -1) lit = lit.toSpliced(at, 1);
     }, LIT_MS);
@@ -1809,7 +1823,7 @@
     if (!to || !line) return;
 
     const token = playToken;
-    const now = performance.now();
+    const now = playClockNow();
     for (const id of direction.cast) {
       if (id === line.characterId) continue;
       // Someone on their way somewhere, or busy with their hands, keeps at it: turned to look while walking, they walked backwards.
@@ -1824,7 +1838,7 @@
       gesture(id, "glance");
     }
 
-    window.setTimeout(() => {
+    playClockTimeout(() => {
       if (token !== playToken) return;
       facings = { ...facings, ...turning(stagings[heldAt]?.facing) };
     }, gestureDuration("glance"));
@@ -1879,7 +1893,7 @@
     const people = [lines[index]?.characterId, stagings[index]?.addressee];
     return Math.max(
       0,
-      ...people.map((id) => (id ? (walkEndsAt[id] ?? 0) - performance.now() : 0)),
+      ...people.map((id) => (id ? (walkEndsAt[id] ?? 0) - playClockNow() : 0)),
     );
   }
 
@@ -1888,7 +1902,7 @@
     const plan = atDesk(id, gesturePlan(gesture));
     const cue = (actors[id]?.cue ?? 0) + 1;
     actors[id] = { cue, plan, talking: true };
-    window.setTimeout(() => {
+    playClockTimeout(() => {
       const actor = actors[id];
       if (actor?.cue === cue) actor.talking = false;
     }, plan.durationMs);
@@ -1898,8 +1912,10 @@
     clearActs();
     playToken += 1;
     stopCues();
-    window.clearTimeout(lineTimer);
-    window.clearTimeout(bubbleTimer);
+    lineTimer?.();
+    lineTimer = undefined;
+    bubbleTimer?.();
+    bubbleTimer = undefined;
     bubble = undefined;
     stopStoryLineAudio();
     for (const actor of Object.values(actors)) actor.talking = false;
@@ -1908,6 +1924,28 @@
     walkEndsAt = {};
     striding = [];
     flight = undefined;
+  }
+
+  /**
+   * The CSS and Web Animations on the stage (rain, a thrown ball, a fade) run
+   * on the wall clock, so a pause holds the ones running. The walks, turns and
+   * cues run on play time, which the player freezes.
+   */
+  export function freeze(): void {
+    if (!root) return;
+    for (const animation of root.getAnimations({ subtree: true })) {
+      if (animation.playState !== "running") continue;
+      animation.pause();
+      heldAnimations.push(animation);
+    }
+  }
+
+  /** Carry on from `freeze`: only the animations it held. */
+  export function thaw(): void {
+    for (const animation of heldAnimations) {
+      if (animation.playState === "paused") animation.play();
+    }
+    heldAnimations = [];
   }
 
   // An effect's teardown, not onDestroy: onDestroy also runs after a server render, where there is no window.
@@ -1933,17 +1971,18 @@
     facings = { ...facings, ...turned, [id]: from === 1 ? -1 : 1 };
     // Counted from now, so whoever waits on the walk waits from the start.
     if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      walkEndsAt[id] = performance.now() + walkDuration(stepsFor(offsets[id] ?? 0), id);
+      walkEndsAt[id] = playClockNow() + walkDuration(stepsFor(offsets[id] ?? 0), id);
     }
-    // The jump off stage has to paint before the walk back, or it animates too.
-    window.requestAnimationFrame(() => walkTo(id, 0));
+    // The jump off stage has to paint before the walk back, or it animates too. On play time, so a pause holds it.
+    playClockFrame(() => walkTo(id, 0));
   }
 
   /** A line in a speech bubble over a figure, for words that have no clip: a wrong guess said aloud. */
   export function say(id: LessonCharacterId, text: string, ms = BUBBLE_MS): void {
-    window.clearTimeout(bubbleTimer);
+    bubbleTimer?.();
     bubble = { characterId: id, cue: (bubble?.cue ?? 0) + 1, text };
-    bubbleTimer = window.setTimeout(() => {
+    bubbleTimer = playClockTimeout(() => {
+      bubbleTimer = undefined;
       bubble = undefined;
     }, ms);
   }
@@ -1968,7 +2007,7 @@
 
     playToken += 1;
     const token = playToken;
-    spoken = { at: performance.now(), durationMs: plan.durationMs, rate };
+    spoken = { at: playClockNow(), durationMs: plan.durationMs, rate };
     cueActor(id, plan);
     playStoryLineAudio(line.src, line.slovak, {
       onEnded: () => {
@@ -1989,7 +2028,7 @@
     return (
       storyAudioClock() ?? {
         durationMs: spoken.durationMs,
-        timeMs: (performance.now() - spoken.at) * spoken.rate,
+        timeMs: (playClockNow() - spoken.at) * spoken.rate,
       }
     );
   }
@@ -2019,7 +2058,7 @@
     for (const actor of Object.values(actors)) actor.talking = false;
     const caller = direction.lines[index]?.call;
     relaying = line.overPhone && caller && LOOKS[caller].robot ? caller : undefined;
-    spoken = { at: performance.now(), durationMs: plan?.durationMs ?? 1600, rate };
+    spoken = { at: playClockNow(), durationMs: plan?.durationMs ?? 1600, rate };
     // A voice over the phone has nobody on stage to move.
     const speaker =
       line.characterId && direction.cast.includes(line.characterId)
@@ -2043,14 +2082,14 @@
       speaker &&
       aimed?.facing &&
       offsets[speaker] === standingAt &&
-      (busy[speaker] ?? 0) <= performance.now()
+      (busy[speaker] ?? 0) <= playClockNow()
     ) {
       facings = { ...facings, [speaker]: aimed.facing };
     }
     if (speaker && aimed) cueActor(speaker, aimed.plan);
 
     if (acted && line.act && world) {
-      const now = performance.now();
+      const now = playClockNow();
       const skip = leading?.index === index ? leadingCount(line.act) : 0;
       const times: LineTimes = {
         lead: leading?.index === index ? leading.at : now,
@@ -2115,8 +2154,11 @@
 
     // No clip yet: run the line for its text-timed length on the wall clock.
     stopStoryLineAudio();
-    window.clearTimeout(lineTimer);
-    lineTimer = window.setTimeout(onEnded, spoken.durationMs / rate);
+    lineTimer?.();
+    lineTimer = playClockTimeout(() => {
+      lineTimer = undefined;
+      onEnded();
+    }, spoken.durationMs / rate);
   }
 
   /** A tap anywhere but the card or a thing puts the card away; so does Escape. */
@@ -2144,7 +2186,7 @@
 <svelte:window onpointerdown={closeCard} onkeydown={closeCard} />
 
 <!-- The word card sits outside the clipped stage so it can hang past its edge on a short stage. -->
-<div class="relative">
+<div class="relative" bind:this={root}>
   <div
     class={cx(
       // Twice as wide as tall up to 300px, so a phone sees most of the place rather than a slice of its middle.

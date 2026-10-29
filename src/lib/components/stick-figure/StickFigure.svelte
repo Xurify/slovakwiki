@@ -29,8 +29,10 @@
   import StickProp from "./StickProp.svelte";
   import StickTorso from "./StickTorso.svelte";
   import { cubicInOut, sineInOut } from "svelte/easing";
-  import { prefersReducedMotion, Spring, Tween } from "svelte/motion";
+  import { prefersReducedMotion } from "svelte/motion";
   import { untrack } from "svelte";
+
+  import { PlaySpring, PlayTween } from "$lib/stick-figure/play-motion.svelte";
 
   // The head is drawn in the 64×64 portrait space of StickHead, which the
   // portraits show as it is; 0.82 brings its 15.2 head radius to the rig's.
@@ -213,10 +215,7 @@
   // to the middle as the body narrows a little, the figure changes sides
   // while it faces the front, where the swap hardly shows, and comes round
   // the other way. A flip through edge-on read as a paper cut-out.
-  const turning = new Tween<number>(
-    untrack(() => facing),
-    { easing: sineInOut },
-  );
+  const turning = new PlayTween(untrack(() => facing), { easing: sineInOut });
   $effect(() => {
     void turning.set(facing, {
       delay: turnDelay,
@@ -255,7 +254,7 @@
    * faces (a turn, or round to the listeners). Each step swings the body a
    * little, so the hair sways with the stride as well as bobbing with it.
    */
-  const facingFront = Tween.of(() => (front ? 1 : 0), {
+  const facingFront = PlayTween.of(() => (front ? 1 : 0), {
     duration: () => (prefersReducedMotion.current ? 0 : TURN_MS),
     easing: cubicInOut,
   });
@@ -266,7 +265,7 @@
     yaw: turning.current * (1 - facingFront.current),
   });
   /** Where the hair's ends were carried a moment ago: it lags the head, swings past and settles. */
-  const hairLag = new Spring(
+  const hairLag = new PlaySpring(
     untrack(() => hairDrive),
     HAIR.spring,
   );

@@ -178,7 +178,7 @@
   const check = $derived(checks[checkAt]);
   const stage = $derived.by((): Stage => {
     if (!listened) {
-      return player.playing || player.cursor > 0 ? "listening" : "idle";
+      return player.playing || player.paused || player.cursor > 0 ? "listening" : "idle";
     }
     return check ? "checking" : "done";
   });
@@ -196,10 +196,11 @@
 
   const status = $derived.by(() => {
     const line = player.line;
+    // Paused mid-line the voice is still held, so Paused comes before the speaker's name.
+    if (stage === "listening" && !player.playing) return "Paused";
     if (player.speaking && line)
       return showVoices ? "" : episodeSpeakerName(line.speaker);
     if (stage === "idle") return idleCopy;
-    if (stage === "listening" && !player.playing) return "Paused";
     return "";
   });
 
@@ -210,8 +211,9 @@
     return "Listen again";
   });
 
-  export function pause(): void {
-    player.pause();
+  /** Stop the segment: its line and voice, so the next play starts the line again. */
+  export function halt(): void {
+    player.halt();
   }
 
   export function playing(): boolean {
@@ -469,7 +471,8 @@
         {#if showVoices}
           <ul class="m-0 ml-auto flex list-none gap-3 p-0" aria-label="Voices">
             {#each speakers as speaker (speaker)}
-              {@const speaking = player.speaking && player.line?.speaker === speaker}
+              {@const speaking =
+                player.playing && player.speaking && player.line?.speaker === speaker}
 
               <li class="flex flex-col items-center gap-1">
                 <LessonCharacterAvatar
@@ -526,7 +529,7 @@
           total={checks.length}
           replayLine={lines.find((line) => line.id === check.replayLineId)}
           replaySrc={check.replayLineId ? audioSrcs[check.replayLineId] : undefined}
-          onbeforereplay={pause}
+          onbeforereplay={halt}
           onresolve={resolveCheck}
         />
       {/key}
@@ -586,7 +589,7 @@
             playing={player.playing && player.cursor === index}
             showEnglish={english}
             onplay={() => player.playFrom(index)}
-            onpause={pause}
+            onpause={() => player.pause()}
           />
         {/each}
       </ol>

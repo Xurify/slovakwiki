@@ -1,8 +1,8 @@
 <script lang="ts">
   import { untrack } from "svelte";
   import { cubicInOut } from "svelte/easing";
-  import { Tween } from "svelte/motion";
 
+  import { playClockFrame, playClockNow } from "$lib/audio/play-clock";
   import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
   import type { LineBeat, LinePlan } from "$lib/stick-figure/line-plan";
   import {
@@ -24,7 +24,9 @@
   import type { Held } from "$lib/stick-figure/props";
   import { alive } from "$lib/stick-figure/idle";
   import { restOnTable } from "$lib/stick-figure/reach";
-  import { sitMs, stepMs, walkPose } from "$lib/stick-figure/walk";
+  import { PlayTween } from "$lib/stick-figure/play-motion.svelte";
+  import { gallopPose, sitMs, stepMs, walkPose } from "$lib/stick-figure/walk";
+  import { LOOKS } from "$lib/stick-figure/looks";
   import {
     headClearOfMic,
     type Effect,
@@ -147,14 +149,15 @@
   let pose = $state<StickPose>(REST_POSE);
   let rawPose: StickPose = REST_POSE;
   // Linear: the rig shapes the hips' path and the bow along it.
-  const sitting = new Tween(0);
-  const calling = new Tween(0, { easing: cubicInOut });
+  const sitting = new PlayTween(0);
+  const calling = new PlayTween(0, { easing: cubicInOut });
 
   let picture = $state<StickPictureId>();
   /** The way a point in flight turns the figure, when its target is behind it. */
   let turned = $state<1 | -1>();
 
-  let frame = 0;
+  /** Cancels the next frame of the loop. Frames run on play time, so a pause holds them. */
+  let frame: (() => void) | undefined;
   let startedAt = 0;
   let act: PerformanceState = startPerformance();
   /**
@@ -184,7 +187,7 @@
     if (cue === 0) return;
 
     untrack(() => {
-      startedAt = performance.now();
+      startedAt = playClockNow();
       act = startPerformance(startedAt, rawPose);
       run();
     });
@@ -202,7 +205,7 @@
     const { ms, pace = 1 } = walk;
 
     untrack(() => {
-      walkStartedAt = performance.now();
+      walkStartedAt = playClockNow();
       walkMs = ms;
       walkPace = pace;
       run();
@@ -215,12 +218,12 @@
   $effect(() => {
     const down = seated;
     untrack(() => {
-      placedAt ||= performance.now();
+      placedAt ||= playClockNow();
       const still =
         window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
         !arrived ||
-        performance.now() - placedAt < 250;
-      const walkLeft = Math.max(0, walkStartedAt + walkMs - performance.now());
+        playClockNow() - placedAt < 250;
+      const walkLeft = Math.max(0, walkStartedAt + walkMs - playClockNow());
       void sitting.set(down ? 1 : 0, {
         delay: down && !still ? walkLeft : 0,
         duration: still ? 0 : sitMs(characterId, !down),
@@ -243,7 +246,7 @@
   // Breathing from the start, before any line plays.
   $effect(() => {
     untrack(run);
-    return () => cancelAnimationFrame(frame);
+    return () => frame?.();
   });
 
   /** The arm of a hand holding something that spills, held up rather than at rest or gesturing; a cue's reach still takes it from there. */
@@ -268,12 +271,14 @@
 
   function run(): void {
     reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!frame) frame = requestAnimationFrame(tick);
+    frame ??= playClockFrame(tick);
   }
 
   // Between lines the loop keeps the figure breathing and blinking (idle.ts);
   // with reduced motion it parks on the rest pose once nothing is in flight.
-  function tick(now: number): void {
+  // A pause holds the next frame on play time, so nothing here runs while frozen.
+  function tick(): void {
+    const now = playClockNow();
     const next = plan
       ? performFrame(plan, act, {
           now,
@@ -305,8 +310,12 @@
         ? restOnTable(seated, sitting.current)
         : seated;
     const body = steady(laid);
+    // A dog at a run bounds: its legs leave the ground, which a quicker walk never does.
+    const bounds = walkPace > 1 && Boolean(LOOKS[characterId].dog);
     const stepping = walking
-      ? walkPose(body, walked, walkMs, stepMs(characterId) / walkPace, characterId)
+      ? bounds
+        ? gallopPose(body, walked, walkMs, stepMs(characterId) / walkPace)
+        : walkPose(body, walked, walkMs, stepMs(characterId) / walkPace, characterId)
       : body;
     const sampled = acting ? doing.sample(now, stepping, sitting.current) : undefined;
     if (sampled && entered?.doing !== doing) {
@@ -355,8 +364,8 @@
 
     frame =
       !reducedMotion || !(next?.settled ?? true) || walking || acting || released
-        ? requestAnimationFrame(tick)
-        : 0;
+        ? playClockFrame(tick)
+        : undefined;
   }
 </script>
 

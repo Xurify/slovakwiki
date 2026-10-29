@@ -5,7 +5,9 @@
   import { REST_POSE, type StickPose } from "$lib/stick-figure/pose";
   import { TURN_MS } from "$lib/stick-figure/turns";
   import { cubicInOut } from "svelte/easing";
-  import { prefersReducedMotion, Tween } from "svelte/motion";
+  import { prefersReducedMotion } from "svelte/motion";
+
+  import { PlayTween } from "$lib/stick-figure/play-motion.svelte";
 
   const STILL = { x: 0, y: 0 };
 
@@ -61,7 +63,7 @@
   // view), so a turn reads at a glance; `look` moves the eyes on top of that.
   // Turning to the listeners and back eases like a turn of the body; a jump
   // of the features read as a twitch.
-  const turning = Tween.of(() => turn ?? (robot ? 1.4 : dog ? 4 : 2.6), {
+  const turning = PlayTween.of(() => turn ?? (robot ? 1.4 : dog ? 4 : 2.6), {
     duration: () => (prefersReducedMotion.current ? 0 : TURN_MS),
     easing: cubicInOut,
   });

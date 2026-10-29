@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { playClockFrame, playClockNow } from "$lib/audio/play-clock";
   import { storyAudioClock } from "$lib/lesson-story/story-audio";
   import { markRoleClass, type TextMark } from "$lib/learning/marked-text";
   import { captionRuns } from "$lib/stick-figure/caption";
@@ -62,14 +63,13 @@
       return;
     }
 
-    const startedAt = performance.now();
-    let frame = 0;
-    const tick = (now: number) => {
-      current = wordAt(plan, planTime(plan, clock(), now - startedAt));
-      frame = requestAnimationFrame(tick);
+    const startedAt = playClockNow();
+    const tick = () => {
+      current = wordAt(plan, planTime(plan, clock(), playClockNow() - startedAt));
+      cancel = playClockFrame(tick);
     };
-    frame = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(frame);
+    let cancel = playClockFrame(tick);
+    return () => cancel();
   });
 </script>
 
