@@ -55,6 +55,7 @@ export const VERBS = [
   "wag",
   "beckon",
   "wipe",
+  "pat",
   "facepalm",
   "yawn",
   "fold",
@@ -108,6 +109,8 @@ export interface Cue {
   zoom?: number;
   /** How far `skip` moves the clock on. */
   minutes?: number;
+  /** For `go` by a dog: at a run, bounding over the same ground in a shorter time. */
+  run?: boolean;
 }
 
 /** Where an object is. */
@@ -471,6 +474,7 @@ export function applyCue(
       return { ...world, seated: on(world.seated, who, false) };
     case "kneel":
     case "compute":
+    case "pat":
       return world;
     case "take": {
       if (!what || !object) throw new CueError(`${who} take: what?`);

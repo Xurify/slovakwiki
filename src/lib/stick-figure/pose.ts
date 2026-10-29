@@ -26,6 +26,10 @@ export interface StickPose {
   stride: number;
   /** Walking: px the moving foot is off the ground; positive lifts the lead foot, negative the rear. */
   lift: number;
+  /** A dog's bounding run: the phase of its bound, in radians (see gallopPose). */
+  gallop: number;
+  /** How far into a bounding run the dog's legs are, 0 walking or at rest to 1 at full stride. */
+  gallopAmp: number;
   /** -1 worried, 0 neutral, 1 raised. */
   brow: number;
   /** 0 closed, 1 wide open. */
@@ -51,6 +55,8 @@ export const REST_POSE: StickPose = {
   stance: 8,
   stride: 0,
   lift: 0,
+  gallop: 0,
+  gallopAmp: 0,
   brow: 0,
   mouth: 0,
   round: 0,

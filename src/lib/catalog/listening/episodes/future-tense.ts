@@ -49,6 +49,8 @@ const friday: ListeningChapter = {
   titleSk: "Budeš mi chýbať",
   title: "I'll miss you",
   setup: {
+    // Dunčo starts at the rug's left edge, so Marek can kneel beside him without crowding Anna.
+    spots: { dog: "dog-spot" },
     objects: [
       // Packed: he has the suitcase in hand as Anna comes to say goodbye.
       {
@@ -76,8 +78,8 @@ const friday: ListeningChapter = {
       line(
         "marek-suitcase-passport",
         "Marek",
-        ["No", STOP, "kufor mám, pas mám. ", PAUSE, "Hm, a kde je Domo?"],
-        "Well… suitcase, check, passport, check. Hmm, and where's Domo?",
+        ["Kufor mám. ", PAUSE, "Pas mám. ", PAUSE, "Hm, a kde je Domo?"],
+        "Suitcase, check. Passport, check. Hmm, and where's Domo?",
       ),
       line(
         "domo-good-evening-here",
@@ -217,12 +219,17 @@ const friday: ListeningChapter = {
       "domo-good-evening-here": [
         { do: "enter", from: "off-right", to: "rug-right", on: "before" },
       ],
+      "marek-suitcase-passport": [
+        { do: "look", to: "suitcase", on: "kufor" },
+        { do: "pat", on: "pas" },
+      ],
       "marek-this-is-anna": [{ do: "point", to: "anna", on: "anna" }],
       "marek-this-is-dunco": [{ do: "point", to: "dog", on: "dunčo" }],
       "marek-monday-evening": [{ do: "point", to: "okno", on: "okne" }],
       "domo-six-window-save": [{ do: "compute", on: "uložím" }],
       "marek-ill-miss-you": [
-        { do: "go", to: "dog", on: "before" },
+        { do: "go", to: "kneel-by-dog", on: "before" },
+        { who: "dog", do: "face", to: "marek", on: "before" },
         { do: "kneel", to: "dog", on: "dunčo" },
       ],
     },
@@ -291,6 +298,8 @@ const morning: ListeningChapter = {
   titleSk: "Ešte stále ma nepoznáš?",
   title: "You still don't know me?",
   setup: {
+    // Off the spot Domo comes to: the bowl is set down in front of him, not behind.
+    spots: { dog: "rug-left" },
     objects: [
       {
         id: "bowl",
@@ -584,7 +593,7 @@ const park: ListeningChapter = {
       "domo-i-will-throw-now": [
         { do: "face", to: "off-right", on: "hodím" },
         { do: "throw", what: "ball", to: "dog", on: "teraz" },
-        { who: "dog", do: "go", to: "off-right", on: "after" },
+        { who: "dog", do: "go", to: "off-right", on: "teraz", run: true },
       ],
       // He comes back with it in his mouth and keeps it: a robot standing can't reach down that far.
       "dunco-brings-ball": [

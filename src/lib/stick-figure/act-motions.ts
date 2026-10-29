@@ -1302,6 +1302,27 @@ export function motionFor(
           ],
         },
       };
+    case "pat": {
+      // Checking for something: the free hand goes to the inside pocket and pats it twice, the head dipped to look, as someone does for a passport.
+      const hand = freeHand(world, who) ?? "lead";
+      const pocket = { up: { x: 4, y: 16 } };
+      const patted = { up: { x: 4, y: 13 } };
+      const dip = { nod: 1.6, look: 0.2 };
+      return {
+        motion: {
+          ms: 1300,
+          keys: [
+            { at: 0 },
+            { at: 320, ...hands(hand, pocket), body: dip },
+            { at: 480, ...hands(hand, patted), body: dip },
+            { at: 640, ...hands(hand, pocket), body: dip },
+            { at: 800, ...hands(hand, patted), body: dip },
+            { at: 1000, ...hands(hand, { up: { x: 6, y: 22 } }), body: { nod: 0.6 } },
+            { at: 1300 },
+          ],
+        },
+      };
+    }
     case "kneel": {
       const target = to || cue.what || "dog";
       return {

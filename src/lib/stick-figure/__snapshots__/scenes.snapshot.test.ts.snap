@@ -4791,17 +4791,17 @@ exports[`every scene, directed > podcast podcast-future-tense-friday 1`] = `
       },
     },
     {
-      "line": "marek: No… kufor mám, pas mám. Hm, a kde je Domo?",
+      "line": "marek: Kufor mám. Pas mám. Hm, a kde je Domo?",
       "plan": {
         "beats": [
-          "0 muse",
-          "800 tell",
-          "4000 think",
+          "50 tell",
+          "1900 tell",
+          "3500 think",
         ],
-        "ms": 5850,
-        "questions": "4000-5600",
-        "sentences": "0-254 800-2454 4000-5600",
-        "words": "0-254 800-1338 1338-1682 1820-2110 2110-2454 4000-4244 4380-4583 4583-4868 4868-5112 5112-5600",
+        "ms": 5400,
+        "questions": "3500-5150",
+        "sentences": "50-795 1900-2553 3500-5150",
+        "words": "50-504 504-795 1900-2198 2198-2553 3500-3752 3892-4101 4101-4395 4395-4647 4647-5150",
       },
       "staging": {
         "addressee": "anna",

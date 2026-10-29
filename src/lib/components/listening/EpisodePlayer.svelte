@@ -44,7 +44,7 @@
   let heard = $state<Record<string, boolean>>({});
   let scores = $state<Record<string, number>>({});
   let restartCount = $state(0);
-  let stage = $state<{ pause: () => void; playing: () => boolean }>();
+  let stage = $state<{ halt: () => void; playing: () => boolean }>();
   let stageEl: HTMLElement | undefined = $state();
   /** Open beside the player on a wide screen; folded on a phone, where it would push the next steps far down. */
   let segmentsOpen = $state(true);
@@ -74,7 +74,8 @@
   });
 
   function openChapter(index: number, play = false, scroll = true): void {
-    stage?.pause();
+    if (!episode.chapters[index]) return;
+    stage?.halt();
     active = index;
     autoplay = play;
     if (scroll) void scrollToStage();
@@ -111,7 +112,7 @@
   }
 
   function playWord(slovak: string): void {
-    stage?.pause();
+    stage?.halt();
     playStoryLineAudio(audioSrcs.srcBySlovak[slovak], slovak);
   }
 
@@ -223,6 +224,7 @@
           )}
           type="button"
           aria-label="Previous segment"
+          disabled={active === 0}
           title="Previous segment"
           onclick={() => openChapter(active - 1, stage?.playing() ?? false, false)}
         >
@@ -251,6 +253,7 @@
           )}
           type="button"
           aria-label="Next segment"
+          disabled={active === episode.chapters.length - 1}
           title="Next segment"
           onclick={() => openChapter(active + 1, stage?.playing() ?? false, false)}
         >

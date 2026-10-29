@@ -74,21 +74,27 @@ afterEach(() => {
 });
 
 describe("cues the stage schedules", () => {
-  it("are all cut off by stopCues: steps, a phone, the sting, a tram, foley", async () => {
-    const { playPhoneCue, playSegmentCue, playSteps, playTramCue, stopCues } =
-      await import("./ambience");
-    const { playFoley } = await import("./foley");
+  // The dynamic imports go cold when the full suite shares a worker; a timed-out
+  // import then lands in the next test's fake context and fails it instead.
+  it(
+    "are all cut off by stopCues: steps, a phone, the sting, a tram, foley",
+    { timeout: 20_000 },
+    async () => {
+      const { playPhoneCue, playSegmentCue, playSteps, playTramCue, stopCues } =
+        await import("./ambience");
+      const { playFoley } = await import("./foley");
 
-    playSteps(8, 420, { ground: "tile" });
-    playPhoneCue("call");
-    playSegmentCue();
-    playTramCue();
-    playFoley("rattle");
-    expect(ctx.live.size).toBe(5);
+      playSteps(8, 420, { ground: "tile" });
+      playPhoneCue("call");
+      playSegmentCue();
+      playTramCue();
+      playFoley("rattle");
+      expect(ctx.live.size).toBe(5);
 
-    stopCues();
-    expect(ctx.live.size).toBe(0);
-  });
+      stopCues();
+      expect(ctx.live.size).toBe(0);
+    },
+  );
 
   it("stop at once on a skip, so a second walk does not pile onto the first", async () => {
     const { playSteps, stopCues } = await import("./ambience");

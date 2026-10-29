@@ -1,5 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
+
+  import { playClockFrame } from "$lib/audio/play-clock";
   import { leashPath } from "$lib/stick-figure/leash";
 
   /**
@@ -13,7 +15,10 @@
   let path = $state("");
 
   onMount(() => {
-    let frame = requestAnimationFrame(function follow() {
+    // On play time: a pause holds the figures, so there is nothing new for the lead to follow until it thaws.
+    let cancel = playClockFrame(follow);
+
+    function follow(): void {
       const stage = svg.parentElement;
       const hand = stage?.querySelector('[data-leash-end="hand"]');
       const collar = stage?.querySelector('[data-leash-end="collar"]');
@@ -30,9 +35,10 @@
       } else {
         path = "";
       }
-      frame = requestAnimationFrame(follow);
-    });
-    return () => cancelAnimationFrame(frame);
+      cancel = playClockFrame(follow);
+    }
+
+    return () => cancel();
   });
 </script>
 

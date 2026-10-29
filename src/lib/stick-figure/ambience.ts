@@ -1,3 +1,4 @@
+import { playClockTimeout } from "$lib/audio/play-clock";
 import { SFX_CHANGE_EVENT, getStoredSfxPreference } from "$lib/audio/sfx";
 import { AUDIO_VOLUME_CHANGE_EVENT, getAudioVolume } from "$lib/audio/volume";
 import type { Shoes } from "./looks";
@@ -270,7 +271,7 @@ export function playAmbience(first: Ambience): AmbiencePlayer | undefined {
       .webkitAudioContext;
   if (!Context) return undefined;
 
-  const ctx = new Context();
+  const ctx = trackContext(new Context());
   const master = ctx.createGain();
   master.gain.value = 0;
   master.gain.setTargetAtTime(level(), ctx.currentTime, 0.3);
@@ -298,7 +299,8 @@ export function playAmbience(first: Ambience): AmbiencePlayer | undefined {
     out.gain.setTargetAtTime(1, ctx.currentTime, FADE_S / 3);
     out.connect(master);
 
-    const timers = new Set<number>();
+    // Cancels of the layer's repeats, which wait on play time like the rest of the stage.
+    const timers = new Set<() => void>();
     const sources = new Set<AudioScheduledSourceNode>();
     LAYERS[layer]({
       ctx,
@@ -312,22 +314,22 @@ export function playAmbience(first: Ambience): AmbiencePlayer | undefined {
       out,
       every(min, max, play, first = max) {
         const next = (wait: number) => {
-          const timer = window.setTimeout(() => {
-            timers.delete(timer);
+          const cancel = playClockTimeout(() => {
+            timers.delete(cancel);
             play();
             next(between(min, max));
           }, wait * 1000);
-          timers.add(timer);
+          timers.add(cancel);
         };
         next(between(0, first));
       },
     });
 
     return () => {
-      for (const timer of timers) window.clearTimeout(timer);
+      for (const cancel of timers) cancel();
       timers.clear();
       out.gain.setTargetAtTime(0, ctx.currentTime, FADE_S / 3);
-      window.setTimeout(() => {
+      playClockTimeout(() => {
         for (const source of sources) {
           try {
             source.stop();
@@ -362,8 +364,17 @@ export function playAmbience(first: Ambience): AmbiencePlayer | undefined {
 
       for (const stop of running.values()) stop();
       running.clear();
-      master.gain.setTargetAtTime(0, ctx.currentTime, 0.1);
-      window.setTimeout(() => void ctx.close(), 500);
+      if (soundHeld) {
+        // Held, nothing sounds until the thaw: silence it now, not as a fade that starts on the thaw.
+        master.gain.cancelScheduledValues(ctx.currentTime);
+        master.gain.setValueAtTime(0, ctx.currentTime);
+      } else {
+        master.gain.setTargetAtTime(0, ctx.currentTime, 0.1);
+      }
+      playClockTimeout(() => {
+        contexts.delete(ctx);
+        void ctx.close();
+      }, 500);
     },
   };
 }
@@ -442,10 +453,36 @@ export function playTramCue(): void {
 
 let cueContext: { ctx: AudioContext; noise: AudioBuffer } | undefined;
 
+/** Every context the stage plays through, so a pause can hold them all. */
+const contexts = new Set<AudioContext>();
+/** A pause holds the stage's sound: a context made meanwhile starts held too. */
+let soundHeld = false;
+
+function trackContext(ctx: AudioContext): AudioContext {
+  contexts.add(ctx);
+  if (soundHeld) void ctx.suspend().catch(() => undefined);
+  return ctx;
+}
+
+/**
+ * Hold the stage's sound where it is, for a pause: the place's sound, and the
+ * footsteps, phones and stings already scheduled. `releaseStageSound` lets it on.
+ */
+export function holdStageSound(): void {
+  soundHeld = true;
+  for (const ctx of contexts) void ctx.suspend().catch(() => undefined);
+}
+
+export function releaseStageSound(): void {
+  soundHeld = false;
+  // Every context, whatever its state now: a suspend still on its way lands before this resume, so none is left held.
+  for (const ctx of contexts) void ctx.resume().catch(() => undefined);
+}
+
 /** One context for the short cues that follow the figures, made on first use. */
 export function cues(): { ctx: AudioContext; noise: AudioBuffer } | undefined {
   if (cueContext) {
-    if (cueContext.ctx.state === "suspended") void cueContext.ctx.resume();
+    if (cueContext.ctx.state === "suspended" && !soundHeld) void cueContext.ctx.resume();
     return cueContext;
   }
   const Context =
@@ -454,7 +491,7 @@ export function cues(): { ctx: AudioContext; noise: AudioBuffer } | undefined {
       .webkitAudioContext;
   if (!Context) return undefined;
 
-  const ctx = new Context();
+  const ctx = trackContext(new Context());
   cueContext = { ctx, noise: noiseBuffer(ctx) };
   return cueContext;
 }
@@ -544,7 +581,8 @@ export function cueOut(ctx: AudioContext, level: number, ms: number): GainNode {
   out.gain.value = level * getAudioVolume();
   out.connect(ctx.destination);
   sounding.add(out);
-  window.setTimeout(() => {
+  // On play time, so a pause does not cut the cue short before its sound has played out.
+  playClockTimeout(() => {
     out.disconnect();
     sounding.delete(out);
   }, ms);

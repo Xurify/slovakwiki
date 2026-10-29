@@ -71,3 +71,29 @@ export function walkPose(
     bob: pose.bob + (isRobot ? HIP_DIP * 0.4 : HIP_DIP) * Math.abs(swing),
   };
 }
+
+/** A dog leans into a run this many degrees. */
+const GALLOP_LEAN = 8;
+
+/**
+ * A dog's bounding run, one bound to every two steps: the phase runs on
+ * with the steps, and the legs ease in and out as a walk's do. StickDog draws
+ * the bound from `gallop` and `gallopAmp`, so the legs swing far enough to
+ * leave the ground rather than shuffle at walking reach.
+ */
+export function gallopPose(
+  pose: StickPose,
+  elapsed: number,
+  durationMs: number,
+  step: number,
+): StickPose {
+  if (elapsed <= 0 || elapsed >= durationMs) return pose;
+
+  const ease = Math.min(1, elapsed / EASE_MS, (durationMs - elapsed) / EASE_MS);
+  return {
+    ...pose,
+    gallop: (elapsed / step) * Math.PI,
+    gallopAmp: ease,
+    lean: pose.lean + GALLOP_LEAN * ease,
+  };
+}

@@ -178,7 +178,7 @@
   const check = $derived(checks[checkAt]);
   const stage = $derived.by((): Stage => {
     if (!listened) {
-      return player.playing || player.cursor > 0 ? "listening" : "idle";
+      return player.playing || player.paused || player.cursor > 0 ? "listening" : "idle";
     }
     return check ? "checking" : "done";
   });
@@ -196,22 +196,25 @@
 
   const status = $derived.by(() => {
     const line = player.line;
+    // Paused mid-line the voice is still held, so Paused comes before the speaker's name.
+    if (player.paused || (stage === "listening" && !player.playing)) return "Paused";
     if (player.speaking && line)
       return showVoices ? "" : episodeSpeakerName(line.speaker);
     if (stage === "idle") return idleCopy;
-    if (stage === "listening" && !player.playing) return "Paused";
     return "";
   });
 
   const playLabel = $derived.by(() => {
     if (player.playing) return "Pause";
+    if (player.paused) return "Resume";
     if (stage === "idle") return "Listen";
     if (stage === "listening") return "Resume";
     return "Listen again";
   });
 
-  export function pause(): void {
-    player.pause();
+  /** Stop the segment: its line and voice, so the next play starts the line again. */
+  export function halt(): void {
+    player.halt();
   }
 
   export function playing(): boolean {
@@ -302,15 +305,6 @@
         ]
       : []),
   ]);
-
-  function togglePlay(): void {
-    const atEnd =
-      listened &&
-      !player.playing &&
-      nextOnPath(lines, picks, player.cursor) === undefined;
-    if (atEnd) player.playFrom(0);
-    else player.toggle();
-  }
 
   function resolveCheck(isCorrect: boolean): void {
     if (isCorrect) correct += 1;
@@ -450,7 +444,7 @@
         <Button
           class="min-h-12 pr-5 pl-4"
           variant={firstListen ? "accent" : "secondary"}
-          onclick={togglePlay}
+          onclick={() => player.toggle()}
         >
           <svg class="size-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             {#if player.playing}
@@ -469,7 +463,8 @@
         {#if showVoices}
           <ul class="m-0 ml-auto flex list-none gap-3 p-0" aria-label="Voices">
             {#each speakers as speaker (speaker)}
-              {@const speaking = player.speaking && player.line?.speaker === speaker}
+              {@const speaking =
+                player.playing && player.speaking && player.line?.speaker === speaker}
 
               <li class="flex flex-col items-center gap-1">
                 <LessonCharacterAvatar
@@ -526,7 +521,7 @@
           total={checks.length}
           replayLine={lines.find((line) => line.id === check.replayLineId)}
           replaySrc={check.replayLineId ? audioSrcs[check.replayLineId] : undefined}
-          onbeforereplay={pause}
+          onbeforereplay={halt}
           onresolve={resolveCheck}
         />
       {/key}
@@ -582,11 +577,11 @@
           <EpisodeLine
             {line}
             number={step + 1}
-            current={(player.playing || stage === "listening") && player.cursor === index}
+            current={(player.playing || player.paused || stage === "listening") && player.cursor === index}
             playing={player.playing && player.cursor === index}
             showEnglish={english}
-            onplay={() => player.playFrom(index)}
-            onpause={pause}
+            onplay={() => player.playLine(index)}
+            onpause={() => player.pause()}
           />
         {/each}
       </ol>
