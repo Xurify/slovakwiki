@@ -4,6 +4,7 @@
   import { cx } from "$lib/ui/classes";
 
   import {
+    levelTestNavigation,
     navigationIsActive,
     primaryNavigation,
     referenceNavigationGroups,
@@ -12,9 +13,9 @@
 
   let { pathname }: { pathname: string } = $props();
 
-  /** Header's primary links, then the Reference menu, in the same order. */
+  /** Header's primary links and the level test, then the More menu, in the same order. */
   const groups: NavigationGroup[] = [
-    { label: "Study", items: primaryNavigation },
+    { label: "Study", items: [...primaryNavigation, levelTestNavigation] },
     ...referenceNavigationGroups,
   ];
 </script>
