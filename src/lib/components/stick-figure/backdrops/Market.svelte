@@ -39,6 +39,9 @@
   ];
 
   const STRIPE = 30;
+
+  // Looks the same at every hour; it is handed the props every drawing gets.
+  let {}: Record<string, unknown> = $props();
 </script>
 
 <Cloud x={150} y={52} size={0.8} />

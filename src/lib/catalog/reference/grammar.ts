@@ -40,7 +40,7 @@ export const grammarEntries: GrammarTopic[] = [
   },
   {
     slug: "numbers-and-numerals",
-    slovak: "číslovky",
+    slovak: "čísla a číslovky",
     english: "numbers and numerals",
     category: "Numbers",
     kind: "grammar",
@@ -134,7 +134,7 @@ export const grammarEntries: GrammarTopic[] = [
   },
   {
     slug: "byt-present",
-    slovak: "byť",
+    slovak: "byť v prítomnom čase",
     english: "to be (present)",
     category: "Verbs",
     kind: "grammar",
@@ -202,7 +202,7 @@ export const grammarEntries: GrammarTopic[] = [
   },
   {
     slug: "mat-present",
-    slovak: "mať",
+    slovak: "mať v prítomnom čase",
     english: "to have (present)",
     category: "Verbs",
     kind: "grammar",
@@ -466,12 +466,20 @@ export const grammarEntries: GrammarTopic[] = [
   },
   {
     slug: "aspect",
-    slovak: "vid",
-    english: "aspect",
+    slovak: "nedokonavý a dokonavý vid",
+    english: "aspect: imperfective and perfective",
+    aliases: [
+      "imperfective",
+      "perfective",
+      "nedokonavý vid",
+      "dokonavý vid",
+      "nedokonavé slovesá",
+      "dokonavé slovesá",
+    ],
     category: "Verbs",
     kind: "grammar",
     summary:
-      "Slovak verbs mark whether an action is ongoing or completed — not just when it happens.",
+      "Most Slovak verbs come in imperfective and perfective pairs — marking whether an action is ongoing and repeated, or a single completed result.",
     body: [
       "Most verbs come in imperfective / perfective pairs. The imperfective covers process, habit, or an unbounded activity. The perfective frames one completed or result-focused event.",
       "Pairs are built three ways. A prefix: písať → napísať, čítať → prečítať, robiť → urobiť. A different suffix: kupovať / kúpiť, dávať / dať. Or a different verb: brať / vziať, hovoriť / povedať. Each verb has its own prefix, so learn pairs in full sentences.",
@@ -504,15 +512,15 @@ export const grammarEntries: GrammarTopic[] = [
       "motion-verbs",
     ],
     source: languageSource,
-    tags: ["verbs", "aspect", "intermediate"],
+    tags: ["verbs", "aspect", "imperfective", "perfective", "intermediate"],
     lookFor:
       "Ask whether the speaker means the process/habit or the completed result — that choice is aspect.",
     pathGroup: "Verbs",
     order: 7,
     rule: [
-      "Aspect is separate from tense: the same past time can be imperfective (process) or perfective (completed).",
-      "Learn frequent pairs together (**robiť / urobiť**, **písať / napísať**) instead of translating English tense forms one-to-one.",
-      "Perfective verbs have no present meaning: **napíšem** is always “I will write”.",
+      "Most verbs come in **imperfective** (**nedokonavý vid**) and **perfective** (**dokonavý vid**) pairs. The imperfective covers an ongoing process, a habit, or how long something lasted (**písať**); the perfective frames one completed result (**napísať**).",
+      "Pairs are built in three ways: a prefix (**písať → napísať**, **robiť → urobiť**), a suffix change (**kupovať / kúpiť**, **dávať / dať**), or two stems (**brať / vziať**, **hovoriť / povedať**). When a prefix changes the meaning (**písať** write → **podpísať** sign), it forms a new imperfective (**podpisovať**).",
+      "Perfective verbs have no present meaning: **napíšem** is always “I will write”, while the imperfective future uses **budem** + infinitive (**budem písať**). After **začať**, **prestať**, and **skončiť**, always use the imperfective infinitive: **Začal som sa učiť slovenčinu.**",
     ],
     pattern: {
       label: "A prefix: the same verb, finished",
@@ -949,7 +957,7 @@ export const grammarEntries: GrammarTopic[] = [
   },
   {
     slug: "motion-verbs",
-    slovak: "slovesá pohybu",
+    slovak: "slovesá pohybu: ísť alebo chodiť",
     english: "motion verbs: ísť or chodiť",
     category: "Verbs",
     kind: "grammar",
@@ -1300,7 +1308,7 @@ export const grammarEntries: GrammarTopic[] = [
   },
   {
     slug: "imperative",
-    slovak: "rozkazovací spôsob",
+    slovak: "rozkazovací spôsob: príkazy a prosby",
     english: "imperative: commands and requests",
     category: "Verbs",
     kind: "grammar",
@@ -1482,7 +1490,7 @@ export const grammarEntries: GrammarTopic[] = [
   },
   {
     slug: "conditional",
-    slovak: "podmieňovací spôsob",
+    slovak: "podmieňovací spôsob: by",
     english: "conditional: would",
     category: "Verbs",
     kind: "grammar",
@@ -1651,7 +1659,7 @@ export const grammarEntries: GrammarTopic[] = [
   },
   {
     slug: "reflexive-verbs",
-    slovak: "sa a si",
+    slovak: "zvratné slovesá: sa a si",
     english: "verbs with sa and si",
     category: "Verbs",
     kind: "grammar",
@@ -1834,8 +1842,9 @@ export const grammarEntries: GrammarTopic[] = [
   },
   {
     slug: "cases-overview",
-    slovak: "pády",
+    slovak: "prehľad pádov",
     english: "cases overview",
+    aliases: ["pády", "pád"],
     category: "Nouns",
     kind: "grammar",
     summary: "Six active cases change word endings according to their role.",
@@ -1915,7 +1924,7 @@ export const grammarEntries: GrammarTopic[] = [
   },
   {
     slug: "demonstratives",
-    slovak: "ukazovacie zámená",
+    slovak: "ukazovacie zámená: ten, tento, tamten",
     english: "demonstratives: ten, tento, tamten",
     category: "Nouns",
     kind: "grammar",
@@ -2543,7 +2552,7 @@ export const grammarEntries: GrammarTopic[] = [
   },
   {
     slug: "possessives",
-    slovak: "privlastňovacie zámená",
+    slovak: "privlastňovacie zámená: môj, jeho, svoj",
     english: "possessives: môj, jeho, svoj",
     category: "Nouns",
     kind: "grammar",

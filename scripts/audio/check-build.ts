@@ -1,6 +1,6 @@
 /**
- * After `bun run build`: fail when built lesson pages reference no lesson clips
- * (runtime index failed to load, or every hash drifted after a voice change).
+ * After `bun run build`: fail when a built lesson page references no lesson clips
+ * (runtime index failed to load, or its hashes drifted after a voice change).
  */
 
 import { existsSync } from "node:fs";
@@ -40,18 +40,22 @@ async function main(): Promise<void> {
   }
 
   const pages = await lessonPages(path.join(staticRoot, "lessons"));
+  const silent: string[] = [];
   let total = 0;
 
   for (const page of pages) {
     const html = await readFile(page, "utf8");
     const clips = new Set(html.match(LESSON_CLIP)).size;
+    const name = path.relative(staticRoot, page);
     total += clips;
-    console.log(`${path.relative(staticRoot, page)}: ${clips} lesson clips`);
+    if (clips === 0) silent.push(name);
+    console.log(`${name}: ${clips} lesson clips`);
   }
 
-  if (pages.length === 0 || total === 0) {
+  if (pages.length === 0) throw new Error("No built lesson pages found.");
+  if (silent.length > 0) {
     throw new Error(
-      `Built lessons reference no lesson audio (${pages.length} pages). ` +
+      `${silent.length} of ${pages.length} built lessons reference no lesson audio: ${silent.join(", ")}. ` +
         "Check content/audio/runtime-index.json loads at build and matches content/audio/config.json.",
     );
   }

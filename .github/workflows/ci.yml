@@ -19,6 +19,8 @@ jobs:
 
       - run: bun run test
 
+      - run: bun run typecheck
+
       - run: bunx eslint src/lib scripts
 
       - run: bun run format:check

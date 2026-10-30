@@ -57,7 +57,7 @@ export function canInsertBankIndex(
   return answerLength > 0 && indexes.length < answerLength;
 }
 
-/** Pick tray insert index from pointer X and chip midpoints (Duolingo-style gap targeting). */
+/** Pick tray insert index from pointer X and chip midpoints. */
 export function computeTrayInsertIndex(
   clientX: number,
   chipMidpoints: readonly number[],

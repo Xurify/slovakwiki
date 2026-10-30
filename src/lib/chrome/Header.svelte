@@ -197,7 +197,7 @@
             ? 'text-panel-inverse-ink'
             : 'text-panel-inverse-ink/80'}"
         >
-          Reference
+          More
           <svg
             class="w-3 fill-none stroke-current stroke-2 transition-transform duration-150 group-open:rotate-180"
             aria-hidden="true"

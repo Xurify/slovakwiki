@@ -6,21 +6,28 @@ import { practiceSets } from "../practice";
 import { grammarExamples, patternSearchLines } from "../reference/grammar-pattern";
 import { searchFormsForLemma } from "./forms";
 import { wordCategoryLabel } from "./pronouns";
-import { normalizeSearchText, type SearchDocKind } from "./ui";
-import type { WordRegister } from "../types";
-
-export type { SearchDocKind } from "./ui";
-export {
+import {
+  normalizeSearchText,
+  SEARCH_WEIGHTS,
   searchIdleHints,
   searchKindChips,
   searchKindLabels,
   searchMetaLabel,
   sentenceCase,
+  type SearchDocKind,
+  type SearchWeight,
 } from "./ui";
+import type { WordRegister } from "../types";
 
-import { SEARCH_WEIGHTS, type SearchWeight } from "./ui";
-
-export { SEARCH_WEIGHTS, type SearchWeight };
+export type { SearchDocKind, SearchWeight } from "./ui";
+export {
+  SEARCH_WEIGHTS,
+  searchIdleHints,
+  searchKindChips,
+  searchKindLabels,
+  searchMetaLabel,
+  sentenceCase,
+};
 
 /** Grammar copy marks Slovak with `**bold**` and `*avoid*`. */
 function plainText(text: string): string {
@@ -111,15 +118,19 @@ export function buildSearchDocuments(): SearchDocument[] {
     const patterns = [entry.pattern, ...(entry.morePatterns ?? [])];
     const frames = [...(entry.contrasts?.frames ?? []), ...(entry.contrasts?.more ?? [])];
     const choices = frames.flatMap((frame) => frame.choices);
+    const termSections = entry.termSections ?? [];
     documents.push({
       url: `/grammar/${entry.slug}`,
       kind: "grammar",
-      title: entry.slovak,
+      title: sentenceCase(entry.english),
       summary: entry.summary,
       ...sections({
         headword: [entry.slovak, entry.english],
-        forms: entry.aliases ?? [],
-        gloss: [entry.summary, ...entry.tags],
+        forms: [
+          ...(entry.aliases ?? []),
+          ...termSections.flatMap((term) => [term.term, term.gloss]),
+        ],
+        gloss: [entry.summary, entry.kind, ...entry.tags],
         body: [
           entry.category,
           plainText(entry.lookFor),
@@ -133,6 +144,7 @@ export function buildSearchDocuments(): SearchDocument[] {
             pattern.intro ? [plainText(pattern.intro)] : [],
           ),
           ...patterns.flatMap(patternSearchLines),
+          ...termSections.map((term) => plainText(term.body)),
           ...entry.body,
           ...frames.map((frame) => frame.question),
           ...choices.map((choice) => choice.when),
@@ -142,6 +154,7 @@ export function buildSearchDocuments(): SearchDocument[] {
             example.slovak,
             example.english,
           ]),
+          ...termSections.flatMap((term) => term.examples ?? []),
           ...choices.flatMap((choice) => [choice.slovak.text, choice.english]),
         ],
       }),
@@ -152,12 +165,12 @@ export function buildSearchDocuments(): SearchDocument[] {
     documents.push({
       url: `/pronunciation/${entry.slug}`,
       kind: "pronunciation",
-      title: entry.slovak,
+      title: sentenceCase(entry.english),
       summary: entry.summary,
       ...sections({
         headword: [entry.slovak, entry.english],
         forms: entry.aliases ?? [],
-        gloss: [entry.summary, ...entry.tags],
+        gloss: [entry.summary, entry.kind, ...entry.tags],
         body: [entry.goal, entry.mouthCue, entry.category],
         examples: [
           ...entry.practiceWords,
@@ -175,8 +188,8 @@ export function buildSearchDocuments(): SearchDocument[] {
       title: topic.name,
       summary: topic.summary,
       ...sections({
-        headword: [topic.name],
-        gloss: [topic.question, topic.summary],
+        headword: [topic.name, topic.slovakName],
+        gloss: [topic.question, topic.summary, "case", "grammar"],
         body: [...topic.researchPrompts, ...topic.body].map(plainText),
         examples: topic.examples.flatMap((example) => [example.slovak, example.english]),
       }),

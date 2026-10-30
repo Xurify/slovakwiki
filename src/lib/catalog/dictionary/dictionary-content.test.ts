@@ -21,7 +21,7 @@ describe("dictionary examples", () => {
   it("keeps only Tatoeba sentences that contain their headword", () => {
     // Sentences a person checked whose inflected form the matcher cannot derive.
     const reviewed = new Set<string>(reviewedLemmaMatches);
-    const problems = words.flatMap((word) =>
+    const unmatched = words.flatMap((word) =>
       word.examples
         .filter((example) => example.note === "Tatoeba" && !example.demonstrates)
         .filter(
@@ -33,10 +33,13 @@ describe("dictionary examples", () => {
               word.gender,
             ),
         )
-        .map((example) => `${word.slug}#${example.tatoebaId ?? example.slovak}`)
-        .filter((key) => !reviewed.has(key)),
+        .map((example) => `${word.slug}#${example.tatoebaId ?? example.slovak}`),
     );
-    expect(problems).toEqual([]);
+    expect(unmatched.filter((key) => !reviewed.has(key))).toEqual([]);
+
+    // A stale exception would wave the same key through unchecked if that sentence changes.
+    const stillNeeded = new Set(unmatched);
+    expect(reviewedLemmaMatches.filter((key) => !stillNeeded.has(key))).toEqual([]);
   });
 
   it("keeps rejected Tatoeba sentences out", () => {

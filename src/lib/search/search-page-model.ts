@@ -357,7 +357,9 @@ export function topicRow(topic: SearchTopic): TopicRow {
     summary: topic.summary,
     ...(topic.slovak ? { slovak: topic.slovak } : {}),
     links: [
-      { label: "Lesson", kind: "lesson", href: topic.lessonHref },
+      ...(topic.lessonHref
+        ? [{ label: "Lesson", kind: "lesson" as const, href: topic.lessonHref }]
+        : []),
       ...(topic.practiceHref
         ? [{ label: "Practice", kind: "practice" as const, href: topic.practiceHref }]
         : []),

@@ -3,6 +3,9 @@
   import Chalkboard from "./Chalkboard.svelte";
   import Plant from "./Plant.svelte";
   import Room from "./Room.svelte";
+
+  // Looks the same at every hour; it is handed the props every drawing gets.
+  let {}: Record<string, unknown> = $props();
 </script>
 
 <Room wall="fill-scene-warm" floor="fill-scene-sand" />

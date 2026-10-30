@@ -105,7 +105,7 @@ Also check: the sentence uses the headword in a typical sense, not an obscure on
 
 ## 10. Rules that shipped wrong before
 
-Each of these was taught wrongly on the site. `src/lib/catalog/content-rules.test.ts` fails if the old wording returns. When you fix a new false rule, add its wrong wording there too.
+Each of these was taught wrongly on the site. `src/lib/catalog/content-rules.test.ts` fails if the old wording returns. When you fix a new false rule, add a pattern for its wrong wording there too, with that wording in `shipped` so the test proves the pattern still catches it.
 
 | Topic        | Right                                                                                                                                                          | Wrong wording that shipped                  |
 | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
@@ -127,8 +127,8 @@ Each of these was taught wrongly on the site. `src/lib/catalog/content-rules.tes
 `bun run test` runs these content checks on every lesson, practice item and generated drill:
 
 - `src/lib/learning/exercises/exercises-audit.test.ts`: build tiles join into exactly the correction, so end punctuation sits on the last tile; every answer tile is in the bank; a typed answer that opens with a first- or second-person verb also accepts its subject pronoun (`Som Alex.` → `Ja som Alex.`, `Stretneme sa v utorok.` → `My sa stretneme v utorok.`).
-- `src/lib/catalog/content-rules.test.ts`: the table in §10, `nieje`, `v štvrtok` and Czech letters in common words.
+- `src/lib/catalog/content-rules.test.ts`: the table in §10, `nieje`, `v štvrtok`, Czech letters in common words, and the rhythmic law in endings (`*krásná`, `*krásným`, `*čítám`, `*píšú`, `*lúkách`). A form written `*form` is a deliberate error and is skipped; `**form**` is bold and is checked.
 - `src/lib/catalog/search/forms.test.ts`: generated word forms. Search shows them as a word's forms only when `formsVerified` trusts that paradigm.
-- `src/lib/catalog/dictionary/dictionary-content.test.ts`: every Tatoeba example contains its headword (reviewed exceptions sit in `tatoeba-lemma-exceptions.json`), no sentence from `content/dictionary/tatoeba-rejected.json` comes back, blocklisted lemmas stay out, and no short frame is stamped across many headwords.
+- `src/lib/catalog/dictionary/dictionary-content.test.ts`: every Tatoeba example contains its headword (reviewed exceptions sit in `tatoeba-lemma-exceptions.json`, and one the matcher no longer needs fails the test), no sentence from `content/dictionary/tatoeba-rejected.json` comes back, blocklisted lemmas stay out, and no short frame is stamped across many headwords.
 
 They cannot judge meaning. A person still has to check speaker roles, scene logic, `ty`/`vy`, word-order variants other than the subject pronoun, whether a distractor is really wrong, and whether an example uses the headword's part of speech when another word is spelled the same (`krásne dievča` is the adjective, not the adverb `krásne`).

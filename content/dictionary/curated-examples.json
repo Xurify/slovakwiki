@@ -328,7 +328,7 @@
   ],
   "poskytnut": [
     {
-      "slovak": "Poskytni mi prosím radu.",
+      "slovak": "Poskytni mi, prosím, radu.",
       "english": "Please provide me with advice.",
       "note": "Curated"
     },
@@ -2418,9 +2418,9 @@
     },
     {
       "slovak": "Mrzí ma, že prišiel tak neskoro.",
-      "english": "It annoys me that he came so late.",
+      "english": "I'm sorry he came so late.",
       "note": "Curated",
-      "demonstrates": "to annoy"
+      "demonstrates": "to be sorry"
     }
   ],
   "nabrat": [

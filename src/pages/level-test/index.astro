@@ -1,0 +1,17 @@
+---
+import SiteLayout from "@/layouts/SiteLayout.astro";
+import LevelTestPage from "$lib/components/level-test/LevelTestPage.svelte";
+import LevelTestStart from "$lib/components/level-test/LevelTestStart.svelte";
+import LevelTestStartSkeleton from "$lib/components/level-test/LevelTestStartSkeleton.svelte";
+---
+
+<SiteLayout
+  title="Slovak level test | Slovak Wiki"
+  description="An adaptive Slovak test: reading, listening, writing and speaking tasks that place you on the CEFR scale from A1 to C2."
+>
+  <LevelTestPage>
+    <LevelTestStart client:only="svelte" slot="start">
+      <LevelTestStartSkeleton slot="fallback" />
+    </LevelTestStart>
+  </LevelTestPage>
+</SiteLayout>

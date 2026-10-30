@@ -5,6 +5,9 @@
   import Cloud from "./Cloud.svelte";
   import FloorShade from "./FloorShade.svelte";
   import StreetLamp from "./StreetLamp.svelte";
+
+  // Looks the same at every hour; it is handed the props every drawing gets.
+  let {}: Record<string, unknown> = $props();
 </script>
 
 <!-- By the Danube, with Bratislava Castle on its hill. -->

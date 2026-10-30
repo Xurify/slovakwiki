@@ -149,6 +149,15 @@ describe("Slovak content", () => {
     );
     expect(nominative).toBeDefined();
     expect(normalizeSearchText(nominative!.content)).toContain("peter cita knihu");
+    expect(normalizeSearchText(nominative!.content)).toContain("nominativ");
+
+    const aspect = documents.find((document) => document.url === "/grammar/aspect");
+    expect(aspect).toBeDefined();
+    expect(aspect!.title).toBe("Aspect: imperfective and perfective");
+    expect(normalizeSearchText(aspect!.content)).toContain("imperfective");
+    expect(normalizeSearchText(aspect!.content)).toContain("perfective");
+    expect(normalizeSearchText(aspect!.content)).toContain("nedokonavy vid");
+    expect(normalizeSearchText(aspect!.content)).toContain("dokonavy vid");
   });
 
   it("indexes conjugated forms for Pagefind word documents", () => {

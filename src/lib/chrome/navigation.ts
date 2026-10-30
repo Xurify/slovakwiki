@@ -14,7 +14,13 @@ export const primaryNavigation: NavigationItem[] = [
   { href: "/practice", label: "Practice" },
 ];
 
-/** The Reference menu, in the order it reads top to bottom. */
+/** Linked from the footer and the Practice page, not the header. */
+export const levelTestNavigation: NavigationItem = {
+  href: "/level-test",
+  label: "Level test",
+};
+
+/** The More menu, in the order it reads top to bottom. */
 export const referenceNavigationGroups: NavigationGroup[] = [
   {
     label: "Look up",
@@ -32,7 +38,7 @@ export const referenceNavigationGroups: NavigationGroup[] = [
     ],
   },
   {
-    label: "More",
+    label: "Sources",
     items: [
       { href: "/resources", label: "Resources" },
       { href: "/references", label: "References" },

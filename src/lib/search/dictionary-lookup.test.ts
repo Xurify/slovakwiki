@@ -108,4 +108,43 @@ describe("dictionary lookup merge", () => {
     const adverb = result("/dictionary/malo#adverb", "málo");
     expect(mergeSearchResults([noun], [adverb])).toEqual([noun, adverb]);
   });
+
+  it("surfaces grammar topic hits ahead of English-gloss or prefix dictionary hits", () => {
+    const aspektWord: PagefindResultData = {
+      url: "/dictionary/aspekt",
+      excerpt: "",
+      weighted_locations: [],
+      meta: { title: "aspekt", summary: "aspect", kind: "word" },
+    };
+    const aspectGrammar: PagefindResultData = {
+      url: "/grammar/aspect",
+      excerpt: "",
+      weighted_locations: [{ weight: 6 }],
+      meta: {
+        title: "Aspect: imperfective and perfective",
+        summary:
+          "Most Slovak verbs come in imperfective and perfective pairs — marking whether an action is ongoing and repeated, or a single completed result.",
+        kind: "grammar",
+      },
+    };
+
+    expect(mergeSearchResults([aspektWord], [aspectGrammar], 8, "aspect")).toEqual([
+      aspectGrammar,
+      aspektWord,
+    ]);
+    expect(mergeSearchResults([], [aspectGrammar], 8, "imperfective")).toEqual([
+      aspectGrammar,
+    ]);
+    expect(mergeSearchResults([], [aspectGrammar], 8, "perfective")).toEqual([
+      aspectGrammar,
+    ]);
+    expect(
+      mergeSearchResults(
+        [result("/dictionary/vidiet", "vidieť")],
+        [aspectGrammar],
+        8,
+        "vid",
+      ),
+    ).toEqual([aspectGrammar, result("/dictionary/vidiet", "vidieť")]);
+  });
 });

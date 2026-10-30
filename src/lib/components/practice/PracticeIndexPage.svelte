@@ -60,6 +60,10 @@
         <p class="m-0 mt-14">
           <TextLink href="/lessons">Go to lessons</TextLink>
         </p>
+
+        <p class="m-0 mt-4">
+          Not sure where to start? <TextLink href="/level-test">Take the level test</TextLink>.
+        </p>
       </div>
     </div>
   </PageShell>

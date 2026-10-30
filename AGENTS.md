@@ -11,6 +11,7 @@ Domain-specific authoring and pipelines live next to the work — not here:
 | Create or expand a lesson                   | [`docs/lesson-authoring.md`](docs/lesson-authoring.md) · `new-lesson` skill |
 | Write a listening episode (podcast)         | [`docs/listening-authoring.md`](docs/listening-authoring.md)                |
 | Brief a new episode in one prompt           | [`docs/listening-one-prompt.md`](docs/listening-one-prompt.md)              |
+| Level test: coverage, gaps, bank rebuild    | [`docs/level-test.md`](docs/level-test.md)                                  |
 | Start an episode: one-page card             | [`docs/listening-card.md`](docs/listening-card.md)                          |
 | Write and stage an episode, step by step    | [`new-episode` skill](.agents/skills/new-episode/SKILL.md)                  |
 | Voice roster                                | [`content/audio/README.md`](content/audio/README.md)                        |
@@ -80,6 +81,7 @@ Dictionary / lesson / practice **spoken Slovak** needs ElevenLabs MP3s. Do **not
 
 - After new or changed lemmas, examples, or lesson lines: `bun scripts/audio/generate.ts -- --missing-only` (scope with `--slugs a,b` when you know the slugs).
 - Needs `ELEVENLABS_API_KEY` in `.env`. Commands: [`scripts/README.md`](scripts/README.md) → **audio/**.
+- `scripts/audio/missing-clips.test.ts` fails on any text `generate.ts` would voice that has no clip, and on any lesson, podcast or scene clip without a vowel track.
 - Prod play also needs `bun scripts/audio/upload.ts` (R2). Generate still required locally even if upload waits.
 - Skip only for pure UI/CSS/layout with **no** spoken-text change.
 - **Write dialogue for the ear, before the first clip.** Read each exchange aloud at speaking pace. Where someone has to think (a guess, a quiz answer, a choice), let them say so in the line (`Hm…`, or the clue said back) with a pause after it. Put a beat between two clues, before a quiz sentence, between a verdict and its reason, and where a speaker turns to someone else. A pause is `[pause]` in the clip text: `PAUSE` in a podcast line, or a lesson line's `audio.transcript` with the same words as its text. Never direct a line `[slowly]`, and give the clip a full stop where the text trails off (`STOP`): Eleven reads an ellipsis as trailing off, and slowed, Marek's clues became a drawn-out whisper. Eleven v4 makes about a second of silence inside a line and next to none at its start or end, so a pause always sits between words. The first podcast had Anna name the key the instant Marek gave the clue.
