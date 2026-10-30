@@ -1,8 +1,18 @@
 import { describe, expect, it } from "vitest";
+import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
 
 import { listeningEpisodes } from "$lib/catalog/listening";
 import { DARK_MS, REACT_MS, scheduleCues, type LineTimes } from "./act-schedule";
-import { CueError, heldBy, setUp, startWorld, worlds, type Cue } from "./acts";
+import {
+  CueError,
+  applyCue,
+  cueActor,
+  heldBy,
+  setUp,
+  startWorld,
+  worlds,
+  type Cue,
+} from "./acts";
 import { PLACES } from "./places";
 import { episodeStages } from "./scene-sources";
 import { foldLine } from "./slovak-text";
@@ -10,6 +20,29 @@ import { foldLine } from "./slovak-text";
 const KITCHEN = PLACES.kitchen.set!;
 
 describe("the world the cues leave", () => {
+  it("has a host who comes in late out of their seat until they sit down", () => {
+    const start = { ...startWorld(), seated: ["anna", "marek"] as LessonCharacterId[] };
+    const after = worlds(
+      [
+        { characterId: "anna", act: [] },
+        {
+          characterId: "marek",
+          act: [
+            { do: "enter", to: "inside", on: "before" },
+            { do: "sit", to: "desk-right", on: "start" },
+          ],
+        },
+      ],
+      PLACES.studio.set,
+      start,
+    );
+
+    expect(after[0].out).toEqual(["marek"]);
+    expect(after[0].seated).toEqual(["anna"]);
+    expect(after[2].out ?? []).toEqual([]);
+    expect(after[2].seated).toEqual(["anna", "marek"]);
+  });
+
   it("keeps what someone took in their hand until a cue puts it down or passes it on", () => {
     const after = worlds(
       [
@@ -61,6 +94,28 @@ describe("the world the cues leave", () => {
         [{ characterId: "marek", act: [{ do: "put", what: "ladle", to: "pot" }] }],
         KITCHEN,
       ),
+    ).toThrow(CueError);
+  });
+
+  it("slides only what stands on a surface, and only along it", () => {
+    const studio = PLACES.studio.set;
+    const start = setUp(startWorld(studio.objects), {
+      objects: [{ id: "bag", kind: "bag", start: { where: { on: "desk", dx: 30 } } }],
+    });
+    const slid = applyCue(
+      start,
+      "marek",
+      { do: "slide", what: "bag", to: "desk", dx: -20 },
+      studio,
+    );
+    expect(slid.objects.bag.where).toEqual({ on: "desk", dx: -20 });
+
+    const held = applyCue(start, "marek", { do: "take", what: "bag" }, studio);
+    expect(() =>
+      applyCue(held, "marek", { do: "slide", what: "bag", to: "desk", dx: -20 }, studio),
+    ).toThrow(CueError);
+    expect(() =>
+      applyCue(start, "marek", { do: "slide", what: "bag", to: "corner" }, studio),
     ).toThrow(CueError);
   });
 });
@@ -361,6 +416,22 @@ describe("every acted podcast segment", () => {
             expect(words, `${line.id}: on "${cue.on}"`).toContain(foldLine(cue.on));
           }
         }
+      });
+
+      it(`${chapter.id} seeking to every line equals playing straight to that line`, () => {
+        const set = PLACES[scene.setting].set!;
+        const allWorlds = worlds(scene.lines, set, scene.world);
+        expect(allWorlds).toHaveLength(scene.lines.length + 1);
+        let current = allWorlds[0];
+        for (let index = 0; index < scene.lines.length; index += 1) {
+          expect(allWorlds[index]).toEqual(current);
+          const line = scene.lines[index];
+          for (const cue of line.act ?? []) {
+            const who = cueActor(cue, line.characterId);
+            if (who) current = applyCue(current, who, cue, set);
+          }
+        }
+        expect(allWorlds[scene.lines.length]).toEqual(current);
       });
     }
   }

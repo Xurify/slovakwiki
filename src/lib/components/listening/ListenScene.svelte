@@ -1,23 +1,28 @@
 <script module lang="ts">
+  import { playClockFrame, playClockNow, playClockTimeout } from "$lib/audio/play-clock";
   import {
     PHONE_CUE_MS,
     ambienceFor,
+    holdStageSound,
     playAmbience,
     playPhoneCue,
     playSegmentCue,
+    releaseStageSound,
     stopCues,
     type AmbiencePlayer,
   } from "$lib/stick-figure/ambience";
 
   /** One sound of the place for the episode: the next segment fades it over to its own. */
   let place: AmbiencePlayer | undefined;
-  let quiet = 0;
+  /** Cancels the pending hush of the place's sound. */
+  let quiet: (() => void) | undefined;
   /** When the sound is due to stop; an earlier call keeps its earlier time. */
   let quietAt = Number.POSITIVE_INFINITY;
 </script>
 
 <script lang="ts">
   import { untrack } from "svelte";
+  import { slide } from "svelte/transition";
 
   import SceneCaption from "$lib/components/stick-figure/SceneCaption.svelte";
   import StickStage from "$lib/components/stick-figure/StickStage.svelte";
@@ -25,7 +30,12 @@
   import { directScene } from "$lib/stick-figure/scene-direction";
   import type { StagedScene } from "$lib/stick-figure/scene-line";
   import { sceneMood } from "$lib/stick-figure/scene-mood";
+  import { animateResize } from "$lib/ui/animate-resize";
   import { cx } from "$lib/ui/classes";
+
+  /** Read on each call, not cached, since the setting can change mid-visit (as in `StickWeather.svelte`). */
+  const reducedMotion = (): boolean =>
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /**
    * A podcast segment acted out on the stick-figure stage: the segment's
@@ -35,6 +45,7 @@
   let {
     class: className = "",
     follows = false,
+    hint,
     scene,
     showEnglish = false,
     sound = true,
@@ -49,6 +60,7 @@
      * before anyone speaks.
      */
     follows?: boolean;
+    hint?: string;
     scene: StagedScene;
     /** The English under the subtitle. */
     showEnglish?: boolean;
@@ -74,11 +86,13 @@
   let shown = $state(-1);
   let cue = $state(0);
   let speaking = $state(false);
-  let veiled = $state(follows);
+  // Mounted once per segment (ListenStage), so whether it follows on is fixed for its life.
+  let veiled = $state(untrack(() => follows));
   /** A line is playing or about to: the place is heard. */
   let live = $state(false);
-  let settled = !follows;
-  let waiting = 0;
+  let settled = untrack(() => !follows);
+  /** Cancels the wait for anyone still walking over before the line is said. */
+  let waiting: (() => void) | undefined;
   /** The line on stage has played to its end, so the next one follows on from it. */
   let finished = true;
 
@@ -87,22 +101,31 @@
   );
   const mood = $derived(
     sceneMood(
-      [...(scene.before ?? []), ...scene.lines.map((line) => line.slovak)],
-      (scene.before?.length ?? 0) + Math.max(at, 0),
+      scene.lines.map((line) => line.slovak),
+      Math.max(at, 0),
+      scene.before,
     ),
   );
 
   $effect(() => {
     if (!follows) return;
-    const frame = window.requestAnimationFrame(() => (veiled = false));
-    return () => window.cancelAnimationFrame(frame);
+    return playClockFrame(() => (veiled = false));
   });
 
-  // The learner turns the sound of the place on or off as it plays.
   $effect(() => {
     if (!sound) hush(0);
     else if (live) untrack(listen);
   });
+
+  // An effect's teardown, not onDestroy: onDestroy also runs after a server render, where there is no window.
+  $effect(
+    () => () =>
+      untrack(() => {
+        waiting?.();
+        stage?.stop();
+        stopCues();
+      }),
+  );
 
   export function play(
     index: number,
@@ -110,13 +133,14 @@
     rate: number,
     onStart: () => void,
   ): void {
-    window.clearTimeout(waiting);
+    waiting?.();
     // Anything but the next line once this one is over is a jump: a skip, a
     // replay, or a click ahead while a walk or a ring is still going. The stage
     // stops, which silences its cues, and puts everyone where the line finds them.
     if (index !== at + 1 || !finished) {
       stage?.stop();
       stage?.place(index);
+      shown = index;
     }
     finished = false;
     at = index;
@@ -138,7 +162,8 @@
 
     const last = index === scene.lines.length - 1;
     // Someone still walking over gets there before they speak or are spoken to.
-    waiting = window.setTimeout(() => {
+    waiting = playClockTimeout(() => {
+      waiting = undefined;
       shown = index;
       cue += 1;
       speaking = true;
@@ -164,17 +189,30 @@
    * leaving the segment it is handed on to the next one instead.
    */
   export function stop(leaving = false): void {
-    window.clearTimeout(waiting);
+    waiting?.();
+    waiting = undefined;
     live = false;
     speaking = false;
+    finished = true;
     stage?.stop();
-    // A walk-off at the segment's end would go on sounding under the next segment's card.
     stopCues();
     hush(leaving ? HANDOVER_MS : 0);
   }
 
+  /** Holds the stage's motion and its sound, the place and the steps, at a pause. */
+  export function freeze(): void {
+    holdStageSound();
+    stage?.freeze();
+  }
+
+  export function thaw(): void {
+    releaseStageSound();
+    stage?.thaw();
+  }
+
   function listen(): void {
-    window.clearTimeout(quiet);
+    quiet?.();
+    quiet = undefined;
     quietAt = Number.POSITIVE_INFINITY;
     if (!sound) return;
 
@@ -184,11 +222,22 @@
   }
 
   function hush(after: number): void {
-    const at = performance.now() + after;
+    // No delay: the place falls silent now, even during a pause, rather than at the thaw.
+    // A delayed hush counts play time, so a pause holds it until the thaw.
+    if (after <= 0) {
+      quiet?.();
+      quiet = undefined;
+      quietAt = Number.POSITIVE_INFINITY;
+      place?.stop();
+      place = undefined;
+      return;
+    }
+    const at = playClockNow() + after;
     if (at >= quietAt) return;
-    window.clearTimeout(quiet);
+    quiet?.();
     quietAt = at;
-    quiet = window.setTimeout(() => {
+    quiet = playClockTimeout(() => {
+      quiet = undefined;
       quietAt = Number.POSITIVE_INFINITY;
       place?.stop();
       place = undefined;
@@ -222,27 +271,40 @@
   {#if subtitles}
     {@const turn = turns[shown]}
 
-    <!-- A line tall before the first line comes, so the controls do not jump then. -->
+    <!--
+      A minimum height, not a fixed one, so a short line and its English row do not move the
+      controls on load or pause. A longer line grows past it, eased by `animateResize`, and
+      `transition:slide` eases the band's own mount and unmount when subtitles are toggled.
+    -->
     <div
-      class="min-h-[3.6rem] border-t border-slate-200/70 px-4 py-3 max-[600px]:min-h-[3.25rem] sm:px-5"
-      aria-live="polite"
+      class="border-t border-slate-200/70"
+      data-listen-captions
+      transition:slide={{ duration: reducedMotion() ? 0 : 200 }}
     >
-      {#if turn}
-        {#key shown}
-          <SceneCaption
-            clock={() => stage?.clock()}
-            {cue}
-            english={turn.english}
-            marks={turn.marks}
-            onthing={(id) => stage?.light(id)}
-            plan={direction.lines[shown]?.plan}
-            playing={speaking}
-            {showEnglish}
-            slovak={turn.slovak}
-            things={direction.things}
-          />
-        {/key}
-      {/if}
+      <div
+        class="min-h-[5.4375rem] px-4 py-3 max-[600px]:min-h-[5.125rem] sm:px-5"
+        aria-live="polite"
+        use:animateResize
+      >
+        {#if turn}
+          {#key shown}
+            <SceneCaption
+              clock={() => stage?.clock()}
+              {cue}
+              english={turn.english}
+              marks={turn.marks}
+              onthing={(id) => stage?.light(id)}
+              plan={direction.lines[shown]?.plan}
+              playing={speaking}
+              {showEnglish}
+              slovak={turn.slovak}
+              things={direction.things}
+            />
+          {/key}
+        {:else if hint}
+          <p class="m-0 text-sm leading-snug text-pretty text-slate-500">{hint}</p>
+        {/if}
+      </div>
     </div>
   {/if}
 </div>

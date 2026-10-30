@@ -27,9 +27,30 @@
   const dog = $derived(LOOKS[characterId].dog);
 
   const HIP_Y = 113;
+  /** A bounding run: the feet reach this far and lift this high, in dog units. */
+  const BOUND_REACH = 9;
+  const BOUND_LIFT = 7;
+  /** Phase lags in radians: the hind pair lags the fore pair, and the far side lags a little more. */
+  const HIND_LAG = 1.1;
+  const FAR_LAG = 0.25;
+  /** How far the body rises at the top of each bound, in dog units. */
+  const BOUND_RISE = 4;
+
+  /** A foot's swing (−1 back … 1 forward) and how far it is off the ground, at a bound's phase. */
+  function bound(phase: number, amp: number): { swing: number; lift: number } {
+    return {
+      swing: Math.sin(phase) * amp,
+      lift: Math.max(0, Math.cos(phase)) * BOUND_LIFT * amp,
+    };
+  }
+
+  const bounding = $derived(pose.gallopAmp > 0);
+  const rise = $derived(
+    bounding ? BOUND_RISE * pose.gallopAmp * Math.max(0, Math.cos(pose.gallop - 0.5)) : 0,
+  );
 
   const bodyTransform = $derived(
-    `translate(0 ${n(pose.bob * 0.6)}) rotate(${n(pose.lean * 0.4)} 0 ${HIP_Y})`,
+    `translate(0 ${n(pose.bob * 0.6 - rise)}) rotate(${n(pose.lean * 0.4)} 0 ${HIP_Y})`,
   );
   const headTransform = $derived(
     `translate(0 ${n(pose.nod * 0.5)}) rotate(${n(pose.tilt * 0.8)} 15 97)`,
@@ -48,13 +69,42 @@
   const jaw = $derived(Math.min(1, pose.mouth) * 26);
 
   /** A leg from its hip to a paw on the ground; the pair on a side swings together. */
-  function legPath(hipX: number, swing: number, lifted: number): string {
-    const footX = hipX + swing * 5;
+  function legPath(hipX: number, swing: number, lifted: number, reach = 5): string {
+    const footX = hipX + swing * reach;
     const footY = GROUND_Y - Math.max(0, lifted);
     const kneeX = (hipX + footX) / 2 + 1;
     const kneeY = (HIP_Y + footY) / 2;
     return `M${n(hipX)} ${HIP_Y}Q${n(kneeX)} ${n(kneeY)} ${n(footX)} ${n(footY)}h2.6`;
   }
+
+  const farLegs = $derived(
+    bounding
+      ? [
+          {
+            hip: -9,
+            ...bound(pose.gallop - HIND_LAG - FAR_LAG, pose.gallopAmp),
+            reach: BOUND_REACH,
+          },
+          { hip: 9, ...bound(pose.gallop - FAR_LAG, pose.gallopAmp), reach: BOUND_REACH },
+        ]
+      : [
+          { hip: -9, swing: -pose.stride, lift: -pose.lift, reach: 5 },
+          { hip: 9, swing: pose.stride, lift: -pose.lift, reach: 5 },
+        ],
+  );
+
+  /** The near legs, over the body: the same pairs, the hind pair lagging a bound behind the fore. */
+  const nearLegs = $derived(
+    bounding
+      ? [
+          { hip: -12, ...bound(pose.gallop - HIND_LAG, pose.gallopAmp), reach: BOUND_REACH },
+          { hip: 12, ...bound(pose.gallop, pose.gallopAmp), reach: BOUND_REACH },
+        ]
+      : [
+          { hip: -12, swing: pose.stride, lift: pose.lift, reach: 5 },
+          { hip: 12, swing: -pose.stride, lift: pose.lift, reach: 5 },
+        ],
+  );
 </script>
 
 {#if dog}
@@ -62,16 +112,13 @@
 
   <g transform={bodyTransform}>
     <!-- The far legs first, so the body covers their tops. -->
-    <path
-      d={legPath(-9, -pose.stride, -pose.lift)}
-      class="stroke-portrait-ink"
-      stroke-width="3"
-    />
-    <path
-      d={legPath(9, pose.stride, -pose.lift)}
-      class="stroke-portrait-ink"
-      stroke-width="3"
-    />
+    {#each farLegs as leg, index (index)}
+      <path
+        d={legPath(leg.hip, leg.swing, leg.lift, leg.reach)}
+        class="stroke-portrait-ink"
+        stroke-width="3"
+      />
+    {/each}
 
     <path
       d="M-14 103Q{n((-14 + tailTip.x) / 2 - 2)} {n((103 + tailTip.y) / 2 + 2)} {n(
@@ -98,16 +145,13 @@
       class={dog.patch}
     />
 
-    <path
-      d={legPath(-12, pose.stride, pose.lift)}
-      class="stroke-portrait-ink"
-      stroke-width="3.2"
-    />
-    <path
-      d={legPath(12, -pose.stride, pose.lift)}
-      class="stroke-portrait-ink"
-      stroke-width="3.2"
-    />
+    {#each nearLegs as leg, index (index)}
+      <path
+        d={legPath(leg.hip, leg.swing, leg.lift, leg.reach)}
+        class="stroke-portrait-ink"
+        stroke-width="3.2"
+      />
+    {/each}
 
     <path
       d="M7.5 104Q8.6 96.4 13.6 92.4L19.8 98.6Q15 101.6 13.6 108Z"

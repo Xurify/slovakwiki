@@ -74,21 +74,27 @@ afterEach(() => {
 });
 
 describe("cues the stage schedules", () => {
-  it("are all cut off by stopCues: steps, a phone, the sting, a tram, foley", async () => {
-    const { playPhoneCue, playSegmentCue, playSteps, playTramCue, stopCues } =
-      await import("./ambience");
-    const { playFoley } = await import("./foley");
+  // When the full suite shares a worker, these imports load slowly. A timed-out one
+  // would land in the next test's fake context and fail that test instead.
+  it(
+    "are all cut off by stopCues: steps, a phone, the sting, a tram, foley",
+    { timeout: 20_000 },
+    async () => {
+      const { playPhoneCue, playSegmentCue, playSteps, playTramCue, stopCues } =
+        await import("./ambience");
+      const { playFoley } = await import("./foley");
 
-    playSteps(8, 420, { ground: "tile" });
-    playPhoneCue("call");
-    playSegmentCue();
-    playTramCue();
-    playFoley("rattle");
-    expect(ctx.live.size).toBe(5);
+      playSteps(8, 420, { ground: "tile" });
+      playPhoneCue("call");
+      playSegmentCue();
+      playTramCue();
+      playFoley("rattle");
+      expect(ctx.live.size).toBe(5);
 
-    stopCues();
-    expect(ctx.live.size).toBe(0);
-  });
+      stopCues();
+      expect(ctx.live.size).toBe(0);
+    },
+  );
 
   it("stop at once on a skip, so a second walk does not pile onto the first", async () => {
     const { playSteps, stopCues } = await import("./ambience");
@@ -97,6 +103,25 @@ describe("cues the stage schedules", () => {
     stopCues();
     playSteps(12, 420, { ground: "stone" });
     expect(ctx.live.size).toBe(1);
+  });
+
+  it("cuts off cues on seek during an edge enter, throw, or dog run", async () => {
+    const { playSteps, stopCues } = await import("./ambience");
+    const { playFoley } = await import("./foley");
+
+    // Edge enter starts servo steps
+    playSteps(10, 300, { ground: "wood", shoes: "servo" });
+    expect(ctx.live.size).toBe(1);
+
+    // Seeking cuts it off immediately
+    stopCues();
+    expect(ctx.live.size).toBe(0);
+
+    // Compute foley or clink
+    playFoley("compute");
+    expect(ctx.live.size).toBe(1);
+    stopCues();
+    expect(ctx.live.size).toBe(0);
   });
 
   it("let go of their output on their own once done", async () => {

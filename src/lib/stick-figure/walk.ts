@@ -54,18 +54,46 @@ export function walkPose(
   elapsed: number,
   durationMs: number,
   step = STEP_MS,
+  who?: LessonCharacterId,
 ): StickPose {
   if (elapsed <= 0 || elapsed >= durationMs) return pose;
 
   const phase = (elapsed / step) * Math.PI;
   const ease = Math.min(1, elapsed / EASE_MS, (durationMs - elapsed) / EASE_MS);
-  const swing = Math.sin(phase) * ease;
+  const isRobot = Boolean(who && LOOKS[who]?.robot);
+  const swing = Math.sin(phase) * ease * (isRobot ? 0.75 : 1);
 
   return {
     ...pose,
     stance: pose.stance + (WALK_STANCE - pose.stance) * ease,
     stride: swing,
-    lift: LIFT * Math.cos(phase) * ease,
-    bob: pose.bob + HIP_DIP * Math.abs(swing),
+    lift: LIFT * Math.cos(phase) * ease * (isRobot ? 0.7 : 1),
+    bob: pose.bob + (isRobot ? HIP_DIP * 0.4 : HIP_DIP) * Math.abs(swing),
+  };
+}
+
+/** How far a dog leans into a gallop, in degrees. */
+const GALLOP_LEAN = 8;
+
+/**
+ * A dog's gallop, one bound to every two steps. The phase advances with the
+ * steps, and the legs ease in and out as a walk's do. StickDog draws the bound
+ * from `gallop` and `gallopAmp`, swinging the legs clear of the ground rather
+ * than shuffling them at walking reach.
+ */
+export function gallopPose(
+  pose: StickPose,
+  elapsed: number,
+  durationMs: number,
+  step: number,
+): StickPose {
+  if (elapsed <= 0 || elapsed >= durationMs) return pose;
+
+  const ease = Math.min(1, elapsed / EASE_MS, (durationMs - elapsed) / EASE_MS);
+  return {
+    ...pose,
+    gallop: (elapsed / step) * Math.PI,
+    gallopAmp: ease,
+    lean: pose.lean + GALLOP_LEAN * ease,
   };
 }

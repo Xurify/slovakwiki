@@ -1,10 +1,10 @@
 // @ts-nocheck: Playwright is preinstalled in cloud sessions, not a dependency of this repo,
 // and most of this runs inside the page.
 // Usage: node scripts/stage-review/render-frames.cjs --segment "U Márie" [--episode imperative]
-//   [--from 1] [--to <last line>] [--fps 6] [--dpr 2] [--workers 4] [--tail 2000]
-//   [--out /tmp/frames/<name>] [--base http://localhost:4321]
+//   [--from 1] [--to <last line>] [--lines 5-7] [--fps 6] [--dpr 2] [--workers 4] [--tail 2000]
+//   [--replay 0] [--out /tmp/frames/<name>] [--base http://localhost:4321]
 // Renders a stage segment frame by frame on Playwright's virtual clock instead of recording it in real time.
-// Each worker plays its own range of lines, so a 2-minute segment renders in well under a minute.
+// Each worker plays the segment from line 1 (no frames before its own range), so a 2-minute segment renders in well under a minute.
 // Writes <idx>_<ms>.jpg (ms on one timeline for the whole range) and index.json with the line of each frame.
 const { chromium } = require("playwright");
 const fs = require("fs");
@@ -22,6 +22,12 @@ const args = {
 for (let i = 2; i < process.argv.length; i++) {
   const k = process.argv[i].replace(/^--/, "");
   args[k] = process.argv[++i];
+}
+// --lines 5-7 (or 5) is shorthand for --from 5 --to 7: after a fix, render only the lines whose cues changed.
+if (args.lines) {
+  const [a, b = a] = String(args.lines).split("-");
+  args.from = a;
+  args.to = b;
 }
 if (!args.segment)
   throw new Error("--segment is required (a regex for the segment's button)");
@@ -121,11 +127,12 @@ const state = (page) =>
     };
   });
 
-// Plays lines first..last, warming up on the line before so a walk that started there is still in flight,
-// and returns frames timed from the moment `first` became current.
+// Plays lines first..last, having played the lines before it, and returns frames timed from the moment `first` became current.
 async function render(browser, first, last, count, dir) {
   const { ctx, page, box, cdp } = await open(browser);
-  const start = Math.max(1, first - 1);
+  // Seeking to a later line resets what people are holding, so by default a worker plays from line 1
+  // without taking frames until its own range (--replay 0 warms up on the one line before instead).
+  const start = args.replay === "0" ? Math.max(1, first - 1) : 1;
   await page
     .getByRole("button", { name: new RegExp(`^Play line ${start} of`) })
     .first()

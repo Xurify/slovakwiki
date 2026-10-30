@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { untrack, type ComponentProps } from "svelte";
+  import { tick, untrack, type ComponentProps } from "svelte";
   import { cubicInOut, sineIn } from "svelte/easing";
-  import { Tween } from "svelte/motion";
 
   import AudioButton from "$lib/audio/AudioButton.svelte";
+  import { playClockFrame, playClockNow, playClockTimeout } from "$lib/audio/play-clock";
   import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
   import { nounGenderLabel } from "$lib/catalog/types";
   import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
@@ -44,6 +44,7 @@
     isPlural,
     isProperName,
     litKey,
+    pointedThing,
     slotOf,
     thingBoxes,
     thingCenter,
@@ -75,6 +76,7 @@
   import type { StageSetting } from "$lib/stick-figure/stage-setting";
   import { restFacing, type CastFacing, type Facing } from "$lib/stick-figure/staging";
   import { playSteps, playTramCue, stopCues } from "$lib/stick-figure/ambience";
+  import { PlayTween } from "$lib/stick-figure/play-motion.svelte";
   import type { TramState } from "$lib/stick-figure/street";
   import {
     CHAIR_OUT,
@@ -108,6 +110,8 @@
     WIDE,
     applyCue,
     contents,
+    cueActor as actorOfCue,
+    cueEntrances,
     heldBy as heldIn,
     isActed,
     startWorld,
@@ -189,8 +193,17 @@
   const THROW_MS = 700;
   /** Turning round to a chair, as far as a person gets before they start to lower. */
   const SIT_TURN_MS = TURN_MS * 0.7;
+  /**
+   * Turning to walk off or reach for something, how far round a person comes
+   * before the feet or the hand move: the side swaps halfway through the
+   * turn. Set off at once, the body still faced back the way it came, so a
+   * short walk went backwards and a point went out behind them.
+   */
+  const SET_OFF_MS = TURN_MS / 2;
   /** Where StickDog draws the collar, in its rig space. */
   const DOG_COLLAR = { x: 12.8, y: 102 };
+  /** Where StickDog draws the top of its head, in its rig space, for a hand to rest on. */
+  const DOG_HEAD = { x: 15, y: 87.8 };
   const WALKING = new Set<Cue["do"]>(["go", "enter", "leave", "sit"]);
   /** Long enough to read a short line said in a bubble. */
   const BUBBLE_MS = 2800;
@@ -217,6 +230,13 @@
    */
   const DEEP_LANE = 0.17;
   const DEEP_SCALE = 1.12;
+  /**
+   * Passing someone seated at the desk, the walker goes round behind their
+   * chair: a step away from the camera, a little smaller, and drawn under
+   * them. In front, he walked between her and her mic, through the desk.
+   */
+  const BEHIND_LANE = -0.12;
+  const BEHIND_SCALE = 0.93;
   /** Half a body, in figure widths: overlapping a counter by this much, a step back would be into it. */
   const BODY_HALF = 0.15;
   /** Half a chair's width, in figure widths: StickFurniture draws one narrower than its box. */
@@ -246,7 +266,7 @@
    */
   const chairsOut = Array.from(
     { length: 6 },
-    () => new Tween(CHAIR_OUT, { easing: cubicInOut }),
+    () => new PlayTween(CHAIR_OUT, { easing: cubicInOut }),
   );
   /** The chair someone walks to sit on, sits on, or has just got up from, so its pull moves them with it. */
   let perched = $state<Blocking["seated"]>({});
@@ -259,6 +279,8 @@
   let passing = $state<LessonCharacterId[]>([]);
   /** Who passes someone with their back to the counter, so a step further toward the camera. */
   let passingDeep = $state<LessonCharacterId[]>([]);
+  /** Who goes round behind someone seated at the desk (BEHIND_LANE). */
+  let passingBehind = $state<LessonCharacterId[]>([]);
   /** Who is being walked past, and steps back to make room. */
   let roomFor = $state<LessonCharacterId[]>([]);
   /** Who stands back in the doorway, or by the door to push it to, on its sill rather than in the room (`doorLane`). */
@@ -276,22 +298,29 @@
   let cardHeight = $state(120);
   let board = $state<string>();
   let bubble = $state<{ characterId: LessonCharacterId; cue: number; text: string }>();
-  let bubbleTimer = 0;
+  /** Cancels the bubble's timeout. */
+  let bubbleTimer: (() => void) | undefined;
   let bubbleHeight = $state(0);
   let tram = $state<TramState>("away");
   /** Everyone has got on the tram, out of the weather. */
   let aboard = $state(false);
   let stageWidth = $state(0);
   let stageHeight = $state(0);
+  let root: HTMLElement | undefined;
+  /** Animations that `freeze` paused, for `thaw` to resume. */
+  let heldAnimations: Animation[] = [];
   /** The page has measured the stage, so marks and walk-ons are known. */
   const measured = $derived(stageWidth > 0 && stageHeight > 0);
+  /** The first placing is done and painted: the room warms up into view once, instead of the cast popping in. */
+  let revealed = $state(false);
 
-  /** When each walk in flight ends, on the `performance.now()` clock. */
+  /** When each walk in flight ends, on the play clock. */
   let walkEndsAt: Partial<Record<LessonCharacterId, number>> = {};
   /** Never reset, so a figure's next walk always has a cue it has not seen. */
   let walkCount = 0;
   let playToken = 0;
-  let lineTimer = 0;
+  /** Cancels the timer that ends a line with no clip. */
+  let lineTimer: (() => void) | undefined;
   /** The line being said, for the clock the figures move to when no clip plays. */
   let spoken = { at: 0, durationMs: 0, rate: 1 };
 
@@ -333,19 +362,25 @@
   /** The set's things where they are drawn now, as the backdrop measures them. */
   let drawnAt = $state<Record<string, ThingBox | null>>({});
   const things = $derived(withDrawn(fixedThings, drawnAt));
+  const entrances = $derived({
+    ...walkOns(stagings),
+    ...cueEntrances(lines, set),
+  });
   const frame = $derived(
-    stageFrame(
-      direction.cast,
-      walkOns(stagings),
-      setting,
-      fixedThings,
-      stageWidth,
-      stageHeight,
-    ),
+    stageFrame(direction.cast, entrances, setting, fixedThings, stageWidth, stageHeight),
   );
   /** Someone on a chair faces the way it does, whoever points or talks. */
   const sitting = $derived(seatedFacings(seated, frame));
-  const pickedThing = $derived(things.find((thing) => thing.id === picked));
+  const pickedParsed = $derived.by(() => {
+    if (!picked) return undefined;
+    const [id, copyStr] = picked.split("#");
+    const thing = things.find((candidate) => candidate.id === id);
+    if (!thing) return undefined;
+    const copy = copyStr !== undefined ? Number.parseInt(copyStr, 10) : 0;
+    const box = thingBoxes(thing)[copy] ?? thing.box;
+    return { thing, copy, box };
+  });
+  const pickedThing = $derived(pickedParsed?.thing);
 
   /** The world before each line, and after the last; a scene nobody acts keeps the one it starts with. */
   const actedWorlds = $derived.by((): World[] | undefined => {
@@ -367,6 +402,8 @@
   let pouring = $state<
     Partial<Record<LessonCharacterId, Partial<Record<Hand, Pick<Effect, "kind" | "to">>>>>
   >({});
+  /** What glides along the surface it was pushed on, and over how long: a bag slid across the desk. */
+  let gliding = $state<Record<string, number>>({});
   /** What each hand's tool is down in: a spoon in the pot, hidden under its rim. */
   let sunk = $state<Partial<Record<LessonCharacterId, Partial<Record<Hand, string>>>>>(
     {},
@@ -380,7 +417,7 @@
   // While the story skips ahead the whole place shows, so the clock in its pool of light is never cut by a close shot.
   const shot = $derived(dimmed ? WIDE : (world?.camera ?? WIDE));
   /** How far the door has swung in, from 0 shut. */
-  const doorSwing = new Tween(0);
+  const doorSwing = new PlayTween(0);
   /** Who has not come in yet. */
   let outside = $state<LessonCharacterId[]>([]);
   /** In the doorway, the hall dark behind them. */
@@ -391,7 +428,8 @@
   let leading: { index: number; at: number; cues: ScheduledCue[] } | undefined;
   /** When the last cue of the line playing is over. */
   let actsEnd = 0;
-  let actTimers: number[] = [];
+  /** Cancels each cue still on the clock. */
+  let actTimers: Array<() => void> = [];
   /** How long a motion takes to take over from the one before it. */
   const TAKE_OVER_MS = 260;
   /** From the door opening to the one coming in stepping through it, as their hand leaves it (OPEN_DOOR). */
@@ -450,6 +488,10 @@
   });
 
   function facingOf(id: LessonCharacterId): Facing {
+    if (behindDesk(id)) {
+      const seat = frame.seats[direction.cast.indexOf(id)];
+      if (seat) return seat.facing;
+    }
     return turned[id] ?? sitting[id] ?? facings[id] ?? resting[id] ?? 1;
   }
 
@@ -510,14 +552,18 @@
       const handle = doorPoint(door, doorSwing.current, HANDLE.u, HANDLE.v);
       return { x: castX(handle.x), y: castY(handle.y) };
     }
+    // A dog's head, where a hand rests: ahead of its middle, on the side it faces.
+    if (as === "top" && isCast(name) && LOOKS[name].dog) {
+      return { x: castMiddle(name) + facingOf(name) * DOG_HEAD.x, y: DOG_HEAD.y };
+    }
     const at = stagePoint(stageContext(state), name, as, facing);
     if (at) return at;
     // A dog's collar, where a lead clips on.
     if (isCast(name) && LOOKS[name].dog) {
       return { x: castMiddle(name) + facingOf(name) * DOG_COLLAR.x, y: DOG_COLLAR.y };
     }
-    const thing = things.find((candidate) => candidate.id === name);
-    const box = thing && thingBoxes(thing)[0];
+    const pointed = pointedThing(things, name);
+    const box = pointed && thingBoxes(pointed.thing)[pointed.copy ?? 0];
     if (!box) return undefined;
     const centre = boxCenter(box);
     return { x: castX(centre.x), y: castY(centre.y) };
@@ -530,6 +576,10 @@
         const at =
           castPoint(name, as, facingOf(id)) ??
           (item && castPoint(name, as, facingOf(id), item.before));
+        return at && toRig(id, at);
+      },
+      pointBefore: (name, as = "grip") => {
+        const at = item && castPoint(name, as, facingOf(id), item.before);
         return at && toRig(id, at);
       },
       meetWith: (other) => {
@@ -610,14 +660,26 @@
     return { offset: beside(frame, id, to, toward, offsets, gap), facing: toward };
   }
 
+  /** How long `id` turns before doing what faces `face`: none if they face it already or sit. */
+  function setOffFor(id: LessonCharacterId, face: Facing | undefined): number {
+    if (face === undefined || seated[id] !== undefined || face === facingOf(id)) return 0;
+    return SET_OFF_MS;
+  }
+
+  /** `id` turns to `face` for something of their own, at once rather than a beat after a speaker. */
+  function turnTo(id: LessonCharacterId, face: Facing): void {
+    turns = { ...turns, [id]: 0 };
+    facings = { ...facings, [id]: face };
+  }
+
   /** How long `go`, `enter`, `leave` or `sit` takes `id`, from where `before` has them. */
   function walkMsFor(id: LessonCharacterId, cue: Cue, before: World): number {
     const was = before.spots[id];
     if (cue.do === "leave") {
       const from = (was ? spotOf(id, was)?.offset : undefined) ?? offsets[id] ?? 0;
-      return walkDuration(
-        stepsFor(offStage(frame, id, cue.to === "left" ? -1 : 1) - from),
-        id,
+      const side = cue.to === "left" ? -1 : 1;
+      return (
+        setOffFor(id, side) + walkDuration(stepsFor(offStage(frame, id, side) - from), id)
       );
     }
     const from =
@@ -625,10 +687,12 @@
         ? spotOf(id, set?.door ?? cue.from ?? "door")?.offset
         : ((was ? spotOf(id, was)?.offset : undefined) ?? offsets[id] ?? 0);
     const to = cue.to ? spotOf(id, cue.to)?.offset : undefined;
+    const pace = cue.run ? RUN_PACE : 1;
     const walk =
       from === undefined || to === undefined || Math.abs(to - from) < 0.05
         ? 0
-        : walkDuration(stepsFor(to - from), id);
+        : (cue.do === "enter" ? 0 : setOffFor(id, to > from ? 1 : -1)) +
+          Math.round(walkDuration(stepsFor(to - from), id) / pace);
     const enter =
       cue.do === "enter" && set?.door
         ? DOOR_MS + TURN_MS * 0.6 + CLOSE_DOOR.ms + TURN_MS
@@ -652,52 +716,61 @@
     return x > middle ? 1 : -1;
   }
 
-  /** Run `then` in `ms`, unless the stage stops or jumps first. */
+  /** Run `then` in `ms` of play time, unless the stage stops or jumps first. */
   function later(ms: number, then: () => void): void {
     const token = actToken;
     actTimers.push(
-      window.setTimeout(
-        () => {
-          if (token === actToken) then();
-        },
-        Math.max(0, ms),
-      ),
+      playClockTimeout(() => {
+        if (token === actToken) then();
+      }, Math.max(0, ms)),
     );
   }
 
-  /** Walk `id` to spot `to`, facing the way they go, then the way the spot does; onto its chair for `sit`. */
   /** Walk `id` off the stage by the `side` edge; once out of sight they are out. */
   function walkOff(id: LessonCharacterId, side: Facing): void {
     const to = offStage(frame, id, side);
-    facings = { ...facings, [id]: side };
-    walkTo(id, to);
-    later(walkDuration(stepsFor(to - (offsets[id] ?? 0)), id), () => {
+    const setOff = setOffFor(id, side);
+    const walk = walkDuration(stepsFor(to - (offsets[id] ?? 0)), id);
+    turnTo(id, side);
+    later(setOff, () => walkTo(id, to));
+    later(setOff + walk, () => {
       outside = [...new Set([...outside, id])];
     });
   }
 
-  function walkToSpot(id: LessonCharacterId, to: string | undefined, sit = false): void {
+  /** Walk `id` to spot `to`, facing the way they go, then the way the spot does; onto its chair for `sit`. Returns ms until they are there. */
+  function walkToSpot(
+    id: LessonCharacterId,
+    to: string | undefined,
+    sit = false,
+    pace = 1,
+  ): number {
     const at = to ? spotOf(id, to) : undefined;
-    if (!at) return;
+    if (!at) return 0;
     const from = offsets[id] ?? 0;
     const moves = Math.abs(at.offset - from) > 0.05;
     const walking = at.offset > from ? 1 : -1;
-    if (moves) facings = { ...facings, [id]: walking };
-    walkTo(id, at.offset);
-    const there = moves ? walkDuration(stepsFor(at.offset - from), id) : 0;
+    const setOff = moves ? setOffFor(id, walking) : 0;
+    if (moves) turnTo(id, walking);
+    if (setOff) later(setOff, () => walkTo(id, at.offset, pace));
+    else walkTo(id, at.offset, pace);
+    const there = moves
+      ? setOff + Math.round(walkDuration(stepsFor(at.offset - from), id) / pace)
+      : 0;
     later(there, () => (facings = { ...facings, [id]: at.facing }));
-    if (!sit || at.chair === undefined) return;
+    if (!sit || at.chair === undefined) return there;
     // Back to the chair before lowering onto it: a bow begun mid-turn bends away from the table.
     const turned = moves && at.facing !== walking ? SIT_TURN_MS : 0;
     const chair = at.chair;
     perched = { ...perched, [id]: chair };
     later(there + turned, () => (seated = { ...seated, [id]: chair }));
-    if (frame.desk) return;
+    if (frame.desk) return there;
     // Down on it, they scoot it in to the table under them.
     later(there + turned + sitMs(id), () => {
       void chairsOut[chair]?.set(0, { duration: SCOOT_MS });
       playFoley("chair");
     });
+    return there;
   }
 
   function chairOut(chair: number | undefined): number {
@@ -734,7 +807,7 @@
   function performHeard(id: LessonCharacterId, motion: Motion, start: number): void {
     perform(id, motion, start);
     for (const { at, id: sound } of motion.sounds ?? [])
-      later(start + at - performance.now(), () => playFoley(sound));
+      later(start + at - playClockNow(), () => playFoley(sound));
   }
 
   /** On from the edge spot `from` (a park, a room with no door drawn), walking to `to`. */
@@ -766,7 +839,7 @@
     swingDoor(true);
     shaded = [...shaded, id];
     doorway = [...doorway, id];
-    performHeard(id, OPEN_DOOR, performance.now());
+    performHeard(id, OPEN_DOOR, playClockNow());
     later(DOOR_OPENING_MS, () => {
       outside = outside.filter((other) => other !== id);
     });
@@ -778,14 +851,13 @@
         later(DOOR_SHUT_MS, () => playFoley("door-shut"));
         return;
       }
-      walkToSpot(id, to);
       // In, they turn to the door and push it to behind them, then face the room.
-      const walk = walkDuration(stepsFor(inside.offset - at.offset), id);
+      const walk = walkToSpot(id, to);
       later(walk, () => {
         const handle = castPoint("door-handle", "grip", facingOf(id));
         const back: Facing = handle && handle.x < castMiddle(id) ? -1 : 1;
         facings = { ...facings, [id]: back };
-        performHeard(id, CLOSE_DOOR, performance.now() + TURN_MS * 0.6);
+        performHeard(id, CLOSE_DOOR, playClockNow() + TURN_MS * 0.6);
         later(TURN_MS * 0.6 + CLOSE_DOOR.takes!, () => swingDoor(false));
         later(TURN_MS * 0.6 + CLOSE_DOOR.ms, () => {
           facings = { ...facings, [id]: inside.facing };
@@ -794,7 +866,8 @@
     });
   }
 
-  function startCue(item: ScheduledCue): void {
+  /** Start `item`'s motion; returns how long its hands wait while the body turns to the thing. */
+  function startCue(item: ScheduledCue): number {
     const { cue, who, motion } = item;
 
     // In the dark it simply happens: nobody is seen doing it.
@@ -803,33 +876,54 @@
       if (acts[who]) acts = { ...acts, [who]: undefined };
       placeSpots(world ?? item.after, [who]);
       if (carrying(who)) carry(who);
-      return;
+      return 0;
     }
+    const face = faceToward(who, motion.face ?? cue.what);
+    // A hand-over is timed with the other hand: neither waits for a turn.
+    const lead = item.partner || cue.do === "give" ? 0 : setOffFor(who, face);
     switch (cue.do) {
       case "camera":
-        return;
+        return 0;
       case "enter":
         comeIn(who, cue.to, cue.from);
-        return;
+        return 0;
       case "leave":
         walkOff(who, cue.to === "left" ? -1 : 1);
-        return;
+        return 0;
       case "go":
         stepDown(who);
-        walkToSpot(who, cue.to);
-        return;
+        walkToSpot(who, cue.to, false, cue.run ? RUN_PACE : 1);
+        return 0;
       case "sit":
         stepDown(who);
         walkToSpot(who, cue.to, true);
-        return;
+        return 0;
       case "face": {
         const face = faceToward(who, cue.to);
         if (face) facings = { ...facings, [who]: face };
-        return;
+        return 0;
+      }
+      case "point": {
+        // Acted, a thing of the backdrop lights up and draws the others' eyes only on its cue, not on its word.
+        const pointed = cue.to ? pointedThing(things, cue.to) : undefined;
+        if (pointed) {
+          light(pointed.thing.id, pointed.copy);
+          lookAt({ kind: "thing", id: pointed.thing.id, copy: pointed.copy });
+        }
+        break;
       }
       case "throw":
-        later(motion.takes ?? 0, () => throwBall(who, facingOf(who), heldAt));
+        later(lead + (motion.takes ?? 0), () => throwBall(who, facingOf(who), heldAt));
         break;
+      case "slide": {
+        const what = cue.what ?? "";
+        gliding = { ...gliding, [what]: motion.glide ?? 0 };
+        later(lead + (motion.takes ?? 0) + (motion.glide ?? 0) + 50, () => {
+          const { [what]: _, ...rest } = gliding;
+          gliding = rest;
+        });
+        break;
+      }
       case "skip":
         dimmed = true;
         later(motion.ms, () => {
@@ -853,7 +947,6 @@
       }
     }
 
-    const face = faceToward(who, motion.face ?? cue.what);
     const handsFree = motion.keys.every((key) => !key.lead && !key.rear);
     const behind =
       face !== undefined && seated[who] !== undefined && face !== facingOf(who);
@@ -864,12 +957,12 @@
       glancing = [...glancing.filter((other) => other !== who), who];
       if (!handsFree) played = overShoulder(motion);
     } else if (face && seated[who] !== undefined) turned = { ...turned, [who]: face };
-    else if (face) facings = { ...facings, [who]: face };
-    perform(who, played, item.start, item);
-    for (const { at, id } of motion.sounds ?? []) later(at, () => playFoley(id));
+    else if (face) turnTo(who, face);
+    perform(who, played, item.start + lead, item);
+    for (const { at, id } of motion.sounds ?? []) later(lead + at, () => playFoley(id));
     for (const effect of motion.effects ?? []) {
-      later(effect.from, () => showEffect(who, effect, true));
-      later(effect.until, () => showEffect(who, effect, false));
+      later(lead + effect.from, () => showEffect(who, effect, true));
+      later(lead + effect.until, () => showEffect(who, effect, false));
     }
     for (const contact of motion.contacts ?? []) {
       if ((contact.tip !== "in" && contact.tip !== "down") || !contact.to) continue;
@@ -877,9 +970,10 @@
       // From a little before the tip reaches the rim to a little after it leaves, so no frame shows it in front of the pot.
       // A pot stood in the sink is lifted over the worktop in the 400 ms either side, and is over it by then.
       const margin = contact.tip === "in" ? 200 : 300;
-      later(contact.from - margin, () => sink(who, contact.hand, into));
-      later(contact.until + margin, () => sink(who, contact.hand, undefined));
+      later(lead + contact.from - margin, () => sink(who, contact.hand, into));
+      later(lead + contact.until + margin, () => sink(who, contact.hand, undefined));
     }
+    return lead;
   }
 
   /** A one-handed motion done with the rear hand instead, the eyes going back with it. */
@@ -947,7 +1041,7 @@
     const around = surroundings(id, item);
     // A new motion takes over from the one still going over a moment, so a spoon held out is handed over from where it is, not from a dropped arm.
     const previous = acts[id];
-    const from = previous && performance.now() < previous.until ? previous : undefined;
+    const from = previous && playClockNow() < previous.until ? previous : undefined;
     const act: Act = {
       line: motion.hold === "line",
       until: motion.hold ? Number.POSITIVE_INFINITY : start + motion.ms,
@@ -966,7 +1060,7 @@
     acts = { ...acts, [id]: act };
     // Done: still holding the pot, the arms stay on its handles; turned on a chair, back round.
     if (!motion.hold) {
-      later(start + motion.ms - performance.now(), () => {
+      later(start + motion.ms - playClockNow(), () => {
         if (acts[id] !== act) return;
         if (carrying(id)) carry(id);
         unturn(id);
@@ -995,7 +1089,7 @@
           { at: 1, ...hold },
         ],
       },
-      performance.now(),
+      playClockNow(),
     );
   }
 
@@ -1005,7 +1099,7 @@
       [LessonCharacterId, Act | undefined]
     >) {
       if (act?.line)
-        perform(id, { ms: 500, keys: [{ at: 0 }, { at: 500 }] }, performance.now());
+        perform(id, { ms: 500, keys: [{ at: 0 }, { at: 500 }] }, playClockNow());
     }
   }
 
@@ -1018,12 +1112,15 @@
 
   /** Run cues on the clock: each starts on time and changes the world as it takes effect. */
   function runCues(items: readonly ScheduledCue[]): void {
-    const now = performance.now();
+    const now = playClockNow();
     for (const item of items) {
-      later(item.start - now, () => startCue(item));
-      if (item.cue.on === "dark" || item.partner) continue;
       const takes = WALKING.has(item.cue.do) ? 0 : (item.motion.takes ?? item.motion.ms);
-      later(item.start + takes - now, () => takeEffect(item));
+      const effects = item.cue.on !== "dark" && !item.partner;
+      later(item.start - now, () => {
+        const lead = startCue(item);
+        if (effects) later(lead + takes, () => takeEffect(item));
+      });
+      if (!effects) continue;
       if (item.cue.do === "camera") continue;
       busy[item.who] = Math.max(busy[item.who] ?? 0, item.end);
       actsEnd = Math.max(actsEnd, item.motion.hold ? item.start + takes : item.end);
@@ -1032,11 +1129,12 @@
 
   function clearActs(): void {
     actToken += 1;
-    for (const timer of actTimers) window.clearTimeout(timer);
+    for (const cancel of actTimers) cancel();
     actTimers = [];
     busy = {};
     actsEnd = 0;
     running = [];
+    gliding = {};
     pouring = {};
     sunk = {};
     dimmed = false;
@@ -1093,6 +1191,7 @@
     const inside = contents(world!, id);
     return {
       kind: state.kind,
+      bitten: state.bitten,
       fill: state.fill,
       heat: state.heat,
       cut: state.cut,
@@ -1189,7 +1288,7 @@
     const cues = line.act.slice(0, count);
     try {
       const ms = leadTime(cues, line.characterId, world, walkMsFor, set);
-      const at = performance.now();
+      const at = playClockNow();
       const times: LineTimes = {
         lead: at,
         speech: at + ms,
@@ -1216,7 +1315,7 @@
 
   /** When everything the line's cues do is done: the next line waits for it. */
   function actsLeft(): number {
-    return Math.max(0, actsEnd - performance.now());
+    return Math.max(0, actsEnd - playClockNow());
   }
 
   /** The world as the line's leading cues leave it. */
@@ -1266,10 +1365,10 @@
    * neither side, so the card covers its middle rather than leave the stage.
    */
   const card = $derived.by(() => {
-    if (!pickedThing) return undefined;
+    if (!pickedThing || !pickedParsed) return undefined;
 
     const align = backdropAlign(setting);
-    const { box } = pickedThing;
+    const { box } = pickedParsed;
     const top = backdropToStage(box, stageWidth, stageHeight, align);
     const bottom = backdropToStage(
       { x: box.x + box.width / 2, y: box.y + box.height },
@@ -1277,12 +1376,7 @@
       stageHeight,
       align,
     );
-    const centre = backdropToStage(
-      thingCenter(pickedThing),
-      stageWidth,
-      stageHeight,
-      align,
-    );
+    const centre = backdropToStage(boxCenter(box), stageWidth, stageHeight, align);
     const lowest = stageHeight - cardHeight - 8;
     const under = bottom.y + 10;
     const over = top.y - 10 - cardHeight;
@@ -1314,6 +1408,8 @@
       lit = [];
       place(0);
     });
+    // After the cast has been seated unseen, and a frame so the fade has a start.
+    void tick().then(() => requestAnimationFrame(() => (revealed = true)));
   });
 
   /** Walk a figure to `offset` figure widths from its mark, a step at a time. */
@@ -1331,7 +1427,13 @@
     striding = [...striding.filter((other) => other !== id), id];
     later(ms, () => (striding = striding.filter((other) => other !== id)));
     const passed = passedBy(id, from, offset);
-    if (passed.length || passesFurniture(id, from, offset)) {
+    if (passed.length && passed.every((other) => seated[other] !== undefined)) {
+      passingBehind = [...passingBehind.filter((other) => other !== id), id];
+      // Their own seat is behind the desk too: stepping back out in front, they crossed the mics.
+      later(ms, () => {
+        passingBehind = passingBehind.filter((other) => other !== id);
+      });
+    } else if (passed.length || passesFurniture(id, from, offset)) {
       passing = [...passing.filter((other) => other !== id), id];
       // Someone at the counter or the stove has their back to it: stepping back, they went into it.
       const room = passed.filter((other) => !backed(other));
@@ -1345,7 +1447,7 @@
     }
     // Reduced motion puts the figure there at once, so nobody waits on the walk.
     if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      walkEndsAt[id] = performance.now() + ms;
+      walkEndsAt[id] = playClockNow() + ms;
       playSteps(steps, stepMs(id) / pace, {
         ground: PLACES[setting].ground,
         shoes: LOOKS[id].shoes,
@@ -1422,7 +1524,7 @@
   /** Who turns to the one talking: in an acted scene, only those not at a spot of the set and not busy with a cue. */
   function turning(facing: CastFacing | undefined): CastFacing {
     if (!acted || !facing) return facing ?? {};
-    const now = performance.now();
+    const now = playClockNow();
     return Object.fromEntries(
       Object.entries(facing).filter(
         ([id]) =>
@@ -1466,7 +1568,7 @@
   }
 
   /** Moves the ball along its arc: level travel, rising and then dropping a stage-fifth. */
-  function arc(node: HTMLElement | SVGElement, path: { from: Point; to: Point }): void {
+  function arc(node: SVGElement | HTMLElement, path: { from: Point; to: Point }): void {
     const { from, to } = path;
     const rise = stageHeight * 0.22;
     const frames = Array.from({ length: 9 }, (_, step) => {
@@ -1516,29 +1618,46 @@
     umbrellas = Object.fromEntries(Object.keys(umbrellas).map((id) => [id, false]));
   }
 
+  /** Where an offstage figure stands before walking on, or after leaving. */
+  function entrySpot(id: LessonCharacterId): { offset: number; facing: Facing } {
+    for (const line of lines) {
+      const enterCue = line.act?.find(
+        (cue) => cue.do === "enter" && actorOfCue(cue, line.characterId) === id,
+      );
+      if (enterCue) {
+        const at = enterCue.from ? spotOf(id, enterCue.from) : undefined;
+        if (at) return at;
+        const side: Facing = enterCue.from?.includes("left") ? -1 : 1;
+        return {
+          offset: offStage(frame, id, side),
+          facing: (side === -1 ? 1 : -1) as Facing,
+        };
+      }
+    }
+    for (const line of lines) {
+      const leaveCue = line.act?.find(
+        (cue) => cue.do === "leave" && actorOfCue(cue, line.characterId) === id,
+      );
+      if (leaveCue) {
+        const side: Facing = leaveCue.to === "left" ? -1 : 1;
+        return { offset: offStage(frame, id, side), facing: side };
+      }
+    }
+    return { offset: offStage(frame, id, 1), facing: -1 };
+  }
+
   /** Put everyone where line `index` finds them, as if the scene had played to it, without walking there. */
   export function place(index: number): void {
     // Nobody walks there, so no walk scheduled before should go on sounding.
     stopCues();
-    const placed = blockingBefore(
-      index,
-      lines.map((line) => line.characterId),
-      stagings,
-      frame,
-    );
 
     umbrellas = {};
-    facings = placed.facings;
-    offsets = placed.offsets;
-    seated = placed.seated;
-    settleChairs();
-    tram = placed.tram;
-    aboard = placed.aboard;
     walks = {};
     walkEndsAt = {};
     striding = [];
     passing = [];
     passingDeep = [];
+    passingBehind = [];
     roomFor = [];
     doorway = [];
     heldAt = index - 1;
@@ -1552,9 +1671,75 @@
     acts = {};
     turned = {};
     glancing = [];
+    shaded = [];
+
+    if (acted) {
+      world = actedWorlds?.[Math.min(index, actedWorlds.length - 1)];
+      tram = "away";
+      aboard = false;
+      outside = world?.out ?? [];
+
+      const nextOffsets: Offsets = {};
+      const nextFacings: Partial<Record<LessonCharacterId, Facing>> = {};
+      const nextSeated: Partial<Record<LessonCharacterId, number>> = {};
+
+      for (const id of direction.cast) {
+        if (world?.out?.includes(id)) {
+          const entry = entrySpot(id);
+          nextOffsets[id] = entry.offset;
+          nextFacings[id] = entry.facing;
+        } else if (world?.spots[id]) {
+          const at = spotOf(id, world.spots[id]);
+          if (at) {
+            nextOffsets[id] = at.offset;
+            nextFacings[id] = at.facing;
+            if (world.seated?.includes(id) && at.chair !== undefined) {
+              nextSeated[id] = at.chair;
+            }
+          } else {
+            nextOffsets[id] = 0;
+            nextFacings[id] = resting[id] ?? 1;
+          }
+        } else if (behindDesk(id)) {
+          const chairIndex = direction.cast.indexOf(id);
+          const chair = frame.seats[chairIndex];
+          if (chair) {
+            nextOffsets[id] = onSeat(frame, id, chair.x);
+            nextFacings[id] = chair.facing;
+            nextSeated[id] = chairIndex;
+          } else {
+            nextOffsets[id] = 0;
+            nextFacings[id] = resting[id] ?? 1;
+          }
+        } else {
+          nextOffsets[id] = 0;
+          nextFacings[id] = resting[id] ?? 1;
+        }
+      }
+
+      offsets = nextOffsets;
+      facings = nextFacings;
+      seated = nextSeated;
+      settleChairs();
+      for (const id of direction.cast) if (carrying(id)) carry(id);
+      return;
+    }
+
+    const placed = blockingBefore(
+      index,
+      lines.map((line) => line.characterId),
+      stagings,
+      frame,
+    );
+
+    facings = placed.facings;
+    offsets = placed.offsets;
+    seated = placed.seated;
+    settleChairs();
+    tram = placed.tram;
+    aboard = placed.aboard;
     world = actedWorlds?.[Math.min(index, actedWorlds.length - 1)];
     outside = [];
-    shaded = [];
     if (!world) return;
     placeSpots(world);
     for (const id of direction.cast) if (carrying(id)) carry(id);
@@ -1614,7 +1799,7 @@
   export function light(id: string, copy?: number): void {
     const key = litKey(id, copy);
     lit = [...lit, key];
-    window.setTimeout(() => {
+    playClockTimeout(() => {
       const at = lit.indexOf(key);
       if (at !== -1) lit = lit.toSpliced(at, 1);
     }, LIT_MS);
@@ -1638,8 +1823,11 @@
     if (!to || !line) return;
 
     const token = playToken;
+    const now = playClockNow();
     for (const id of direction.cast) {
       if (id === line.characterId) continue;
+      // Someone on their way somewhere, or busy with their hands, keeps at it: turned to look while walking, they walked backwards.
+      if ((busy[id] ?? 0) > now) continue;
       const mark = standing(markOf(frame, id), offsets[id]);
       if (mark.left + mark.width < 0 || mark.left > stageWidth) continue;
 
@@ -1650,9 +1838,9 @@
       gesture(id, "glance");
     }
 
-    window.setTimeout(() => {
+    playClockTimeout(() => {
       if (token !== playToken) return;
-      facings = { ...facings, ...stagings[heldAt]?.facing };
+      facings = { ...facings, ...turning(stagings[heldAt]?.facing) };
     }, gestureDuration("glance"));
   }
 
@@ -1679,16 +1867,16 @@
     plan: LinePlan | undefined,
   ): LinePlan | undefined {
     if (!plan || deskMic(id, world, undefined)?.side !== 1) return plan;
-    const beats = plan.beats.map((beat) =>
-      beat.gesture === "wave"
-        ? { ...beat, gesture: "waveOut" as const }
-        : beat.point
-          ? {
-              ...beat,
-              point: { ...beat.point, reach: "near" as const, rise: DESK_POINT_RISE },
-            }
-          : beat,
-    );
+    const beats = plan.beats.map((beat) => {
+      let b = beat;
+      if (b.gesture === "wave") b = { ...b, gesture: "waveOut" };
+      if (b.point)
+        b = {
+          ...b,
+          point: { ...b.point, reach: "near" as const, rise: DESK_POINT_RISE },
+        };
+      return b;
+    });
     return { ...plan, beats };
   }
 
@@ -1705,7 +1893,7 @@
     const people = [lines[index]?.characterId, stagings[index]?.addressee];
     return Math.max(
       0,
-      ...people.map((id) => (id ? (walkEndsAt[id] ?? 0) - performance.now() : 0)),
+      ...people.map((id) => (id ? (walkEndsAt[id] ?? 0) - playClockNow() : 0)),
     );
   }
 
@@ -1714,7 +1902,7 @@
     const plan = atDesk(id, gesturePlan(gesture));
     const cue = (actors[id]?.cue ?? 0) + 1;
     actors[id] = { cue, plan, talking: true };
-    window.setTimeout(() => {
+    playClockTimeout(() => {
       const actor = actors[id];
       if (actor?.cue === cue) actor.talking = false;
     }, plan.durationMs);
@@ -1724,13 +1912,43 @@
     clearActs();
     playToken += 1;
     stopCues();
-    window.clearTimeout(lineTimer);
-    window.clearTimeout(bubbleTimer);
+    lineTimer?.();
+    lineTimer = undefined;
+    bubbleTimer?.();
+    bubbleTimer = undefined;
     bubble = undefined;
     stopStoryLineAudio();
     for (const actor of Object.values(actors)) actor.talking = false;
     relaying = undefined;
+    walks = {};
+    walkEndsAt = {};
+    striding = [];
+    flight = undefined;
   }
+
+  /**
+   * Pauses the stage's CSS and Web Animations (rain, a thrown ball, a fade),
+   * which run on the wall clock. Walks, turns and cues follow play time instead.
+   */
+  export function freeze(): void {
+    if (!root) return;
+    for (const animation of root.getAnimations({ subtree: true })) {
+      if (animation.playState !== "running") continue;
+      animation.pause();
+      heldAnimations.push(animation);
+    }
+  }
+
+  /** Resumes the animations `freeze` paused. */
+  export function thaw(): void {
+    for (const animation of heldAnimations) {
+      if (animation.playState === "paused") animation.play();
+    }
+    heldAnimations = [];
+  }
+
+  // An effect's teardown, not onDestroy: onDestroy also runs after a server render, where there is no window.
+  $effect(() => () => untrack(stop));
 
   /**
    * Walk `id` on from the `from` edge to their mark, as someone coming over
@@ -1752,17 +1970,18 @@
     facings = { ...facings, ...turned, [id]: from === 1 ? -1 : 1 };
     // Counted from now, so whoever waits on the walk waits from the start.
     if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      walkEndsAt[id] = performance.now() + walkDuration(stepsFor(offsets[id] ?? 0), id);
+      walkEndsAt[id] = playClockNow() + walkDuration(stepsFor(offsets[id] ?? 0), id);
     }
-    // The jump off stage has to paint before the walk back, or it animates too.
-    window.requestAnimationFrame(() => walkTo(id, 0));
+    // The jump off stage has to paint before the walk back, or it animates too. On play time, so a pause holds it.
+    playClockFrame(() => walkTo(id, 0));
   }
 
   /** A line in a speech bubble over a figure, for words that have no clip: a wrong guess said aloud. */
   export function say(id: LessonCharacterId, text: string, ms = BUBBLE_MS): void {
-    window.clearTimeout(bubbleTimer);
+    bubbleTimer?.();
     bubble = { characterId: id, cue: (bubble?.cue ?? 0) + 1, text };
-    bubbleTimer = window.setTimeout(() => {
+    bubbleTimer = playClockTimeout(() => {
+      bubbleTimer = undefined;
       bubble = undefined;
     }, ms);
   }
@@ -1787,7 +2006,7 @@
 
     playToken += 1;
     const token = playToken;
-    spoken = { at: performance.now(), durationMs: plan.durationMs, rate };
+    spoken = { at: playClockNow(), durationMs: plan.durationMs, rate };
     cueActor(id, plan);
     playStoryLineAudio(line.src, line.slovak, {
       onEnded: () => {
@@ -1801,14 +2020,14 @@
 
   /**
    * Where the line being said is, for every figure acting it out: its clip,
-   * or with none playing (no clip, or sound off) the wall clock at the
+   * or with none playing (no clip, or sound off) play time at the
    * line's rate, so a slowed line and the timer that ends it agree.
    */
   export function clock(): SpeechClock | undefined {
     return (
       storyAudioClock() ?? {
         durationMs: spoken.durationMs,
-        timeMs: (performance.now() - spoken.at) * spoken.rate,
+        timeMs: (playClockNow() - spoken.at) * spoken.rate,
       }
     );
   }
@@ -1838,13 +2057,13 @@
     for (const actor of Object.values(actors)) actor.talking = false;
     const caller = direction.lines[index]?.call;
     relaying = line.overPhone && caller && LOOKS[caller].robot ? caller : undefined;
-    spoken = { at: performance.now(), durationMs: plan?.durationMs ?? 1600, rate };
+    spoken = { at: playClockNow(), durationMs: plan?.durationMs ?? 1600, rate };
     // A voice over the phone has nobody on stage to move.
     const speaker =
       line.characterId && direction.cast.includes(line.characterId)
         ? line.characterId
         : null;
-    front = staging?.audience && speaker ? speaker : undefined;
+    front = staging?.audience && speaker && !behindDesk(speaker) ? speaker : undefined;
     turns = turnDelays(direction.cast, speaker);
     facings = { ...facings, ...turning(staging?.facing) };
     // Aimed from where the speaker stands before anyone walks this line.
@@ -1853,17 +2072,23 @@
         ? aimLine(speaker, plan, Boolean(direction.lines[index]?.held[speaker]))
         : undefined;
     const standingAt = speaker ? offsets[speaker] : undefined;
-    if (staging) {
+    if (!acted && staging) {
       block(startLine(blocking(), staging, speaker, frame), staging.returns?.characterId);
     }
-    // A speaker walking somewhere faces the way they go, not where they point.
-    if (speaker && aimed?.facing && offsets[speaker] === standingAt) {
+    // A speaker walking somewhere faces the way they go, not where they point. A walk led in before the line
+    // has not moved them yet while they turn to set off, so it shows as busy, not as a new place.
+    if (
+      speaker &&
+      aimed?.facing &&
+      offsets[speaker] === standingAt &&
+      (busy[speaker] ?? 0) <= playClockNow()
+    ) {
       facings = { ...facings, [speaker]: aimed.facing };
     }
     if (speaker && aimed) cueActor(speaker, aimed.plan);
 
     if (acted && line.act && world) {
-      const now = performance.now();
+      const now = playClockNow();
       const skip = leading?.index === index ? leadingCount(line.act) : 0;
       const times: LineTimes = {
         lead: leading?.index === index ? leading.at : now,
@@ -1903,7 +2128,7 @@
       relaying = undefined;
       if (staging?.gives) handedAt = index;
       if (staging?.throws && speaker) throwBall(speaker, staging.throws.side, index);
-      if (staging)
+      if (!acted && staging)
         block(endLine(blocking(), staging, speaker, frame), staging.throws?.fetcher);
       if (staging?.boards) foldUmbrellas();
       if (stagings[index + 1]?.arrives) playTramCue();
@@ -1926,10 +2151,13 @@
       return;
     }
 
-    // No clip yet: run the line for its text-timed length on the wall clock.
+    // No clip yet: run the line for its text-timed length on play time.
     stopStoryLineAudio();
-    window.clearTimeout(lineTimer);
-    lineTimer = window.setTimeout(onEnded, spoken.durationMs / rate);
+    lineTimer?.();
+    lineTimer = playClockTimeout(() => {
+      lineTimer = undefined;
+      onEnded();
+    }, spoken.durationMs / rate);
   }
 
   /** A tap anywhere but the card or a thing puts the card away; so does Escape. */
@@ -1957,7 +2185,7 @@
 <svelte:window onpointerdown={closeCard} onkeydown={closeCard} />
 
 <!-- The word card sits outside the clipped stage so it can hang past its edge on a short stage. -->
-<div class="relative">
+<div class="relative" bind:this={root}>
   <div
     class={cx(
       // Twice as wide as tall up to 300px, so a phone sees most of the place rather than a slice of its middle.
@@ -1968,7 +2196,7 @@
     bind:clientHeight={stageHeight}
   >
     <div
-      class="absolute inset-0 isolate origin-top-left transition-transform duration-900 ease-in-out"
+      class="absolute inset-0 isolate origin-top-left transition-transform duration-900 ease-in-out motion-reduce:transition-none"
       style:transform={camera}
     >
       <StickBackdrop
@@ -1991,118 +2219,145 @@
       />
       <StickWeather height={stageHeight} {mood} {setting} width={stageWidth} />
 
-      <!-- Unmeasured, the server's render and the first frame would draw the cast tiny in a corner. -->
-      {#if measured}
-        {#if set && world}
-          <StickSet {geometry} layer="behind" {running} view={castView} {world} />
-        {/if}
-        {#each PLACES[setting].furniture ?? [] as piece, index (index)}
-          {@const chair = (PLACES[setting].furniture ?? [])
-            .slice(0, index)
-            .filter(({ kind }) => kind === "chair").length}
-          <div
-            class="pointer-events-none absolute"
-            style:bottom="{FLOOR}px"
-            style:left="{stageX(frame, { x: piece.x, y: 0 }) -
-              frame.figureWidth / 2 -
-              (piece.kind === 'chair'
-                ? (piece.facing ?? 1) * chairOut(chair) * unit
-                : 0)}px"
-            style:width="{frame.figureWidth}px"
-          >
-            <StickFurniture
-              {piece}
-              id={piece.kind === "chair" ? `chair-${chair}` : undefined}
+      <!-- The place is in the server's HTML, so the first paint shows it. Only the cast
+           waits to be measured and seated, then fades in. -->
+      <div
+        class="pointer-events-none absolute inset-0 transition-[opacity,filter] duration-900 ease-in-out motion-reduce:transition-none"
+        style:opacity={revealed ? 1 : 0}
+        style:filter={revealed ? "none" : "brightness(0.78) saturate(0.8)"}
+      >
+        <!-- Unmeasured, the server's render and the first frame would draw the cast tiny in a corner. -->
+        {#if measured}
+          {#if set && world}
+            <StickSet
+              {geometry}
+              {gliding}
+              layer="behind"
+              {running}
+              view={castView}
+              {world}
             />
-          </div>
-        {/each}
-        {#if frame.desk}
-          <StudioDesk
-            height={stageHeight}
-            layer="behind"
-            seats={frame.seats}
-            {unit}
-            width={stageWidth}
-          />
-        {/if}
-        {#each direction.cast as characterId (characterId)}
-          <div
-            class="pointer-events-none absolute transition-[transform,opacity,filter] ease-linear"
-            style:bottom="{FLOOR}px"
-            style:left="{frame.marks[characterId] ?? 0}px"
-            style:width="{frame.figureWidth}px"
-            style:transform="translateX({(offsets[characterId] ?? 0) * 100}%)"
-            style:transition-duration="{walks[characterId]?.ms ?? 0}ms, 0ms, 600ms"
-            style:opacity={outside.includes(characterId) ? 0 : 1}
-            style:filter={shaded.includes(characterId) ? "brightness(0.9)" : "none"}
-            style:z-index={passing.includes(characterId)
-              ? 4
-              : striding.includes(characterId)
-                ? 2
-                : 1}
-          >
+          {/if}
+          {#each PLACES[setting].furniture ?? [] as piece, index (index)}
+            {@const chair = (PLACES[setting].furniture ?? [])
+              .slice(0, index)
+              .filter(({ kind }) => kind === "chair").length}
             <div
-              class="origin-bottom transition-transform duration-300 ease-in-out"
-              style:transform={passingDeep.includes(characterId)
-                ? `translateY(${frame.figureWidth * DEEP_LANE}px) scale(${DEEP_SCALE})`
-                : passing.includes(characterId)
-                  ? `translateY(${frame.figureWidth * PASS_LANE}px) scale(${PASS_SCALE})`
-                  : doorway.includes(characterId)
-                    ? `translateY(${doorLane * unit}px)`
-                    : roomFor.includes(characterId)
-                      ? `translateY(${frame.figureWidth * ROOM_LANE}px) scale(${ROOM_SCALE})`
-                      : "none"}
+              class="pointer-events-none absolute"
+              style:bottom="{FLOOR}px"
+              style:left="{stageX(frame, { x: piece.x, y: 0 }) -
+                frame.figureWidth / 2 -
+                (piece.kind === 'chair'
+                  ? (piece.facing ?? 1) * chairOut(chair) * unit
+                  : 0)}px"
+              style:width="{frame.figureWidth}px"
             >
-              <StickFigureActor
-                {characterId}
-                {clock}
-                cue={actors[characterId]?.cue ?? 0}
-                facing={facingOf(characterId)}
-                front={front === characterId || glancing.includes(characterId)}
-                onbeat={onBeat}
-                plan={actors[characterId]?.plan}
-                held={acted ? undefined : heldBy(characterId)}
-                doing={acts[characterId]}
-                hands={handsOf(characterId)}
-                seated={seated[characterId] !== undefined}
-                out={chairOut(perched[characterId])}
-                atTable={perched[characterId] !== undefined}
-                atDesk={behindDesk(characterId)}
-                mic={deskMic(characterId, world, undefined)?.side}
-                onCall={acted
-                  ? onCall(characterId)
-                  : direction.lines[heldAt]?.call === characterId}
-                relaying={relaying === characterId}
-                dress={dressOf(characterId)}
-                talking={actors[characterId]?.talking ?? false}
-                turnDelay={turns[characterId] ?? 0}
-                walk={walks[characterId]}
+              <StickFurniture
+                {piece}
+                id={piece.kind === "chair" ? `chair-${chair}` : undefined}
               />
             </div>
-          </div>
-        {/each}
-        {#if leashed}
-          <!-- Short enough to hang in a gentle dip at heel and pull straight a step further off. -->
-          <StickLeash length={frame.figureWidth * 0.8} />
-        {/if}
-        <div class="pointer-events-none absolute inset-0 z-3">
+          {/each}
           {#if frame.desk}
             <StudioDesk
               height={stageHeight}
-              layer="front"
-              mugs={!Object.values(world?.objects ?? {}).some(
-                ({ kind }) => kind === "cup",
-              )}
+              layer="behind"
               seats={frame.seats}
               {unit}
               width={stageWidth}
             />
           {/if}
-          {#if set && world}
-            <StickSet {geometry} layer="front" {running} view={castView} {world} />
+          {#each direction.cast as characterId (characterId)}
+            <div
+              class="pointer-events-none absolute transition-[transform,opacity,filter] ease-linear"
+              style:bottom="{FLOOR}px"
+              style:left="{frame.marks[characterId] ?? 0}px"
+              style:width="{frame.figureWidth}px"
+              style:transform="translateX({(offsets[characterId] ?? 0) * 100}%)"
+              style:transition-duration="{walks[characterId]?.ms ?? 0}ms, 0ms, 600ms"
+              style:opacity={outside.includes(characterId) ? 0 : 1}
+              style:filter={shaded.includes(characterId) ? "brightness(0.9)" : "none"}
+              style:z-index={passingBehind.includes(characterId)
+                ? 0
+                : passing.includes(characterId)
+                  ? 4
+                  : striding.includes(characterId)
+                    ? 2
+                    : 1}
+            >
+              <div
+                class="origin-bottom transition-transform duration-300 ease-in-out"
+                style:transform={passingBehind.includes(characterId)
+                  ? `translateY(${frame.figureWidth * BEHIND_LANE}px) scale(${BEHIND_SCALE})`
+                  : passingDeep.includes(characterId)
+                    ? `translateY(${frame.figureWidth * DEEP_LANE}px) scale(${DEEP_SCALE})`
+                    : passing.includes(characterId)
+                      ? `translateY(${frame.figureWidth * PASS_LANE}px) scale(${PASS_SCALE})`
+                      : doorway.includes(characterId)
+                        ? `translateY(${doorLane * unit}px)`
+                        : roomFor.includes(characterId)
+                          ? `translateY(${frame.figureWidth * ROOM_LANE}px) scale(${ROOM_SCALE})`
+                          : "none"}
+              >
+                <StickFigureActor
+                  {characterId}
+                  {clock}
+                  cue={actors[characterId]?.cue ?? 0}
+                  facing={facingOf(characterId)}
+                  front={front === characterId || glancing.includes(characterId)}
+                  onbeat={onBeat}
+                  plan={actors[characterId]?.plan}
+                  held={acted ? undefined : heldBy(characterId)}
+                  doing={acts[characterId]}
+                  hands={handsOf(characterId)}
+                  seated={seated[characterId] !== undefined}
+                  arrived={revealed}
+                  out={chairOut(perched[characterId])}
+                  atTable={perched[characterId] !== undefined}
+                  atDesk={behindDesk(characterId)}
+                  mic={deskMic(characterId, world, undefined)?.side}
+                  onCall={acted
+                    ? onCall(characterId)
+                    : direction.lines[heldAt]?.call === characterId}
+                  relaying={relaying === characterId}
+                  dress={dressOf(characterId)}
+                  talking={actors[characterId]?.talking ?? false}
+                  turnDelay={turns[characterId] ?? 0}
+                  walk={walks[characterId]}
+                />
+              </div>
+            </div>
+          {/each}
+          {#if leashed}
+            <!-- Short enough to hang in a gentle dip at heel and pull straight a step further off. -->
+            <StickLeash length={frame.figureWidth * 0.8} />
           {/if}
-        </div>
-      {/if}
+          <div class="pointer-events-none absolute inset-0 z-3">
+            {#if frame.desk}
+              <StudioDesk
+                height={stageHeight}
+                layer="front"
+                mugs={!Object.values(world?.objects ?? {}).some(
+                  ({ kind }) => kind === "cup",
+                )}
+                seats={frame.seats}
+                {unit}
+                width={stageWidth}
+              />
+            {/if}
+            {#if set && world}
+              <StickSet
+                {geometry}
+                {gliding}
+                layer="front"
+                {running}
+                view={castView}
+                {world}
+              />
+            {/if}
+          </div>
+        {/if}
+      </div>
 
       <!-- The lights go down while the story skips ahead, all but a pool on the clock as its hands run on.
            Inside the camera, so the pool stays on the clock however close the shot is. -->

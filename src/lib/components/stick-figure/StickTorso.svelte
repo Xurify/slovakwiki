@@ -217,27 +217,49 @@
     stroke-width="0.7"
   />
 {:else if characterId === "anna"}
-  <!-- rose knit sweater over a white collar, a bag on a strap across -->
+  <!-- Rose knit sweater, slightly nipped at the waist, with a cream roll neck, honey belt and ribbed hem. -->
   <path
-    d="M-5.8 -27.8Q-6.2 -30.9 -3 -31.1L3 -31.1Q6.2 -30.9 5.8 -27.8L5.4 -2.4Q0 -0.6 -5.4 -2.4Z"
+    d="M-4.8 -28Q-5 -30.8 -2.2 -31L3.2 -31Q5.6 -30.8 5.2 -28Q6 -20 5.2 -14.4Q5 -12.8 5.3 -11Q6 -6 5.6 -2.4L-5 -2.4Q-5.4 -6 -4.7 -11Q-4.5 -13 -4.7 -14.4Q-5.4 -20 -4.8 -28Z"
     class="fill-scene-red stroke-portrait-ink"
     stroke-width="1.1"
   />
   <path
-    d="M-3.2 -31Q-1.6 -27.6 0 -29.2Q1.6 -27.6 3.2 -31Z"
+    d="M-3.6 -31.6Q0 -33.4 3.8 -31.6L4.2 -28.6Q0 -26.8 -4 -28.6Z"
     class="fill-portrait-bib stroke-portrait-ink"
-    stroke-width="0.7"
+    stroke-width="0.8"
   />
-  <path d="M-5.4 -4.6Q0 -2.8 5.4 -4.6" class="stroke-portrait-ink" stroke-width="0.7" />
-  <path d="M-4.4 -29.6L5.6 -8.6" class="stroke-portrait-hair" stroke-width="1.3" />
+  <path
+    d="M-3.8 -29.8Q0 -28.2 4 -29.8"
+    class="stroke-portrait-ink"
+    stroke-width="0.5"
+  />
+  <path
+    d="M-0.6 -24.4V-15.6M1.8 -24.4V-15.6"
+    class="stroke-portrait-ink opacity-30"
+    stroke-width="0.6"
+  />
   <rect
-    x="3.4"
-    y="-9.8"
-    width="5.2"
-    height="4.6"
-    rx="1"
-    class="fill-portrait-hair stroke-portrait-ink"
-    stroke-width="0.7"
+    x="-5.1"
+    y="-12.4"
+    width="10.6"
+    height="1.9"
+    rx="0.5"
+    class="fill-scene-honey stroke-portrait-ink"
+    stroke-width="0.6"
+  />
+  <rect
+    x="-0.8"
+    y="-12.7"
+    width="2.4"
+    height="2.5"
+    rx="0.4"
+    class="fill-portrait-bib stroke-portrait-ink"
+    stroke-width="0.5"
+  />
+  <path
+    d="M-5 -4.4H5.6M-3.4 -4.4V-2.4M-1.2 -4.4V-2.4M1 -4.4V-2.4M3.2 -4.4V-2.4"
+    class="stroke-portrait-ink"
+    stroke-width="0.55"
   />
 {:else if characterId === "maria"}
   <!-- rose cardigan open over a white blouse, long navy skirt -->
@@ -265,22 +287,18 @@
     stroke-width="0.5"
   />
 {:else if characterId === "marek"}
-  <!-- charcoal sweater over a collared shirt -->
+  <!-- charcoal sweater over a collared shirt, side-facing profile -->
   <path
-    d="M-6 -27.8Q-6.4 -30.9 -3 -31.1L3 -31.1Q6.4 -30.9 6 -27.8L5.6 -1.6Q0 0.4 -5.6 -1.6Z"
+    d="M-5.0 -27.8Q-5.4 -30.9 -2.6 -31.1L3.2 -31.1Q5.8 -30.9 5.4 -27.8Q6.0 -18 5.6 -10L5.2 -1.6L-4.8 -1.6Z"
     class="fill-portrait-vest stroke-portrait-ink"
     stroke-width="1.1"
   />
   <path
-    d="M-3.6 -31.2L0 -28.2L-1.4 -26ZM3.6 -31.2L0 -28.2L1.4 -26Z"
+    d="M-2.2 -31.2L0.8 -28L-0.4 -26.2ZM3.2 -31.2L0.8 -28L2.0 -26.2Z"
     class="fill-portrait-bib stroke-portrait-ink"
     stroke-width="0.6"
   />
-  <path
-    d="M-5.6 -3.8Q0 -1.8 5.6 -3.8"
-    class="stroke-portrait-bib/40"
-    stroke-width="0.8"
-  />
+  <path d="M-4.8 -3.8L5.2 -3.8" class="stroke-portrait-bib/40" stroke-width="0.8" />
 {/if}
 
 {#if scarf && look.scarfClass}

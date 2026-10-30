@@ -194,5 +194,10 @@ export function playFoley(id: FoleyId): void {
       for (const [index, at] of [0, 0.06, 0.12, 0.18, 0.24, 0.3, 0.36, 0.42].entries())
         ring([index % 2 ? 1760 : 1397], 0.05, 0.07, at);
       break;
+    case "compute":
+      // A robot computing: gentle rising electronic chime.
+      for (const [index, at] of [0, 0.08, 0.16].entries())
+        ring([index === 0 ? 1046 : index === 1 ? 1318 : 1568], 0.04, 0.08, at);
+      break;
   }
 }

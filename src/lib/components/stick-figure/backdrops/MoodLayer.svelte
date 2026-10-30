@@ -64,6 +64,12 @@
   <rect x="-10" y="-10" width="980" height="240" fill="url(#{id}-dusk)" />
   <rect x="-10" y="-10" width="980" height="320" class="fill-scene-clay/12" />
   <rect x="-10" y="-10" width="980" height="320" class="fill-portrait-suit/10" />
+{:else if mood.time === "night" && !outdoors}
+  <!-- Indoors the lamps are lit; out the window is the dark night. -->
+  <rect x="-10" y="-10" width="980" height="320" class="fill-portrait-suit/30" />
+  {#if glass}
+    <path d={glassPath(glass)} class="fill-portrait-suit/85" />
+  {/if}
 {:else if mood.time === "night"}
   <rect x="-10" y="-10" width="980" height="320" class="fill-portrait-suit/55" />
 {/if}

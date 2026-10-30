@@ -17,6 +17,7 @@
     otherChoiceNotes,
   } from "$lib/learning/exercises";
   import type { DialogueTurn } from "$lib/learning/types";
+  import type { SceneLine } from "$lib/stick-figure/scene-line";
   import { focusUnlessTyping } from "$lib/listening/focus";
 
   import EpisodeReplayButton from "./EpisodeReplayButton.svelte";

@@ -1,7 +1,8 @@
 <script lang="ts">
   import { untrack, type Component } from "svelte";
   import { cubicInOut } from "svelte/easing";
-  import { Tween } from "svelte/motion";
+
+  import { PlayTween } from "$lib/stick-figure/play-motion.svelte";
 
   import {
     BACKDROP_HEIGHT,
@@ -82,16 +83,22 @@
   } = $props();
 
   /** Each place's drawing; every one takes the same props and uses what it needs. */
-  const DRAWINGS: Record<
-    StageSetting,
-    Component<{ board?: string; hour: number; open?: number; tram: TramState }>
-  > = {
-    cafe: Cafe,
+  type Drawing = Component<{
+    board?: string;
+    hour: number;
+    open?: number;
+    tram: TramState;
+    mood?: SceneMood;
+  }>;
+  /** For a drawing that uses none of the props: Svelte types a component without props as refusing any. */
+  const still = (drawing: unknown) => drawing as Drawing;
+  const DRAWINGS: Record<StageSetting, Drawing> = {
+    cafe: still(Cafe),
     classroom: Classroom,
-    default: Park,
+    default: still(Park),
     home: Home,
     kitchen: Kitchen,
-    market: Market,
+    market: still(Market),
     plaza: Plaza,
     registration: Registration,
     street: Street,
@@ -108,36 +115,48 @@
    */
   const view = $derived.by(() => {
     if (!width || !height) {
-      const x = align === 0 ? "xMin" : align === 1 ? "xMax" : "xMid";
-      return { box: `0 0 ${BACKDROP_WIDTH} ${BACKDROP_HEIGHT}`, ratio: `${x}YMax slice` };
+      // Unmeasured, as in the server's HTML: slice toward the place's alignment,
+      // so the first measured frame barely moves.
+      const toward = align < 1 / 3 ? "xMin" : align > 2 / 3 ? "xMax" : "xMid";
+      return {
+        box: `0 0 ${BACKDROP_WIDTH} ${BACKDROP_HEIGHT}`,
+        ratio: `${toward}YMid slice`,
+      };
     }
-
     const scale = backdropScale(width, height);
-    const shown = { height: height / scale, width: width / scale };
-    const x = (BACKDROP_WIDTH - shown.width) * align;
-    const y = BACKDROP_HEIGHT - shown.height;
-    return { box: `${x} ${y} ${shown.width} ${shown.height}`, ratio: "none" };
+    const visibleWidth = width / scale;
+    const excess = BACKDROP_WIDTH - visibleWidth;
+    const x = Math.max(0, Math.min(excess, excess * align));
+    return {
+      box: `${x} 0 ${visibleWidth} ${BACKDROP_HEIGHT}`,
+      ratio: "xMidYMid meet" as const,
+    };
   });
-  /** The clock's hands sweep on over a skip ahead rather than jump. */
-  const hour = new Tween(
-    untrack(() => clockHour(mood) + minutes / 60),
-    { duration: 1200, easing: cubicInOut },
-  );
-  $effect(() => {
-    const to = clockHour(mood) + minutes / 60;
-    // Untracked: reading the tween here would rerun this every frame, and each set restarts the easing from rest, so the hands crawl.
-    const from = untrack(() => hour.target);
-    if (to === from) return;
-    // Only a skip runs the hands round; a new scene, a seek or the first world just sets them.
-    const run = untrack(() => skipping) && to > from;
-    void hour.set(to, { duration: run ? 1200 : 0 });
-  });
+
   const Drawing = $derived(DRAWINGS[setting]);
   const things = $derived(
     withDrawn(thingsIn(PLACES[setting].things, setting, mood), drawnAt),
   );
 
+  // The clocks start at the scene's told hour; skipping ahead spins them forward.
+  const hour = new PlayTween(
+    untrack(() => clockHour(mood)),
+    {
+      duration: 1200,
+      easing: cubicInOut,
+    },
+  );
+  $effect(() => {
+    const target = clockHour(mood) + minutes / 60;
+    if (skipping) {
+      hour.target = target;
+    } else {
+      untrack(() => hour.set(target, { duration: 0 }));
+    }
+  });
+
   let svg = $state<SVGSVGElement>();
+
   const measured = $derived(PLACES[setting].things.flatMap((thing) => thing.of ?? []));
   // The set and the cast are drawn over this svg in the same camera, so a box
   // measured in px maps to backdrop units by this svg's own px and viewBox.
@@ -165,7 +184,7 @@
                 height: drawn.height * unit,
               }
             : null;
-        const was = drawnAt[id];
+        const was = untrack(() => drawnAt[id]);
         const now = next[id];
         changed ||=
           !was || !now
@@ -177,6 +196,7 @@
               1;
       }
       if (changed) drawnAt = next;
+      // Carried things move every frame, so this keeps measuring.
       frame = requestAnimationFrame(measure);
     });
     return () => cancelAnimationFrame(frame);
@@ -198,30 +218,36 @@
       thingBoxes(thing).map((box, copy) => ({ box, copy, thing })),
     ),
   );
-  // The smallest on top, so the clock on the tower gets its own tap.
+
+  /**
+   * The order the Tab key visits things in: left to right across the scene,
+   * then top to bottom, as they are seen on the screen.
+   */
   const hitOrder = $derived(
-    [...boxes].sort((a, b) => b.box.width * b.box.height - a.box.width * a.box.height),
+    boxes.slice().sort((a, b) => a.box.x - b.box.x || a.box.y - b.box.y),
+  );
+  /**
+   * The set's things last, on top, as the set is drawn over the backdrop:
+   * the watering can stands on the rug and needs its own tap.
+   */
+  const paintOrder = $derived(
+    hitOrder
+      .map((hit, index) => ({ ...hit, index }))
+      .sort((a, b) => Number(!!a.thing.of) - Number(!!b.thing.of)),
   );
 </script>
 
-<!--
-  960×300 with the floor line at y 226. Slice keeps the floor on the bottom
-  edge and trims the sides on a narrow stage, so what names the place sits
-  near the middle (or the end the setting keeps) or above head height
-  (y < 70). Shapes are flat, without outlines, so the ink-outlined cast
-  stands in front of them.
--->
 <svg
   bind:this={svg}
-  class="block {className}"
-  role={onpick ? "group" : undefined}
-  aria-label={onpick ? `Scene: ${PLACES[setting].label}` : undefined}
-  aria-hidden={onpick ? undefined : "true"}
+  class={cx("pointer-events-none absolute inset-0 size-full", className)}
   viewBox={view.box}
   preserveAspectRatio={view.ratio}
   fill="none"
   stroke-linecap="round"
   stroke-linejoin="round"
+  role={onpick ? "group" : undefined}
+  aria-label={onpick ? `Scene: ${PLACES[setting].label}` : undefined}
+  aria-hidden={onpick ? undefined : "true"}
 >
   <!-- Paint only: the things below carry the names. -->
   <g aria-hidden="true">
@@ -229,7 +255,7 @@
       <SkyLayer {mood} {setting} />
     {/if}
 
-    <Drawing {board} hour={hour.current} open={door} {tram} />
+    <Drawing {board} hour={hour.current} open={door} {tram} {mood} />
 
     <MoodLayer {mood} {setting} />
     <StageLight />
@@ -241,7 +267,8 @@
 
   {#if onpick}
     <!-- One tab stop for the whole scene; the arrow keys move between its things. -->
-    {#each hitOrder as { box, copy, thing }, index (`${thing.id}-${copy}`)}
+    {#each paintOrder as { box, copy, index, thing } (`${thing.id}-${copy}`)}
+      {@const key = litKey(thing.id, copy)}
       <rect
         x={box.x - 5}
         y={box.y - 5}
@@ -249,14 +276,15 @@
         height={box.height + 10}
         rx="8"
         fill="transparent"
-        class="cursor-pointer outline-none"
+        class="pointer-events-auto cursor-pointer outline-none"
         role="button"
+        data-hit={index}
         tabindex={index === tabStop ? 0 : -1}
         aria-label={hint ? `${hint}: ${thing.word}` : thing.word}
-        aria-pressed={picked === thing.id}
-        onclick={() => onpick(thing.id)}
+        aria-pressed={picked === key || (picked === thing.id && copy === 0)}
+        onclick={() => onpick(key)}
         onfocus={() => {
-          focused = thing.id;
+          focused = key;
           tabStop = index;
         }}
         onblur={() => {
@@ -265,24 +293,21 @@
         onkeydown={(event) => {
           if (event.key === "Enter" || event.key === " ") {
             event.preventDefault();
-            onpick(thing.id);
+            onpick(key);
             return;
           }
           const step = ARROW_STEPS[event.key];
           if (step === undefined) return;
           event.preventDefault();
-          const rects = [
-            ...event.currentTarget.ownerSVGElement!.querySelectorAll<SVGRectElement>(
-              'rect[role="button"]',
-            ),
-          ];
-          const at = rects.indexOf(event.currentTarget);
+          const count = hitOrder.length;
           const next = Number.isFinite(step)
-            ? (at + step + rects.length) % rects.length
+            ? (index + step + count) % count
             : step > 0
-              ? rects.length - 1
+              ? count - 1
               : 0;
-          rects[next]?.focus();
+          event.currentTarget.ownerSVGElement
+            ?.querySelector<SVGRectElement>(`rect[data-hit="${next}"]`)
+            ?.focus();
         }}
       />
     {/each}
@@ -306,6 +331,7 @@
 
 {#snippet lightUp({ box, copy, thing }: (typeof boxes)[number], over = false)}
   {@const done = found.includes(thing.id)}
+  {@const key = litKey(thing.id, copy)}
   <rect
     x={box.x - 5}
     y={box.y - 5}
@@ -319,9 +345,11 @@
       done ? "stroke-emerald-500" : "stroke-blue-500",
       done ||
         lit.includes(thing.id) ||
-        lit.includes(litKey(thing.id, copy)) ||
-        picked === thing.id ||
-        focused === thing.id
+        lit.includes(key) ||
+        picked === key ||
+        (picked === thing.id && copy === 0) ||
+        focused === key ||
+        (focused === thing.id && copy === 0)
         ? "opacity-100"
         : "opacity-0",
     )}

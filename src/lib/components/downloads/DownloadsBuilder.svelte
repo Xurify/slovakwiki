@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { untrack } from "svelte";
+
   import Button from "$lib/components/ui/Button.svelte";
   import DotLoader from "$lib/components/ui/DotLoader.svelte";
   import {
@@ -102,7 +104,8 @@
 
   let format = $state<DownloadFormat>("json");
   let customPack = $state<PackId>("full");
-  let selectedCategories = $state<string[]>([...categories]);
+  // Every category is ticked to start with; after that the choice is the reader's.
+  let selectedCategories = $state<string[]>(untrack(() => [...categories]));
   let busy = $state(false);
   let pendingPack = $state<PackId | "custom" | null>(null);
   let statusMessage = $state("");

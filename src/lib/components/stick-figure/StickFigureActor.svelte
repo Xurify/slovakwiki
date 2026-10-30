@@ -1,8 +1,8 @@
 <script lang="ts">
   import { untrack } from "svelte";
   import { cubicInOut } from "svelte/easing";
-  import { Tween } from "svelte/motion";
 
+  import { playClockFrame, playClockNow } from "$lib/audio/play-clock";
   import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
   import type { LineBeat, LinePlan } from "$lib/stick-figure/line-plan";
   import {
@@ -24,7 +24,9 @@
   import type { Held } from "$lib/stick-figure/props";
   import { alive } from "$lib/stick-figure/idle";
   import { restOnTable } from "$lib/stick-figure/reach";
-  import { sitMs, stepMs, walkPose } from "$lib/stick-figure/walk";
+  import { PlayTween } from "$lib/stick-figure/play-motion.svelte";
+  import { gallopPose, sitMs, stepMs, walkPose } from "$lib/stick-figure/walk";
+  import { LOOKS } from "$lib/stick-figure/looks";
   import {
     headClearOfMic,
     type Effect,
@@ -62,6 +64,7 @@
     held,
     dress,
     seated = false,
+    arrived = true,
     out = 0,
     atTable = false,
     atDesk = false,
@@ -88,6 +91,8 @@
     held?: Held;
     /** What the weather on them does to what they wear. */
     dress?: Dress;
+    /** The stage has shown the cast: until then a seat is taken at once, not sat down into. */
+    arrived?: boolean;
     /** On a chair: they sit once any walk there is over, and get up before walking on. */
     seated?: boolean;
     /** Rig units their chair is drawn back from its place, while they get on or off it. */
@@ -142,15 +147,17 @@
   let sign = $state<Partial<Record<"lead" | "rear", Sign>>>();
 
   let pose = $state<StickPose>(REST_POSE);
+  let rawPose: StickPose = REST_POSE;
   // Linear: the rig shapes the hips' path and the bow along it.
-  const sitting = new Tween(0);
-  const calling = new Tween(0, { easing: cubicInOut });
+  const sitting = new PlayTween(0);
+  const calling = new PlayTween(0, { easing: cubicInOut });
 
   let picture = $state<StickPictureId>();
   /** The way a point in flight turns the figure, when its target is behind it. */
   let turned = $state<1 | -1>();
 
-  let frame = 0;
+  /** Cancels the pending frame. Frames run on play time, so a pause holds them. */
+  let frame: (() => void) | undefined;
   let startedAt = 0;
   let act: PerformanceState = startPerformance();
   /**
@@ -180,8 +187,8 @@
     if (cue === 0) return;
 
     untrack(() => {
-      startedAt = performance.now();
-      act = startPerformance(startedAt, $state.snapshot(pose));
+      startedAt = playClockNow();
+      act = startPerformance(startedAt, rawPose);
       run();
     });
   });
@@ -198,7 +205,7 @@
     const { ms, pace = 1 } = walk;
 
     untrack(() => {
-      walkStartedAt = performance.now();
+      walkStartedAt = playClockNow();
       walkMs = ms;
       walkPace = pace;
       run();
@@ -211,11 +218,12 @@
   $effect(() => {
     const down = seated;
     untrack(() => {
-      placedAt ||= performance.now();
+      placedAt ||= playClockNow();
       const still =
         window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
-        performance.now() - placedAt < 250;
-      const walkLeft = Math.max(0, walkStartedAt + walkMs - performance.now());
+        !arrived ||
+        playClockNow() - placedAt < 250;
+      const walkLeft = Math.max(0, walkStartedAt + walkMs - playClockNow());
       void sitting.set(down ? 1 : 0, {
         delay: down && !still ? walkLeft : 0,
         duration: still ? 0 : sitMs(characterId, !down),
@@ -238,7 +246,7 @@
   // Breathing from the start, before any line plays.
   $effect(() => {
     untrack(run);
-    return () => cancelAnimationFrame(frame);
+    return () => frame?.();
   });
 
   /** The arm of a hand holding something that spills, held up rather than at rest or gesturing; a cue's reach still takes it from there. */
@@ -263,12 +271,13 @@
 
   function run(): void {
     reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!frame) frame = requestAnimationFrame(tick);
+    frame ??= playClockFrame(tick);
   }
 
   // Between lines the loop keeps the figure breathing and blinking (idle.ts);
   // with reduced motion it parks on the rest pose once nothing is in flight.
-  function tick(now: number): void {
+  function tick(): void {
+    const now = playClockNow();
     const next = plan
       ? performFrame(plan, act, {
           now,
@@ -286,6 +295,7 @@
     const walking = walked < walkMs && !reducedMotion;
     const acting = doing && now < doing.until;
     const talked = next?.pose ?? REST_POSE;
+    rawPose = talked;
     // Busy hands do not talk: a beat would swing the can that is pouring, or the hand the cue leaves alone.
     // Getting onto a chair or off it, the hands go to that; a talker's open hand swung into whoever sat beside.
     const busy = acting || (atTable && sitting.current < 1);
@@ -299,8 +309,12 @@
         ? restOnTable(seated, sitting.current)
         : seated;
     const body = steady(laid);
+    // A dog at a run (walkPace above 1) bounds: its legs leave the ground, which a walk never does.
+    const bounds = walkPace > 1 && Boolean(LOOKS[characterId].dog);
     const stepping = walking
-      ? walkPose(body, walked, walkMs, stepMs(characterId) / walkPace)
+      ? bounds
+        ? gallopPose(body, walked, walkMs, stepMs(characterId) / walkPace)
+        : walkPose(body, walked, walkMs, stepMs(characterId) / walkPace, characterId)
       : body;
     const sampled = acting ? doing.sample(now, stepping, sitting.current) : undefined;
     if (sampled && entered?.doing !== doing) {
@@ -349,8 +363,8 @@
 
     frame =
       !reducedMotion || !(next?.settled ?? true) || walking || acting || released
-        ? requestAnimationFrame(tick)
-        : 0;
+        ? playClockFrame(tick)
+        : undefined;
   }
 </script>
 

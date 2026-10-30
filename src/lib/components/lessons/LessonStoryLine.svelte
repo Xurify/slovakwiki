@@ -43,7 +43,6 @@
   class="flex list-none gap-3 border-b border-slate-200/70 px-4 py-4 last:border-b-0 sm:px-5 {learner
     ? 'bg-blue-50/40'
     : ''} {newest ? 'story-line-newest' : ''}"
-  data-story-en-open={englishVisible ? "" : undefined}
   aria-label={englishVisible
     ? `${line.speaker}: ${line.slovak}. ${line.english}`
     : `${line.speaker}: ${line.slovak}`}
@@ -63,17 +62,19 @@
       </p>
 
       {#if line.english}
-        <p class="story-en-gloss m-0 mt-1 text-sm leading-relaxed text-slate-600">
-          {line.english}
-        </p>
-
-        <button
-          class="story-en-toggle mt-1.5 inline-flex min-h-11 cursor-pointer items-center border-0 bg-transparent p-0 text-left text-xs font-semibold text-blue-800 underline decoration-blue-800/30 underline-offset-2 transition-colors duration-150 hover:decoration-blue-800"
-          type="button"
-          onclick={revealEnglish}
-        >
-          Show English
-        </button>
+        {#if englishVisible}
+          <p class="m-0 mt-1 text-sm leading-relaxed text-slate-600">
+            {line.english}
+          </p>
+        {:else}
+          <button
+            class="mt-1.5 inline-flex min-h-11 cursor-pointer items-center border-0 bg-transparent p-0 text-left text-xs font-semibold text-blue-800 underline decoration-blue-800/30 underline-offset-2 transition-colors duration-150 hover:decoration-blue-800"
+            type="button"
+            onclick={revealEnglish}
+          >
+            Show English
+          </button>
+        {/if}
       {/if}
     </div>
 

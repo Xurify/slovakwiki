@@ -212,7 +212,7 @@
         revealed={revealed || grade === "incorrect"}
         {showCorrection}
         correctionLabelTone={grade === "correct" ? "emerald" : "rose"}
-        why={feedbackWhy}
+        why={feedbackWhy ?? undefined}
       />
 
       {#if otherForms.length > 0 && (revealed || grade !== "correct")}

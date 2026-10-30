@@ -11,6 +11,7 @@ import { REST_POSE } from "./pose";
 import { solveRig } from "./rig";
 import { intoDeskMic } from "./set-pieces";
 import { stageFrame } from "./stage-frame";
+import { pointedThing } from "./thing-words";
 
 /** A finding's key in the baseline: episode, segment, line and rule. */
 function keyOf(slug: string, finding: Finding): string {
@@ -126,6 +127,65 @@ describe("cues against the set", () => {
     expect(checkCues(apart.chapter, apart.lines, KITCHEN, FRAME)).toEqual([]);
   });
 
+  it("passes a thing across the studio desk by sliding it, out of reach of a hand-over", () => {
+    const studio = PLACES.studio.set!;
+    const frame = stageFrame(["anna", "marek"], {}, "studio", [], 960, 480);
+    const start = {
+      ...startWorld(studio.objects),
+      objects: {
+        ...startWorld(studio.objects).objects,
+        apple: {
+          kind: "apple" as const,
+          where: { hand: "marek" as const, side: "lead" as const },
+        },
+      },
+    };
+    const handed = segment("marek", [{ do: "give", what: "apple", to: "anna" }]);
+    // The hosts sit with their mics between them: the arms meet short of each other.
+    expect(
+      rules(checkCues(handed.chapter, handed.lines, studio, frame, start)),
+    ).toContain("error contact/miss");
+    const slid = segment(
+      "marek",
+      [
+        { do: "put", what: "apple", to: "desk", dx: 31 },
+        { do: "slide", what: "apple", to: "desk", dx: -20 },
+      ],
+      [{ who: "anna", do: "take", what: "apple" }],
+    );
+    expect(checkCues(slid.chapter, slid.lines, studio, frame, start)).toEqual([]);
+  });
+
+  it("finds twins by reach, whichever copy a place lists first", () => {
+    // At home the bag by the window comes first, as plain ten means it.
+    const home = PLACES.home.things;
+    expect(pointedThing(home, "taska")?.copy).toBeUndefined();
+    expect(pointedThing(home, "taska#far")?.copy).toBe(0);
+    expect(pointedThing(home, "taska#near")?.copy).toBe(1);
+    expect(pointedThing(PLACES.market.things, "syr#near")?.copy).toBe(0);
+  });
+
+  it("flags a point at what the place does not have", () => {
+    const market = PLACES.market.set!;
+    const frame = stageFrame(
+      ["anna", "marek", "lucia"],
+      {},
+      "market",
+      PLACES.market.things,
+      960,
+      480,
+    );
+    const pointing = (to: string) => segment("marek", [{ do: "point", to }]);
+    const ok = pointing("syr#far");
+    expect(checkCues(ok.chapter, ok.lines, market, frame)).toEqual([]);
+    for (const to of ["syr#1", "okno", "jahody#middle"]) {
+      const { chapter, lines } = pointing(to);
+      expect(rules(checkCues(chapter, lines, market, frame))).toEqual([
+        "error point/nothing-there",
+      ]);
+    }
+  });
+
   it("flags a standing spot behind the end of the studio desk", () => {
     const studio = PLACES.studio.set!;
     const frame = stageFrame(["anna", "marek"], {}, "studio", [], 960, 480);
@@ -218,6 +278,68 @@ describe("cues against the set", () => {
       "error props/impossible-cue",
       "error props/impossible-cue",
     ]);
+  });
+
+  it("flags standing on a floor object like the bag", () => {
+    const HOME_SET = PLACES.home.set!;
+    const HOME_FRAME = stageFrame(
+      ["marek", "anna", "robot"],
+      {},
+      "home",
+      PLACES.home.things,
+      960,
+      480,
+    );
+    const bagThing = {
+      id: "taska",
+      word: "taška",
+      english: "bag",
+      box: { x: 550, y: 240, width: 48, height: 50 },
+      gender: "feminine" as const,
+    };
+    const frameWithBag = {
+      ...HOME_FRAME,
+      things: [bagThing],
+    };
+    const { chapter, lines } = segment("marek", [{ do: "go", to: "rug-right" }]);
+    expect(rules(checkCues(chapter, lines, HOME_SET, frameWithBag))).toContain(
+      "error space/floor-object",
+    );
+  });
+
+  it("allows pointing at a dog at knee height", () => {
+    const PARK_SET = PLACES.default.set!;
+    const PARK_FRAME = stageFrame(
+      ["marek", "dog"],
+      {},
+      "default",
+      PLACES.default.things,
+      960,
+      480,
+    );
+    const { chapter, lines } = segment("marek", [{ do: "point", to: "dog" }]);
+    expect(rules(checkCues(chapter, lines, PARK_SET, PARK_FRAME))).not.toContain(
+      "error point/miss",
+    );
+  });
+
+  it("flags pointing at a dog at human head height", () => {
+    const PARK_SET = {
+      ...PLACES.default.set!,
+      spots: { dog: { x: 300, facing: 1 as const } },
+    };
+    const PARK_FRAME = stageFrame(
+      ["marek"],
+      {},
+      "default",
+      PLACES.default.things,
+      960,
+      480,
+    );
+    const { chapter, lines } = segment("marek", [{ do: "point", to: "dog" }]);
+    expect(rules(checkCues(chapter, lines, PARK_SET, PARK_FRAME))).toContain(
+      "error point/miss",
+    );
   });
 });
 

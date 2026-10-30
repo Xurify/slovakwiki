@@ -37,6 +37,7 @@ import {
   type AudioTarget,
   type ManifestEntry,
 } from "./shared";
+import { whisperAvailable } from "./whisper";
 
 const MANIFEST_SAVE_EVERY = 50;
 
@@ -155,7 +156,18 @@ async function main(): Promise<void> {
     });
   }
 
-  const judgeMode = judgeModeFromSttProvider(sttProvider);
+  let judgeMode = judgeModeFromSttProvider(sttProvider);
+  // Without faster-whisper every dual judgement fails, so each take would be paid for
+  // and thrown away; find out before the first TTS call.
+  if (verify && judgeMode !== "elevenlabs" && !(await whisperAvailable())) {
+    if (judgeMode === "whisper") {
+      throw new Error("--stt whisper needs Python with faster-whisper installed");
+    }
+    console.warn(
+      "faster-whisper is not installed: verifying with Scribe only (--stt elevenlabs)",
+    );
+    judgeMode = "elevenlabs";
+  }
   const scope = lessonsOnly
     ? "lessons"
     : lemmasOnly

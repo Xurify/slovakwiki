@@ -1,0 +1,21 @@
+name: Preview cleanup
+
+on:
+  pull_request:
+    types: [closed]
+
+permissions:
+  contents: write
+
+jobs:
+  delete-preview-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete preview/<PR number>
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: preview/${{ github.event.pull_request.number }}
+        run: |
+          if gh api "repos/${{ github.repository }}/git/ref/heads/$BRANCH" >/dev/null 2>&1; then
+            gh api -X DELETE "repos/${{ github.repository }}/git/refs/heads/$BRANCH"
+          fi

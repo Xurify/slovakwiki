@@ -1,10 +1,16 @@
-# Prettier on the staged files only. lint-staged writes every file prettier can
+# Bun's formatter on the staged files only. It formats every file Bun can
 # parse, so a commit cannot carry unformatted code; a repo-wide
-# `prettier --check .` here re-checked all ~850 files (~15s) to catch drift in
+# `bun fmt --check` here re-checks all ~850 files (~15s) to catch drift in
 # files the commit does not touch. That is CI's job (`format:check`).
-bunx lint-staged
+bun fmt --staged
 
-# astro check is ~30s, the one heavy step: only a commit that stages typed code
+# Keep the staged-file ESLint check that was previously supplied by lint-staged.
+staged_lint_files="$(git diff --cached --name-only --diff-filter=ACMR | grep -E '^(src/lib|scripts)/.+\.(cjs|js|mjs|svelte|ts)$' || true)"
+if [ -n "$staged_lint_files" ]; then
+  bunx eslint --no-warn-ignored $staged_lint_files
+fi
+
+# astro check and svelte-check are ~50s, the one heavy step: only a commit that stages typed code
 # or the configs it reads pays for it. CI runs it too, but a push costs a
 # Vercel deploy, so catch it before the push.
 # sh -e: a no-match grep must stay inside `if` or the hook aborts.

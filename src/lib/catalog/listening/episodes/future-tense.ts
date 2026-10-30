@@ -49,6 +49,8 @@ const friday: ListeningChapter = {
   titleSk: "Budeš mi chýbať",
   title: "I'll miss you",
   setup: {
+    // Dunčo starts at the rug's left edge, so Marek can kneel beside him without crowding Anna.
+    spots: { dog: "dog-spot" },
     objects: [
       // Packed: he has the suitcase in hand as Anna comes to say goodbye.
       {
@@ -76,8 +78,8 @@ const friday: ListeningChapter = {
       line(
         "marek-suitcase-passport",
         "Marek",
-        ["No", STOP, "kufor mám, pas mám. ", PAUSE, "Hm, a kde je Domo?"],
-        "Well… suitcase, check, passport, check. Hmm, and where's Domo?",
+        ["Kufor mám. ", PAUSE, "Pas mám. ", PAUSE, "Hm, a kde je Domo?"],
+        "Suitcase, check. Passport, check. Hmm, and where's Domo?",
       ),
       line(
         "domo-good-evening-here",
@@ -217,9 +219,19 @@ const friday: ListeningChapter = {
       "domo-good-evening-here": [
         { do: "enter", from: "off-right", to: "rug-right", on: "before" },
       ],
+      "marek-suitcase-passport": [
+        { do: "look", to: "suitcase", on: "kufor" },
+        { do: "pat", on: "pas" },
+      ],
       "marek-this-is-anna": [{ do: "point", to: "anna", on: "anna" }],
       "marek-this-is-dunco": [{ do: "point", to: "dog", on: "dunčo" }],
       "marek-monday-evening": [{ do: "point", to: "okno", on: "okne" }],
+      "domo-six-window-save": [{ do: "compute", on: "uložím" }],
+      "marek-ill-miss-you": [
+        { do: "go", to: "kneel-by-dog", on: "before" },
+        { who: "dog", do: "face", to: "marek", on: "before" },
+        { do: "kneel", to: "dog", on: "dunčo" },
+      ],
     },
   ),
   checks: [
@@ -286,7 +298,14 @@ const morning: ListeningChapter = {
   titleSk: "Ešte stále ma nepoznáš?",
   title: "You still don't know me?",
   setup: {
+    // Dunčo starts at rug-left, off the spot Domo comes to, so the bowl is set down in front of him, not behind.
+    spots: { dog: "rug-left" },
     objects: [
+      {
+        id: "bowl",
+        kind: "bowl",
+        start: { where: { hand: "robot", side: "lead" }, fill: "kibble" },
+      },
       // Anna brings it with her: Marek left it with her.
       { id: "ball", kind: "ball", start: { where: { hand: "anna", side: "lead" } } },
     ],
@@ -377,6 +396,7 @@ const morning: ListeningChapter = {
     {
       "domo-good-morning-food": [
         { do: "enter", from: "off-right", to: "rug-mid", on: "before" },
+        { do: "put", what: "bowl", to: "by-dog", on: "granule" },
       ],
       "anna-good-morning-how-are-you": [
         { do: "enter", from: "off-right", to: "rug-mid-right", on: "before" },
@@ -446,6 +466,11 @@ const park: ListeningChapter = {
   titleSk: "V parku",
   title: "In the park",
   setup: {
+    spots: {
+      anna: "park-left",
+      robot: "park-mid",
+      dog: "park-dog",
+    },
     objects: [
       { id: "ball", kind: "ball", start: { where: { hand: "robot", side: "lead" } } },
       { id: "phone", kind: "phone", start: { where: { pocket: "anna" } } },
@@ -564,23 +589,25 @@ const park: ListeningChapter = {
       ),
     ],
     {
+      "domo-he-likes-me": [{ do: "compute", on: "uložím" }],
       "domo-i-will-throw-now": [
         { do: "face", to: "off-right", on: "hodím" },
         { do: "throw", what: "ball", to: "dog", on: "teraz" },
-        { who: "dog", do: "go", to: "off-right", on: "after" },
+        { who: "dog", do: "go", to: "off-right", on: "teraz", run: true },
       ],
       // He comes back with it in his mouth and keeps it: a robot standing can't reach down that far.
       "dunco-brings-ball": [
         { do: "take", what: "ball", on: "before" },
         { do: "go", to: "back-right" },
       ],
+      "domo-to-me": [{ do: "look", to: "dog", on: "mne" }],
       "anna-bye-both": [
         { do: "wave", on: "ahoj" },
         { do: "go", to: "off-left", on: "after" },
       ],
+      "domo-haf-means-hi": [{ do: "compute", on: "uložím" }],
       "anna-ill-take-a-photo": [
         { do: "take", what: "phone", on: "počkaj" },
-        { do: "offer", what: "phone", to: "robot", on: "odfotím" },
         { do: "pocket", what: "phone", on: "end" },
       ],
     },
@@ -1029,6 +1056,7 @@ const monday: ListeningChapter = {
         { do: "wave", on: "ahojte" },
       ],
       "marek-missed-you-too": [{ who: "dog", do: "go", to: "to-right", on: "sem" }],
+      "domo-hi-or-thanks": [{ do: "compute", on: "uložím" }],
     },
   ),
   checks: [

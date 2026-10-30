@@ -33,7 +33,14 @@ export type Target =
    * it, or its base), a place or piece of the set (its surface), a person,
    * or a thing of the backdrop. `dx` and `dy` move it, in rig units.
    */
-  | { to: string; as?: "grip" | "top" | "base"; dx?: number; dy?: number }
+  | {
+      to: string;
+      as?: "grip" | "top" | "base";
+      dx?: number;
+      dy?: number;
+      /** Where it was when the cue began: the hand stays with what it pushes off, not with where it ends up. */
+      was?: boolean;
+    }
   /** At the lips: `dx` further out in front of them, `dy` lower. */
   | { mouth: true; dx?: number; dy?: number }
   /** Halfway to the other person, at chest height: where two hands meet to hand something over. */
@@ -96,7 +103,8 @@ export type FoleyId =
   | "thud"
   | "sniff"
   | "rattle"
-  | "ring";
+  | "ring"
+  | "compute";
 
 /** Something the stage draws while a motion runs: water from the tap, a stream from a jug, salt. */
 export interface Effect {
@@ -132,6 +140,8 @@ export interface Motion {
   takes?: number;
   sounds?: Array<{ at: number; id: FoleyId }>;
   effects?: Effect[];
+  /** Over how long what the cue moves comes to rest, from `takes`: pushed across a desk, it glides on out of the hand. */
+  glide?: number;
   /**
    * Holds its last key after it ends: `true` until the person's next cue
    * (a spoon held out until it is taken), `"line"` until the line is over
@@ -258,6 +268,12 @@ export function motionFor(
       }
       // A spoon picked up at the table is held there, the fist on the edge: in the lap it was out of sight behind the table.
       const atTable = object?.kind === "cutlery" && world.seated?.includes(who);
+      // Out of a bag they carry: it comes up in front, and the free hand goes in. What is in it is not drawn,
+      // so with a plain reach the keys came out of a hand that never left the side.
+      const bag = where && "in" in where ? where.in : undefined;
+      const carrying = bag ? handHolding(world, who, bag) : undefined;
+      if (carrying)
+        return { motion: outOfBagMotion(other(carrying), carrying, object?.kind) };
       return {
         motion: {
           ms: 900,
@@ -289,6 +305,18 @@ export function motionFor(
           ),
         },
       };
+    case "slide": {
+      const from = object?.where;
+      let there: ReturnType<typeof putDown> | undefined;
+      try {
+        there = putDown(plan, world, cue);
+      } catch {
+        there = undefined;
+      }
+      const distance =
+        from && "on" in from && there && "on" in there ? Math.abs(there.dx - from.dx) : 0;
+      return { motion: slideMotion(what, free, distance, object?.kind) };
+    }
     case "put": {
       const where = { landing: true } as const;
       const sink = heavy && plan ? sinkAt(plan, putDown(plan, world, cue)) : undefined;
@@ -443,10 +471,16 @@ export function motionFor(
     }
     case "raise": {
       // Halfway to the mouth, and held there: about to eat, until something stops it. A recorder is held up to be seen, straight up beside the head, where the arm clears a desk mic too.
+      // A phone shows its screen at chest height, under a desk mic: at the mouth the mic hid it, and up by the head it went behind the head.
       const up =
         object?.kind === "mic"
           ? { ...hands(hand, { up: { x: 7, y: -26 } }), body: { lean: -1, brow: 0.4 } }
-          : { ...hands(hand, { mouth: true, dx: 18, dy: 10.5 }), turn: { [hand]: -20 } };
+          : object?.kind === "phone"
+            ? { ...hands(hand, { mouth: true, dx: 15, dy: 17 }), body: { brow: 0.3 } }
+            : {
+                ...hands(hand, { mouth: true, dx: 18, dy: 10.5 }),
+                turn: { [hand]: -20 },
+              };
       return {
         motion: {
           ms: 800,
@@ -928,8 +962,8 @@ export function motionFor(
           sounds: [{ at: 780, id: "clink" }],
           keys: [
             { at: 0 },
-            { at: 550, ...collar, body: { lean: 9, nod: 2, look: 1 } },
-            { at: 850, ...collar, body: { lean: 9, nod: 2, look: 1 } },
+            { at: 550, ...collar, body: { bob: 22, lean: 14, nod: 3, look: 2 } },
+            { at: 850, ...collar, body: { bob: 22, lean: 14, nod: 3, look: 2 } },
             { at: 1500 },
           ],
         },
@@ -1268,6 +1302,72 @@ export function motionFor(
           ],
         },
       };
+    case "pat": {
+      // Checking for something, as for a passport: the free hand pats the inside pocket twice, head dipped to look.
+      const hand = freeHand(world, who) ?? "lead";
+      const pocket = { up: { x: 4, y: 16 } };
+      const patted = { up: { x: 4, y: 13 } };
+      const dip = { nod: 1.6, look: 0.2 };
+      return {
+        motion: {
+          ms: 1300,
+          keys: [
+            { at: 0 },
+            { at: 320, ...hands(hand, pocket), body: dip },
+            { at: 480, ...hands(hand, patted), body: dip },
+            { at: 640, ...hands(hand, pocket), body: dip },
+            { at: 800, ...hands(hand, patted), body: dip },
+            { at: 1000, ...hands(hand, { up: { x: 6, y: 22 } }), body: { nod: 0.6 } },
+            { at: 1300 },
+          ],
+        },
+      };
+    }
+    case "kneel": {
+      const target = to || cue.what || "dog";
+      return {
+        motion: {
+          ms: 2800,
+          face: target,
+          // Standing again by 2800, his gaze stays down: he is still talking to the dog, not an adult at eye level.
+          hold: "line",
+          keys: [
+            { at: 0 },
+            {
+              at: 600,
+              body: { bob: 22, lean: 14, tilt: 6, brow: 0.2, look: 1 },
+              lead: { to: target, as: "top", dy: -2 },
+            },
+            {
+              at: 2200,
+              body: { bob: 22, lean: 14, tilt: 6, brow: 0.2, look: 1 },
+              lead: { to: target, as: "top", dy: -2 },
+            },
+            { at: 2800, body: { tilt: 10, nod: 1.5, brow: 0.2, look: 1 } },
+          ],
+        },
+      };
+    }
+    case "compute": {
+      return {
+        motion: {
+          ms: 1800,
+          sounds: [{ at: 100, id: "compute" }],
+          keys: [
+            { at: 0 },
+            {
+              at: 300,
+              body: { tilt: -7, nod: 2, brow: 0.8, look: 0.8 },
+            },
+            {
+              at: 1400,
+              body: { tilt: -7, nod: 2, brow: 0.8, look: 0.8 },
+            },
+            { at: 1800 },
+          ],
+        },
+      };
+    }
     case "laugh": {
       // Mouth open, head tipped back, the shoulders shaking, a hand to the belly: a still smile did not read as a laugh.
       const belly = hands(free, { up: { x: 7, y: 25 } });
@@ -1505,6 +1605,45 @@ function pocketMotion(way: "in" | "out", what: string, hand: Hand = "lead"): Mot
 }
 
 /** A seated hand resting on the table's edge in front, from the shoulder. */
+/** The carried bag held up at the waist, in front, and the free hand down into it and out with what it finds. */
+function outOfBagMotion(hand: Hand, bagHand: Hand, kind?: ObjectKind): Motion {
+  const bag = { mouth: true, dx: 13, dy: 34 } as const;
+  const lifted = { [bagHand]: bag };
+  return {
+    ms: 1100,
+    takes: 640,
+    sounds: [{ at: 600, id: soundOf(kind) }],
+    keys: [
+      { at: 0 },
+      {
+        at: 360,
+        ...lifted,
+        [hand]: { ...bag, dx: 15, dy: 26 },
+        body: { lean: 3, tilt: 3 },
+      },
+      {
+        at: 560,
+        ...lifted,
+        [hand]: { ...bag, dx: 15, dy: 33 },
+        body: { lean: 4, tilt: 4 },
+      },
+      {
+        at: 700,
+        ...lifted,
+        [hand]: { ...bag, dx: 15, dy: 33 },
+        body: { lean: 4, tilt: 4 },
+      },
+      {
+        at: 900,
+        ...lifted,
+        [hand]: { ...bag, dx: 17, dy: 20 },
+        body: { lean: 2, tilt: 2 },
+      },
+      { at: 1100 },
+    ],
+  };
+}
+
 const ON_TABLE_EDGE = { up: { x: 9, y: 8 } };
 
 /** A phone held up to read who calls: out past the chest, or the far hand holds it behind the body. */
@@ -1574,6 +1713,42 @@ function offHeadMotion(): Motion {
   };
 }
 
+/** How long something pushed across a desk takes to come to rest. */
+export const GLIDE_MS = 800;
+/** How far the hand goes with what it pushes before it lets go: the rest of the way it glides. */
+const PUSH = 12;
+
+/**
+ * A push along the surface something stands on, to someone too far off to
+ * hand it to: seated hosts at the studio desk sit with their mics between
+ * them. The hand comes down on it, shoves it on a hand's length and lets go,
+ * and it glides on to its new place.
+ */
+function slideMotion(
+  what: string,
+  hand: Hand,
+  distance: number,
+  kind?: ObjectKind,
+): Motion {
+  const on: Target = { to: what, was: true };
+  const shoved: Target = { ...on, dx: Math.min(distance, PUSH) };
+  return {
+    ms: 1300,
+    face: what,
+    takes: REACHED + 100,
+    glide: GLIDE_MS,
+    sounds: [{ at: REACHED + 80, id: soundOf(kind) }],
+    keys: [
+      { at: 0 },
+      { at: REACHED, ...hands(hand, { ...on, dy: -3 }), body: { lean: 3 } },
+      { at: REACHED + 100, ...hands(hand, on), body: { lean: 3 } },
+      { at: REACHED + 400, ...hands(hand, shoved), body: { lean: 6 } },
+      { at: REACHED + 600, ...hands(hand, shoved), body: { lean: 5 } },
+      { at: 1300 },
+    ],
+  };
+}
+
 /** One half of a hand-over: out to where the two hands meet, a beat there, and back. */
 function handOverMotion(hand: Hand, to: LessonCharacterId, kind?: ObjectKind): Motion {
   // A knife goes across blade down, the way it is handed safely: held out level, the blade hid behind the two fists and it read as a handshake.
@@ -1601,6 +1776,8 @@ export interface Surroundings {
   pointOf(name: string, as?: "grip" | "top" | "base"): Point | undefined;
   /** Halfway to `who`, at chest height. */
   meetWith(who: LessonCharacterId): Point | undefined;
+  /** A named point as it was when the cue began, if it has moved since: `pointOf` otherwise. */
+  pointBefore?(name: string, as?: "grip" | "top" | "base"): Point | undefined;
   /** Where what is being put down will be held once it is there. */
   landing?(): Point | undefined;
   /**
@@ -1667,7 +1844,10 @@ export function targetPoint(
       y: shoulder.y + ((at.y - shoulder.y) / length) * 28,
     };
   }
-  const at = around.pointOf(target.to, target.as ?? "grip");
+  const as = target.as ?? "grip";
+  const at =
+    (target.was ? around.pointBefore?.(target.to, as) : undefined) ??
+    around.pointOf(target.to, as);
   return at ? { x: at.x + (target.dx ?? 0), y: at.y + (target.dy ?? 0) } : rest;
 }
 

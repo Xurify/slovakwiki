@@ -76,9 +76,10 @@ export interface Place {
   /**
    * What the cast works at and with, for scenes acted from cues: the
    * surfaces at the cast's scale, every object with where it starts, and
-   * the spots people stand at.
+   * the spots people stand at. Every place has one, so a segment anywhere
+   * can bring what it acts with in its setup.
    */
-  set?: PlaceSet;
+  set: PlaceSet;
 }
 
 export type PlaceSet = Omit<SetPlan, "pieces"> & { pieces: readonly SetPiece[] };
@@ -219,6 +220,10 @@ const HOME_SET: PlaceSet = {
   pieces: [
     { id: "pegs", kind: "rail", x: 304, width: 24 },
     { id: "by-sofa", kind: "floor", x: 640, width: 24 },
+    // Floor spot in front of the dog's nose at rug-left, where its bowl stands; a dog there faces right.
+    { id: "by-dog", kind: "floor", x: 380, width: 24 },
+    // Where the backdrop draws the bag by the window, so a scene can keep something in it.
+    { id: "window-bag", kind: "floor", x: 171, width: 34 },
   ],
   objects: [],
   spots: {
@@ -231,17 +236,59 @@ const HOME_SET: PlaceSet = {
     "rug-left": { x: 333, facing: 1 },
     "rug-mid": { x: 410, facing: 1 },
     "rug-mid-right": { x: 487, facing: -1 },
-    "rug-right": { x: 565, facing: -1 },
+    "rug-right": { x: 585, facing: -1 },
     // A step in from the rug's right, to meet whoever comes in from that side.
     "to-right": { x: 420, facing: 1 },
+    // The dog's spot at the rug's left edge, and where someone kneels by its head on the room side.
+    "dog-spot": { x: 300, facing: 1 },
+    "kneel-by-dog": { x: 355, facing: -1 },
     // At the window, looking out: the dog under the sill, the one waiting with it beside.
     window: { x: 235, facing: -1 },
     "window-dog": { x: 155, facing: -1 },
+    "by-sofa": { piece: "by-sofa", dx: 0, facing: -1 },
+    // Beside the bag by the window, to reach down into it.
+    "window-bag": { piece: "window-bag", dx: 30, facing: -1 },
+  },
+};
+
+/**
+ * The café counter in the backdrop stands far behind the cast, its top
+ * above their heads: the waiter fetches from the back, past the stage's
+ * right edge, where a shelf at the hip holds what he brings out. His place
+ * at the counter's end is where a cast of three has him.
+ */
+const CAFE_SET: PlaceSet = {
+  pieces: [{ id: "back", kind: "ledge", x: 1050, width: 30, height: 44 }],
+  objects: [],
+  spots: {
+    back: { piece: "back", dx: -16, facing: 1 },
+    waiter: { x: 767, facing: -1 },
+  },
+};
+
+/**
+ * The stall on the right, Lucia at its end. Whoever buys next steps up
+ * beside her, where a cast of three has the one next to her, and the one
+ * done stands back a step left of the other.
+ */
+const MARKET_SET: PlaceSet = {
+  // The stall's counter top behind Lucia, at the hip, where she keeps what she has weighed and wrapped.
+  pieces: [{ id: "counter", kind: "ledge", x: 774, width: 40, height: 44 }],
+  objects: [],
+  spots: {
+    stall: { x: 660, facing: 1 },
+    aside: { x: 530, facing: 1 },
   },
 };
 
 /** The park's afternoon sun, which a line can point at and Find it can ask for. */
 const PARK_SUN = { x: 562, y: 36 };
+
+/** A place with no pieces of its own: a scene brings what it acts with in its setup. */
+const EMPTY_SET: PlaceSet = {
+  pieces: [],
+  objects: [],
+};
 
 export const PLACES: Readonly<Record<StageSetting, Place>> = {
   cafe: {
@@ -266,6 +313,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     staff: ["waiter"],
     post: 690,
     glass: { arch: true, height: 166, width: 156, x: 110, y: 34 },
+    set: CAFE_SET,
   },
   classroom: {
     ground: "wood",
@@ -288,6 +336,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       { kind: "chair", x: 200, facing: 1, desk: true },
       { kind: "chair", x: 330, facing: 1, desk: true },
     ],
+    set: EMPTY_SET,
   },
   default: {
     ground: "soil",
@@ -313,8 +362,12 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
         // Past each edge of what the widest stage shows, to walk on from or off to.
         "off-left": { x: 40, facing: 1 },
         "off-right": { x: 1000, facing: -1 },
+        // Cast marks in the park: Anna on the left, Domo in the middle, Dunčo ready for the throw on the right.
+        "park-left": { x: 300, facing: 1 },
+        "park-mid": { x: 440, facing: 1 },
+        "park-dog": { x: 540, facing: -1 },
         // Back from a run off the right, facing whoever threw.
-        "back-right": { x: 620, facing: -1 },
+        "back-right": { x: 550, facing: -1 },
       },
     },
   },
@@ -415,6 +468,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     // Lucia sells at the market in the podcast, from the stall on the right.
     staff: ["lucia"],
     post: 660,
+    set: MARKET_SET,
   },
   plaza: {
     ground: "stone",
@@ -441,6 +495,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       drawn(WORDS.oblak, [522, 29, 76, 31], [833, 42, 54, 22], [80, 31, 61, 25]),
     ],
     sounds: ["murmur", "birds", "tram"],
+    set: EMPTY_SET,
   },
   registration: {
     ground: "stone",
@@ -457,6 +512,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     sounds: ["hum", "murmur"],
     staff: ["receptionist", "maria"],
     post: 560,
+    set: EMPTY_SET,
   },
   street: {
     ground: "stone",
@@ -482,6 +538,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       drawn(WORDS.oblak, [382, 19, 76, 31], [733, 40, 54, 22]),
     ],
     sounds: ["murmur"],
+    set: EMPTY_SET,
   },
   studio: {
     ground: "carpet",
@@ -500,7 +557,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       },
       onSet(WORDS.krhla, ["can"], [690, 230, 22, 18]),
       // On the shelf, for tapping only: a line about a book means one in someone's hands, not these.
-      { ...drawn(WORDS.obraz, [686, 30, 70, 52]), quiet: true },
+      { ...drawn(WORDS.platna, [686, 30, 70, 52]), quiet: true },
       { ...drawn(WORDS.knihy, [682, 90, 52, 30]), quiet: true },
       { ...drawn(WORDS.polica, [676, 118, 96, 8]), quiet: true },
       drawn(WORDS.koberec, [190, 256, 580, 40]),
@@ -529,7 +586,11 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
         plant: { piece: "corner", dx: -32, facing: 1 },
         "desk-left": { chair: 0 },
         "desk-right": { chair: 1 },
+        // The same door as the kitchen's: in on its latch side, then past it to push it to.
+        door: { x: 244, facing: -1 },
+        inside: { x: 202, facing: 1 },
       },
+      door: "door",
     },
   },
 };

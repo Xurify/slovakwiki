@@ -5,7 +5,9 @@
   import { REST_POSE, type StickPose } from "$lib/stick-figure/pose";
   import { TURN_MS } from "$lib/stick-figure/turns";
   import { cubicInOut } from "svelte/easing";
-  import { prefersReducedMotion, Tween } from "svelte/motion";
+  import { prefersReducedMotion } from "svelte/motion";
+
+  import { PlayTween } from "$lib/stick-figure/play-motion.svelte";
 
   const STILL = { x: 0, y: 0 };
 
@@ -47,6 +49,11 @@
   const look = $derived(LOOKS[characterId]);
   const robot = $derived(look.robot);
   const dog = $derived(look.dog);
+  const computing = $derived(
+    Boolean(
+      robot && pose.brow >= 0.7 && pose.tilt <= -6 && pose.nod >= 1.5 && pose.look >= 0.6,
+    ),
+  );
   const hair = $derived(look.grey ? "fill-portrait-hair-grey" : "fill-portrait-hair");
   const brows = $derived(
     look.grey ? "stroke-portrait-hair-grey" : "stroke-portrait-hair",
@@ -56,7 +63,7 @@
   // view), so a turn reads at a glance; `look` moves the eyes on top of that.
   // Turning to the listeners and back eases like a turn of the body; a jump
   // of the features read as a twitch.
-  const turning = Tween.of(() => turn ?? (robot ? 1.4 : dog ? 4 : 2.6), {
+  const turning = PlayTween.of(() => turn ?? (robot ? 1.4 : dog ? 4 : 2.6), {
     duration: () => (prefersReducedMotion.current ? 0 : TURN_MS),
     easing: cubicInOut,
   });
@@ -118,26 +125,26 @@
   );
 
   /**
-   * Worn headphones: a cup over each ear, the far one round behind the face,
-   * and the band over the top of the hair, pressed a little into it so the
-   * hair shows above it. Side-on the cups turn their faces to and from us;
-   * from the front both are seen edge-on.
+   * Worn headphones: a cup over each ear, just outside the face so it stays
+   * clear of the eyes, the far one round behind the face. The band rises
+   * straight from a yoke on each cup and rounds over the top of the hair.
+   * Side-on the cups turn their faces to and from us; from the front both are
+   * seen edge-on.
    */
   const phones = $derived.by(() => {
     const u = Math.min(1, Math.abs(aside) / 2.6);
     const cy = 29.8;
-    const ry = 5.7;
-    // Each cup's middle on the head's outline, so it hugs the ear; turned, the
-    // far one goes in behind the face. Out past the outline with the band sunk
-    // into the hair, they read as sliding off.
-    const near = { x: 18.4 + 1.6 * u, rx: 2.9 + 0.9 * u };
-    const far = { x: 45.6 - 1.4 * u, rx: 2.9 - 0.7 * u };
-    const top = look.crown + 1.2;
+    const ry = 6.6;
+    // Each cup's middle a little past the head's outline, so it sits on the
+    // ear and not on the eye; turned, the far one goes in behind the face.
+    const near = { x: 15.8 + 1.6 * u, rx: 3.4 + 1 * u };
+    const far = { x: 47.7 - 0.1 * u, rx: 3.2 - 0.4 * u };
+    const top = look.crown - 2.4;
     const from = { x: near.x + 0.2, y: cy - ry + 0.6 };
     const to = { x: far.x - 0.2, y: cy - ry + 0.6 };
     const mid = { x: 31.8 - 0.3 * u, y: top };
     const rise = from.y - top;
-    const band = `M${n(from.x)} ${n(from.y)}C${n(from.x - 0.6)} ${n(from.y - rise * 0.58)} ${n(mid.x - (mid.x - from.x) * 0.56)} ${n(top)} ${n(mid.x)} ${n(top)}C${n(mid.x + (to.x - mid.x) * 0.56)} ${n(top)} ${n(to.x + 0.6)} ${n(to.y - rise * 0.58)} ${n(to.x)} ${n(to.y)}`;
+    const band = `M${n(from.x)} ${n(from.y)}C${n(from.x - 1.2)} ${n(from.y - rise * 0.85)} ${n(mid.x - (mid.x - from.x) * 0.6)} ${n(top)} ${n(mid.x)} ${n(top)}C${n(mid.x + (to.x - mid.x) * 0.6)} ${n(top)} ${n(to.x + 1.2)} ${n(to.y - rise * 0.85)} ${n(to.x)} ${n(to.y)}`;
     return { cy, ry, near, far, band };
   });
 </script>
@@ -257,7 +264,7 @@
     cx="32"
     cy="7.6"
     r="2.2"
-    class="{robot.light} stroke-portrait-ink {calling
+    class="{robot.light} stroke-portrait-ink {calling || computing
       ? 'motion-safe:animate-compute-dot'
       : ''}"
     stroke-width="1.2"
@@ -332,7 +339,7 @@
     cx="32"
     cy="8.5"
     r="2.2"
-    class="{robot.light} stroke-portrait-ink {calling
+    class="{robot.light} stroke-portrait-ink {calling || computing
       ? 'motion-safe:animate-compute-dot'
       : ''}"
     stroke-width="1.2"
@@ -383,7 +390,7 @@
     stroke-width="1.7"
   />
 
-  {#if look.ear}
+  {#if look.ear && !headphones}
     <path
       d="M18.6 25.8c-2.2.6-3 4.6-1.1 7.4 1 1.3 2.3.7 2.1-.9-.4-2.2-.6-4.6-1-6.5Z"
       class="fill-portrait-skin stroke-portrait-ink"
@@ -416,6 +423,19 @@
   {:else if characterId === "anna"}
     <path d={annaTop} class="{hair} stroke-portrait-ink" stroke-width="1.7" />
     <path d={annaStrands} class="stroke-portrait-ink" stroke-width="1.05" />
+    <!-- a honey hair clip holding the swept fringe -->
+    <path
+      d="M{hairAt(21.6, 18.2, 0.15)}L{hairAt(26.4, 15.6, 0.3)}"
+      class="stroke-portrait-ink"
+      stroke-width="3"
+      stroke-linecap="round"
+    />
+    <path
+      d="M{hairAt(21.6, 18.2, 0.15)}L{hairAt(26.4, 15.6, 0.3)}"
+      class="stroke-scene-honey"
+      stroke-width="1.6"
+      stroke-linecap="round"
+    />
   {:else if characterId === "lucia"}
     <path
       d="M18.8 23 18 16.4 21.8 10.6 27.6 6.6 33.8 5.8 40.4 8 45.6 13.6 47.6 20.6 47 27.4 45.4 30.4Q44.8 21.6 39 18.4Q35 16.6 31.2 17.6Q27.6 16.4 23.6 17.8Q20.2 19.6 18.8 23Z"
@@ -558,8 +578,24 @@
     <g clip-path="url(#{id}-behind-face)">
       {@render cup(phones.far.x, phones.far.rx, -1)}
     </g>
-    <path d={phones.band} class="stroke-portrait-ink" stroke-width="2.3" />
-    <path d={phones.band} class="stroke-scene-line" stroke-width="0.9" />
+    <path d={phones.band} class="stroke-portrait-ink" stroke-width="3.8" />
+    <path d={phones.band} class="stroke-scene-line" stroke-width="2.2" />
     {@render cup(phones.near.x, phones.near.rx, 1)}
+    <!-- The yoke: the band's end running down to the pivot in each cup. -->
+    {#each [phones.near, phones.far] as side (side)}
+      <path
+        d="M{n(side.x)} {n(phones.cy - phones.ry - 0.8)}V{phones.cy}"
+        class="stroke-portrait-ink"
+        stroke-width="3.4"
+        stroke-linecap="round"
+      />
+      <path
+        d="M{n(side.x)} {n(phones.cy - phones.ry - 0.8)}V{phones.cy}"
+        class="stroke-scene-line"
+        stroke-width="1.7"
+        stroke-linecap="round"
+      />
+      <circle cx={n(side.x)} cy={phones.cy} r="1.3" class="fill-portrait-ink" />
+    {/each}
   {/if}
 {/if}

@@ -1,6 +1,7 @@
 ---
 import SiteLayout from "@/layouts/SiteLayout.astro";
 import EpisodePlayer from "$lib/components/listening/EpisodePlayer.svelte";
+import ListenPrefsBoot from "$lib/components/listening/ListenPrefsBoot.astro";
 import ListeningEpisodePage from "$lib/components/listening/ListeningEpisodePage.svelte";
 import { contentCacheKey } from "$lib/build/cache-key";
 import { listeningEpisodes } from "$lib/catalog/listening";
@@ -46,6 +47,7 @@ const { episode, audio, next, stages } = Astro.props;
   canonicalPath={`/listening/${episode.slug}`}
   stage
 >
+  <ListenPrefsBoot slot="head" />
   <ListeningEpisodePage data={{ episode }}>
     <EpisodePlayer
       slot="player"

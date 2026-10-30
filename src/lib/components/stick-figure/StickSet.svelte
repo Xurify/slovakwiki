@@ -23,12 +23,15 @@
    */
   let {
     geometry,
+    gliding = {},
     layer,
     running = [],
     view,
     world,
   }: {
     geometry: SetGeometry;
+    /** Objects pushed along their surface, with the ms they glide over to where they now stand. */
+    gliding?: Readonly<Record<string, number>>;
     layer: "behind" | "front";
     /** Pieces whose tap is running. */
     running?: readonly string[];
@@ -36,7 +39,7 @@
     world: World;
   } = $props();
 
-  const FLAT = new Set(["phone", "keys"]);
+  const FLAT = new Set(["phone", "keys", "umbrella"]);
   const uid = $props.id();
 
   const pieces = $derived(
@@ -60,6 +63,9 @@
         const holder = "in" in state.where ? world.objects[state.where.in] : undefined;
         // Carrots in the pot are bits in the soup, drawn with it.
         if (state.kind === "carrot" && holder?.kind === "pot") return [];
+        // Inside an opaque bag or suitcase, items are hidden until taken out.
+        if (holder?.kind === "bag" || holder?.kind === "suitcase") return [];
+        if (state.kind === "stash" || holder?.kind === "stash") return [];
         const at = objectBase(world, id, geometry);
         return at ? [{ id, state, at, depth: depthOf(id), sink: sinkOf(id) }] : [];
       })
@@ -358,12 +364,19 @@
       </clipPath>
     {/if}
     <g clip-path={sink ? `url(#${uid}-sink-${id})` : undefined}>
+      <!-- A CSS translate, so what is pushed across a desk glides there: user units are px here. -->
       <g
-        transform="translate({n(at.x)} {n(at.y)}){state.turned ? ' scale(-1 1)' : ''}"
+        style:transform="translate({n(at.x)}px, {n(at.y)}px){state.turned
+          ? ' scale(-1, 1)'
+          : ''}"
+        style:transition={gliding[id]
+          ? `transform ${gliding[id]}ms cubic-bezier(0.2, 0.6, 0.3, 1)`
+          : undefined}
         data-set-id={id}
       >
         <StickSetObject
           kind={state.kind}
+          bitten={state.bitten}
           fill={state.fill}
           heat={state.heat}
           cut={state.cut}

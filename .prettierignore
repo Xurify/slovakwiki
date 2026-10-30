@@ -10,7 +10,7 @@ coverage
 package-lock.json
 *.tsbuildinfo
 # Pipeline dumps: scripts write JSON.stringify (compact or null, 2).
-# Prettier wraps short arrays to printWidth — CI format:check fails if hooks skipped.
+# The formatter wraps short arrays to printWidth — CI format:check fails if hooks skipped.
 content/audio/manifest.json
 content/audio/runtime-index.json
 content/audio/mouth.json
@@ -22,7 +22,7 @@ content/level-test/items.json
 content/level-test/spoken-check.json
 content/level-test/length-check.json
 static/frequency/
-# Gitignored generated trees. Prettier still walks them unless listed here.
+# Gitignored generated trees. The formatter still walks them unless listed here.
 static/audio/
 static/pagefind/
 content/images/manifest.json

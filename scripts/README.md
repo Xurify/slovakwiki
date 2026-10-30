@@ -2,7 +2,7 @@
 
 Grouped by job. Run content tooling with `bun scripts/<path>` from the repo root. Everyday app scripts live in `package.json` (`dev`, `build`, `test`, `index:search`, …).
 
-**Typecheck:** `scripts/**` is included in `bun run typecheck` (`astro check`). Prefer Node stdlib + patterns from `scripts/lib/paths.ts` and sibling scripts — see `AGENTS.md` → **Scripts**.
+**Typecheck:** `scripts/**` is included in `bun run typecheck` (`astro check`, then `svelte-check`). Prefer Node stdlib + patterns from `scripts/lib/paths.ts` and sibling scripts — see `AGENTS.md` → **Scripts**.
 
 ## Happy path
 
@@ -120,7 +120,7 @@ Generate lesson clips: `bun scripts/audio/generate.ts -- --lessons-only`. After 
 
 Prod env: `PUBLIC_AUDIO_BASE_URL` (R2 public base). Local page URLs stay `/audio/{kind}/{hash}.mp3`. In `astro dev`, a missing file under `static/audio/` is proxied from that base when the env is set; a file on disk still wins.
 
-**QA / accuracy:** Default TTS is `eleven_v4` + `language_code: sk`. Spoken text is the learner line, with no synth rewrite. `bun scripts/audio/verify.ts` / `generate.ts -- --verify` use a **dual judge** by default (`--stt dual`): ElevenLabs Scribe (spelling) + local Whisper (acoustic near-misses like `mýlil`→`mýliu`), plus Scribe last-word logprob gap. Fail → seed retry. Single-engine: `--stt elevenlabs` or `--stt whisper`. Whisper needs `py -3 -m pip install faster-whisper`.
+**QA / accuracy:** Default TTS is `eleven_v4` + `language_code: sk`. Spoken text is the learner line, with no synth rewrite. `bun scripts/audio/verify.ts` / `generate.ts -- --verify` use **ElevenLabs Scribe** by default (`--stt elevenlabs`), plus its last-word logprob gap. Local Whisper was less accurate, so it is opt-in: `--stt dual` adds it as a second judge for acoustic near-misses like `mýlil`→`mýliu`, and `--stt whisper` uses it alone (needs `py -3 -m pip install faster-whisper`). Fail → seed retry.
 
 ## `images/`
 

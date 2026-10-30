@@ -94,13 +94,6 @@ const ogImage = absoluteSiteUrl("/icon-512.png");
             sfx = storedSfx;
           }
         } catch (e) {}
-        var storyEn = "off";
-        try {
-          var storedEn = localStorage.getItem("slovak.wiki.story-show-english");
-          if (storedEn === "on" || storedEn === "off") {
-            storyEn = storedEn;
-          }
-        } catch (e) {}
         var dark =
           preference === "dark" ||
           (preference === "system" &&
@@ -110,7 +103,6 @@ const ogImage = absoluteSiteUrl("/icon-512.png");
         root.dataset.theme = theme;
         root.dataset.themePreference = preference;
         root.dataset.sfxPreference = sfx;
-        root.dataset.storyShowEnglish = storyEn;
         root.classList.add("js");
         root.style.colorScheme = theme;
         var meta = document.querySelector('meta[name="theme-color"]');
@@ -119,6 +111,7 @@ const ogImage = absoluteSiteUrl("/icon-512.png");
         }
       })();
     </script>
+    <slot name="head" />
   </head>
   <body>
     <div class="relative z-[1] flex min-h-screen min-w-0 flex-col">

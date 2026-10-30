@@ -219,6 +219,8 @@
     </div>
   {:else if view?.kind === "grid"}
     <div>
+      <!-- A table that scrolls sideways takes focus, so a keyboard can scroll it (WCAG 2.1.1). -->
+      <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
       <div class="overflow-x-auto" role="region" aria-label={pattern.label} tabindex="0">
         <table class="w-full border-collapse">
           <thead>

@@ -9,6 +9,7 @@
   } from "$lib/audio/volume";
   import type { ListeningChapter } from "$lib/catalog/listening/types";
   import Button from "$lib/components/ui/Button.svelte";
+  import ToolButton from "$lib/components/ui/ToolButton.svelte";
   import {
     getListenPlayAlong,
     getListenShowVoices,
@@ -24,8 +25,8 @@
   import { hasPendingStoryAudio, primeStoryAudio } from "$lib/lesson-story/story-audio";
   import { focusUnlessTyping } from "$lib/listening/focus";
   import LessonCharacterAvatar from "$lib/components/lessons/LessonCharacterAvatar.svelte";
-  import { LinePlayer } from "$lib/listening/line-player.svelte";
-  import { cardAt, nextOnPath, onPath } from "$lib/listening/listener-path";
+  import { LinePlayer, SLOW_RATE } from "$lib/listening/line-player.svelte";
+  import { cardAt, nextOnPath, onPath, prevOnPath } from "$lib/listening/listener-path";
   import type { StagedScene } from "$lib/stick-figure/scene-line";
   import { cx } from "$lib/ui/classes";
 
@@ -33,8 +34,8 @@
   import EpisodeLine from "./EpisodeLine.svelte";
   import ListenerAsk from "./ListenerAsk.svelte";
   import { episodeSpeakerName } from "./episode-speaker";
-  import ListenControl from "./ListenControl.svelte";
   import ListenScene from "./ListenScene.svelte";
+  import SceneIcon from "$lib/components/stick-figure/SceneIcon.svelte";
   import SceneSettings, {
     type SceneSetting,
   } from "$lib/components/stick-figure/SceneSettings.svelte";
@@ -78,48 +79,55 @@
   const COUNT_WORDS = ["one", "two", "three", "four", "five"];
 
   let root: HTMLElement | undefined = $state();
-  let listened = $state(done !== null || heard);
-  let checkAt = $state(done ? chapter.checks.length : 0);
-  let correct = $state(done?.correct ?? 0);
+  // Keyed by its segment (EpisodePlayer): it starts from what the episode knows of it, then keeps its own state.
+  let listened = $state(untrack(() => done !== null || heard));
+  let checkAt = $state(untrack(() => (done ? chapter.checks.length : 0)));
+  let correct = $state(untrack(() => done?.correct ?? 0));
   let textOpen = $state(false);
-  let english = $state(false);
-  let placeSound = $state(true);
-  let subtitles = $state(true);
+  // Read at setup, not in onMount, so the island's first client render already shows the stored prefs.
+  let english = $state(untrack(() => getStoryShowEnglish() === "on"));
+  let placeSound = $state(untrack(() => getStoryPlaceSound() === "on"));
+  let subtitles = $state(untrack(() => getStorySubtitles() === "on"));
   let volume = $state(1);
   let sceneStage = $state<ReturnType<typeof ListenScene>>();
-  let playAlong = $state(true);
-  let showVoices = $state(true);
+  let playAlong = $state(untrack(() => getListenPlayAlong() === "on"));
+  let showVoices = $state(untrack(() => getListenShowVoices() === "on"));
   /** The listener's answer to each line that asks for one, this time through. */
   let picks = $state<Record<string, string>>({});
   /** The ask whose answer has started to be heard, so the pick can be marked. */
   let revealedFor = $state<string | null>(null);
 
-  const lines = chapter.lines;
+  const lines = untrack(() => chapter.lines);
   const speakers = [...new Set(lines.map((line) => line.speaker))];
   // Switching questions on mid-segment changes only what comes at its end.
   const checks = $derived(questions ? chapter.checks : []);
 
   const asks = lines.some((line) => line.ask);
 
-  const player = new LinePlayer(lines, audioSrcs, {
-    stage: () => sceneStage,
-    holdsAfter: (index) => playAlong && Boolean(lines[index]?.ask),
-    isLast: (index) => nextOnPath(lines, picks, index) === undefined,
-    next: (index) => nextOnPath(lines, picks, index),
-    onRunEnd: () => {
-      const first = !listened;
-      listened = true;
-      // Every play-through goes on to the next segment, not only the first.
-      onlistened?.();
-      if (!questions || !first) return;
-      if (checks.length === 0) {
-        onfinish?.(0);
-        void reveal("[data-listen-done]", true);
-        return;
-      }
-      void reveal("[data-listen-checks]");
+  const player = new LinePlayer(
+    lines,
+    untrack(() => audioSrcs),
+    {
+      stage: () => sceneStage,
+      holdsAfter: (index) => playAlong && Boolean(lines[index]?.ask),
+      isLast: (index) => nextOnPath(lines, picks, index) === undefined,
+      next: (index) => nextOnPath(lines, picks, index),
+      prev: (index) => prevOnPath(lines, picks, index),
+      onRunEnd: () => {
+        const first = !listened;
+        listened = true;
+        // Every play-through goes on to the next segment, not only the first.
+        onlistened?.();
+        if (!questions || !first) return;
+        if (checks.length === 0) {
+          onfinish?.(0);
+          void reveal("[data-listen-done]", true);
+          return;
+        }
+        void reveal("[data-listen-checks]");
+      },
     },
-  });
+  );
 
   const askAt = $derived(cardAt(lines, picks, player.cursor, player.held));
   /** The lines this listener's answers lead through, in order. */
@@ -172,12 +180,13 @@
   const check = $derived(checks[checkAt]);
   const stage = $derived.by((): Stage => {
     if (!listened) {
-      return player.playing || player.cursor > 0 ? "listening" : "idle";
+      return player.playing || player.paused || player.cursor > 0 ? "listening" : "idle";
     }
     return check ? "checking" : "done";
   });
   const firstListen = $derived(stage === "idle" || stage === "listening");
 
+  /** Before the first play, the caption band would otherwise sit empty. */
   const idleCopy = $derived(
     !questions
       ? "Listen straight through, or read along."
@@ -188,33 +197,38 @@
           : `Listen first, then answer ${COUNT_WORDS[checks.length - 1] ?? checks.length} short questions.`,
   );
 
-  const status = $derived.by(() => {
-    const line = player.line;
-    if (player.speaking && line)
-      return showVoices ? "" : episodeSpeakerName(line.speaker);
-    if (stage === "idle") return idleCopy;
-    if (stage === "listening" && !player.playing) return "Paused";
-    return "";
-  });
-
+  const voice = $derived(stage === "listening" ? (player.line?.speaker ?? null) : null);
+  /** Just begun, the back button goes to the line before, as a player's Previous does. */
+  const back = $derived(player.justBegun && player.canGoBack);
   const playLabel = $derived.by(() => {
     if (player.playing) return "Pause";
+    if (player.paused) return "Resume";
     if (stage === "idle") return "Listen";
     if (stage === "listening") return "Resume";
     return "Listen again";
   });
 
-  export function pause(): void {
-    player.pause();
+  /** Stops the segment's line and voice, so the next play starts that line from the top. */
+  export function halt(): void {
+    player.halt();
   }
 
   export function playing(): boolean {
     return player.playing;
   }
 
+  function toggleSubtitles(): void {
+    subtitles = !subtitles;
+    setStorySubtitles(subtitles ? "on" : "off");
+  }
+
+  function toggleEnglish(): void {
+    english = !english;
+    setStoryShowEnglish(english ? "on" : "off");
+  }
+
   const settings = $derived<SceneSetting[]>([
     {
-      description: "How loud the episode and the place under it play",
       kind: "volume",
       label: "Volume",
       oninput: (value) => {
@@ -225,35 +239,7 @@
     ...(scene
       ? [
           {
-            description: "The line being said, under the stage",
-            label: "Subtitles",
-            on: subtitles,
-            ontoggle: () => {
-              subtitles = !subtitles;
-              setStorySubtitles(subtitles ? "on" : "off");
-            },
-          },
-        ]
-      : []),
-    {
-      description: "Translations under the Slovak lines and the subtitles",
-      label: "Show English",
-      on: english,
-      ontoggle: () => {
-        english = !english;
-        setStoryShowEnglish(english ? "on" : "off");
-      },
-    },
-    {
-      description: "Lines play at four-fifths speed",
-      label: "Slower",
-      on: player.slow,
-      ontoggle: () => player.toggleSlow(),
-    },
-    ...(scene
-      ? [
-          {
-            description: "The sound of the place, quieter under the voices",
+            icon: "wind" as const,
             label: "Background sound",
             on: placeSound,
             ontoggle: () => {
@@ -264,8 +250,8 @@
         ]
       : []),
     {
-      description: "The hosts' faces beside the play button",
-      label: "Voices",
+      icon: "people",
+      label: "Speaker faces",
       on: showVoices,
       ontoggle: () => {
         showVoices = !showVoices;
@@ -275,7 +261,8 @@
     ...(asks
       ? [
           {
-            description: "Stop when the hosts ask you to guess along",
+            description: "Pause when the hosts invite you to guess",
+            icon: "ask" as const,
             label: "Play along",
             on: playAlong,
             ontoggle: () => {
@@ -288,7 +275,7 @@
     ...(ontogglequestions
       ? [
           {
-            description: "Pause at the end of each segment for its questions",
+            icon: "hold" as const,
             label: "Pause at questions",
             on: questions,
             ontoggle: ontogglequestions,
@@ -296,15 +283,6 @@
         ]
       : []),
   ]);
-
-  function togglePlay(): void {
-    const atEnd =
-      listened &&
-      !player.playing &&
-      nextOnPath(lines, picks, player.cursor) === undefined;
-    if (atEnd) player.playFrom(0);
-    else player.toggle();
-  }
 
   function resolveCheck(isCorrect: boolean): void {
     if (isCorrect) correct += 1;
@@ -327,11 +305,8 @@
   }
 
   onMount(() => {
-    english = getStoryShowEnglish() === "on";
-    placeSound = getStoryPlaceSound() === "on";
-    subtitles = getStorySubtitles() === "on";
-    playAlong = getListenPlayAlong() === "on";
-    showVoices = getListenShowVoices() === "on";
+    // ListenPrefsBoot hides the chrome the learner turned off until this marker is set.
+    document.documentElement.dataset.listenHydrated = "1";
     volume = getAudioVolume();
 
     function onVolumeChange(): void {
@@ -379,6 +354,7 @@
       bind:this={sceneStage}
       class="mt-3 border-y border-slate-200/70"
       follows={autoplay}
+      hint={stage === "idle" ? idleCopy : undefined}
       {scene}
       showEnglish={english}
       sound={placeSound}
@@ -439,72 +415,122 @@
       {/each}
     </ol>
 
-    {#if !player.held}
-      <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2">
+    <div class="mt-3 flex flex-wrap items-center gap-x-1.5 gap-y-1">
+      <div class="flex items-center gap-1.5">
+        <!-- Kept in layout while a question holds the line, so the play button does not move. -->
         <Button
-          class="min-h-12 pr-5 pl-4"
+          class={cx(
+            "min-h-12 max-sm:size-12 max-sm:rounded-full max-sm:p-0",
+            "sm:min-w-32 sm:pr-5 sm:pl-4",
+            player.held && "invisible",
+          )}
+          disabled={player.held}
           variant={firstListen ? "accent" : "secondary"}
-          onclick={togglePlay}
+          onclick={() => player.toggle()}
         >
-          <svg class="size-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            {#if player.playing}
-              <rect x="6.5" y="5" width="4" height="14" rx="1" />
-              <rect x="13.5" y="5" width="4" height="14" rx="1" />
-            {:else}
-              <path d="M8 5v14l11-7Z" />
-            {/if}
-          </svg>
-
-          {playLabel}
+          <SceneIcon class="size-5" name={player.playing ? "pause" : "play"} />
+          <span class="max-sm:sr-only">{playLabel}</span>
         </Button>
 
-        <p class="m-0 text-sm text-slate-700 empty:hidden" aria-live="polite">{status}</p>
+        <!-- Disabled rather than hidden outside the listening stage, so the row does not shift. -->
+        <ToolButton
+          disabled={stage !== "listening"}
+          icon={back ? "previous" : "replay"}
+          label={back ? "Previous line" : "Replay line"}
+          onclick={() => player.back()}
+        />
+      </div>
 
+      <!-- Kept in layout while a question holds the line, so the bar never changes shape. -->
+      <div
+        class={cx(
+          "flex min-w-0 flex-1 items-center gap-x-2.5",
+          player.held && "invisible",
+        )}
+      >
         {#if showVoices}
-          <ul class="m-0 ml-auto flex list-none gap-3 p-0" aria-label="Voices">
-            {#each speakers as speaker (speaker)}
-              {@const speaking = player.speaking && player.line?.speaker === speaker}
+          <ul
+            class="m-0 flex shrink-0 list-none p-0"
+            data-listen-speakers
+            aria-label="Speakers"
+          >
+            {#each speakers as speaker, index (speaker)}
+              {@const lit = speaker === voice}
 
-              <li class="flex flex-col items-center gap-1">
+              <li
+                class={cx(
+                  "relative flex rounded-full bg-surface p-0.5 shadow-[0_0_0_0_transparent] transition-shadow duration-150 ease-out",
+                  index > 0 && "-ml-3",
+                  lit && "z-10 shadow-[0_0_10px_3px] shadow-amber-300/80",
+                )}
+                title={episodeSpeakerName(speaker)}
+              >
+                <!-- The ring stays opaque so overlapping avatars keep a clean edge. Dimming it too
+                     would double the translucency over the neighbour; only the avatar fades. -->
                 <LessonCharacterAvatar
                   {speaker}
-                  size="md"
-                  class={speaking
-                    ? "ring-2 ring-blue-600 ring-offset-2 ring-offset-surface"
-                    : ""}
+                  size="sm"
+                  class={cx(
+                    "transition-opacity duration-150 ease-out",
+                    voice && !lit && "opacity-55",
+                  )}
                 />
-
-                <span
-                  class="text-xs font-semibold {speaking
-                    ? 'text-blue-800'
-                    : 'text-slate-500'}"
-                >
-                  {episodeSpeakerName(speaker)}
-                </span>
+                <span class="sr-only">{episodeSpeakerName(speaker)}</span>
               </li>
             {/each}
           </ul>
         {/if}
+
+        {#if voice}
+          <p class="m-0 min-w-0 truncate text-sm font-semibold text-slate-900">
+            {episodeSpeakerName(voice)}
+          </p>
+        {/if}
       </div>
-    {/if}
 
-    <div class="mt-2 -ml-2.5 flex flex-wrap items-center gap-1">
-      {#if stage === "listening"}
-        <ListenControl onclick={() => player.back()}>
-          {player.justBegun && player.cursor > 0 ? "Previous line" : "Replay line"}
-        </ListenControl>
-      {/if}
+      <div
+        class="-mr-2.5 flex items-center max-sm:-ml-2.5 max-sm:w-full max-sm:justify-between sm:ml-auto"
+        role="group"
+        aria-label="Player options"
+      >
+        {#if scene}
+          <ToolButton
+            icon="captions"
+            label="Subtitles"
+            pressed={subtitles}
+            onclick={toggleSubtitles}
+          />
+        {/if}
 
-      <ListenControl onclick={() => (textOpen = !textOpen)}>
-        {textOpen ? "Hide transcript" : "Show transcript"}
-      </ListenControl>
+        <ToolButton
+          icon="translate"
+          label="Show English"
+          pressed={english}
+          tip="English translation"
+          onclick={toggleEnglish}
+        />
 
-      <SceneSettings
-        class="ml-auto -mr-1.5"
-        label="Listening settings"
-        {settings}
-        side="top"
-      />
+        <ToolButton
+          label="Slower"
+          pressed={player.slow}
+          tip={player.slow ? "Normal speed" : "Slower speed"}
+          onclick={() => player.toggleSlow()}
+        >
+          <span class="text-[0.8125rem] leading-none font-bold tabular-nums">
+            {player.slow ? `${SLOW_RATE}×` : "1×"}
+          </span>
+        </ToolButton>
+
+        <ToolButton
+          icon="transcript"
+          label="Transcript"
+          pressed={textOpen}
+          tip={textOpen ? "Hide transcript" : "Show transcript"}
+          onclick={() => (textOpen = !textOpen)}
+        />
+
+        <SceneSettings label="Listening settings" {settings} side="top" />
+      </div>
     </div>
   </div>
 
@@ -520,7 +546,7 @@
           total={checks.length}
           replayLine={lines.find((line) => line.id === check.replayLineId)}
           replaySrc={check.replayLineId ? audioSrcs[check.replayLineId] : undefined}
-          onbeforereplay={pause}
+          onbeforereplay={halt}
           onresolve={resolveCheck}
         />
       {/key}
@@ -576,11 +602,11 @@
           <EpisodeLine
             {line}
             number={step + 1}
-            current={(player.playing || stage === "listening") && player.cursor === index}
+            current={(player.playing || player.paused || stage === "listening") && player.cursor === index}
             playing={player.playing && player.cursor === index}
             showEnglish={english}
-            onplay={() => player.playFrom(index)}
-            onpause={pause}
+            onplay={() => player.playLine(index)}
+            onpause={() => player.pause()}
           />
         {/each}
       </ol>

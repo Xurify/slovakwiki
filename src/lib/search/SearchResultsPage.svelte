@@ -125,8 +125,9 @@
 
   const leadTopic = $derived.by(() => {
     const best = wordResults.best;
-    if (best?.type !== "pronoun") return undefined;
-    return topicRows.find((row) => row.key === best.pronoun.topicId);
+    return best?.type === "pronoun"
+      ? topicRows.find((row) => row.key === best.pronoun.topicId)
+      : undefined;
   });
   /** The best-match card already links its own topic; don't list it again below. */
   const listedTopicRows = $derived(
@@ -234,15 +235,16 @@
     }
 
     wordsPending = dictionary === null;
+    pagefindPending = true;
+    const pagefindPromise = searchPagefind(normalizeSearchText(value));
     const index = await ensureDictionary();
     if (current !== generation) return;
     wordsPending = false;
 
     const words = buildWordResults(value, index);
     wordResults = words;
-    pagefindPending = true;
 
-    const found = await searchPagefind(normalizeSearchText(value));
+    const found = await pagefindPromise;
     if (current !== generation) return;
 
     pagefindUnavailable = found === null;

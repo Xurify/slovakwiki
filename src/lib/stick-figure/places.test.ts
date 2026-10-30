@@ -26,10 +26,9 @@ describe("scene things", () => {
   it("knows each thing by its own nominative", () => {
     for (const [setting, { things }] of Object.entries(PLACES)) {
       for (const thing of things) {
-        expect([setting, thingNamed(foldLine(thing.word), things)?.id]).toEqual([
-          setting,
-          thing.id,
-        ]);
+        // A line names zlatá platňa by its noun, word by word.
+        const noun = foldLine(thing.word).split(" ").at(-1)!;
+        expect([setting, thingNamed(noun, things)?.id]).toEqual([setting, thing.id]);
       }
     }
   });

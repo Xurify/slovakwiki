@@ -13,11 +13,11 @@
  *   bun scripts/audio/lipsync.ts -- --episode past-tense  # one podcast episode's lines
  *
  * Scribe's word times are kept in tmp/scribe-words.json, so a take is heard
- * once. Needs ELEVENLABS_API_KEY and ffmpeg.
+ * once. Needs ELEVENLABS_API_KEY.
  */
 
 import { existsSync } from "node:fs";
-import { mkdir } from "node:fs/promises";
+import { mkdir, readFile } from "node:fs/promises";
 import path from "node:path";
 
 import {
@@ -30,14 +30,14 @@ import { alignSyllables } from "../../src/lib/stick-figure/syllable-align";
 import { slovakSyllables } from "../../src/lib/stick-figure/syllables";
 import { readJsonFile, writeFileAtomic } from "../lib/json-file";
 import { ROOT } from "../lib/paths";
-import { decodePcm } from "./mouth-tracks";
-import { AUDIO_DIR, loadManifest } from "./shared";
+import { decodeMp3 } from "./decode-mp3";
+import { AUDIO_DIR, loadManifest, mapPool } from "./shared";
 import { transcribeAudio } from "./stt";
 
-const SAMPLE_RATE = 16_000;
 /** A syllable this far outside Scribe's word span still counts as on it. */
 const SLACK_MS = 40;
 const CACHE_PATH = path.join(ROOT, "tmp", "scribe-words.json");
+const SCRIBE_CONCURRENCY = 4;
 
 interface HeardWord {
   end: number;
@@ -59,33 +59,45 @@ const episodeTexts = episode
     )
   : undefined;
 
+const clipPath = (hash: string) => path.join(AUDIO_DIR, "lesson", `${hash}.mp3`);
+
 const manifest = await loadManifest();
 const cache = await readJsonFile<Record<string, HeardWord[]>>(CACHE_PATH, {});
 await mkdir(path.dirname(CACHE_PATH), { recursive: true });
 
+const clips = Object.entries(manifest).filter(([hash, entry]) => {
+  if (entry.kind !== "lesson") return false;
+  if (only && !entry.text.includes(only)) return false;
+  if (tagsOnly && !entry.text.includes("[")) return false;
+  if (episodeTexts && !episodeTexts.has(entry.text)) return false;
+  // A bark has no words to land on; its mouth is the loudness alone.
+  if (entry.characterId && audioConfigData.characters?.[entry.characterId]?.sounds)
+    return false;
+  return existsSync(clipPath(hash));
+});
+
+// A retake keeps the clip's hash, so the take's own time is part of the key.
+const keyOf = (hash: string, generatedAt: string) => `${hash}@${generatedAt}`;
+
+// Scribe takes about 2.5 s a clip, so a cold cache is heard several at a time.
+const unheard = clips.filter(([hash, entry]) => !cache[keyOf(hash, entry.generatedAt)]);
+// One write at a time: writeFileAtomic's temp file is named per process, not per call.
+let saved = Promise.resolve();
+await mapPool(unheard, SCRIBE_CONCURRENCY, async ([hash, entry]) => {
+  const heard = await transcribeAudio(clipPath(hash));
+  cache[keyOf(hash, entry.generatedAt)] = (heard.words ?? [])
+    .filter((word) => /\p{L}/u.test(word.text))
+    .map((word) => ({ end: word.end ?? 0, start: word.start ?? 0, text: word.text }));
+  saved = saved.then(() => writeFileAtomic(CACHE_PATH, JSON.stringify(cache)));
+  await saved;
+});
+
 let inWord = 0;
 let total = 0;
 
-for (const [hash, entry] of Object.entries(manifest)) {
-  if (entry.kind !== "lesson") continue;
-  if (only && !entry.text.includes(only)) continue;
-  if (tagsOnly && !entry.text.includes("[")) continue;
-  if (episodeTexts && !episodeTexts.has(entry.text)) continue;
-  // A bark has no words to land on; its mouth is the loudness alone.
-  if (entry.characterId && audioConfigData.characters?.[entry.characterId]?.sounds)
-    continue;
-  const file = path.join(AUDIO_DIR, "lesson", `${hash}.mp3`);
-  if (!existsSync(file)) continue;
-
-  // A retake keeps the clip's hash, so the take's own time is part of the key.
-  const key = `${hash}@${entry.generatedAt}`;
-  if (!cache[key]) {
-    const heard = await transcribeAudio(file);
-    cache[key] = (heard.words ?? [])
-      .filter((word) => /\p{L}/u.test(word.text))
-      .map((word) => ({ end: word.end ?? 0, start: word.start ?? 0, text: word.text }));
-    await writeFileAtomic(CACHE_PATH, JSON.stringify(cache));
-  }
+for (const [hash, entry] of clips) {
+  const file = clipPath(hash);
+  const key = keyOf(hash, entry.generatedAt);
 
   const heard = cache[key];
   const written = spokenText(entry.text).match(/\p{L}+/gu) ?? [];
@@ -97,7 +109,8 @@ for (const [hash, entry] of Object.entries(manifest)) {
   }
 
   const owner = written.flatMap((word, index) => slovakSyllables(word).map(() => index));
-  const placed = alignSyllables(entry.text, await decodePcm(file), SAMPLE_RATE);
+  const { sampleRate, samples } = await decodeMp3(await readFile(file));
+  const placed = alignSyllables(entry.text, samples, sampleRate);
   const onWord = placed.filter((syllable, index) => {
     const word = heard[owner[index]];
     return (

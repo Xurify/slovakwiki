@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { untrack } from "svelte";
   import { typedAdvance } from "./typed-advance";
 
   /**
@@ -31,7 +32,7 @@
   } = $props();
 
   let letters = $state<string[]>(
-    Array.from({ length }, (_, index) => [...value][index] ?? ""),
+    untrack(() => Array.from({ length }, (_, index) => [...value][index] ?? "")),
   );
   let boxes = $state<HTMLInputElement[]>([]);
   /** WebKit can follow compositionend with an input event for the same text. */
