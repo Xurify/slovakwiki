@@ -140,8 +140,7 @@
       : "gap-x-4 gap-y-0.5 grid-cols-1 sm:grid-cols-[minmax(0,14rem)_minmax(0,1fr)]",
   );
 
-  const indexPromise: Promise<DictionaryIndexEntry[]> | null =
-    typeof window !== "undefined" ? fetchDictionaryIndex<DictionaryIndexEntry>() : null;
+  let indexPromise: Promise<DictionaryIndexEntry[]> | null = null;
 
   function syncFromUrl(url: URL): void {
     const next = parseBrowseSearchParams(url.searchParams);
@@ -166,14 +165,23 @@
 
   function selectTopic(nextTopic: BrowseTopicSlug): void {
     pushBrowseState(nextTopic, letter, 1);
+    if (browseStateNeedsIndex({ topic: nextTopic, letter, page: 1 })) {
+      void loadIndex();
+    }
   }
 
   function selectLetter(nextLetter: string): void {
     pushBrowseState(topic, nextLetter, 1);
+    if (browseStateNeedsIndex({ topic, letter: nextLetter, page: 1 })) {
+      void loadIndex();
+    }
   }
 
   function selectPage(nextPage: number): void {
     pushBrowseState(topic, letter, nextPage);
+    if (browseStateNeedsIndex({ topic, letter, page: nextPage })) {
+      void loadIndex();
+    }
   }
 
   function resetFilters(): void {
@@ -181,10 +189,7 @@
   }
 
   async function loadIndex(): Promise<void> {
-    if (!indexPromise) {
-      return;
-    }
-
+    indexPromise ??= fetchDictionaryIndex<DictionaryIndexEntry>();
     loadError = "";
 
     try {
@@ -195,7 +200,9 @@
   }
 
   onMount(() => {
-    void loadIndex();
+    if (needsFilteredIndex) {
+      void loadIndex();
+    }
 
     const enableListAnimation = (): void => {
       canAnimateList = true;
