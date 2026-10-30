@@ -22,6 +22,7 @@
     alt=""
     width="512"
     height="512"
+    loading="lazy"
     decoding="async"
     class="size-full object-cover"
   />

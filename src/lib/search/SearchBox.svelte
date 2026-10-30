@@ -26,7 +26,6 @@
   import {
     getPagefind,
     isSearchDocKind,
-    schedulePagefindIdleWarm,
     SEARCH_DEBOUNCE_MS,
     type PagefindResultData,
   } from "./pagefind-client";
@@ -100,8 +99,8 @@
 
   const inputClass = $derived(
     size === "hero"
-      ? "min-w-0 flex-1 border-0 bg-transparent px-3 text-[1.05rem] text-(--ink) outline-none placeholder:text-(--muted)"
-      : "min-h-11 min-w-0 flex-1 border-0 bg-transparent px-2.5 text-[0.9rem] text-(--ink) outline-none placeholder:text-(--muted)",
+      ? "min-w-0 flex-1 border-0 bg-transparent px-3 text-[1.05rem] text-(--ink) outline-none placeholder:text-(--muted) [&::-webkit-search-cancel-button]:hidden"
+      : "min-h-11 min-w-0 flex-1 border-0 bg-transparent px-2.5 text-[0.9rem] text-(--ink) outline-none placeholder:text-(--muted) [&::-webkit-search-cancel-button]:hidden",
   );
 
   function kindLabel(kind: string | undefined, category?: string): string {
@@ -276,6 +275,7 @@
   // keyboard focus only warms the lookup; a click, typing or Down opens it.
   function onFocus(): void {
     warmDictionaryLookup();
+    void getPagefind();
     if (trimmedQuery) {
       openPanel();
       void runSearch(query);
@@ -346,7 +346,6 @@
 
   onMount(() => {
     refreshRecent();
-    schedulePagefindIdleWarm();
 
     if (queryFromUrl && !query.trim()) {
       query = new URLSearchParams(window.location.search).get("q")?.trim() ?? "";
@@ -421,7 +420,10 @@
     method="get"
     class={fieldClass}
     role="search"
-    onpointerenter={warmDictionaryLookup}
+    onpointerenter={() => {
+      warmDictionaryLookup();
+      void getPagefind();
+    }}
   >
     <label class="sr-only" for={id}>Search Slovak Wiki</label>
 

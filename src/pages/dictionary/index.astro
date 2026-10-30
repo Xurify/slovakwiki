@@ -6,8 +6,6 @@ import {
   buildDictionaryBrowseView,
   parseBrowseSearchParams,
 } from "$lib/catalog/dictionary/browse";
-import { DICTIONARY_INDEX_URLS } from "$lib/catalog/dictionary/browse-query";
-
 export const prerender = false;
 
 const initialBrowse = parseBrowseSearchParams(Astro.url.searchParams);
@@ -18,8 +16,6 @@ const initialData = buildDictionaryBrowseView(
 );
 const hasBrowseParams = [...Astro.url.searchParams.keys()].length > 0;
 ---
-
-<link rel="preload" href={DICTIONARY_INDEX_URLS[0]} as="fetch" crossorigin />
 
 <SiteLayout
   title="Dictionary — Slovak Wiki"

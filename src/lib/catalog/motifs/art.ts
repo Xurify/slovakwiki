@@ -1,6 +1,6 @@
 import type { PracticeGraphicId } from "../practice/motifs";
 
-/** Public files in `static/lessons/motifs/{id}.webp`. */
+/** Public full-size art in `static/lessons/motifs/{id}.webp`. */
 export function motifArtSrc(id: string): string {
   return `/lessons/motifs/${id}.webp`;
 }

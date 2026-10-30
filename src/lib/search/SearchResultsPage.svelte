@@ -235,15 +235,16 @@
     }
 
     wordsPending = dictionary === null;
+    pagefindPending = true;
+    const pagefindPromise = searchPagefind(normalizeSearchText(value));
     const index = await ensureDictionary();
     if (current !== generation) return;
     wordsPending = false;
 
     const words = buildWordResults(value, index);
     wordResults = words;
-    pagefindPending = true;
 
-    const found = await searchPagefind(normalizeSearchText(value));
+    const found = await pagefindPromise;
     if (current !== generation) return;
 
     pagefindUnavailable = found === null;
