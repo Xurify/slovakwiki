@@ -38,12 +38,20 @@
   <PageShell class="max-w-[1080px]">
     <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_21rem] lg:gap-x-12">
       <header class="max-w-xl lg:col-start-1">
-        <h1 class="text-balance">Find your Slovak level</h1>
+        <div class="flex flex-wrap items-center gap-3">
+          <h1 class="text-balance">Find your Slovak level</h1>
+          <span class={tagClass}>Beta</span>
+        </div>
 
         <Lead class="text-pretty">
           An adaptive placement test. Every answer sets the difficulty of the next
           question, so a short test places you on the CEFR scale from A1 to C2.
         </Lead>
+
+        <p class="m-0 mt-4 text-sm text-slate-600">
+          This is a beta. The test is still being built and checked, so questions,
+          scoring and results may change. Treat your level as a rough guide.
+        </p>
       </header>
 
       <aside
