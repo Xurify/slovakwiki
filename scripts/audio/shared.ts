@@ -9,7 +9,6 @@ import path from "node:path";
 
 import { caseTopics, grammarEntries, words } from "../../src/lib/catalog/entries";
 import { grammarExamples } from "../../src/lib/catalog/reference/grammar-pattern";
-import { EXAMPLE_DISPLAY_LIMIT } from "../../src/lib/catalog/dictionary/example-limits";
 import {
   type AudioConfig,
   type AudioKind,
@@ -243,8 +242,8 @@ export function collectDictionaryAudioTargets(options?: {
 
     if (options?.lemmasOnly) continue;
 
-    // Only mint audio for examples the detail page shows (store pool may be larger).
-    for (const example of entry.examples.slice(0, EXAMPLE_DISPLAY_LIMIT)) {
+    // Mint audio for the whole store pool: the app plays every stored example, not only the four the detail page shows.
+    for (const example of entry.examples) {
       const slovak = normalizeAudioText(example.slovak);
       if (!slovak || byText.has(slovak)) continue;
       byText.set(slovak, { kind: "example", text: slovak });
