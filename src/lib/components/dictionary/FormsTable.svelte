@@ -32,20 +32,33 @@
     >{/if}
 {/snippet}
 
-<div class={cx(dataPanelClass, "sm:w-fit sm:max-w-full")}>
+<div class={dataPanelClass}>
   <div class="overflow-x-auto">
     <table class="w-full border-collapse text-left">
       <caption class="sr-only">Forms of {lemma}</caption>
 
       <thead>
         <tr class="border-b border-slate-200 bg-subtle/60">
-          <th scope="col" class={cx(eyebrowMutedClass, "w-px py-2 pr-6 pl-4 sm:pl-5")}>
+          <th
+            scope="col"
+            class={cx(eyebrowMutedClass, "py-2.5 pr-6 pl-4 sm:w-[38%] sm:pr-8 sm:pl-5")}
+          >
             Case
           </th>
 
-          <th scope="col" class={cx(eyebrowMutedClass, "w-px py-2 pr-8")}>Singular</th>
+          <th
+            scope="col"
+            class={cx(eyebrowMutedClass, "py-2.5 pr-6 sm:w-[31%] sm:pr-8")}
+          >
+            Singular
+          </th>
 
-          <th scope="col" class={cx(eyebrowMutedClass, "py-2 pr-4 sm:pr-5")}>Plural</th>
+          <th
+            scope="col"
+            class={cx(eyebrowMutedClass, "py-2.5 pr-4 sm:w-[31%] sm:pr-5")}
+          >
+            Plural
+          </th>
         </tr>
       </thead>
 
@@ -54,7 +67,7 @@
           <tr class="border-b border-slate-200/70 last:border-b-0">
             <th
               scope="row"
-              class="w-px py-1.5 pr-6 pl-4 align-baseline text-sm leading-snug font-normal whitespace-nowrap sm:pl-5"
+              class="py-2.5 pr-6 pl-4 align-baseline text-sm leading-snug font-normal whitespace-nowrap sm:pr-8 sm:pl-5"
             >
               <a
                 class="font-semibold text-blue-800 no-underline hover:underline"
@@ -69,14 +82,14 @@
             </th>
 
             <td
-              class="w-px py-1.5 pr-8 align-baseline font-serif text-lg font-semibold whitespace-nowrap text-slate-900"
+              class="py-2.5 pr-6 align-baseline font-serif text-lg font-semibold whitespace-nowrap text-slate-900 sm:pr-8"
               lang="sk"
             >
               {@render form(row.singular.stem, row.singular.ending)}
             </td>
 
             <td
-              class="py-1.5 pr-4 align-baseline font-serif text-lg font-semibold whitespace-nowrap text-slate-900 sm:pr-5"
+              class="py-2.5 pr-4 align-baseline font-serif text-lg font-semibold whitespace-nowrap text-slate-900 sm:pr-5"
               lang="sk"
             >
               {@render form(row.plural.stem, row.plural.ending)}

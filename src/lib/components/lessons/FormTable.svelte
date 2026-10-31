@@ -39,12 +39,23 @@
     <table class="w-full border-collapse text-left text-sm">
       <thead>
         <tr class="border-b border-slate-200">
-          <td class={edgeCellClass}></td>
+          <td
+            class={[
+              edgeCellClass,
+              table.columns.length === 2 && "sm:w-[30%]",
+              table.columns.length === 3 && "sm:w-[28%]",
+            ]}
+          ></td>
 
           {#each table.columns as column (column.english)}
             <th
               scope="col"
-              class="{cellPaddingClass} pb-2 align-bottom text-xs leading-snug font-semibold text-slate-700"
+              class={[
+                cellPaddingClass,
+                "pb-2.5 align-bottom text-xs leading-snug font-semibold whitespace-nowrap text-slate-700",
+                table.columns.length === 2 && "sm:w-[35%]",
+                table.columns.length === 3 && "sm:w-[24%]",
+              ]}
             >
               {@render heading(column)}
             </th>
@@ -76,7 +87,7 @@
             <tr class="border-b border-slate-200/70 last:border-b-0">
               <th
                 scope="row"
-                class="{edgeCellClass} max-w-56 py-1.5 text-xs leading-snug font-semibold text-slate-700 sm:min-w-36"
+                class="{edgeCellClass} max-w-56 py-2.5 text-xs leading-snug font-semibold text-slate-700 sm:min-w-36"
               >
                 {@render heading(row.heading)}
               </th>
@@ -85,8 +96,8 @@
                 <td
                   class={[
                     cellPaddingClass,
-                    "py-1.5 font-serif text-base whitespace-nowrap text-slate-900",
-                    cellIndex < row.cells.length - 1 && "w-px sm:pr-8",
+                    "py-2.5 font-serif text-base whitespace-nowrap text-slate-900",
+                    cellIndex === row.cells.length - 1 && "sm:pr-6",
                   ]}
                   lang="sk"
                 >
