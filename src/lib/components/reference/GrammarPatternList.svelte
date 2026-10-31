@@ -226,12 +226,7 @@
   </li>
 {/snippet}
 
-<div
-  class={cx(
-    hasTable && dataPanelClass,
-    view?.kind === "grid" && "sm:w-fit sm:max-w-full",
-  )}
->
+<div class={cx(hasTable && dataPanelClass)}>
   {#if time}
     <div>
       <ol class="m-0 list-none p-0" aria-label="Clock times">
@@ -461,6 +456,7 @@
       </ul>
     </div>
   {:else if view?.kind === "grid"}
+    {@const colCount = view.columns.length}
     <div>
       <!-- A table that scrolls sideways takes focus, so a keyboard can scroll it (WCAG 2.1.1). -->
       <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
@@ -472,7 +468,9 @@
                 scope="col"
                 class={cx(
                   eyebrowMutedClass,
-                  "w-px py-2.5 pr-8 pl-4 text-left align-bottom whitespace-nowrap max-sm:hidden sm:pr-10 sm:pl-5",
+                  "py-2.5 pr-6 pl-4 text-left align-bottom whitespace-nowrap max-sm:hidden sm:pr-8 sm:pl-5",
+                  colCount === 2 && "sm:w-[30%]",
+                  colCount === 3 && "sm:w-[28%]",
                 )}
               >
                 {view.rowLabel}
@@ -485,9 +483,10 @@
                   scope="col"
                   class={cx(
                     eyebrowMutedClass,
-                    "py-2.5 pr-4 pl-0 text-left align-bottom whitespace-nowrap last:pr-4 sm:last:pr-5",
-                    index < view.columns.length - 1 && "w-px pr-8 sm:pr-10",
+                    "py-2.5 pr-6 pl-0 text-left align-bottom whitespace-nowrap last:pr-4 sm:pr-8 sm:last:pr-5",
                     index === 0 && "max-sm:pl-4",
+                    colCount === 2 && "sm:w-[35%]",
+                    colCount === 3 && "sm:w-[24%]",
                   )}
                 >
                   {#if note}
@@ -523,7 +522,7 @@
               <tr>
                 <th
                   scope="row"
-                  class="w-px py-2.5 pr-8 pl-4 text-left align-baseline text-sm leading-snug font-normal whitespace-nowrap text-slate-600 max-sm:hidden sm:pr-10 sm:pl-5"
+                  class="py-2.5 pr-6 pl-4 text-left align-baseline text-sm leading-snug font-normal whitespace-nowrap text-slate-600 max-sm:hidden sm:pr-8 sm:pl-5"
                 >
                   {row.label}
                 </th>
@@ -532,8 +531,7 @@
                   <td
                     class={cx(
                       "font-serif text-lg leading-snug font-semibold text-slate-900",
-                      "py-2.5 pr-4 pl-0 align-baseline whitespace-nowrap last:pr-4 max-sm:pt-0 sm:last:pr-5",
-                      index < row.cells.length - 1 && "w-px pr-8 sm:pr-10",
+                      "py-2.5 pr-6 pl-0 align-baseline whitespace-nowrap last:pr-4 max-sm:pt-0 sm:pr-8 sm:last:pr-5",
                       index === 0 && "max-sm:pl-4",
                     )}
                     lang="sk"
