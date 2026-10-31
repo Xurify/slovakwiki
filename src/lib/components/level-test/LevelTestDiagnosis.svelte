@@ -201,12 +201,12 @@
             >
               {#each gap.examples as example, exampleIndex (exampleIndex)}
                 <li
-                  class="flex flex-wrap items-baseline gap-x-3 gap-y-0.5 border-b border-slate-200 bg-subtle px-3 py-2 last:border-b-0"
+                  class="flex flex-wrap items-baseline gap-x-3 gap-y-0.5 border-b border-slate-200 bg-subtle px-3.5 py-2.5 last:border-b-0"
                 >
-                  <span class="font-serif text-slate-900" lang="sk"
+                  <span class="font-serif font-semibold text-slate-900" lang="sk"
                     >{example.expected}</span
                   >
-                  <span class="text-slate-500">
+                  <span class="text-slate-600">
                     {example.picked ? "you picked" : "you wrote"}
                     <span class="font-serif text-rose-700 line-through" lang="sk"
                       >{example.given || "nothing"}</span
