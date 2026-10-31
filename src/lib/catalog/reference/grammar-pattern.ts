@@ -38,6 +38,36 @@ export interface MarkedPhrase {
   after: string;
 }
 
+/** One span of a sentence that may mark multiple `[forms]`. */
+export interface MarkedSegment {
+  text: string;
+  marked: boolean;
+  /** Zero-based index among marked spans in the sentence (`-1` when unmarked). */
+  markIndex: number;
+}
+
+export type AspectCueScene = "now" | "habit" | "span" | "done" | "sequence" | "interrupt";
+
+export type AspectCueKind = "imperfective" | "perfective" | "both";
+
+export interface AspectCueItem {
+  aspect: AspectCueKind;
+  english?: string;
+  lemma?: string;
+  scene: AspectCueScene;
+  segments: MarkedSegment[];
+  slovak: string;
+  when: string;
+}
+
+export interface AspectCueGroup {
+  aspect: AspectCueKind;
+  items: AspectCueItem[];
+  slovakTerm: string;
+  summary: string;
+  title: string;
+}
+
 export interface PatternTile {
   label: string;
   ending: string;
@@ -50,6 +80,7 @@ export interface PatternGridRow {
 }
 
 export type PatternView =
+  | { kind: "aspect"; groups: AspectCueGroup[] }
   | { kind: "paradigm"; singular: ParadigmCell[]; plural: ParadigmCell[] }
   | { kind: "tiles"; tiles: PatternTile[] }
   | { kind: "grid"; rowLabel: string; columns: string[]; rows: PatternGridRow[] }
@@ -103,6 +134,90 @@ function parseParadigm(lines: readonly string[]): PatternView | undefined {
   });
 
   return { kind: "paradigm", singular: cells.slice(0, 3), plural: cells.slice(3) };
+}
+
+const ASPECT_CUE_LINE = /^(.+): (imperfective|perfective|both)$/;
+
+const ASPECT_SCENE_BY_WHEN: Record<string, AspectCueScene> = {
+  "in progress": "now",
+  "a habit": "habit",
+  "how long": "span",
+  "done, with a result": "done",
+  "one event after another": "sequence",
+  "background, then an event": "interrupt",
+};
+
+const ASPECT_GROUP_META: Record<
+  AspectCueKind,
+  { title: string; slovakTerm: string; summary: string }
+> = {
+  imperfective: {
+    title: "Imperfective",
+    slovakTerm: "nedokonavý vid",
+    summary: "ongoing, repeated, or open duration",
+  },
+  perfective: {
+    title: "Perfective",
+    slovakTerm: "dokonavý vid",
+    summary: "completed result, or one step after another",
+  },
+  both: {
+    title: "Both in one sentence",
+    slovakTerm: "nedokonavý + dokonavý vid",
+    summary: "an ongoing background, interrupted by a single event",
+  },
+};
+
+function parseAspect(lines: readonly string[]): PatternView | undefined {
+  if (lines.length === 0) return undefined;
+
+  const items: AspectCueItem[] = [];
+  for (const line of lines) {
+    const parts = line.split(" · ").map((part) => part.trim());
+    const cueIndex = parts.findIndex((part) => ASPECT_CUE_LINE.test(part));
+    if (cueIndex < 1) return undefined;
+
+    const cueMatch = ASPECT_CUE_LINE.exec(parts[cueIndex]!);
+    if (!cueMatch) return undefined;
+
+    const slovak = parts[0]!;
+    const when = cueMatch[1]!.trim();
+    const aspect = cueMatch[2] as AspectCueKind;
+    const english = cueIndex > 1 ? parts.slice(1, cueIndex).join(" · ") : undefined;
+    const lemma =
+      cueIndex + 1 < parts.length ? parts.slice(cueIndex + 1).join(" · ") : undefined;
+    const scene =
+      ASPECT_SCENE_BY_WHEN[when] ??
+      (aspect === "imperfective"
+        ? "now"
+        : aspect === "perfective"
+          ? "done"
+          : "interrupt");
+
+    items.push({
+      aspect,
+      english,
+      lemma,
+      scene,
+      segments: markedSegments(slovak),
+      slovak: plainCell(slovak),
+      when,
+    });
+  }
+
+  const order: AspectCueKind[] = ["imperfective", "perfective", "both"];
+  const groups: AspectCueGroup[] = [];
+  for (const aspect of order) {
+    const groupItems = items.filter((item) => item.aspect === aspect);
+    if (groupItems.length === 0) continue;
+    groups.push({
+      aspect,
+      ...ASPECT_GROUP_META[aspect],
+      items: groupItems,
+    });
+  }
+
+  return { kind: "aspect", groups };
 }
 
 export function parsePatternRow(line: string): PatternRow {
@@ -163,11 +278,46 @@ export function markAgainst(base: string, form: string): MarkedPhrase {
   return { before: form, mark: "", after: "" };
 }
 
-const EXPLICIT_MARK = /^(.*)\[(.+)\](.*)$/u;
+const EXPLICIT_MARK = /^(.*?)\[([^\]]+)\](.*)$/u;
 
 /** A table cell without its `[ending]` brackets. */
 export function plainCell(cell: string): string {
   return cell.replace(/[[\]]/gu, "");
+}
+
+/** Splits a string with one or more `[marked]` spans into ordered segments. */
+export function markedSegments(text: string): MarkedSegment[] {
+  const segments: MarkedSegment[] = [];
+  let lastIndex = 0;
+  let markIndex = 0;
+
+  for (const match of text.matchAll(/\[([^\]]+)\]/gu)) {
+    const start = match.index ?? 0;
+    if (start > lastIndex) {
+      segments.push({
+        text: text.slice(lastIndex, start),
+        marked: false,
+        markIndex: -1,
+      });
+    }
+    segments.push({
+      text: match[1]!,
+      marked: true,
+      markIndex,
+    });
+    markIndex += 1;
+    lastIndex = start + match[0].length;
+  }
+
+  if (lastIndex < text.length || segments.length === 0) {
+    segments.push({
+      text: text.slice(lastIndex),
+      marked: false,
+      markIndex: -1,
+    });
+  }
+
+  return segments;
 }
 
 /** `moj[ej]` marks the ending where the form does not grow out of the row's first cell. */
@@ -232,6 +382,9 @@ export function parsePattern(
 ): PatternView {
   const paradigm = parseParadigm(lines);
   if (paradigm) return paradigm;
+
+  const aspect = parseAspect(lines);
+  if (aspect) return aspect;
 
   const rows = lines.map(parsePatternRow);
   return parseTiles(rows, examples) ?? { kind: "rows", rows };

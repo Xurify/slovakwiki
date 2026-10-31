@@ -566,12 +566,12 @@ export const grammarEntries: GrammarTopic[] = [
       {
         label: "Which aspect?",
         lines: [
-          "Práve píšem e-mail. · in progress: imperfective",
-          "Každé ráno pijem kávu. · a habit: imperfective",
-          "Dve hodiny som čítal. · how long: imperfective",
-          "Prečítal som to za hodinu. · done, with a result: perfective",
-          "Prišiel, sadol si a otvoril list. · one event after another: perfective",
-          "Keď som varil, zazvonil telefón. · background, then an event: both",
+          "Práve [píšem] e-mail. · Right now I am writing an email. · in progress: imperfective · písať",
+          "Každé ráno [pijem] kávu. · Every morning I drink coffee. · a habit: imperfective · piť",
+          "Dve hodiny som [čítal]. · I read for two hours. · how long: imperfective · čítať",
+          "[Prečítal] som to za hodinu. · I finished reading it in an hour. · done, with a result: perfective · prečítať",
+          "[Prišiel], [sadol si] a [otvoril] list. · He came in, sat down, and opened the letter. · one event after another: perfective · prísť → sadnúť si → otvoriť",
+          "Keď som [varil], [zazvonil] telefón. · While I was cooking, the phone rang. · background, then an event: both · variť → zazvoniť",
         ],
         examples: [
           {

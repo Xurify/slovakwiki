@@ -5,6 +5,7 @@ import {
   addedPrefix,
   isGrammarTable,
   markAgainst,
+  markedSegments,
   markSuffix,
   namesHourAhead,
   patternAnchor,
@@ -150,6 +151,41 @@ describe("parsePattern", () => {
     ]);
     expect(patternSearchLines(pattern)).toEqual(["Genitive", "môjho", "mojej"]);
     expect(patternForms(pattern)).toEqual(["môjho", "mojej"]);
+  });
+
+  it("groups aspect cues by imperfective, perfective, and both with timeline scenes", () => {
+    const topic = grammarEntries.find((entry) => entry.slug === "aspect");
+    const which = topic?.morePatterns?.find(
+      (pattern) => pattern.label === "Which aspect?",
+    );
+    if (!which) throw new Error("missing Which aspect? pattern");
+
+    const view = patternView(which, which.examples);
+    expect(view.kind).toBe("aspect");
+    if (view.kind !== "aspect") return;
+
+    expect(view.groups.map((group) => [group.aspect, group.items.length])).toEqual([
+      ["imperfective", 3],
+      ["perfective", 2],
+      ["both", 1],
+    ]);
+    expect(
+      view.groups.flatMap((group) => group.items.map((item) => [item.when, item.scene])),
+    ).toEqual([
+      ["in progress", "now"],
+      ["a habit", "habit"],
+      ["how long", "span"],
+      ["done, with a result", "done"],
+      ["one event after another", "sequence"],
+      ["background, then an event", "interrupt"],
+    ]);
+    expect(markedSegments("Keď som [varil], [zazvonil] telefón.")).toEqual([
+      { text: "Keď som ", marked: false, markIndex: -1 },
+      { text: "varil", marked: true, markIndex: 0 },
+      { text: ", ", marked: false, markIndex: -1 },
+      { text: "zazvonil", marked: true, markIndex: 1 },
+      { text: " telefón.", marked: false, markIndex: -1 },
+    ]);
   });
 
   it("falls back to rows for everything else", () => {

@@ -15,6 +15,8 @@
     namesHourAhead,
     patternForms,
     patternView,
+    plainCell,
+    type AspectCueScene,
     type MarkedPhrase,
     type ParadigmCell,
   } from "$lib/catalog/reference/grammar-pattern";
@@ -77,9 +79,19 @@
     view?.kind === "tiles" && view.tiles.every((tile) => tile.example),
   );
 
+  // Short noun/verb phrases fit a multi-column cell grid; full sentences take
+  // ruled rows so they do not wrap mid-clause or leave blank trailing cells.
   const phrases = $derived(
     view?.kind === "rows" &&
-      view.rows.every((row) => row.gloss && !row.result && !row.label),
+      view.rows.length >= 3 &&
+      view.rows.every(
+        (row) =>
+          row.gloss &&
+          !row.result &&
+          !row.label &&
+          plainCell(row.main).length <= 22 &&
+          !/[.?!…]$/u.test(row.main),
+      ),
   );
   const time = $derived(
     withClocks && !isGrammarTable(pattern) ? splitTime(pattern.lines) : undefined,
@@ -96,10 +108,103 @@
     >{/if}{phrase.after}
 {/snippet}
 
+{#snippet aspectTimeline(scene: AspectCueScene)}
+  <svg
+    class="h-7 w-28 shrink-0 overflow-visible"
+    viewBox="0 2 120 32"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.8"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M6 18h108" class="text-slate-300" />
+
+    {#if scene === "now"}
+      <path d="M60 5v26" class="text-slate-400" stroke-dasharray="2.5 2.5" />
+      <path
+        d="M22 18c4.75-6.5 9.5-6.5 14.25 0s9.5 6.5 14.25 0 9.5-6.5 14.25 0 9.5 6.5 14.25 0 9.5-6.5 14.25 0"
+        class="text-blue-700"
+        stroke-width="2.2"
+      />
+      <circle
+        cx="60"
+        cy="18"
+        r="3"
+        class="text-blue-700"
+        fill="currentColor"
+        stroke="none"
+      />
+    {:else if scene === "habit"}
+      {#each [18, 39, 60, 81, 102] as x (x)}
+        <circle
+          cx={x}
+          cy="18"
+          r="3.6"
+          class="text-blue-700"
+          fill="currentColor"
+          stroke="none"
+        />
+      {/each}
+    {:else if scene === "span"}
+      <path d="M20 9v18M100 9v18" class="text-blue-700" stroke-width="2" />
+      <path
+        d="M24 18c4.5-6 9-6 13.5 0s9 6 13.5 0 9-6 13.5 0 9 6 13.5 0 9-6 13.5 0"
+        class="text-blue-700"
+        stroke-width="2.2"
+      />
+    {:else if scene === "done"}
+      <path d="M20 11v14" class="text-emerald-700" stroke-width="2" />
+      <path d="M20 18h62" class="text-emerald-700" stroke-width="2.4" />
+      <circle
+        cx="90"
+        cy="18"
+        r="7.5"
+        class="text-emerald-700"
+        fill="currentColor"
+        stroke="none"
+      />
+      <path d="M86.5 18l2.5 2.5 4.5-5" class="text-paper" stroke-width="2" />
+    {:else if scene === "sequence"}
+      <path
+        d="M29 18h20M45.5 14.5L49 18l-3.5 3.5M69 18h20M85.5 14.5L89 18l-3.5 3.5"
+        class="text-emerald-700"
+        stroke-width="1.8"
+      />
+      {#each [20, 60, 100] as x (x)}
+        <circle
+          cx={x}
+          cy="18"
+          r="5"
+          class="text-emerald-700"
+          fill="currentColor"
+          stroke="none"
+        />
+      {/each}
+    {:else if scene === "interrupt"}
+      <path
+        d="M14 18c4.25-6.5 8.5-6.5 12.75 0s8.5 6.5 12.75 0 8.5-6.5 12.75 0 8.5 6.5 12.75 0 8.5-6.5 12.75 0"
+        class="text-blue-700"
+        stroke-width="2.2"
+      />
+      <circle
+        cx="92"
+        cy="18"
+        r="7.5"
+        class="text-emerald-700"
+        fill="currentColor"
+        stroke="none"
+      />
+      <path d="M88.5 18l2.5 2.5 4.5-5" class="text-paper" stroke-width="2" />
+    {/if}
+  </svg>
+{/snippet}
+
 {#snippet formCell(cell: ParadigmCell)}
   <li
     class={cx(
-      "grid grid-cols-1 items-baseline gap-x-6 gap-y-0.5 border-b border-slate-200/70 px-4 py-1.5 last:border-b-0 sm:px-5",
+      "grid grid-cols-1 items-baseline gap-x-6 gap-y-0.5 border-b border-slate-200/70 px-4 py-2.5 last:border-b-0 sm:px-5",
       "sm:grid-cols-[7rem_8rem_minmax(0,1fr)]",
     )}
   >
@@ -181,6 +286,139 @@
         </ul>
       {/if}
     </div>
+  {:else if view?.kind === "aspect"}
+    <ol class="m-0 list-none p-0" aria-label={pattern.label}>
+      {#each view.groups as group (group.aspect)}
+        <li class="border-t border-slate-200 first:border-t-0">
+          <div
+            class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-slate-200 bg-subtle/60 px-4 py-2.5 sm:px-5"
+          >
+            <p class="m-0 flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+              <span class="text-sm font-semibold text-slate-900">{group.title}</span>
+              <span class="text-xs text-slate-500">— {group.summary}</span>
+            </p>
+
+            <span
+              class={cx(
+                "font-serif text-sm font-semibold",
+                group.aspect === "imperfective" && "text-blue-800",
+                group.aspect === "perfective" && "text-emerald-800",
+                group.aspect === "both" && "text-slate-700",
+              )}
+              lang="sk"
+            >
+              {#if group.aspect === "both"}
+                <span class="text-blue-800">nedokonavý</span>
+                <span class="mx-1 font-sans font-normal text-slate-400">+</span>
+                <span class="text-emerald-800">dokonavý vid</span>
+              {:else}
+                {group.slovakTerm}
+              {/if}
+            </span>
+          </div>
+
+          <ul class="m-0 list-none p-0">
+            {#each group.items as item (item.slovak)}
+              <li
+                class="grid gap-x-5 gap-y-2 border-b border-slate-200/70 px-4 py-3.5 last:border-b-0 sm:grid-cols-[9rem_minmax(0,1fr)] sm:items-center sm:px-5"
+              >
+                <div class="flex items-center gap-3 sm:flex-col sm:items-start sm:gap-1">
+                  {@render aspectTimeline(item.scene)}
+                  <span class="text-xs leading-snug font-medium text-slate-600">
+                    {item.when}
+                  </span>
+                </div>
+
+                <div class="min-w-0">
+                  <div
+                    class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-0.5"
+                  >
+                    <p
+                      class="m-0 font-serif text-lg leading-snug font-semibold text-slate-900"
+                      lang="sk"
+                    >
+                      {#each item.segments as segment, segIndex (segIndex)}
+                        {#if segment.marked}
+                          {@const isPerfective =
+                            item.aspect === "perfective" ||
+                            (item.aspect === "both" && segment.markIndex >= 1)}
+                          <span
+                            class={cx(
+                              "rounded-sm px-1 font-semibold",
+                              isPerfective
+                                ? "bg-emerald-50 text-emerald-800"
+                                : "bg-mark/60 text-blue-800",
+                            )}
+                          >
+                            {segment.text}
+                          </span>
+                        {:else}
+                          {segment.text}
+                        {/if}
+                      {/each}
+                    </p>
+
+                    {#if item.lemma && item.aspect !== "both"}
+                      <span class="font-serif text-sm text-slate-500" lang="sk">
+                        {item.lemma}
+                      </span>
+                    {/if}
+                  </div>
+
+                  {#if item.english}
+                    <p class="m-0 mt-0.5 text-[0.95rem] leading-snug text-slate-600">
+                      {item.english}
+                    </p>
+                  {/if}
+
+                  {#if item.aspect === "both" && item.lemma}
+                    {@const markedForms = item.segments
+                      .filter((segment) => segment.marked)
+                      .map((segment) => segment.text)}
+                    {@const lemmas = item.lemma.split(" → ").map((part) => part.trim())}
+                    {#if markedForms.length >= 2 && lemmas.length >= 2}
+                      <p
+                        class="m-0 mt-2 flex flex-wrap items-baseline gap-x-2.5 gap-y-1 text-xs leading-snug text-slate-600"
+                      >
+                        <span class="inline-flex items-baseline gap-1.5">
+                          <span
+                            class="rounded-sm bg-mark/60 px-1 font-serif text-sm font-semibold text-blue-800"
+                            lang="sk"
+                          >
+                            {markedForms[0]}
+                          </span>
+                          <span>
+                            background (<span
+                              class="font-serif font-medium text-slate-700"
+                              lang="sk">{lemmas[0]}</span
+                            >, imperfective)
+                          </span>
+                        </span>
+                        <span class="text-slate-400" aria-hidden="true">→</span>
+                        <span class="inline-flex items-baseline gap-1.5">
+                          <span
+                            class="rounded-sm bg-emerald-50 px-1 font-serif text-sm font-semibold text-emerald-800"
+                            lang="sk"
+                          >
+                            {markedForms[1]}
+                          </span>
+                          <span>
+                            interrupting event (<span
+                              class="font-serif font-medium text-slate-700"
+                              lang="sk">{lemmas[1]}</span
+                            >, perfective)
+                          </span>
+                        </span>
+                      </p>
+                    {/if}
+                  {/if}
+                </div>
+              </li>
+            {/each}
+          </ul>
+        </li>
+      {/each}
+    </ol>
   {:else if view?.kind === "tiles"}
     <div>
       <div
@@ -196,7 +434,7 @@
         {#each view.tiles as tile (tile.label)}
           <li
             class={cx(
-              "grid grid-cols-1 items-baseline gap-x-6 gap-y-0.5 border-b border-slate-200/70 px-4 py-1.5 last:border-b-0 sm:px-5",
+              "grid grid-cols-1 items-baseline gap-x-6 gap-y-0.5 border-b border-slate-200/70 px-4 py-2.5 last:border-b-0 sm:px-5",
               "sm:grid-cols-[8rem_11rem_minmax(0,1fr)]",
             )}
           >
@@ -218,6 +456,7 @@
       </ul>
     </div>
   {:else if view?.kind === "grid"}
+    {@const colCount = view.columns.length}
     <div>
       <!-- A table that scrolls sideways takes focus, so a keyboard can scroll it (WCAG 2.1.1). -->
       <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
@@ -229,7 +468,9 @@
                 scope="col"
                 class={cx(
                   eyebrowMutedClass,
-                  "w-px py-2 pr-6 pl-4 text-left align-bottom whitespace-nowrap max-sm:hidden sm:pl-5",
+                  "py-2.5 pr-6 pl-4 text-left align-bottom whitespace-nowrap max-sm:hidden sm:pr-8 sm:pl-5",
+                  colCount === 2 && "sm:w-[30%]",
+                  colCount === 3 && "sm:w-[28%]",
                 )}
               >
                 {view.rowLabel}
@@ -242,9 +483,10 @@
                   scope="col"
                   class={cx(
                     eyebrowMutedClass,
-                    "py-2 pr-4 pl-0 text-left align-bottom whitespace-nowrap last:pr-4 sm:last:pr-5",
-                    index < view.columns.length - 1 && "pr-8 sm:pr-10",
+                    "py-2.5 pr-6 pl-0 text-left align-bottom whitespace-nowrap last:pr-4 sm:pr-8 sm:last:pr-5",
                     index === 0 && "max-sm:pl-4",
+                    colCount === 2 && "sm:w-[35%]",
+                    colCount === 3 && "sm:w-[24%]",
                   )}
                 >
                   {#if note}
@@ -271,7 +513,7 @@
                 <th
                   scope="rowgroup"
                   colspan={view.columns.length}
-                  class="px-4 pt-1.5 pb-0 text-left text-xs leading-snug font-normal text-slate-500"
+                  class="px-4 pt-2.5 pb-0.5 text-left text-xs leading-snug font-normal text-slate-500"
                 >
                   {row.label}
                 </th>
@@ -280,7 +522,7 @@
               <tr>
                 <th
                   scope="row"
-                  class="py-1.5 pr-6 pl-4 text-left align-baseline text-sm leading-snug font-normal whitespace-nowrap text-slate-600 max-sm:hidden sm:pl-5"
+                  class="py-2.5 pr-6 pl-4 text-left align-baseline text-sm leading-snug font-normal whitespace-nowrap text-slate-600 max-sm:hidden sm:pr-8 sm:pl-5"
                 >
                   {row.label}
                 </th>
@@ -289,8 +531,7 @@
                   <td
                     class={cx(
                       "font-serif text-lg leading-snug font-semibold text-slate-900",
-                      "py-1.5 pr-4 pl-0 align-baseline whitespace-nowrap last:pr-4 max-sm:pt-0 sm:last:pr-5",
-                      index < row.cells.length - 1 && "pr-8 sm:pr-10",
+                      "py-2.5 pr-6 pl-0 align-baseline whitespace-nowrap last:pr-4 max-sm:pt-0 sm:pr-8 sm:last:pr-5",
                       index === 0 && "max-sm:pl-4",
                     )}
                     lang="sk"
@@ -366,7 +607,7 @@
 
           <li
             class={cx(
-              "grid grid-cols-1 items-baseline gap-x-6 gap-y-0.5 border-b border-slate-200/70 px-4 py-1.5 last:border-b-0 sm:px-5",
+              "grid grid-cols-1 items-baseline gap-x-6 gap-y-0.5 border-b border-slate-200/70 px-4 py-2.5 last:border-b-0 sm:px-5",
               "sm:grid-cols-[minmax(0,17rem)_minmax(0,1fr)]",
             )}
           >
@@ -378,7 +619,7 @@
               {/if}
 
               <span class={cx(row.result && "font-normal text-slate-500")}
-                >{row.main}</span
+                >{@render marked(markedPhrase(row.main))}</span
               >
 
               {#if row.result}
