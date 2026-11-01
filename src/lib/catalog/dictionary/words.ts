@@ -1,7 +1,7 @@
 import { curatedEssentialsSeed } from "./curated-essentials-seed";
 import lemmaFrequencyIndex from "../../../../content/frequency/lemma-index.json";
 import dictionaryWords from "../../../../content/dictionary/words.json";
-import variantFormBase from "../../../../content/dictionary/variant-forms.json";
+import variantFormGroups from "../../../../content/dictionary/variant-forms.json";
 import { normalizeLemma } from "../frequency";
 import { type FrequencyPartOfSpeech } from "../frequency/types";
 import { dictionarySource, julsSourceLabel, snkSourceUrl } from "../sources";
@@ -30,8 +30,6 @@ type WordSeed = Pick<
 type LemmaFrequencyHit = { partOfSpeech: FrequencyPartOfSpeech; rank: number };
 
 const frequencyIndex = lemmaFrequencyIndex as Record<string, LemmaFrequencyHit>;
-
-const variantBaseBySlug: Record<string, string> = variantFormBase;
 
 const CATEGORY_TO_PART_OF_SPEECH: Record<string, FrequencyPartOfSpeech> = {
   Verbs: "verb",
@@ -980,7 +978,6 @@ const mappedWords: ContentEntry[] = wordSeed.map((word) => {
   const origin: WordOrigin = curatedSlugs.has(word.slug) ? "curated" : "frequency";
   const frequency = wordFrequency(word);
   const attribution = wordAttribution(origin, word.examples);
-  const variantOf: string | undefined = variantBaseBySlug[word.slug];
 
   return {
     ...word,
@@ -990,7 +987,6 @@ const mappedWords: ContentEntry[] = wordSeed.map((word) => {
     origin,
     frequency,
     ...attribution,
-    ...(variantOf ? { variantOf } : {}),
     tags: [
       word.category.toLowerCase(),
       ...(word.topics ?? []).map((topic) => topic.toLowerCase()),
@@ -1026,8 +1022,7 @@ function primaryGloss(english: string): string | null {
  * share a primary sense (aspect partners, negations, near-synonyms). Words with
  * no such peer keep `related: []`: frequency-rank neighbours are not related
  * words (the entry's rank already links to the common-words list). Variant
- * spellings are skipped: they are the same word as their base, not a peer of it
- * (see `inheritVariantRelated`).
+ * spellings are skipped: they are the same word as their base, not a peer of it.
  */
 function attachGlossPeers(entries: ContentEntry[]): ContentEntry[] {
   const maxPeers = 3;
@@ -1066,14 +1061,33 @@ function attachGlossPeers(entries: ContentEntry[]): ContentEntry[] {
   });
 }
 
-/** A variant spelling shows its base lemma's related words, so zas leads where zase does. */
-function inheritVariantRelated(entries: ContentEntry[]): ContentEntry[] {
+/**
+ * Forms of one word share one page, headed by the form the corpus uses most, as
+ * Merriam-Webster heads "theater" and lists "theatre". The others get `variantOf`.
+ */
+function markVariants(entries: ContentEntry[]): ContentEntry[] {
   const bySlug = new Map(entries.map((entry) => [entry.slug, entry]));
+  const baseBySlug = new Map<string, string>();
+
+  for (const group of variantFormGroups) {
+    const members = group
+      .map((slug) => bySlug.get(slug))
+      .filter((entry): entry is ContentEntry => entry !== undefined);
+    if (members.length < 2) continue;
+
+    const rank = (entry: ContentEntry) => entry.frequency?.rank ?? Infinity;
+    const base = members.reduce((best, entry) =>
+      rank(entry) < rank(best) ? entry : best,
+    );
+    for (const member of members) {
+      if (member !== base) baseBySlug.set(member.slug, base.slug);
+    }
+  }
 
   return entries.map((entry) => {
-    const base = entry.variantOf ? bySlug.get(entry.variantOf) : undefined;
-    return base ? { ...entry, related: base.related } : entry;
+    const variantOf = baseBySlug.get(entry.slug);
+    return variantOf ? { ...entry, variantOf } : entry;
   });
 }
 
-export const words: ContentEntry[] = inheritVariantRelated(attachGlossPeers(mappedWords));
+export const words: ContentEntry[] = attachGlossPeers(markVariants(mappedWords));

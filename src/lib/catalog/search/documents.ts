@@ -88,7 +88,16 @@ export function buildSearchDocuments(): SearchDocument[] {
 
   const documents: SearchDocument[] = [];
 
+  const variantFormsByHead = new Map<string, string[]>();
   for (const entry of words) {
+    if (!entry.variantOf) continue;
+    const forms = variantFormsByHead.get(entry.variantOf) ?? [];
+    forms.push(entry.slovak);
+    variantFormsByHead.set(entry.variantOf, forms);
+  }
+
+  for (const entry of words) {
+    if (entry.variantOf) continue;
     documents.push({
       url: dictionaryPathForSense(entry, words),
       kind: "word",
@@ -101,6 +110,7 @@ export function buildSearchDocuments(): SearchDocument[] {
         forms: [
           ...(entry.aliases ?? []),
           ...searchFormsForLemma(entry.slovak, entry.category, entry.gender),
+          ...(variantFormsByHead.get(entry.slug) ?? []),
         ],
         gloss: [entry.english],
         body: [entry.summary, entry.category, ...entry.tags],

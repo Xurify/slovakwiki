@@ -50,7 +50,6 @@
     lemmaAudioSrc,
     relatedEntries = [],
     senses,
-    variantOf,
     variants = [],
   }: {
     /** Client island that mounts AudioButtons into `[data-audio-mount]` hosts. */
@@ -63,8 +62,8 @@
     lemmaAudioSrc?: string;
     relatedEntries?: RelatedEntry[];
     senses?: SenseView[];
-    variantOf?: { href: string; slovak: string };
-    variants?: Array<{ href: string; slovak: string }>;
+    /** Other forms of the word (zas, zase on zasa), shown under the headword. */
+    variants?: string[];
   } = $props();
 
   const senseViews = $derived(
@@ -205,23 +204,10 @@
         <EntryMeta class="mt-2" {entry} {plural} />
       {/if}
 
-      {#if variantOf}
-        <p class="m-0 mt-2 text-sm text-slate-700">
-          Variant of
-          <TextLink href={variantOf.href}>
-            <span lang="sk">{variantOf.slovak}</span>
-          </TextLink>
-        </p>
-      {/if}
-
       {#if variants.length > 0}
         <p class="m-0 mt-2 text-sm text-slate-700">
-          Variants:
-          {#each variants as variant, index (variant.href)}
-            <TextLink href={variant.href}>
-              <span lang="sk">{variant.slovak}</span>
-            </TextLink>{index < variants.length - 1 ? ", " : ""}
-          {/each}
+          Also
+          <span class="font-serif text-slate-900" lang="sk">{variants.join(", ")}</span>
         </p>
       {/if}
     </header>

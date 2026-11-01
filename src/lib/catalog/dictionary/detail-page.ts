@@ -44,8 +44,8 @@ export type DictionaryPageProps = {
     entry: ContentEntry;
     exampleAudioSrcs: string[];
   }>;
-  variantOf: { href: string; slovak: string } | undefined;
-  variants: Array<{ href: string; slovak: string }>;
+  /** Other forms of the word, listed on this page instead of their own. */
+  variants: string[];
 };
 
 let lemmaTexts: Set<string> | undefined;
@@ -109,19 +109,11 @@ function dictionaryPageProps(entry: ContentEntry): DictionaryPageProps | undefin
 
   const titleEnglish = senses.map((sense) => sense.english).join(" · ");
 
-  const variantBase = entry.variantOf ? entryBySlug.get(entry.variantOf) : undefined;
-
   return {
     entry,
-    variantOf: variantBase
-      ? { href: entryHref(variantBase, words), slovak: variantBase.slovak }
-      : undefined,
-    variants: [...variantsOf(entry.slug)]
-      .sort((first, second) => first.slovak.localeCompare(second.slovak, "sk"))
-      .map((variant) => ({
-        href: entryHref(variant, words),
-        slovak: variant.slovak,
-      })),
+    variants: variantsOf(entry.slug)
+      .map((variant) => variant.slovak)
+      .sort((first, second) => first.localeCompare(second, "sk")),
     senses: senses.map((sense) => ({
       entry: sense,
       exampleAudioSrcs: exampleAudioSrcsFor(sense),
