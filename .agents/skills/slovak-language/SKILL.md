@@ -75,7 +75,7 @@ Read only the reference required by the task.
 ## Teaching defaults
 
 - Prefer complete chunks: `Mám rád kávu.`, `Idem do mesta.`, `Som v meste.`
-- Introduce nouns with gender and a usable form: `stôl (m. inan.)`, `žena (f.)`, `mesto (n.)`.
+- Introduce nouns with gender and a usable form: `stôl (masculine inanimate)`, `žena (feminine)`, `mesto (neuter)`.
 - Introduce verbs with aspect partner and key forms: `písať (ipf.) / napísať (pf.) – píšem – píšu`.
 - Teach case through a verb/preposition frame before abstract labels: `čakám na + acc.`, `hovorím o + loc.`, `pomáham + dat.`
 - Make the learner produce both directions of every spatial contrast: `v Bratislave` / `do Bratislavy`, `na stole` / `na stôl`.

@@ -2,31 +2,33 @@
 
 Use this for agreement tables, comparison, pronoun choice (short vs. long forms), and every number-related form: cardinals, ordinals, clock time, money, age, fractions, and decimals.
 
+_Masculine personal_ means male persons only. Animals are masculine animate in the singular (`pekného psa`) but take the plural forms of things: `pekné psy`, `tie psy`, `dva psy`.
+
 ## 1. Adjectives
 
 ### Hard type: `pekný`
 
-| Case | m. sg.                  | f. sg. | n. sg.  | pl.                                 |
-| ---- | ----------------------- | ------ | ------- | ----------------------------------- |
-| N    | pekný                   | pekná  | pekné   | pekní (m. anim.) / pekné (others)   |
-| G    | pekného                 | peknej | pekného | pekných                             |
-| D    | peknému                 | peknej | peknému | pekným                              |
-| A    | pekného (anim.) / pekný | peknú  | pekné   | pekných (m. anim.) / pekné (others) |
-| L    | peknom                  | peknej | peknom  | pekných                             |
-| I    | pekným                  | peknou | pekným  | peknými                             |
+| Case | masculine singular        | feminine singular | neuter singular | plural                                        |
+| ---- | ------------------------- | ----------------- | --------------- | --------------------------------------------- |
+| N    | pekný                     | pekná             | pekné           | pekní (masculine personal) / pekné (others)   |
+| G    | pekného                   | peknej            | pekného         | pekných                                       |
+| D    | peknému                   | peknej            | peknému         | pekným                                        |
+| A    | pekného (animate) / pekný | peknú             | pekné           | pekných (masculine personal) / pekné (others) |
+| L    | peknom                    | peknej            | peknom          | pekných                                       |
+| I    | pekným                    | peknou            | pekným          | peknými                                       |
 
 Rhythmic law: after a long syllable the ending shortens. `krásny, krásna, krásne; krásneho, krásnemu, krásnom, krásnym`; pl. `krásni/krásne, krásnych, krásnym, krásnymi`. The instrumental `krásnou` keeps `ou`. Never `*krásný`, `*krásného`.
 
 ### Soft type: `cudzí`
 
-| Case | m. sg.                   | f. sg. | n. sg.   | pl.                                  |
-| ---- | ------------------------ | ------ | -------- | ------------------------------------ |
-| N    | cudzí                    | cudzia | cudzie   | cudzí (m. anim.) / cudzie (others)   |
-| G    | cudzieho                 | cudzej | cudzieho | cudzích                              |
-| D    | cudziemu                 | cudzej | cudziemu | cudzím                               |
-| A    | cudzieho (anim.) / cudzí | cudziu | cudzie   | cudzích (m. anim.) / cudzie (others) |
-| L    | cudzom                   | cudzej | cudzom   | cudzích                              |
-| I    | cudzím                   | cudzou | cudzím   | cudzími                              |
+| Case | masculine singular         | feminine singular | neuter singular | plural                                         |
+| ---- | -------------------------- | ----------------- | --------------- | ---------------------------------------------- |
+| N    | cudzí                      | cudzia            | cudzie          | cudzí (masculine personal) / cudzie (others)   |
+| G    | cudzieho                   | cudzej            | cudzieho        | cudzích                                        |
+| D    | cudziemu                   | cudzej            | cudziemu        | cudzím                                         |
+| A    | cudzieho (animate) / cudzí | cudziu            | cudzie          | cudzích (masculine personal) / cudzie (others) |
+| L    | cudzom                     | cudzej            | cudzom          | cudzích                                        |
+| I    | cudzím                     | cudzou            | cudzím          | cudzími                                        |
 
 Decide by the nominative ending: `-ý/-y` follows `pekný` (`posledný`, `ranný`); `-í/-i` follows `cudzí` (`tretí → tretieho`, `domáci → domáceho`, `včerajší → včerajšieho`). All comparatives (`lepší`, `väčší`, `krajší`) are soft.
 
@@ -34,14 +36,14 @@ Decide by the nominative ending: `-ý/-y` follows `pekný` (`posledný`, `ranný
 
 Formed from one animate owner: masculine `-ov` (`Peter → Petrov`, `brat → bratov`), feminine `-in` (`mama → mamin`, `Jana → Janin`, `sestra → sestrin`).
 
-| Case | m. sg.                  | f. sg.  | n. sg.  | pl.                                   |
-| ---- | ----------------------- | ------- | ------- | ------------------------------------- |
-| N    | otcov                   | otcova  | otcovo  | otcovi (m. anim.) / otcove (others)   |
-| G    | otcovho                 | otcovej | otcovho | otcových                              |
-| D    | otcovmu                 | otcovej | otcovmu | otcovým                               |
-| A    | otcovho (anim.) / otcov | otcovu  | otcovo  | otcových (m. anim.) / otcove (others) |
-| L    | otcovom                 | otcovej | otcovom | otcových                              |
-| I    | otcovým                 | otcovou | otcovým | otcovými                              |
+| Case | masculine singular        | feminine singular | neuter singular | plural                                          |
+| ---- | ------------------------- | ----------------- | --------------- | ----------------------------------------------- |
+| N    | otcov                     | otcova            | otcovo          | otcovi (masculine personal) / otcove (others)   |
+| G    | otcovho                   | otcovej           | otcovho         | otcových                                        |
+| D    | otcovmu                   | otcovej           | otcovmu         | otcovým                                         |
+| A    | otcovho (animate) / otcov | otcovu            | otcovo          | otcových (masculine personal) / otcove (others) |
+| L    | otcovom                   | otcovej           | otcovom         | otcových                                        |
+| I    | otcovým                   | otcovou           | otcovým         | otcovými                                        |
 
 `matkin` takes the same endings: `matkina kniha`, `s matkiným autom`, `v Janinom byte`. When to use a possessive adjective instead of a genitive: see [discourse-and-verb-precision.md](discourse-and-verb-precision.md) §5.
 
@@ -101,16 +103,16 @@ How to choose the form:
 
 ## 3. Possessive pronouns
 
-| Case | m. sg.              | f. sg. | n. sg. | pl.                               |
-| ---- | ------------------- | ------ | ------ | --------------------------------- |
-| N    | môj                 | moja   | moje   | moji (m. anim.) / moje (others)   |
-| G    | môjho               | mojej  | môjho  | mojich                            |
-| D    | môjmu               | mojej  | môjmu  | mojim                             |
-| A    | môjho (anim.) / môj | moju   | moje   | mojich (m. anim.) / moje (others) |
-| L    | mojom               | mojej  | mojom  | mojich                            |
-| I    | mojím               | mojou  | mojím  | mojimi                            |
+| Case | masculine singular    | feminine singular | neuter singular | plural                                      |
+| ---- | --------------------- | ----------------- | --------------- | ------------------------------------------- |
+| N    | môj                   | moja              | moje            | moji (masculine personal) / moje (others)   |
+| G    | môjho                 | mojej             | môjho           | mojich                                      |
+| D    | môjmu                 | mojej             | môjmu           | mojim                                       |
+| A    | môjho (animate) / môj | moju              | moje            | mojich (masculine personal) / moje (others) |
+| L    | mojom                 | mojej             | mojom           | mojich                                      |
+| I    | mojím                 | mojou             | mojím           | mojimi                                      |
 
-`tvoj` and `svoj` follow `môj` (`tvojho`, `svojím`). `náš`/`váš`: `náš, nášho, nášmu, nášho/náš, našom, naším`; f. `naša, našej, našej, našu, našej, našou`; n. `naše`; pl. `naši/naše, našich, našim, našich/naše, našich, našimi`. Mind the length contrast: instrumental singular `mojím`, `naším` vs. dative plural `mojim`, `našim`.
+`tvoj` and `svoj` follow `môj` (`tvojho`, `svojím`). `náš`/`váš`: `náš, nášho, nášmu, nášho/náš, našom, naším`; feminine `naša, našej, našej, našu, našej, našou`; neuter `naše`; pl. `naši/naše, našich, našim, našich/naše, našich, našimi`. Mind the length contrast: instrumental singular `mojím`, `naším` vs. dative plural `mojim`, `našim`.
 
 `jeho`, `jej`, `ich` never change: `s jeho bratom`, `o jej práci`.
 
@@ -122,14 +124,14 @@ Drop possessives where Slovak finds them obvious: `Umyl som si ruky.` (not `*moj
 
 `ten`:
 
-| Case | m. sg.             | f. sg. | n. sg. | pl.                          |
-| ---- | ------------------ | ------ | ------ | ---------------------------- |
-| N    | ten                | tá     | to     | tí (m. anim.) / tie (others) |
-| G    | toho               | tej    | toho   | tých                         |
-| D    | tomu               | tej    | tomu   | tým                          |
-| A    | toho (anim.) / ten | tú     | to     | tých (m. anim.) / tie        |
-| L    | tom                | tej    | tom    | tých                         |
-| I    | tým                | tou    | tým    | tými                         |
+| Case | masculine singular   | feminine singular | neuter singular | plural                                 |
+| ---- | -------------------- | ----------------- | --------------- | -------------------------------------- |
+| N    | ten                  | tá                | to              | tí (masculine personal) / tie (others) |
+| G    | toho                 | tej               | toho            | tých                                   |
+| D    | tomu                 | tej               | tomu            | tým                                    |
+| A    | toho (animate) / ten | tú                | to              | tých (masculine personal) / tie        |
+| L    | tom                  | tej               | tom             | tých                                   |
+| I    | tým                  | tou               | tým             | tými                                   |
 
 `tento` adds `-to` to every form (`tohto`, `tomuto`, `túto`, `týmto`, pl. `títo/tieto`); `tamten` adds `tam-`. Presentational `to` does not agree: `To je môj brat.` `To sú moji rodičia.`
 
@@ -163,9 +165,9 @@ Negative words require a negated verb, and several can stack: `Nikto nič nevede
 
 ### `všetok`, `sám`, `každý`
 
-`všetok`: m. `všetok, všetkého, všetkému, všetok, všetkom, všetkým`; f. `všetka, všetkej, všetkej, všetku, všetkej, všetkou`; n. `všetko`; pl. `všetci/všetky, všetkých, všetkým, všetkých/všetky, všetkých, všetkými`. Usage: [advanced-forms-and-usage.md](advanced-forms-and-usage.md) §1.
+`všetok`: masculine `všetok, všetkého, všetkému, všetok, všetkom, všetkým`; feminine `všetka, všetkej, všetkej, všetku, všetkej, všetkou`; neuter `všetko`; pl. `všetci/všetky, všetkých, všetkým, všetkých/všetky, všetkých, všetkými`. Usage: [advanced-forms-and-usage.md](advanced-forms-and-usage.md) §1.
 
-`sám, sama, samo`; pl. `sami` (m. anim.) / `samy`: alone, by oneself. `Som tu sám/sama.` `Urobili to sami.`
+`sám, sama, samo`; pl. `sami` (masculine personal) / `samy`: alone, by oneself. `Som tu sám/sama.` `Urobili to sami.`
 
 `každý`, `iný`, `celý`, `istý` decline like `pekný`.
 
@@ -190,16 +192,16 @@ In the basic form, compound cardinals are written as one word: `dvadsaťjeden`, 
 
 ### Gender and case of 1–4
 
-| Case | 1 (m. / f. / n.)               | 2                                                           | 3                         | 4                            |
-| ---- | ------------------------------ | ----------------------------------------------------------- | ------------------------- | ---------------------------- |
-| N    | jeden / jedna / jedno          | dva (m., incl. animals), dve (f., n.), dvaja (male persons) | tri, traja (male persons) | štyri, štyria (male persons) |
-| G    | jedného / jednej / jedného     | dvoch                                                       | troch                     | štyroch                      |
-| D    | jednému / jednej / jednému     | dvom                                                        | trom                      | štyrom                       |
-| A    | jedného, jeden / jednu / jedno | dva, dve; dvoch (m. anim.)                                  | tri; troch (m. anim.)     | štyri; štyroch (m. anim.)    |
-| L    | jednom / jednej / jednom       | dvoch                                                       | troch                     | štyroch                      |
-| I    | jedným / jednou / jedným       | dvoma                                                       | troma, tromi              | štyrmi                       |
+| Case | 1 (masculine / feminine / neuter) | 2                                                                                     | 3                               | 4                                   |
+| ---- | --------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------- | ----------------------------------- |
+| N    | jeden / jedna / jedno             | dva (masculine, animals included), dve (feminine, neuter), dvaja (masculine personal) | tri, traja (masculine personal) | štyri, štyria (masculine personal)  |
+| G    | jedného / jednej / jedného        | dvoch                                                                                 | troch                           | štyroch                             |
+| D    | jednému / jednej / jednému        | dvom                                                                                  | trom                            | štyrom                              |
+| A    | jedného, jeden / jednu / jedno    | dva, dve; dvoch (masculine personal)                                                  | tri; troch (masculine personal) | štyri; štyroch (masculine personal) |
+| L    | jednom / jednej / jednom          | dvoch                                                                                 | troch                           | štyroch                             |
+| I    | jedným / jednou / jedným          | dvoma                                                                                 | troma, tromi                    | štyrmi                              |
 
-`päť` and up: `päť, piatich, piatim, päť (m. anim. piatich), piatich, piatimi`; likewise `šiestich`, `siedmich`, `ôsmich`, `deviatich`, `desiatich`. `sto` and `tisíc` usually stay unchanged: `pred sto rokmi`.
+`päť` and up: `päť, piatich, piatim, päť (masculine personal: piatich), piatich, piatimi`; likewise `šiestich`, `siedmich`, `ôsmich`, `deviatich`, `desiatich`. `sto` and `tisíc` usually stay unchanged: `pred sto rokmi`.
 
 `jedny` counts plural-only nouns (`jedny dvere`); `jedni` means "some (people)": `Jedni súhlasia, iní nie.`
 

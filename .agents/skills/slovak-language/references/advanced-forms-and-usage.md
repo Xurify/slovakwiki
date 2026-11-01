@@ -8,13 +8,13 @@ Use this reference for forms that often decide whether Slovak sounds genuinely c
 
 `všetok` declines like an adjective. In ordinary speech, its plural and neuter singular forms do most of the work.
 
-| Meaning                        | Slovak                 | Example                                      |
-| ------------------------------ | ---------------------- | -------------------------------------------- |
-| all people / m. animate plural | `všetci`               | `Všetci hostia už prišli.`                   |
-| all people, object             | `všetkých`             | `Pozvali všetkých hostí.`                    |
-| all non-masc.-animate plural   | `všetky`               | `Všetky izby sú obsadené.`                   |
-| everything                     | `všetko`               | `Všetko som pochopil/a.`                     |
-| all of one mass/whole noun     | `všetok/všetka/všetko` | `Zjedol všetok šalát.` `Vypila všetku vodu.` |
+| Meaning                                | Slovak                 | Example                                      |
+| -------------------------------------- | ---------------------- | -------------------------------------------- |
+| all people / masculine personal plural | `všetci`               | `Všetci hostia už prišli.`                   |
+| all people, object                     | `všetkých`             | `Pozvali všetkých hostí.`                    |
+| all other plurals, animals included    | `všetky`               | `Všetky izby sú obsadené.`                   |
+| everything                             | `všetko`               | `Všetko som pochopil/a.`                     |
+| all of one mass/whole noun             | `všetok/všetka/všetko` | `Zjedol všetok šalát.` `Vypila všetku vodu.` |
 
 Do not use `všetko` before a count plural noun: say `všetky knihy`, not _`všetko knihy`_. It can itself decline: `o všetkom`, `so všetkými`, `vo všetkých prípadoch`.
 

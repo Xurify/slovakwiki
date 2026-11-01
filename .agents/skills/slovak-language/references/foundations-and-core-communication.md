@@ -21,14 +21,14 @@ Hovoríte po slovensky? Trochu. Ešte sa učím.
 
 Gender is not decoration; it drives the rest of the clause. Start with forms learners can reuse:
 
-| Noun            | Pattern                            | Use                          |
-| --------------- | ---------------------------------- | ---------------------------- |
-| `stôl` m. inan. | `nový stôl – na stole – so stolom` | object/location/with         |
-| `muž` m. anim.  | `dobrý muž – vidím dobrého muža`   | animate accusative           |
-| `žena` f.       | `dobrá žena – so ženou`            | feminine `-a`                |
-| `ulica` f.      | `dlhá ulica – na ulici`            | feminine soft-ish pattern    |
-| `mesto` n.      | `veľké mesto – do mesta – v meste` | destination/location         |
-| `dievča` n.     | `malé dievča – s dievčaťom`        | special neuter child pattern |
+| Noun                       | Pattern                            | Use                          |
+| -------------------------- | ---------------------------------- | ---------------------------- |
+| `stôl` masculine inanimate | `nový stôl – na stole – so stolom` | object/location/with         |
+| `muž` masculine animate    | `dobrý muž – vidím dobrého muža`   | animate accusative           |
+| `žena` feminine            | `dobrá žena – so ženou`            | feminine `-a`                |
+| `ulica` feminine           | `dlhá ulica – na ulici`            | feminine soft-ish pattern    |
+| `mesto` neuter             | `veľké mesto – do mesta – v meste` | destination/location         |
+| `dievča` neuter            | `malé dievča – s dievčaťom`        | special neuter child pattern |
 
 Adjective order is normally before the noun: `nový byt`, `nová izba`, `nové auto`. Predicate adjective agrees: `Byt je nový. Izba je nová. Auto je nové.` Past tense agrees too: `Peter bol doma. Jana bola doma. Deti boli doma.`
 
