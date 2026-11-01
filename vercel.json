@@ -4,7 +4,9 @@
     "deploymentEnabled": {
       "**": false,
       "master": true,
-      "preview/**": true
+      "preview/**": true,
+      "feat/**": true,
+      "fix/**": true
     }
   },
   "headers": [
