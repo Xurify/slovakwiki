@@ -44,6 +44,8 @@ export type DictionaryPageProps = {
     entry: ContentEntry;
     exampleAudioSrcs: string[];
   }>;
+  variantOf: { href: string; slovak: string } | undefined;
+  variants: Array<{ href: string; slovak: string }>;
 };
 
 let lemmaTexts: Set<string> | undefined;
@@ -107,8 +109,19 @@ function dictionaryPageProps(entry: ContentEntry): DictionaryPageProps | undefin
 
   const titleEnglish = senses.map((sense) => sense.english).join(" · ");
 
+  const variantBase = entry.variantOf ? entryBySlug.get(entry.variantOf) : undefined;
+
   return {
     entry,
+    variantOf: variantBase
+      ? { href: entryHref(variantBase, words), slovak: variantBase.slovak }
+      : undefined,
+    variants: [...variantsOf(entry.slug)]
+      .sort((first, second) => first.slovak.localeCompare(second.slovak, "sk"))
+      .map((variant) => ({
+        href: entryHref(variant, words),
+        slovak: variant.slovak,
+      })),
     senses: senses.map((sense) => ({
       entry: sense,
       exampleAudioSrcs: exampleAudioSrcsFor(sense),
@@ -126,6 +139,21 @@ function dictionaryPageProps(entry: ContentEntry): DictionaryPageProps | undefin
       : [],
     image: resolveLemmaImage(entry.slug, titleEnglish),
   };
+}
+
+let variantsByBase: Map<string, ContentEntry[]> | undefined;
+
+function variantsOf(slug: string): ContentEntry[] {
+  if (!variantsByBase) {
+    variantsByBase = new Map();
+    for (const word of words) {
+      if (!word.variantOf) continue;
+      const list = variantsByBase.get(word.variantOf) ?? [];
+      list.push(word);
+      variantsByBase.set(word.variantOf, list);
+    }
+  }
+  return variantsByBase.get(slug) ?? [];
 }
 
 let wordBySlug: Map<string, ContentEntry> | undefined;

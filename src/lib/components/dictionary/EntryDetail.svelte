@@ -50,6 +50,8 @@
     lemmaAudioSrc,
     relatedEntries = [],
     senses,
+    variantOf,
+    variants = [],
   }: {
     /** Client island that mounts AudioButtons into `[data-audio-mount]` hosts. */
     audioMount?: Snippet;
@@ -61,6 +63,8 @@
     lemmaAudioSrc?: string;
     relatedEntries?: RelatedEntry[];
     senses?: SenseView[];
+    variantOf?: { href: string; slovak: string };
+    variants?: Array<{ href: string; slovak: string }>;
   } = $props();
 
   const senseViews = $derived(
@@ -199,6 +203,26 @@
         </p>
       {:else}
         <EntryMeta class="mt-2" {entry} {plural} />
+      {/if}
+
+      {#if variantOf}
+        <p class="m-0 mt-2 text-sm text-slate-700">
+          Variant of
+          <TextLink href={variantOf.href}>
+            <span lang="sk">{variantOf.slovak}</span>
+          </TextLink>
+        </p>
+      {/if}
+
+      {#if variants.length > 0}
+        <p class="m-0 mt-2 text-sm text-slate-700">
+          Variants:
+          {#each variants as variant, index (variant.href)}
+            <TextLink href={variant.href}>
+              <span lang="sk">{variant.slovak}</span>
+            </TextLink>{index < variants.length - 1 ? ", " : ""}
+          {/each}
+        </p>
       {/if}
     </header>
 

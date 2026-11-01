@@ -146,6 +146,8 @@ export interface ContentEntry {
   origin?: WordOrigin;
   /** Existing lemma slugs only — never free-text labels. */
   related: string[];
+  /** Slug of the lemma this spelling or short form belongs to (zas → zase). Never a related peer. */
+  variantOf?: string;
   /** URL id from `lemmaToSlug(slovak)`; unique across curated seed + words.json. */
   slug: string;
   /** Lemma with correct Slovak diacritics. */

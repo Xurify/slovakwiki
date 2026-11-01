@@ -1,6 +1,7 @@
 import { curatedEssentialsSeed } from "./curated-essentials-seed";
 import lemmaFrequencyIndex from "../../../../content/frequency/lemma-index.json";
 import dictionaryWords from "../../../../content/dictionary/words.json";
+import variantFormBase from "../../../../content/dictionary/variant-forms.json";
 import { normalizeLemma } from "../frequency";
 import { type FrequencyPartOfSpeech } from "../frequency/types";
 import { dictionarySource, julsSourceLabel, snkSourceUrl } from "../sources";
@@ -29,6 +30,8 @@ type WordSeed = Pick<
 type LemmaFrequencyHit = { partOfSpeech: FrequencyPartOfSpeech; rank: number };
 
 const frequencyIndex = lemmaFrequencyIndex as Record<string, LemmaFrequencyHit>;
+
+const variantBaseBySlug: Record<string, string> = variantFormBase;
 
 const CATEGORY_TO_PART_OF_SPEECH: Record<string, FrequencyPartOfSpeech> = {
   Verbs: "verb",
@@ -977,6 +980,7 @@ const mappedWords: ContentEntry[] = wordSeed.map((word) => {
   const origin: WordOrigin = curatedSlugs.has(word.slug) ? "curated" : "frequency";
   const frequency = wordFrequency(word);
   const attribution = wordAttribution(origin, word.examples);
+  const variantOf: string | undefined = variantBaseBySlug[word.slug];
 
   return {
     ...word,
@@ -986,6 +990,7 @@ const mappedWords: ContentEntry[] = wordSeed.map((word) => {
     origin,
     frequency,
     ...attribution,
+    ...(variantOf ? { variantOf } : {}),
     tags: [
       word.category.toLowerCase(),
       ...(word.topics ?? []).map((topic) => topic.toLowerCase()),
@@ -1020,14 +1025,16 @@ function primaryGloss(english: string): string | null {
  * Fill empty `related` on frequency words with same-part-of-speech peers that
  * share a primary sense (aspect partners, negations, near-synonyms). Words with
  * no such peer keep `related: []`: frequency-rank neighbours are not related
- * words (the entry's rank already links to the common-words list).
+ * words (the entry's rank already links to the common-words list). Variant
+ * spellings are skipped: they are the same word as their base, not a peer of it
+ * (see `inheritVariantRelated`).
  */
 function attachGlossPeers(entries: ContentEntry[]): ContentEntry[] {
   const maxPeers = 3;
 
   const glossBuckets = new Map<string, ContentEntry[]>();
   for (const entry of entries) {
-    if (!entry.frequency || entry.related.length > 0) continue;
+    if (!entry.frequency || entry.related.length > 0 || entry.variantOf) continue;
     const gloss = primaryGloss(entry.english);
     if (!gloss) continue;
     const key = `${entry.frequency.partOfSpeech}::${gloss}`;
@@ -1059,4 +1066,14 @@ function attachGlossPeers(entries: ContentEntry[]): ContentEntry[] {
   });
 }
 
-export const words: ContentEntry[] = attachGlossPeers(mappedWords);
+/** A variant spelling shows its base lemma's related words, so zas leads where zase does. */
+function inheritVariantRelated(entries: ContentEntry[]): ContentEntry[] {
+  const bySlug = new Map(entries.map((entry) => [entry.slug, entry]));
+
+  return entries.map((entry) => {
+    const base = entry.variantOf ? bySlug.get(entry.variantOf) : undefined;
+    return base ? { ...entry, related: base.related } : entry;
+  });
+}
+
+export const words: ContentEntry[] = inheritVariantRelated(attachGlossPeers(mappedWords));

@@ -15,6 +15,11 @@
     slovak: string;
   }
 
+  interface VariantLink {
+    href: string;
+    slovak: string;
+  }
+
   interface SenseView {
     entry: ContentEntry;
     exampleAudioSrcs: string[];
@@ -33,6 +38,8 @@
       image?: DictionaryImageView;
       lemmaAudioSrc: string;
       relatedEntries: RelatedEntry[];
+      variantOf?: VariantLink;
+      variants: VariantLink[];
       senses: SenseView[];
     };
   } = $props();
@@ -48,4 +55,6 @@
   lemmaAudioSrc={data.lemmaAudioSrc}
   relatedEntries={data.relatedEntries}
   senses={data.senses}
+  variantOf={data.variantOf}
+  variants={data.variants}
 />

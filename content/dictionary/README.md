@@ -10,6 +10,7 @@ How to add or edit a lemma by hand. Script pipelines: [`scripts/README.md`](../.
 | Bulk / POS lemma (SNK-style)                         | [`words.json`](./words.json)                                                                               | Usual home for Verbs / Nouns / Adjectives / Adverbs / Places. `origin: "frequency"` unless slug is in curated seed. Person names are not entries. |
 | Better examples only (lemma already exists)          | [`curated-examples.json`](./curated-examples.json) then `bun scripts/dictionary/apply-curated-examples.ts` | Overlay keyed by existing slug — not a new entry.                                                                                                 |
 | Empty `related` peers                                | [`related-clusters.json`](./related-clusters.json) then `bun scripts/dictionary/apply-related.ts`          | Fills empty related arrays only.                                                                                                                  |
+| Spelling or short form of another lemma (zas → zase) | [`variant-forms.json`](./variant-forms.json) (`variant → base` slug)                                       | Shows "Variant of" on its page, takes the base's related words, and is never a related peer.                                                      |
 
 Prefer curated seed for learner-facing essentials; prefer `words.json` (or `publish-frequency.ts`) for mass POS coverage.
 
