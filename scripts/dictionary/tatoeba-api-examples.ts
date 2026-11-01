@@ -9,6 +9,7 @@
  * Verbs are not filled here. Searching a verb by stem returns homographs (the
  * stem of vládať, to rule, is also vláda, the government, and the matcher
  * takes it), and Tatoeba's Slovak corpus has few sentences for most verbs.
+ * Lemmas on the frequency blocklist are skipped: the owner ruled them out.
  *
  *   bun scripts/dictionary/tatoeba-api-examples.ts <plan.json> [--dry]
  *
@@ -32,6 +33,7 @@ import {
 } from "../../src/lib/catalog/dictionary/example-lemma-match";
 import { isAcceptableCorpusExample } from "../../src/lib/catalog/dictionary/example-quality";
 import { lemmaToSlug, normalizeLemma } from "../../src/lib/catalog/frequency";
+import { FREQUENCY_PUBLISH_BLOCKLIST } from "../../src/lib/catalog/frequency/blocklist";
 import type { Example } from "../../src/lib/catalog/types";
 import { ROOT } from "../lib/paths";
 
@@ -173,6 +175,10 @@ async function main(): Promise<void> {
     };
     if (item.category === "Verbs") {
       skip("verbs are not filled here (see the header)");
+      continue;
+    }
+    if (FREQUENCY_PUBLISH_BLOCKLIST.has(item.slovak.toLocaleLowerCase("sk"))) {
+      skip("on the frequency blocklist, which the owner ruled out");
       continue;
     }
     if (mode === "new" && row) {
