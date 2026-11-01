@@ -4,7 +4,7 @@
 
 ## QA
 
-<!-- One link per changed page or part, on the Vercel preview: PREVIEW-HOST is slovakwiki-git-preview-<PR number>-xurifys-projects.vercel.app, deployed when the PR head is pushed to preview/<PR number> for review. A PR that changes no page (docs, config, scripts, tests) gets no preview and links the changed files on GitHub. Rules: AGENTS.md → Pull requests. -->
+<!-- One link per changed page or part, on the Vercel preview: PREVIEW-HOST is slovakwiki-git-<branch>-xurifys-projects.vercel.app for a feat/ or fix/ branch, or slovakwiki-git-preview-<PR number>-xurifys-projects.vercel.app when the head is mirrored to preview/<PR number> for review. A PR that changes no page (docs, config, scripts, tests) gets no preview and links the changed files on GitHub. Rules: AGENTS.md → Pull requests. -->
 
 - [ ] [Page — part](https://PREVIEW-HOST/path#anchor): what to check
 - [ ] Learner-facing UI changed: before and after screenshots attached, taken locally, light and dark when colours change

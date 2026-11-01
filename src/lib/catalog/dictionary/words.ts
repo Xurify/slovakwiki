@@ -1,6 +1,7 @@
 import { curatedEssentialsSeed } from "./curated-essentials-seed";
 import lemmaFrequencyIndex from "../../../../content/frequency/lemma-index.json";
 import dictionaryWords from "../../../../content/dictionary/words.json";
+import variantFormGroups from "../../../../content/dictionary/variant-forms.json";
 import { normalizeLemma } from "../frequency";
 import { type FrequencyPartOfSpeech } from "../frequency/types";
 import { dictionarySource, julsSourceLabel, snkSourceUrl } from "../sources";
@@ -1020,14 +1021,15 @@ function primaryGloss(english: string): string | null {
  * Fill empty `related` on frequency words with same-part-of-speech peers that
  * share a primary sense (aspect partners, negations, near-synonyms). Words with
  * no such peer keep `related: []`: frequency-rank neighbours are not related
- * words (the entry's rank already links to the common-words list).
+ * words (the entry's rank already links to the common-words list). Variant
+ * spellings are skipped: they are the same word as their base, not a peer of it.
  */
 function attachGlossPeers(entries: ContentEntry[]): ContentEntry[] {
   const maxPeers = 3;
 
   const glossBuckets = new Map<string, ContentEntry[]>();
   for (const entry of entries) {
-    if (!entry.frequency || entry.related.length > 0) continue;
+    if (!entry.frequency || entry.related.length > 0 || entry.variantOf) continue;
     const gloss = primaryGloss(entry.english);
     if (!gloss) continue;
     const key = `${entry.frequency.partOfSpeech}::${gloss}`;
@@ -1059,4 +1061,28 @@ function attachGlossPeers(entries: ContentEntry[]): ContentEntry[] {
   });
 }
 
-export const words: ContentEntry[] = attachGlossPeers(mappedWords);
+/**
+ * Forms of one word share one page. The first slug in each group heads the page
+ * and the rest point at it. The order is set by hand in `variant-forms.json`,
+ * not by frequency, so the standard form stays the head.
+ */
+function markVariants(entries: ContentEntry[]): ContentEntry[] {
+  const bySlug = new Map(entries.map((entry) => [entry.slug, entry]));
+  const baseBySlug = new Map<string, string>();
+
+  for (const group of variantFormGroups) {
+    const [head, ...forms] = group;
+    if (!head || !bySlug.has(head)) continue;
+
+    for (const form of forms) {
+      if (bySlug.has(form)) baseBySlug.set(form, head);
+    }
+  }
+
+  return entries.map((entry) => {
+    const variantOf = baseBySlug.get(entry.slug);
+    return variantOf ? { ...entry, variantOf } : entry;
+  });
+}
+
+export const words: ContentEntry[] = attachGlossPeers(markVariants(mappedWords));

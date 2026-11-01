@@ -26,6 +26,7 @@ if (!pageProps) {
 const {
   entry,
   relatedEntries,
+  variants,
   lemmaAudioSrc,
   exampleAudioSrcs,
   entriesNear: nearbyEntries,
@@ -80,6 +81,7 @@ for (const [senseIndex, sense] of senses.entries()) {
     data={{
       entry,
       relatedEntries,
+      variants,
       lemmaAudioSrc,
       exampleAudioSrcs,
       entriesNear: nearbyEntries,

@@ -23,6 +23,7 @@ import {
   audioRelativePath,
   collectAudioTargets,
   ensureAudioDir,
+  generationSettings,
   hashAudioText,
   loadConfig,
   loadManifest,
@@ -227,6 +228,7 @@ async function main(): Promise<void> {
             generatedAt: new Date().toISOString(),
             characterId: target.characterId,
             voiceId: voiceConfig.voiceId,
+            ...generationSettings(voiceConfig),
           };
         }
       });
@@ -351,6 +353,7 @@ async function main(): Promise<void> {
         generatedAt: new Date().toISOString(),
         characterId: target.characterId,
         voiceId: voiceConfig.voiceId,
+        ...generationSettings(voiceConfig),
       };
 
       await withManifestLock(async () => {

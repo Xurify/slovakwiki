@@ -44,6 +44,8 @@ export type DictionaryPageProps = {
     entry: ContentEntry;
     exampleAudioSrcs: string[];
   }>;
+  /** Other forms of the word, listed on this page instead of their own. */
+  variants: string[];
 };
 
 let lemmaTexts: Set<string> | undefined;
@@ -109,6 +111,9 @@ function dictionaryPageProps(entry: ContentEntry): DictionaryPageProps | undefin
 
   return {
     entry,
+    variants: variantsOf(entry.slug)
+      .map((variant) => variant.slovak)
+      .sort((first, second) => first.localeCompare(second, "sk")),
     senses: senses.map((sense) => ({
       entry: sense,
       exampleAudioSrcs: exampleAudioSrcsFor(sense),
@@ -126,6 +131,21 @@ function dictionaryPageProps(entry: ContentEntry): DictionaryPageProps | undefin
       : [],
     image: resolveLemmaImage(entry.slug, titleEnglish),
   };
+}
+
+let variantsByBase: Map<string, ContentEntry[]> | undefined;
+
+function variantsOf(slug: string): ContentEntry[] {
+  if (!variantsByBase) {
+    variantsByBase = new Map();
+    for (const word of words) {
+      if (!word.variantOf) continue;
+      const list = variantsByBase.get(word.variantOf) ?? [];
+      list.push(word);
+      variantsByBase.set(word.variantOf, list);
+    }
+  }
+  return variantsByBase.get(slug) ?? [];
 }
 
 let wordBySlug: Map<string, ContentEntry> | undefined;
