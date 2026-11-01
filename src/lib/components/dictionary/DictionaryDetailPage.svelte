@@ -33,6 +33,7 @@
       image?: DictionaryImageView;
       lemmaAudioSrc: string;
       relatedEntries: RelatedEntry[];
+      variants: string[];
       senses: SenseView[];
     };
   } = $props();
@@ -48,4 +49,5 @@
   lemmaAudioSrc={data.lemmaAudioSrc}
   relatedEntries={data.relatedEntries}
   senses={data.senses}
+  variants={data.variants}
 />

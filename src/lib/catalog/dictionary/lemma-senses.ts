@@ -55,6 +55,20 @@ function senseGroupsByLemma(words: readonly ContentEntry[]): Map<string, Content
   return groups;
 }
 
+const slugIndexCache = new WeakMap<readonly ContentEntry[], Map<string, ContentEntry>>();
+
+/** The entry whose page shows this one: a variant form lives on its base lemma's page. */
+function pageEntry(entry: ContentEntry, words: readonly ContentEntry[]): ContentEntry {
+  if (!entry.variantOf) return entry;
+
+  let bySlug = slugIndexCache.get(words);
+  if (!bySlug) {
+    bySlug = new Map(words.map((word) => [word.slug, word]));
+    slugIndexCache.set(words, bySlug);
+  }
+  return bySlug.get(entry.variantOf) ?? entry;
+}
+
 /** All live word rows that share the same lemma string (part-of-speech siblings). */
 export function lemmaSenseGroup(
   entry: ContentEntry,
@@ -73,6 +87,9 @@ export function canonicalWordSlug(
   entry: ContentEntry,
   words: readonly ContentEntry[],
 ): string {
+  const page = pageEntry(entry, words);
+  if (page !== entry) return canonicalWordSlug(page, words);
+
   const group = lemmaSenseGroup(entry, words);
   if (group.length <= 1) return entry.slug;
 
@@ -89,6 +106,9 @@ export function dictionaryHrefForSense(
   entry: ContentEntry,
   words: readonly ContentEntry[],
 ): { slug: string; hash?: string } {
+  const page = pageEntry(entry, words);
+  if (page !== entry) return dictionaryHrefForSense(page, words);
+
   const canonical = canonicalWordSlug(entry, words);
   const group = lemmaSenseGroup(entry, words);
   if (group.length <= 1) return { slug: canonical };

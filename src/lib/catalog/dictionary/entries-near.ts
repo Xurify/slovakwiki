@@ -20,7 +20,7 @@ function alphabetical(words: readonly ContentEntry[]): ContentEntry[] {
   const seen = new Set<string>();
   const lemmas: ContentEntry[] = [];
   for (const word of words) {
-    if (word.kind !== "word" || seen.has(word.slovak)) continue;
+    if (word.kind !== "word" || word.variantOf || seen.has(word.slovak)) continue;
     seen.add(word.slovak);
     lemmas.push(word);
   }

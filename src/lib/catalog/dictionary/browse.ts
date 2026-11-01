@@ -36,20 +36,22 @@ let cachedEntries: DictionaryIndexEntry[] | null = null;
 
 export function getDictionaryIndexEntries(): DictionaryIndexEntry[] {
   if (!cachedEntries) {
-    cachedEntries = words.map((word) => {
-      const href = dictionaryHrefForSense(word, words);
-      return {
-        category: word.category,
-        english: word.english,
-        frequencyRank: word.frequency?.rank,
-        origin: word.origin,
-        slug: word.slug,
-        slovak: word.slovak,
-        ...(word.register ? { register: word.register } : {}),
-        ...(href.slug !== word.slug ? { hrefSlug: href.slug } : {}),
-        ...(href.hash ? { hash: href.hash } : {}),
-      };
-    });
+    cachedEntries = words
+      .filter((word) => !word.variantOf)
+      .map((word) => {
+        const href = dictionaryHrefForSense(word, words);
+        return {
+          category: word.category,
+          english: word.english,
+          frequencyRank: word.frequency?.rank,
+          origin: word.origin,
+          slug: word.slug,
+          slovak: word.slovak,
+          ...(word.register ? { register: word.register } : {}),
+          ...(href.slug !== word.slug ? { hrefSlug: href.slug } : {}),
+          ...(href.hash ? { hash: href.hash } : {}),
+        };
+      });
   }
 
   return cachedEntries;

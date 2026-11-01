@@ -50,6 +50,7 @@
     lemmaAudioSrc,
     relatedEntries = [],
     senses,
+    variants = [],
   }: {
     /** Client island that mounts AudioButtons into `[data-audio-mount]` hosts. */
     audioMount?: Snippet;
@@ -61,6 +62,8 @@
     lemmaAudioSrc?: string;
     relatedEntries?: RelatedEntry[];
     senses?: SenseView[];
+    /** Other forms of the word (zas, zase on zasa), shown under the headword. */
+    variants?: string[];
   } = $props();
 
   const senseViews = $derived(
@@ -199,6 +202,13 @@
         </p>
       {:else}
         <EntryMeta class="mt-2" {entry} {plural} />
+      {/if}
+
+      {#if variants.length > 0}
+        <p class="m-0 mt-2 text-sm text-slate-700">
+          Also
+          <span class="font-serif text-slate-900" lang="sk">{variants.join(", ")}</span>
+        </p>
       {/if}
     </header>
 
