@@ -294,6 +294,7 @@ async function main(): Promise<void> {
           generatedAt,
           hash,
           kind: clip.kind,
+          speed: entry?.speed,
           text: clip.text,
         });
 

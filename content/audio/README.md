@@ -1,7 +1,8 @@
 # Audio voices
 
 Source of truth for IDs / settings: [`config.json`](./config.json).  
-Clip metadata (scripts): [`manifest.json`](./manifest.json) (hash → text, kind, bytes, uploadedAt).  
+Clip metadata (scripts): [`manifest.json`](./manifest.json) (hash → text, kind, bytes, uploadedAt, modelId, speed).  
+`speed` is the ElevenLabs speed the clip was made at (0.88 = study pace, 1 = natural). The hash already commits to it; the field just says it. Entries made before it existed were filled by `scripts/audio/backfill-settings.ts`, which only writes a value a rebuilt hash reproduces.  
 Runtime index (app build): [`runtime-index.json`](./runtime-index.json) (hash → kind + `generatedAt` only).  
 `saveManifest` in `scripts/audio/shared.ts` writes both (compact, sorted keys).  
 MP3s live under `static/audio/` (gitignored) or R2 in production.

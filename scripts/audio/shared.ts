@@ -22,9 +22,11 @@ import {
   type LessonCharacterId,
 } from "../../src/lib/catalog/lessons/character-ids";
 import {
+  audioConfigForCharacter,
   audioConfigForClip,
   getCharacter,
   keyPhraseCharacterId,
+  listCharacters,
 } from "../../src/lib/catalog/audio/characters";
 import { VOICE_PREVIEW_LINES } from "../../src/lib/catalog/lessons/voice-preview-lines";
 import { lessons } from "../../src/lib/catalog/lessons";
@@ -96,9 +98,43 @@ export interface ManifestEntry {
   characterId?: string;
   generatedAt: string;
   kind: AudioKind;
+  /** The model that made the clip. Absent on entries older than this field and not matched by backfill-settings.ts. */
+  modelId?: string;
+  /** ElevenLabs speed setting (1 = natural, 0.88 = study pace). Same note as modelId. */
+  speed?: number;
   text: string;
   uploadedAt?: string;
   voiceId?: string;
+}
+
+/**
+ * The configs a clip could have been made with: the global one, then each
+ * character's, with and without that character's own settings (the two
+ * cases audioConfigForClip chooses between).
+ */
+export function candidateConfigs(
+  base: AudioConfig,
+  characterId: string | undefined,
+): AudioConfig[] {
+  const out: AudioConfig[] = [base];
+  const known = new Set<string>(listCharacters().map((c) => c.id));
+  const ids = characterId ? [characterId] : [...known];
+  for (const id of ids) {
+    if (!known.has(id)) continue;
+    const own = audioConfigForCharacter(id as LessonCharacterId, base);
+    out.push(own, { ...own, voiceSettings: base.voiceSettings });
+  }
+  return out;
+}
+
+/**
+ * What the clip's hash already commits to, kept in the open: a consumer
+ * (LangHarness plays these clips) can read the speed instead of guessing it.
+ */
+export function generationSettings(
+  config: AudioConfig,
+): Pick<ManifestEntry, "modelId" | "speed"> {
+  return { modelId: config.modelId, speed: config.voiceSettings.speed };
 }
 
 export type AudioManifest = Record<string, ManifestEntry>;
@@ -811,6 +847,8 @@ export function buildAudioObjectMetadata(options: {
   generatedAt: string;
   hash: string;
   kind: AudioKind;
+  /** The manifest's recorded speed. Left out when unknown: the global config's speed is not a safe guess for a character with its own settings. */
+  speed?: number;
   text: string;
 }): Record<string, string> {
   const base: Record<string, string> = {
@@ -821,6 +859,7 @@ export function buildAudioObjectMetadata(options: {
     "model-id": options.config.modelId,
     "output-format": options.config.outputFormat,
     "generated-at": options.generatedAt,
+    ...(options.speed === undefined ? {} : { speed: String(options.speed) }),
   };
 
   if (!options.text) return base;
