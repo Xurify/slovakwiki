@@ -11,7 +11,7 @@ const variantSlugs = new Set(
 );
 
 describe("variant forms", () => {
-  it("list existing words of one category, headed by the most frequent", () => {
+  it("list existing words of one category, headed by the first slug", () => {
     for (const group of variantFormGroups) {
       const members = group.map((slug) => {
         const word = bySlug.get(slug);
@@ -20,15 +20,10 @@ describe("variant forms", () => {
       });
       expect(new Set(members.map((word) => word.category)).size, group.join()).toBe(1);
 
-      const heads = members.filter((word) => !word.variantOf);
-      expect(heads, group.join()).toHaveLength(1);
-
-      const head = heads[0]!;
-      for (const word of members) {
-        expect(head.frequency?.rank ?? Infinity, word.slug).toBeLessThanOrEqual(
-          word.frequency?.rank ?? Infinity,
-        );
-        if (word !== head) expect(word.variantOf).toBe(head.slug);
+      const [head, ...forms] = members;
+      expect(head!.variantOf, head!.slug).toBeUndefined();
+      for (const word of forms) {
+        expect(word.variantOf, word.slug).toBe(head!.slug);
       }
     }
   });
@@ -53,9 +48,10 @@ describe("variant forms", () => {
     }
   });
 
-  it("put zas and zase on the zasa page", () => {
-    expect(bySlug.get("zas")?.variantOf).toBe("zasa");
-    expect(bySlug.get("zase")?.variantOf).toBe("zasa");
-    expect(bySlug.get("zasa")?.related).toContain("znova");
+  it("put zas and zasa on the zase page", () => {
+    expect(bySlug.get("zase")?.variantOf).toBeUndefined();
+    expect(bySlug.get("zas")?.variantOf).toBe("zase");
+    expect(bySlug.get("zasa")?.variantOf).toBe("zase");
+    expect(bySlug.get("zase")?.related).toContain("znova");
   });
 });
