@@ -1062,25 +1062,20 @@ function attachGlossPeers(entries: ContentEntry[]): ContentEntry[] {
 }
 
 /**
- * Forms of one word share one page, headed by the form the corpus uses most, as
- * Merriam-Webster heads "theater" and lists "theatre". The others get `variantOf`.
+ * Forms of one word share one page. The first slug in each group heads the page
+ * and the rest point at it. The order is set by hand in `variant-forms.json`,
+ * not by frequency, so the standard form stays the head.
  */
 function markVariants(entries: ContentEntry[]): ContentEntry[] {
   const bySlug = new Map(entries.map((entry) => [entry.slug, entry]));
   const baseBySlug = new Map<string, string>();
 
   for (const group of variantFormGroups) {
-    const members = group
-      .map((slug) => bySlug.get(slug))
-      .filter((entry): entry is ContentEntry => entry !== undefined);
-    if (members.length < 2) continue;
+    const [head, ...forms] = group;
+    if (!head || !bySlug.has(head)) continue;
 
-    const rank = (entry: ContentEntry) => entry.frequency?.rank ?? Infinity;
-    const base = members.reduce((best, entry) =>
-      rank(entry) < rank(best) ? entry : best,
-    );
-    for (const member of members) {
-      if (member !== base) baseBySlug.set(member.slug, base.slug);
+    for (const form of forms) {
+      if (bySlug.has(form)) baseBySlug.set(form, head);
     }
   }
 
