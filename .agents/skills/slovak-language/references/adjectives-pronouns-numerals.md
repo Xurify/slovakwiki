@@ -190,14 +190,14 @@ In the basic form, compound cardinals are written as one word: `dvadsaťjeden`, 
 
 ### Gender and case of 1–4
 
-| Case | 1 (m. / f. / n.)               | 2                                              | 3                     | 4                         |
-| ---- | ------------------------------ | ---------------------------------------------- | --------------------- | ------------------------- |
-| N    | jeden / jedna / jedno          | dva (m. inan.), dve (f., n.), dvaja (m. anim.) | tri, traja (m. anim.) | štyri, štyria (m. anim.)  |
-| G    | jedného / jednej / jedného     | dvoch                                          | troch                 | štyroch                   |
-| D    | jednému / jednej / jednému     | dvom                                           | trom                  | štyrom                    |
-| A    | jedného, jeden / jednu / jedno | dva, dve; dvoch (m. anim.)                     | tri; troch (m. anim.) | štyri; štyroch (m. anim.) |
-| L    | jednom / jednej / jednom       | dvoch                                          | troch                 | štyroch                   |
-| I    | jedným / jednou / jedným       | dvoma                                          | troma, tromi          | štyrmi                    |
+| Case | 1 (m. / f. / n.)               | 2                                                           | 3                         | 4                            |
+| ---- | ------------------------------ | ----------------------------------------------------------- | ------------------------- | ---------------------------- |
+| N    | jeden / jedna / jedno          | dva (m., incl. animals), dve (f., n.), dvaja (male persons) | tri, traja (male persons) | štyri, štyria (male persons) |
+| G    | jedného / jednej / jedného     | dvoch                                                       | troch                     | štyroch                      |
+| D    | jednému / jednej / jednému     | dvom                                                        | trom                      | štyrom                       |
+| A    | jedného, jeden / jednu / jedno | dva, dve; dvoch (m. anim.)                                  | tri; troch (m. anim.)     | štyri; štyroch (m. anim.)    |
+| L    | jednom / jednej / jednom       | dvoch                                                       | troch                     | štyroch                      |
+| I    | jedným / jednou / jedným       | dvoma                                                       | troma, tromi              | štyrmi                       |
 
 `päť` and up: `päť, piatich, piatim, päť (m. anim. piatich), piatich, piatimi`; likewise `šiestich`, `siedmich`, `ôsmich`, `deviatich`, `desiatich`. `sto` and `tisíc` usually stay unchanged: `pred sto rokmi`.
 
