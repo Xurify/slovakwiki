@@ -35,7 +35,7 @@ The final consonant does not reveal the gender: `stôl` and `deň` are masculine
 
 Rules worth teaching:
 
-- **Accusative = genitive** for masculine animates, singular and plural: `Vidím brata.` `Poznám tých študentov.`
+- **Accusative = genitive** for masculine animates in the singular, and in the plural for male persons only (animals: see below): `Vidím brata.` `Poznám tých študentov.`
 - **Dative and locative singular end in `-ovi`**: `bratovi`, `o učiteľovi`. Exceptions: `človek → človeku`, `Boh → Bohu`.
 - **Instrumental plural** is usually `-mi` (`chlapmi`, `mužmi`, `učiteľmi`); the `hrdina` type and some others take `-ami` (`hrdinami`, `kolegami`, `hosťami`).
 

@@ -61,7 +61,7 @@ These patterns drive A1-A2 production:
 | be pleasing          | `páčiť sa + dat.`              | `Páči sa mi tá kniha.`        |
 | would like           | `chcieť` conditional           | `Chcel by som čaj.`           |
 
-`Mám rád` agrees with the liker, not thing liked: male `mám rád`, female `mám rada`, plural masculine animate `máme radi`, other plural `máme rady`.
+`Mám rád` agrees with the liker, not thing liked: male `mám rád`, female `mám rada`, masculine personal plural `máme radi`, other plural `máme rady`.
 
 ## Core case system in situations
 

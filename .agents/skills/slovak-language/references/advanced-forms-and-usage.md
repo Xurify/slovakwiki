@@ -38,7 +38,7 @@ Do not use `všetko` before a count plural noun: say `všetky knihy`, not _`vše
 | `každý`, `celý`            | agree as adjectives            | `každý deň`, `celú noc`                 |
 | `oba/obidva`, `obe/obidve` | “both”, agreement matters      | `obaja kolegovia`, `obe možnosti`       |
 
-`obaja/obidvaja` is for two male people; `obe/obidve` for feminine or neuter groups; `oba/obidva` commonly for masculine inanimate. Prefer one family consistently in a short text (`oba` or `obidva`).
+`obaja/obidvaja` is for two male people; `obe/obidve` for feminine or neuter groups; `oba/obidva` for other masculine nouns, animals included (`oba psy`). Prefer one family consistently in a short text (`oba` or `obidva`).
 
 ## 2. Passive, reflexive passive, and agentless Slovak
 

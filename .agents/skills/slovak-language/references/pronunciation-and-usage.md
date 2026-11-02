@@ -28,7 +28,7 @@ Do not shift to `ty` without an invitation. Common offer: `Môžeme si tykať?` 
 | time                  | `Koľko je hodín?` / `Je ... hodín.`                  |
 | directions            | `Kde je ...?` / `Ako sa dostanem do ...?`            |
 
-For a male speaker use `rád, chcel by som, bol som`; for a female speaker use `rada, chcela by som, bola som`. For mixed/plural groups, masculine animate governs agreement.
+For a male speaker use `rád, chcel by som, bol som`; for a female speaker use `rada, chcela by som, bola som`. For a group with a man in it, masculine personal agreement applies: `boli sme pripravení`.
 
 ## Common English-speaker interference
 

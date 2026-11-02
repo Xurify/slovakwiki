@@ -25,7 +25,7 @@ Never omit Slovak diacritics in final Slovak text. Use `slovenčina` for the lan
 
 Before finalizing meaningful Slovak output, check:
 
-1. **Agreement:** adjective, participle, past tense, and pronoun match gender, number, case, and animacy (`boli pripravení` vs. `boli pripravené`).
+1. **Agreement:** adjective, participle, past tense, and pronoun match gender, number, case, and animacy; in the plural, male persons take their own forms and everything else, animals included, takes the other (`boli pripravení` vs. `boli pripravené`).
 2. **Government:** choose the case demanded by the verb/preposition; distinguish location from destination (`v škole` / `do školy`).
 3. **Aspect and time:** imperfective for process/habit, perfective for a bounded event; never `budem` + perfective; negative imperatives are imperfective.
 4. **Forms:** genitive plurals, mobile vowels, irregular past participles (`išiel`, `niesol`, `mohol`), and imperatives are checked against the tables, not built by analogy.

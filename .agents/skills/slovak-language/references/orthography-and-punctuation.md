@@ -40,7 +40,7 @@ Meaning contrasts that hinge on this: `byť` (be) / `biť` (beat), `my` (we) / `
 
 ### `i/y` in endings
 
-- Masculine animate nominative plural: `-i/-í` (`chlapi`, `pekní chlapi`); other plurals of hard and neutral stems: `-y/-é` (`stromy`, `ženy`, `pekné ženy`); soft stems keep `-i/-e` (`veci`, `kosti`, `ulice`).
+- Masculine personal nominative plural (male persons only): `-i/-í` (`chlapi`, `pekní chlapi`); other plurals of hard and neutral stems, animals included: `-y/-é` (`stromy`, `ženy`, `psy`, `pekné psy`); soft stems keep `-i/-e` (`veci`, `kosti`, `ulice`).
 - The past tense plural is always `-li`: `ženy boli`, `stromy rástli`, `deti prišli`. Slovak has no `-ly` past (that is Czech: `*ženy byly`).
 - Instrumental singular masculine/neuter adjectives `-ým`, plural dative `-ým`, plural instrumental `-ými`: `s pekným domom`, `peknými domami`.
 
