@@ -69825,6 +69825,11 @@
         "tatoebaId": 10000844
       },
       {
+        "slovak": "Nie je to moc ďaleko, však?",
+        "english": "It isn't very far, is it?",
+        "note": "Curated"
+      },
+      {
         "slovak": "Moc som toho nepočul.",
         "english": "I didn't hear much.",
         "note": "Tatoeba",
@@ -147334,6 +147339,11 @@
         "note": "Curated"
       },
       {
+        "slovak": "Bola tam asi tisícka ľudí.",
+        "english": "There were about a thousand people there.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Daj mi tisícku bozkov.",
         "english": "Give me a thousand kisses.",
         "note": "Tatoeba",
@@ -188370,6 +188380,11 @@
         "tatoebaId": 2921777
       },
       {
+        "slovak": "Nie je ďaleko odtiaľ.",
+        "english": "It isn't far from there.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Ako ďaleko je letisko?",
         "english": "How far away is the airport?",
         "note": "Tatoeba",
@@ -188398,6 +188413,11 @@
         "english": "How far is it?",
         "note": "Tatoeba",
         "tatoebaId": 9866913
+      },
+      {
+        "slovak": "Nie je to moc ďaleko, však?",
+        "english": "It isn't very far, is it?",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -264290,6 +264310,11 @@
         "tatoebaId": 8950077
       },
       {
+        "slovak": "Nie je ďaleko odtiaľ.",
+        "english": "It isn't far from there.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Prečo si sa odtiaľ odsťahovala?",
         "english": "Why did you move away from there?",
         "note": "Tatoeba",
@@ -264570,6 +264595,11 @@
         "english": "It's going to take about an hour.",
         "note": "Tatoeba",
         "tatoebaId": 8070509
+      },
+      {
+        "slovak": "Bola tam asi tisícka ľudí.",
+        "english": "There were about a thousand people there.",
+        "note": "Curated"
       },
       {
         "slovak": "Myslím, že Tom má asi pravdu.",
