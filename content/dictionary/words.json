@@ -69825,12 +69825,6 @@
         "tatoebaId": 10000844
       },
       {
-        "slovak": "Nie je to moc ďaleko, však?",
-        "english": "That isn't very fair, is it?",
-        "note": "Tatoeba",
-        "tatoebaId": 10041709
-      },
-      {
         "slovak": "Moc som toho nepočul.",
         "english": "I didn't hear much.",
         "note": "Tatoeba",
@@ -147340,12 +147334,6 @@
         "note": "Curated"
       },
       {
-        "slovak": "Bola tam asi tisícka ľudí.",
-        "english": "As many as a thousand people were there.",
-        "note": "Tatoeba",
-        "tatoebaId": 6143425
-      },
-      {
         "slovak": "Daj mi tisícku bozkov.",
         "english": "Give me a thousand kisses.",
         "note": "Tatoeba",
@@ -188382,12 +188370,6 @@
         "tatoebaId": 2921777
       },
       {
-        "slovak": "Nie je ďaleko odtiaľ.",
-        "english": "It's not far from here.",
-        "note": "Tatoeba",
-        "tatoebaId": 7706371
-      },
-      {
         "slovak": "Ako ďaleko je letisko?",
         "english": "How far away is the airport?",
         "note": "Tatoeba",
@@ -188416,12 +188398,6 @@
         "english": "How far is it?",
         "note": "Tatoeba",
         "tatoebaId": 9866913
-      },
-      {
-        "slovak": "Nie je to moc ďaleko, však?",
-        "english": "That isn't very fair, is it?",
-        "note": "Tatoeba",
-        "tatoebaId": 10041709
       }
     ],
     "related": []
