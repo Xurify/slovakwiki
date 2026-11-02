@@ -69826,9 +69826,8 @@
       },
       {
         "slovak": "Nie je to moc ďaleko, však?",
-        "english": "That isn't very fair, is it?",
-        "note": "Tatoeba",
-        "tatoebaId": 10041709
+        "english": "It isn't very far, is it?",
+        "note": "Curated"
       },
       {
         "slovak": "Moc som toho nepočul.",
@@ -147341,9 +147340,8 @@
       },
       {
         "slovak": "Bola tam asi tisícka ľudí.",
-        "english": "As many as a thousand people were there.",
-        "note": "Tatoeba",
-        "tatoebaId": 6143425
+        "english": "There were about a thousand people there.",
+        "note": "Curated"
       },
       {
         "slovak": "Daj mi tisícku bozkov.",
@@ -188383,9 +188381,8 @@
       },
       {
         "slovak": "Nie je ďaleko odtiaľ.",
-        "english": "It's not far from here.",
-        "note": "Tatoeba",
-        "tatoebaId": 7706371
+        "english": "It isn't far from there.",
+        "note": "Curated"
       },
       {
         "slovak": "Ako ďaleko je letisko?",
@@ -188419,9 +188416,8 @@
       },
       {
         "slovak": "Nie je to moc ďaleko, však?",
-        "english": "That isn't very fair, is it?",
-        "note": "Tatoeba",
-        "tatoebaId": 10041709
+        "english": "It isn't very far, is it?",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -264024,5 +264020,1449 @@
     ],
     "source": "curated",
     "sourceLabel": "Slovak Wiki"
+  },
+  {
+    "slug": "nikde",
+    "slovak": "nikde",
+    "english": "nowhere",
+    "category": "Adverbs",
+    "examples": [
+      {
+        "slovak": "Nikde sme ho nevideli.",
+        "english": "We haven't seen him anywhere.",
+        "note": "Tatoeba",
+        "tatoebaId": 8862969
+      },
+      {
+        "slovak": "Nemohol som ju nikde nájsť.",
+        "english": "I couldn't find her anywhere.",
+        "note": "Tatoeba",
+        "tatoebaId": 6141390
+      },
+      {
+        "slovak": "Nikde nemôžeme nájsť dobrý šijací stroj.",
+        "english": "We can't find a good sewing machine anywhere.",
+        "note": "Tatoeba",
+        "tatoebaId": 1865195
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "niekde",
+    "slovak": "niekde",
+    "english": "somewhere",
+    "category": "Adverbs",
+    "examples": [
+      {
+        "slovak": "Musí byť niekde tu.",
+        "english": "He must be somewhere around.",
+        "note": "Tatoeba",
+        "tatoebaId": 9181031
+      },
+      {
+        "slovak": "Pozri sa niekde inde.",
+        "english": "Look someplace else.",
+        "note": "Tatoeba",
+        "tatoebaId": 9000163
+      },
+      {
+        "slovak": "Bol som niekde inde.",
+        "english": "I was somewhere else.",
+        "note": "Tatoeba",
+        "tatoebaId": 7580389
+      },
+      {
+        "slovak": "Boli sme niekde inde.",
+        "english": "We were somewhere else.",
+        "note": "Tatoeba",
+        "tatoebaId": 7580384
+      },
+      {
+        "slovak": "Viem, že sa niekde skrývate.",
+        "english": "I know you're hiding somewhere.",
+        "note": "Tatoeba",
+        "tatoebaId": 9857936
+      },
+      {
+        "slovak": "Muselo sa to niekde stať.",
+        "english": "It had to happen somewhere.",
+        "note": "Tatoeba",
+        "tatoebaId": 8975863
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "nikdy",
+    "slovak": "nikdy",
+    "english": "never",
+    "category": "Adverbs",
+    "examples": [
+      {
+        "slovak": "Nikdy sa nehnevám.",
+        "english": "I never get angry.",
+        "note": "Tatoeba",
+        "tatoebaId": 12925107
+      },
+      {
+        "slovak": "Nikdy nestrácaj nádej.",
+        "english": "Never lose hope.",
+        "note": "Tatoeba",
+        "tatoebaId": 12767185
+      },
+      {
+        "slovak": "Nikdy nestrácajte nádej.",
+        "english": "Never lose hope.",
+        "note": "Tatoeba",
+        "tatoebaId": 12767184
+      },
+      {
+        "slovak": "Teraz alebo nikdy.",
+        "english": "Now or never.",
+        "note": "Tatoeba",
+        "tatoebaId": 12682862
+      },
+      {
+        "slovak": "Nikdy nenájdete Toma.",
+        "english": "You'll never find Tom.",
+        "note": "Tatoeba",
+        "tatoebaId": 12636041
+      },
+      {
+        "slovak": "Nikdy nenájdeš Toma.",
+        "english": "You'll never find Tom.",
+        "note": "Tatoeba",
+        "tatoebaId": 12636039
+      },
+      {
+        "slovak": "Nikdy sa nepýtaš.",
+        "english": "You never ask.",
+        "note": "Tatoeba",
+        "tatoebaId": 12011836
+      },
+      {
+        "slovak": "Nikdy sa nevzdávaj!",
+        "english": "Never give up!",
+        "note": "Tatoeba",
+        "tatoebaId": 10839005
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "niekedy",
+    "slovak": "niekedy",
+    "english": "sometimes; sometime; ever",
+    "category": "Adverbs",
+    "examples": [
+      {
+        "slovak": "Niekedy si zvláštna.",
+        "english": "You're strange sometimes.",
+        "note": "Tatoeba",
+        "tatoebaId": 12694105
+      },
+      {
+        "slovak": "Niekedy si zvláštny.",
+        "english": "You're strange sometimes.",
+        "note": "Tatoeba",
+        "tatoebaId": 12694104
+      },
+      {
+        "slovak": "Zavolaj mi niekedy.",
+        "english": "Call me sometime.",
+        "note": "Tatoeba",
+        "tatoebaId": 10346234
+      },
+      {
+        "slovak": "Niekedy ich vídavame.",
+        "english": "We sometimes see them.",
+        "note": "Tatoeba",
+        "tatoebaId": 10146176
+      },
+      {
+        "slovak": "Niekedy ich vídame.",
+        "english": "We sometimes see them.",
+        "note": "Tatoeba",
+        "tatoebaId": 10146171
+      },
+      {
+        "slovak": "Odpustíte mi niekedy?",
+        "english": "Will you ever forgive me?",
+        "note": "Tatoeba",
+        "tatoebaId": 8902824
+      },
+      {
+        "slovak": "Videli ste niekedy opicu?",
+        "english": "Have you ever seen a monkey?",
+        "note": "Tatoeba",
+        "tatoebaId": 12896541
+      },
+      {
+        "slovak": "Videla si niekedy opicu?",
+        "english": "Have you ever seen a monkey?",
+        "note": "Tatoeba",
+        "tatoebaId": 12896540
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "nikam",
+    "slovak": "nikam",
+    "english": "nowhere (to)",
+    "category": "Adverbs",
+    "examples": [
+      {
+        "slovak": "Nikam nejdem.",
+        "english": "I am not going anywhere.",
+        "note": "Tatoeba",
+        "tatoebaId": 1056401
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "sem",
+    "slovak": "sem",
+    "english": "here (to)",
+    "category": "Adverbs",
+    "examples": [
+      {
+        "slovak": "Nechoďte sem.",
+        "english": "Do not come here.",
+        "note": "Tatoeba",
+        "tatoebaId": 9942071
+      },
+      {
+        "slovak": "Nepatríte sem.",
+        "english": "You don't belong here.",
+        "note": "Tatoeba",
+        "tatoebaId": 8994735
+      },
+      {
+        "slovak": "Nevchádzaj sem!",
+        "english": "Don't come in here.",
+        "note": "Tatoeba",
+        "tatoebaId": 8867194
+      },
+      {
+        "slovak": "Tom, poď sem.",
+        "english": "Tom, come over here.",
+        "note": "Tatoeba",
+        "tatoebaId": 14069340
+      },
+      {
+        "slovak": "Priveďte ho sem.",
+        "english": "Bring him here.",
+        "note": "Tatoeba",
+        "tatoebaId": 12782778
+      },
+      {
+        "slovak": "Poď sem, psík.",
+        "english": "Come here, doggie.",
+        "note": "Tatoeba",
+        "tatoebaId": 12706527
+      },
+      {
+        "slovak": "Vráťte sa sem.",
+        "english": "Come back here.",
+        "note": "Tatoeba",
+        "tatoebaId": 12701110
+      },
+      {
+        "slovak": "Vráť sa sem.",
+        "english": "Come back here.",
+        "note": "Tatoeba",
+        "tatoebaId": 12701109
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "odtial",
+    "slovak": "odtiaľ",
+    "english": "from there",
+    "category": "Adverbs",
+    "examples": [
+      {
+        "slovak": "Poď odtiaľ dole!",
+        "english": "Get down from there.",
+        "note": "Tatoeba",
+        "tatoebaId": 5002496
+      },
+      {
+        "slovak": "Práve som odtiaľ prišiel.",
+        "english": "I just came from there.",
+        "note": "Tatoeba",
+        "tatoebaId": 13051782
+      },
+      {
+        "slovak": "Práve som odtiaľ prišla.",
+        "english": "I just came from there.",
+        "note": "Tatoeba",
+        "tatoebaId": 13051780
+      },
+      {
+        "slovak": "Cesta odtiaľ prudko stúpa.",
+        "english": "The path ascends steeply from there.",
+        "note": "Tatoeba",
+        "tatoebaId": 8950077
+      },
+      {
+        "slovak": "Nie je ďaleko odtiaľ.",
+        "english": "It isn't far from there.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Prečo si sa odtiaľ odsťahovala?",
+        "english": "Why did you move away from there?",
+        "note": "Tatoeba",
+        "tatoebaId": 9850194
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "vzdy",
+    "slovak": "vždy",
+    "english": "always",
+    "category": "Adverbs",
+    "examples": [
+      {
+        "slovak": "Vždy meškávali.",
+        "english": "They were always late.",
+        "note": "Tatoeba",
+        "tatoebaId": 12827849
+      },
+      {
+        "slovak": "Tom nemešká vždy.",
+        "english": "Tom isn't always late.",
+        "note": "Tatoeba",
+        "tatoebaId": 12718565
+      },
+      {
+        "slovak": "Pravda vždy zvíťazí.",
+        "english": "Truth always wins.",
+        "note": "Tatoeba",
+        "tatoebaId": 12689730
+      },
+      {
+        "slovak": "Dobro vždy zvíťazí.",
+        "english": "Good always wins.",
+        "note": "Tatoeba",
+        "tatoebaId": 12689728
+      },
+      {
+        "slovak": "Vždy je pripravený.",
+        "english": "He is always prepared.",
+        "note": "Tatoeba",
+        "tatoebaId": 12553738
+      },
+      {
+        "slovak": "Tom vždy mešká.",
+        "english": "Tom is always late.",
+        "note": "Tatoeba",
+        "tatoebaId": 10146269
+      },
+      {
+        "slovak": "Vždy sú výnimky.",
+        "english": "There are always exceptions.",
+        "note": "Tatoeba",
+        "tatoebaId": 10062896
+      },
+      {
+        "slovak": "Vždy ju miloval.",
+        "english": "He's always loved her.",
+        "note": "Tatoeba",
+        "tatoebaId": 9889818
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "vsade",
+    "slovak": "všade",
+    "english": "everywhere",
+    "category": "Adverbs",
+    "examples": [
+      {
+        "slovak": "Všade boli plamene.",
+        "english": "There were flames everywhere.",
+        "note": "Tatoeba",
+        "tatoebaId": 12768494
+      },
+      {
+        "slovak": "Všade boli krabice.",
+        "english": "Boxes were everywhere.",
+        "note": "Tatoeba",
+        "tatoebaId": 10099406
+      },
+      {
+        "slovak": "Krabice boli všade.",
+        "english": "Boxes were everywhere.",
+        "note": "Tatoeba",
+        "tatoebaId": 8947940
+      },
+      {
+        "slovak": "Všade dobre, doma najlepšie.",
+        "english": "There is no place like home.",
+        "note": "Tatoeba",
+        "tatoebaId": 12928113
+      },
+      {
+        "slovak": "Všade som hľadala Toma.",
+        "english": "I searched all over for Tom.",
+        "note": "Tatoeba",
+        "tatoebaId": 12733992
+      },
+      {
+        "slovak": "Všade som hľadal Toma.",
+        "english": "I searched all over for Tom.",
+        "note": "Tatoeba",
+        "tatoebaId": 12733991
+      },
+      {
+        "slovak": "Všade boli črepiny skla.",
+        "english": "There was shattered glass everywhere.",
+        "note": "Tatoeba",
+        "tatoebaId": 12470237
+      },
+      {
+        "slovak": "Všade som pozeral, ale nemohol som nájsť Toma.",
+        "english": "I looked everywhere, but I couldn't find Tom.",
+        "note": "Tatoeba",
+        "tatoebaId": 9095366
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "inde",
+    "slovak": "inde",
+    "english": "elsewhere",
+    "category": "Adverbs",
+    "examples": [
+      {
+        "slovak": "Pozri sa niekde inde.",
+        "english": "Look someplace else.",
+        "note": "Tatoeba",
+        "tatoebaId": 9000163
+      },
+      {
+        "slovak": "Bol som niekde inde.",
+        "english": "I was somewhere else.",
+        "note": "Tatoeba",
+        "tatoebaId": 7580389
+      },
+      {
+        "slovak": "Boli sme niekde inde.",
+        "english": "We were somewhere else.",
+        "note": "Tatoeba",
+        "tatoebaId": 7580384
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "kadial",
+    "slovak": "kadiaľ",
+    "english": "which way",
+    "category": "Adverbs",
+    "examples": [
+      {
+        "slovak": "Kadiaľ pôjdeme?",
+        "english": "Which way will we go?",
+        "note": "Tatoeba",
+        "tatoebaId": 1548488
+      },
+      {
+        "slovak": "Dávajte pozor, kadiaľ kráčate.",
+        "english": "Be careful where you walk.",
+        "note": "Tatoeba",
+        "tatoebaId": 12694111
+      },
+      {
+        "slovak": "Dávaj pozor, kadiaľ kráčaš.",
+        "english": "Be careful where you walk.",
+        "note": "Tatoeba",
+        "tatoebaId": 12694110
+      },
+      {
+        "slovak": "Kadiaľ sa ide na železničnú stanicu?",
+        "english": "Which way is the train station?",
+        "note": "Tatoeba",
+        "tatoebaId": 9006174
+      },
+      {
+        "slovak": "Môžete mi prosím povedať, kadiaľ sa ide do prístavu?",
+        "english": "Could you tell me the way to the port?",
+        "note": "Tatoeba",
+        "tatoebaId": 9938511
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "zatial",
+    "slovak": "zatiaľ",
+    "english": "so far, meanwhile",
+    "category": "Adverbs",
+    "examples": [
+      {
+        "slovak": "Zatiaľ žiadne komentáre.",
+        "english": "There are no comments for now.",
+        "note": "Tatoeba",
+        "tatoebaId": 13460565
+      },
+      {
+        "slovak": "Zatiaľ som nič nepovedala.",
+        "english": "I haven't said anything yet.",
+        "note": "Tatoeba",
+        "tatoebaId": 13089798
+      },
+      {
+        "slovak": "Zatiaľ všetko prebiehalo dobre.",
+        "english": "We're doing fine so far.",
+        "note": "Tatoeba",
+        "tatoebaId": 11062324
+      },
+      {
+        "slovak": "Zatiaľ všetko prebieha dobre.",
+        "english": "We're doing fine so far.",
+        "note": "Tatoeba",
+        "tatoebaId": 11060141
+      },
+      {
+        "slovak": "Zatiaľ som nič nepovedal.",
+        "english": "I haven't said anything yet.",
+        "note": "Tatoeba",
+        "tatoebaId": 9000261
+      },
+      {
+        "slovak": "Zatiaľ neboli pridané žiadne komentáre.",
+        "english": "No comments have been added yet.",
+        "note": "Tatoeba",
+        "tatoebaId": 13460599
+      },
+      {
+        "slovak": "To je všetko, čo ti zatiaľ môžem povedať.",
+        "english": "That's all I can tell you for now.",
+        "note": "Tatoeba",
+        "tatoebaId": 12833602
+      },
+      {
+        "slovak": "To je všetko, čo vám zatiaľ môžem povedať.",
+        "english": "That's all I can tell you for now.",
+        "note": "Tatoeba",
+        "tatoebaId": 12833601
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "asi",
+    "slovak": "asi",
+    "english": "probably; about",
+    "category": "Adverbs",
+    "examples": [
+      {
+        "slovak": "Asi som sa stratil.",
+        "english": "I am probably lost.",
+        "note": "Tatoeba",
+        "tatoebaId": 9978556
+      },
+      {
+        "slovak": "Trvalo to asi pätnásť minút.",
+        "english": "It took about 15 minutes.",
+        "note": "Tatoeba",
+        "tatoebaId": 12570065
+      },
+      {
+        "slovak": "Asi si to už vedel.",
+        "english": "You probably already knew that.",
+        "note": "Tatoeba",
+        "tatoebaId": 9092068
+      },
+      {
+        "slovak": "Vrátim sa asi o hodinu.",
+        "english": "I'll be back in an hour or so.",
+        "note": "Tatoeba",
+        "tatoebaId": 8996644
+      },
+      {
+        "slovak": "Bude to trvať asi hodinu.",
+        "english": "It's going to take about an hour.",
+        "note": "Tatoeba",
+        "tatoebaId": 8070509
+      },
+      {
+        "slovak": "Bola tam asi tisícka ľudí.",
+        "english": "There were about a thousand people there.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Myslím, že Tom má asi pravdu.",
+        "english": "I think Tom is probably right.",
+        "note": "Tatoeba",
+        "tatoebaId": 9857650
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "urcite",
+    "slovak": "určite",
+    "english": "certainly",
+    "category": "Adverbs",
+    "examples": [
+      {
+        "slovak": "Určite hovorí portugalsky?",
+        "english": "Are you sure she's speaking Portuguese?",
+        "note": "Tatoeba",
+        "tatoebaId": 10092833
+      },
+      {
+        "slovak": "Určite ťa nemôžeme viniť.",
+        "english": "We certainly can't blame you.",
+        "note": "Tatoeba",
+        "tatoebaId": 10930795
+      },
+      {
+        "slovak": "Určite si nič nedáte?",
+        "english": "Are you sure you don't want anything to eat?",
+        "note": "Tatoeba",
+        "tatoebaId": 10255572
+      },
+      {
+        "slovak": "Určite si nič nedáš?",
+        "english": "Are you sure you don't want anything to eat?",
+        "note": "Tatoeba",
+        "tatoebaId": 10255571
+      },
+      {
+        "slovak": "Určite to chcete vedieť?",
+        "english": "Are you sure you want to know?",
+        "note": "Tatoeba",
+        "tatoebaId": 10167957
+      },
+      {
+        "slovak": "Určite to chceš vedieť?",
+        "english": "Are you sure you want to know?",
+        "note": "Tatoeba",
+        "tatoebaId": 10167956
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "naozaj",
+    "slovak": "naozaj",
+    "english": "really",
+    "category": "Adverbs",
+    "examples": [
+      {
+        "slovak": "Naozaj? Prečo?",
+        "english": "Really? Why?",
+        "note": "Tatoeba",
+        "tatoebaId": 13061107
+      },
+      {
+        "slovak": "Naozaj neviem.",
+        "english": "I really don't know.",
+        "note": "Tatoeba",
+        "tatoebaId": 12708341
+      },
+      {
+        "slovak": "Naozaj sneží.",
+        "english": "It's really snowing.",
+        "note": "Tatoeba",
+        "tatoebaId": 7584441
+      },
+      {
+        "slovak": "Naozaj sú priateľky?",
+        "english": "Are they really friends?",
+        "note": "Tatoeba",
+        "tatoebaId": 13865177
+      },
+      {
+        "slovak": "Naozaj sú priatelia?",
+        "english": "Are they really friends?",
+        "note": "Tatoeba",
+        "tatoebaId": 13864954
+      },
+      {
+        "slovak": "Naozaj nepotrebujem pomoc.",
+        "english": "I really don't need help.",
+        "note": "Tatoeba",
+        "tatoebaId": 11456655
+      },
+      {
+        "slovak": "Naozaj tomu veríte?",
+        "english": "Do you really believe it?",
+        "note": "Tatoeba",
+        "tatoebaId": 10748954
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "kedysi",
+    "slovak": "kedysi",
+    "english": "once, formerly",
+    "category": "Adverbs",
+    "examples": [
+      {
+        "slovak": "Kedysi som chcel byť astrofyzikom.",
+        "english": "I once wanted to be an astrophysicist.",
+        "note": "Tatoeba",
+        "tatoebaId": 1058171
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "odvtedy",
+    "slovak": "odvtedy",
+    "english": "since then",
+    "category": "Adverbs",
+    "examples": [
+      {
+        "slovak": "Odvtedy som s Tomom nehovorila.",
+        "english": "I haven't spoken to Tom since.",
+        "note": "Tatoeba",
+        "tatoebaId": 10262651
+      },
+      {
+        "slovak": "Odvtedy som s Tomom nehovoril.",
+        "english": "I haven't spoken to Tom since.",
+        "note": "Tatoeba",
+        "tatoebaId": 10262650
+      },
+      {
+        "slovak": "Odvtedy som s ním nehovorila.",
+        "english": "I haven't spoken to him since.",
+        "note": "Tatoeba",
+        "tatoebaId": 9336282
+      },
+      {
+        "slovak": "Odvtedy som s ňou nehovorila.",
+        "english": "I haven't talked to her since.",
+        "note": "Tatoeba",
+        "tatoebaId": 9336278
+      },
+      {
+        "slovak": "Odvtedy som s ňou nehovoril.",
+        "english": "I haven't talked to her since.",
+        "note": "Tatoeba",
+        "tatoebaId": 9336275
+      },
+      {
+        "slovak": "Odvtedy som s ním nehovoril.",
+        "english": "I haven't spoken to him since.",
+        "note": "Tatoeba",
+        "tatoebaId": 9336268
+      },
+      {
+        "slovak": "Odvtedy som sa s Tomom nerozprávala.",
+        "english": "I haven't spoken to Tom since.",
+        "note": "Tatoeba",
+        "tatoebaId": 10262653
+      },
+      {
+        "slovak": "Odvtedy som sa s Tomom nerozprával.",
+        "english": "I haven't spoken to Tom since.",
+        "note": "Tatoeba",
+        "tatoebaId": 10262652
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "vtedy",
+    "slovak": "vtedy",
+    "english": "then, at that time",
+    "category": "Adverbs",
+    "examples": [
+      {
+        "slovak": "Vtedy som to nevedela.",
+        "english": "I didn't know that at the time.",
+        "note": "Tatoeba",
+        "tatoebaId": 10076855
+      },
+      {
+        "slovak": "Vtedy som to nevedel.",
+        "english": "I didn't know that at the time.",
+        "note": "Tatoeba",
+        "tatoebaId": 10076854
+      },
+      {
+        "slovak": "Vtedy som ich nepoznala.",
+        "english": "I didn't know them then.",
+        "note": "Tatoeba",
+        "tatoebaId": 9958755
+      },
+      {
+        "slovak": "Vtedy som ich nepoznal.",
+        "english": "I didn't know them then.",
+        "note": "Tatoeba",
+        "tatoebaId": 9958754
+      },
+      {
+        "slovak": "Vtedy som ju nepoznala.",
+        "english": "I didn't know her at the time.",
+        "note": "Tatoeba",
+        "tatoebaId": 9958722
+      },
+      {
+        "slovak": "Vtedy som ju nepoznal.",
+        "english": "I didn't know her at the time.",
+        "note": "Tatoeba",
+        "tatoebaId": 9958719
+      },
+      {
+        "slovak": "Vtedy som vás nepoznala.",
+        "english": "I didn't know you then.",
+        "note": "Tatoeba",
+        "tatoebaId": 9958684
+      },
+      {
+        "slovak": "Vtedy som vás nepoznal.",
+        "english": "I didn't know you then.",
+        "note": "Tatoeba",
+        "tatoebaId": 9958683
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "vzdycky",
+    "slovak": "vždycky",
+    "english": "always",
+    "category": "Adverbs",
+    "examples": [
+      {
+        "slovak": "Prečo vždycky ja?",
+        "english": "Why always me?",
+        "note": "Tatoeba",
+        "tatoebaId": 9835348
+      },
+      {
+        "slovak": "Vždycky plnil svoje sľuby.",
+        "english": "He always kept his promises.",
+        "note": "Tatoeba",
+        "tatoebaId": 12728982
+      },
+      {
+        "slovak": "Tom bol vždycky zaneprázdnený.",
+        "english": "Tom was always busy.",
+        "note": "Tatoeba",
+        "tatoebaId": 9790762
+      },
+      {
+        "slovak": "Tom vždycky nosí čierne oblečenie.",
+        "english": "Tom always wears black clothes.",
+        "note": "Tatoeba",
+        "tatoebaId": 10093464
+      },
+      {
+        "slovak": "Tom vždycky ráno pije kávu.",
+        "english": "Tom always drinks coffee in the morning.",
+        "note": "Tatoeba",
+        "tatoebaId": 10045854
+      },
+      {
+        "slovak": "Vždycky odchádza z domu o siedmej.",
+        "english": "He always leaves home at seven.",
+        "note": "Tatoeba",
+        "tatoebaId": 12818467
+      },
+      {
+        "slovak": "Tom si zo mňa vždycky robí srandu.",
+        "english": "Tom always makes fun of me.",
+        "note": "Tatoeba",
+        "tatoebaId": 9968799
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "aj",
+    "slovak": "aj",
+    "english": "also, too",
+    "category": "Phrases",
+    "examples": [
+      {
+        "slovak": "Aj ja dúfam.",
+        "english": "I hope so, too.",
+        "note": "Tatoeba",
+        "tatoebaId": 13206790
+      },
+      {
+        "slovak": "Aj ty, Brutus?",
+        "english": "You too, Brutus?",
+        "note": "Tatoeba",
+        "tatoebaId": 12604097
+      },
+      {
+        "slovak": "Aj vám blahoželám.",
+        "english": "Congratulations to you too.",
+        "note": "Tatoeba",
+        "tatoebaId": 8956457
+      },
+      {
+        "slovak": "Aj ja prídem.",
+        "english": "I'll come, too.",
+        "note": "Tatoeba",
+        "tatoebaId": 8956383
+      },
+      {
+        "slovak": "Príde aj Tom.",
+        "english": "Tom is coming, too.",
+        "note": "Tatoeba",
+        "tatoebaId": 2921827
+      },
+      {
+        "slovak": "Aj my robíme chyby.",
+        "english": "We make mistakes, too.",
+        "note": "Tatoeba",
+        "tatoebaId": 13924982
+      },
+      {
+        "slovak": "Aj ženy sú ľudia.",
+        "english": "Women are also human beings.",
+        "note": "Tatoeba",
+        "tatoebaId": 13323670
+      },
+      {
+        "slovak": "Aj netopiere majú krídla.",
+        "english": "Bats also have wings.",
+        "note": "Tatoeba",
+        "tatoebaId": 12821914
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "ani",
+    "slovak": "ani",
+    "english": "not even, nor",
+    "category": "Phrases",
+    "examples": [
+      {
+        "slovak": "Ani myslieť!",
+        "english": "Out of the question!",
+        "note": "Tatoeba",
+        "tatoebaId": 12721411
+      },
+      {
+        "slovak": "Ani myslieť.",
+        "english": "No way.",
+        "note": "Tatoeba",
+        "tatoebaId": 12721410
+      },
+      {
+        "slovak": "Nerozumiem ani slovo.",
+        "english": "I don't understand a word.",
+        "note": "Tatoeba",
+        "tatoebaId": 13072559
+      },
+      {
+        "slovak": "Nepovedala ani slovo.",
+        "english": "She didn't say a word.",
+        "note": "Tatoeba",
+        "tatoebaId": 13036486
+      },
+      {
+        "slovak": "Nepovedal ani slovo.",
+        "english": "He didn't say a word.",
+        "note": "Tatoeba",
+        "tatoebaId": 13036485
+      },
+      {
+        "slovak": "Nefajčím ani nepijem.",
+        "english": "I neither smoke nor drink.",
+        "note": "Tatoeba",
+        "tatoebaId": 12742529
+      },
+      {
+        "slovak": "Nemám ani šajnu.",
+        "english": "I haven't the faintest idea.",
+        "note": "Tatoeba",
+        "tatoebaId": 12711947
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "niekolko",
+    "slovak": "niekoľko",
+    "english": "several",
+    "category": "Phrases",
+    "examples": [
+      {
+        "slovak": "Potrebujem niekoľko dobrovoľníkov.",
+        "english": "I need some volunteers.",
+        "note": "Tatoeba",
+        "tatoebaId": 12630256
+      },
+      {
+        "slovak": "Mám niekoľko nápadov.",
+        "english": "I have a few ideas.",
+        "note": "Tatoeba",
+        "tatoebaId": 10057679
+      },
+      {
+        "slovak": "Mám niekoľko domov.",
+        "english": "I have some houses.",
+        "note": "Tatoeba",
+        "tatoebaId": 8344066
+      },
+      {
+        "slovak": "Tom napísal niekoľko kníh.",
+        "english": "Tom has written several books.",
+        "note": "Tatoeba",
+        "tatoebaId": 9141804
+      },
+      {
+        "slovak": "Budovy majú niekoľko poschodí.",
+        "english": "Buildings have several floors.",
+        "note": "Tatoeba",
+        "tatoebaId": 8963701
+      },
+      {
+        "slovak": "Mám na Toma niekoľko otázok.",
+        "english": "I have some questions for Tom.",
+        "note": "Tatoeba",
+        "tatoebaId": 10069129
+      },
+      {
+        "slovak": "Tom položil učiteľovi niekoľko otázok.",
+        "english": "Tom asked the teacher some questions.",
+        "note": "Tatoeba",
+        "tatoebaId": 9978206
+      },
+      {
+        "slovak": "Tom mi položil niekoľko otázok.",
+        "english": "Tom asked me a few questions.",
+        "note": "Tatoeba",
+        "tatoebaId": 9978204
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "aby",
+    "slovak": "aby",
+    "english": "so that",
+    "category": "Phrases",
+    "examples": [
+      {
+        "slovak": "Chcem, aby prišiel.",
+        "english": "I want him to come.",
+        "note": "Tatoeba",
+        "tatoebaId": 10072965
+      },
+      {
+        "slovak": "Chceme, aby išla domov.",
+        "english": "We want her to go home.",
+        "note": "Tatoeba",
+        "tatoebaId": 13110666
+      },
+      {
+        "slovak": "Chceme, aby šla domov.",
+        "english": "We want her to go home.",
+        "note": "Tatoeba",
+        "tatoebaId": 13110665
+      },
+      {
+        "slovak": "Chceme, aby išiel domov.",
+        "english": "We want him to go home.",
+        "note": "Tatoeba",
+        "tatoebaId": 13110664
+      },
+      {
+        "slovak": "Chceme, aby šiel domov.",
+        "english": "We want him to go home.",
+        "note": "Tatoeba",
+        "tatoebaId": 13110663
+      },
+      {
+        "slovak": "Povedzte Tomovi, aby počkal.",
+        "english": "Tell Tom to wait.",
+        "note": "Tatoeba",
+        "tatoebaId": 12782761
+      },
+      {
+        "slovak": "Povedz Tomovi, aby počkal.",
+        "english": "Tell Tom to wait.",
+        "note": "Tatoeba",
+        "tatoebaId": 12782759
+      },
+      {
+        "slovak": "Chcem, aby ste uspeli.",
+        "english": "I want you to succeed.",
+        "note": "Tatoeba",
+        "tatoebaId": 12752540
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "vsak",
+    "slovak": "však",
+    "english": "however; isn't it? (tag question)",
+    "category": "Phrases",
+    "examples": [
+      {
+        "slovak": "Pekné, však?",
+        "english": "Pretty, isn't it?",
+        "note": "Tatoeba",
+        "tatoebaId": 8961973
+      },
+      {
+        "slovak": "Zavoláš mi, však?",
+        "english": "You'll call me, won't you?",
+        "note": "Tatoeba",
+        "tatoebaId": 13864968
+      },
+      {
+        "slovak": "Je luhár, však?",
+        "english": "He's a liar, isn't he?",
+        "note": "Tatoeba",
+        "tatoebaId": 13205238
+      },
+      {
+        "slovak": "Je klamár, však?",
+        "english": "He's a liar, isn't he?",
+        "note": "Tatoeba",
+        "tatoebaId": 13205237
+      },
+      {
+        "slovak": "Je luhárka, však?",
+        "english": "She's a liar, isn't she?",
+        "note": "Tatoeba",
+        "tatoebaId": 13205234
+      },
+      {
+        "slovak": "Je klamárka, však?",
+        "english": "She's a liar, isn't she?",
+        "note": "Tatoeba",
+        "tatoebaId": 13205233
+      },
+      {
+        "slovak": "Spal si, však?",
+        "english": "You were sleeping, weren't you?",
+        "note": "Tatoeba",
+        "tatoebaId": 10687704
+      },
+      {
+        "slovak": "Neveríš mu, však?",
+        "english": "You don't believe him, do you?",
+        "note": "Tatoeba",
+        "tatoebaId": 10304629
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "teda",
+    "slovak": "teda",
+    "english": "so, then",
+    "category": "Phrases",
+    "examples": [
+      {
+        "slovak": "Myslíme, teda sme.",
+        "english": "We think, therefore we are.",
+        "note": "Tatoeba",
+        "tatoebaId": 13817018
+      },
+      {
+        "slovak": "Prekladám, teda som.",
+        "english": "I translate, therefore I am.",
+        "note": "Tatoeba",
+        "tatoebaId": 13281012
+      },
+      {
+        "slovak": "Píšem, teda som.",
+        "english": "I write, therefore I am.",
+        "note": "Tatoeba",
+        "tatoebaId": 13281006
+      },
+      {
+        "slovak": "Dobre teda, poďme!",
+        "english": "Well, let's get going!",
+        "note": "Tatoeba",
+        "tatoebaId": 9003724
+      },
+      {
+        "slovak": "Myslím, teda som.",
+        "english": "I think, therefore I am.",
+        "note": "Tatoeba",
+        "tatoebaId": 1036395
+      },
+      {
+        "slovak": "Neprekladám, teda nie som.",
+        "english": "I don't translate, therefore I am not.",
+        "note": "Tatoeba",
+        "tatoebaId": 13281021
+      },
+      {
+        "slovak": "Nemyslím, teda nie som.",
+        "english": "I don't think, therefore I am not.",
+        "note": "Tatoeba",
+        "tatoebaId": 13281015
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "preto",
+    "slovak": "preto",
+    "english": "therefore",
+    "category": "Phrases",
+    "examples": [
+      {
+        "slovak": "Preto sa nahneval.",
+        "english": "That is why he got angry.",
+        "note": "Tatoeba",
+        "tatoebaId": 9727750
+      },
+      {
+        "slovak": "Preto sa o vás bojím.",
+        "english": "That's why I worry about you.",
+        "note": "Tatoeba",
+        "tatoebaId": 9754154
+      },
+      {
+        "slovak": "Preto sa o teba bojím.",
+        "english": "That's why I worry about you.",
+        "note": "Tatoeba",
+        "tatoebaId": 9754153
+      },
+      {
+        "slovak": "To preto, lebo si dievča.",
+        "english": "That's because you're a girl.",
+        "note": "Tatoeba",
+        "tatoebaId": 8862443
+      },
+      {
+        "slovak": "Nemám tušenie. Preto sa pýtam.",
+        "english": "No idea. That's why I'm asking.",
+        "note": "Tatoeba",
+        "tatoebaId": 4719258
+      },
+      {
+        "slovak": "Hnevala sa. Preto bola ticho.",
+        "english": "She was angry. That is why she remained silent.",
+        "note": "Tatoeba",
+        "tatoebaId": 1338204
+      },
+      {
+        "slovak": "A preto nebol na stretnutí prítomný.",
+        "english": "That is why he wasn't present at the meeting.",
+        "note": "Tatoeba",
+        "tatoebaId": 12684130
+      },
+      {
+        "slovak": "Ospravedlňujem sa, zaspala som, a preto meškám tridsať minút.",
+        "english": "Sorry, I'm 30 minutes late because I overslept.",
+        "note": "Tatoeba",
+        "tatoebaId": 10000760
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "iba",
+    "slovak": "iba",
+    "english": "only",
+    "category": "Phrases",
+    "examples": [
+      {
+        "slovak": "Iba sa pozerám.",
+        "english": "I'm just looking.",
+        "note": "Tatoeba",
+        "tatoebaId": 12721585
+      },
+      {
+        "slovak": "Iba sa pýtam.",
+        "english": "I'm just asking.",
+        "note": "Tatoeba",
+        "tatoebaId": 12011829
+      },
+      {
+        "slovak": "Máme iba čaj.",
+        "english": "We only have tea.",
+        "note": "Tatoeba",
+        "tatoebaId": 10146133
+      },
+      {
+        "slovak": "Pijem iba vodu.",
+        "english": "I only drink water.",
+        "note": "Tatoeba",
+        "tatoebaId": 9968787
+      },
+      {
+        "slovak": "Viem iba toto.",
+        "english": "I know only this.",
+        "note": "Tatoeba",
+        "tatoebaId": 8921017
+      },
+      {
+        "slovak": "Môžem iba čakať.",
+        "english": "I can only wait.",
+        "note": "Tatoeba",
+        "tatoebaId": 8865640
+      },
+      {
+        "slovak": "Iba to hovorím!",
+        "english": "I'm just saying!",
+        "note": "Tatoeba",
+        "tatoebaId": 8862430
+      },
+      {
+        "slovak": "Iba sa pozerám, ďakujem.",
+        "english": "I'm just looking, thank you.",
+        "note": "Tatoeba",
+        "tatoebaId": 13204302
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "az",
+    "slovak": "až",
+    "english": "until, not until; all the way to; (not) that",
+    "category": "Phrases",
+    "examples": [
+      {
+        "slovak": "Až taká hladná nie som.",
+        "english": "I'm not that hungry.",
+        "note": "Tatoeba",
+        "tatoebaId": 9922384
+      },
+      {
+        "slovak": "Až taký hladný nie som.",
+        "english": "I'm not that hungry.",
+        "note": "Tatoeba",
+        "tatoebaId": 9922382
+      },
+      {
+        "slovak": "Vrátim sa až budúci týždeň.",
+        "english": "I won't be back until next week.",
+        "note": "Tatoeba",
+        "tatoebaId": 8863018
+      },
+      {
+        "slovak": "Bežal som až na stanicu.",
+        "english": "I ran all the way to the station.",
+        "note": "Tatoeba",
+        "tatoebaId": 2914102
+      },
+      {
+        "slovak": "Nie je to až také strašidelné.",
+        "english": "It's not that scary.",
+        "note": "Tatoeba",
+        "tatoebaId": 9867936
+      },
+      {
+        "slovak": "Čítali ste to až do konca?",
+        "english": "Did you read it through to the end?",
+        "note": "Tatoeba",
+        "tatoebaId": 8958336
+      },
+      {
+        "slovak": "Nemôžem sa dočkať, až sa odtiaľto dostanem.",
+        "english": "I can't wait to get out of here.",
+        "note": "Tatoeba",
+        "tatoebaId": 8862866
+      },
+      {
+        "slovak": "Až do včera som nikdy nevidel Toma tancovať.",
+        "english": "Until yesterday, I had never seen Tom dance.",
+        "note": "Tatoeba",
+        "tatoebaId": 12095199
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "ziadny",
+    "slovak": "žiadny",
+    "english": "no, none",
+    "category": "Phrases",
+    "examples": [
+      {
+        "slovak": "Žiadny problém.",
+        "english": "No problem.",
+        "note": "Tatoeba",
+        "tatoebaId": 12680282
+      },
+      {
+        "slovak": "Žiadny problém!",
+        "english": "No problem!",
+        "note": "Tatoeba",
+        "tatoebaId": 12680281
+      },
+      {
+        "slovak": "Žiadny signál.",
+        "english": "No signal.",
+        "note": "Tatoeba",
+        "tatoebaId": 12680263
+      },
+      {
+        "slovak": "Nemám žiadny dôkaz.",
+        "english": "I don't have any evidence.",
+        "note": "Tatoeba",
+        "tatoebaId": 13659508
+      },
+      {
+        "slovak": "Nepite žiadny alkohol.",
+        "english": "Don't drink any alcohol.",
+        "note": "Tatoeba",
+        "tatoebaId": 10057607
+      },
+      {
+        "slovak": "Nepi žiadny alkohol.",
+        "english": "Don't drink any alcohol.",
+        "note": "Tatoeba",
+        "tatoebaId": 10057605
+      },
+      {
+        "slovak": "Nevidím žiadny rozdiel.",
+        "english": "I don't see any difference.",
+        "note": "Tatoeba",
+        "tatoebaId": 9867824
+      },
+      {
+        "slovak": "Nemali žiadny úspech.",
+        "english": "They had no success.",
+        "note": "Tatoeba",
+        "tatoebaId": 8862954
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "nijaky",
+    "slovak": "nijaký",
+    "english": "no, any",
+    "category": "Phrases",
+    "examples": [
+      {
+        "slovak": "Nevidím nijaký rozdiel.",
+        "english": "I don't see any difference.",
+        "note": "Tatoeba",
+        "tatoebaId": 9867826
+      },
+      {
+        "slovak": "Nevidím nijaký dôvod, prečo by sme to mali urobiť.",
+        "english": "I don't see any reason why we should do that.",
+        "note": "Tatoeba",
+        "tatoebaId": 9187181
+      }
+    ],
+    "related": []
   }
 ]
