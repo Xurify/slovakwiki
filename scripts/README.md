@@ -42,6 +42,7 @@ Pre-paint `localStorage` paint for SSR pages. Shared kit: [`src/lib/fouc/README.
 | `content/dictionary/related-clusters.json`                | Semantic related peers for `apply-related.ts`                                    |
 | `content/dictionary/tatoeba-rejected.json`                | Tatoeba sentence IDs rejected as wrong Slovak (ID → reason); enrich skips them   |
 | `content/dictionary/tatoeba-lemma-rejected.json`          | Tatoeba rows wrong for one entry (`slug#ID` → reason); enrich skips them there   |
+| `content/dictionary/tatoeba-english-fixes.json`           | Right Slovak, wrong Tatoeba English (ID → english, reason); enrich uses the fix  |
 | `content/audio/config.json`                               | ElevenLabs voice / model / settings + lesson `characters` cast                   |
 | `content/audio/README.md`                                 | Voice roster (dictionary + lesson cast, IDs, speakers, commands)                 |
 | `content/audio/manifest.json`                             | Ops clip metadata (hash → text/bytes/uploadedAt); scripts only                   |

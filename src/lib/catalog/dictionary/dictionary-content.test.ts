@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import { words } from "$lib/catalog/entries";
 import { FREQUENCY_PUBLISH_BLOCKLIST } from "$lib/catalog/frequency/blocklist";
 
+import tatoebaEnglishFixes from "../../../../content/dictionary/tatoeba-english-fixes.json";
 import rejectedForLemma from "../../../../content/dictionary/tatoeba-lemma-rejected.json";
 import rejectedTatoeba from "../../../../content/dictionary/tatoeba-rejected.json";
 import { exampleContainsLemma } from "./example-lemma-match";
@@ -47,6 +48,23 @@ describe("dictionary examples", () => {
     const problems = words.flatMap((word) =>
       word.examples
         .filter((example) => example.tatoebaId && rejected.has(example.tatoebaId))
+        .map((example) => `${word.slug}: ${example.slovak}`),
+    );
+    expect(problems).toEqual([]);
+  });
+
+  it("keeps the reviewed English on Tatoeba rows whose own English was wrong", () => {
+    const fixes = new Map(
+      Object.entries(tatoebaEnglishFixes).map(([id, fix]) => [Number(id), fix.english]),
+    );
+    const problems = words.flatMap((word) =>
+      word.examples
+        .filter(
+          (example) =>
+            example.tatoebaId &&
+            fixes.has(example.tatoebaId) &&
+            example.english !== fixes.get(example.tatoebaId),
+        )
         .map((example) => `${word.slug}: ${example.slovak}`),
     );
     expect(problems).toEqual([]);

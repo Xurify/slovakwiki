@@ -53,6 +53,12 @@ type RejectReason = "no-candidates" | "quality" | "weak-match";
 const TATOEBA_DIR = path.join(ROOT, "tmp", "tatoeba");
 const WORDS_PATH = path.join(ROOT, "content", "dictionary", "words.json");
 const REJECTED_PATH = path.join(ROOT, "content", "dictionary", "tatoeba-rejected.json");
+const ENGLISH_FIXES_PATH = path.join(
+  ROOT,
+  "content",
+  "dictionary",
+  "tatoeba-english-fixes.json",
+);
 const LEMMA_REJECTED_PATH = path.join(
   ROOT,
   "content",
@@ -331,12 +337,17 @@ async function main(): Promise<void> {
       JSON.parse(await readFile(LEMMA_REJECTED_PATH, "utf8")) as Record<string, string>,
     ),
   );
+  // Right Slovak, wrong Tatoeba English: the reviewed English replaces it.
+  const englishFixes = JSON.parse(await readFile(ENGLISH_FIXES_PATH, "utf8")) as Record<
+    string,
+    { english: string; reason: string }
+  >;
 
   const pairs: SentencePair[] = [];
   for (const [skId, enId] of links) {
     if (rejected.has(skId)) continue;
     const slovak = slk.get(skId);
-    const english = eng.get(enId);
+    const english = englishFixes[skId]?.english ?? eng.get(enId);
     if (!slovak || !english) continue;
     pairs.push({ tatoebaId: skId, slovak, english });
   }
