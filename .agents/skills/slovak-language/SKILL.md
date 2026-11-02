@@ -25,7 +25,7 @@ Never omit Slovak diacritics in final Slovak text. Use `slovenčina` for the lan
 
 Before finalizing meaningful Slovak output, check:
 
-1. **Agreement:** adjective, participle, past tense, and pronoun match gender, number, case, and animacy (`boli pripravení` vs. `boli pripravené`).
+1. **Agreement:** adjective, participle, past tense, and pronoun match gender, number, case, and animacy; in the plural, male persons take their own forms and everything else, animals included, takes the other (`boli pripravení` vs. `boli pripravené`).
 2. **Government:** choose the case demanded by the verb/preposition; distinguish location from destination (`v škole` / `do školy`).
 3. **Aspect and time:** imperfective for process/habit, perfective for a bounded event; never `budem` + perfective; negative imperatives are imperfective.
 4. **Forms:** genitive plurals, mobile vowels, irregular past participles (`išiel`, `niesol`, `mohol`), and imperatives are checked against the tables, not built by analogy.
@@ -75,7 +75,7 @@ Read only the reference required by the task.
 ## Teaching defaults
 
 - Prefer complete chunks: `Mám rád kávu.`, `Idem do mesta.`, `Som v meste.`
-- Introduce nouns with gender and a usable form: `stôl (m. inan.)`, `žena (f.)`, `mesto (n.)`.
+- Introduce nouns with gender and a usable form: `stôl (masculine inanimate)`, `žena (feminine)`, `mesto (neuter)`.
 - Introduce verbs with aspect partner and key forms: `písať (ipf.) / napísať (pf.) – píšem – píšu`.
 - Teach case through a verb/preposition frame before abstract labels: `čakám na + acc.`, `hovorím o + loc.`, `pomáham + dat.`
 - Make the learner produce both directions of every spatial contrast: `v Bratislave` / `do Bratislavy`, `na stole` / `na stôl`.

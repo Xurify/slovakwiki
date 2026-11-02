@@ -6,21 +6,21 @@ Slovak has six cases (N, G, D, A, L, I), two numbers, and four genders: masculin
 
 ## 1. How to identify the model
 
-| Nominative singular ends in…                      | Gender (usual) | Model            |
-| ------------------------------------------------- | -------------- | ---------------- |
-| consonant, person or animal                       | m. animate     | `chlap`          |
-| `-a`, male person (`hrdina`, `kolega`, `turista`) | m. animate     | `hrdina`         |
-| hard consonant, thing                             | m. inanimate   | `dub`            |
-| soft consonant (`-j`, `-č`, `-c`, `-ľ`…), thing   | m. inanimate   | `stroj`          |
-| `-a` after a hard consonant                       | feminine       | `žena`           |
-| `-a` after a soft consonant, `-ia`                | feminine       | `ulica`          |
-| soft consonant (`-ň`, `-ť`, `-ď`, `-c`, `-č`…)    | feminine       | `dlaň` or `kosť` |
-| `-o`                                              | neuter         | `mesto`          |
-| `-e`                                              | neuter         | `srdce`          |
-| `-ie`                                             | neuter         | `vysvedčenie`    |
-| `-a`/`-ä` for young beings (`dievča`, `žriebä`)   | neuter         | `dievča`         |
+| Nominative singular ends in…                      | Gender (usual)      | Model            |
+| ------------------------------------------------- | ------------------- | ---------------- |
+| consonant, person or animal                       | masculine animate   | `chlap`          |
+| `-a`, male person (`hrdina`, `kolega`, `turista`) | masculine animate   | `hrdina`         |
+| hard consonant, thing                             | masculine inanimate | `dub`            |
+| soft consonant (`-j`, `-č`, `-c`, `-ľ`…), thing   | masculine inanimate | `stroj`          |
+| `-a` after a hard consonant                       | feminine            | `žena`           |
+| `-a` after a soft consonant, `-ia`                | feminine            | `ulica`          |
+| soft consonant (`-ň`, `-ť`, `-ď`, `-c`, `-č`…)    | feminine            | `dlaň` or `kosť` |
+| `-o`                                              | neuter              | `mesto`          |
+| `-e`                                              | neuter              | `srdce`          |
+| `-ie`                                             | neuter              | `vysvedčenie`    |
+| `-a`/`-ä` for young beings (`dievča`, `žriebä`)   | neuter              | `dievča`         |
 
-The final consonant does not reveal the gender: `stôl` and `deň` are masculine; `kosť`, `dlaň`, and `jeseň` are feminine. When unsure, check the genitive singular in a dictionary (`kosť → kosti` f., `hosť → hosťa` m.).
+The final consonant does not reveal the gender: `stôl` and `deň` are masculine; `kosť`, `dlaň`, and `jeseň` are feminine. When unsure, check the genitive singular in a dictionary (`kosť → kosti` feminine, `hosť → hosťa` masculine).
 
 ## 2. Masculine animate
 
@@ -35,7 +35,7 @@ The final consonant does not reveal the gender: `stôl` and `deň` are masculine
 
 Rules worth teaching:
 
-- **Accusative = genitive** for masculine animates, singular and plural: `Vidím brata.` `Poznám tých študentov.`
+- **Accusative = genitive** for masculine animates in the singular, and in the plural for male persons only (animals: see below): `Vidím brata.` `Poznám tých študentov.`
 - **Dative and locative singular end in `-ovi`**: `bratovi`, `o učiteľovi`. Exceptions: `človek → človeku`, `Boh → Bohu`.
 - **Instrumental plural** is usually `-mi` (`chlapmi`, `mužmi`, `učiteľmi`); the `hrdina` type and some others take `-ami` (`hrdinami`, `kolegami`, `hosťami`).
 

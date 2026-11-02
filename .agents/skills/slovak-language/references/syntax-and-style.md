@@ -8,7 +8,7 @@ Subject pronouns are usually omitted with finite verbs; include them for contras
 
 ## Clitic order
 
-Unstressed clitics occupy second position in a clause after its first stressed constituent, not necessarily after the first word: `Včera som mu to povedal.` `Tá kniha sa mi páči.` Typical cluster order is conditional/auxiliary, reflexive, short dative, short accusative, but use idiomatic established patterns rather than forcing an abstract sequence. Avoid clause-initial `som/si/by/sa` in ordinary declaratives.
+Unstressed clitics occupy second position in a clause after its first stressed constituent, not necessarily after the first word: `Včera som mu to povedal.` `Tá kniha sa mi páči.` Typical cluster order is conditional/auxiliary, reflexive, short dative, short accusative, but use idiomatic established patterns rather than forcing an abstract sequence. Avoid clause-initial `som/si/by/sa` in ordinary declaratives. The reflexive always precedes a short dative: `Páči sa mi to.` `Zdá sa mi, že…` `Pri čítaní sa mi vynárali otázky.`, never `*mi sa`.
 
 ## Negation and polarity
 

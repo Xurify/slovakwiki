@@ -8,13 +8,13 @@ Use this reference for forms that often decide whether Slovak sounds genuinely c
 
 `všetok` declines like an adjective. In ordinary speech, its plural and neuter singular forms do most of the work.
 
-| Meaning                        | Slovak                 | Example                                      |
-| ------------------------------ | ---------------------- | -------------------------------------------- |
-| all people / m. animate plural | `všetci`               | `Všetci hostia už prišli.`                   |
-| all people, object             | `všetkých`             | `Pozvali všetkých hostí.`                    |
-| all non-masc.-animate plural   | `všetky`               | `Všetky izby sú obsadené.`                   |
-| everything                     | `všetko`               | `Všetko som pochopil/a.`                     |
-| all of one mass/whole noun     | `všetok/všetka/všetko` | `Zjedol všetok šalát.` `Vypila všetku vodu.` |
+| Meaning                                | Slovak                 | Example                                      |
+| -------------------------------------- | ---------------------- | -------------------------------------------- |
+| all people / masculine personal plural | `všetci`               | `Všetci hostia už prišli.`                   |
+| all people, object                     | `všetkých`             | `Pozvali všetkých hostí.`                    |
+| all other plurals, animals included    | `všetky`               | `Všetky izby sú obsadené.`                   |
+| everything                             | `všetko`               | `Všetko som pochopil/a.`                     |
+| all of one mass/whole noun             | `všetok/všetka/všetko` | `Zjedol všetok šalát.` `Vypila všetku vodu.` |
 
 Do not use `všetko` before a count plural noun: say `všetky knihy`, not _`všetko knihy`_. It can itself decline: `o všetkom`, `so všetkými`, `vo všetkých prípadoch`.
 
@@ -38,7 +38,7 @@ Do not use `všetko` before a count plural noun: say `všetky knihy`, not _`vše
 | `každý`, `celý`            | agree as adjectives            | `každý deň`, `celú noc`                 |
 | `oba/obidva`, `obe/obidve` | “both”, agreement matters      | `obaja kolegovia`, `obe možnosti`       |
 
-`obaja/obidvaja` is for two male people; `obe/obidve` for feminine or neuter groups; `oba/obidva` commonly for masculine inanimate. Prefer one family consistently in a short text (`oba` or `obidva`).
+`obaja/obidvaja` is for two male people; `obe/obidve` for feminine or neuter groups; `oba/obidva` for other masculine nouns, animals included (`oba psy`). Prefer one family consistently in a short text (`oba` or `obidva`).
 
 ## 2. Passive, reflexive passive, and agentless Slovak
 

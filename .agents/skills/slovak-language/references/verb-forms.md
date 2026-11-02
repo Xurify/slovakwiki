@@ -31,23 +31,23 @@ Whether the present has `-ie-` (`nesiem`, `beriem`) or `-e-` (`češem`, `píše
 
 ### Irregular verbs to know by heart
 
-| Verb      | Present                                          | Past (m./f.)        | Imperative       |
-| --------- | ------------------------------------------------ | ------------------- | ---------------- |
-| `byť`     | som, si, je, sme, ste, sú                        | bol / bola          | buď, buďte       |
-| `ísť`     | idem, ideš, ide, ideme, idete, idú               | išiel / išla        | choď, choďte     |
-| `jesť`    | jem, ješ, je, jeme, jete, jedia                  | jedol / jedla       | jedz, jedzte     |
-| `vedieť`  | viem, vieš, vie, vieme, viete, vedia             | vedel / vedela      | vedz, vedzte     |
-| `chcieť`  | chcem, chceš, chce, chceme, chcete, chcú         | chcel / chcela      | —                |
-| `môcť`    | môžem, môžeš, môže, môžeme, môžete, môžu         | mohol / mohla       | —                |
-| `povedať` | poviem, povieš, povie, povieme, poviete, povedia | povedal / povedala  | povedz, povedzte |
-| `vziať`   | vezmem, vezmeš, vezme, vezmeme, vezmete, vezmú   | vzal / vzala        | vezmi, vezmite   |
-| `pomôcť`  | pomôžem, pomôžeš, pomôže … pomôžu                | pomohol / pomohla   | pomôž, pomôžte   |
-| `obliecť` | oblečiem, oblečieš, oblečie … oblečú             | obliekol / obliekla | obleč, oblečte   |
-| `prísť`   | prídem, prídeš, príde … prídu                    | prišiel / prišla    | príď, príďte     |
-| `nájsť`   | nájdem, nájdeš, nájde … nájdu                    | našiel / našla      | nájdi, nájdite   |
-| `počuť`   | počujem, počuješ, počuje … počujú                | počul / počula      | počuj, počujte   |
-| `dať`     | dám, dáš, dá, dáme, dáte, dajú                   | dal / dala          | daj, dajte       |
-| `mať`     | mám, máš, má, máme, máte, majú                   | mal / mala          | maj, majte       |
+| Verb      | Present                                          | Past (masculine/feminine) | Imperative       |
+| --------- | ------------------------------------------------ | ------------------------- | ---------------- |
+| `byť`     | som, si, je, sme, ste, sú                        | bol / bola                | buď, buďte       |
+| `ísť`     | idem, ideš, ide, ideme, idete, idú               | išiel / išla              | choď, choďte     |
+| `jesť`    | jem, ješ, je, jeme, jete, jedia                  | jedol / jedla             | jedz, jedzte     |
+| `vedieť`  | viem, vieš, vie, vieme, viete, vedia             | vedel / vedela            | vedz, vedzte     |
+| `chcieť`  | chcem, chceš, chce, chceme, chcete, chcú         | chcel / chcela            | —                |
+| `môcť`    | môžem, môžeš, môže, môžeme, môžete, môžu         | mohol / mohla             | —                |
+| `povedať` | poviem, povieš, povie, povieme, poviete, povedia | povedal / povedala        | povedz, povedzte |
+| `vziať`   | vezmem, vezmeš, vezme, vezmeme, vezmete, vezmú   | vzal / vzala              | vezmi, vezmite   |
+| `pomôcť`  | pomôžem, pomôžeš, pomôže … pomôžu                | pomohol / pomohla         | pomôž, pomôžte   |
+| `obliecť` | oblečiem, oblečieš, oblečie … oblečú             | obliekol / obliekla       | obleč, oblečte   |
+| `prísť`   | prídem, prídeš, príde … prídu                    | prišiel / prišla          | príď, príďte     |
+| `nájsť`   | nájdem, nájdeš, nájde … nájdu                    | našiel / našla            | nájdi, nájdite   |
+| `počuť`   | počujem, počuješ, počuje … počujú                | počul / počula            | počuj, počujte   |
+| `dať`     | dám, dáš, dá, dáme, dáte, dajú                   | dal / dala                | daj, dajte       |
+| `mať`     | mám, máš, má, máme, máte, majú                   | mal / mala                | maj, majte       |
 
 The 1pl `môžeme` is standard; `môžme` is colloquial at best (some guides call it non-standard).
 
@@ -63,15 +63,15 @@ robil / robila / robilo       robili
 
 ### Building the l-participle
 
-| Infinitive type                       | Rule                   | Examples                                                                                                                                                             |
-| ------------------------------------- | ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| vowel + `-ť`                          | replace `-ť` with `-l` | `volať → volal`, `robiť → robil`, `pracovať → pracoval`, `piť → pil`                                                                                                 |
-| `-ieť`                                | `-el`                  | `vidieť → videl`, `rozumieť → rozumel`, `chcieť → chcel`, `myslieť → myslel`                                                                                         |
-| vowel + `-núť`                        | `-nul`                 | `minúť → minul`, `hynúť → hynul`                                                                                                                                     |
-| consonant + `-núť`                    | `-ol`, f. `-la`        | `zabudnúť → zabudol, zabudla`, `sadnúť → sadol`, `stretnúť → stretol`, `rozhodnúť → rozhodol`; exceptions `usnúť → usnul`, `hnúť → hnul`; `starnúť → starol/starnul` |
-| consonant stems (`-sť`, `-zť`, `-cť`) | stem consonant + `-ol` | `niesť → niesol`, `viezť → viezol`, `viesť → viedol`, `rásť → rástol`, `piecť → piekol`, `môcť → mohol`, `jesť → jedol`                                              |
-| `-rieť`                               | `-rel`                 | `zavrieť → zavrel`, `umrieť → umrel`                                                                                                                                 |
-| `ísť` and compounds                   | `-šiel`, f. `-šla`     | `išiel`, `prišiel`, `odišiel`, `našiel`, `vyšiel`                                                                                                                    |
+| Infinitive type                       | Rule                     | Examples                                                                                                                                                             |
+| ------------------------------------- | ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| vowel + `-ť`                          | replace `-ť` with `-l`   | `volať → volal`, `robiť → robil`, `pracovať → pracoval`, `piť → pil`                                                                                                 |
+| `-ieť`                                | `-el`                    | `vidieť → videl`, `rozumieť → rozumel`, `chcieť → chcel`, `myslieť → myslel`                                                                                         |
+| vowel + `-núť`                        | `-nul`                   | `minúť → minul`, `hynúť → hynul`                                                                                                                                     |
+| consonant + `-núť`                    | `-ol`, feminine `-la`    | `zabudnúť → zabudol, zabudla`, `sadnúť → sadol`, `stretnúť → stretol`, `rozhodnúť → rozhodol`; exceptions `usnúť → usnul`, `hnúť → hnul`; `starnúť → starol/starnul` |
+| consonant stems (`-sť`, `-zť`, `-cť`) | stem consonant + `-ol`   | `niesť → niesol`, `viezť → viezol`, `viesť → viedol`, `rásť → rástol`, `piecť → piekol`, `môcť → mohol`, `jesť → jedol`                                              |
+| `-rieť`                               | `-rel`                   | `zavrieť → zavrel`, `umrieť → umrel`                                                                                                                                 |
+| `ísť` and compounds                   | `-šiel`, feminine `-šla` | `išiel`, `prišiel`, `odišiel`, `našiel`, `vyšiel`                                                                                                                    |
 
 Formal `vy` addressing one person takes a plural participle but a singular adjective: `Boli ste spokojný/spokojná?` `Kde ste boli?`
 

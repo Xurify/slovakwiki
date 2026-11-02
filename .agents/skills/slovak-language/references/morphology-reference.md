@@ -6,30 +6,30 @@ Overview only. Full paradigms: [nouns.md](nouns.md), [adjectives-pronouns-numera
 
 There are six productive cases: nominative, accusative, genitive, dative, locative, instrumental. Vocative survives mainly in greetings, kin terms, and expressive forms (`Bože!`, `pane!`, `človeče!`, `priateľu!`) rather than as a full modern case paradigm.
 
-Masculines split into animate and inanimate. In the singular, animate accusative usually equals genitive (`vidím pána`), inanimate accusative usually equals nominative (`vidím stôl`). Animals usually behave like animate in singular but often inanimate in plural. Masculine personal plural has special agreement: `dobrí muži`, `vidím dobrých mužov`; mixed groups take masculine animate.
+Masculines split into animate and inanimate. In the singular, animate accusative usually equals genitive (`vidím pána`), inanimate accusative usually equals nominative (`vidím stôl`). Animals are animate in the singular but take the plural forms of things: `dobré psy`, `vidím dobré psy`. Masculine personal plural (male persons only) has special agreement: `dobrí muži`, `vidím dobrých mužov`; a mixed group with a man in it takes masculine personal.
 
 Feminine common patterns include `žena`, `ulica`, `dlaň`, `kosť`; neuter patterns include `mesto`, `srdce/pole`, `dievča`, `vysvedčenie`. Do not derive a rare noun only from its ending: record its nominative singular, genitive singular, nominative plural, and key irregular form.
 
-| Pattern             | Key singular contrast           | Key plural contrast               |
-| ------------------- | ------------------------------- | --------------------------------- |
-| m. inanimate `stôl` | `stôl – stola – stolom`         | `stoly – stolov – stolmi`         |
-| m. animate `pán`    | `pán – pána – pánom`            | `páni – pánov – pánmi`            |
-| f. `žena`           | `žena – ženy – ženou`           | `ženy – žien – ženami`            |
-| f. `ulica`          | `ulica – ulice – ulicou`        | `ulice – ulíc – ulicami`          |
-| f. `kosť`           | `kosť – kosti – kosťou`         | `kosti – kostí – kosťami`         |
-| n. `mesto`          | `mesto – mesta – mestom`        | `mestá – miest – mestami`         |
-| n. `pole`           | `pole – poľa – poľom`           | `polia – polí – poľami`           |
-| n. `dievča`         | `dievča – dievčaťa – dievčaťom` | `dievčatá – dievčat – dievčatami` |
+| Pattern                    | Key singular contrast           | Key plural contrast               |
+| -------------------------- | ------------------------------- | --------------------------------- |
+| masculine inanimate `stôl` | `stôl – stola – stolom`         | `stoly – stolov – stolmi`         |
+| masculine animate `pán`    | `pán – pána – pánom`            | `páni – pánov – pánmi`            |
+| feminine `žena`            | `žena – ženy – ženou`           | `ženy – žien – ženami`            |
+| feminine `ulica`           | `ulica – ulice – ulicou`        | `ulice – ulíc – ulicami`          |
+| feminine `kosť`            | `kosť – kosti – kosťou`         | `kosti – kostí – kosťami`         |
+| neuter `mesto`             | `mesto – mesta – mestom`        | `mestá – miest – mestami`         |
+| neuter `pole`              | `pole – poľa – poľom`           | `polia – polí – poľami`           |
+| neuter `dievča`            | `dievča – dievčaťa – dievčaťom` | `dievčatá – dievčat – dievčatami` |
 
 ## Adjective and participle agreement
 
-Hard adjectives model `pekný`: `pekný, pekná, pekné`; soft adjectives model `cudzí`: `cudzí, cudzia, cudzie`. In singular, common endings include genitive masculine/neuter `-ého`, feminine `-ej`; instrumental `-ým/-ou/-ým`. In plural, masculine animate nominative `-í`, all other nominative/accusative groups normally `-é/-e`; genitive `-ých`; dative `-ým`; locative `-ých`; instrumental `-ými`.
+Hard adjectives model `pekný`: `pekný, pekná, pekné`; soft adjectives model `cudzí`: `cudzí, cudzia, cudzie`. In singular, common endings include genitive masculine/neuter `-ého`, feminine `-ej`; instrumental `-ým/-ou/-ým`. In plural, masculine personal nominative `-í` (male persons only), all other nominative/accusative groups, animals included, normally `-é/-e`; genitive `-ých`; dative `-ým`; locative `-ých`; instrumental `-ými`.
 
-Past and conditional participles agree: `prišiel/prišla/prišlo`, `prišli/prišli/prišli`; distinguish masculine animate plural `boli pripravení` from non-masculine/objects `boli pripravené`. Passive/adjectival participles inflect like adjectives: `napísaný list`, `napísaná správa`.
+Past and conditional participles agree: `prišiel/prišla/prišlo`, `prišli/prišli/prišli`; distinguish masculine personal plural `boli pripravení` (male persons) from all others, animals included: `boli pripravené`. Passive/adjectival participles inflect like adjectives: `napísaný list`, `napísaná správa`.
 
 ## Pronouns and determiners
 
-`ten, tá, to` decline and agree; plurals `tí` for masculine animate, `tie` otherwise. Interrogatives: `kto` (who), `čo` (what), `ktorý` (which), `aký` (what kind), `čí` (whose), `koľko` (how many/much). Indefinites/negatives: `niekto/nikto`, `niečo/nič`, `niekde/nikde`, `niekam/nikam`, `každý`, `všetok/všetci`.
+`ten, tá, to` decline and agree; plurals `tí` for male persons, `tie` otherwise, animals included (`tie psy`). Interrogatives: `kto` (who), `čo` (what), `ktorý` (which), `aký` (what kind), `čí` (whose), `koľko` (how many/much). Indefinites/negatives: `niekto/nikto`, `niečo/nič`, `niekde/nikde`, `niekam/nikam`, `každý`, `všetok/všetci`.
 
 `sa` has no nominative and is a reflexive accusative particle; `si` is a reflexive dative. Possessives `môj, tvoj, náš, váš, svoj` agree with the possession; `jeho, jej, ich` remain unchanged. Relative `ktorý` agrees and declines; use `čo` for many neuter/general antecedents.
 

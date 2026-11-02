@@ -15,14 +15,14 @@ Slovak has no articles. Learn every noun with its gender and a frame, not as an 
 
 High-frequency singular models:
 
-| Type         | nom.  | acc.  | gen.  | dat.   | loc.   | instr. |
-| ------------ | ----- | ----- | ----- | ------ | ------ | ------ |
-| m. inanimate | stôl  | stôl  | stola | stolu  | stole  | stolom |
-| m. animate   | muž   | muža  | muža  | mužovi | mužovi | mužom  |
-| f. `žena`    | žena  | ženu  | ženy  | žene   | žene   | ženou  |
-| f. `ulica`   | ulica | ulicu | ulice | ulici  | ulici  | ulicou |
-| n. `mesto`   | mesto | mesto | mesta | mestu  | meste  | mestom |
-| n. `pole`    | pole  | pole  | poľa  | poľu   | poli   | poľom  |
+| Type                | nom.  | acc.  | gen.  | dat.   | loc.   | instr. |
+| ------------------- | ----- | ----- | ----- | ------ | ------ | ------ |
+| masculine inanimate | stôl  | stôl  | stola | stolu  | stole  | stolom |
+| masculine animate   | muž   | muža  | muža  | mužovi | mužovi | mužom  |
+| feminine `žena`     | žena  | ženu  | ženy  | žene   | žene   | ženou  |
+| feminine `ulica`    | ulica | ulicu | ulice | ulici  | ulici  | ulicou |
+| neuter `mesto`      | mesto | mesto | mesta | mestu  | meste  | mestom |
+| neuter `pole`       | pole  | pole  | poľa  | poľu   | poli   | poľom  |
 
 Plural is less predictable. Teach a noun's plural separately, especially masculine animate (`muži`, `ľudia`, `priatelia`), neuter (`mestá`, `polia`, `dievčatá`), and genitive plural (`bez mužov, miest, žien`). Numerals require special attention: `jeden muž`, `dva muži`, `dve ženy/mestá`, but `päť mužov/žien/miest`.
 
