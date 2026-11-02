@@ -264059,18 +264059,6 @@
     "category": "Adverbs",
     "examples": [
       {
-        "slovak": "Tom šiel niekde inde.",
-        "english": "Tom went somewhere else.",
-        "note": "Tatoeba",
-        "tatoebaId": 10030991
-      },
-      {
-        "slovak": "Tom išiel niekde inde.",
-        "english": "Tom went somewhere else.",
-        "note": "Tatoeba",
-        "tatoebaId": 10030990
-      },
-      {
         "slovak": "Musí byť niekde tu.",
         "english": "He must be somewhere around.",
         "note": "Tatoeba",
@@ -264169,7 +264157,7 @@
   {
     "slug": "niekedy",
     "slovak": "niekedy",
-    "english": "sometimes",
+    "english": "sometimes; sometime; ever",
     "category": "Adverbs",
     "examples": [
       {
@@ -264298,7 +264286,7 @@
   {
     "slug": "odtial",
     "slovak": "odtiaľ",
-    "english": "from here",
+    "english": "from there",
     "category": "Adverbs",
     "examples": [
       {
@@ -264306,18 +264294,6 @@
         "english": "Get down from there.",
         "note": "Tatoeba",
         "tatoebaId": 5002496
-      },
-      {
-        "slovak": "Zrovna som odtiaľ prišla.",
-        "english": "I just came from there.",
-        "note": "Tatoeba",
-        "tatoebaId": 13051784
-      },
-      {
-        "slovak": "Zrovna som odtiaľ prišiel.",
-        "english": "I just came from there.",
-        "note": "Tatoeba",
-        "tatoebaId": 13051783
       },
       {
         "slovak": "Práve som odtiaľ prišiel.",
@@ -264336,12 +264312,6 @@
         "english": "The path ascends steeply from there.",
         "note": "Tatoeba",
         "tatoebaId": 8950077
-      },
-      {
-        "slovak": "Nie je ďaleko odtiaľ.",
-        "english": "It's not far from here.",
-        "note": "Tatoeba",
-        "tatoebaId": 7706371
       },
       {
         "slovak": "Prečo si sa odtiaľ odsťahovala?",
@@ -264473,24 +264443,6 @@
     "category": "Adverbs",
     "examples": [
       {
-        "slovak": "Tom šiel inde.",
-        "english": "Tom went somewhere else.",
-        "note": "Tatoeba",
-        "tatoebaId": 10030992
-      },
-      {
-        "slovak": "Tom šiel niekde inde.",
-        "english": "Tom went somewhere else.",
-        "note": "Tatoeba",
-        "tatoebaId": 10030991
-      },
-      {
-        "slovak": "Tom išiel niekde inde.",
-        "english": "Tom went somewhere else.",
-        "note": "Tatoeba",
-        "tatoebaId": 10030990
-      },
-      {
         "slovak": "Pozri sa niekde inde.",
         "english": "Look someplace else.",
         "note": "Tatoeba",
@@ -264610,7 +264562,7 @@
   {
     "slug": "asi",
     "slovak": "asi",
-    "english": "probably",
+    "english": "probably; about",
     "category": "Adverbs",
     "examples": [
       {
@@ -264644,22 +264596,10 @@
         "tatoebaId": 8070509
       },
       {
-        "slovak": "Bola tam asi tisícka ľudí.",
-        "english": "As many as a thousand people were there.",
-        "note": "Tatoeba",
-        "tatoebaId": 6143425
-      },
-      {
         "slovak": "Myslím, že Tom má asi pravdu.",
         "english": "I think Tom is probably right.",
         "note": "Tatoeba",
         "tatoebaId": 9857650
-      },
-      {
-        "slovak": "Lucka má asi toľko kamarátov, čo ja.",
-        "english": "Lucy has as many friends as I do.",
-        "note": "Tatoeba",
-        "tatoebaId": 878667
       }
     ],
     "related": []
@@ -264670,18 +264610,6 @@
     "english": "certainly",
     "category": "Adverbs",
     "examples": [
-      {
-        "slovak": "Určite nevidíte?",
-        "english": "Surely you don’t see?",
-        "note": "Tatoeba",
-        "tatoebaId": 9867823
-      },
-      {
-        "slovak": "Určite nevidíš?",
-        "english": "Surely you don’t see?",
-        "note": "Tatoeba",
-        "tatoebaId": 9867821
-      },
       {
         "slovak": "Určite hovorí portugalsky?",
         "english": "Are you sure she's speaking Portuguese?",
@@ -264756,12 +264684,6 @@
         "english": "Are they really friends?",
         "note": "Tatoeba",
         "tatoebaId": 13864954
-      },
-      {
-        "slovak": "Nie, nie naozaj.",
-        "english": "No, not really.",
-        "note": "Tatoeba",
-        "tatoebaId": 13119421
       },
       {
         "slovak": "Naozaj nepotrebujem pomoc.",
@@ -264914,12 +264836,6 @@
     "category": "Adverbs",
     "examples": [
       {
-        "slovak": "On vždycky žartuje.",
-        "english": "He is always joking.",
-        "note": "Tatoeba",
-        "tatoebaId": 9957640
-      },
-      {
         "slovak": "Prečo vždycky ja?",
         "english": "Why always me?",
         "note": "Tatoeba",
@@ -265068,12 +264984,6 @@
         "english": "I haven't the faintest idea.",
         "note": "Tatoeba",
         "tatoebaId": 12711947
-      },
-      {
-        "slovak": "Nemám ani fuka.",
-        "english": "I'm broke.",
-        "note": "Tatoeba",
-        "tatoebaId": 12683978
       }
     ],
     "related": []
@@ -265195,7 +265105,7 @@
   {
     "slug": "vsak",
     "slovak": "však",
-    "english": "however",
+    "english": "however; isn't it? (tag question)",
     "category": "Phrases",
     "examples": [
       {
@@ -265250,27 +265160,6 @@
     "related": []
   },
   {
-    "slug": "ved",
-    "slovak": "veď",
-    "english": "after all",
-    "category": "Phrases",
-    "examples": [
-      {
-        "slovak": "Veď každý, kto robí zlé, nenávidí svetlo.",
-        "english": "Evildoers hate light.",
-        "note": "Tatoeba",
-        "tatoebaId": 13515897
-      },
-      {
-        "slovak": "Veď nás.",
-        "english": "Lead the way.",
-        "note": "Tatoeba",
-        "tatoebaId": 10567132
-      }
-    ],
-    "related": []
-  },
-  {
     "slug": "teda",
     "slovak": "teda",
     "english": "so, then",
@@ -265317,12 +265206,6 @@
         "english": "I don't think, therefore I am not.",
         "note": "Tatoeba",
         "tatoebaId": 13281015
-      },
-      {
-        "slovak": "Kúp toto a tamto. Urob toto a urob tamto. Takéto je teda byť muž a mať v živote ženu.",
-        "english": "Buy this and that. Do this and do that. So this is what being a man and getting the woman of your life is.",
-        "note": "Tatoeba",
-        "tatoebaId": 5017014
       }
     ],
     "related": []
@@ -265444,7 +265327,7 @@
   {
     "slug": "az",
     "slovak": "až",
-    "english": "until, not until",
+    "english": "until, not until; all the way to; (not) that",
     "category": "Phrases",
     "examples": [
       {
