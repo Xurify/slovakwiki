@@ -19,7 +19,6 @@
     namesHourAhead,
     patternForms,
     patternView,
-    plainCell,
     type AspectCueScene,
     type MarkedPhrase,
     type ParadigmCell,
@@ -735,7 +734,10 @@
     <div>
       {#if heads}
         <div
-          class={cx(dataColumnHeadClass, "gap-x-6 sm:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]")}
+          class={cx(
+            dataColumnHeadClass,
+            "gap-x-6 sm:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]",
+          )}
           aria-hidden="true"
         >
           <span>{heads[0]}</span>
@@ -771,9 +773,7 @@
                 >
                   →
                 </span>
-              {/if}
 
-              {#if row.result && !heads}
                 <span class="font-semibold">
                   {#if prefix}
                     {@render marked(prefix)}
@@ -785,8 +785,16 @@
             </span>
 
             {#if row.result && heads}
-              <span class={cx(grammarFormClass, "font-semibold")} lang="sk">
-                <span class="mr-2 font-sans text-base font-normal text-slate-400 sm:hidden" aria-hidden="true">→</span>
+              <span class={grammarFormClass} lang="sk">
+                <span
+                  class="mr-2 font-sans text-base font-normal text-slate-400 sm:hidden"
+                  aria-hidden="true"
+                >
+                  →
+                </span>
+
+                <span class="sr-only">{heads[1]}:</span>
+
                 {#if prefix}
                   {@render marked(prefix)}
                 {:else}
