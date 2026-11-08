@@ -33,7 +33,7 @@
   );
 </script>
 
-<nav id="path" class="mt-10 scroll-mt-24" aria-labelledby="path-heading">
+<nav id="path" class="scroll-mt-24" aria-labelledby="path-heading">
   <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
     <h2 id="path-heading" class={grammarHeadingClass}>Grammar path</h2>
 

@@ -1,6 +1,10 @@
 <script lang="ts">
   import { eyebrowMutedClass } from "$lib/components/ui/system-ui";
-  import { ClockIllustration } from "$lib/learning/time";
+  import {
+    ClockIllustration,
+    englishTellingGloss,
+    type QuarterMinute,
+  } from "$lib/learning/time";
 
   import GrammarExampleList from "$lib/components/reference/GrammarExampleList.svelte";
   import {
@@ -45,32 +49,67 @@
     slovak: string;
   };
 
-  type TimeExtra = { label: string; phrases: string };
+  type TimeExtra = { label: string; phrases: string[] };
 
+  type HourGroup = { label: string; rows: TimeRow[] };
+
+  /**
+   * Whole hours go in the three agreement groups (1, 2–4, 5 and up), quarters
+   * and the half get a clock face each, and anything else (10:05) joins the
+   * phrase list under them.
+   */
   function splitTime(allLines: readonly string[]): {
-    rows: TimeRow[];
+    hours: HourGroup[];
+    ahead: TimeRow[];
     extras: TimeExtra[];
   } {
-    const rows: TimeRow[] = [];
+    const hours: HourGroup[] = [
+      { label: "1", rows: [] },
+      { label: "2–4", rows: [] },
+      { label: "5 and up", rows: [] },
+    ];
+    const ahead: TimeRow[] = [];
     const extras: TimeExtra[] = [];
 
     for (const line of allLines) {
       const [left = "", right = ""] = line.split("→").map((part) => part.trim());
       const time = /^(\d{1,2}):(\d{2})$/.exec(left);
+      const phrases = right.split(" · ");
 
-      if (time) {
-        rows.push({
-          digital: left,
-          hour: Number(time[1]),
-          minute: Number(time[2]),
-          slovak: right,
-        });
+      if (!time) {
+        extras.push({ label: left, phrases });
+        continue;
+      }
+
+      const row = {
+        digital: left,
+        hour: Number(time[1]),
+        minute: Number(time[2]),
+        slovak: right,
+      };
+
+      if (namesHourAhead(row.minute)) {
+        ahead.push(row);
+      } else if (row.minute === 0) {
+        hours[row.hour === 1 ? 0 : row.hour <= 4 ? 1 : 2]!.rows.push(row);
       } else {
-        extras.push({ label: left, phrases: right });
+        extras.push({ label: left, phrases });
       }
     }
 
-    return { rows, extras };
+    return { hours: hours.filter((group) => group.rows.length > 0), ahead, extras };
+  }
+
+  /** "Sú dve hodiny." → the verb and the noun, the two words the count decides. */
+  function agreementParts(sentence: string) {
+    const match = /^(\S+)(\s.*\s)(\S+?)([.?!]?)$/u.exec(sentence);
+    return match ? { verb: match[1]!, middle: match[2]!, noun: match[3]!, end: match[4]! } : null;
+  }
+
+  /** "Je pol tretej." → the last word, the hour it names. */
+  function aheadParts(sentence: string) {
+    const match = /^(.*\s)(\S+?)([.?!]?)$/u.exec(sentence);
+    return match ? { before: match[1]!, hour: match[2]!, end: match[3]! } : null;
   }
 
   const view = $derived(withClocks ? undefined : patternView(pattern, examples));
@@ -226,67 +265,135 @@
   </li>
 {/snippet}
 
-<div class={cx(hasTable && dataPanelClass)}>
-  {#if time}
-    <div>
-      <ol class="m-0 list-none p-0" aria-label="Clock times">
-        {#each time.rows as row (row.digital)}
-          {@const ahead = namesHourAhead(row.minute)}
+{#snippet markedWord(text: string)}
+  <span class={cx(grammarEndingClass, "rounded-sm bg-mark/60 px-px")}>{text}</span>
+{/snippet}
 
-          <li
-            class="grid grid-cols-[2.5rem_3.25rem_minmax(0,1fr)] items-center gap-x-3 border-b border-slate-200/70 px-4 py-2 last:border-b-0 sm:px-5 max-[480px]:grid-cols-[2.5rem_minmax(0,1fr)]"
-          >
-            <ClockIllustration
-              hour={row.hour}
-              minute={row.minute}
-              label={row.digital}
-              size={36}
-            />
+{#if time}
+  <!-- Three groups, each a row of columns on wider screens: the whole hours
+       side by side show what the count changes, and the quarters get the only
+       clock faces, since there the face is what explains the Slovak. -->
+  <div class="flex flex-col gap-8">
+    {#if time.hours.length > 0}
+      <div>
+        <p class={cx(eyebrowMutedClass, "mb-3")}>Whole hours</p>
 
-            <span
-              class="text-[0.8125rem] font-semibold text-slate-500 tabular-nums max-[480px]:hidden"
+        <ul class={cx(dataPanelClass, "m-0 grid list-none p-0 sm:grid-cols-3")}>
+          {#each time.hours as group (group.label)}
+            <li
+              class={cx(
+                "grid grid-cols-[4.5rem_minmax(0,1fr)] items-baseline gap-x-4 border-b border-slate-200/70 px-4 py-3 last:border-b-0",
+                "sm:grid-cols-1 sm:content-start sm:gap-y-2 sm:border-r sm:border-b-0 sm:px-5 sm:py-4 sm:last:border-r-0",
+              )}
             >
-              {row.digital}
-            </span>
-
-            <span class="min-w-0">
-              <span class="font-serif text-lg leading-snug text-slate-900" lang="sk">
-                {row.slovak}
+              <span class="text-sm font-semibold text-slate-500 tabular-nums">
+                {group.label}
               </span>
 
-              {#if ahead}
-                <span class="ml-2 text-xs text-emerald-800">names the next hour</span>
-              {/if}
-            </span>
-          </li>
-        {/each}
-      </ol>
+              <ul class="m-0 flex list-none flex-col gap-1 p-0">
+                {#each group.rows as row (row.digital)}
+                  {@const parts = agreementParts(row.slovak)}
 
-      {#if time.extras.length > 0}
-        <ul class="m-0 list-none p-0">
-          <li
-            class={cx(
-              eyebrowMutedClass,
-              "border-b border-slate-200 bg-subtle/60 px-4 pt-3 pb-1.5 sm:px-5",
-            )}
-          >
-            Also
-          </li>
+                  <li>
+                    <span class="font-serif text-lg leading-snug text-slate-900" lang="sk">
+                      {#if parts}
+                        {@render markedWord(parts.verb)}{parts.middle}{@render markedWord(
+                          parts.noun,
+                        )}{parts.end}
+                      {:else}
+                        {row.slovak}
+                      {/if}
+                    </span>
 
-          {#each time.extras as row (row.label)}
-            <li
-              class="grid grid-cols-[8rem_minmax(0,1fr)] items-baseline gap-x-4 border-b border-slate-200/70 px-4 py-2 last:border-b-0 sm:px-5 max-[520px]:grid-cols-1"
-            >
-              <span class="text-sm text-slate-500">{row.label}</span>
-              <span class="font-serif text-lg text-slate-900" lang="sk"
-                >{row.phrases}</span
-              >
+                    <span class="ml-1.5 text-xs text-slate-500 tabular-nums">
+                      {row.digital}
+                    </span>
+                  </li>
+                {/each}
+              </ul>
             </li>
           {/each}
         </ul>
-      {/if}
-    </div>
-  {:else if view?.kind === "aspect"}
+      </div>
+    {/if}
+
+    {#if time.ahead.length > 0}
+      <div>
+        <p class={cx(eyebrowMutedClass, "mb-3")}>Quarters and half name the next hour</p>
+
+        <ul class={cx(dataPanelClass, "m-0 grid list-none p-0 sm:grid-cols-3")}>
+          {#each time.ahead as row (row.digital)}
+            {@const parts = aheadParts(row.slovak)}
+
+            <li
+              class={cx(
+                "grid grid-cols-[3.5rem_minmax(0,1fr)] items-center gap-x-4 border-b border-slate-200/70 px-4 py-3 last:border-b-0",
+                "sm:grid-cols-1 sm:content-start sm:justify-items-center sm:gap-y-3 sm:border-r sm:border-b-0 sm:px-4 sm:py-5 sm:text-center sm:last:border-r-0",
+              )}
+            >
+              <ClockIllustration
+                hour={row.hour}
+                minute={row.minute}
+                label={row.digital}
+                markHour={(row.hour % 12) + 1}
+                class="size-14 sm:size-24"
+              />
+
+              <div class="min-w-0">
+                <p class="m-0 font-serif text-lg leading-snug text-slate-900" lang="sk">
+                  {#if parts}
+                    {parts.before}{@render markedWord(parts.hour)}{parts.end}
+                  {:else}
+                    {row.slovak}
+                  {/if}
+                </p>
+
+                <p class="m-0 mt-0.5 text-sm leading-snug text-slate-600">
+                  {englishTellingGloss({
+                    hour: row.hour,
+                    minute: row.minute as QuarterMinute,
+                  })}
+                </p>
+              </div>
+            </li>
+          {/each}
+        </ul>
+      </div>
+    {/if}
+
+    {#if time.extras.length > 0}
+      <div>
+        <p class={cx(eyebrowMutedClass, "mb-3")}>More time phrases</p>
+
+        <dl class={cx(dataPanelClass, "m-0")}>
+          {#each time.extras as row (row.label)}
+            <div
+              class="grid grid-cols-[8rem_minmax(0,1fr)] items-baseline gap-x-4 border-b border-slate-200/70 px-4 py-2.5 last:border-b-0 sm:px-5 max-[520px]:grid-cols-1 max-[520px]:gap-y-0.5"
+            >
+              <dt class="text-sm text-slate-500">{row.label}</dt>
+
+              <dd
+                class="m-0 flex flex-wrap gap-x-3 gap-y-0.5 font-serif text-lg leading-snug text-slate-900"
+                lang="sk"
+              >
+                {#each row.phrases as phrase, index (phrase)}
+                  <span>
+                    {phrase}{#if index < row.phrases.length - 1}<span
+                        class="ml-3 text-slate-400"
+                        aria-hidden="true">·</span
+                      >{/if}
+                  </span>
+                {/each}
+              </dd>
+            </div>
+          {/each}
+        </dl>
+      </div>
+    {/if}
+  </div>
+{:else}
+<div class={cx(hasTable && dataPanelClass)}>
+  {#if view?.kind === "aspect"}
     <ol class="m-0 list-none p-0" aria-label={pattern.label}>
       {#each view.groups as group (group.aspect)}
         <li class="border-t border-slate-200 first:border-t-0">
@@ -648,9 +755,10 @@
     </div>
   {/if}
 </div>
+{/if}
 
 {#if examples.length > 0 && !examplesInTiles}
-  <div class={cx(hasTable && "mt-6")}>
+  <div class={cx(hasTable && "mt-8")}>
     <GrammarExampleList
       {examples}
       {audioKeys}

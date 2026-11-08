@@ -5,10 +5,13 @@
     size = 112,
     class: className = "",
     label,
+    markHour,
   }: {
     class?: string;
     hour: number;
     label?: string;
+    /** A numeral to pick out on the face, such as the hour a half or quarter names. */
+    markHour?: number;
     minute: number;
     size?: number;
   } = $props();
@@ -74,14 +77,18 @@
   {/each}
 
   {#each numerals as mark (mark.value)}
+    {#if mark.value === markHour}
+      <circle cx={mark.x} cy={mark.y} r="7" fill="var(--accent-soft, #eff6ff)" />
+    {/if}
+
     <text
       x={mark.x}
       y={mark.y}
       text-anchor="middle"
       dominant-baseline="central"
-      fill="currentColor"
+      fill={mark.value === markHour ? "var(--accent, #2563eb)" : "currentColor"}
       font-size={mark.value >= 10 ? 8 : 8.75}
-      font-weight="600"
+      font-weight={mark.value === markHour ? "700" : "600"}
       font-family="ui-sans-serif, system-ui, sans-serif"
       style="user-select: none;"
     >

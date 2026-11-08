@@ -1,6 +1,6 @@
 <script lang="ts">
   import GrammarRichText from "$lib/components/reference/GrammarRichText.svelte";
-  import { grammarHeadingClass } from "$lib/components/reference/grammar-topic-ui";
+  import { grammarSectionHeadingClass } from "$lib/components/reference/grammar-topic-ui";
   import type { GrammarWatchOut } from "$lib/catalog/types";
   import { cx } from "$lib/ui/classes";
 
@@ -52,12 +52,12 @@
   </svg>
 {/snippet}
 
-<section id="watch-out" class="mt-8" aria-labelledby="watch-out-heading">
-  <h2 id="watch-out-heading" class={grammarHeadingClass}>Watch out</h2>
+<section id="watch-out" class="scroll-mt-24" aria-labelledby="watch-out-heading">
+  <h2 id="watch-out-heading" class={grammarSectionHeadingClass}>Watch out</h2>
 
   <!-- Ruled rows on the page's own edges, like a reference list: a panel around
        one tip boxed a sentence. -->
-  <ul class={cx(listClass, "mt-3 border-t border-slate-200")}>
+  <ul class={cx(listClass, "mt-4 border-t border-slate-200")}>
     {#each items as item, index (index)}
       {#if typeof item === "string"}
         <li class={tipRowClass}>

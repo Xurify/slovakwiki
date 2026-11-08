@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
 
-  import { grammarHeadingClass } from "$lib/components/reference/grammar-topic-ui";
+  import { grammarSectionHeadingClass } from "$lib/components/reference/grammar-topic-ui";
   import { localDayKey, readReviewMemory } from "$lib/practice/review-memory";
   import {
     weakSpotsWorstFirst,
@@ -31,8 +31,8 @@
 </script>
 
 {#if weakSpots.length > 0}
-  <section id="weak-spots" class="mt-8 animate-rise" aria-labelledby="weak-spots-heading">
-    <h2 id="weak-spots-heading" class={grammarHeadingClass}>Your weak spots</h2>
+  <section id="weak-spots" class="scroll-mt-24 animate-rise" aria-labelledby="weak-spots-heading">
+    <h2 id="weak-spots-heading" class={grammarSectionHeadingClass}>Your weak spots</h2>
 
     <p class="m-0 mt-1.5 max-w-[75ch] text-sm leading-relaxed text-slate-600">
       From your practice on this device. The rules you miss most are at the top.
