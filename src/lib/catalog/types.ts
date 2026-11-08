@@ -318,7 +318,7 @@ export interface CaseReference {
 export interface CaseTopic {
   body: string[];
   examples: Example[];
-  /** Endings on four reference nouns, singular and plural. */
+  /** Endings on reference nouns, one for each pattern, singular and plural. */
   forms?: GrammarTablePattern;
   name: string;
   /** Slovak grammar term for the case (genitív). */

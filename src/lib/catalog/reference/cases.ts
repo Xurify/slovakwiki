@@ -2,10 +2,13 @@ import { languageSource } from "../sources";
 import type { CaseTopic, GrammarTablePattern } from "../types";
 
 const NOUNS = {
-  person: "Masculine (animate): brat",
-  thing: "Masculine (inanimate): dom",
-  feminine: "Feminine: ruka",
-  neuter: "Neuter: mesto",
+  person: "Masculine (animate: person or animal): brat",
+  thing: "Masculine (inanimate: thing): dom",
+  feminine: "Feminine (hard consonant): ruka",
+  feminineSoft: "Feminine (soft consonant): ulica",
+  feminineConsonant: "Feminine (ends in a consonant): kosť",
+  neuter: "Neuter (-o): mesto",
+  neuterE: "Neuter (-e): srdce",
 } as const;
 
 function endings(
@@ -54,12 +57,15 @@ export const caseTopics: CaseTopic[] = [
       "Compare a masculine, feminine, and neuter noun in the nominative.",
     ],
     forms: endings(
-      "The nominative is the form you find in a dictionary. The plural ending depends on the noun.",
+      "The nominative is the form you find in a dictionary. The plural ending depends on the gender and the pattern: masculine nouns for people take **-i** (**chlapi**, **študenti**), **-ovia** in **-a** (**hrdinovia**) or, for a few, **-ia** (**bratia**, **priatelia**); masculine nouns for things take **-y** or **-e** (**domy**, **stroje**); feminine nouns in **-a** take **-y** or **-e** (**ruky**, **ulice**), and feminine nouns ending in a consonant **-i** or **-e** (**kosti**, **dlane**); neuter nouns in **-o** take **-á** (**mestá**), in **-e** and **-ie** **-ia** (**srdcia**, **námestia**).",
       {
         person: ["brat", "bratia"],
         thing: ["dom", "dom[y]"],
         feminine: ["ruk[a]", "ruk[y]"],
+        feminineSoft: ["ulic[a]", "ulic[e]"],
+        feminineConsonant: ["kosť", "kost[i]"],
         neuter: ["mest[o]", "mest[á]"],
+        neuterE: ["srdc[e]", "srdc[ia]"],
       },
     ),
     status: "ready",
@@ -74,7 +80,7 @@ export const caseTopics: CaseTopic[] = [
       "The genitive marks possession, amounts, absence, and several common prepositional relationships.",
     body: [
       "Use genitive for possession and relationships between nouns. It also appears after words for amounts and after negated byť or mať in some expressions.",
-      "Common prepositions such as **z**, **od**, **do**, and **bez** regularly introduce the genitive. Learn each preposition with a useful phrase.",
+      "Common prepositions such as **z**, **od**, **do**, **bez**, **u** and **okolo** regularly introduce the genitive. Learn each preposition with a useful phrase.",
     ],
     examples: [
       {
@@ -98,7 +104,10 @@ export const caseTopics: CaseTopic[] = [
         person: ["brat[a]", "brat[ov]"],
         thing: ["dom[u]", "dom[ov]"],
         feminine: ["ruk[y]", "r[ú]k"],
+        feminineSoft: ["ulic[e]", "ul[í]c"],
+        feminineConsonant: ["kost[i]", "kost[í]"],
         neuter: ["mest[a]", "m[ie]st"],
+        neuterE: ["srdc[a]", "s[ŕ]dc"],
       },
     ),
     status: "ready",
@@ -137,7 +146,10 @@ export const caseTopics: CaseTopic[] = [
         person: ["brat[ovi]", "brat[om]"],
         thing: ["dom[u]", "dom[om]"],
         feminine: ["ruk[e]", "ruk[ám]"],
+        feminineSoft: ["ulic[i]", "ulic[iam]"],
+        feminineConsonant: ["kost[i]", "kost[iam]"],
         neuter: ["mest[u]", "mest[ám]"],
+        neuterE: ["srdc[u]", "srdc[iam]"],
       },
     ),
     status: "ready",
@@ -176,7 +188,10 @@ export const caseTopics: CaseTopic[] = [
         person: ["brat[a]", "brat[ov]"],
         thing: ["dom", "dom[y]"],
         feminine: ["ruk[u]", "ruk[y]"],
+        feminineSoft: ["ulic[u]", "ulic[e]"],
+        feminineConsonant: ["kosť", "kost[i]"],
         neuter: ["mest[o]", "mest[á]"],
+        neuterE: ["srdc[e]", "srdc[ia]"],
       },
     ),
     status: "ready",
@@ -221,7 +236,10 @@ export const caseTopics: CaseTopic[] = [
         person: ["brat[ovi]", "brat[och]"],
         thing: ["dom[e]", "dom[och]"],
         feminine: ["ruk[e]", "ruk[ách]"],
+        feminineSoft: ["ulic[i]", "ulic[iach]"],
+        feminineConsonant: ["kost[i]", "kost[iach]"],
         neuter: ["mest[e]", "mest[ách]"],
+        neuterE: ["srdc[i]", "srdc[iach]"],
       },
     ),
     status: "ready",
@@ -260,7 +278,10 @@ export const caseTopics: CaseTopic[] = [
         person: ["brat[om]", "brat[mi]"],
         thing: ["dom[om]", "dom[ami]"],
         feminine: ["ruk[ou]", "ruk[ami]"],
+        feminineSoft: ["ulic[ou]", "ulic[ami]"],
+        feminineConsonant: ["kosť[ou]", "kosť[ami]"],
         neuter: ["mest[om]", "mest[ami]"],
+        neuterE: ["srdc[om]", "srdc[ami]"],
       },
     ),
     status: "ready",
