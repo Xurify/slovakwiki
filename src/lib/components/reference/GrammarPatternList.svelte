@@ -117,20 +117,12 @@
     view?.kind === "tiles" && view.tiles.every((tile) => tile.example),
   );
 
-  // Short noun/verb phrases fit a multi-column cell grid; full sentences take
-  // ruled rows so they do not wrap mid-clause or leave blank trailing cells.
-  const phrases = $derived(
-    view?.kind === "rows" &&
-      view.rows.length >= 3 &&
-      view.rows.every(
-        (row) =>
-          row.gloss &&
-          !row.result &&
-          !row.label &&
-          plainCell(row.main).length <= 22 &&
-          !/[.?!…]$/u.test(row.main),
-      ),
-  );
+  const heads = $derived.by(() => {
+    if (view?.kind !== "rows") return undefined;
+    if ("heads" in pattern && pattern.heads) return pattern.heads;
+    return view.rows.every((row) => row.gloss) ? (["Slovak", "English"] as const) : undefined;
+  });
+
   const time = $derived(
     withClocks && !isGrammarTable(pattern) ? splitTime(pattern.lines) : undefined,
   );
@@ -739,23 +731,18 @@
         {/each}
       </ul>
     </div>
-  {:else if view?.kind === "rows" && phrases}
-    <ul
-      class="m-0 -mr-px -mb-px grid list-none grid-cols-2 p-0 sm:grid-cols-3"
-      aria-label={pattern.label}
-    >
-      {#each view.rows as row, index (index)}
-        <li class="border-r border-b border-slate-200/70 px-4 py-2 sm:px-5">
-          <span class={cx(grammarFormClass, "block")} lang="sk"
-            >{@render marked(markedPhrase(row.main))}</span
-          >
-          <span class="mt-0.5 block text-sm leading-snug text-slate-500">{row.gloss}</span
-          >
-        </li>
-      {/each}
-    </ul>
   {:else if view?.kind === "rows"}
     <div>
+      {#if heads}
+        <div
+          class={cx(dataColumnHeadClass, "gap-x-6 sm:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]")}
+          aria-hidden="true"
+        >
+          <span>{heads[0]}</span>
+          <span>{heads[1]}</span>
+        </div>
+      {/if}
+
       <ul class="m-0 list-none p-0">
         {#each view.rows as row, index (index)}
           {@const prefix = addedPrefix(row)}
@@ -763,7 +750,7 @@
           <li
             class={cx(
               "grid grid-cols-1 items-baseline gap-x-6 gap-y-0.5 border-b border-slate-200/70 px-4 py-2.5 last:border-b-0 sm:px-5",
-              "sm:grid-cols-[minmax(0,17rem)_minmax(0,1fr)]",
+              "sm:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]",
             )}
           >
             <span class={grammarFormClass} lang={row.gloss || prefix ? "sk" : undefined}>
@@ -777,13 +764,16 @@
                 >{@render marked(markedPhrase(row.main))}</span
               >
 
-              {#if row.result}
+              {#if row.result && !heads}
                 <span
                   class="mx-2 font-sans text-base font-normal text-slate-400"
                   aria-hidden="true"
                 >
                   →
                 </span>
+              {/if}
+
+              {#if row.result && !heads}
                 <span class="font-semibold">
                   {#if prefix}
                     {@render marked(prefix)}
@@ -794,7 +784,16 @@
               {/if}
             </span>
 
-            {#if row.gloss}
+            {#if row.result && heads}
+              <span class={cx(grammarFormClass, "font-semibold")} lang="sk">
+                <span class="mr-2 font-sans text-base font-normal text-slate-400 sm:hidden" aria-hidden="true">→</span>
+                {#if prefix}
+                  {@render marked(prefix)}
+                {:else}
+                  {row.result}
+                {/if}
+              </span>
+            {:else if row.gloss}
               <span class={grammarGlossClass}>{row.gloss}</span>
             {/if}
           </li>
