@@ -2,10 +2,13 @@ import { languageSource } from "../sources";
 import type { CaseTopic, GrammarTablePattern } from "../types";
 
 const NOUNS = {
-  person: "Masculine person: brat",
-  thing: "Masculine thing: dom",
-  feminine: "Feminine: ruka",
-  neuter: "Neuter: mesto",
+  person: "Masculine (animate: person or animal): brat",
+  thing: "Masculine (inanimate: thing): dom",
+  feminine: "Feminine (hard consonant): ruka",
+  feminineSoft: "Feminine (soft consonant): ulica",
+  feminineConsonant: "Feminine (ends in a consonant): kosť",
+  neuter: "Neuter (-o): mesto",
+  neuterE: "Neuter (-e): srdce",
 } as const;
 
 function endings(
@@ -54,12 +57,15 @@ export const caseTopics: CaseTopic[] = [
       "Compare a masculine, feminine, and neuter noun in the nominative.",
     ],
     forms: endings(
-      "The nominative is the form you find in a dictionary. The plural ending depends on the noun.",
+      "The nominative is the form you find in a dictionary. The plural ending depends on the gender and the pattern: masculine nouns for people take **-i** (**chlapi**, **študenti**), **-ovia** in **-a** (**hrdinovia**) or, for a few, **-ia** (**bratia**, **priatelia**); masculine nouns for things take **-y** or **-e** (**domy**, **stroje**); feminine nouns in **-a** take **-y** or **-e** (**ruky**, **ulice**), and feminine nouns ending in a consonant **-i** or **-e** (**kosti**, **dlane**); neuter nouns in **-o** take **-á** (**mestá**), in **-e** and **-ie** **-ia** (**srdcia**, **námestia**).",
       {
         person: ["brat", "bratia"],
         thing: ["dom", "dom[y]"],
         feminine: ["ruk[a]", "ruk[y]"],
+        feminineSoft: ["ulic[a]", "ulic[e]"],
+        feminineConsonant: ["kosť", "kost[i]"],
         neuter: ["mest[o]", "mest[á]"],
+        neuterE: ["srdc[e]", "srdc[ia]"],
       },
     ),
     status: "ready",
@@ -74,7 +80,7 @@ export const caseTopics: CaseTopic[] = [
       "The genitive marks possession, amounts, absence, and several common prepositional relationships.",
     body: [
       "Use genitive for possession and relationships between nouns. It also appears after words for amounts and after negated byť or mať in some expressions.",
-      "Common prepositions such as **z**, **od**, **do**, and **bez** regularly introduce the genitive. Learn each preposition with a useful phrase.",
+      "Common prepositions such as **z**, **od**, **do**, **bez**, **u** and **okolo** regularly introduce the genitive. Learn each preposition with a useful phrase.",
     ],
     examples: [
       {
@@ -93,12 +99,15 @@ export const caseTopics: CaseTopic[] = [
       "Build a phrase showing possession or amount.",
     ],
     forms: endings(
-      "Masculine nouns take **-a** (**brata**) or **-u** (**domu**); learn which with each noun. In the plural, masculine nouns take **-ov**. Feminine and neuter plurals have no ending, and the stem often changes: **rúk**, **miest**.",
+      "Masculine nouns for people and animals take **-a** (**brata**, **psa**). Masculine nouns for things take **-u** (**domu**) or **-a** (**stola**); learn which with each noun. Feminine nouns in **-a** take **-y** (**ruky**), but **-e** after a soft consonant: **ulice**, **práce**. The soft consonants are **c**, **dz**, **j** and every consonant with a háček (**č**, **š**, **ž**, **ľ**, **ň**, **ď**, **ť**, **dž**). Feminine nouns ending in a consonant take **-i** after **c**, **s**, **p**, **v** and **sť** (**noci**, **radosti**) and **-e** after other consonants (**piesne**). Neuter nouns take **-a** (**mesta**, **srdca**, **námestia**). The exceptions are few: **večera** is declined like **ulica** (**večere**). In the plural, masculine nouns take **-ov**. Feminine and neuter plurals have no ending, and the stem often changes: **rúk**, **miest**.",
       {
         person: ["brat[a]", "brat[ov]"],
         thing: ["dom[u]", "dom[ov]"],
         feminine: ["ruk[y]", "r[ú]k"],
+        feminineSoft: ["ulic[e]", "ul[í]c"],
+        feminineConsonant: ["kost[i]", "kost[í]"],
         neuter: ["mest[a]", "m[ie]st"],
+        neuterE: ["srdc[a]", "s[ŕ]dc"],
       },
     ),
     status: "ready",
@@ -132,12 +141,15 @@ export const caseTopics: CaseTopic[] = [
       "Compare a dative recipient with an accusative object.",
     ],
     forms: endings(
-      "Masculine people take **-ovi**, other masculine and neuter nouns **-u**, feminine nouns **-e**. In the plural, masculine nouns take **-om**; feminine and neuter nouns take **-ám**.",
+      "Masculine nouns for people and animals take **-ovi** (**bratovi**, **psovi**); other masculine nouns and neuter nouns take **-u** (**domu**, **mestu**, **srdcu**, **námestiu**). Feminine nouns in **-a** take **-e** (**ruke**), but **-i** after a soft consonant (**ulici**, **práci**; the soft consonants are **c**, **dz**, **j** and every consonant with a háček (**č**, **š**, **ž**, **ľ**, **ň**, **ď**, **ť**, **dž**)). Feminine nouns ending in a consonant take **-i** (**noci**, **piesni**). **Večera** is an exception and takes **-i**: **večeri**. In the plural, masculine nouns take **-om**; feminine and neuter nouns take **-ám**.",
       {
         person: ["brat[ovi]", "brat[om]"],
         thing: ["dom[u]", "dom[om]"],
         feminine: ["ruk[e]", "ruk[ám]"],
+        feminineSoft: ["ulic[i]", "ulic[iam]"],
+        feminineConsonant: ["kost[i]", "kost[iam]"],
         neuter: ["mest[u]", "mest[ám]"],
+        neuterE: ["srdc[u]", "srdc[iam]"],
       },
     ),
     status: "ready",
@@ -171,12 +183,15 @@ export const caseTopics: CaseTopic[] = [
       "Practice one feminine noun in nominative and accusative.",
     ],
     forms: endings(
-      "Masculine people and animals take the genitive form: **brata**. Masculine things and neuter nouns look like the nominative. Feminine nouns in **-a** take **-u**.",
+      "Masculine nouns for people and animals take the genitive form: **brata**, **psa**. Masculine nouns for things, neuter nouns and feminine nouns ending in a consonant look like the nominative (**dom**, **mesto**, **noc**). Feminine nouns in **-a** take **-u**.",
       {
         person: ["brat[a]", "brat[ov]"],
         thing: ["dom", "dom[y]"],
         feminine: ["ruk[u]", "ruk[y]"],
+        feminineSoft: ["ulic[u]", "ulic[e]"],
+        feminineConsonant: ["kosť", "kost[i]"],
         neuter: ["mest[o]", "mest[á]"],
+        neuterE: ["srdc[e]", "srdc[ia]"],
       },
     ),
     status: "ready",
@@ -216,12 +231,15 @@ export const caseTopics: CaseTopic[] = [
       "Find a sentence using **o** for its topic.",
     ],
     forms: endings(
-      "Masculine people take **-ovi**. Other singular nouns take **-e**; after **k**, **g**, **h**, and **ch**, masculine nouns take **-u**: **v parku**. In the plural, masculine nouns take **-och**; feminine and neuter nouns take **-ách**.",
+      "Masculine nouns for people and animals take **-ovi** (**o bratovi**, **o psovi**). Masculine nouns for things take **-e** (**v dome**), **-i** after a soft consonant (**v stroji**), and **-u** after **k**, **g**, **h**, and **ch** (**v parku**). Feminine nouns in **-a** take **-e** (**o ruke**), but **-i** after a soft consonant (**o ulici**, **o práci**); feminine nouns ending in a consonant take **-i** (**v noci**). Neuter nouns take **-e** (**v meste**), **-i** in **-e** (**v srdci**) and **-í** in **-ie** (**v námestí**). **O večeri** is an exception. In the plural, masculine nouns take **-och**; feminine and neuter nouns take **-ách**.",
       {
         person: ["brat[ovi]", "brat[och]"],
         thing: ["dom[e]", "dom[och]"],
         feminine: ["ruk[e]", "ruk[ách]"],
+        feminineSoft: ["ulic[i]", "ulic[iach]"],
+        feminineConsonant: ["kost[i]", "kost[iach]"],
         neuter: ["mest[e]", "mest[ách]"],
+        neuterE: ["srdc[i]", "srdc[iach]"],
       },
     ),
     status: "ready",
@@ -255,12 +273,15 @@ export const caseTopics: CaseTopic[] = [
       "Name one tool you use with instrumental.",
     ],
     forms: endings(
-      "Masculine and neuter nouns take **-om**, feminine nouns **-ou**. In the plural, **-ami** is the most common ending; masculine people take **-mi**: **bratmi**.",
+      "Masculine and neuter nouns take **-om** (**bratom**, **mestom**), but neuter nouns in **-ie** take **-ím** (**námestím**). Feminine nouns take **-ou** (**rukou**, **nocou**). In the plural, **-ami** is the most common ending; masculine people take **-mi** (**bratmi**), except those in **-a** (**hrdinami**).",
       {
         person: ["brat[om]", "brat[mi]"],
         thing: ["dom[om]", "dom[ami]"],
         feminine: ["ruk[ou]", "ruk[ami]"],
+        feminineSoft: ["ulic[ou]", "ulic[ami]"],
+        feminineConsonant: ["kosť[ou]", "kosť[ami]"],
         neuter: ["mest[om]", "mest[ami]"],
+        neuterE: ["srdc[om]", "srdc[ami]"],
       },
     ),
     status: "ready",

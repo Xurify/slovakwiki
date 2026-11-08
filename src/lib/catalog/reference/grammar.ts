@@ -13,7 +13,8 @@ export const grammarEntries: GrammarTopic[] = [
     summary: "Slovak nouns belong to masculine, feminine, or neuter gender.",
     body: [
       "Gender affects adjective endings, pronouns, and past-tense verbs. Learn a noun together with its gender.",
-      "Many masculine nouns end in a consonant, many feminine nouns end in -a, and many neuter nouns end in -o or -e. These patterns help, but exceptions exist.",
+      "Nouns in **-a** are usually feminine (**žena**), and nouns in **-o** or **-e** usually neuter (**mesto**, **srdce**). A noun ending in a consonant is usually masculine (**dom**), but many are feminine (**noc**, **kosť**, **pieseň**, and every noun in **-osť**). A few masculine words for people end in **-a** (**hrdina**, **kolega**), and **dievča** is neuter.",
+      "Masculine nouns also have animacy: **animate** nouns are people and animals (**brat**, **pes**), **inanimate** nouns are things (**dom**). It changes the accusative: **Vidím brata**, but **Vidím dom**.",
     ],
     examples: [
       { slovak: "dobrý muž", english: "a good man" },
@@ -35,7 +36,9 @@ export const grammarEntries: GrammarTopic[] = [
       label: "Adjective endings follow gender",
       lines: ["Masculine: -ý", "Feminine: -á", "Neuter: -é"],
     },
-    watchOut: ["The last letter is a hint, not a rule. Learn each noun with its gender."],
+    watchOut: [
+      "The last letter gives the gender of most nouns. Learn the exceptions with their gender: hrdina, noc, dievča.",
+    ],
     nextSlug: "cases-overview",
   },
   {
