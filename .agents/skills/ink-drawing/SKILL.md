@@ -107,6 +107,7 @@ Never judge a picture from its code.
 ## Mistakes already made
 
 - A scene that only decorates: a ring with a dot for the locative, an eye floating between two people for "vidím" (it belongs at the viewer's face), a gift box for a sentence about a book, a card for "have" (read as a box, a safe or a microwave), a key (an upright key with a ring on top read as a second person).
+- A correct word crossed out (`ja` in `ja rozumiem`) read as "wrong" to the owner and to a reviewer. Optional words go in grey brackets: `(ja)`. Never strike through something the language allows.
 - A thought bubble labeled with a verb that does not match what is in it (`robil by som` with a sailing boat). The label and the picture must be one sentence.
 - A solid sight line looked like a laser; a dot where hands meet looked like a ball; the instrumental figures were the same height and read as a couple.
 - A time arrow between two people read as "she goes to him". Time is a word.

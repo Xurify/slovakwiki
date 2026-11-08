@@ -120,7 +120,7 @@ export const grammarEntries: GrammarTopic[] = [
     sketch: {
       sentence: "**Rozumiem**.",
       english: "I understand.",
-      alt: "A person speaking. In the speech bubble the word for I, ja, is crossed out, because the ending -iem already says it is me.",
+      alt: "A person speaking. In the speech bubble the word for I, ja, is in grey brackets, because it is often left out: the ending -iem already says it is me.",
     },
     summary: "Present-tense endings show who performs an action.",
     body: [

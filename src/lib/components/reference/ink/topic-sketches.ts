@@ -121,8 +121,7 @@ export const TOPIC_SCENES: Record<string, () => SketchPart[]> = {
     ...ground(),
     ...figure(86, 141),
     ...bubble(206, 50, 74, 26, [100, 58], 151),
-    note(168, 55, "ja", { tone: "soft" }),
-    stroke(lineD([157, 50], [180, 50], 160), "ink", 1.9),
+    note(166, 55, "(ja)", { tone: "soft" }),
     note(236, 55, "rozum**iem**"),
   ],
 
