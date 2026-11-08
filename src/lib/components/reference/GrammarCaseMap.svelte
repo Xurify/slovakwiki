@@ -1,6 +1,7 @@
 <script lang="ts">
   import GrammarRichText from "$lib/components/reference/GrammarRichText.svelte";
   import type { CaseReference } from "$lib/catalog/types";
+  import { caseTileSrc } from "$lib/catalog/motifs/art";
   import { cx } from "$lib/ui/classes";
 
   let {
@@ -22,20 +23,28 @@
 </script>
 
 <ol class="m-0 list-none border-t border-slate-200 p-0">
-  {#each cases as item, index (item.slug)}
+  {#each cases as item (item.slug)}
     {@const question = splitQuestion(item.question)}
     {@const here = item.slug === current}
 
     <li class="border-b border-slate-200">
       <a
         class={cx(
-          "group grid grid-cols-[1.5rem_minmax(0,1fr)] items-baseline gap-x-3 py-2.5 no-underline",
+          "group grid grid-cols-[2.75rem_minmax(0,1fr)] items-start gap-x-3.5 py-3 no-underline",
           here && "pointer-events-none",
         )}
         href="/grammar/cases/{item.slug}"
         aria-current={here ? "page" : undefined}
       >
-        <span class="text-sm text-slate-400 tabular-nums">{index + 1}</span>
+        <img
+          src={caseTileSrc(item.slug)}
+          alt=""
+          width="512"
+          height="512"
+          loading="lazy"
+          decoding="async"
+          class="size-11 rounded-(--control-radius) object-cover ring-1 ring-slate-900/10 ring-inset"
+        />
 
         <span class="min-w-0">
           <span class="flex flex-wrap items-baseline gap-x-3">

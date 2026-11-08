@@ -17,8 +17,14 @@ describe("grammarMotifId", () => {
     }
   });
 
+  it("gives every grammar topic its own tile instead of the shared book", () => {
+    for (const topic of grammarEntries) {
+      expect(grammarMotifId(topic.slug), topic.slug).not.toBe("default");
+    }
+  });
+
   it("falls back to the book for topics without their own art", () => {
-    expect(grammarMotifId("aspect")).toBe("default");
+    expect(grammarMotifId("no-such-topic")).toBe("default");
     expect(grammarMotifId("telling-time")).toBe("time");
   });
 });

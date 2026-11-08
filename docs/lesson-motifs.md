@@ -20,6 +20,26 @@ Topic tiles in `static/lessons/motifs/<id>.webp`: one per lesson topic, reused b
 
 Best style references: `numbers.webp`, `stress.webp`, `time.webp`, `greetings.webp`. Don't copy the outliers: `questions.webp` bleeds off every edge and fills half the frame; `byt.webp` and `mat.webp` have rough, torn-looking edges; `negation.webp` reads as painted (no felt shadow).
 
+## Drawn tiles
+
+The grammar topics and the six cases that had no photographed tile have drawn ones: flat paper-cut shapes in the palette below, with felt grain and a soft contact shadow, rendered at 1024 px. They are made by `scripts/images/felt-motifs.ts` (`bun scripts/images/felt-motifs.ts`, or `-- --ids aspect,imperative` for some). To add or change one, edit its scene in `SCENES` and run the script; it prints the tile's paper color for `motifPaper`.
+
+| File                                              | Shows                                                                                                                 | Idea                                                |
+| ------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
+| `grammatical-gender.webp`                         | Three rows, each a card and a bar in the same color                                                                   | The adjective matches the noun                      |
+| `cases-overview.webp`                             | Six petals round one cream disc                                                                                       | Six roles for one word                              |
+| `past-tense.webp` / `future-tense.webp`           | An arrow left in faded colors / right in navy, a flag at the end                                                      | Before and after now                                |
+| `aspect.webp`                                     | A wavy line, and a bar ending in a check                                                                              | Ongoing and finished                                |
+| `motion-verbs.webp`                               | One arrow, and two opposite arrows                                                                                    | One trip and a round trip                           |
+| `imperative.webp`                                 | A speech bubble with `!`                                                                                              | A command                                           |
+| `conditional.webp`                                | A thought cloud with a star, two small bubbles                                                                        | Imagined, "would"                                   |
+| `reflexive-verbs.webp`                            | An arrow looping round a dot                                                                                          | The action returns to the subject                   |
+| `possessives.webp`                                | A key                                                                                                                 | What is mine                                        |
+| `word-order.webp`                                 | Three blocks and an arc swapping the outer two                                                                        | The order can change                                |
+| `case-nominative.webp` … `case-instrumental.webp` | A dot with an arrow; a dot with a smaller one; a box and an arrow to a dot; a target hit by an arrow; a pin; a pencil | Subject, of, to and for, direct object, place, tool |
+
+`grammar-motifs.test.ts` fails on a grammar topic with no tile of its own or a missing file. The six case tiles show on the case list (`GrammarCaseMap.svelte`) through `caseTileSrc`.
+
 ## Style
 
 - **Medium.** Cut-felt appliqué, photographed flat from straight above. Each shape is a separate piece of felt with visible fiber grain, clean die-cut edges, and a short, soft contact shadow. No outlines, gradients, gloss, or perspective.
