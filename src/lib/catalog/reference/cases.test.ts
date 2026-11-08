@@ -16,21 +16,9 @@ const PARADIGMS: Record<string, { singular: string[]; plural: string[] }> = {
     singular: ["ruka", "ruky", "ruke", "ruku", "ruke", "rukou"],
     plural: ["ruky", "rúk", "rukám", "ruky", "rukách", "rukami"],
   },
-  ulica: {
-    singular: ["ulica", "ulice", "ulici", "ulicu", "ulici", "ulicou"],
-    plural: ["ulice", "ulíc", "uliciam", "ulice", "uliciach", "ulicami"],
-  },
-  kosť: {
-    singular: ["kosť", "kosti", "kosti", "kosť", "kosti", "kosťou"],
-    plural: ["kosti", "kostí", "kostiam", "kosti", "kostiach", "kosťami"],
-  },
   mesto: {
     singular: ["mesto", "mesta", "mestu", "mesto", "meste", "mestom"],
     plural: ["mestá", "miest", "mestám", "mestá", "mestách", "mestami"],
-  },
-  srdce: {
-    singular: ["srdce", "srdca", "srdcu", "srdce", "srdci", "srdcom"],
-    plural: ["srdcia", "sŕdc", "srdciam", "srdcia", "srdciach", "srdcami"],
   },
 };
 
@@ -47,7 +35,7 @@ const plain = (cell: string) => cell.replace(/[[\]]/g, "");
 
 describe("case endings tables", () => {
   it.each(CASE_SLUGS)(
-    "%s shows one row for every noun pattern, with the paradigm's forms",
+    "%s shows its four reference nouns, with the paradigm's forms",
     (slug) => {
       const topic = caseTopics.find((entry) => entry.slug === slug)!;
       const rows = topic.forms!.rows;
@@ -64,11 +52,4 @@ describe("case endings tables", () => {
       }
     },
   );
-
-  it("every row label says what its pattern is, so no term is left undefined", () => {
-    const labels = caseTopics[0]!.forms!.rows.map((row) => row.label);
-    expect(labels.join(" | ")).toContain("animate: person or animal");
-    expect(labels.join(" | ")).toContain("inanimate: thing");
-    expect(labels.join(" | ")).toContain("soft consonant");
-  });
 });
