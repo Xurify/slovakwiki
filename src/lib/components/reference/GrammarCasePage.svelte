@@ -4,6 +4,7 @@
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
+  import CaseSketch from "$lib/components/reference/CaseSketch.svelte";
   import GrammarCaseMap from "$lib/components/reference/GrammarCaseMap.svelte";
   import GrammarExampleList from "$lib/components/reference/GrammarExampleList.svelte";
   import GrammarPatternList from "$lib/components/reference/GrammarPatternList.svelte";
@@ -13,6 +14,7 @@
     grammarIntroClass,
     grammarProseClass,
   } from "$lib/components/reference/grammar-topic-ui";
+  import { markedParts } from "$lib/components/reference/ink/case-sketches";
   import { caseTopics } from "$lib/catalog/entries";
   import { grammarEntries } from "$lib/catalog/reference/grammar";
   import type { CaseTopic } from "$lib/catalog/types";
@@ -67,10 +69,30 @@
         {/if}
       </p>
 
-      <p class="m-0 mt-3 max-w-[75ch] text-[1.02rem] leading-relaxed text-slate-600">
+      <p
+        class="m-0 mt-3 max-w-[75ch] text-[1.02rem] leading-relaxed text-pretty text-slate-600"
+      >
         {topic.summary}
       </p>
     </header>
+
+    {#if topic.sketch}
+      <figure class="m-0 mt-6 rounded-(--frame-radius) bg-surface px-4 pt-5 pb-5 shadow-(--shadow-border)">
+        <CaseSketch
+          slug={topic.slug}
+          label={topic.sketch.alt}
+          class="mx-auto block h-auto w-full max-w-sm"
+        />
+        <figcaption class="mt-3 text-center">
+          <span class="block font-serif text-2xl text-balance text-slate-900" lang="sk">
+            {#each markedParts(topic.sketch.sentence) as part, index (index)}
+              {#if part.marked}<span class="text-blue-800">{part.text}</span>{:else}{part.text}{/if}
+            {/each}
+          </span>
+          <span class="mt-0.5 block text-[0.95rem] text-slate-600">{topic.sketch.english}</span>
+        </figcaption>
+      </figure>
+    {/if}
 
     <section id="role" class="mt-8" aria-labelledby="role-heading">
       <h2 id="role-heading" class={grammarHeadingClass}>Role in a sentence</h2>
@@ -103,25 +125,35 @@
           <GrammarPatternList pattern={topic.forms} />
         </div>
 
-        {#if topic.otherForms}
-          {#if topic.otherForms.intro}
-            <p class="{grammarIntroClass} mt-4">
-              <GrammarRichText text={topic.otherForms.intro} />
-            </p>
-          {/if}
+        {#if topic.otherForms || (topic.exceptions && topic.exceptions.length > 0)}
+          <details class="group mt-5 rounded-(--control-radius) border border-slate-200 px-4 py-3 open:pb-4">
+            <summary
+              class="cursor-pointer text-[0.95rem] font-semibold text-blue-800 hover:underline"
+            >
+              Other patterns and exceptions
+            </summary>
 
-          <div class="mt-3">
-            <GrammarPatternList pattern={topic.otherForms} />
-          </div>
-        {/if}
+            {#if topic.otherForms}
+              {#if topic.otherForms.intro}
+                <p class="{grammarIntroClass} mt-4">
+                  <GrammarRichText text={topic.otherForms.intro} />
+                </p>
+              {/if}
 
-        {#if topic.exceptions && topic.exceptions.length > 0}
-          <h3 class="mt-5 text-sm font-semibold text-slate-700">Exceptions</h3>
-          <ul class="{grammarIntroClass} m-0 mt-1.5 list-disc pl-5">
-            {#each topic.exceptions as exception (exception)}
-              <li><GrammarRichText text={exception} /></li>
-            {/each}
-          </ul>
+              <div class="mt-3">
+                <GrammarPatternList pattern={topic.otherForms} />
+              </div>
+            {/if}
+
+            {#if topic.exceptions && topic.exceptions.length > 0}
+              <h3 class="mt-5 text-sm font-semibold text-slate-700">Exceptions</h3>
+              <ul class="{grammarIntroClass} m-0 mt-1.5 list-disc pl-5">
+                {#each topic.exceptions as exception (exception)}
+                  <li><GrammarRichText text={exception} /></li>
+                {/each}
+              </ul>
+            {/if}
+          </details>
         {/if}
       </section>
     {/if}

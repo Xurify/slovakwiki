@@ -96,6 +96,11 @@ export const caseTopics: CaseTopic[] = [
       "Masculine nouns for people in **-a** take **-ovia**: **hrdinovia**.",
       "A few masculine nouns for people take **-ia**: **bratia**, **priatelia**.",
     ],
+    sketch: {
+      sentence: "**Peter** číta knihu.",
+      english: "Peter is reading a book.",
+      alt: "A person holding an open book to read it. The person, Peter, is the one doing the action.",
+    },
     status: "ready",
     source: languageSource,
   },
@@ -147,6 +152,11 @@ export const caseTopics: CaseTopic[] = [
       "**Večera** is declined like **ulica**: **večere**.",
       "Masculine nouns for people in **-a** (**hrdina**, **kolega**) take **-u**: **hrdinu**, **kolegu**.",
     ],
+    sketch: {
+      sentence: "Idem z **práce**.",
+      english: "I am coming from work.",
+      alt: "An arrow leaving an office building toward a person who walks away from it.",
+    },
     status: "ready",
     source: languageSource,
   },
@@ -195,6 +205,11 @@ export const caseTopics: CaseTopic[] = [
       },
     ),
     exceptions: ["**Večera** is declined like **ulica**: **večeri**."],
+    sketch: {
+      sentence: "Dám **Petrovi** knihu.",
+      english: "I will give Peter a book.",
+      alt: "One person holding out a book, and an arrow to the second person, who receives it.",
+    },
     status: "ready",
     source: languageSource,
   },
@@ -245,6 +260,11 @@ export const caseTopics: CaseTopic[] = [
     exceptions: [
       "Masculine nouns for people in **-a** (**hrdina**) take **-u**: **hrdinu**.",
     ],
+    sketch: {
+      sentence: "Vidím **mamu**.",
+      english: "I see my mom.",
+      alt: "An eye with an arrow to a person, who is the one being looked at.",
+    },
     status: "ready",
     source: languageSource,
   },
@@ -299,6 +319,11 @@ export const caseTopics: CaseTopic[] = [
       },
     ),
     exceptions: ["**Večera** is declined like **ulica**: **o večeri**."],
+    sketch: {
+      sentence: "Bývam v **meste**.",
+      english: "I live in the city.",
+      alt: "A person standing among the buildings of a city.",
+    },
     status: "ready",
     source: languageSource,
   },
@@ -349,6 +374,11 @@ export const caseTopics: CaseTopic[] = [
     exceptions: [
       "Masculine nouns for people in **-a** take **-ami** in the plural: **hrdinami**.",
     ],
+    sketch: {
+      sentence: "Idem s **mamou**.",
+      english: "I am going with my mom.",
+      alt: "Two people side by side, holding hands.",
+    },
     status: "ready",
     source: languageSource,
   },
