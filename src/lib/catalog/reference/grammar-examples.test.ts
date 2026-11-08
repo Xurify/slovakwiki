@@ -36,6 +36,19 @@ describe("grammar examples", () => {
       ).toBe(true);
     }
   });
+
+  it("the six overview examples are one noun, mama, so only the case changes", () => {
+    const overview = grammarEntries.find((topic) => topic.slug === "cases-overview")!;
+    const forms = ["mama", "mamy", "mame", "mamu", "mamou"];
+    expect(overview.examples).toHaveLength(6);
+    for (const example of overview.examples) {
+      const words = example.slovak.toLocaleLowerCase("sk").match(/\p{L}+/gu) ?? [];
+      expect(
+        words.some((word) => forms.includes(word)),
+        example.slovak,
+      ).toBe(true);
+    }
+  });
 });
 
 describe("finding a case", () => {

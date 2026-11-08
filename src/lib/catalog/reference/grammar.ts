@@ -1910,40 +1910,40 @@ export const grammarEntries: GrammarTopic[] = [
     ],
     examples: [
       {
-        slovak: "Peter číta knihu.",
-        english: "Peter is reading a book.",
+        slovak: "Mama je doma.",
+        english: "Mom is at home.",
         demonstrates:
-          "**Peter** is the subject, so it keeps its dictionary form (nominative). **knihu** is the object: the dictionary form is **kniha**, and the ending changed to **-u** (accusative).",
+          "**Mama** is the subject, so it keeps its dictionary form (nominative).",
       },
       {
-        slovak: "Som z Kanady.",
-        english: "I am from Canada.",
+        slovak: "Idem bez mamy.",
+        english: "I am going without Mom.",
         demonstrates:
-          "**Kanady** is genitive, after **z**. The dictionary form is **Kanada**.",
+          "**mamy** is genitive, after **bez** (without): **mama** becomes **mamy**.",
       },
       {
         slovak: "Pomáham mame.",
         english: "I am helping my mother.",
         demonstrates:
-          "**mame** is dative: the person who receives the help. The dictionary form is **mama**.",
+          "**mame** is dative: the person who receives the help. **mama** becomes **mame**.",
       },
       {
-        slovak: "Mám kávu.",
-        english: "I have coffee.",
+        slovak: "Vidím mamu.",
+        english: "I see my mom.",
         demonstrates:
-          "**kávu** is the thing I have (accusative). The dictionary form is **káva**.",
+          "**mamu** is accusative: the person I see. **mama** becomes **mamu**.",
       },
       {
-        slovak: "Bývam v meste.",
-        english: "I live in the city.",
+        slovak: "Hovorím o mame.",
+        english: "I am talking about my mom.",
         demonstrates:
-          "**meste** is a place after **v** (locative). The dictionary form is **mesto**.",
+          "**mame** is locative, after **o** (about). It looks the same as the dative: **mama** becomes **mame** in both.",
       },
       {
-        slovak: "Idem s priateľom.",
-        english: "I am going with a friend.",
+        slovak: "Idem s mamou.",
+        english: "I am going with my mom.",
         demonstrates:
-          "**priateľom** is instrumental, after **s** (with). The dictionary form is **priateľ**.",
+          "**mamou** is instrumental, after **s** (with): **mama** becomes **mamou**.",
       },
     ],
     related: ["kava", "mesto", "grammatical-gender"],
