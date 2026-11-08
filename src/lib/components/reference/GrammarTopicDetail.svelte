@@ -13,6 +13,7 @@
   import GrammarPatternList from "$lib/components/reference/GrammarPatternList.svelte";
   import GrammarRichText from "$lib/components/reference/GrammarRichText.svelte";
   import GrammarWatchOut from "$lib/components/reference/GrammarWatchOut.svelte";
+  import InkSketchFigure from "$lib/components/reference/InkSketchFigure.svelte";
   import {
     grammarHeadingClass,
     grammarIntroClass,
@@ -154,6 +155,10 @@
         </p>
       {/if}
     </header>
+
+    {#if topic.sketch}
+      <InkSketchFigure slug={topic.slug} sketch={topic.sketch} />
+    {/if}
 
     <div class="mt-8">
       {#if topic.caseOverview}

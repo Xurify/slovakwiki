@@ -1,6 +1,9 @@
 import { describe, expect, it } from "vitest";
 
-import { caseSketchParts, markedParts } from "./case-sketches";
+import { caseTopics } from "$lib/catalog/reference/cases";
+import { grammarEntries } from "$lib/catalog/reference/grammar";
+
+import { sketchParts, markedParts } from "./sketches";
 import { arrowD, boxD, inkRandom, lineD, loopD, patchD, smoothD } from "./ink-paths";
 
 const numbers = (d: string) => (d.match(/-?\d+(?:\.\d+)?/g) ?? []).map(Number);
@@ -35,31 +38,50 @@ describe("ink paths", () => {
   });
 });
 
-describe("case sketches", () => {
-  it("every case has a scene, drawn in finite numbers", () => {
-    for (const slug of [
-      "nominative",
-      "genitive",
-      "dative",
-      "accusative",
-      "locative",
-      "instrumental",
-    ]) {
-      const parts = caseSketchParts(slug);
+describe("sketches", () => {
+  const caseSlugs = [
+    "nominative",
+    "genitive",
+    "dative",
+    "accusative",
+    "locative",
+    "instrumental",
+  ];
+
+  it("every case and every grammar topic has a scene, drawn in finite numbers", () => {
+    for (const slug of [...caseSlugs, ...grammarEntries.map((entry) => entry.slug)]) {
+      const parts = sketchParts(slug);
       expect(parts.length, slug).toBeGreaterThan(3);
       for (const part of parts) {
         if (part.type !== "note")
           expect(numbers(part.d).every(Number.isFinite), slug).toBe(true);
       }
+    }
+  });
+
+  it("every case marks its one thing with a patch", () => {
+    for (const slug of caseSlugs) {
       expect(
-        parts.some((part) => part.type === "patch"),
-        `${slug} marks its one thing`,
+        sketchParts(slug).some((part) => part.type === "patch"),
+        slug,
       ).toBe(true);
     }
   });
 
+  it("every grammar topic and case page has a caption for its sketch", () => {
+    for (const entry of grammarEntries) {
+      expect(entry.sketch, entry.slug).toBeDefined();
+      expect(
+        markedParts(entry.sketch!.sentence).some((part) => part.marked),
+        entry.slug,
+      ).toBe(true);
+      expect(entry.sketch!.alt.length, entry.slug).toBeGreaterThan(30);
+    }
+    for (const topic of caseTopics) expect(topic.sketch, topic.slug).toBeDefined();
+  });
+
   it("an unknown case draws nothing", () => {
-    expect(caseSketchParts("vocative")).toEqual([]);
+    expect(sketchParts("vocative")).toEqual([]);
   });
 
   it("the word to light comes out of its markers", () => {
