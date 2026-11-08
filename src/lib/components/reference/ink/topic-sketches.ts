@@ -298,11 +298,11 @@ export const TOPIC_SCENES: Record<string, () => SketchPart[]> = {
   ],
 
   "telling-time": () => [
-    sectorPatch(150, 52, 30, 60, 90),
-    ...clockAtHalfPastTwo(150, 52, 38, 1001),
-    note(...polar(150, 56, 51, 60), "2", { tone: "soft", size: "small" }),
-    note(...polar(150, 56, 51, 90), "3", { tone: "soft", size: "small" }),
-    note(150, 118, "**pol** tretej"),
-    note(84, 58, "2:30", { tone: "soft" }),
+    sectorPatch(170, 52, 30, 60, 90),
+    ...clockAtHalfPastTwo(170, 52, 38, 1001),
+    note(...polar(170, 56, 51, 60), "2", { tone: "soft", size: "small" }),
+    note(...polar(170, 56, 51, 90), "3", { tone: "soft", size: "small" }),
+    note(170, 118, "**pol** tretej"),
+    note(104, 58, "2:30", { tone: "soft" }),
   ],
 };
