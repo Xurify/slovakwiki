@@ -99,7 +99,7 @@ export const caseTopics: CaseTopic[] = [
     sketch: {
       sentence: "**Peter** číta knihu.",
       english: "Peter is reading a book.",
-      alt: "A person reading a book. The person, Peter, is the one doing the action.",
+      alt: "A person holding an open book to read it. The person, Peter, is the one doing the action.",
     },
     status: "ready",
     source: languageSource,
@@ -155,7 +155,7 @@ export const caseTopics: CaseTopic[] = [
     sketch: {
       sentence: "Idem z **práce**.",
       english: "I am coming from work.",
-      alt: "A person walking away from an office building.",
+      alt: "An arrow leaving an office building toward a person who walks away from it.",
     },
     status: "ready",
     source: languageSource,
@@ -208,7 +208,7 @@ export const caseTopics: CaseTopic[] = [
     sketch: {
       sentence: "Dám **Petrovi** knihu.",
       english: "I will give Peter a book.",
-      alt: "One person handing a gift to another.",
+      alt: "One person holding out a book, and an arrow to the second person, who receives it.",
     },
     status: "ready",
     source: languageSource,
@@ -263,7 +263,7 @@ export const caseTopics: CaseTopic[] = [
     sketch: {
       sentence: "Vidím **mamu**.",
       english: "I see my mom.",
-      alt: "A person looking at another person.",
+      alt: "An eye with an arrow to a person, who is the one being looked at.",
     },
     status: "ready",
     source: languageSource,
@@ -322,7 +322,7 @@ export const caseTopics: CaseTopic[] = [
     sketch: {
       sentence: "Bývam v **meste**.",
       english: "I live in the city.",
-      alt: "A dot sitting inside a ring.",
+      alt: "A person standing among the buildings of a city.",
     },
     status: "ready",
     source: languageSource,
@@ -377,7 +377,7 @@ export const caseTopics: CaseTopic[] = [
     sketch: {
       sentence: "Idem s **mamou**.",
       english: "I am going with my mom.",
-      alt: "Two people side by side, joined by a line.",
+      alt: "Two people side by side, holding hands.",
     },
     status: "ready",
     source: languageSource,

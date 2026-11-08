@@ -89,7 +89,7 @@ function office(x: number, seed: number): SketchPart[] {
   return parts;
 }
 
-function book(x: number, y: number, seed: number): SketchPart[] {
+function closedBook(x: number, y: number, seed: number): SketchPart[] {
   return [
     stroke(boxD(x, y, 46, 36, seed)),
     stroke(lineD([x + 8, y], [x + 8, y + 36], seed + 9), "soft"),
@@ -98,51 +98,99 @@ function book(x: number, y: number, seed: number): SketchPart[] {
   ];
 }
 
-function gift(x: number, y: number, seed: number): SketchPart[] {
+function openBook(x: number, y: number, seed: number): SketchPart[] {
+  const spineTop: Point = [x + 18, y + 5];
+  const spineBottom: Point = [x + 18, y + 31];
   return [
-    stroke(boxD(x, y, 38, 30, seed)),
-    stroke(lineD([x + 19, y], [x + 19, y + 30], seed + 6), "soft"),
+    stroke(
+      [
+        lineD(spineTop, [x, y], seed),
+        lineD([x, y], [x, y + 25], seed + 1),
+        lineD([x, y + 25], spineBottom, seed + 2),
+        lineD(spineTop, [x + 36, y], seed + 3),
+        lineD([x + 36, y], [x + 36, y + 25], seed + 4),
+        lineD([x + 36, y + 25], spineBottom, seed + 5),
+        lineD(spineTop, spineBottom, seed + 6),
+      ].join(" "),
+    ),
+    stroke(lineD([x + 5, y + 8], [x + 14, y + 11], seed + 7), "soft", 1.2, 0.6),
+    stroke(lineD([x + 5, y + 15], [x + 14, y + 18], seed + 8), "soft", 1.2, 0.6),
+    stroke(lineD([x + 22, y + 11], [x + 31, y + 8], seed + 9), "soft", 1.2, 0.6),
+    stroke(lineD([x + 22, y + 18], [x + 31, y + 15], seed + 10), "soft", 1.2, 0.6),
+  ];
+}
+
+function building(x: number, width: number, height: number, seed: number): SketchPart[] {
+  const top = GROUND - height;
+  const parts: SketchPart[] = [stroke(boxD(x, top, width, height, seed), "soft")];
+  const columns = Math.floor((width - 8) / 14);
+  const rows = Math.floor((height - 16) / 16);
+  const left = x + (width - (columns * 14 - 4)) / 2;
+  for (let row = 0; row < rows; row += 1) {
+    for (let column = 0; column < columns; column += 1) {
+      parts.push(
+        stroke(
+          boxD(
+            left + column * 14,
+            top + 9 + row * 16,
+            10,
+            8,
+            seed + 20 + row * 3 + column,
+          ),
+          "soft",
+          1.3,
+          0.65,
+        ),
+      );
+    }
+  }
+  return parts;
+}
+
+function eye(cx: number, cy: number, seed: number): SketchPart[] {
+  return [
     stroke(
       curveD(
         [
-          [x + 19, y],
-          [x + 11, y - 12],
-          [x + 15, y - 17],
-          [x + 19, y],
-          [x + 23, y - 17],
-          [x + 27, y - 12],
-          [x + 19, y],
+          [cx - 13, cy],
+          [cx, cy - 8],
+          [cx + 13, cy],
+          [cx, cy + 8],
+          [cx - 13, cy],
         ],
-        seed + 7,
+        seed,
+        0.5,
       ),
       "soft",
+      1.6,
     ),
+    { type: "dot", d: patchD(cx, cy, 3.6, 3.6, seed + 1) },
   ];
 }
 
 const SCENES: Record<string, () => SketchPart[]> = {
   nominative: () => [
     ...ground(),
-    patch(90, 68, 26, 42, 5),
-    ...figure(90, 21, 1),
-    ...arrow([128, 70], [196, 80], 31, 4),
-    ...book(204, 68, 41),
+    patch(150, 68, 26, 42, 5),
+    ...figure(150, 21, 1),
+    ...openBook(170, 54, 41),
+    note(168, 126, "kto"),
   ],
 
   genitive: () => [
     ...ground(),
-    ...office(40, 12),
-    ...figure(256, 22),
-    patch(71, 92, 15, 17, 6),
-    ...arrow([72, 90], [200, 84], 32, -7),
-    note(150, 126, "z"),
+    patch(116, 63, 44, 56, 6),
+    ...office(85, 12),
+    ...arrow([116, 92], [200, 88], 32, -6),
+    ...figure(236, 22, 1),
+    note(168, 126, "z"),
   ],
 
   dative: () => [
     ...ground(),
     ...figure(62, 23, 1),
-    ...gift(112, 64, 51),
-    ...arrow([162, 78], [238, 72], 33, 4),
+    ...closedBook(90, 54, 51),
+    ...arrow([148, 74], [236, 72], 33, 4),
     patch(268, 68, 26, 40, 7),
     ...figure(268, 24),
     note(168, 126, "komu"),
@@ -150,53 +198,31 @@ const SCENES: Record<string, () => SketchPart[]> = {
 
   accusative: () => [
     ...ground(),
-    ...figure(64, 25, 1),
-    stroke(
-      curveD(
-        [
-          [132, 42],
-          [150, 30],
-          [168, 42],
-          [150, 52],
-          [132, 42],
-        ],
-        76,
-      ),
-      "soft",
-    ),
-    { type: "dot", d: patchD(150, 41, 3.5, 3.5, 77) },
-    patch(258, 68, 26, 40, 8),
-    ...figure(258, 26),
-    ...arrow([84, 56], [230, 60], 78, -4),
+    ...figure(70, 25),
+    ...eye(106, 59, 76),
+    ...arrow([126, 60], [220, 61], 78, -3),
+    patch(248, 68, 26, 40, 8),
+    ...figure(248, 26),
     note(160, 126, "vidím"),
   ],
 
   locative: () => [
-    stroke(loopD(170, 58, 42, 38, 41), "soft", 1.9),
-    patch(170, 58, 14, 14, 9),
-    { type: "dot", d: patchD(170, 58, 6.5, 6.5, 10) },
-    note(254, 64, "v"),
+    ...ground(),
+    patch(169, 62, 112, 50, 9),
+    ...building(70, 42, 70, 61),
+    ...building(116, 40, 92, 62),
+    ...figure(190, 29),
+    ...building(226, 46, 78, 63),
+    note(169, 126, "v"),
   ],
 
   instrumental: () => [
     ...ground(),
-    ...figure(84, 27, 1),
-    ...figure(252, 28, -1),
-    patch(168, 70, 64, 14, 11),
-    stroke(
-      curveD(
-        [
-          [106, 74],
-          [140, 68],
-          [196, 72],
-          [230, 66],
-        ],
-        35,
-      ),
-      "mark",
-      2.1,
-    ),
-    note(168, 126, "s"),
+    ...figure(124, 27, 1),
+    patch(188, 68, 26, 40, 11),
+    ...figure(188, 28, -1),
+    stroke(lineD([146, 68], [166, 68], 35), "mark", 2.1),
+    note(156, 126, "s"),
   ],
 };
 
