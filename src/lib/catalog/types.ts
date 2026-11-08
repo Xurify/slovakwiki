@@ -324,6 +324,8 @@ export interface CaseTopic {
   otherForms?: GrammarTablePattern;
   /** Named words that break the rules above, one short line each. */
   exceptions?: string[];
+  /** The ink sketch at the top of the page: its sentence (the word to light between ** **), the English, and the picture in words. */
+  sketch?: { sentence: string; english: string; alt: string };
   name: string;
   /** Slovak grammar term for the case (genitív). */
   slovakName: string;
