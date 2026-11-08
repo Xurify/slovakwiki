@@ -1916,6 +1916,18 @@ export const grammarEntries: GrammarTopic[] = [
           "**Peter** is the subject, so it keeps its dictionary form (nominative). **knihu** is the object: the dictionary form is **kniha**, and the ending changed to **-u** (accusative).",
       },
       {
+        slovak: "Som z Kanady.",
+        english: "I am from Canada.",
+        demonstrates:
+          "**Kanady** is genitive, after **z**. The dictionary form is **Kanada**.",
+      },
+      {
+        slovak: "Pomáham mame.",
+        english: "I am helping my mother.",
+        demonstrates:
+          "**mame** is dative: the person who receives the help. The dictionary form is **mama**.",
+      },
+      {
         slovak: "Mám kávu.",
         english: "I have coffee.",
         demonstrates:
@@ -1926,6 +1938,12 @@ export const grammarEntries: GrammarTopic[] = [
         english: "I live in the city.",
         demonstrates:
           "**meste** is a place after **v** (locative). The dictionary form is **mesto**.",
+      },
+      {
+        slovak: "Idem s priateľom.",
+        english: "I am going with a friend.",
+        demonstrates:
+          "**priateľom** is instrumental, after **s** (with). The dictionary form is **priateľ**.",
       },
     ],
     related: ["kava", "mesto", "grammatical-gender"],
