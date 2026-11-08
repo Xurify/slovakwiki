@@ -1594,8 +1594,8 @@ export const grammarEntries: GrammarTopic[] = [
     category: "Verbs",
     kind: "grammar",
     sketch: {
-      sentence: "Išiel **by** som k moru.",
-      english: "I would go to the sea.",
+      sentence: "Išiel **by** som.",
+      english: "I would go.",
       alt: "A person with a thought bubble showing a sun and a sailing boat on the sea: a place they would go, but are not at.",
     },
     summary:
@@ -3311,7 +3311,7 @@ export const grammarEntries: GrammarTopic[] = [
     sketch: {
       sentence: "**Kde** bývaš?",
       english: "Where do you live?",
-      alt: "A person asks kde? (where?) in a speech bubble. A house with a map pin above it stands to the right.",
+      alt: "A person asks kde? (where?) in a speech bubble and points at a second person, the you who is asked. A house with a map pin above it stands to the right.",
     },
     summary:
       "Use question words for information, or statement order with rising intonation for yes/no questions.",

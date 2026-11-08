@@ -1,4 +1,13 @@
-import { boxD, curveD, lineD, loopD, patchD, type Point } from "./ink-paths";
+import {
+  boxD,
+  curveD,
+  lineD,
+  loopD,
+  patchD,
+  type Point,
+  inkRandom,
+  smoothD,
+} from "./ink-paths";
 import { GROUND, stroke, type SketchPart, type Tone } from "./pieces";
 
 export const polar = (cx: number, cy: number, radius: number, degrees: number): Point => {
@@ -56,6 +65,7 @@ export function cup(x: number, y: number, seed: number, scale = 1): SketchPart[]
   ];
 }
 
+/** A speech bubble: one open outline whose ends are the two sides of the tail, so the tail joins cleanly. */
 export function bubble(
   cx: number,
   cy: number,
@@ -65,14 +75,25 @@ export function bubble(
   seed: number,
 ): SketchPart[] {
   const around = Math.atan2((tip[1] - cy) / ry, (tip[0] - cx) / rx);
-  const edge = (offset: number): Point => [
-    cx + Math.cos(around + offset) * rx,
-    cy + Math.sin(around + offset) * ry,
-  ];
+  const gap = 0.3;
+  const steps = 14;
+  const random = inkRandom(seed);
+  const points: Point[] = [];
+  for (let index = 0; index <= steps; index += 1) {
+    const angle = around + gap + ((Math.PI * 2 - gap * 2) * index) / steps;
+    const wobble = 1 + (random() - 0.5) * 0.03;
+    points.push([cx + Math.cos(angle) * rx * wobble, cy + Math.sin(angle) * ry * wobble]);
+  }
+  const first = points[0] as Point;
+  const last = points[points.length - 1] as Point;
   return [
-    stroke(loopD(cx, cy, rx, ry, seed), "soft", 1.6),
-    stroke(lineD(edge(-0.34), tip, seed + 1), "soft", 1.6),
-    stroke(lineD(tip, edge(0.34), seed + 2), "soft", 1.6),
+    stroke(
+      [smoothD(points), lineD(last, tip, seed + 1), lineD(tip, first, seed + 2)].join(
+        " ",
+      ),
+      "soft",
+      1.6,
+    ),
   ];
 }
 

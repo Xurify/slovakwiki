@@ -1,7 +1,7 @@
 import { arrowD, boxD, curveD, lineD, loopD, patchD, type Point } from "./ink-paths";
 
 export type Tone = "ink" | "soft" | "mark";
-export type NoteSize = "small" | "normal" | "large";
+export type NoteSize = "tiny" | "small" | "normal" | "large";
 
 export type SketchPart =
   | { type: "stroke"; d: string; tone: Tone; width: number; opacity?: number }

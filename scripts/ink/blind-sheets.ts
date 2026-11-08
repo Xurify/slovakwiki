@@ -22,7 +22,7 @@ const CASE_SLUGS = [
   "locative",
   "instrumental",
 ];
-const NOTE_SIZE = { small: 11, normal: 15, large: 22 } as const;
+const NOTE_SIZE = { tiny: 9, small: 11, normal: 15, large: 22 } as const;
 
 const outDir = resolve(process.argv[2] ?? "blind-sheets");
 const perSheet = Number(process.argv[3] ?? 6);

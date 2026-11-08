@@ -84,7 +84,7 @@ function oneNounSixEndings(): SketchPart[] {
         first ? 1 : 0.7,
       ),
       note(x, y, MAMA_FORMS[index] as string),
-      note(x, y + 12, name, { tone: "soft", size: "small" }),
+      note(x, y + 16, name, { tone: "soft", size: "small" }),
     );
   });
   parts.push(patch(62, 26, 36, 18, 1220));
@@ -120,9 +120,9 @@ export const TOPIC_SCENES: Record<string, () => SketchPart[]> = {
   "present-tense": () => [
     ...ground(),
     ...figure(86, 141),
-    ...bubble(206, 50, 74, 26, [100, 58], 151),
-    note(166, 55, "(ja)", { tone: "soft" }),
-    note(236, 55, "rozum**iem**"),
+    ...bubble(214, 50, 84, 29, [100, 58], 151),
+    note(170, 55, "(ja)", { tone: "soft" }),
+    note(244, 55, "rozum**iem**"),
   ],
 
   "byt-present": () => [
@@ -139,8 +139,8 @@ export const TOPIC_SCENES: Record<string, () => SketchPart[]> = {
     ...ground(),
     ...figure(110, 201, 1),
     ...cup(131, 58, 211, 1.15),
-    ...bubble(60, 40, 34, 17, [102, 56], 221),
-    note(60, 45, "**mám**"),
+    ...bubble(58, 40, 42, 21, [102, 56], 221),
+    note(58, 45, "**mám**"),
   ],
 
   "past-tense": () => [
@@ -166,7 +166,7 @@ export const TOPIC_SCENES: Record<string, () => SketchPart[]> = {
     ...ground(),
     ...figure(56, 271),
     ...arrow([92, 72], [214, 72], 281, 5),
-    note(153, 62, "**budem**"),
+    note(153, 52, "**budem**"),
     patch(263, 72, 40, 46, 291),
     ...calendar(236, 44, 54, 58, 301),
     stroke(loopD(263, 80, 6, 6, 331), "mark", 2),
@@ -192,8 +192,8 @@ export const TOPIC_SCENES: Record<string, () => SketchPart[]> = {
   imperative: () => [
     ...ground(),
     ...figure(60, 401, 1),
-    ...bubble(132, 40, 40, 17, [76, 56], 411),
-    note(132, 45, "Zatvor!"),
+    ...bubble(136, 38, 48, 21, [76, 56], 411),
+    note(136, 43, "Zatvor!"),
     ...figure(206, 421),
     ...windowFrame(252, 40, 40, 48, 431),
     ...arrow([316, 58], [296, 86], 441, 8),
@@ -216,7 +216,6 @@ export const TOPIC_SCENES: Record<string, () => SketchPart[]> = {
     ...sun(190, 42, 9, 471),
     waves(214, 58, 56, 490),
     ...boat(246, 55, 495),
-    note(170, 126, "išiel **by** som"),
   ],
 
   "reflexive-verbs": () => [
@@ -241,7 +240,7 @@ export const TOPIC_SCENES: Record<string, () => SketchPart[]> = {
   possessives: () => [
     ...ground(),
     ...person(134, 701, { grip: [157, 80] }),
-    ...bubble(80, 38, 28, 15, [126, 54], 705),
+    ...bubble(80, 38, 36, 20, [126, 54], 705),
     note(80, 43, "**môj**"),
     patch(190, 64, 46, 40, 709),
     ...house(160, 60, 44, 711),
@@ -277,7 +276,7 @@ export const TOPIC_SCENES: Record<string, () => SketchPart[]> = {
     ...figure(304, 901),
     ...figure(326, 911),
     note(315, 126, "vy"),
-    note(315, 42, "several", { tone: "soft", size: "small" }),
+    note(304, 42, "several", { tone: "soft", size: "small" }),
   ],
 
   negation: () => [
@@ -290,9 +289,10 @@ export const TOPIC_SCENES: Record<string, () => SketchPart[]> = {
 
   questions: () => [
     ...ground(),
-    ...figure(70, 951),
-    ...bubble(150, 44, 44, 24, [84, 58], 961),
-    note(150, 52, "**kde**?", { size: "large" }),
+    ...person(52, 951, { grip: [76, 68] }),
+    ...bubble(120, 38, 50, 25, [66, 52], 961),
+    note(120, 46, "**kde**?", { size: "large" }),
+    ...person(186, 965),
     ...house(236, 38, 30, 975),
     ...pin(255, 56, 971),
   ],
@@ -300,9 +300,9 @@ export const TOPIC_SCENES: Record<string, () => SketchPart[]> = {
   "telling-time": () => [
     sectorPatch(150, 52, 30, 60, 90),
     ...clockAtHalfPastTwo(150, 52, 38, 1001),
-    note(...polar(150, 58, 27, 60), "2", { tone: "soft", size: "small" }),
-    note(...polar(150, 58, 27, 90), "3", { tone: "soft", size: "small" }),
+    note(...polar(150, 56, 51, 60), "2", { tone: "soft", size: "small" }),
+    note(...polar(150, 56, 51, 90), "3", { tone: "soft", size: "small" }),
     note(150, 118, "**pol** tretej"),
-    note(222, 58, "2:30", { tone: "soft" }),
+    note(84, 58, "2:30", { tone: "soft" }),
   ],
 };

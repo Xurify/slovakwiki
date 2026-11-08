@@ -79,7 +79,9 @@ These came out of the reviews. Each answers a real misreading.
 9. **Say who is who.** A child holding hands with a woman in a skirt is "with mama"; two same-height people are "friends". The woman in a dress is mama everywhere on the case pages.
 10. **The patch is on the word the sentence lights.** If `**mamy**` is lit, the patch is behind it.
 11. **Nothing that carries no meaning.** No stray dots, squiggles, motion lines behind one person only, or app icons (a map pin floats unless it sits on a house).
-12. **Do not point at the answer to "who?".** Pointing at a person while asking "who?" reads as "who is that?". Show the unknown instead (a `?` for a face).
+12. **Words need room.** Every note keeps 4 units of clear space from any stroke, from another note and from the sheet edge (x 12 to 328, y up to 128), and a note inside a bubble has the bubble sized to it (about 8 units of air on each side). A time word sits well above its arrow, not on it. Measure it with `node scripts/ink/audit-text.mjs <dir>` on the contact sheet.
+13. **A label never repeats the sentence under the picture.** The hero sentence is already there. A note is for what the picture cannot say: the phrase a preposition sits in, a form under an object, a question word.
+14. **Do not point at the answer to "who?".** Pointing at a person while asking "who?" reads as "who is that?". Show the unknown instead (a `?` for a face).
 
 ## Slovak
 

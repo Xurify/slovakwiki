@@ -20,7 +20,8 @@
   const parts = $derived(sketchParts(slug));
   const filterId = $derived(`ink-${slug}`);
 
-  const noteSize = { small: "text-[11px]", normal: "text-[15px]", large: "text-[22px]" } as const;
+  const noteSize = { tiny: "text-[9px]",
+    small: "text-[11px]", normal: "text-[15px]", large: "text-[22px]" } as const;
   const noteTone: Record<Tone, string> = {
     ink: "fill-slate-900",
     soft: "fill-slate-500",

@@ -17,7 +17,7 @@ export const CASE_SCENES: Record<string, () => SketchPart[]> = {
     ...ground(),
     patch(170, 68, 34, 42, 5),
     ...person(170, 91, { grip: [192, 68] }),
-    note(170, 64, "?", { size: "small" }),
+    note(170, 62.5, "?", { size: "tiny" }),
     ...openBook(188, 54, 41),
     note(176, 126, "**kto**?"),
   ],
