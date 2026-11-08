@@ -61,7 +61,9 @@
           )}
           aria-hidden="true"
         >
-          {previous.step}
+          {#if previous.group === here.group}
+            {previous.step}
+          {/if}
         </span>
 
         <a

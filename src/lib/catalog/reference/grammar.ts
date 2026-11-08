@@ -92,10 +92,11 @@ export const grammarEntries: GrammarTopic[] = [
     ],
     pattern: {
       label: "Quantity patterns",
+      heads: ["Number and noun", "The noun after it"],
       lines: [
-        "jeden lístok · one ticket",
-        "dva / dvaja / dve, tri, štyri + plural",
-        "päť+ + genitive plural",
+        "jeden lístok · singular, after jeden, jedna, jedno",
+        "dva lístky · plural, after dva, dve, tri, štyri",
+        "päť lístkov · genitive plural, from päť up",
       ],
     },
     watchOut: ["Start with whole phrases: **dvadsať rokov**, **päť eur**."],
@@ -3030,7 +3031,11 @@ export const grammarEntries: GrammarTopic[] = [
     ],
     pattern: {
       label: "Position changes emphasis",
-      lines: ["subject + verb + object → neutral", "word moved to the end → emphasis"],
+      heads: ["Sentence", "Order and effect"],
+      lines: [
+        "Peter číta knihu. · subject, verb, object: neutral",
+        "Knihu číta Peter. · object, verb, subject: emphasis on Peter",
+      ],
     },
     watchOut: ["Flexible, not random: known things first, new or stressed things last."],
     nextSlug: "ty-vs-vy",
@@ -3190,13 +3195,8 @@ export const grammarEntries: GrammarTopic[] = [
     ],
     pattern: {
       label: "Ne- joins the verb, except present byť",
-      lines: [
-        "mám → nemám",
-        "rozumiem → nerozumiem",
-        "som → nie som",
-        "je → nie je",
-        "Nie, ďakujem. · No, thank you.",
-      ],
+      heads: ["Positive", "Negative"],
+      lines: ["mám → nemám", "rozumiem → nerozumiem", "som → nie som", "je → nie je"],
     },
     watchOut: [
       {
