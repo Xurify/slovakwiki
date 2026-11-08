@@ -10,6 +10,11 @@ export const grammarEntries: GrammarTopic[] = [
     english: "grammatical gender",
     category: "Nouns",
     kind: "grammar",
+    sketch: {
+      sentence: "dobr**ý** muž, dobr**á** žena, dobr**é** mesto",
+      english: "a good man, a good woman, a good city",
+      alt: "A man, a woman and a city of buildings. The word for good ends differently for each, because each noun has its own gender.",
+    },
     summary: "Slovak nouns belong to masculine, feminine, or neuter gender.",
     body: [
       "Gender affects adjective endings, pronouns, and past-tense verbs. Learn a noun together with its gender.",
@@ -59,6 +64,11 @@ export const grammarEntries: GrammarTopic[] = [
     english: "numbers and numerals",
     category: "Numbers",
     kind: "grammar",
+    sketch: {
+      sentence: "Jedna káva, dve **kávy**, päť **káv**.",
+      english: "One coffee, two coffees, five coffees.",
+      alt: "One cup, two cups and five cups. The word for coffee changes with the number.",
+    },
     summary: "Numbers change the form that follows them, especially from five upward.",
     body: [
       "Jeden (jedna, jedno) agrees with its noun and takes the singular: jeden lístok, jedna káva, jedno auto. Two has three forms: dve for feminine and neuter nouns (dve kávy, dve autá); dva for masculine things and animals (dva lístky, dva psy); dvaja for masculine nouns for people (dvaja bratia). Tri and štyri also have forms for people: traja, štyria. After 2–4 the noun is plural.",
@@ -92,10 +102,11 @@ export const grammarEntries: GrammarTopic[] = [
     ],
     pattern: {
       label: "Quantity patterns",
+      heads: ["Number and noun", "The noun after it"],
       lines: [
-        "jeden lístok · one ticket",
-        "dva / dvaja / dve, tri, štyri + plural",
-        "päť+ + genitive plural",
+        "jeden lístok · singular, after jeden, jedna, jedno",
+        "dva lístky · plural, after dva, dve, tri, štyri",
+        "päť lístkov · genitive plural, from päť up",
       ],
     },
     watchOut: ["Start with whole phrases: **dvadsať rokov**, **päť eur**."],
@@ -107,6 +118,11 @@ export const grammarEntries: GrammarTopic[] = [
     english: "present tense",
     category: "Verbs",
     kind: "grammar",
+    sketch: {
+      sentence: "**Rozumiem**.",
+      english: "I understand.",
+      alt: "A person speaking. In the speech bubble the word for I, ja, is in grey brackets, because it is often left out: the ending -iem already says it is me.",
+    },
     summary: "Present-tense endings show who performs an action.",
     body: [
       "Slovak often omits subject pronouns because the verb ending already identifies the person.",
@@ -166,6 +182,11 @@ export const grammarEntries: GrammarTopic[] = [
     english: "to be (present)",
     category: "Verbs",
     kind: "grammar",
+    sketch: {
+      sentence: "**Som** študent. **Som** doma.",
+      english: "I am a student. I am at home.",
+      alt: "On the left, a person in a graduation cap: who they are. On the right, a person standing inside a house: where they are.",
+    },
     summary: "Use byť to say who or what someone is, and where someone or something is.",
     body: [
       "Byť is irregular in the present tense: som, si, je, sme, ste, sú. Slovak often leaves out the subject pronoun because the verb form already identifies it.",
@@ -240,6 +261,11 @@ export const grammarEntries: GrammarTopic[] = [
     english: "to have (present)",
     category: "Verbs",
     kind: "grammar",
+    sketch: {
+      sentence: "**Mám** kávu.",
+      english: "I have a coffee.",
+      alt: "A person holding up a cup of coffee and saying mám, I have.",
+    },
     summary: "Use mať to say what you have and how old you are.",
     body: [
       "Mať is irregular in the present tense: mám, máš, má, máme, máte, majú. Use it for possession, availability, and age.",
@@ -309,6 +335,11 @@ export const grammarEntries: GrammarTopic[] = [
     english: "past tense",
     category: "Verbs",
     kind: "grammar",
+    sketch: {
+      sentence: "Peter **pracoval**. Anna **pracovala**.",
+      english: "Peter worked. Anna worked.",
+      alt: "A man and a woman, under the word včera, yesterday. The verb ends in -l for the man and -la for the woman.",
+    },
     summary:
       "The past tense is the -l form of the verb plus som, si, sme, or ste. The -l form also shows whether a man or a woman is speaking.",
     body: [
@@ -517,6 +548,11 @@ export const grammarEntries: GrammarTopic[] = [
     ],
     category: "Verbs",
     kind: "grammar",
+    sketch: {
+      sentence: "**Písal** list. **Napísal** list.",
+      english: "He was writing a letter. He wrote the letter (finished).",
+      alt: "On the left, a letter half written with a pen still on it. On the right, a finished letter with a tick.",
+    },
     summary:
       "Most Slovak verbs come in imperfective and perfective pairs — marking whether an action is ongoing and repeated, or a single completed result.",
     body: [
@@ -822,6 +858,11 @@ export const grammarEntries: GrammarTopic[] = [
     english: "future tense",
     category: "Verbs",
     kind: "grammar",
+    sketch: {
+      sentence: "Zajtra **budem** doma.",
+      english: "Tomorrow I will be at home.",
+      alt: "A person today, an arrow labeled budem, and tomorrow's date circled on a calendar.",
+    },
     summary:
       "Imperfective verbs make the future with budem + infinitive. Perfective verbs use their present forms, which already mean the future.",
     body: [
@@ -1005,6 +1046,11 @@ export const grammarEntries: GrammarTopic[] = [
     english: "motion verbs: ísť or chodiť",
     category: "Verbs",
     kind: "grammar",
+    sketch: {
+      sentence: "**Idem** domov. **Chodím** domov.",
+      english: "I am going home (now). I go home (regularly).",
+      alt: "On the left, one arrow from a person to a house, labeled teraz, now: one trip. On the right, arrows both ways between a person and a house, labeled každý deň, every day: round trips.",
+    },
     summary:
       "Most kinds of movement have two verbs: one for a single trip in one direction (ísť), one for habits and round trips (chodiť).",
     body: [
@@ -1356,6 +1402,11 @@ export const grammarEntries: GrammarTopic[] = [
     english: "imperative: commands and requests",
     category: "Verbs",
     kind: "grammar",
+    sketch: {
+      sentence: "**Zatvor** okno, prosím.",
+      english: "Close the window, please.",
+      alt: "One person says Zatvor! to another, beside an open window.",
+    },
     summary:
       "The imperative tells someone to do something: Píš! Píšte! Píšme! Build it from the they-form of the present tense.",
     body: [
@@ -1543,6 +1594,11 @@ export const grammarEntries: GrammarTopic[] = [
     english: "conditional: would",
     category: "Verbs",
     kind: "grammar",
+    sketch: {
+      sentence: "Išiel **by** som.",
+      english: "I would go.",
+      alt: "A person with a thought bubble showing a sun and a sailing boat on the sea: a place they would go, but are not at.",
+    },
     summary:
       "The conditional is the -l form plus by: robil by som, “I would do”. Use it for wishes, polite requests, and imagined situations.",
     body: [
@@ -1719,6 +1775,11 @@ export const grammarEntries: GrammarTopic[] = [
     english: "verbs with sa and si",
     category: "Verbs",
     kind: "grammar",
+    sketch: {
+      sentence: "Umývam **sa**.",
+      english: "I wash (myself).",
+      alt: "A person under a shower with both hands on their head, washing themselves.",
+    },
     summary:
       "Many verbs come with sa or si. Sa often keeps the action on the subject; si means for yourself. Some verbs always need one of them.",
     body: [
@@ -1903,6 +1964,11 @@ export const grammarEntries: GrammarTopic[] = [
     aliases: ["pády", "pád"],
     category: "Nouns",
     kind: "grammar",
+    sketch: {
+      sentence: "**Mama** je doma.",
+      english: "Mom is at home.",
+      alt: "One person, mama, with six lines to six forms of the word: mama, mamy, mame, mamu, mame and mamou, each labeled with its case. The nominative, mama, is highlighted: the one to learn first.",
+    },
     summary: "Six active cases change word endings according to their role.",
     body: [
       "Modern Slovak uses nominative, genitive, dative, accusative, locative, and instrumental forms. A limited vocative survives in a few expressions.",
@@ -2018,6 +2084,11 @@ export const grammarEntries: GrammarTopic[] = [
     english: "demonstratives: ten, tento, tamten",
     category: "Nouns",
     kind: "grammar",
+    sketch: {
+      sentence: "**Tento** dom je tu. **Tamten** dom je tam.",
+      english: "This house is here. That house is there.",
+      alt: "A person points at a house close by. A smaller house stands far away.",
+    },
     summary:
       "Ten, tento, and tamten point at people and things, and agree with their noun in gender, number, and case.",
     body: [
@@ -2664,6 +2735,11 @@ export const grammarEntries: GrammarTopic[] = [
     english: "possessives: môj, jeho, svoj",
     category: "Nouns",
     kind: "grammar",
+    sketch: {
+      sentence: "To je **môj** dom.",
+      english: "This is my house.",
+      alt: "A person says môj, my, and rests a hand on a house that is highlighted as theirs.",
+    },
     summary:
       "Môj, tvoj, náš, and váš agree with the thing owned. Jeho, jej, and ich never change. Svoj points back to the subject.",
     body: [
@@ -2997,6 +3073,11 @@ export const grammarEntries: GrammarTopic[] = [
     english: "word order",
     category: "Sentence building",
     kind: "grammar",
+    sketch: {
+      sentence: "Knihu číta **Peter**.",
+      english: "It is Peter who is reading the book.",
+      alt: "Three word tiles: Peter, číta, knihu. Arrows swap the first and the last, so knihu comes first and Peter, highlighted, comes last.",
+    },
     summary:
       "Slovak word order is flexible, but neutral sentences often follow subject–verb–object.",
     body: [
@@ -3030,7 +3111,11 @@ export const grammarEntries: GrammarTopic[] = [
     ],
     pattern: {
       label: "Position changes emphasis",
-      lines: ["subject + verb + object → neutral", "word moved to the end → emphasis"],
+      heads: ["Sentence", "Order and effect"],
+      lines: [
+        "Peter číta knihu. · subject, verb, object: neutral",
+        "Knihu číta Peter. · object, verb, subject: emphasis on Peter",
+      ],
     },
     watchOut: ["Flexible, not random: known things first, new or stressed things last."],
     nextSlug: "ty-vs-vy",
@@ -3041,6 +3126,12 @@ export const grammarEntries: GrammarTopic[] = [
     english: "informal and formal you",
     category: "Sentence building",
     kind: "grammar",
+    sketch: {
+      sentence: "**Prepáč**, nerozumiem. **Prepáčte**, nerozumiem.",
+      english:
+        "Sorry, I do not understand (to a friend). Sorry, I do not understand (formal, or to several people).",
+      alt: "Three small scenes. A person speaks to one friend: ty, informal. A person speaks to one person wearing a tie: vy, formal. A person speaks to two people: vy, several.",
+    },
     summary:
       "Use ty with one person informally and vy for formal address or more than one person.",
     body: [
@@ -3151,6 +3242,11 @@ export const grammarEntries: GrammarTopic[] = [
     english: "negation",
     category: "Sentence building",
     kind: "grammar",
+    sketch: {
+      sentence: "**Ne**rozumiem.",
+      english: "I do not understand.",
+      alt: "A person with a speech bubble that says nerozumiem, with ne- in blue in front of the verb.",
+    },
     summary: "Slovak usually makes a finite verb negative with ne-.",
     body: [
       "Attach ne- to a finite verb: mám becomes nemám and rozumiem becomes nerozumiem. The present of byť is the exception and stays two words: nie som, nie si, nie je, nie sme, nie ste, nie sú. On its own, nie means “no.”",
@@ -3190,13 +3286,8 @@ export const grammarEntries: GrammarTopic[] = [
     ],
     pattern: {
       label: "Ne- joins the verb, except present byť",
-      lines: [
-        "mám → nemám",
-        "rozumiem → nerozumiem",
-        "som → nie som",
-        "je → nie je",
-        "Nie, ďakujem. · No, thank you.",
-      ],
+      heads: ["Positive", "Negative"],
+      lines: ["mám → nemám", "rozumiem → nerozumiem", "som → nie som", "je → nie je"],
     },
     watchOut: [
       {
@@ -3217,6 +3308,11 @@ export const grammarEntries: GrammarTopic[] = [
     english: "questions",
     category: "Sentence building",
     kind: "grammar",
+    sketch: {
+      sentence: "**Kde** bývaš?",
+      english: "Where do you live?",
+      alt: "A person asks kde? (where?) in a speech bubble and points at a second person, the you who is asked. A house with a map pin above it stands to the right.",
+    },
     summary:
       "Use question words for information, or statement order with rising intonation for yes/no questions.",
     body: [
@@ -3287,6 +3383,11 @@ export const grammarEntries: GrammarTopic[] = [
     english: "telling time",
     category: "Numbers",
     kind: "grammar",
+    sketch: {
+      sentence: "Je **pol tretej**.",
+      english: "It is half past two.",
+      alt: "A clock at half past two, with the slice between two and three shaded: the half hour counts toward the next hour, the third.",
+    },
     summary:
       "Slovak halves and quarters look ahead to the next hour, and the verb agrees with the number.",
     body: [

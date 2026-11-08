@@ -153,7 +153,7 @@
     {x}
     {y}
     text-anchor="middle"
-    class="font-sans text-[7px] {className}"
+    class="font-sans text-[9px] {className}"
     fill="currentColor"
     stroke="none"
   >

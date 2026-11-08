@@ -188,6 +188,8 @@ interface GrammarPatternShared {
 /** Labelled lines, verb paradigms, and arrow rows. */
 export interface GrammarLinePattern extends GrammarPatternShared {
   lines: string[];
+  /** Heads for the two columns of rows; rows with an English gloss default to Slovak and English. */
+  heads?: [string, string];
 }
 
 /** A table. Cells are data, not a comma-split string. */
@@ -315,6 +317,13 @@ export interface CaseReference {
   slug: string;
 }
 
+/** The ink sketch at the top of a grammar page: its sentence (the word to light between ** **), the English, and the picture in words. */
+export interface InkSketchCaption {
+  alt: string;
+  english: string;
+  sentence: string;
+}
+
 export interface CaseTopic {
   body: string[];
   examples: Example[];
@@ -324,6 +333,7 @@ export interface CaseTopic {
   otherForms?: GrammarTablePattern;
   /** Named words that break the rules above, one short line each. */
   exceptions?: string[];
+  sketch?: InkSketchCaption;
   name: string;
   /** Slovak grammar term for the case (genitív). */
   slovakName: string;
@@ -337,6 +347,7 @@ export interface CaseTopic {
 
 export interface GrammarTopic extends ContentEntry {
   caseOverview?: CaseReference[];
+  sketch?: InkSketchCaption;
   /** Minimal pairs that show when to pick each form. */
   contrasts?: GrammarContrastSet;
   kind: "grammar";

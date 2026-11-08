@@ -4,6 +4,7 @@
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
+  import InkSketchFigure from "$lib/components/reference/InkSketchFigure.svelte";
   import GrammarCaseMap from "$lib/components/reference/GrammarCaseMap.svelte";
   import GrammarExampleList from "$lib/components/reference/GrammarExampleList.svelte";
   import GrammarPatternList from "$lib/components/reference/GrammarPatternList.svelte";
@@ -67,10 +68,16 @@
         {/if}
       </p>
 
-      <p class="m-0 mt-3 max-w-[75ch] text-[1.02rem] leading-relaxed text-slate-600">
+      <p
+        class="m-0 mt-3 max-w-[75ch] text-[1.02rem] leading-relaxed text-pretty text-slate-600"
+      >
         {topic.summary}
       </p>
     </header>
+
+    {#if topic.sketch}
+      <InkSketchFigure slug={topic.slug} sketch={topic.sketch} />
+    {/if}
 
     <section id="role" class="mt-8" aria-labelledby="role-heading">
       <h2 id="role-heading" class={grammarHeadingClass}>Role in a sentence</h2>
@@ -103,25 +110,35 @@
           <GrammarPatternList pattern={topic.forms} />
         </div>
 
-        {#if topic.otherForms}
-          {#if topic.otherForms.intro}
-            <p class="{grammarIntroClass} mt-4">
-              <GrammarRichText text={topic.otherForms.intro} />
-            </p>
-          {/if}
+        {#if topic.otherForms || (topic.exceptions && topic.exceptions.length > 0)}
+          <details class="group mt-5 rounded-(--control-radius) border border-slate-200 px-4 py-3 open:pb-4">
+            <summary
+              class="cursor-pointer text-[0.95rem] font-semibold text-blue-800 hover:underline"
+            >
+              Other patterns and exceptions
+            </summary>
 
-          <div class="mt-3">
-            <GrammarPatternList pattern={topic.otherForms} />
-          </div>
-        {/if}
+            {#if topic.otherForms}
+              {#if topic.otherForms.intro}
+                <p class="{grammarIntroClass} mt-4">
+                  <GrammarRichText text={topic.otherForms.intro} />
+                </p>
+              {/if}
 
-        {#if topic.exceptions && topic.exceptions.length > 0}
-          <h3 class="mt-5 text-sm font-semibold text-slate-700">Exceptions</h3>
-          <ul class="{grammarIntroClass} m-0 mt-1.5 list-disc pl-5">
-            {#each topic.exceptions as exception (exception)}
-              <li><GrammarRichText text={exception} /></li>
-            {/each}
-          </ul>
+              <div class="mt-3">
+                <GrammarPatternList pattern={topic.otherForms} />
+              </div>
+            {/if}
+
+            {#if topic.exceptions && topic.exceptions.length > 0}
+              <h3 class="mt-5 text-sm font-semibold text-slate-700">Exceptions</h3>
+              <ul class="{grammarIntroClass} m-0 mt-1.5 list-disc pl-5">
+                {#each topic.exceptions as exception (exception)}
+                  <li><GrammarRichText text={exception} /></li>
+                {/each}
+              </ul>
+            {/if}
+          </details>
         {/if}
       </section>
     {/if}

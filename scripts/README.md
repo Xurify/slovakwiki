@@ -23,6 +23,9 @@ bun scripts/images/fetch.ts                      # Wikimedia pageimages → stat
 bun scripts/images/upload.ts                     # static/images/dictionary/ → R2 (`images/dictionary/…`)
 bun scripts/images/status.ts                     # coverage: ok vs missing vs rejected, by part of speech
 bun scripts/images/reject.ts -- --slugs chyba    # hide a live image (override + manifest)
+bun scripts/ink/contact-sheet.ts ink-sheet     # every grammar sketch on one page, light and dark (ink-drawing skill)
+node scripts/ink/audit-text.mjs ink-sheet       # measures every written note: clipped, touching a stroke, crowded (needs puppeteer-core)
+bun scripts/ink/blind-sheets.ts ink-blind 6    # numbered, unnamed sheets for a blind review of the sketches (ink-drawing skill)
 bun scripts/downloads/export.ts                  # dictionary JSON for /downloads builder (also on astro build)
 bun run index:search                             # Pagefind for local/dev search
 bun run fouc:boot                                # Rebuild blocking FOUC IIFEs (see src/lib/fouc/README.md)
