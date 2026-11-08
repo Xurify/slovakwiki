@@ -320,6 +320,8 @@ export interface CaseTopic {
   examples: Example[];
   /** Endings on four reference nouns, singular and plural. */
   forms?: GrammarTablePattern;
+  /** The same endings for the patterns the four reference nouns leave out. */
+  otherForms?: GrammarTablePattern;
   name: string;
   /** Slovak grammar term for the case (genitív). */
   slovakName: string;

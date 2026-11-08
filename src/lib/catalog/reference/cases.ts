@@ -24,6 +24,27 @@ function endings(
   };
 }
 
+const OTHER_NOUNS = {
+  soft: "Feminine, soft consonant: ulica",
+  consonant: "Feminine, ends in a consonant: kosť",
+  neuterE: "Neuter in -e: srdce",
+} as const;
+
+function otherEndings(
+  rows: Record<keyof typeof OTHER_NOUNS, [string, string]>,
+): GrammarTablePattern {
+  return {
+    label: "Other endings",
+    intro: "",
+    rowLabel: "Other patterns",
+    columns: ["Singular", "Plural"],
+    rows: (Object.keys(OTHER_NOUNS) as Array<keyof typeof OTHER_NOUNS>).map((key) => ({
+      label: OTHER_NOUNS[key],
+      cells: rows[key],
+    })),
+  };
+}
+
 export const caseTopics: CaseTopic[] = [
   {
     slug: "nominative",
@@ -62,6 +83,11 @@ export const caseTopics: CaseTopic[] = [
         neuter: ["mest[o]", "mest[á]"],
       },
     ),
+    otherForms: otherEndings({
+      soft: ["ulic[a]", "ulic[e]"],
+      consonant: ["kosť", "kost[i]"],
+      neuterE: ["srdc[e]", "srdc[ia]"],
+    }),
     status: "ready",
     source: languageSource,
   },
@@ -101,6 +127,11 @@ export const caseTopics: CaseTopic[] = [
         neuter: ["mest[a]", "m[ie]st"],
       },
     ),
+    otherForms: otherEndings({
+      soft: ["ulic[e]", "ul[í]c"],
+      consonant: ["kost[i]", "kost[í]"],
+      neuterE: ["srdc[a]", "s[ŕ]dc"],
+    }),
     status: "ready",
     source: languageSource,
   },
@@ -140,6 +171,11 @@ export const caseTopics: CaseTopic[] = [
         neuter: ["mest[u]", "mest[ám]"],
       },
     ),
+    otherForms: otherEndings({
+      soft: ["ulic[i]", "ulic[iam]"],
+      consonant: ["kost[i]", "kost[iam]"],
+      neuterE: ["srdc[u]", "srdc[iam]"],
+    }),
     status: "ready",
     source: languageSource,
   },
@@ -179,6 +215,11 @@ export const caseTopics: CaseTopic[] = [
         neuter: ["mest[o]", "mest[á]"],
       },
     ),
+    otherForms: otherEndings({
+      soft: ["ulic[u]", "ulic[e]"],
+      consonant: ["kosť", "kost[i]"],
+      neuterE: ["srdc[e]", "srdc[ia]"],
+    }),
     status: "ready",
     source: languageSource,
   },
@@ -224,6 +265,11 @@ export const caseTopics: CaseTopic[] = [
         neuter: ["mest[e]", "mest[ách]"],
       },
     ),
+    otherForms: otherEndings({
+      soft: ["ulic[i]", "ulic[iach]"],
+      consonant: ["kost[i]", "kost[iach]"],
+      neuterE: ["srdc[i]", "srdc[iach]"],
+    }),
     status: "ready",
     source: languageSource,
   },
@@ -263,6 +309,11 @@ export const caseTopics: CaseTopic[] = [
         neuter: ["mest[om]", "mest[ami]"],
       },
     ),
+    otherForms: otherEndings({
+      soft: ["ulic[ou]", "ulic[ami]"],
+      consonant: ["kosť[ou]", "kosť[ami]"],
+      neuterE: ["srdc[om]", "srdc[ami]"],
+    }),
     status: "ready",
     source: languageSource,
   },

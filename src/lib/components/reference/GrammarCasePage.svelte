@@ -102,6 +102,12 @@
         <div class="mt-3">
           <GrammarPatternList pattern={topic.forms} />
         </div>
+
+        {#if topic.otherForms}
+          <div class="mt-4">
+            <GrammarPatternList pattern={topic.otherForms} />
+          </div>
+        {/if}
       </section>
     {/if}
 
