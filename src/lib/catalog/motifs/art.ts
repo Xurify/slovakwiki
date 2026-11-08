@@ -5,8 +5,24 @@ export function motifArtSrc(id: string): string {
   return `/lessons/motifs/${id}.webp`;
 }
 
+/** The paper-cut tile of one case, in `static/lessons/motifs/case-{slug}.webp`. */
+export function caseTileSrc(slug: string): string {
+  return `/lessons/motifs/case-${slug}.webp`;
+}
+
 /** Mean paper color along each tile's side edges; banners extend the tile with it. */
 export const motifPaper: Record<PracticeGraphicId, string> = {
+  "grammatical-gender": "#ede5d1",
+  "cases-overview": "#ede5d1",
+  "future-tense": "#ede5d1",
+  "past-tense": "#ede5d1",
+  aspect: "#ede5d1",
+  "motion-verbs": "#ede5d1",
+  imperative: "#ede5d1",
+  conditional: "#ede5d1",
+  "reflexive-verbs": "#ede5d1",
+  possessives: "#ede5d1",
+  "word-order": "#ede5d1",
   byt: "#ece5d3",
   default: "#f0e8d4",
   demonstratives: "#efe7d3",

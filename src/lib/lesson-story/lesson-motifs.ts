@@ -10,6 +10,17 @@ export type LessonMotifId =
   | "mat"
   | "stress"
   | "demonstratives"
+  | "grammatical-gender"
+  | "cases-overview"
+  | "future-tense"
+  | "past-tense"
+  | "aspect"
+  | "motion-verbs"
+  | "imperative"
+  | "conditional"
+  | "reflexive-verbs"
+  | "possessives"
+  | "word-order"
   | "default";
 
 const BY_LESSON_ID: Record<string, LessonMotifId> = {
