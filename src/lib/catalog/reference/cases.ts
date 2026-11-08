@@ -93,7 +93,7 @@ export const caseTopics: CaseTopic[] = [
       "Build a phrase showing possession or amount.",
     ],
     forms: endings(
-      "Masculine nouns take **-a** (**brata**) or **-u** (**domu**); learn which with each noun. In the plural, masculine nouns take **-ov**. Feminine and neuter plurals have no ending, and the stem often changes: **rúk**, **miest**.",
+      "Masculine nouns take **-a** (**brata**) or **-u** (**domu**); learn which with each noun. Feminine nouns in **-a** take **-y** (**ruky**), but after a soft consonant they take **-e**: **ulice**, **práce**. The soft consonants are **c**, **dz**, **j** and every consonant with ˇ (**č**, **š**, **ž**, **ľ**, **ň**, **ď**, **ť**, **dž**). The exceptions are few: **večera** is declined like **ulica** (**večere**). In the plural, masculine nouns take **-ov**. Feminine and neuter plurals have no ending, and the stem often changes: **rúk**, **miest**.",
       {
         person: ["brat[a]", "brat[ov]"],
         thing: ["dom[u]", "dom[ov]"],
@@ -132,7 +132,7 @@ export const caseTopics: CaseTopic[] = [
       "Compare a dative recipient with an accusative object.",
     ],
     forms: endings(
-      "Masculine people take **-ovi**, other masculine and neuter nouns **-u**, feminine nouns **-e**. In the plural, masculine nouns take **-om**; feminine and neuter nouns take **-ám**.",
+      "Masculine people take **-ovi**, other masculine and neuter nouns **-u**, feminine nouns **-e** (**ruke**), or **-i** after a soft consonant (**ulici**, **práci**; the soft consonants are listed under the genitive). **Večera** is an exception and takes **-i**: **večeri**. In the plural, masculine nouns take **-om**; feminine and neuter nouns take **-ám**.",
       {
         person: ["brat[ovi]", "brat[om]"],
         thing: ["dom[u]", "dom[om]"],
@@ -216,7 +216,7 @@ export const caseTopics: CaseTopic[] = [
       "Find a sentence using **o** for its topic.",
     ],
     forms: endings(
-      "Masculine people take **-ovi**. Other singular nouns take **-e**; after **k**, **g**, **h**, and **ch**, masculine nouns take **-u**: **v parku**. In the plural, masculine nouns take **-och**; feminine and neuter nouns take **-ách**.",
+      "Masculine people take **-ovi**. Other singular nouns take **-e**; feminine nouns after a soft consonant take **-i** (**o ulici**, **o práci**; **o večeri** is an exception), and after **k**, **g**, **h**, and **ch**, masculine nouns take **-u**: **v parku**. In the plural, masculine nouns take **-och**; feminine and neuter nouns take **-ách**.",
       {
         person: ["brat[ovi]", "brat[och]"],
         thing: ["dom[e]", "dom[och]"],
