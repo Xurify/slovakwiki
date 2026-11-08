@@ -793,7 +793,7 @@
                   →
                 </span>
 
-                <span class="sr-only">{heads[1]}:</span>
+                <span class="sr-only" lang="en">{heads[1]}:</span>
 
                 {#if prefix}
                   {@render marked(prefix)}
