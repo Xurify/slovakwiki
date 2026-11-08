@@ -188,6 +188,8 @@ interface GrammarPatternShared {
 /** Labelled lines, verb paradigms, and arrow rows. */
 export interface GrammarLinePattern extends GrammarPatternShared {
   lines: string[];
+  /** Heads for the two columns of rows; rows with an English gloss default to Slovak and English. */
+  heads?: [string, string];
 }
 
 /** A table. Cells are data, not a comma-split string. */

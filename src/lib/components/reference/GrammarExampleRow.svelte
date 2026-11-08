@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { moreLinkClass } from "$lib/components/ui/system-ui";
   import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
 
   import GrammarRichText from "$lib/components/reference/GrammarRichText.svelte";
@@ -30,36 +29,36 @@
      then the bit worth noticing. A second column would turn the list into a
      table, and the notes would line up with nothing. -->
 <li>
-  <GrammarSentence {audioKey} reserveAudio={reserveAudioColumn} english={example.english}>
-    {#each parts as part, index (index)}
-      {#if part.highlighted}
-        <span class={grammarEndingClass}>{part.text}</span>
-      {:else}
-        {part.text}
-      {/if}
-    {/each}
-  </GrammarSentence>
+  <div class="flex items-start justify-between gap-x-4">
+    <GrammarSentence {audioKey} reserveAudio={reserveAudioColumn} english={example.english}>
+      {#each parts as part, index (index)}
+        {#if part.highlighted}
+          <span class={grammarEndingClass}>{part.text}</span>
+        {:else}
+          {part.text}
+        {/if}
+      {/each}
+    </GrammarSentence>
+
+    {#if practiceHref}
+      <a
+        class="group inline-flex shrink-0 items-center gap-1 pt-1.5 text-sm font-semibold text-blue-800 no-underline hover:underline"
+        href={practiceHref}
+      >
+        Practice
+        <ArrowRight />
+      </a>
+    {/if}
+  </div>
 
   {#if example.demonstrates}
-    <!-- The rule sits on the sentence's own left edge, so the note reads as a
-         remark about the line above rather than a third translation of it. -->
     <p
       class={cx(
-        "m-0 mt-2 max-w-[65ch] border-l-2 border-slate-200 pl-3 text-[0.8125rem] leading-relaxed text-pretty text-slate-500",
+        "m-0 mt-1.5 max-w-[60ch] text-sm leading-relaxed text-pretty text-slate-600",
         reserveAudioColumn && "ml-10",
       )}
     >
       <GrammarRichText text={example.demonstrates} />
     </p>
-  {/if}
-
-  {#if practiceHref}
-    <a
-      class={cx(moreLinkClass, "mt-1.5", reserveAudioColumn && "ml-10")}
-      href={practiceHref}
-    >
-      Practice
-      <ArrowRight />
-    </a>
   {/if}
 </li>

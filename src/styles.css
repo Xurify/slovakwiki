@@ -358,7 +358,7 @@
     --paper: #1e293b;
     --surface: #1e293b;
     --surface-subtle: #172033;
-    --surface-selected: #1e3a8a;
+    --surface-selected: color-mix(in srgb, var(--blue) 12%, var(--surface));
     /* Lift off surface panels (clock drill, modals) so secondary CTAs read. */
     --control: #334155;
     --control-hover: #1e3a8a;
@@ -373,11 +373,12 @@
     --mark-day: #f0c674;
     --mark-time: #4a9fc4;
     --accent-strong: #93c5fd;
-    --accent-soft: #1e3a8a;
+    /* A tint of the accent on the surface, not blue-900: the old fill read as a flat royal-blue band and the 4.5:1 muted text on it is only just met at 12%. */
+    --accent-soft: color-mix(in srgb, var(--blue) 12%, var(--surface));
     --action: #e07068;
     --action-strong: #f09088;
     --blue: #60a5fa;
-    --blue-light: #1e3a8a;
+    --blue-light: color-mix(in srgb, var(--blue) 18%, var(--surface));
     --red: #e07068;
     --red-light: color-mix(in srgb, #3a2528 80%, var(--red) 20%);
     --red-mid: color-mix(in srgb, var(--action) 68%, var(--red-light));
