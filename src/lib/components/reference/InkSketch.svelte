@@ -1,5 +1,11 @@
 <script lang="ts">
-  import { caseSketchParts, type Tone } from "$lib/components/reference/ink/case-sketches";
+  import { cx } from "$lib/ui/classes";
+
+  import {
+    markedParts,
+    sketchParts,
+    type Tone,
+  } from "$lib/components/reference/ink/sketches";
 
   let {
     slug,
@@ -11,8 +17,16 @@
     class?: string;
   } = $props();
 
-  const parts = $derived(caseSketchParts(slug));
+  const parts = $derived(sketchParts(slug));
   const filterId = $derived(`ink-${slug}`);
+
+  const noteSize = { tiny: "text-[9px]",
+    small: "text-[11px]", normal: "text-[15px]", large: "text-[22px]" } as const;
+  const noteTone: Record<Tone, string> = {
+    ink: "fill-slate-900",
+    soft: "fill-slate-500",
+    mark: "fill-blue-800",
+  };
 
   const toneClass: Record<Tone, string> = {
     ink: "stroke-slate-900",
@@ -62,10 +76,12 @@
           x={part.x}
           y={part.y}
           text-anchor="middle"
-          class="fill-slate-900 font-serif text-[15px] font-semibold"
-        >
-          {part.text}
-        </text>
+          class={cx(
+            "font-serif font-semibold",
+            noteSize[part.size],
+            noteTone[part.tone],
+          )}
+        >{#each markedParts(part.text) as piece, index (index)}<tspan class={piece.marked ? "fill-blue-800" : undefined}>{piece.text}</tspan>{/each}</text>
       {/if}
     {/each}
   </g>

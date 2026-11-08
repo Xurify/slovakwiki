@@ -14,6 +14,7 @@
   import GrammarPatternList from "$lib/components/reference/GrammarPatternList.svelte";
   import GrammarRichText from "$lib/components/reference/GrammarRichText.svelte";
   import GrammarWatchOut from "$lib/components/reference/GrammarWatchOut.svelte";
+  import InkSketchFigure from "$lib/components/reference/InkSketchFigure.svelte";
   import { episodeForGrammarSlug, episodePath } from "$lib/catalog/listening";
   import { practiceItemHref } from "$lib/catalog/practice";
   import { grammarEntries } from "$lib/catalog/reference/grammar";
@@ -153,6 +154,10 @@
         </p>
 
         <Lead class="max-w-[60ch] text-pretty">{topic.summary}</Lead>
+
+        {#if topic.sketch}
+          <InkSketchFigure slug={topic.slug} sketch={topic.sketch} />
+        {/if}
       </header>
 
       <aside

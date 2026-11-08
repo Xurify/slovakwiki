@@ -4,7 +4,7 @@
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
-  import CaseSketch from "$lib/components/reference/CaseSketch.svelte";
+  import InkSketchFigure from "$lib/components/reference/InkSketchFigure.svelte";
   import GrammarCaseMap from "$lib/components/reference/GrammarCaseMap.svelte";
   import GrammarExampleList from "$lib/components/reference/GrammarExampleList.svelte";
   import GrammarPatternList from "$lib/components/reference/GrammarPatternList.svelte";
@@ -14,7 +14,6 @@
     grammarIntroClass,
     grammarProseClass,
   } from "$lib/components/reference/grammar-topic-ui";
-  import { markedParts } from "$lib/components/reference/ink/case-sketches";
   import { caseTopics } from "$lib/catalog/entries";
   import { grammarEntries } from "$lib/catalog/reference/grammar";
   import type { CaseTopic } from "$lib/catalog/types";
@@ -77,21 +76,7 @@
     </header>
 
     {#if topic.sketch}
-      <figure class="m-0 mt-6 rounded-(--frame-radius) bg-surface px-4 pt-5 pb-5 shadow-(--shadow-border)">
-        <CaseSketch
-          slug={topic.slug}
-          label={topic.sketch.alt}
-          class="mx-auto block h-auto w-full max-w-sm"
-        />
-        <figcaption class="mt-3 text-center">
-          <span class="block font-serif text-2xl text-balance text-slate-900" lang="sk">
-            {#each markedParts(topic.sketch.sentence) as part, index (index)}
-              {#if part.marked}<span class="text-blue-800">{part.text}</span>{:else}{part.text}{/if}
-            {/each}
-          </span>
-          <span class="mt-0.5 block text-[0.95rem] text-slate-600">{topic.sketch.english}</span>
-        </figcaption>
-      </figure>
+      <InkSketchFigure slug={topic.slug} sketch={topic.sketch} />
     {/if}
 
     <section id="role" class="mt-8" aria-labelledby="role-heading">

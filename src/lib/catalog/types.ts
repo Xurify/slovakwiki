@@ -317,6 +317,13 @@ export interface CaseReference {
   slug: string;
 }
 
+/** The ink sketch at the top of a grammar page: its sentence (the word to light between ** **), the English, and the picture in words. */
+export interface InkSketchCaption {
+  alt: string;
+  english: string;
+  sentence: string;
+}
+
 export interface CaseTopic {
   body: string[];
   examples: Example[];
@@ -326,8 +333,7 @@ export interface CaseTopic {
   otherForms?: GrammarTablePattern;
   /** Named words that break the rules above, one short line each. */
   exceptions?: string[];
-  /** The ink sketch at the top of the page: its sentence (the word to light between ** **), the English, and the picture in words. */
-  sketch?: { sentence: string; english: string; alt: string };
+  sketch?: InkSketchCaption;
   name: string;
   /** Slovak grammar term for the case (genitív). */
   slovakName: string;
@@ -341,6 +347,7 @@ export interface CaseTopic {
 
 export interface GrammarTopic extends ContentEntry {
   caseOverview?: CaseReference[];
+  sketch?: InkSketchCaption;
   /** Minimal pairs that show when to pick each form. */
   contrasts?: GrammarContrastSet;
   kind: "grammar";

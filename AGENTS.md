@@ -18,6 +18,7 @@ Domain-specific authoring and pipelines live next to the work — not here:
 | FOUC / blocking pre-paint boots             | [`src/lib/fouc/README.md`](src/lib/fouc/README.md)                          |
 | UI, styling, hydration, loading states      | [`src/AGENTS.md`](src/AGENTS.md)                                            |
 | Slovak linguistic accuracy                  | [`slovak-language` skill](.agents/skills/slovak-language/SKILL.md)          |
+| Draw a picture for a grammar page           | [`ink-drawing` skill](.agents/skills/ink-drawing/SKILL.md)                  |
 
 **Don't stop to ask.** Never end a turn on a question unless the step cannot be undone: take the option you would recommend, say which, and go on. A ready prototype once waited 3.5 hours for a go-ahead nobody needed. Taking away something learners already have is the exception (Pull requests → **Removed**).
 
