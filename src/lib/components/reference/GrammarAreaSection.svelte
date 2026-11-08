@@ -4,6 +4,9 @@
   import SectionHead from "$lib/components/ui/SectionHead.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
 
+  import GrammarCaseMap from "$lib/components/reference/GrammarCaseMap.svelte";
+  import { grammarHeadingClass } from "$lib/components/reference/grammar-topic-ui";
+  import { grammarEntries } from "$lib/catalog/reference/grammar";
   import { grammarExamples } from "$lib/catalog/reference/grammar-pattern";
   import type { GrammarTopic } from "$lib/catalog/types";
 
@@ -18,6 +21,9 @@
     purpose: string;
     topics: GrammarTopic[];
   } = $props();
+
+  const caseLinks =
+    grammarEntries.find((topic) => topic.slug === "cases-overview")?.caseOverview ?? [];
 
   const exampleCount = $derived(
     topics.reduce((total, topic) => total + grammarExamples(topic).length, 0),
@@ -53,4 +59,18 @@
       <GrammarPathStep {topic} step={index + 1} />
     {/each}
   </ol>
+
+  {#if title === "Nouns" && caseLinks.length > 0}
+    <div class="mt-8">
+      <h3 class={grammarHeadingClass}>Looking for a case?</h3>
+
+      <p class="m-0 mt-1.5 text-sm text-slate-600">
+        Each case has its own page with the endings, examples and exercises.
+      </p>
+
+      <div class="mt-3">
+        <GrammarCaseMap cases={caseLinks} compact />
+      </div>
+    </div>
+  {/if}
 </section>

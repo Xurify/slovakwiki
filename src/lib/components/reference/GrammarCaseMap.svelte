@@ -6,8 +6,11 @@
   let {
     cases,
     current,
+    compact = false,
   }: {
     cases: CaseReference[];
+    /** Names and roles only, for a list that links on to the full page. */
+    compact?: boolean;
     /** Slug of the case being read, marked in the list. */
     current?: string;
   } = $props();
@@ -60,7 +63,7 @@
             {/if}
           </span>
 
-          {#if item.explanation}
+          {#if item.explanation && !compact}
             <span class="mt-0.5 block text-sm leading-relaxed text-slate-600">
               <GrammarRichText text={item.explanation} />
             </span>

@@ -1856,8 +1856,24 @@ export const grammarEntries: GrammarTopic[] = [
       "Start by recognizing nominative subjects and accusative direct objects. Add other cases with common prepositions and phrases.",
     ],
     examples: [
-      { slovak: "Mám kávu.", english: "I have coffee." },
-      { slovak: "Bývam v meste.", english: "I live in the city." },
+      {
+        slovak: "Peter číta knihu.",
+        english: "Peter is reading a book.",
+        demonstrates:
+          "**Peter** is the subject, so it keeps its dictionary form (nominative). **knihu** is the object: the dictionary form is **kniha**, and the ending changed to **-u** (accusative).",
+      },
+      {
+        slovak: "Mám kávu.",
+        english: "I have coffee.",
+        demonstrates:
+          "**kávu** is the thing I have (accusative). The dictionary form is **káva**.",
+      },
+      {
+        slovak: "Bývam v meste.",
+        english: "I live in the city.",
+        demonstrates:
+          "**meste** is a place after **v** (locative). The dictionary form is **mesto**.",
+      },
     ],
     related: ["kava", "mesto", "grammatical-gender"],
     source: languageSource,

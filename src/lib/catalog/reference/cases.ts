@@ -62,7 +62,7 @@ export const caseTopics: CaseTopic[] = [
       {
         slovak: "Peter číta knihu.",
         english: "Peter is reading a book.",
-        demonstrates: "Peter is nominative because he performs the action.",
+        demonstrates: "**Peter** is nominative because he performs the action.",
       },
       {
         slovak: "Mesto je veľké.",
