@@ -17,9 +17,21 @@ export const grammarEntries: GrammarTopic[] = [
       "Masculine nouns also have animacy: **animate** nouns are people and animals (**brat**, **pes**), **inanimate** nouns are things (**dom**). It changes the accusative: **Vidím brata**, but **Vidím dom**.",
     ],
     examples: [
-      { slovak: "dobrý muž", english: "a good man" },
-      { slovak: "dobrá žena", english: "a good woman" },
-      { slovak: "dobré mesto", english: "a good city" },
+      {
+        slovak: "dobrý muž",
+        english: "a good man",
+        demonstrates: "**dobrý** ends in **-ý** because **muž** is masculine.",
+      },
+      {
+        slovak: "dobrá žena",
+        english: "a good woman",
+        demonstrates: "**dobrá** ends in **-á** because **žena** is feminine.",
+      },
+      {
+        slovak: "dobré mesto",
+        english: "a good city",
+        demonstrates: "**dobré** ends in **-é** because **mesto** is neuter.",
+      },
     ],
     related: ["muz", "zena", "mesto"],
     source: languageSource,
@@ -57,11 +69,14 @@ export const grammarEntries: GrammarTopic[] = [
         slovak: "Mám dvadsať rokov.",
         english: "I am twenty years old.",
         practiceItemId: "everyday/age-with-rokov",
+        demonstrates:
+          "After **dvadsať** (5 and up) the noun is genitive plural: **rokov**.",
       },
       {
         slovak: "Stojí to päť eur.",
         english: "It costs five euros.",
         practiceItemId: "everyday/how-much-does-it-cost",
+        demonstrates: "After **päť** the noun is genitive plural: **eur**.",
       },
     ],
     related: ["grammatical-gender", "questions", "kolko", "mat-present", "telling-time"],
@@ -98,8 +113,18 @@ export const grammarEntries: GrammarTopic[] = [
       "Learn common verbs as full patterns. For rozumieť: rozumiem, rozumieš, rozumie, rozumieme, rozumiete, rozumejú.",
     ],
     examples: [
-      { slovak: "Rozumiem.", english: "I understand." },
-      { slovak: "Hovoríte po slovensky?", english: "Do you speak Slovak?" },
+      {
+        slovak: "Rozumiem.",
+        english: "I understand.",
+        demonstrates:
+          "**Rozumiem** is the **ja** form (I). The ending **-iem** shows who understands, so **ja** is left out.",
+      },
+      {
+        slovak: "Hovoríte po slovensky?",
+        english: "Do you speak Slovak?",
+        demonstrates:
+          "**Hovoríte** is the **vy** form (you, plural or formal) of **hovoriť**, with the ending **-íte**.",
+      },
       {
         slovak: "Čítam knihu.",
         english: "I am reading a book.",
@@ -151,16 +176,22 @@ export const grammarEntries: GrammarTopic[] = [
         slovak: "Som študent.",
         english: "I am a student.",
         practiceItemId: "grammar/byt-som",
+        demonstrates:
+          "**Som** is **byť** (to be) for **ja**. Slovak has no word for *a*: just **študent**.",
       },
       {
         slovak: "Ste z Kanady?",
         english: "Are you from Canada?",
         practiceItemId: "grammar/byt-ste",
+        demonstrates:
+          "**Ste** is **byť** for **vy**. **z Kanady** is genitive: Kanada becomes Kanady.",
       },
       {
         slovak: "Kaviareň je tu.",
         english: "The café is here.",
         practiceItemId: "grammar/byt-je-location",
+        demonstrates:
+          "**je** is **byť** for he, she or it. **Kaviareň** is one thing, so the verb is singular.",
       },
     ],
     related: ["mat-present", "present-tense", "ty-vs-vy", "negation"],
@@ -219,16 +250,21 @@ export const grammarEntries: GrammarTopic[] = [
         slovak: "Mám čas.",
         english: "I have time.",
         practiceItemId: "grammar/mat-mam",
+        demonstrates:
+          "**Mám** is **mať** (to have) for **ja**. **čas** is the thing I have.",
       },
       {
         slovak: "Máš kartu?",
         english: "Do you have a card?",
         practiceItemId: "grammar/mat-mas",
+        demonstrates:
+          "**Máš** is **mať** for **ty**. **kartu** is the thing you have: the dictionary form is **karta**, and the ending changes to **-u**.",
       },
       {
         slovak: "Nemám hotovosť.",
         english: "I do not have cash.",
         practiceItemId: "grammar/mat-nemam",
+        demonstrates: "**Nemám** is **mám** with **ne-** in front, written as one word.",
       },
     ],
     related: ["byt-present", "numbers-and-numerals", "negation", "ty-vs-vy"],
@@ -795,7 +831,12 @@ export const grammarEntries: GrammarTopic[] = [
       "Ísť has its own future: pôjdem, pôjdeš, pôjde. Other one-trip motion verbs can take po- too: ponesiem, poletím, pobežím.",
     ],
     examples: [
-      { slovak: "Budeš doma?", english: "Will you be at home?" },
+      {
+        slovak: "Budeš doma?",
+        english: "Will you be at home?",
+        demonstrates:
+          "**Budeš** is **byť** in the future for **ty**: **budem**, **budeš**, **bude**. **doma** means at home.",
+      },
       {
         slovak: "Budeme čakať pred kinom.",
         english: "We will wait in front of the cinema.",
@@ -1325,7 +1366,12 @@ export const grammarEntries: GrammarTopic[] = [
       "For one request, use the perfective: Zatvor dvere. For “don't”, use the imperfective: Nezatváraj dvere. A warning against an accident keeps the perfective: Nezabudni si kľúče!",
     ],
     examples: [
-      { slovak: "Čítaj nahlas.", english: "Read aloud." },
+      {
+        slovak: "Čítaj nahlas.",
+        english: "Read aloud.",
+        demonstrates:
+          "**Čítaj** is the command for **ty**. For **vy** it is **čítajte**.",
+      },
       {
         slovak: "Pite veľa vody.",
         english: "Drink a lot of water.",
@@ -1506,7 +1552,14 @@ export const grammarEntries: GrammarTopic[] = [
       "In if-sentences, keby already contains by: Keby som mal čas, prišiel by som. Aby works the same way: Povedz mu, aby prišiel.",
       "For something that may really happen, use ak with the future instead: Ak bude pršať, zostaneme doma.",
     ],
-    examples: [{ slovak: "Čo by si robil?", english: "What would you do?" }],
+    examples: [
+      {
+        slovak: "Čo by si robil?",
+        english: "What would you do?",
+        demonstrates:
+          "**by si** comes before **robil**, the past form of **robiť**. **robil** is masculine; to a woman you say **robila**.",
+      },
+    ],
     related: ["chciet", "moct", "mat", "past-tense", "ty-vs-vy"],
     source: languageSource,
     tags: ["verbs", "conditional", "intermediate"],
@@ -1955,19 +2008,37 @@ export const grammarEntries: GrammarTopic[] = [
       "In To je… and To sú…, to stays the same whatever the noun's gender or number; only the verb changes, je for one and sú for more: To je môj brat. To sú moji rodičia.",
     ],
     examples: [
-      { slovak: "Táto taška je moja.", english: "This bag is mine." },
-      { slovak: "Toto mesto je krásne.", english: "This town is beautiful." },
+      {
+        slovak: "Táto taška je moja.",
+        english: "This bag is mine.",
+        demonstrates: "**Táto** agrees with **taška**, which is feminine.",
+      },
+      {
+        slovak: "Toto mesto je krásne.",
+        english: "This town is beautiful.",
+        demonstrates: "**Toto** agrees with **mesto**, which is neuter.",
+      },
       {
         slovak: "Tí chlapci hrajú futbal.",
         english: "Those boys are playing football.",
+        demonstrates: "**Tí** is the plural of **ten** for male people: **chlapci**.",
       },
       {
         slovak: "Tieto kľúče sú moje.",
         english: "These keys are mine.",
         demonstrates: "**Kľúč** is masculine, but keys are not people, so **tieto**.",
       },
-      { slovak: "Kto je ten muž?", english: "Who is that man?" },
-      { slovak: "To sú moji rodičia.", english: "These are my parents." },
+      {
+        slovak: "Kto je ten muž?",
+        english: "Who is that man?",
+        demonstrates: "**ten** goes with **muž**, which is masculine.",
+      },
+      {
+        slovak: "To sú moji rodičia.",
+        english: "These are my parents.",
+        demonstrates:
+          "**To** stays the same when it means this is or these are, whatever follows.",
+      },
     ],
     related: ["grammatical-gender", "cases-overview", "dievca", "dieta"],
     source: languageSource,
@@ -2583,11 +2654,16 @@ export const grammarEntries: GrammarTopic[] = [
       "Jeho, jej, and ich never change, even after a preposition: s jeho bratom. Svoj means the subject's own. Use it when the owner is the subject of the same sentence: Anna hľadá svoje kľúče. Jej kľúče would be another woman's keys.",
     ],
     examples: [
-      { slovak: "Tvoj byt je krásny.", english: "Your flat is beautiful." },
+      {
+        slovak: "Tvoj byt je krásny.",
+        english: "Your flat is beautiful.",
+        demonstrates: "**Tvoj** agrees with **byt**, which is masculine.",
+      },
       {
         slovak: "To je moja sestra.",
         english: "This is my sister.",
         practiceItemId: "grammar/possessive-agreement",
+        demonstrates: "**moja** agrees with **sestra**, which is feminine.",
       },
       {
         slovak: "To sú moji priatelia.",
@@ -2910,8 +2986,18 @@ export const grammarEntries: GrammarTopic[] = [
       "Place known information earlier and new or emphasized information later. Put unstressed short words such as som, sa, mi, and ho in second place, after the first word or phrase: Včera som ho videl.",
     ],
     examples: [
-      { slovak: "Peter číta knihu.", english: "Peter is reading a book." },
-      { slovak: "Knihu číta Peter.", english: "It is Peter who is reading the book." },
+      {
+        slovak: "Peter číta knihu.",
+        english: "Peter is reading a book.",
+        demonstrates:
+          "The subject comes first: **Peter** does the reading, **knihu** is the object.",
+      },
+      {
+        slovak: "Knihu číta Peter.",
+        english: "It is Peter who is reading the book.",
+        demonstrates:
+          "**Knihu** comes first for emphasis. The endings still show who does what: **Peter** is still the reader.",
+      },
     ],
     related: ["present-tense", "cases-overview", "ty-vs-vy"],
     source: languageSource,
@@ -2948,14 +3034,18 @@ export const grammarEntries: GrammarTopic[] = [
         slovak: "Ako sa máte?",
         english: "How are you? (formal)",
         practiceItemId: "everyday/formal-greeting",
+        demonstrates:
+          "**máte** is the **vy** form: one person you address politely, or several people.",
       },
       {
         slovak: "Prepáč, nerozumiem.",
         english: "Sorry, I do not understand. (informal)",
+        demonstrates: "**Prepáč** is the **ty** form (informal).",
       },
       {
         slovak: "Prepáčte, nerozumiem.",
         english: "Sorry, I do not understand. (formal)",
+        demonstrates: "**Prepáčte** is the **vy** form (formal).",
       },
     ],
     related: ["questions", "word-order", "byt-present", "mat-present"],
@@ -3053,16 +3143,20 @@ export const grammarEntries: GrammarTopic[] = [
         slovak: "Nie, ďakujem.",
         english: "No, thank you.",
         practiceItemId: "everyday/negative-answer",
+        demonstrates: "**Nie** means no. It stands alone, not joined to a verb.",
       },
       {
         slovak: "Nerozumiem.",
         english: "I do not understand.",
         practiceItemId: "everyday/not-understand",
+        demonstrates: "**Ne-** goes in front of the verb, written as one word.",
       },
       {
         slovak: "Nemám čas.",
         english: "I do not have time.",
         practiceItemId: "everyday/negative-verb-placement",
+        demonstrates:
+          "**Nemám** is **mám** with **ne-**. The object **čas** stays as it was.",
       },
     ],
     related: ["word-order", "questions", "nie", "rozumiem", "byt-present", "mat-present"],
@@ -3116,16 +3210,21 @@ export const grammarEntries: GrammarTopic[] = [
         slovak: "Odkiaľ ste?",
         english: "Where are you from?",
         practiceItemId: "everyday/ask-origin",
+        demonstrates:
+          "**Odkiaľ** asks where from. The answer uses **z** and the genitive: **Som z Kanady**.",
       },
       {
         slovak: "Koľko to stojí?",
         english: "How much does it cost?",
         practiceItemId: "everyday/how-much-does-it-cost",
+        demonstrates: "**Koľko** asks how much. The answer is a number: **päť eur**.",
       },
       {
         slovak: "O koľkej?",
         english: "At what time?",
         practiceItemId: "everyday/meeting-time",
+        demonstrates:
+          "**O koľkej** asks at what time. The answer uses **o** and the locative: **o tretej**.",
       },
     ],
     related: [
@@ -3180,30 +3279,40 @@ export const grammarEntries: GrammarTopic[] = [
       {
         slovak: "Koľko je hodín?",
         english: "What time is it?",
+        demonstrates:
+          "**hodín** is the genitive plural of **hodina**: literally how many of hours.",
       },
       {
         slovak: "Sú tri hodiny.",
         english: "It is three o’clock.",
+        demonstrates:
+          "After **tri** the noun is nominative plural: **hodiny**. The verb is plural too: **sú**.",
       },
       {
         slovak: "Je pol tretej.",
         english: "It is half past two.",
         practiceItemId: "everyday/half-past-time",
+        demonstrates: "**pol tretej** names the next hour: half past two.",
       },
       {
         slovak: "Stretneme sa o tretej.",
         english: "We will meet at three.",
         practiceItemId: "everyday/meeting-time",
+        demonstrates: "**o tretej** is **o** with the locative, for a time on the clock.",
       },
       {
         slovak: "Zavolám ti o dve hodiny.",
         english: "I will call you in two hours.",
         practiceItemId: "everyday/o-duration",
+        demonstrates:
+          "**o dve hodiny** is accusative and means in two hours, a length of time. A time on the clock takes the locative: **o tretej**.",
       },
       {
         slovak: "Je trištvrte na tri.",
         english: "It is quarter to three.",
         practiceItemId: "everyday/quarter-time",
+        demonstrates:
+          "**trištvrte na tri** is three quarters of the way to three: a quarter to three.",
       },
     ],
     related: ["numbers-and-numerals", "questions", "kolko"],
