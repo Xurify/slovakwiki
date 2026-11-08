@@ -28,7 +28,6 @@ export const CASE_SCENES: Record<string, () => SketchPart[]> = {
     ...office(85, 12),
     footprints(130, 180, 40),
     ...person(210, 22, { walking: true }),
-    ...faceEye(210, 24),
     ...briefcase(191, 88, 45),
     note(168, 126, "**z** práce"),
   ],
