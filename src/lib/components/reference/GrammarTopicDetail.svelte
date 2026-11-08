@@ -1,12 +1,11 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
 
+  import MotifBanner from "$lib/components/lessons/MotifBanner.svelte";
   import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
-  import Eyebrow from "$lib/components/ui/Eyebrow.svelte";
+  import Lead from "$lib/components/ui/Lead.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
-  import { dataPanelClass } from "$lib/components/ui/data-list-ui";
-  import { eyebrowMutedClass } from "$lib/components/ui/system-ui";
 
   import GrammarCaseMap from "$lib/components/reference/GrammarCaseMap.svelte";
   import GrammarContrastList from "$lib/components/reference/GrammarContrastList.svelte";
@@ -15,15 +14,10 @@
   import GrammarPatternList from "$lib/components/reference/GrammarPatternList.svelte";
   import GrammarRichText from "$lib/components/reference/GrammarRichText.svelte";
   import GrammarWatchOut from "$lib/components/reference/GrammarWatchOut.svelte";
-  import {
-    grammarHeadingClass,
-    grammarIntroClass,
-    grammarProseClass,
-    grammarSectionHeadingClass,
-  } from "$lib/components/reference/grammar-topic-ui";
   import { episodeForGrammarSlug, episodePath } from "$lib/catalog/listening";
   import { practiceItemHref } from "$lib/catalog/practice";
   import { grammarEntries } from "$lib/catalog/reference/grammar";
+  import { grammarMotifId } from "$lib/catalog/reference/grammar-motifs";
   import {
     grammarGroupAnchor,
     grammarNeighbors,
@@ -31,7 +25,6 @@
   import { grammarExamples, patternAnchor } from "$lib/catalog/reference/grammar-pattern";
   import { sentenceCase } from "$lib/catalog/search/ui";
   import type { EntryKind, GrammarTopic } from "$lib/catalog/types";
-  import { cx } from "$lib/ui/classes";
 
   interface RelatedEntry {
     english: string;
@@ -55,17 +48,6 @@
     clockDrill?: Snippet;
     weakSpots?: Snippet;
   } = $props();
-
-  // Subgrid lines the explanations up in one column, whatever each term's width.
-  const termListClass = "m-0 mt-4 grid sm:grid-cols-[max-content_minmax(0,1fr)]";
-
-  const termRowClass = cx(
-    "grid scroll-mt-24 gap-x-8 gap-y-2 border-b border-slate-200/70 px-4 py-4 last:border-b-0",
-    "sm:col-span-2 sm:grid-cols-subgrid sm:px-5",
-  );
-
-  const relatedRowClass =
-    "grid scroll-mt-24 grid-cols-[7.5rem_minmax(0,1fr)] items-baseline gap-x-4 max-[560px]:grid-cols-1 max-[560px]:gap-y-1.5";
 
   const isTime = $derived(topic.slug === "telling-time");
   const terms = $derived(topic.termSections ?? []);
@@ -102,6 +84,32 @@
 
   const episode = $derived(episodeForGrammarSlug(topic.slug));
 
+  const studyLinks = $derived(
+    [
+      topic.lessonLink && {
+        href: topic.lessonLink.href,
+        kind: "Lesson",
+        title: topic.lessonLink.label,
+        sk: false,
+      },
+      practiceHref && {
+        href: practiceHref,
+        kind: "Practice",
+        title: "Exercises on these forms",
+        sk: false,
+      },
+      episode && {
+        href: episodePath(episode),
+        kind: "Listen",
+        title: episode.titleSk,
+        sk: true,
+      },
+    ].filter(
+      (link): link is { href: string; kind: string; title: string; sk: boolean } =>
+        Boolean(link),
+    ),
+  );
+
   const hasRelated = $derived(words.length > 0 || relatedTopics.length > 0);
 
   const contents = $derived(
@@ -125,17 +133,12 @@
   );
 </script>
 
-<main class="py-10 pb-20 max-[600px]:py-8">
-  <PageShell class="max-w-[680px] min-[1180px]:max-w-none">
-    <div
-      class={cx(
-        "min-[1180px]:grid min-[1180px]:gap-x-10",
-        "min-[1180px]:grid-cols-[minmax(0,1fr)_minmax(0,680px)_minmax(0,1fr)]",
-      )}
-    >
-      <header class="min-[1180px]:col-start-2">
+<main class="py-12 pb-20 max-[600px]:py-8">
+  <PageShell class="max-w-[1080px]">
+    <div class="grid gap-x-12 gap-y-10 lg:grid-cols-[minmax(0,1fr)_17.5rem]">
+      <header class="min-w-0 lg:col-start-1">
         <nav
-          class="mb-4 flex flex-wrap gap-2 text-xs text-slate-500"
+          class="mb-5 flex flex-wrap gap-2 text-xs text-slate-500"
           aria-label="Breadcrumb"
         >
           <TextLink href="/grammar">Grammar</TextLink>
@@ -143,81 +146,90 @@
           <TextLink href={areaHref}>{topic.pathGroup}</TextLink>
         </nav>
 
-        <h1 class="m-0 text-[1.85rem] leading-tight text-balance sm:text-[2.15rem]">
-          {sentenceCase(topic.english)}
-        </h1>
+        <h1 class="text-balance">{sentenceCase(topic.english)}</h1>
 
-        <p class="m-0 mt-1 font-serif text-xl text-blue-800" lang="sk">{topic.slovak}</p>
-
-        <p
-          class="m-0 mt-4 max-w-[60ch] text-lg leading-relaxed text-pretty text-slate-700"
-        >
-          {topic.summary}
+        <p class="m-0 mt-2 font-serif text-2xl leading-snug text-blue-800" lang="sk">
+          {topic.slovak}
         </p>
 
-        {#if topic.lessonLink || practiceHref || episode}
-          <p class="m-0 mt-5 flex flex-wrap gap-x-6 gap-y-2">
-            {#if topic.lessonLink}
-              <TextLink
-                href={topic.lessonLink.href}
-                class="inline-flex items-center gap-1.5"
-              >
-                Lesson: {topic.lessonLink.label}
-                <ArrowRight />
-              </TextLink>
-            {/if}
-
-            {#if practiceHref}
-              <TextLink href={practiceHref} class="inline-flex items-center gap-1.5">
-                Practice these forms
-                <ArrowRight />
-              </TextLink>
-            {/if}
-
-            {#if episode}
-              <TextLink
-                href={episodePath(episode)}
-                class="inline-flex items-center gap-1.5"
-              >
-                <span>Listen: <span lang="sk">{episode.titleSk}</span></span>
-                <ArrowRight />
-              </TextLink>
-            {/if}
-          </p>
-        {/if}
+        <Lead class="max-w-[60ch] text-pretty">{topic.summary}</Lead>
       </header>
 
-      <nav
-        class={cx(
-          "sticky top-[calc(var(--header-height)+2rem)] hidden w-full max-w-44 self-start justify-self-end",
-          "min-[1180px]:col-start-1 min-[1180px]:row-span-2 min-[1180px]:row-start-2 min-[1180px]:mt-14 min-[1180px]:block",
-        )}
-        aria-label="On this page"
+      <aside
+        class="flex flex-col gap-8 lg:col-start-2 lg:row-span-3 lg:row-start-1"
+        aria-label="Study this topic"
       >
-        <Eyebrow compact tone="muted">On this page</Eyebrow>
+        <div
+          class="overflow-hidden rounded-(--frame-radius) bg-surface shadow-(--shadow-border)"
+        >
+          <div class="relative h-32 overflow-hidden max-lg:h-28">
+            <MotifBanner motif={grammarMotifId(topic.slug)} loading="eager" />
+          </div>
 
-        <ol class="m-0 flex list-none flex-col p-0">
-          {#each contents as item (item.href)}
-            <li>
-              <a
-                class="block py-1.5 font-serif text-sm leading-snug text-pretty text-slate-700 no-underline transition-colors duration-150 ease-out hover:text-blue-800 hover:underline"
-                href={item.href}
-              >
-                {item.label}
-              </a>
-            </li>
-          {/each}
-        </ol>
-      </nav>
+          {#if studyLinks.length > 0}
+            <ul
+              class="m-0 list-none divide-y divide-slate-200/70 border-t border-slate-200/70 p-0"
+            >
+              {#each studyLinks as link (link.href)}
+                <li>
+                  <a
+                    class="group flex items-center justify-between gap-3 px-5 py-3 no-underline transition-colors duration-150 ease-out hover:bg-subtle"
+                    href={link.href}
+                  >
+                    <span class="min-w-0">
+                      <span class="block text-xs text-slate-500">{link.kind}</span>
 
-      <div
-        class="mt-12 flex flex-col gap-12 sm:mt-14 sm:gap-16 min-[1180px]:col-start-2 min-[1180px]:row-start-2"
-      >
+                      <span
+                        class={[
+                          "mt-0.5 block leading-snug text-slate-900 group-hover:text-blue-800",
+                          link.sk ? "font-serif text-base font-semibold" : "text-sm",
+                        ]}
+                        lang={link.sk ? "sk" : undefined}
+                      >
+                        {link.title}
+                      </span>
+                    </span>
+
+                    <ArrowRight class="shrink-0 text-slate-400 group-hover:text-blue-800" />
+                  </a>
+                </li>
+              {/each}
+            </ul>
+          {/if}
+        </div>
+
+        <nav
+          class="sticky top-24 border-l border-slate-200 pl-4 max-lg:hidden"
+          aria-label="On this page"
+        >
+          <p class="m-0 mb-2 text-sm font-semibold text-slate-500">On this page</p>
+
+          <ol class="m-0 flex list-none flex-col p-0">
+            {#each contents as item (item.href)}
+              <li>
+                <a
+                  class="block py-1.5 font-serif text-sm leading-snug text-pretty text-slate-700 no-underline transition-colors duration-150 ease-out hover:text-blue-800 hover:underline"
+                  href={item.href}
+                >
+                  {item.label}
+                </a>
+              </li>
+            {/each}
+          </ol>
+        </nav>
+      </aside>
+
+      <div class="flex min-w-0 flex-col gap-14 sm:gap-20 lg:col-start-1">
         {#if topic.caseOverview}
           <section class="scroll-mt-24" aria-labelledby="cases">
-            <h2 id="cases" class={grammarSectionHeadingClass}>The six cases</h2>
+            <h2
+              id="cases"
+              class="m-0 font-serif text-2xl tracking-tight text-balance text-slate-900 sm:text-[1.75rem]"
+            >
+              The six cases
+            </h2>
 
-            <p class="{grammarIntroClass} mt-1.5 mb-4">
+            <p class="m-0 mt-2 mb-5 max-w-[65ch] text-base leading-relaxed text-slate-600">
               Learn the nominative first. The rest is a map of common roles — open a case
               for its examples.
             </p>
@@ -225,7 +237,7 @@
             <GrammarCaseMap cases={topic.caseOverview} />
 
             {#if topic.examples.length > 0}
-              <div class="mt-8">
+              <div class="mt-10">
                 <GrammarExampleList
                   examples={topic.examples}
                   {audioKeys}
@@ -236,15 +248,20 @@
           </section>
         {:else}
           <section class="scroll-mt-24" aria-labelledby="pattern">
-            <h2 id="pattern" class={grammarSectionHeadingClass}>{topic.pattern.label}</h2>
+            <h2
+              id="pattern"
+              class="m-0 font-serif text-2xl tracking-tight text-balance text-slate-900 sm:text-[1.75rem]"
+            >
+              {topic.pattern.label}
+            </h2>
 
             {#if topic.pattern.intro}
-              <p class="{grammarIntroClass} mt-1.5">
+              <p class="m-0 mt-2 max-w-[65ch] text-base leading-relaxed text-slate-600">
                 <GrammarRichText text={topic.pattern.intro} />
               </p>
             {/if}
 
-            <div class="mt-4">
+            <div class="mt-6">
               <GrammarPatternList
                 pattern={topic.pattern}
                 examples={topic.examples}
@@ -256,17 +273,20 @@
 
           {#each topic.morePatterns ?? [] as extra, index (extra.label)}
             <section class="scroll-mt-24" aria-labelledby={patternAnchor(extra.label)}>
-              <h2 id={patternAnchor(extra.label)} class={grammarSectionHeadingClass}>
+              <h2
+                id={patternAnchor(extra.label)}
+                class="m-0 font-serif text-2xl tracking-tight text-balance text-slate-900 sm:text-[1.75rem]"
+              >
                 {extra.label}
               </h2>
 
               {#if extra.intro}
-                <p class="{grammarIntroClass} mt-1.5">
+                <p class="m-0 mt-2 max-w-[65ch] text-base leading-relaxed text-slate-600">
                   <GrammarRichText text={extra.intro} />
                 </p>
               {/if}
 
-              <div class="mt-4">
+              <div class="mt-6">
                 <GrammarPatternList
                   pattern={extra}
                   examples={extra.examples}
@@ -279,18 +299,38 @@
         {/if}
 
         <section id="rule" class="scroll-mt-24" aria-labelledby="rule-heading">
-          <h2 id="rule-heading" class={grammarSectionHeadingClass}>How it works</h2>
+          <h2
+            id="rule-heading"
+            class="m-0 font-serif text-2xl tracking-tight text-balance text-slate-900 sm:text-[1.75rem]"
+          >
+            How it works
+          </h2>
 
-          <div class="mt-4 flex flex-col gap-3">
-            {#each topic.rule as paragraph (paragraph)}
-              <p class={grammarProseClass}><GrammarRichText text={paragraph} /></p>
+          <ol class="m-0 mt-6 flex list-none flex-col gap-4 p-0">
+            {#each topic.rule as paragraph, index (paragraph)}
+              <li class="grid grid-cols-[1.75rem_minmax(0,1fr)] items-baseline gap-x-3">
+                <span
+                  class="font-serif text-lg leading-none font-semibold text-slate-400 tabular-nums"
+                  aria-hidden="true"
+                >
+                  {index + 1}
+                </span>
+
+                <p
+                  class="m-0 max-w-[65ch] text-[1.0625rem] leading-relaxed text-pretty text-slate-800"
+                >
+                  <GrammarRichText text={paragraph} />
+                </p>
+              </li>
             {/each}
-          </div>
+          </ol>
 
-          <div class="mt-6 rounded-(--frame-radius) bg-subtle px-4 py-3.5 sm:px-5">
-            <p class={eyebrowMutedClass}>When you read</p>
+          <div
+            class="mt-8 rounded-(--frame-radius) bg-subtle px-5 py-4 sm:ml-[2.5rem] sm:px-6"
+          >
+            <p class="m-0 text-sm font-semibold text-slate-500">When you read</p>
 
-            <p class="{grammarProseClass} mt-1">
+            <p class="m-0 mt-1.5 max-w-[65ch] text-base leading-relaxed text-slate-800">
               <GrammarRichText text={topic.lookFor} />
             </p>
           </div>
@@ -298,17 +338,20 @@
 
         {#if topic.contrasts}
           <section id="contrasts" class="scroll-mt-24" aria-labelledby="contrasts-heading">
-            <h2 id="contrasts-heading" class={grammarSectionHeadingClass}>
+            <h2
+              id="contrasts-heading"
+              class="m-0 font-serif text-2xl tracking-tight text-balance text-slate-900 sm:text-[1.75rem]"
+            >
               {topic.contrasts.label}
             </h2>
 
             {#if topic.contrasts.intro}
-              <p class="{grammarIntroClass} mt-1.5">
+              <p class="m-0 mt-2 max-w-[65ch] text-base leading-relaxed text-slate-600">
                 <GrammarRichText text={topic.contrasts.intro} />
               </p>
             {/if}
 
-            <div class="mt-4">
+            <div class="mt-6">
               <GrammarContrastList contrasts={topic.contrasts} {audioKeys} />
             </div>
           </section>
@@ -320,11 +363,22 @@
 
         {#if terms.length > 0}
           <section id="terms" class="scroll-mt-24" aria-labelledby="terms-heading">
-            <h2 id="terms-heading" class={grammarSectionHeadingClass}>Key labels</h2>
+            <h2
+              id="terms-heading"
+              class="m-0 font-serif text-2xl tracking-tight text-balance text-slate-900 sm:text-[1.75rem]"
+            >
+              Key labels
+            </h2>
 
-            <dl class={cx(dataPanelClass, termListClass)}>
+            <!-- Subgrid lines the explanations up in one column, whatever each term's width. -->
+            <dl
+              class="m-0 mt-6 grid overflow-hidden rounded-(--frame-radius) bg-surface shadow-(--shadow-border) sm:grid-cols-[max-content_minmax(0,1fr)]"
+            >
               {#each terms as term (term.id)}
-                <div id={term.id} class={termRowClass}>
+                <div
+                  id={term.id}
+                  class="grid scroll-mt-24 gap-x-8 gap-y-2 border-b border-slate-200/70 px-4 py-4 last:border-b-0 sm:col-span-2 sm:grid-cols-subgrid sm:px-5"
+                >
                   <dt class="flex flex-col gap-0.5">
                     <span
                       class="font-serif text-lg leading-snug font-semibold text-slate-900"
@@ -340,7 +394,7 @@
 
                   <dd class="m-0 flex flex-col gap-2">
                     <p
-                      class="m-0 text-[0.95rem] leading-relaxed text-pretty text-slate-700"
+                      class="m-0 max-w-[65ch] text-base leading-relaxed text-pretty text-slate-700"
                     >
                       <GrammarRichText text={term.body} />
                     </p>
@@ -376,17 +430,25 @@
       </div>
 
       <div
-        class="mt-12 flex flex-col gap-12 border-t border-slate-200 pt-10 sm:mt-16 sm:pt-12 min-[1180px]:col-start-2 min-[1180px]:row-start-3"
+        class="flex min-w-0 flex-col gap-12 border-t border-slate-200 pt-10 sm:mt-4 sm:pt-12 lg:col-start-1"
       >
         {#if hasRelated}
           <section id="related" class="scroll-mt-24" aria-labelledby="related-heading">
-            <h2 id="related-heading" class={grammarHeadingClass}>Related</h2>
+            <h2
+              id="related-heading"
+              class="m-0 font-serif text-xl tracking-tight text-slate-900"
+            >
+              Related
+            </h2>
 
             <!-- Labelled rows like "Look it up elsewhere": the label column is the
                  edge, the links are blue, and nothing needs a box around it. -->
             <dl class="m-0 mt-4 grid gap-y-4">
               {#if words.length > 0}
-                <div id="words" class={relatedRowClass}>
+                <div
+                  id="words"
+                  class="grid scroll-mt-24 grid-cols-[7.5rem_minmax(0,1fr)] items-baseline gap-x-4 max-[560px]:grid-cols-1 max-[560px]:gap-y-1.5"
+                >
                   <dt class="text-sm text-slate-500">Words</dt>
 
                   <dd class="m-0">
@@ -411,7 +473,9 @@
               {/if}
 
               {#if relatedTopics.length > 0}
-                <div class={relatedRowClass}>
+                <div
+                  class="grid scroll-mt-24 grid-cols-[7.5rem_minmax(0,1fr)] items-baseline gap-x-4 max-[560px]:grid-cols-1 max-[560px]:gap-y-1.5"
+                >
                   <dt class="text-sm text-slate-500">Topics</dt>
 
                   <dd class="m-0">

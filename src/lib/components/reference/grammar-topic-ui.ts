@@ -16,10 +16,6 @@ export const grammarGlossClass = "text-[0.95rem] leading-snug text-slate-600";
 
 export const grammarHeadingClass = "m-0 font-serif text-xl tracking-tight text-slate-900";
 
-/** At text-xl a heading was barely bigger than the 18px serif Slovak under it. */
-export const grammarSectionHeadingClass =
-  "m-0 font-serif text-xl tracking-tight text-balance text-slate-900 sm:text-2xl";
-
 /**
  * 75ch is the upper end of a comfortable measure. Paired with the narrower
  * 680px grammar page shell, body text (~1.02rem) runs the full column and

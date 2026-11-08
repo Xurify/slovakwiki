@@ -266,9 +266,9 @@
   <div class="flex flex-col gap-8">
     {#if time.hours.length > 0}
       <div>
-        <p class={cx(eyebrowMutedClass, "mb-3")}>Whole hours</p>
+        <p class="m-0 mb-3 text-sm font-semibold text-slate-500">Whole hours</p>
 
-        <ul class={cx(dataPanelClass, "m-0 grid list-none p-0 sm:grid-cols-3")}>
+        <ul class="m-0 grid list-none overflow-hidden rounded-(--frame-radius) bg-surface p-0 shadow-(--shadow-border) sm:grid-cols-3">
           {#each time.hours as group (group.label)}
             <li
               class={cx(
@@ -309,9 +309,9 @@
 
     {#if time.ahead.length > 0}
       <div>
-        <p class={cx(eyebrowMutedClass, "mb-3")}>Quarters and half name the next hour</p>
+        <p class="m-0 mb-3 text-sm font-semibold text-slate-500">Quarters and half name the next hour</p>
 
-        <ul class={cx(dataPanelClass, "m-0 grid list-none p-0 sm:grid-cols-3")}>
+        <ul class="m-0 grid list-none overflow-hidden rounded-(--frame-radius) bg-surface p-0 shadow-(--shadow-border) sm:grid-cols-3">
           {#each time.ahead as row (row.digital)}
             {@const parts = aheadParts(row.slovak)}
 
@@ -353,9 +353,9 @@
 
     {#if time.extras.length > 0}
       <div>
-        <p class={cx(eyebrowMutedClass, "mb-3")}>More time phrases</p>
+        <p class="m-0 mb-3 text-sm font-semibold text-slate-500">More time phrases</p>
 
-        <dl class={cx(dataPanelClass, "m-0")}>
+        <dl class="m-0 overflow-hidden rounded-(--frame-radius) bg-surface shadow-(--shadow-border)">
           {#each time.extras as row (row.label)}
             <div
               class="grid grid-cols-[8rem_minmax(0,1fr)] items-baseline gap-x-4 border-b border-slate-200/70 px-4 py-2.5 last:border-b-0 sm:px-5 max-[520px]:grid-cols-1 max-[520px]:gap-y-0.5"
