@@ -132,3 +132,12 @@ Each of these was taught wrongly on the site. `src/lib/catalog/content-rules.tes
 - `src/lib/catalog/dictionary/dictionary-content.test.ts`: every Tatoeba example contains its headword (reviewed exceptions sit in `tatoeba-lemma-exceptions.json`, and one the matcher no longer needs fails the test), no sentence from `content/dictionary/tatoeba-rejected.json` comes back, blocklisted lemmas stay out, and no short frame is stamped across many headwords.
 
 They cannot judge meaning. A person still has to check speaker roles, scene logic, `ty`/`vy`, word-order variants other than the subject pronoun, whether a distractor is really wrong, and whether an example uses the headword's part of speech when another word is spelled the same (`krásne dievča` is the adjective, not the adverb `krásne`).
+
+## Explaining a declension rule
+
+Use this when a page or table states how an ending is chosen (the case pages in `src/lib/catalog/reference/cases.ts`, a grammar note in a lesson).
+
+- **Cover every pattern.** A noun table has a row for a masculine person (**brat**), a masculine thing (**dom**), a feminine in -a after a hard consonant (**ruka**), after a soft consonant (**ulica**), a feminine ending in a consonant (**noc**, **pieseň**) and a neuter (**mesto**, **srdce**, **námestie**). Say what is left out. Run **Žilina**, **ulica**, **noc**, **srdce** and **večera** through the table before you finish.
+- **Write the rule, then its exceptions.** The letter right before the ending decides (**Žilina**: n, so **Žiliny**). An exception says it is one (**večera** is declined like **ulica**).
+- **Name the case** of every example when several cases appear together.
+- **Source every form** from the paradigm tables of the page's own case, the JÚĽŠ norm or the Wikipedia paradigm tables. Not from memory.
