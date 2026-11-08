@@ -370,18 +370,15 @@
               Key labels
             </h2>
 
-            <!-- Subgrid lines the explanations up in one column, whatever each term's width. -->
-            <dl
-              class="m-0 mt-6 grid overflow-hidden rounded-(--frame-radius) bg-surface shadow-(--shadow-border) sm:grid-cols-[max-content_minmax(0,1fr)]"
-            >
+            <dl class="m-0 mt-6 grid gap-3 sm:grid-cols-2">
               {#each terms as term (term.id)}
                 <div
                   id={term.id}
-                  class="grid scroll-mt-24 gap-x-8 gap-y-2 border-b border-slate-200/70 px-4 py-4 last:border-b-0 sm:col-span-2 sm:grid-cols-subgrid sm:px-5"
+                  class="flex scroll-mt-24 flex-col rounded-(--frame-radius) bg-surface px-5 py-4 shadow-(--shadow-border)"
                 >
-                  <dt class="flex flex-col gap-0.5">
+                  <dt class="flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5">
                     <span
-                      class="font-serif text-lg leading-snug font-semibold text-slate-900"
+                      class="font-serif text-xl leading-snug font-semibold text-slate-900"
                       lang={term.gloss ? "sk" : undefined}
                     >
                       {term.term}
@@ -392,10 +389,8 @@
                     {/if}
                   </dt>
 
-                  <dd class="m-0 flex flex-col gap-2">
-                    <p
-                      class="m-0 max-w-[65ch] text-base leading-relaxed text-pretty text-slate-700"
-                    >
+                  <dd class="m-0 mt-2 flex flex-col gap-2.5">
+                    <p class="m-0 text-[0.9375rem] leading-relaxed text-pretty text-slate-700">
                       <GrammarRichText text={term.body} />
                     </p>
 

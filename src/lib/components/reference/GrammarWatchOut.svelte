@@ -52,11 +52,27 @@
 {/snippet}
 
 <section id="watch-out" class="scroll-mt-24" aria-labelledby="watch-out-heading">
-  <h2 id="watch-out-heading" class="m-0 font-serif text-2xl tracking-tight text-balance text-slate-900 sm:text-[1.75rem]">Watch out</h2>
+  <h2
+    id="watch-out-heading"
+    class="m-0 font-serif text-2xl tracking-tight text-balance text-slate-900 sm:text-[1.75rem]"
+  >
+    Watch out
+  </h2>
 
   <!-- Ruled rows on the page's own edges, like a reference list: a panel around
        one tip boxed a sentence. -->
   <ul class={cx(listClass, "mt-6 border-t border-slate-200")}>
+    {#if items.some((item) => typeof item !== "string")}
+      <li
+        class="hidden border-b border-slate-200 py-2 text-sm font-semibold text-slate-500 sm:col-span-3 sm:grid sm:grid-cols-subgrid sm:gap-x-5"
+        aria-hidden="true"
+      >
+        <span class="pl-[1.375rem]">Not this</span>
+        <span class="pl-[1.375rem]">Say this</span>
+        <span>Why</span>
+      </li>
+    {/if}
+
     {#each items as item, index (index)}
       {#if typeof item === "string"}
         <li class={tipRowClass}>

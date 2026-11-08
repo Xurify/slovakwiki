@@ -61,7 +61,7 @@
     const hours: HourGroup[] = [
       { label: "1", rows: [] },
       { label: "2–4", rows: [] },
-      { label: "5 and up", rows: [] },
+      { label: "5+", rows: [] },
     ];
     const ahead: TimeRow[] = [];
     const extras: TimeExtra[] = [];
@@ -99,6 +99,12 @@
     const match = /^(\S+)(\s.*\s)(\S+?)([.?!]?)$/u.exec(sentence);
     return match ? { verb: match[1]!, middle: match[2]!, noun: match[3]!, end: match[4]! } : null;
   }
+
+  const aheadWords: Record<number, { slovak: string; english: string }> = {
+    15: { slovak: "štvrť na", english: "quarter past" },
+    30: { slovak: "pol", english: "half past" },
+    45: { slovak: "trištvrte na", english: "quarter to" },
+  };
 
   function aheadParts(sentence: string) {
     const match = /^(.*\s)(\S+?)([.?!]?)$/u.exec(sentence);
@@ -265,26 +271,45 @@
 {#if time}
   <div class="flex flex-col gap-8">
     {#if time.hours.length > 0}
-      <div>
-        <p class="m-0 mb-3 text-sm font-semibold text-slate-500">Whole hours</p>
+      <section
+        class="overflow-hidden rounded-(--frame-radius) bg-surface shadow-(--shadow-border)"
+        aria-labelledby="time-hours"
+      >
+        <h3
+          id="time-hours"
+          class="m-0 border-b border-slate-200 bg-subtle/60 px-4 py-2 text-sm font-semibold text-slate-900 sm:px-5"
+        >
+          Whole hours
+        </h3>
 
-        <ul class="m-0 grid list-none overflow-hidden rounded-(--frame-radius) bg-surface p-0 shadow-(--shadow-border) sm:grid-cols-3">
+        <div
+          class="grid divide-y divide-slate-200/70 sm:grid-cols-3 sm:divide-x sm:divide-y-0"
+        >
           {#each time.hours as group (group.label)}
-            <li
-              class={cx(
-                "grid grid-cols-[4.5rem_minmax(0,1fr)] items-baseline gap-x-4 border-b border-slate-200/70 px-4 py-3 last:border-b-0",
-                "sm:grid-cols-1 sm:content-start sm:gap-y-2 sm:border-r sm:border-b-0 sm:px-5 sm:py-4 sm:last:border-r-0",
-              )}
-            >
-              <span class="text-sm font-semibold text-slate-500 tabular-nums">
-                {group.label}
-              </span>
+            {@const head = agreementParts(group.rows[0]!.slovak)}
 
-              <ul class="m-0 flex list-none flex-col gap-1 p-0">
+            <div class="min-w-0">
+              <div
+                class="flex items-baseline justify-between gap-3 border-b border-slate-200/70 px-4 pt-3 pb-2.5 sm:block sm:px-5 sm:pt-4"
+              >
+                <p
+                  class="m-0 font-serif text-[1.75rem] leading-none font-semibold text-slate-900 tabular-nums"
+                >
+                  {group.label}
+                </p>
+
+                {#if head}
+                  <p class="m-0 font-serif text-sm text-blue-800 sm:mt-2" lang="sk">
+                    {head.verb.toLocaleLowerCase("sk")} … {head.noun}
+                  </p>
+                {/if}
+              </div>
+
+              <ul class="m-0 flex list-none flex-col gap-1.5 px-4 py-3 sm:px-5 sm:py-4">
                 {#each group.rows as row (row.digital)}
                   {@const parts = agreementParts(row.slovak)}
 
-                  <li>
+                  <li class="flex items-baseline justify-between gap-3">
                     <span class="font-serif text-lg leading-snug text-slate-900" lang="sk">
                       {#if parts}
                         {@render markedWord(parts.verb)}{parts.middle}{@render markedWord(
@@ -295,70 +320,103 @@
                       {/if}
                     </span>
 
-                    <span class="ml-1.5 text-xs text-slate-500 tabular-nums">
+                    <span class="text-xs text-slate-500 tabular-nums">
                       {row.digital}
                     </span>
                   </li>
                 {/each}
               </ul>
-            </li>
+            </div>
           {/each}
-        </ul>
-      </div>
+        </div>
+      </section>
     {/if}
 
     {#if time.ahead.length > 0}
-      <div>
-        <p class="m-0 mb-3 text-sm font-semibold text-slate-500">Quarters and half name the next hour</p>
+      <section
+        class="overflow-hidden rounded-(--frame-radius) bg-surface shadow-(--shadow-border)"
+        aria-labelledby="time-ahead"
+      >
+        <h3
+          id="time-ahead"
+          class="m-0 border-b border-slate-200 bg-subtle/60 px-4 py-2 text-sm font-semibold text-slate-900 sm:px-5"
+        >
+          Quarters and half name the next hour
+        </h3>
 
-        <ul class="m-0 grid list-none overflow-hidden rounded-(--frame-radius) bg-surface p-0 shadow-(--shadow-border) sm:grid-cols-3">
+        <div
+          class="grid divide-y divide-slate-200/70 sm:grid-cols-3 sm:divide-x sm:divide-y-0"
+        >
           {#each time.ahead as row (row.digital)}
             {@const parts = aheadParts(row.slovak)}
+            {@const word = aheadWords[row.minute]}
 
-            <li
-              class={cx(
-                "grid grid-cols-[3.5rem_minmax(0,1fr)] items-center gap-x-4 border-b border-slate-200/70 px-4 py-3 last:border-b-0",
-                "sm:grid-cols-1 sm:content-start sm:justify-items-center sm:gap-y-3 sm:border-r sm:border-b-0 sm:px-4 sm:py-5 sm:text-center sm:last:border-r-0",
-              )}
-            >
-              <ClockIllustration
-                hour={row.hour}
-                minute={row.minute}
-                label={row.digital}
-                markHour={(row.hour % 12) + 1}
-                class="size-14 sm:size-24"
-              />
+            <div class="min-w-0">
+              {#if word}
+                <div
+                  class="flex items-baseline justify-between gap-3 border-b border-slate-200/70 px-4 pt-3 pb-2.5 sm:block sm:px-5 sm:pt-4"
+                >
+                  <p
+                    class="m-0 font-serif text-xl leading-none font-semibold text-slate-900"
+                    lang="sk"
+                  >
+                    {word.slovak}
+                  </p>
 
-              <div class="min-w-0">
-                <p class="m-0 font-serif text-lg leading-snug text-slate-900" lang="sk">
-                  {#if parts}
-                    {parts.before}{@render markedWord(parts.hour)}{parts.end}
-                  {:else}
-                    {row.slovak}
-                  {/if}
-                </p>
+                  <p class="m-0 text-sm text-slate-500 sm:mt-2">{word.english}</p>
+                </div>
+              {/if}
 
-                <p class="m-0 mt-0.5 text-sm leading-snug text-slate-600">
-                  {englishTellingGloss({
-                    hour: row.hour,
-                    minute: row.minute as QuarterMinute,
-                  })}
-                </p>
+              <div
+                class="grid grid-cols-[3.5rem_minmax(0,1fr)] items-center gap-x-4 px-4 py-3 sm:grid-cols-1 sm:justify-items-center sm:gap-y-3 sm:px-5 sm:py-5 sm:text-center"
+              >
+                <ClockIllustration
+                  hour={row.hour}
+                  minute={row.minute}
+                  label={row.digital}
+                  markHour={(row.hour % 12) + 1}
+                  class="size-14 sm:size-28"
+                />
+
+                <div class="min-w-0">
+                  <p class="m-0 font-serif text-lg leading-snug text-slate-900" lang="sk">
+                    {#if parts}
+                      {parts.before}{@render markedWord(parts.hour)}{parts.end}
+                    {:else}
+                      {row.slovak}
+                    {/if}
+                  </p>
+
+                  <p class="m-0 mt-0.5 text-sm leading-snug text-slate-600">
+                    {englishTellingGloss({
+                      hour: row.hour,
+                      minute: row.minute as QuarterMinute,
+                    })}
+                  </p>
+                </div>
               </div>
-            </li>
+            </div>
           {/each}
-        </ul>
-      </div>
+        </div>
+      </section>
     {/if}
 
     {#if time.extras.length > 0}
-      <div>
-        <p class="m-0 mb-3 text-sm font-semibold text-slate-500">More time phrases</p>
+      <section
+        class="overflow-hidden rounded-(--frame-radius) bg-surface shadow-(--shadow-border)"
+        aria-labelledby="time-more"
+      >
+        <h3
+          id="time-more"
+          class="m-0 border-b border-slate-200 bg-subtle/60 px-4 py-2 text-sm font-semibold text-slate-900 sm:px-5"
+        >
+          More time phrases
+        </h3>
 
-        <dl class="m-0 overflow-hidden rounded-(--frame-radius) bg-surface shadow-(--shadow-border)">
+        <dl class="m-0">
           {#each time.extras as row (row.label)}
             <div
-              class="grid grid-cols-[8rem_minmax(0,1fr)] items-baseline gap-x-4 border-b border-slate-200/70 px-4 py-2.5 last:border-b-0 sm:px-5 max-[520px]:grid-cols-1 max-[520px]:gap-y-0.5"
+              class="grid grid-cols-[8.5rem_minmax(0,1fr)] items-baseline gap-x-4 border-b border-slate-200/70 px-4 py-2.5 last:border-b-0 sm:px-5 max-[520px]:grid-cols-1 max-[520px]:gap-y-0.5"
             >
               <dt class="text-sm text-slate-500">{row.label}</dt>
 
@@ -378,7 +436,7 @@
             </div>
           {/each}
         </dl>
-      </div>
+      </section>
     {/if}
   </div>
 {:else}
