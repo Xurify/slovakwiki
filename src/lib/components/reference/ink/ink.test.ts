@@ -59,6 +59,18 @@ describe("sketches", () => {
     }
   });
 
+  it("every note stays inside the sheet", () => {
+    for (const slug of [...caseSlugs, ...grammarEntries.map((entry) => entry.slug)]) {
+      for (const part of sketchParts(slug)) {
+        if (part.type === "note") {
+          expect(part.y, slug).toBeLessThanOrEqual(128);
+          expect(part.x, slug).toBeGreaterThan(10);
+          expect(part.x, slug).toBeLessThan(330);
+        }
+      }
+    }
+  });
+
   it("every case marks its one thing with a patch", () => {
     for (const slug of caseSlugs) {
       expect(

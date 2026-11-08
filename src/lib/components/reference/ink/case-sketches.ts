@@ -1,54 +1,55 @@
+import { dashed, footprints } from "./marks";
+import { briefcase } from "./objects";
+import { faceEye, person } from "./people";
 import {
   arrow,
   building,
-  closedBook,
-  eye,
-  figure,
   ground,
   note,
   office,
   openBook,
   patch,
-  stroke,
   type SketchPart,
 } from "./pieces";
-import { lineD } from "./ink-paths";
 
 export const CASE_SCENES: Record<string, () => SketchPart[]> = {
   nominative: () => [
     ...ground(),
-    patch(150, 68, 26, 42, 5),
-    ...figure(150, 21, 1),
-    ...openBook(170, 54, 41),
-    note(168, 126, "kto"),
+    patch(170, 68, 34, 42, 5),
+    ...person(170, 91, { grip: [192, 68] }),
+    note(170, 64, "?", { size: "small" }),
+    ...openBook(188, 54, 41),
+    note(176, 126, "**kto**?"),
   ],
 
   genitive: () => [
     ...ground(),
     patch(116, 63, 44, 56, 6),
     ...office(85, 12),
-    ...arrow([116, 92], [200, 88], 32, -6),
-    ...figure(236, 22, 1),
-    note(168, 126, "z"),
+    footprints(130, 186, 40),
+    ...person(210, 22, { walking: true }),
+    ...briefcase(212, 88, 45),
+    note(168, 126, "**z** práce"),
   ],
 
   dative: () => [
     ...ground(),
-    ...figure(62, 23, 1),
-    ...closedBook(90, 54, 51),
-    ...arrow([148, 74], [236, 72], 33, 4),
+    ...person(54, 23, { grip: [78, 68] }),
+    ...openBook(80, 52, 51),
+    ...arrow([128, 72], [232, 72], 33, 4),
     patch(268, 68, 26, 40, 7),
-    ...figure(268, 24),
-    note(168, 126, "komu"),
+    ...person(268, 24, { grip: [246, 70] }),
+    note(168, 126, "komu?"),
   ],
 
   accusative: () => [
     ...ground(),
-    ...figure(70, 25),
-    ...eye(106, 59, 76),
-    ...arrow([126, 60], [220, 61], 78, -3),
-    patch(248, 68, 26, 40, 8),
-    ...figure(248, 26),
+    ...person(66, 25),
+    ...faceEye(66, 27),
+    dashed([76, 55], [234, 46], 61),
+    dashed([76, 62], [234, 80], 71),
+    patch(252, 68, 26, 40, 8),
+    ...person(252, 26, { dress: true }),
     note(160, 126, "vidím"),
   ],
 
@@ -57,17 +58,16 @@ export const CASE_SCENES: Record<string, () => SketchPart[]> = {
     patch(169, 62, 112, 50, 9),
     ...building(70, 42, 70, 61),
     ...building(116, 40, 92, 62),
-    ...figure(190, 29),
+    ...person(190, 29),
     ...building(226, 46, 78, 63),
-    note(169, 126, "v"),
+    note(169, 126, "**v** meste"),
   ],
 
   instrumental: () => [
     ...ground(),
-    ...figure(124, 27, 1),
-    patch(188, 68, 26, 40, 11),
-    ...figure(188, 28, -1),
-    stroke(lineD([146, 68], [166, 68], 35), "mark", 2.1),
-    note(156, 126, "s"),
+    ...person(134, 27, { grip: [151, 90], walking: true, scale: 0.78 }),
+    patch(170, 68, 28, 42, 11),
+    ...person(170, 28, { grip: [151, 90], walking: true, dress: true }),
+    note(152, 126, "**s** mamou"),
   ],
 };

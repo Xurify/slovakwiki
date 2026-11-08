@@ -28,14 +28,6 @@ export function woman(x: number, seed: number): SketchPart[] {
   ];
 }
 
-export function tie(x: number, seed: number): SketchPart[] {
-  const neck = GROUND - 36;
-  return [
-    stroke(lineD([x - 3.5, neck + 1], [x, neck + 10], seed), "mark", 1.8),
-    stroke(lineD([x, neck + 10], [x + 3.5, neck + 1], seed + 1), "mark", 1.8),
-  ];
-}
-
 export function gradCap(x: number, seed: number): SketchPart[] {
   const top = GROUND - 54;
   return [
@@ -172,7 +164,8 @@ export function calendar(
 ): SketchPart[] {
   const parts: SketchPart[] = [
     stroke(boxD(x, y, width, height, seed), "soft"),
-    stroke(lineD([x, y + 14], [x + width, y + 14], seed + 5), "soft"),
+    stroke(lineD([x + 2, y + 7], [x + width - 2, y + 7], seed + 5), "mark", 5, 0.5),
+    stroke(lineD([x, y + 14], [x + width, y + 14], seed + 4), "soft"),
     stroke(lineD([x + width * 0.3, y - 5], [x + width * 0.3, y + 4], seed + 6), "soft"),
     stroke(lineD([x + width * 0.7, y - 5], [x + width * 0.7, y + 4], seed + 7), "soft"),
   ];
@@ -203,8 +196,10 @@ export function house(
   height: number,
   seed: number,
   tone: Tone = "ink",
+  base = GROUND,
+  doorHeight = 16,
 ): SketchPart[] {
-  const top = GROUND - height;
+  const top = base - height;
   const middle = x + width / 2;
   return [
     stroke(boxD(x, top, width, height, seed), tone),
@@ -213,10 +208,10 @@ export function house(
     stroke(
       curveD(
         [
-          [middle - 5, GROUND],
-          [middle - 5, GROUND - 16],
-          [middle + 5, GROUND - 16],
-          [middle + 5, GROUND],
+          [middle - 5, base],
+          [middle - 5, base - doorHeight],
+          [middle + 5, base - doorHeight],
+          [middle + 5, base],
         ],
         seed + 7,
         0.4,
@@ -237,14 +232,16 @@ export function windowFrame(
     stroke(boxD(x, y, width, height, seed), "soft"),
     stroke(lineD([x + width / 2, y], [x + width / 2, y + height], seed + 5), "soft"),
     stroke(lineD([x, y + height / 2], [x + width, y + height / 2], seed + 10), "soft"),
-    stroke(lineD([x + width, y], [x + width + 14, y + 7], seed + 6), "mark", 1.9),
+    stroke(lineD([x + 6, y + 14], [x + 13, y + 6], seed + 11), "soft", 1.3, 0.8),
+    stroke(lineD([x + 10, y + 18], [x + 15, y + 12], seed + 12), "soft", 1.3, 0.8),
+    stroke(lineD([x + width, y], [x + width + 20, y + 9], seed + 6), "mark", 1.9),
     stroke(
-      lineD([x + width + 14, y + 7], [x + width + 14, y + height - 4], seed + 7),
+      lineD([x + width + 20, y + 9], [x + width + 20, y + height - 6], seed + 7),
       "mark",
       1.9,
     ),
     stroke(
-      lineD([x + width + 14, y + height - 4], [x + width, y + height], seed + 8),
+      lineD([x + width + 20, y + height - 6], [x + width, y + height], seed + 8),
       "mark",
       1.9,
     ),
@@ -298,7 +295,7 @@ export function clockAtHalfPastTwo(
     );
   });
   parts.push(
-    stroke(lineD([cx, cy], polar(cx, cy, radius * 0.85, 180), seed + 8), "ink", 1.7),
+    stroke(lineD([cx, cy], polar(cx, cy, radius * 0.85, 180), seed + 8), "ink", 2.4),
     stroke(lineD([cx, cy], polar(cx, cy, radius * 0.58, 75), seed + 9), "mark", 3),
     dot(cx, cy, 2.4, seed + 10),
   );

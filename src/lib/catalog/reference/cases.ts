@@ -99,7 +99,7 @@ export const caseTopics: CaseTopic[] = [
     sketch: {
       sentence: "**Peter** číta knihu.",
       english: "Peter is reading a book.",
-      alt: "A person holding an open book to read it. The person, Peter, is the one doing the action.",
+      alt: "A person reading a book, with a question mark for a face and the word kto?, who? The reader, Peter, is highlighted: the one doing the action.",
     },
     status: "ready",
     source: languageSource,
@@ -155,7 +155,7 @@ export const caseTopics: CaseTopic[] = [
     sketch: {
       sentence: "Idem z **práce**.",
       english: "I am coming from work.",
-      alt: "An arrow leaving an office building toward a person who walks away from it.",
+      alt: "An office building, with footprints from its door to a person walking away from it.",
     },
     status: "ready",
     source: languageSource,
@@ -208,7 +208,7 @@ export const caseTopics: CaseTopic[] = [
     sketch: {
       sentence: "Dám **Petrovi** knihu.",
       english: "I will give Peter a book.",
-      alt: "One person holding out a book, and an arrow to the second person, who receives it.",
+      alt: "One person holds out an open book, and an arrow goes to the second person, who receives it.",
     },
     status: "ready",
     source: languageSource,
@@ -263,7 +263,7 @@ export const caseTopics: CaseTopic[] = [
     sketch: {
       sentence: "Vidím **mamu**.",
       english: "I see my mom.",
-      alt: "An eye with an arrow to a person, who is the one being looked at.",
+      alt: "A person with an eye and dashed lines of sight to a woman, mama, who is the one being looked at.",
     },
     status: "ready",
     source: languageSource,
@@ -377,7 +377,7 @@ export const caseTopics: CaseTopic[] = [
     sketch: {
       sentence: "Idem s **mamou**.",
       english: "I am going with my mom.",
-      alt: "Two people side by side, holding hands.",
+      alt: "Two people walk side by side holding hands. The woman, mama, is highlighted.",
     },
     status: "ready",
     source: languageSource,

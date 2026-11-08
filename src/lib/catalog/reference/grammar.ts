@@ -261,9 +261,9 @@ export const grammarEntries: GrammarTopic[] = [
     category: "Verbs",
     kind: "grammar",
     sketch: {
-      sentence: "**Mám** kartu.",
-      english: "I have a card.",
-      alt: "A person holding out a card they have in their hand.",
+      sentence: "**Mám** kávu.",
+      english: "I have a coffee.",
+      alt: "A person holding up a cup of coffee and saying mám, I have.",
     },
     summary: "Use mať to say what you have and how old you are.",
     body: [
@@ -337,7 +337,7 @@ export const grammarEntries: GrammarTopic[] = [
     sketch: {
       sentence: "Peter **pracoval**. Anna **pracovala**.",
       english: "Peter worked. Anna worked.",
-      alt: "A man and a woman, with an arrow pointing back to yesterday. The verb ends in -l for the man and -la for the woman.",
+      alt: "A man and a woman, under the word včera, yesterday. The verb ends in -l for the man and -la for the woman.",
     },
     summary:
       "The past tense is the -l form of the verb plus som, si, sme, or ste. The -l form also shows whether a man or a woman is speaking.",
@@ -860,7 +860,7 @@ export const grammarEntries: GrammarTopic[] = [
     sketch: {
       sentence: "Zajtra **budem** doma.",
       english: "Tomorrow I will be at home.",
-      alt: "A person today, an arrow, and tomorrow's date on a calendar.",
+      alt: "A person today, an arrow labeled budem, and tomorrow's date circled on a calendar.",
     },
     summary:
       "Imperfective verbs make the future with budem + infinitive. Perfective verbs use their present forms, which already mean the future.",
@@ -1046,9 +1046,9 @@ export const grammarEntries: GrammarTopic[] = [
     category: "Verbs",
     kind: "grammar",
     sketch: {
-      sentence: "**Idem** do práce. **Chodím** do práce.",
-      english: "I am going to work (now). I go to work (regularly).",
-      alt: "On the left, one arrow from a person to a building: one trip. On the right, arrows both ways between a person and a building: round trips.",
+      sentence: "**Idem** domov. **Chodím** domov.",
+      english: "I am going home (now). I go home (regularly).",
+      alt: "On the left, one arrow from a person to a house, labeled teraz, now: one trip. On the right, arrows both ways between a person and a house, labeled každý deň, every day: round trips.",
     },
     summary:
       "Most kinds of movement have two verbs: one for a single trip in one direction (ísť), one for habits and round trips (chodiť).",
@@ -1594,9 +1594,9 @@ export const grammarEntries: GrammarTopic[] = [
     category: "Verbs",
     kind: "grammar",
     sketch: {
-      sentence: "Čo **by** si robil?",
-      english: "What would you do?",
-      alt: "A person with a thought bubble showing a sun over the sea: something imagined, not real.",
+      sentence: "Išiel **by** som k moru.",
+      english: "I would go to the sea.",
+      alt: "A person with a thought bubble showing a sun and a sailing boat on the sea: a place they would go, but are not at.",
     },
     summary:
       "The conditional is the -l form plus by: robil by som, “I would do”. Use it for wishes, polite requests, and imagined situations.",
@@ -1777,7 +1777,7 @@ export const grammarEntries: GrammarTopic[] = [
     sketch: {
       sentence: "Umývam **sa**.",
       english: "I wash (myself).",
-      alt: "A person with an arrow that leaves them and comes back to them.",
+      alt: "A person under a shower with both hands on their head, washing themselves.",
     },
     summary:
       "Many verbs come with sa or si. Sa often keeps the action on the subject; si means for yourself. Some verbs always need one of them.",
@@ -1964,9 +1964,9 @@ export const grammarEntries: GrammarTopic[] = [
     category: "Nouns",
     kind: "grammar",
     sketch: {
-      sentence: "Idem bez **mamy**.",
-      english: "I am going without Mom.",
-      alt: "One person, mama, with six lines to six forms of the word: mama, mamy, mame, mamu, mame and mamou, each labeled with its case. The genitive, mamy, is highlighted.",
+      sentence: "**Mama** je doma.",
+      english: "Mom is at home.",
+      alt: "One person, mama, with six lines to six forms of the word: mama, mamy, mame, mamu, mame and mamou, each labeled with its case. The nominative, mama, is highlighted: the one to learn first.",
     },
     summary: "Six active cases change word endings according to their role.",
     body: [
@@ -2737,7 +2737,7 @@ export const grammarEntries: GrammarTopic[] = [
     sketch: {
       sentence: "To je **môj** dom.",
       english: "This is my house.",
-      alt: "A person beside a house that is highlighted as theirs.",
+      alt: "A person says môj, my, and rests a hand on a house that is highlighted as theirs.",
     },
     summary:
       "Môj, tvoj, náš, and váš agree with the thing owned. Jeho, jej, and ich never change. Svoj points back to the subject.",
@@ -3125,7 +3125,7 @@ export const grammarEntries: GrammarTopic[] = [
       sentence: "**Prepáč**, nerozumiem. **Prepáčte**, nerozumiem.",
       english:
         "Sorry, I do not understand (to a friend). Sorry, I do not understand (formal, or to several people).",
-      alt: "A person speaks to one friend: ty. Another person speaks to two people, one wearing a tie: vy.",
+      alt: "Three small scenes. A person speaks to one friend: ty, informal. A person speaks to one person wearing a tie: vy, formal. A person speaks to two people: vy, several.",
     },
     summary:
       "Use ty with one person informally and vy for formal address or more than one person.",
@@ -3311,7 +3311,7 @@ export const grammarEntries: GrammarTopic[] = [
     sketch: {
       sentence: "**Kde** bývaš?",
       english: "Where do you live?",
-      alt: "A person asks kde? (where?) in a speech bubble. A map pin stands to the right.",
+      alt: "A person asks kde? (where?) in a speech bubble. A house with a map pin above it stands to the right.",
     },
     summary:
       "Use question words for information, or statement order with rising intonation for yes/no questions.",
@@ -3386,7 +3386,7 @@ export const grammarEntries: GrammarTopic[] = [
     sketch: {
       sentence: "Je **pol tretej**.",
       english: "It is half past two.",
-      alt: "A clock at half past two, with an arrow from two to three: the half hour counts toward the next hour, the third.",
+      alt: "A clock at half past two, with the slice between two and three shaded: the half hour counts toward the next hour, the third.",
     },
     summary:
       "Slovak halves and quarters look ahead to the next hour, and the verb agrees with the number.",
