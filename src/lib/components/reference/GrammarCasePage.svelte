@@ -159,7 +159,7 @@
     </section>
 
     <nav
-      class="mt-10 grid gap-3 border-t border-slate-200 pt-4 sm:grid-cols-2"
+      class="mt-10 grid gap-3 sm:grid-cols-2"
       aria-label="Other cases"
     >
       {#if previous}
