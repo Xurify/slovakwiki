@@ -322,6 +322,8 @@ export interface CaseTopic {
   forms?: GrammarTablePattern;
   /** The same endings for the patterns the four reference nouns leave out. */
   otherForms?: GrammarTablePattern;
+  /** Named words that break the rules above, one short line each. */
+  exceptions?: string[];
   name: string;
   /** Slovak grammar term for the case (genitív). */
   slovakName: string;

@@ -104,9 +104,24 @@
         </div>
 
         {#if topic.otherForms}
-          <div class="mt-4">
+          {#if topic.otherForms.intro}
+            <p class="{grammarIntroClass} mt-4">
+              <GrammarRichText text={topic.otherForms.intro} />
+            </p>
+          {/if}
+
+          <div class="mt-3">
             <GrammarPatternList pattern={topic.otherForms} />
           </div>
+        {/if}
+
+        {#if topic.exceptions && topic.exceptions.length > 0}
+          <h3 class="mt-5 text-sm font-semibold text-slate-700">Exceptions</h3>
+          <ul class="{grammarIntroClass} m-0 mt-1.5 list-disc pl-5">
+            {#each topic.exceptions as exception (exception)}
+              <li><GrammarRichText text={exception} /></li>
+            {/each}
+          </ul>
         {/if}
       </section>
     {/if}
