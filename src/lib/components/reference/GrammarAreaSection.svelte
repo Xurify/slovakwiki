@@ -69,7 +69,7 @@
       </p>
 
       <div class="mt-3">
-        <GrammarCaseMap cases={caseLinks} compact />
+        <GrammarCaseMap cases={caseLinks} />
       </div>
     </div>
   {/if}
