@@ -16,12 +16,7 @@ export const grammarGlossClass = "text-[0.95rem] leading-snug text-slate-600";
 
 export const grammarHeadingClass = "m-0 font-serif text-xl tracking-tight text-slate-900";
 
-/**
- * A main section of a topic page, sized like `SectionHead` on the index pages.
- * At text-xl it was barely bigger than the 18px serif Slovak in the tables
- * under it, so nothing told a heading from a row. Related and the path keep
- * `grammarHeadingClass`, one step down.
- */
+/** At text-xl a heading was barely bigger than the 18px serif Slovak under it. */
 export const grammarSectionHeadingClass =
   "m-0 font-serif text-xl tracking-tight text-balance text-slate-900 sm:text-2xl";
 

@@ -10,7 +10,6 @@
     class?: string;
     hour: number;
     label?: string;
-    /** A numeral to pick out on the face, such as the hour a half or quarter names. */
     markHour?: number;
     minute: number;
     size?: number;

@@ -53,11 +53,6 @@
 
   type HourGroup = { label: string; rows: TimeRow[] };
 
-  /**
-   * Whole hours go in the three agreement groups (1, 2–4, 5 and up), quarters
-   * and the half get a clock face each, and anything else (10:05) joins the
-   * phrase list under them.
-   */
   function splitTime(allLines: readonly string[]): {
     hours: HourGroup[];
     ahead: TimeRow[];
@@ -100,13 +95,11 @@
     return { hours: hours.filter((group) => group.rows.length > 0), ahead, extras };
   }
 
-  /** "Sú dve hodiny." → the verb and the noun, the two words the count decides. */
   function agreementParts(sentence: string) {
     const match = /^(\S+)(\s.*\s)(\S+?)([.?!]?)$/u.exec(sentence);
     return match ? { verb: match[1]!, middle: match[2]!, noun: match[3]!, end: match[4]! } : null;
   }
 
-  /** "Je pol tretej." → the last word, the hour it names. */
   function aheadParts(sentence: string) {
     const match = /^(.*\s)(\S+?)([.?!]?)$/u.exec(sentence);
     return match ? { before: match[1]!, hour: match[2]!, end: match[3]! } : null;
@@ -270,9 +263,6 @@
 {/snippet}
 
 {#if time}
-  <!-- Three groups, each a row of columns on wider screens: the whole hours
-       side by side show what the count changes, and the quarters get the only
-       clock faces, since there the face is what explains the Slovak. -->
   <div class="flex flex-col gap-8">
     {#if time.hours.length > 0}
       <div>

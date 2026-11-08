@@ -99,7 +99,7 @@
                    like an example's note. -->
               <span
                 class={cx(
-                  "min-w-0 text-sm leading-snug text-slate-600",
+                  "min-w-0 text-sm leading-snug text-balance text-slate-600",
                   !frame.scene && "md:pt-1.5",
                 )}
               >

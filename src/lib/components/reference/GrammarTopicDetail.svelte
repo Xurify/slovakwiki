@@ -127,8 +127,6 @@
 
 <main class="py-10 pb-20 max-[600px]:py-8">
   <PageShell class="max-w-[680px] min-[1180px]:max-w-none">
-    <!-- From 1180px the margin has room for the page's contents. The text
-         column stays 680px and centred, so nothing under it moves. -->
     <div
       class={cx(
         "min-[1180px]:grid min-[1180px]:gap-x-10",
@@ -212,8 +210,6 @@
         </ol>
       </nav>
 
-      <!-- Sections sit twice as far apart as the parts inside one, so each
-           reads as its own block before its heading is read. -->
       <div
         class="mt-12 flex flex-col gap-12 sm:mt-14 sm:gap-16 min-[1180px]:col-start-2 min-[1180px]:row-start-2"
       >
@@ -291,8 +287,6 @@
             {/each}
           </div>
 
-          <!-- A tip for reading, not one more rule: its own tint keeps it from
-               reading as a fifth paragraph of the rules above. -->
           <div class="mt-6 rounded-(--frame-radius) bg-subtle px-4 py-3.5 sm:px-5">
             <p class={eyebrowMutedClass}>When you read</p>
 
@@ -381,8 +375,6 @@
         {/if}
       </div>
 
-      <!-- Where to go next. One rule ends the topic, and these headings sit a
-           step below the sections above it. -->
       <div
         class="mt-12 flex flex-col gap-12 border-t border-slate-200 pt-10 sm:mt-16 sm:pt-12 min-[1180px]:col-start-2 min-[1180px]:row-start-3"
       >
@@ -395,7 +387,7 @@
             <dl class="m-0 mt-4 grid gap-y-4">
               {#if words.length > 0}
                 <div id="words" class={relatedRowClass}>
-                  <dt class="text-[0.8rem] font-medium text-slate-600">Words</dt>
+                  <dt class="text-sm text-slate-500">Words</dt>
 
                   <dd class="m-0">
                     <ul class="m-0 flex list-none flex-wrap gap-x-6 gap-y-1.5 p-0">
@@ -420,7 +412,7 @@
 
               {#if relatedTopics.length > 0}
                 <div class={relatedRowClass}>
-                  <dt class="text-[0.8rem] font-medium text-slate-600">Topics</dt>
+                  <dt class="text-sm text-slate-500">Topics</dt>
 
                   <dd class="m-0">
                     <ul class="m-0 grid list-none gap-y-2.5 p-0">
