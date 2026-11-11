@@ -81837,5 +81837,260 @@
       "english": "But that's not true.",
       "note": "Curated"
     }
+  ],
+  "holub": [
+    {
+      "slovak": "Na streche sedí holub.",
+      "english": "A pigeon is sitting on the roof.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Holub zobal omrvinky z dlažby.",
+      "english": "A pigeon was pecking crumbs from the pavement.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Holuby sa zleteli na námestie.",
+      "english": "Pigeons gathered on the square.",
+      "note": "Curated"
+    }
+  ],
+  "metro": [
+    {
+      "slovak": "Do práce chodím metrom.",
+      "english": "I go to work by metro.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Metro mešká už desať minút.",
+      "english": "The metro has been delayed for ten minutes.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "V metre bolo veľa ľudí.",
+      "english": "There were a lot of people on the metro.",
+      "note": "Curated"
+    }
+  ],
+  "brzda": [
+    {
+      "slovak": "Pred križovatkou som stlačil brzdu.",
+      "english": "I pressed the brake before the intersection.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Brzda na bicykli je uvoľnená.",
+      "english": "The brake on the bicycle is loose.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Mechanik skontroloval brzdy pred cestou.",
+      "english": "The mechanic checked the brakes before the journey.",
+      "note": "Curated"
+    }
+  ],
+  "stado": [
+    {
+      "slovak": "Stádo kráv sa páslo na lúke.",
+      "english": "A herd of cows was grazing in the meadow.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Pastier zahnal stádo do ohrady.",
+      "english": "The shepherd drove the herd into the pen.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Stádo oviec prešlo cez cestu.",
+      "english": "A flock of sheep crossed the road.",
+      "note": "Curated"
+    }
+  ],
+  "cestovatel": [
+    {
+      "slovak": "Cestovateľ si prezrel staré mesto.",
+      "english": "The traveller toured the old town.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Skúsený cestovateľ si vždy uzavrie poistenie.",
+      "english": "An experienced traveller always takes out insurance.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Mladý cestovateľ sa stratil v lese.",
+      "english": "A young traveller got lost in the forest.",
+      "note": "Curated"
+    }
+  ],
+  "mlada": [
+    {
+      "slovak": "Mláďa sa narodilo v zoo.",
+      "english": "The baby animal was born at the zoo.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Mačka kŕmi svoje mláďa.",
+      "english": "The cat is feeding its baby.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Mláďa ešte nevie chodiť.",
+      "english": "The baby animal cannot walk yet.",
+      "note": "Curated"
+    }
+  ],
+  "hypoteza": [
+    {
+      "slovak": "Táto hypotéza potrebuje ďalšie dôkazy.",
+      "english": "This hypothesis needs more evidence.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Vedci hypotézu overili experimentom.",
+      "english": "The scientists tested the hypothesis with an experiment.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Hypotéza sa nepotvrdila.",
+      "english": "The hypothesis was not confirmed.",
+      "note": "Curated"
+    }
+  ],
+  "gombik": [
+    {
+      "slovak": "Gombík sa odtrhol z košele.",
+      "english": "A button came off the shirt.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Prišil som gombík na kabát.",
+      "english": "I sewed a button onto the coat.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Na blúzke chýba jeden gombík.",
+      "english": "One button is missing on the blouse.",
+      "note": "Curated"
+    }
+  ],
+  "prianie": [
+    {
+      "slovak": "Mám jedno prianie.",
+      "english": "I have one wish.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Tvoje prianie sa splnilo.",
+      "english": "Your wish came true.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Vyslovil tiché prianie pri sviečke.",
+      "english": "He made a silent wish by the candle.",
+      "note": "Curated"
+    }
+  ],
+  "pozitok": [
+    {
+      "slovak": "Čítanie mi prináša pôžitok.",
+      "english": "Reading brings me pleasure.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Mala pôžitok z dobrej kávy.",
+      "english": "She enjoyed the good coffee.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Hudba je pre mňa pôžitok.",
+      "english": "Music is a pleasure to me.",
+      "note": "Curated"
+    }
+  ],
+  "golf": [
+    {
+      "slovak": "Hrá golf každý víkend.",
+      "english": "He plays golf every weekend.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Golf je drahý šport.",
+      "english": "Golf is an expensive sport.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Naučil sa hrať golf v Anglicku.",
+      "english": "He learned to play golf in England.",
+      "note": "Curated"
+    }
+  ],
+  "rasizmus": [
+    {
+      "slovak": "Rasizmus je vážny problém.",
+      "english": "Racism is a serious problem.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Proti rasizmu treba bojovať.",
+      "english": "Racism must be fought.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Diskusia o rasizme bola dlhá.",
+      "english": "The discussion about racism was long.",
+      "note": "Curated"
+    }
+  ],
+  "spojka": [
+    {
+      "slovak": "Spojka spája dve vety.",
+      "english": "A conjunction connects two sentences.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "V tej vete chýba spojka.",
+      "english": "A conjunction is missing in that sentence.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Naučili sa novú spojku.",
+      "english": "They learned a new conjunction.",
+      "note": "Curated"
+    }
+  ],
+  "temnota": [
+    {
+      "slovak": "V miestnosti bola úplná temnota.",
+      "english": "There was complete darkness in the room.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Dieťa sa bálo temnoty.",
+      "english": "The child was afraid of the dark.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Temnota sa rozplynula pri svitaní.",
+      "english": "The darkness faded at dawn.",
+      "note": "Curated"
+    }
+  ],
+  "hlinik": [
+    {
+      "slovak": "Hliník je ľahký kov.",
+      "english": "Aluminium is a light metal.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Z hliníka vyrábajú plechovky.",
+      "english": "Cans are made from aluminium.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Rám bicykla je z hliníka.",
+      "english": "The bicycle frame is made of aluminium.",
+      "note": "Curated"
+    }
   ]
 }
