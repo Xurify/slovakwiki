@@ -81734,6 +81734,11 @@
       "slovak": "Povedal zbohom a odišiel.",
       "english": "He said goodbye and left.",
       "note": "Curated"
+    },
+    {
+      "slovak": "Zbohom a uvidíme sa na jar.",
+      "english": "Goodbye, and see you in spring.",
+      "note": "Curated"
     }
   ],
   "hoci": [
@@ -81750,6 +81755,11 @@
     {
       "slovak": "Hoci to bolo ťažké, zvládli sme to.",
       "english": "Although it was hard, we managed it.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Hoci bol unavený, dokončil prácu.",
+      "english": "Although he was tired, he finished the work.",
       "note": "Curated"
     }
   ],
@@ -81768,6 +81778,11 @@
       "slovak": "Chceli sme prísť, avšak nemali sme čas.",
       "english": "We wanted to come, but we didn't have time.",
       "note": "Curated"
+    },
+    {
+      "slovak": "Avšak doma nás nikto nečakal.",
+      "english": "However, no one was waiting for us at home.",
+      "note": "Curated"
     }
   ],
   "akonahle": [
@@ -81784,6 +81799,11 @@
     {
       "slovak": "Akonáhle to bude možné, dám ti vedieť.",
       "english": "As soon as it is possible, I will let you know.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Akonáhle sa zotmie, zapneme svetlo.",
+      "english": "As soon as it gets dark, we'll turn on the light.",
       "note": "Curated"
     }
   ],
@@ -81802,6 +81822,11 @@
       "slovak": "Pokým neprídeš, nebudeme jesť.",
       "english": "Until you come, we won't eat.",
       "note": "Curated"
+    },
+    {
+      "slovak": "Pokým si bol preč, upratala som kuchyňu.",
+      "english": "While you were away, I cleaned the kitchen.",
+      "note": "Curated"
     }
   ],
   "nazdar": [
@@ -81819,6 +81844,11 @@
       "slovak": "Nazdar, chlapi!",
       "english": "Hi, guys!",
       "note": "Curated"
+    },
+    {
+      "slovak": "Nazdar, čo robíš?",
+      "english": "Hi, what are you doing?",
+      "note": "Curated"
     }
   ],
   "lenze": [
@@ -81835,6 +81865,1613 @@
     {
       "slovak": "Lenže to nie je pravda.",
       "english": "But that's not true.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Chcel som ísť, lenže pršalo.",
+      "english": "I wanted to go, but it was raining.",
+      "note": "Curated"
+    }
+  ],
+  "holub": [
+    {
+      "slovak": "Na streche sedí holub.",
+      "english": "A pigeon is sitting on the roof.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Holub zobal omrvinky z dlažby.",
+      "english": "A pigeon was pecking crumbs from the pavement.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Holuby sa zleteli na námestie.",
+      "english": "Pigeons gathered on the square.",
+      "note": "Curated"
+    }
+  ],
+  "metro": [
+    {
+      "slovak": "Do práce chodím metrom.",
+      "english": "I go to work by metro.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Metro mešká už desať minút.",
+      "english": "The metro has been delayed for ten minutes.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "V metre bolo veľa ľudí.",
+      "english": "There were a lot of people on the metro.",
+      "note": "Curated"
+    }
+  ],
+  "brzda": [
+    {
+      "slovak": "Pred križovatkou som stlačil brzdu.",
+      "english": "I pressed the brake before the intersection.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Brzda na bicykli je uvoľnená.",
+      "english": "The brake on the bicycle is loose.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Mechanik skontroloval brzdy pred cestou.",
+      "english": "The mechanic checked the brakes before the journey.",
+      "note": "Curated"
+    }
+  ],
+  "stado": [
+    {
+      "slovak": "Stádo kráv sa páslo na lúke.",
+      "english": "A herd of cows was grazing in the meadow.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Pastier zahnal stádo do ohrady.",
+      "english": "The shepherd drove the herd into the pen.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Stádo oviec prešlo cez cestu.",
+      "english": "A flock of sheep crossed the road.",
+      "note": "Curated"
+    }
+  ],
+  "cestovatel": [
+    {
+      "slovak": "Cestovateľ si prezrel staré mesto.",
+      "english": "The traveller toured the old town.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Skúsený cestovateľ si vždy uzavrie poistenie.",
+      "english": "An experienced traveller always takes out insurance.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Mladý cestovateľ sa stratil v lese.",
+      "english": "A young traveller got lost in the forest.",
+      "note": "Curated"
+    }
+  ],
+  "mlada": [
+    {
+      "slovak": "Mláďa sa narodilo v zoo.",
+      "english": "The baby animal was born at the zoo.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Mačka kŕmi svoje mláďa.",
+      "english": "The cat is feeding its baby.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Mláďa ešte nevie chodiť.",
+      "english": "The baby animal cannot walk yet.",
+      "note": "Curated"
+    }
+  ],
+  "hypoteza": [
+    {
+      "slovak": "Táto hypotéza potrebuje ďalšie dôkazy.",
+      "english": "This hypothesis needs more evidence.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Vedci hypotézu overili experimentom.",
+      "english": "The scientists tested the hypothesis with an experiment.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Hypotéza sa nepotvrdila.",
+      "english": "The hypothesis was not confirmed.",
+      "note": "Curated"
+    }
+  ],
+  "gombik": [
+    {
+      "slovak": "Gombík sa odtrhol z košele.",
+      "english": "A button came off the shirt.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Prišil som gombík na kabát.",
+      "english": "I sewed a button onto the coat.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Na blúzke chýba jeden gombík.",
+      "english": "One button is missing on the blouse.",
+      "note": "Curated"
+    }
+  ],
+  "prianie": [
+    {
+      "slovak": "Mám jedno prianie.",
+      "english": "I have one wish.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Tvoje prianie sa splnilo.",
+      "english": "Your wish came true.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Vyslovil tiché prianie pri sviečke.",
+      "english": "He made a silent wish by the candle.",
+      "note": "Curated"
+    }
+  ],
+  "pozitok": [
+    {
+      "slovak": "Čítanie mi prináša pôžitok.",
+      "english": "Reading brings me pleasure.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Mala pôžitok z dobrej kávy.",
+      "english": "She enjoyed the good coffee.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Hudba je pre mňa pôžitok.",
+      "english": "Music is a pleasure to me.",
+      "note": "Curated"
+    }
+  ],
+  "golf": [
+    {
+      "slovak": "Hrá golf každý víkend.",
+      "english": "He plays golf every weekend.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Golf je drahý šport.",
+      "english": "Golf is an expensive sport.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Naučil sa hrať golf v Anglicku.",
+      "english": "He learned to play golf in England.",
+      "note": "Curated"
+    }
+  ],
+  "rasizmus": [
+    {
+      "slovak": "Rasizmus je vážny problém.",
+      "english": "Racism is a serious problem.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Proti rasizmu treba bojovať.",
+      "english": "Racism must be fought.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Diskusia o rasizme bola dlhá.",
+      "english": "The discussion about racism was long.",
+      "note": "Curated"
+    }
+  ],
+  "spojka": [
+    {
+      "slovak": "Spojka spája dve vety.",
+      "english": "A conjunction connects two sentences.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "V tej vete chýba spojka.",
+      "english": "A conjunction is missing in that sentence.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Naučili sa novú spojku.",
+      "english": "They learned a new conjunction.",
+      "note": "Curated"
+    }
+  ],
+  "temnota": [
+    {
+      "slovak": "V miestnosti bola úplná temnota.",
+      "english": "There was complete darkness in the room.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Dieťa sa bálo temnoty.",
+      "english": "The child was afraid of the dark.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Temnota sa rozplynula pri svitaní.",
+      "english": "The darkness faded at dawn.",
+      "note": "Curated"
+    }
+  ],
+  "hlinik": [
+    {
+      "slovak": "Hliník je ľahký kov.",
+      "english": "Aluminium is a light metal.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Z hliníka vyrábajú plechovky.",
+      "english": "Cans are made from aluminium.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Rám bicykla je z hliníka.",
+      "english": "The bicycle frame is made of aluminium.",
+      "note": "Curated"
+    }
+  ],
+  "nikde": [
+    {
+      "slovak": "Kľúče som nikde nenašiel.",
+      "english": "I didn't find the keys anywhere.",
+      "note": "Curated"
+    }
+  ],
+  "nikam": [
+    {
+      "slovak": "Dnes večer nikam nejdeme.",
+      "english": "We're not going anywhere tonight.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Bez lístka sa nikam nedostaneš.",
+      "english": "You won't get anywhere without a ticket.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Cez sviatky nikam necestujeme.",
+      "english": "We don't travel anywhere during the holidays.",
+      "note": "Curated"
+    }
+  ],
+  "inde": [
+    {
+      "slovak": "Skús to hľadať inde.",
+      "english": "Try looking for it elsewhere.",
+      "note": "Curated"
+    }
+  ],
+  "kedysi": [
+    {
+      "slovak": "Kedysi tu stál starý mlyn.",
+      "english": "An old mill used to stand here.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Kedysi sme sa poznali.",
+      "english": "We knew each other once.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Kedysi sa cestovalo pomalšie.",
+      "english": "People used to travel more slowly.",
+      "note": "Curated"
+    }
+  ],
+  "nijaky": [
+    {
+      "slovak": "Nijaký problém som nenašiel.",
+      "english": "I found no problem.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Nijaký iný spôsob nefunguje.",
+      "english": "No other way works.",
+      "note": "Curated"
+    }
+  ],
+  "krat": [
+    {
+      "slovak": "Dva krát tri je šesť.",
+      "english": "Two times three is six.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Štyri krát päť je dvadsať.",
+      "english": "Four times five is twenty.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Táto cesta je 3-krát dlhšia.",
+      "english": "This road is three times longer.",
+      "note": "Curated"
+    }
+  ],
+  "cau": [
+    {
+      "slovak": "Čau, ako sa máš?",
+      "english": "Hi, how are you?",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Čau, uvidíme sa zajtra.",
+      "english": "Bye, see you tomorrow.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Čau a maj sa!",
+      "english": "Bye and take care!",
+      "note": "Curated"
+    }
+  ],
+  "tito": [
+    {
+      "slovak": "Títo ľudia sú moji priatelia.",
+      "english": "These people are my friends.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Títo chlapci hrajú futbal.",
+      "english": "These boys play football.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Títo študenti majú skúšku.",
+      "english": "These students have an exam.",
+      "note": "Curated"
+    }
+  ],
+  "taktiez": [
+    {
+      "slovak": "Taktiež mám rád kávu.",
+      "english": "I also like coffee.",
+      "note": "Curated"
+    }
+  ],
+  "takyto": [
+    {
+      "slovak": "Takýto problém sa často neobjaví.",
+      "english": "This kind of problem does not appear often.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Nechcem takýto nábytok.",
+      "english": "I don't want this kind of furniture.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Takýto deň si zapamätám.",
+      "english": "I'll remember a day like this.",
+      "note": "Curated"
+    }
+  ],
+  "skrz": [
+    {
+      "slovak": "Prešli sme skrz les.",
+      "english": "We went through the forest.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Svetlo preniká skrz záclony.",
+      "english": "The light comes through the curtains.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Pozeral som skrz okno.",
+      "english": "I looked through the window.",
+      "note": "Curated"
+    }
+  ],
+  "akykolvek": [
+    {
+      "slovak": "Akýkoľvek deň mi vyhovuje.",
+      "english": "Any day suits me.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Môžeš si vybrať akýkoľvek stôl.",
+      "english": "You can choose any table.",
+      "note": "Curated"
+    }
+  ],
+  "niektory": [
+    {
+      "slovak": "Niektorý z tých domov je prázdny.",
+      "english": "One of those houses is empty.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Niektorý z účastníkov meškal.",
+      "english": "One of the participants was late.",
+      "note": "Curated"
+    }
+  ],
+  "tamten": [
+    {
+      "slovak": "Tamten autobus ide do mesta.",
+      "english": "That bus goes to town.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Tamten stôl je voľný.",
+      "english": "That table is free.",
+      "note": "Curated"
+    }
+  ],
+  "prostrednictvom": [
+    {
+      "slovak": "Prostredníctvom aplikácie si kúpil lístok.",
+      "english": "He bought a ticket through the app.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Informácie sme dostali prostredníctvom e-mailu.",
+      "english": "We received the information by email.",
+      "note": "Curated"
+    }
+  ],
+  "oba": [
+    {
+      "slovak": "Oba domy majú záhradu.",
+      "english": "Both houses have a garden.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Oba tímy hrali dobre.",
+      "english": "Both teams played well.",
+      "note": "Curated"
+    }
+  ],
+  "niekolkokrat": [
+    {
+      "slovak": "Navštívil som to mesto niekoľkokrát.",
+      "english": "I visited that city several times.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Už som to počul niekoľkokrát.",
+      "english": "I've heard it several times already.",
+      "note": "Curated"
+    }
+  ],
+  "psst": [
+    {
+      "slovak": "Psst, počúvaj!",
+      "english": "Psst, listen!",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Psst, nechaj ma spať.",
+      "english": "Psst, let me sleep.",
+      "note": "Curated"
+    }
+  ],
+  "pricom": [
+    {
+      "slovak": "Učil sa, pričom počúval hudbu.",
+      "english": "He studied while listening to music.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Odpočíval, pričom myslel na prácu.",
+      "english": "He rested while thinking about work.",
+      "note": "Curated"
+    }
+  ],
+  "pozdlz": [
+    {
+      "slovak": "Prechádzali sme sa pozdĺž rieky.",
+      "english": "We walked along the river.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Pozdĺž plota rastú kvety.",
+      "english": "Flowers grow along the fence.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Auto išlo pozdĺž brehu.",
+      "english": "The car drove along the bank.",
+      "note": "Curated"
+    }
+  ],
+  "sach": [
+    {
+      "slovak": "Šach je stará hra.",
+      "english": "Chess is an old game.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Hrávali sme šach celý večer.",
+      "english": "We used to play chess all evening.",
+      "note": "Curated"
+    }
+  ],
+  "naproti": [
+    {
+      "slovak": "Naproti nám stojí malá kaviareň.",
+      "english": "A small café stands opposite us.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Bývam naproti parku.",
+      "english": "I live opposite the park.",
+      "note": "Curated"
+    }
+  ],
+  "nakolko": [
+    {
+      "slovak": "Nakoľko je už neskoro, pôjdeme domov.",
+      "english": "Since it's already late, we'll go home.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Nakoľko nemám čas, odložím to.",
+      "english": "Since I don't have time, I'll postpone it.",
+      "note": "Curated"
+    }
+  ],
+  "cauko": [
+    {
+      "slovak": "Čauko, čo nové?",
+      "english": "Hi, what's new?",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Čauko a maj sa pekne!",
+      "english": "Bye, and take care!",
+      "note": "Curated"
+    }
+  ],
+  "pravdupovediac": [
+    {
+      "slovak": "Pravdupovediac, čakal som ťa skôr.",
+      "english": "To be honest, I expected you sooner.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Pravdupovediac, to jedlo mi nechutilo.",
+      "english": "To be honest, I didn't like the food.",
+      "note": "Curated"
+    }
+  ],
+  "napriec": [
+    {
+      "slovak": "Vlak prešiel naprieč krajinou.",
+      "english": "The train crossed the country.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Vietor fúkal naprieč údolím.",
+      "english": "The wind blew across the valley.",
+      "note": "Curated"
+    }
+  ],
+  "doparoma": [
+    {
+      "slovak": "Doparoma, zase meškáme!",
+      "english": "Darn it, we're late again!",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Doparoma, kde je tá zastávka?",
+      "english": "Darn it, where is that stop?",
+      "note": "Curated"
+    }
+  ],
+  "styridsat": [
+    {
+      "slovak": "Na oslave bolo štyridsať ľudí.",
+      "english": "There were forty people at the celebration.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Cesta trvá štyridsať minút.",
+      "english": "The journey takes forty minutes.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Má štyridsať rokov.",
+      "english": "He is forty years old.",
+      "note": "Curated"
+    }
+  ],
+  "strnast": [
+    {
+      "slovak": "Mám štrnásť rokov.",
+      "english": "I am fourteen years old.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Na kurze bolo štrnásť detí.",
+      "english": "There were fourteen children at the course.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Autobus mešká štrnásť minút.",
+      "english": "The bus is fourteen minutes late.",
+      "note": "Curated"
+    }
+  ],
+  "nasledkom": [
+    {
+      "slovak": "Následkom silného vetra spadol strom.",
+      "english": "A tree fell as a result of the strong wind.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Následkom poruchy meškali vlaky.",
+      "english": "Trains were delayed because of a malfunction.",
+      "note": "Curated"
+    }
+  ],
+  "osemnast": [
+    {
+      "slovak": "Mám osemnásť rokov.",
+      "english": "I am eighteen years old.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Na výlet prišlo osemnásť ľudí.",
+      "english": "Eighteen people came on the trip.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Teplota stúpla na osemnásť stupňov.",
+      "english": "The temperature rose to eighteen degrees.",
+      "note": "Curated"
+    }
+  ],
+  "sedemnast": [
+    {
+      "slovak": "Na hodine bolo sedemnásť žiakov.",
+      "english": "There were seventeen pupils in the class.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Cesta trvá sedemnásť minút.",
+      "english": "The journey takes seventeen minutes.",
+      "note": "Curated"
+    }
+  ],
+  "tuk-p": [
+    {
+      "slovak": "Ťuk, ťuk, ozvalo sa zaklopanie.",
+      "english": "Tap, tap, a knock sounded.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Ťuk, ťuk, niekto klope.",
+      "english": "Tap, tap, someone is knocking.",
+      "note": "Curated"
+    }
+  ],
+  "navrchu": [
+    {
+      "slovak": "Navrchu stola ležal kľúč.",
+      "english": "A key lay on top of the table.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Sneh zostal len navrchu kopca.",
+      "english": "Snow remained only on top of the hill.",
+      "note": "Curated"
+    }
+  ],
+  "vinou": [
+    {
+      "slovak": "Vinou hustej hmly sme zmeškali let.",
+      "english": "Because of thick fog, we missed our flight.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Vinou poruchy nešiel výťah.",
+      "english": "Because of a malfunction, the lift wasn't working.",
+      "note": "Curated"
+    }
+  ],
+  "sestnast": [
+    {
+      "slovak": "Na ihrisku bolo šestnásť detí.",
+      "english": "There were sixteen children at the playground.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Vstupenka stojí šestnásť eur.",
+      "english": "The ticket costs sixteen euros.",
+      "note": "Curated"
+    }
+  ],
+  "pomedzi": [
+    {
+      "slovak": "Prešiel pomedzi domy.",
+      "english": "He walked between the houses.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Pomedzi stromami preblesklo svetlo.",
+      "english": "A light flashed between the trees.",
+      "note": "Curated"
+    }
+  ],
+  "ktosi": [
+    {
+      "slovak": "Ktosi zaklopal na dvere.",
+      "english": "Someone knocked on the door.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Ktosi nechal na stole odkaz.",
+      "english": "Someone left a message on the table.",
+      "note": "Curated"
+    }
+  ],
+  "hento": [
+    {
+      "slovak": "Hento nie je moja taška.",
+      "english": "That isn't my bag.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Hento na oblohe je lietadlo.",
+      "english": "That thing in the sky is a plane.",
+      "note": "Curated"
+    }
+  ],
+  "sestdesiat": [
+    {
+      "slovak": "Na koncerte bolo šesťdesiat ľudí.",
+      "english": "There were sixty people at the concert.",
+      "note": "Curated"
+    }
+  ],
+  "vokol": [
+    {
+      "slovak": "Vôkol domu rastú stromy.",
+      "english": "Trees grow around the house.",
+      "note": "Curated"
+    }
+  ],
+  "servus": [
+    {
+      "slovak": "Servus, čo robíš?",
+      "english": "Hi, what are you doing?",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Servus a maj sa!",
+      "english": "Bye and take care!",
+      "note": "Curated"
+    }
+  ],
+  "sedemdesiat": [
+    {
+      "slovak": "Na oslave bolo sedemdesiat hostí.",
+      "english": "There were seventy guests at the celebration.",
+      "note": "Curated"
+    }
+  ],
+  "hentam": [
+    {
+      "slovak": "Hentam pri rieke stojí dom.",
+      "english": "A house stands over there by the river.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Pozri sa hentam na oblohu.",
+      "english": "Look over there at the sky.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Hentam sedí môj brat.",
+      "english": "My brother is sitting over there.",
+      "note": "Curated"
+    }
+  ],
+  "osemdesiat": [
+    {
+      "slovak": "V sále sedelo osemdesiat ľudí.",
+      "english": "Eighty people were sitting in the hall.",
+      "note": "Curated"
+    }
+  ],
+  "dvetisic": [
+    {
+      "slovak": "Nový počítač stál dvetisíc eur.",
+      "english": "The new computer cost two thousand euros.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Mesto má dvetisíc obyvateľov.",
+      "english": "The town has two thousand inhabitants.",
+      "note": "Curated"
+    }
+  ],
+  "jednako": [
+    {
+      "slovak": "Jednako sme sa rozhodli zostať.",
+      "english": "Nevertheless, we decided to stay.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Je to drahé, jednako si to kúpim.",
+      "english": "It's expensive, but I'll buy it anyway.",
+      "note": "Curated"
+    }
+  ],
+  "devatnast": [
+    {
+      "slovak": "Na kurze bolo devätnásť ľudí.",
+      "english": "There were nineteen people at the course.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Do cieľa zostáva devätnásť kilometrov.",
+      "english": "Nineteen kilometres remain to the finish.",
+      "note": "Curated"
+    }
+  ],
+  "hergot": [
+    {
+      "slovak": "Hergot, to bolí!",
+      "english": "Dammit, that hurts!",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Hergot, kde som nechal mobil?",
+      "english": "Dammit, where did I leave my phone?",
+      "note": "Curated"
+    }
+  ],
+  "sach-mat": [
+    {
+      "slovak": "Šach-mat, už nemáš ťah.",
+      "english": "Checkmate, you have no move left.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Povedal šach-mat a usmial sa.",
+      "english": "He said checkmate and smiled.",
+      "note": "Curated"
+    }
+  ],
+  "toboz": [
+    {
+      "slovak": "Nemám čas na film, tobôž na knihu.",
+      "english": "I don't have time for a film, let alone a book.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Nevedel to vysvetliť, tobôž naučiť.",
+      "english": "He couldn't explain it, let alone teach it.",
+      "note": "Curated"
+    }
+  ],
+  "styristo": [
+    {
+      "slovak": "V sále bolo štyristo ľudí.",
+      "english": "There were four hundred people in the hall.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Kniha má štyristo strán.",
+      "english": "The book has four hundred pages.",
+      "note": "Curated"
+    }
+  ],
+  "henten": [
+    {
+      "slovak": "Henten dom je na predaj.",
+      "english": "That house is for sale.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Henten muž čaká na autobus.",
+      "english": "That man is waiting for the bus.",
+      "note": "Curated"
+    }
+  ],
+  "devatdesiat": [
+    {
+      "slovak": "Cesta trvá deväťdesiat minút.",
+      "english": "The journey takes ninety minutes.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "V obci žije deväťdesiat ľudí.",
+      "english": "Ninety people live in the village.",
+      "note": "Curated"
+    }
+  ],
+  "vana": [
+    {
+      "slovak": "Vaňa bola plná teplej vody.",
+      "english": "The bathtub was full of warm water.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Napustil vaňu vodou.",
+      "english": "He filled the bathtub with water.",
+      "note": "Curated"
+    }
+  ],
+  "prezyvka": [
+    {
+      "slovak": "Prezývku mu dali v škole.",
+      "english": "They gave him the nickname at school.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Prezývka sa mi nepáči.",
+      "english": "I don't like the nickname.",
+      "note": "Curated"
+    }
+  ],
+  "spisovatelka": [
+    {
+      "slovak": "Spisovateľka vydala novú knihu.",
+      "english": "The writer published a new book.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Stala sa známou spisovateľkou.",
+      "english": "She became a famous writer.",
+      "note": "Curated"
+    }
+  ],
+  "lov": [
+    {
+      "slovak": "Lov trval celý deň.",
+      "english": "The hunt lasted all day.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Po love sa vrátili domov.",
+      "english": "After the hunt, they returned home.",
+      "note": "Curated"
+    }
+  ],
+  "bystry": [
+    {
+      "slovak": "Bystrý študent odpovedal prvý.",
+      "english": "The clever student answered first.",
+      "note": "Curated"
+    }
+  ],
+  "obecenstvo": [
+    {
+      "slovak": "Obecenstvo tlieskalo po predstavení.",
+      "english": "The audience applauded after the performance.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Obecenstvo bolo ticho.",
+      "english": "The audience was silent.",
+      "note": "Curated"
+    }
+  ],
+  "lebka": [
+    {
+      "slovak": "Lebka chráni mozog.",
+      "english": "The skull protects the brain.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Našli starú lebku.",
+      "english": "They found an old skull.",
+      "note": "Curated"
+    }
+  ],
+  "rybnik": [
+    {
+      "slovak": "Pri rybníku sme videli kačice.",
+      "english": "We saw ducks by the pond.",
+      "note": "Curated"
+    }
+  ],
+  "perla": [
+    {
+      "slovak": "Perla sa leskla na svetle.",
+      "english": "The pearl shone in the light.",
+      "note": "Curated"
+    }
+  ],
+  "dychanie": [
+    {
+      "slovak": "Dýchanie sa mu spomalilo.",
+      "english": "His breathing slowed down.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Po behu bolo dýchanie ťažké.",
+      "english": "After running, breathing was difficult.",
+      "note": "Curated"
+    }
+  ],
+  "cnost": [
+    {
+      "slovak": "Čestnosť je dôležitá cnosť.",
+      "english": "Honesty is an important virtue.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Odvaha je cnosť.",
+      "english": "Courage is a virtue.",
+      "note": "Curated"
+    }
+  ],
+  "seno": [
+    {
+      "slovak": "Seno sa sušilo na slnku.",
+      "english": "The hay was drying in the sun.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Kone dostali seno.",
+      "english": "The horses got hay.",
+      "note": "Curated"
+    }
+  ],
+  "tiger": [
+    {
+      "slovak": "Tiger odpočíval v tieni.",
+      "english": "The tiger rested in the shade.",
+      "note": "Curated"
+    }
+  ],
+  "oblicka": [
+    {
+      "slovak": "Oblička je dôležitý orgán.",
+      "english": "The kidney is an important organ.",
+      "note": "Curated"
+    }
+  ],
+  "kohut": [
+    {
+      "slovak": "Kohút zobudil celú dedinu.",
+      "english": "The rooster woke the whole village.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Na dvore behal kohút.",
+      "english": "A rooster was running in the yard.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Kohút má farebné perie.",
+      "english": "The rooster has colourful feathers.",
+      "note": "Curated"
+    }
+  ],
+  "sip": [
+    {
+      "slovak": "Šíp letel vzduchom.",
+      "english": "The arrow flew through the air.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Vytiahol šíp z puzdra.",
+      "english": "He took an arrow from the quiver.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Šíp sa zapichol do terča.",
+      "english": "The arrow stuck in the target.",
+      "note": "Curated"
+    }
+  ],
+  "hydina": [
+    {
+      "slovak": "Na farme chovajú hydinu.",
+      "english": "They keep poultry on the farm.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Hydina potrebuje čistú vodu.",
+      "english": "Poultry needs clean water.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Mäso z hydiny je lacnejšie.",
+      "english": "Poultry meat is cheaper.",
+      "note": "Curated"
+    }
+  ],
+  "starka": [
+    {
+      "slovak": "Starká upiekla koláč.",
+      "english": "Grandma baked a cake.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Starká býva v dedine.",
+      "english": "Grandma lives in the village.",
+      "note": "Curated"
+    }
+  ],
+  "vdacnost": [
+    {
+      "slovak": "Prejavil som mu vďačnosť.",
+      "english": "I showed him gratitude.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Vďačnosť sa nedá kúpiť.",
+      "english": "Gratitude cannot be bought.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Cítim vďačnosť za pomoc.",
+      "english": "I feel gratitude for the help.",
+      "note": "Curated"
+    }
+  ],
+  "ihla": [
+    {
+      "slovak": "Ihla sa stratila v koberci.",
+      "english": "The needle got lost in the carpet.",
+      "note": "Curated"
+    }
+  ],
+  "zavist": [
+    {
+      "slovak": "Závisť mu nedala spať.",
+      "english": "Envy wouldn't let him sleep.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Necítim k nim závisť.",
+      "english": "I don't feel envy towards them.",
+      "note": "Curated"
+    }
+  ],
+  "ladovec": [
+    {
+      "slovak": "Ľadovec sa pomaly topí.",
+      "english": "The glacier is slowly melting.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Loď obišla veľký ľadovec.",
+      "english": "The ship went around a large iceberg.",
+      "note": "Curated"
+    }
+  ],
+  "muska": [
+    {
+      "slovak": "Muška mi krúžila nad hlavou.",
+      "english": "A small fly circled above my head.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Muška sadla na stôl.",
+      "english": "A small fly landed on the table.",
+      "note": "Curated"
+    }
+  ],
+  "cestovina": [
+    {
+      "slovak": "Cestovina sa varila v hrnci.",
+      "english": "The pasta was cooking in the pot.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Mám rád cestovinu so syrom.",
+      "english": "I like pasta with cheese.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Cestovina je hotová.",
+      "english": "The pasta is ready.",
+      "note": "Curated"
+    }
+  ],
+  "korcula": [
+    {
+      "slovak": "Korčuľa sa leskla na ľade.",
+      "english": "The skate shone on the ice.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Zabudol som si korčule.",
+      "english": "I forgot my skates.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Korčuľa bola príliš tesná.",
+      "english": "The skate was too tight.",
+      "note": "Curated"
+    }
+  ],
+  "rucho": [
+    {
+      "slovak": "Rúcho bolo ťažké.",
+      "english": "The garment was heavy.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Kráľ mal na sebe biele rúcho.",
+      "english": "The king was wearing a white garment.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Rúcho viselo na stene.",
+      "english": "The garment hung on the wall.",
+      "note": "Curated"
+    }
+  ],
+  "neprijemnost": [
+    {
+      "slovak": "Spôsobil nám nepríjemnosť.",
+      "english": "He caused us inconvenience.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Nepríjemnosť sa rýchlo vyriešila.",
+      "english": "The inconvenience was quickly resolved.",
+      "note": "Curated"
+    }
+  ],
+  "bunda": [
+    {
+      "slovak": "Bunda je príliš hrubá.",
+      "english": "The jacket is too thick.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Obliekol si teplú bundu.",
+      "english": "He put on a warm jacket.",
+      "note": "Curated"
+    }
+  ],
+  "skorpion": [
+    {
+      "slovak": "Škorpión sa skryl pod kameň.",
+      "english": "The scorpion hid under a stone.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Škorpión má jedovatý chvost.",
+      "english": "A scorpion has a venomous tail.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "V púšti žije veľa škorpiónov.",
+      "english": "Many scorpions live in the desert.",
+      "note": "Curated"
+    }
+  ],
+  "sluch": [
+    {
+      "slovak": "Sluch sa s vekom zhoršuje.",
+      "english": "Hearing gets worse with age.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Má dobrý sluch.",
+      "english": "He has good hearing.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Chráň si sluch pred hlukom.",
+      "english": "Protect your hearing from noise.",
+      "note": "Curated"
+    }
+  ],
+  "statok": [
+    {
+      "slovak": "Statok leží pri lese.",
+      "english": "The farm lies by the forest.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Na statku chovajú kone.",
+      "english": "They keep horses on the farm.",
+      "note": "Curated"
+    }
+  ],
+  "biologia": [
+    {
+      "slovak": "Biológia ma v škole bavila.",
+      "english": "I enjoyed biology at school.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Učiteľ biológie vysvetlil bunku.",
+      "english": "The biology teacher explained the cell.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Biológia skúma živé organizmy.",
+      "english": "Biology studies living organisms.",
+      "note": "Curated"
+    }
+  ],
+  "svokra": [
+    {
+      "slovak": "Svokra prišla na návštevu.",
+      "english": "The mother-in-law came to visit.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Hovoril som so svokrou.",
+      "english": "I spoke with my mother-in-law.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Svokra býva neďaleko.",
+      "english": "My mother-in-law lives nearby.",
+      "note": "Curated"
+    }
+  ],
+  "rozok": [
+    {
+      "slovak": "Rožok som natrel maslom.",
+      "english": "I spread butter on the roll.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Na raňajky som si dal rožok.",
+      "english": "I had a roll for breakfast.",
+      "note": "Curated"
+    }
+  ],
+  "diamant": [
+    {
+      "slovak": "Diamant sa leskol v prsteni.",
+      "english": "The diamond sparkled in the ring.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Našli veľký diamant.",
+      "english": "They found a large diamond.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Diamant je najtvrdší minerál.",
+      "english": "Diamond is the hardest mineral.",
+      "note": "Curated"
+    }
+  ],
+  "dub": [
+    {
+      "slovak": "Pri dube rastie hríb.",
+      "english": "A mushroom grows by the oak.",
+      "note": "Curated"
+    }
+  ],
+  "bohyna": [
+    {
+      "slovak": "Bohyňa sa zjavila v sne.",
+      "english": "The goddess appeared in a dream.",
+      "note": "Curated"
+    }
+  ],
+  "kozuch": [
+    {
+      "slovak": "Kožuch ho chránil pred zimou.",
+      "english": "The fur coat protected him from the cold.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Kúpila si nový kožuch.",
+      "english": "She bought a new fur coat.",
+      "note": "Curated"
+    }
+  ],
+  "dvojca": [
+    {
+      "slovak": "Dvojča spalo v kočíku.",
+      "english": "The twin was sleeping in the pram.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Je to moje dvojča.",
+      "english": "It's my twin.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Dvojča sa hralo na dvore.",
+      "english": "The twin was playing in the yard.",
+      "note": "Curated"
+    }
+  ],
+  "povala": [
+    {
+      "slovak": "Na povale je starý nábytok.",
+      "english": "There is old furniture in the attic.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Vystúpili sme na povalu.",
+      "english": "We went up to the attic.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Povala je plná kníh.",
+      "english": "The attic is full of books.",
+      "note": "Curated"
+    }
+  ],
+  "sampanske": [
+    {
+      "slovak": "Šampanské sa podávalo vychladené.",
+      "english": "The champagne was served chilled.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Otvoriť šampanské nie je ľahké.",
+      "english": "Opening champagne isn't easy.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Na oslave bolo šampanské.",
+      "english": "There was champagne at the celebration.",
+      "note": "Curated"
+    }
+  ],
+  "chrobak": [
+    {
+      "slovak": "Chrobák liezol po liste.",
+      "english": "A beetle crawled along a leaf.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Chrobák sa skryl pod kôru.",
+      "english": "The beetle hid under the bark.",
+      "note": "Curated"
+    }
+  ],
+  "encyklopedia": [
+    {
+      "slovak": "Encyklopédia má veľa zväzkov.",
+      "english": "The encyclopedia has many volumes.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Hľadal som to v encyklopédii.",
+      "english": "I looked it up in the encyclopedia.",
+      "note": "Curated"
+    }
+  ],
+  "kasel": [
+    {
+      "slovak": "Kašeľ ho trápil celú noc.",
+      "english": "The cough troubled him all night.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Mám suchý kašeľ.",
+      "english": "I have a dry cough.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Kašeľ sa rýchlo zhoršil.",
+      "english": "The cough got worse quickly.",
+      "note": "Curated"
+    }
+  ],
+  "fajciar": [
+    {
+      "slovak": "Fajčiar stál pred vchodom.",
+      "english": "The smoker stood in front of the entrance.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Fajčiari si zapálili.",
+      "english": "The smokers lit up.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Ako fajčiar si často robí pauzy.",
+      "english": "As a smoker, he often takes breaks.",
+      "note": "Curated"
+    }
+  ],
+  "uterak": [
+    {
+      "slovak": "Uterák visel na vešiaku.",
+      "english": "The towel hung on the rack.",
+      "note": "Curated"
+    }
+  ],
+  "hrst": [
+    {
+      "slovak": "Zobral som hrsť orechov.",
+      "english": "I took a handful of nuts.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Do cesta pridaj hrsť cukru.",
+      "english": "Add a handful of sugar to the dough.",
+      "note": "Curated"
+    }
+  ],
+  "vyhovorka": [
+    {
+      "slovak": "Výhovorka mu už neprejde.",
+      "english": "His excuse won't work anymore.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Vymyslel si výhovorku.",
+      "english": "He made up an excuse.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Tvoja výhovorka je slabá.",
+      "english": "Your excuse is weak.",
+      "note": "Curated"
+    }
+  ],
+  "jelen": [
+    {
+      "slovak": "Jeleň stál na okraji lesa.",
+      "english": "The deer stood at the edge of the forest.",
+      "note": "Curated"
+    }
+  ],
+  "mesita": [
+    {
+      "slovak": "Mešita stojí v centre mesta.",
+      "english": "The mosque stands in the city centre.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Pred mešitou sa zuli.",
+      "english": "They took off their shoes in front of the mosque.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Mešita má vysoký minaret.",
+      "english": "The mosque has a tall minaret.",
+      "note": "Curated"
+    }
+  ],
+  "sprosty": [
+    {
+      "slovak": "To bol sprostý nápad.",
+      "english": "That was a stupid idea.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Nechaj tie sprosté reči.",
+      "english": "Stop that stupid talk.",
+      "note": "Curated"
+    }
+  ],
+  "sebecky": [
+    {
+      "slovak": "Bol to sebecký čin.",
+      "english": "It was a selfish act.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Má sebecké dôvody.",
+      "english": "He has selfish reasons.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "To bolo veľmi sebecké rozhodnutie.",
+      "english": "It was a very selfish decision.",
       "note": "Curated"
     }
   ]
