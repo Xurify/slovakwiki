@@ -269780,6 +269780,11 @@
     "category": "Adverbs",
     "examples": [
       {
+        "slovak": "Kľúče som nikde nenašiel.",
+        "english": "I didn't find the keys anywhere.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Nikde sme ho nevideli.",
         "english": "We haven't seen him anywhere.",
         "note": "Tatoeba",
@@ -269977,6 +269982,21 @@
     "english": "nowhere (to)",
     "category": "Adverbs",
     "examples": [
+      {
+        "slovak": "Dnes večer nikam nejdeme.",
+        "english": "We're not going anywhere tonight.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Bez lístka sa nikam nedostaneš.",
+        "english": "You won't get anywhere without a ticket.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Cez sviatky nikam necestujeme.",
+        "english": "We don't travel anywhere during the holidays.",
+        "note": "Curated"
+      },
       {
         "slovak": "Nikam nejdem.",
         "english": "I am not going anywhere.",
@@ -270219,6 +270239,11 @@
     "english": "elsewhere",
     "category": "Adverbs",
     "examples": [
+      {
+        "slovak": "Skús to hľadať inde.",
+        "english": "Try looking for it elsewhere.",
+        "note": "Curated"
+      },
       {
         "slovak": "Pozri sa niekde inde.",
         "english": "Look someplace else.",
@@ -270512,6 +270537,21 @@
     "english": "once, formerly",
     "category": "Adverbs",
     "examples": [
+      {
+        "slovak": "Kedysi tu stál starý mlyn.",
+        "english": "An old mill used to stand here.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Kedysi sme sa poznali.",
+        "english": "We knew each other once.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Kedysi sa cestovalo pomalšie.",
+        "english": "People used to travel more slowly.",
+        "note": "Curated"
+      },
       {
         "slovak": "Kedysi som chcel byť astrofyzikom.",
         "english": "I once wanted to be an astrophysicist.",
@@ -271262,6 +271302,16 @@
     "english": "no, any",
     "category": "Phrases",
     "examples": [
+      {
+        "slovak": "Nijaký problém som nenašiel.",
+        "english": "I found no problem.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nijaký iný spôsob nefunguje.",
+        "english": "No other way works.",
+        "note": "Curated"
+      },
       {
         "slovak": "Nevidím nijaký rozdiel.",
         "english": "I don't see any difference.",
@@ -272537,6 +272587,21 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Dva krát tri je šesť.",
+        "english": "Two times three is six.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Štyri krát päť je dvadsať.",
+        "english": "Four times five is twenty.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Táto cesta je 3-krát dlhšia.",
+        "english": "This road is three times longer.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Austrália je približne 20-krát väčšia ako Japonsko.",
         "english": "Australia is about twenty times as large as Japan.",
         "note": "Tatoeba",
@@ -272610,6 +272675,21 @@
     "category": "Phrases",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Čau, ako sa máš?",
+        "english": "Hi, how are you?",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Čau, uvidíme sa zajtra.",
+        "english": "Bye, see you tomorrow.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Čau a maj sa!",
+        "english": "Bye and take care!",
+        "note": "Curated"
+      },
       {
         "slovak": "Čau zajtra.",
         "english": "See you tomorrow.",
@@ -272893,6 +272973,21 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Títo ľudia sú moji priatelia.",
+        "english": "These people are my friends.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Títo chlapci hrajú futbal.",
+        "english": "These boys play football.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Títo študenti majú skúšku.",
+        "english": "These students have an exam.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Kto sú títo ľudia?",
         "english": "Who are these people?",
         "note": "Tatoeba",
@@ -272921,6 +273016,11 @@
       {
         "slovak": "Povedal zbohom a odišiel.",
         "english": "He said goodbye and left.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Zbohom a uvidíme sa na jar.",
+        "english": "Goodbye, and see you in spring.",
         "note": "Curated"
       }
     ],
@@ -273039,6 +273139,11 @@
         "slovak": "Hoci to bolo ťažké, zvládli sme to.",
         "english": "Although it was hard, we managed it.",
         "note": "Curated"
+      },
+      {
+        "slovak": "Hoci bol unavený, dokončil prácu.",
+        "english": "Although he was tired, he finished the work.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -273109,6 +273214,11 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Taktiež mám rád kávu.",
+        "english": "I also like coffee.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Duševné zdravie je taktiež dôležité.",
         "english": "Mental health is also important.",
         "note": "Tatoeba",
@@ -273171,6 +273281,21 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Takýto problém sa často neobjaví.",
+        "english": "This kind of problem does not appear often.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nechcem takýto nábytok.",
+        "english": "I don't want this kind of furniture.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Takýto deň si zapamätám.",
+        "english": "I'll remember a day like this.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Kto si kupuje takýto druh umenia?",
         "english": "Who buys this type of art?",
         "note": "Tatoeba",
@@ -273200,6 +273325,11 @@
         "slovak": "Chceli sme prísť, avšak nemali sme čas.",
         "english": "We wanted to come, but we didn't have time.",
         "note": "Curated"
+      },
+      {
+        "slovak": "Avšak doma nás nikto nečakal.",
+        "english": "However, no one was waiting for us at home.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -273224,6 +273354,11 @@
       {
         "slovak": "Akonáhle to bude možné, dám ti vedieť.",
         "english": "As soon as it is possible, I will let you know.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Akonáhle sa zotmie, zapneme svetlo.",
+        "english": "As soon as it gets dark, we'll turn on the light.",
         "note": "Curated"
       }
     ],
@@ -273366,6 +273501,11 @@
         "slovak": "Pokým neprídeš, nebudeme jesť.",
         "english": "Until you come, we won't eat.",
         "note": "Curated"
+      },
+      {
+        "slovak": "Pokým si bol preč, upratala som kuchyňu.",
+        "english": "While you were away, I cleaned the kitchen.",
+        "note": "Curated"
       }
     ],
     "related": []
@@ -273391,6 +273531,11 @@
       {
         "slovak": "Nazdar, chlapi!",
         "english": "Hi, guys!",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nazdar, čo robíš?",
+        "english": "Hi, what are you doing?",
         "note": "Curated"
       }
     ],
@@ -273456,6 +273601,11 @@
       {
         "slovak": "Lenže to nie je pravda.",
         "english": "But that's not true.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Chcel som ísť, lenže pršalo.",
+        "english": "I wanted to go, but it was raining.",
         "note": "Curated"
       }
     ],
@@ -273527,6 +273677,21 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Prešli sme skrz les.",
+        "english": "We went through the forest.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Svetlo preniká skrz záclony.",
+        "english": "The light comes through the curtains.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Pozeral som skrz okno.",
+        "english": "I looked through the window.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Strč prst skrz krk!",
         "english": "Stick your finger through your throat!",
         "note": "Tatoeba",
@@ -273542,6 +273707,16 @@
     "category": "Phrases",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Akýkoľvek deň mi vyhovuje.",
+        "english": "Any day suits me.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Môžeš si vybrať akýkoľvek stôl.",
+        "english": "You can choose any table.",
+        "note": "Curated"
+      },
       {
         "slovak": "Vezmi si akýkoľvek páčiaci sa ti kvietok.",
         "english": "Take whichever flower you like.",
@@ -273623,6 +273798,16 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Niektorý z tých domov je prázdny.",
+        "english": "One of those houses is empty.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Niektorý z účastníkov meškal.",
+        "english": "One of the participants was late.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Niektorý z nás to musí urobiť.",
         "english": "One of us has to do it.",
         "note": "Curated"
@@ -273643,6 +273828,16 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Tamten autobus ide do mesta.",
+        "english": "That bus goes to town.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Tamten stôl je voľný.",
+        "english": "That table is free.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Tamten dom je starý.",
         "english": "That house is old.",
         "note": "Curated"
@@ -273662,6 +273857,16 @@
     "category": "Phrases",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Prostredníctvom aplikácie si kúpil lístok.",
+        "english": "He bought a ticket through the app.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Informácie sme dostali prostredníctvom e-mailu.",
+        "english": "We received the information by email.",
+        "note": "Curated"
+      },
       {
         "slovak": "TWiiNS oslavovali moje narodeniny prostredníctvom Twitteru 12. júna.",
         "english": "TWiiNS celebrated my birthday via Twitter on June 12th.",
@@ -273743,6 +273948,16 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Oba domy majú záhradu.",
+        "english": "Both houses have a garden.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Oba tímy hrali dobre.",
+        "english": "Both teams played well.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Oba chlapci prišli včas.",
         "english": "Both boys arrived on time.",
         "note": "Curated"
@@ -273763,6 +273978,16 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Navštívil som to mesto niekoľkokrát.",
+        "english": "I visited that city several times.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Už som to počul niekoľkokrát.",
+        "english": "I've heard it several times already.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Bol som tam niekoľkokrát.",
         "english": "I've been there several times.",
         "note": "Curated"
@@ -273782,6 +274007,16 @@
     "category": "Phrases",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Psst, počúvaj!",
+        "english": "Psst, listen!",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Psst, nechaj ma spať.",
+        "english": "Psst, let me sleep.",
+        "note": "Curated"
+      },
       {
         "slovak": "Psst, niekto ide.",
         "english": "Psst, someone is coming.",
@@ -273855,6 +274090,16 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Učil sa, pričom počúval hudbu.",
+        "english": "He studied while listening to music.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Odpočíval, pričom myslel na prácu.",
+        "english": "He rested while thinking about work.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Čítal knihu, pričom si robil poznámky.",
         "english": "He read a book while taking notes.",
         "note": "Curated"
@@ -273875,6 +274120,21 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Prechádzali sme sa pozdĺž rieky.",
+        "english": "We walked along the river.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Pozdĺž plota rastú kvety.",
+        "english": "Flowers grow along the fence.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Auto išlo pozdĺž brehu.",
+        "english": "The car drove along the bank.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Pozdĺž cesty vedie plot.",
         "english": "A fence runs along the road.",
         "note": "Tatoeba",
@@ -273890,6 +274150,16 @@
     "category": "Nouns",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Šach je stará hra.",
+        "english": "Chess is an old game.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Hrávali sme šach celý večer.",
+        "english": "We used to play chess all evening.",
+        "note": "Curated"
+      },
       {
         "slovak": "Naučím ťa hrať šach.",
         "english": "I'll teach you to play chess."
@@ -273949,6 +274219,16 @@
     "category": "Phrases",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Naproti nám stojí malá kaviareň.",
+        "english": "A small café stands opposite us.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Bývam naproti parku.",
+        "english": "I live opposite the park.",
+        "note": "Curated"
+      },
       {
         "slovak": "Naši rodičia bývajú hneď naproti cez ulicu.",
         "english": "Our parents live right across the street from us.",
@@ -274071,6 +274351,16 @@
     "register": "colloquial",
     "examples": [
       {
+        "slovak": "Nakoľko je už neskoro, pôjdeme domov.",
+        "english": "Since it's already late, we'll go home.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nakoľko nemám čas, odložím to.",
+        "english": "Since I don't have time, I'll postpone it.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Nakoľko to viem, je to pravda.",
         "english": "As far as I know, it's true.",
         "note": "Curated"
@@ -274090,6 +274380,16 @@
     "category": "Phrases",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Čauko, čo nové?",
+        "english": "Hi, what's new?",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Čauko a maj sa pekne!",
+        "english": "Bye, and take care!",
+        "note": "Curated"
+      },
       {
         "slovak": "Čauko, ako sa máš?",
         "english": "Hi, how are you?",
@@ -274111,6 +274411,16 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Pravdupovediac, čakal som ťa skôr.",
+        "english": "To be honest, I expected you sooner.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Pravdupovediac, to jedlo mi nechutilo.",
+        "english": "To be honest, I didn't like the food.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Pravdupovediac, nečakal som to.",
         "english": "To be honest, I didn't expect it.",
         "note": "Curated"
@@ -274131,6 +274441,16 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Vlak prešiel naprieč krajinou.",
+        "english": "The train crossed the country.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Vietor fúkal naprieč údolím.",
+        "english": "The wind blew across the valley.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Prešli sme naprieč mestom.",
         "english": "We walked across the city.",
         "note": "Curated"
@@ -274150,6 +274470,16 @@
     "category": "Phrases",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Doparoma, zase meškáme!",
+        "english": "Darn it, we're late again!",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Doparoma, kde je tá zastávka?",
+        "english": "Darn it, where is that stop?",
+        "note": "Curated"
+      },
       {
         "slovak": "Doparoma, kde sú moje kľúče?",
         "english": "Darn it, where are my keys?",
@@ -274205,6 +274535,21 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Na oslave bolo štyridsať ľudí.",
+        "english": "There were forty people at the celebration.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Cesta trvá štyridsať minút.",
+        "english": "The journey takes forty minutes.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Má štyridsať rokov.",
+        "english": "He is forty years old.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Desať, dvadsať , tridsať, štyridsať, päťdesiat, šesťdesiat, sedemdesiat, osemdesiat, deväťdesiat, sto.",
         "english": "Ten, twenty, thirty, forty, fifty, sixty, seventy, eighty, ninety, hundred.",
         "note": "Tatoeba",
@@ -274221,6 +274566,21 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Mám štrnásť rokov.",
+        "english": "I am fourteen years old.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na kurze bolo štrnásť detí.",
+        "english": "There were fourteen children at the course.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Autobus mešká štrnásť minút.",
+        "english": "The bus is fourteen minutes late.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Desať, jedenásť, dvanásť, trinásť, štrnásť, pätnásť, šestnásť, sedemnásť, osemnásť, devätnásť, dvadsať.",
         "english": "Ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen, twenty.",
         "note": "Tatoeba",
@@ -274236,6 +274596,16 @@
     "category": "Phrases",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Následkom silného vetra spadol strom.",
+        "english": "A tree fell as a result of the strong wind.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Následkom poruchy meškali vlaky.",
+        "english": "Trains were delayed because of a malfunction.",
+        "note": "Curated"
+      },
       {
         "slovak": "Následkom dažďa bola cesta zatvorená.",
         "english": "As a result of the rain, the road was closed.",
@@ -274297,6 +274667,21 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Mám osemnásť rokov.",
+        "english": "I am eighteen years old.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na výlet prišlo osemnásť ľudí.",
+        "english": "Eighteen people came on the trip.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Teplota stúpla na osemnásť stupňov.",
+        "english": "The temperature rose to eighteen degrees.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Desať, jedenásť, dvanásť, trinásť, štrnásť, pätnásť, šestnásť, sedemnásť, osemnásť, devätnásť, dvadsať.",
         "english": "Ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen, twenty.",
         "note": "Tatoeba",
@@ -274312,6 +274697,16 @@
     "category": "Phrases",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Na hodine bolo sedemnásť žiakov.",
+        "english": "There were seventeen pupils in the class.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Cesta trvá sedemnásť minút.",
+        "english": "The journey takes seventeen minutes.",
+        "note": "Curated"
+      },
       {
         "slovak": "Môj priateľ má sedemnásť.",
         "english": "My friend is seventeen.",
@@ -274335,6 +274730,16 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Ťuk, ťuk, ozvalo sa zaklopanie.",
+        "english": "Tap, tap, a knock sounded.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Ťuk, ťuk, niekto klope.",
+        "english": "Tap, tap, someone is knocking.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Ťuk, ťuk, kto je tam?",
         "english": "Knock, knock, who's there?",
         "note": "Curated"
@@ -274354,6 +274759,16 @@
     "category": "Phrases",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Navrchu stola ležal kľúč.",
+        "english": "A key lay on top of the table.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Sneh zostal len navrchu kopca.",
+        "english": "Snow remained only on top of the hill.",
+        "note": "Curated"
+      },
       {
         "slovak": "Kniha je navrchu police.",
         "english": "The book is on top of the shelf.",
@@ -274375,6 +274790,16 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Vinou hustej hmly sme zmeškali let.",
+        "english": "Because of thick fog, we missed our flight.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Vinou poruchy nešiel výťah.",
+        "english": "Because of a malfunction, the lift wasn't working.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Vinou počasia sme zostali doma.",
         "english": "Because of the weather, we stayed home.",
         "note": "Curated"
@@ -274394,6 +274819,16 @@
     "category": "Phrases",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Na ihrisku bolo šestnásť detí.",
+        "english": "There were sixteen children at the playground.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Vstupenka stojí šestnásť eur.",
+        "english": "The ticket costs sixteen euros.",
+        "note": "Curated"
+      },
       {
         "slovak": "Budúci mesiac budem mať šestnásť.",
         "english": "I'll be sixteen years old next month.",
@@ -274416,6 +274851,16 @@
     "category": "Phrases",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Prešiel pomedzi domy.",
+        "english": "He walked between the houses.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Pomedzi stromami preblesklo svetlo.",
+        "english": "A light flashed between the trees.",
+        "note": "Curated"
+      },
       {
         "slovak": "Prechádzal pomedzi stoly.",
         "english": "He walked between the tables.",
@@ -274482,6 +274927,16 @@
     "category": "Phrases",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Ktosi zaklopal na dvere.",
+        "english": "Someone knocked on the door.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Ktosi nechal na stole odkaz.",
+        "english": "Someone left a message on the table.",
+        "note": "Curated"
+      },
       {
         "slovak": "Ktosi ťa čaká.",
         "english": "Somebody is waiting for you.",
@@ -274564,6 +275019,16 @@
     "register": "colloquial",
     "examples": [
       {
+        "slovak": "Hento nie je moja taška.",
+        "english": "That isn't my bag.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Hento na oblohe je lietadlo.",
+        "english": "That thing in the sky is a plane.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Hento je moje auto.",
         "english": "That's my car.",
         "note": "Curated"
@@ -274583,6 +275048,11 @@
     "category": "Phrases",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Na koncerte bolo šesťdesiat ľudí.",
+        "english": "There were sixty people at the concert.",
+        "note": "Curated"
+      },
       {
         "slovak": "Má šesťdesiat rokov.",
         "english": "He is sixty years old.",
@@ -274612,6 +275082,11 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Vôkol domu rastú stromy.",
+        "english": "Trees grow around the house.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Pokračoval v prechádzaní vôkol ríbezlí, egrešov, ovocných stromov a živého plota.",
         "english": "He continued to walk past currants, gooseberries, fruit trees and hedges.",
         "note": "Tatoeba",
@@ -274640,6 +275115,16 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Servus, čo robíš?",
+        "english": "Hi, what are you doing?",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Servus a maj sa!",
+        "english": "Bye and take care!",
+        "note": "Curated"
+      },
+      {
         "slovak": "Servus, ako sa máš?",
         "english": "Hi, how are you?",
         "note": "Curated"
@@ -274659,6 +275144,11 @@
     "category": "Phrases",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Na oslave bolo sedemdesiat hostí.",
+        "english": "There were seventy guests at the celebration.",
+        "note": "Curated"
+      },
       {
         "slovak": "Ty si vážil sedemdesiat kíl.",
         "english": "You weighed seventy kilograms.",
@@ -274689,6 +275179,21 @@
     "register": "colloquial",
     "examples": [
       {
+        "slovak": "Hentam pri rieke stojí dom.",
+        "english": "A house stands over there by the river.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Pozri sa hentam na oblohu.",
+        "english": "Look over there at the sky.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Hentam sedí môj brat.",
+        "english": "My brother is sitting over there.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Čo za chlapca hentam pláva?",
         "english": "Who's the boy that's swimming over there?",
         "note": "Tatoeba",
@@ -274704,6 +275209,11 @@
     "category": "Phrases",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "V sále sedelo osemdesiat ľudí.",
+        "english": "Eighty people were sitting in the hall.",
+        "note": "Curated"
+      },
       {
         "slovak": "Máriina babka má už osemdesiat rokov.",
         "english": "María's grandmother is already 80 years old.",
@@ -274733,6 +275243,16 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Nový počítač stál dvetisíc eur.",
+        "english": "The new computer cost two thousand euros.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Mesto má dvetisíc obyvateľov.",
+        "english": "The town has two thousand inhabitants.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Kúpil som tento klobúk za dvetisíc jenov.",
         "english": "I bought this hat for 2000 yen.",
         "note": "Tatoeba",
@@ -274755,6 +275275,16 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Jednako sme sa rozhodli zostať.",
+        "english": "Nevertheless, we decided to stay.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Je to drahé, jednako si to kúpim.",
+        "english": "It's expensive, but I'll buy it anyway.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Je to ťažké, jednako to skúsim.",
         "english": "It's difficult, yet I'll try.",
         "note": "Curated"
@@ -274774,6 +275304,16 @@
     "category": "Phrases",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Na kurze bolo devätnásť ľudí.",
+        "english": "There were nineteen people at the course.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Do cieľa zostáva devätnásť kilometrov.",
+        "english": "Nineteen kilometres remain to the finish.",
+        "note": "Curated"
+      },
       {
         "slovak": "Mám devätnásť.",
         "english": "I'm 19.",
@@ -274797,6 +275337,16 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Hergot, to bolí!",
+        "english": "Dammit, that hurts!",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Hergot, kde som nechal mobil?",
+        "english": "Dammit, where did I leave my phone?",
+        "note": "Curated"
+      },
+      {
         "slovak": "Hergot, to je ale prekvapenie!",
         "english": "Good Lord, what a surprise!",
         "note": "Curated"
@@ -274816,6 +275366,16 @@
     "category": "Phrases",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Šach-mat, už nemáš ťah.",
+        "english": "Checkmate, you have no move left.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Povedal šach-mat a usmial sa.",
+        "english": "He said checkmate and smiled.",
+        "note": "Curated"
+      },
       {
         "slovak": "Šach-mat! Vyhral som.",
         "english": "Checkmate! I won.",
@@ -274837,6 +275397,16 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Nemám čas na film, tobôž na knihu.",
+        "english": "I don't have time for a film, let alone a book.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nevedel to vysvetliť, tobôž naučiť.",
+        "english": "He couldn't explain it, let alone teach it.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Nemá čas na obed, tobôž na kávu.",
         "english": "He has no time for lunch, let alone coffee.",
         "note": "Curated"
@@ -274856,6 +275426,16 @@
     "category": "Phrases",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "V sále bolo štyristo ľudí.",
+        "english": "There were four hundred people in the hall.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Kniha má štyristo strán.",
+        "english": "The book has four hundred pages.",
+        "note": "Curated"
+      },
       {
         "slovak": "Shakespeare, ktorého hry sú svetoznáme, žil zhruba pred štyristo rokmi.",
         "english": "Shakespeare, whose plays are world-famous, lived some four hundred years ago.",
@@ -274880,6 +275460,16 @@
     "register": "colloquial",
     "examples": [
       {
+        "slovak": "Henten dom je na predaj.",
+        "english": "That house is for sale.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Henten muž čaká na autobus.",
+        "english": "That man is waiting for the bus.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Henten muž je môj sused.",
         "english": "That man is my neighbour.",
         "note": "Curated"
@@ -274899,6 +275489,16 @@
     "category": "Phrases",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Cesta trvá deväťdesiat minút.",
+        "english": "The journey takes ninety minutes.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V obci žije deväťdesiat ľudí.",
+        "english": "Ninety people live in the village.",
+        "note": "Curated"
+      },
       {
         "slovak": "Vôbec nie je nezvyčajné dožiť sa vyše deväťdesiat rokov.",
         "english": "It is not rare at all to live over ninety years.",
@@ -274981,6 +275581,16 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Vaňa bola plná teplej vody.",
+        "english": "The bathtub was full of warm water.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Napustil vaňu vodou.",
+        "english": "He filled the bathtub with water.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Rád spieva vo vani.",
         "english": "He likes to sing in the bathtub.",
         "note": "Tatoeba",
@@ -275003,6 +275613,16 @@
     "gender": "feminine",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Prezývku mu dali v škole.",
+        "english": "They gave him the nickname at school.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Prezývka sa mi nepáči.",
+        "english": "I don't like the nickname.",
+        "note": "Curated"
+      },
       {
         "slovak": "Prezývku nemám.",
         "english": "I don't have a nickname.",
@@ -275099,6 +275719,16 @@
     "gender": "feminine",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Spisovateľka vydala novú knihu.",
+        "english": "The writer published a new book.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Stala sa známou spisovateľkou.",
+        "english": "She became a famous writer.",
+        "note": "Curated"
+      },
       {
         "slovak": "Som spisovateľka.",
         "english": "I'm a writer.",
@@ -275313,6 +275943,16 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Lov trval celý deň.",
+        "english": "The hunt lasted all day.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Po love sa vrátili domov.",
+        "english": "After the hunt, they returned home.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Idem na lov.",
         "english": "I'm going hunting.",
         "note": "Tatoeba",
@@ -275407,6 +276047,11 @@
     "category": "Adjectives",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Bystrý študent odpovedal prvý.",
+        "english": "The clever student answered first.",
+        "note": "Curated"
+      },
       {
         "slovak": "Tom je bystrý.",
         "english": "Tom is clever.",
@@ -275740,6 +276385,16 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Obecenstvo tlieskalo po predstavení.",
+        "english": "The audience applauded after the performance.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Obecenstvo bolo ticho.",
+        "english": "The audience was silent.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Spolu s nami spievalo celé obecenstvo.",
         "english": "The entire audience sang along with us.",
         "note": "Tatoeba",
@@ -275794,6 +276449,16 @@
     "gender": "feminine",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Lebka chráni mozog.",
+        "english": "The skull protects the brain.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Našli starú lebku.",
+        "english": "They found an old skull.",
+        "note": "Curated"
+      },
       {
         "slovak": "V lebke je uložený mozog.",
         "english": "The cranium contains the brain.",
@@ -275924,6 +276589,11 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Pri rybníku sme videli kačice.",
+        "english": "We saw ducks by the pond.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Rybník je príliš plytký na plávanie.",
         "english": "The pond is too shallow for swimming.",
         "note": "Tatoeba",
@@ -276011,6 +276681,11 @@
     "gender": "feminine",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Perla sa leskla na svetle.",
+        "english": "The pearl shone in the light.",
+        "note": "Curated"
+      },
       {
         "slovak": "Jeho zuby sú biele ako perly.",
         "english": "His teeth are white like a pearl.",
@@ -276147,6 +276822,16 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Dýchanie sa mu spomalilo.",
+        "english": "His breathing slowed down.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Po behu bolo dýchanie ťažké.",
+        "english": "After running, breathing was difficult.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Máte nejaké ťažkosti s dýchaním?",
         "english": "Are you having any trouble breathing?",
         "note": "Tatoeba",
@@ -276266,6 +276951,16 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Čestnosť je dôležitá cnosť.",
+        "english": "Honesty is an important virtue.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Odvaha je cnosť.",
+        "english": "Courage is a virtue.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Trpezlivosť je cnosť.",
         "english": "Patience is a virtue.",
         "note": "Tatoeba",
@@ -276367,6 +277062,16 @@
     "gender": "neuter",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Seno sa sušilo na slnku.",
+        "english": "The hay was drying in the sun.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Kone dostali seno.",
+        "english": "The horses got hay.",
+        "note": "Curated"
+      },
       {
         "slovak": "Je to ako hľadať ihlu v kope sena.",
         "english": "It is like looking for a needle in a haystack.",
@@ -276514,6 +277219,11 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Tiger odpočíval v tieni.",
+        "english": "The tiger rested in the shade.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Tiger ušiel zo ZOO.",
         "english": "The tiger escaped from the zoo.",
         "note": "Tatoeba",
@@ -276574,6 +277284,11 @@
     "gender": "feminine",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Oblička je dôležitý orgán.",
+        "english": "The kidney is an important organ.",
+        "note": "Curated"
+      },
       {
         "slovak": "Máme dve obličky.",
         "english": "We have two kidneys.",
@@ -276636,6 +277351,21 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Kohút zobudil celú dedinu.",
+        "english": "The rooster woke the whole village.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na dvore behal kohút.",
+        "english": "A rooster was running in the yard.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Kohút má farebné perie.",
+        "english": "The rooster has colourful feathers.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Kohút kikiríka.",
         "english": "The rooster is crowing.",
         "note": "Tatoeba",
@@ -276652,6 +277382,21 @@
     "gender": "masculine-inanimate",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Šíp letel vzduchom.",
+        "english": "The arrow flew through the air.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Vytiahol šíp z puzdra.",
+        "english": "He took an arrow from the quiver.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Šíp sa zapichol do terča.",
+        "english": "The arrow stuck in the target.",
+        "note": "Curated"
+      },
       {
         "slovak": "Šíp sa minul cieľa.",
         "english": "The arrow missed its target.",
@@ -276670,6 +277415,21 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Na farme chovajú hydinu.",
+        "english": "They keep poultry on the farm.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Hydina potrebuje čistú vodu.",
+        "english": "Poultry needs clean water.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Mäso z hydiny je lacnejšie.",
+        "english": "Poultry meat is cheaper.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Nejem mäso, ryby, morské plody, hydinu ani vývar.",
         "english": "I do not eat meat, fish, shellfish, poultry or broth.",
         "note": "Tatoeba",
@@ -276686,6 +277446,16 @@
     "gender": "feminine",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Starká upiekla koláč.",
+        "english": "Grandma baked a cake.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Starká býva v dedine.",
+        "english": "Grandma lives in the village.",
+        "note": "Curated"
+      },
       {
         "slovak": "Máriina starká má už osemdesiat rokov.",
         "english": "María's grandmother is already 80 years old.",
@@ -276710,6 +277480,21 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Prejavil som mu vďačnosť.",
+        "english": "I showed him gratitude.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Vďačnosť sa nedá kúpiť.",
+        "english": "Gratitude cannot be bought.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Cítim vďačnosť za pomoc.",
+        "english": "I feel gratitude for the help.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Vďačnosť má byť vždy úprimná.",
         "english": "Gratitude should always be sincere.",
         "note": "Tatoeba",
@@ -276726,6 +277511,11 @@
     "gender": "feminine",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Ihla sa stratila v koberci.",
+        "english": "The needle got lost in the carpet.",
+        "note": "Curated"
+      },
       {
         "slovak": "Borovice sú vždyzelené ihličnany s listami pripomínajúcimi ihly.",
         "english": "Pine trees are evergreen conifers with needle-like leaves.",
@@ -276921,6 +277711,16 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Závisť mu nedala spať.",
+        "english": "Envy wouldn't let him sleep.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Necítim k nim závisť.",
+        "english": "I don't feel envy towards them.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Závisť a hlúposť často idú ruka v ruke.",
         "english": "Jealousy and stupidity often walk together.",
         "note": "Tatoeba",
@@ -276943,6 +277743,16 @@
     "gender": "masculine-inanimate",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Ľadovec sa pomaly topí.",
+        "english": "The glacier is slowly melting.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Loď obišla veľký ľadovec.",
+        "english": "The ship went around a large iceberg.",
+        "note": "Curated"
+      },
       {
         "slovak": "Titanic sa zrazil s ľadovcom.",
         "english": "The Titanic hit an iceberg.",
@@ -276967,6 +277777,16 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Muška mi krúžila nad hlavou.",
+        "english": "A small fly circled above my head.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Muška sadla na stôl.",
+        "english": "A small fly landed on the table.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Padla mi do oka muška a nemôžem ju vybrať.",
         "english": "I got a bug in my eye and I can't get it out.",
         "note": "Tatoeba",
@@ -276989,6 +277809,21 @@
     "gender": "feminine",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Cestovina sa varila v hrnci.",
+        "english": "The pasta was cooking in the pot.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Mám rád cestovinu so syrom.",
+        "english": "I like pasta with cheese.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Cestovina je hotová.",
+        "english": "The pasta is ready.",
+        "note": "Curated"
+      },
       {
         "slovak": "Tom urobil bezlepkové cestoviny.",
         "english": "Tom made gluten-free pasta.",
@@ -277066,6 +277901,21 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Korčuľa sa leskla na ľade.",
+        "english": "The skate shone on the ice.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Zabudol som si korčule.",
+        "english": "I forgot my skates.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Korčuľa bola príliš tesná.",
+        "english": "The skate was too tight.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Obuli si korčule.",
         "english": "They put their roller skates on.",
         "note": "Tatoeba",
@@ -277083,6 +277933,21 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Rúcho bolo ťažké.",
+        "english": "The garment was heavy.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Kráľ mal na sebe biele rúcho.",
+        "english": "The king was wearing a white garment.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Rúcho viselo na stene.",
+        "english": "The garment hung on the wall.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Tom je vlk v ovčom rúchu.",
         "english": "Tom is a wolf in sheep's clothing.",
         "note": "Tatoeba",
@@ -277099,6 +277964,16 @@
     "gender": "feminine",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Spôsobil nám nepríjemnosť.",
+        "english": "He caused us inconvenience.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nepríjemnosť sa rýchlo vyriešila.",
+        "english": "The inconvenience was quickly resolved.",
+        "note": "Curated"
+      },
       {
         "slovak": "Nespôsobilo by to nepríjemnosti?",
         "english": "Wouldn't that cause problems?",
@@ -277123,6 +277998,16 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Bunda je príliš hrubá.",
+        "english": "The jacket is too thick.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Obliekol si teplú bundu.",
+        "english": "He put on a warm jacket.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Z bundy odpadol gombík.",
         "english": "A button's fallen off the jacket.",
         "note": "Tatoeba",
@@ -277145,6 +278030,21 @@
     "gender": "masculine-inanimate",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Škorpión sa skryl pod kameň.",
+        "english": "The scorpion hid under a stone.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Škorpión má jedovatý chvost.",
+        "english": "A scorpion has a venomous tail.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V púšti žije veľa škorpiónov.",
+        "english": "Many scorpions live in the desert.",
+        "note": "Curated"
+      },
       {
         "slovak": "Škorpióny sú nebezpečné.",
         "english": "Scorpions are dangerous.",
@@ -277221,6 +278121,21 @@
     "gender": "masculine-inanimate",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Sluch sa s vekom zhoršuje.",
+        "english": "Hearing gets worse with age.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Má dobrý sluch.",
+        "english": "He has good hearing.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Chráň si sluch pred hlukom.",
+        "english": "Protect your hearing from noise.",
+        "note": "Curated"
+      },
       {
         "slovak": "Ľudia majú päť zmyslov: zrak, sluch, hmat, chuť a čuch.",
         "english": "Humans have five senses: sight, hearing, touch, taste and smell.",
@@ -277357,6 +278272,16 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Statok leží pri lese.",
+        "english": "The farm lies by the forest.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na statku chovajú kone.",
+        "english": "They keep horses on the farm.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Máme statok.",
         "english": "We have a farm.",
         "note": "Tatoeba",
@@ -277380,6 +278305,21 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Biológia ma v škole bavila.",
+        "english": "I enjoyed biology at school.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Učiteľ biológie vysvetlil bunku.",
+        "english": "The biology teacher explained the cell.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Biológia skúma živé organizmy.",
+        "english": "Biology studies living organisms.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Nikdy som nemal rád biológiu.",
         "english": "I never liked biology.",
         "note": "Tatoeba",
@@ -277397,6 +278337,21 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Svokra prišla na návštevu.",
+        "english": "The mother-in-law came to visit.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Hovoril som so svokrou.",
+        "english": "I spoke with my mother-in-law.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Svokra býva neďaleko.",
+        "english": "My mother-in-law lives nearby.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Moja budúca svokra robí úžasný černicový koláč.",
         "english": "My future mother-in-law makes wonderful blackberry pie.",
         "note": "Tatoeba",
@@ -277413,6 +278368,16 @@
     "gender": "masculine-inanimate",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Rožok som natrel maslom.",
+        "english": "I spread butter on the roll.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na raňajky som si dal rožok.",
+        "english": "I had a roll for breakfast.",
+        "note": "Curated"
+      },
       {
         "slovak": "Milujem párky v rožku.",
         "english": "I love hot dogs.",
@@ -277437,6 +278402,21 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Diamant sa leskol v prsteni.",
+        "english": "The diamond sparkled in the ring.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Našli veľký diamant.",
+        "english": "They found a large diamond.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Diamant je najtvrdší minerál.",
+        "english": "Diamond is the hardest mineral.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Skutočné priateľstvá sú ešte vzácnejšie ako diamanty.",
         "english": "True friendships are even rarer than diamonds.",
         "note": "Tatoeba",
@@ -277453,6 +278433,11 @@
     "gender": "masculine-inanimate",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Pri dube rastie hríb.",
+        "english": "A mushroom grows by the oak.",
+        "note": "Curated"
+      },
       {
         "slovak": "Myslel som, že Tom zasadí tulipány pri dube.",
         "english": "I thought Tom would plant the tulips near the oak tree.",
@@ -277483,6 +278468,11 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Bohyňa sa zjavila v sne.",
+        "english": "The goddess appeared in a dream.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Ona je bohyňa.",
         "english": "She's a goddess.",
         "note": "Tatoeba",
@@ -277511,6 +278501,16 @@
     "gender": "masculine-inanimate",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Kožuch ho chránil pred zimou.",
+        "english": "The fur coat protected him from the cold.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Kúpila si nový kožuch.",
+        "english": "She bought a new fur coat.",
+        "note": "Curated"
+      },
       {
         "slovak": "Mala na sebe kožuch.",
         "english": "She was wearing a fur coat.",
@@ -277594,6 +278594,21 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Dvojča spalo v kočíku.",
+        "english": "The twin was sleeping in the pram.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Je to moje dvojča.",
+        "english": "It's my twin.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Dvojča sa hralo na dvore.",
+        "english": "The twin was playing in the yard.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Mám dvojča.",
         "english": "I have a twin.",
         "note": "Tatoeba",
@@ -277610,6 +278625,21 @@
     "gender": "feminine",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Na povale je starý nábytok.",
+        "english": "There is old furniture in the attic.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Vystúpili sme na povalu.",
+        "english": "We went up to the attic.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Povala je plná kníh.",
+        "english": "The attic is full of books.",
+        "note": "Curated"
+      },
       {
         "slovak": "Som na povale.",
         "english": "I'm in the attic.",
@@ -277687,6 +278717,21 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Šampanské sa podávalo vychladené.",
+        "english": "The champagne was served chilled.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Otvoriť šampanské nie je ľahké.",
+        "english": "Opening champagne isn't easy.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na oslave bolo šampanské.",
+        "english": "There was champagne at the celebration.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Pomarančovú šťavu alebo šampanské?",
         "english": "Orange juice or champagne?",
         "note": "Tatoeba",
@@ -277703,6 +278748,16 @@
     "gender": "masculine-inanimate",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Chrobák liezol po liste.",
+        "english": "A beetle crawled along a leaf.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Chrobák sa skryl pod kôru.",
+        "english": "The beetle hid under the bark.",
+        "note": "Curated"
+      },
       {
         "slovak": "Chrobáky sú hmyz.",
         "english": "Scarabs are insects.",
@@ -277761,6 +278816,16 @@
     "gender": "feminine",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Encyklopédia má veľa zväzkov.",
+        "english": "The encyclopedia has many volumes.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Hľadal som to v encyklopédii.",
+        "english": "I looked it up in the encyclopedia.",
+        "note": "Curated"
+      },
       {
         "slovak": "Wikipédia je slobodná encyklopédia.",
         "english": "Wikipedia is a free encyclopedia.",
@@ -277938,6 +279003,21 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Kašeľ ho trápil celú noc.",
+        "english": "The cough troubled him all night.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Mám suchý kašeľ.",
+        "english": "I have a dry cough.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Kašeľ sa rýchlo zhoršil.",
+        "english": "The cough got worse quickly.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Mám kašeľ.",
         "english": "I have a cough.",
         "note": "Tatoeba",
@@ -277955,6 +279035,21 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Fajčiar stál pred vchodom.",
+        "english": "The smoker stood in front of the entrance.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Fajčiari si zapálili.",
+        "english": "The smokers lit up.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Ako fajčiar si často robí pauzy.",
+        "english": "As a smoker, he often takes breaks.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Fajčiari umierajú mladí.",
         "english": "Smokers die young.",
         "note": "Tatoeba",
@@ -277971,6 +279066,11 @@
     "gender": "masculine-inanimate",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Uterák visel na vešiaku.",
+        "english": "The towel hung on the rack.",
+        "note": "Curated"
+      },
       {
         "slovak": "Prineste mi suchý uterák.",
         "english": "Bring me a dry towel.",
@@ -278000,6 +279100,16 @@
     "gender": "masculine-inanimate",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Zobral som hrsť orechov.",
+        "english": "I took a handful of nuts.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Do cesta pridaj hrsť cukru.",
+        "english": "Add a handful of sugar to the dough.",
+        "note": "Curated"
+      },
       {
         "slovak": "Tom zjedol za hrsť arašidov.",
         "english": "Tom ate a handful of peanuts.",
@@ -278077,6 +279187,21 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Výhovorka mu už neprejde.",
+        "english": "His excuse won't work anymore.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Vymyslel si výhovorku.",
+        "english": "He made up an excuse.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Tvoja výhovorka je slabá.",
+        "english": "Your excuse is weak.",
+        "note": "Curated"
+      },
+      {
         "slovak": "To je iba výhovorka.",
         "english": "That's just an excuse.",
         "note": "Tatoeba",
@@ -278152,6 +279277,11 @@
     "gender": "masculine-inanimate",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Jeleň stál na okraji lesa.",
+        "english": "The deer stood at the edge of the forest.",
+        "note": "Curated"
+      },
       {
         "slovak": "Jeleň bežal sám.",
         "english": "The deer was running by itself.",
@@ -278241,6 +279371,21 @@
     "origin": "wiktionary",
     "examples": [
       {
+        "slovak": "Mešita stojí v centre mesta.",
+        "english": "The mosque stands in the city centre.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Pred mešitou sa zuli.",
+        "english": "They took off their shoes in front of the mosque.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Mešita má vysoký minaret.",
+        "english": "The mosque has a tall minaret.",
+        "note": "Curated"
+      },
+      {
         "slovak": "Kde je mešita?",
         "english": "Where's the mosque?",
         "note": "Tatoeba",
@@ -278297,6 +279442,16 @@
     "category": "Adjectives",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "To bol sprostý nápad.",
+        "english": "That was a stupid idea.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nechaj tie sprosté reči.",
+        "english": "Stop that stupid talk.",
+        "note": "Curated"
+      },
       {
         "slovak": "Nebuď sprostý.",
         "english": "Don't be a fool.",
@@ -278423,6 +279578,21 @@
     "category": "Adjectives",
     "origin": "wiktionary",
     "examples": [
+      {
+        "slovak": "Bol to sebecký čin.",
+        "english": "It was a selfish act.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Má sebecké dôvody.",
+        "english": "He has selfish reasons.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "To bolo veľmi sebecké rozhodnutie.",
+        "english": "It was a very selfish decision.",
+        "note": "Curated"
+      },
       {
         "slovak": "Nechcem byť sebecký.",
         "english": "I don't intend to be selfish.",
