@@ -25,6 +25,35 @@ const iconSourceOverrides: Partial<Record<string, string>> = {
   narecie: "https://narecie.sk/images/favicon.png",
 };
 
+/**
+ * Icons rebuilt by hand at high resolution (official vectors, traced or redrawn
+ * from the site's own favicon). Re-fetching would replace them with blurry
+ * favicons, so the script leaves them alone.
+ */
+const curatedIconIds = new Set([
+  "aktuality-slovnik",
+  "anki-slovak",
+  "colloquial-slovak",
+  "dict-cc-ensk",
+  "e-slovak",
+  "glossika-slovak",
+  "italki-slovak",
+  "juls-slovnik",
+  "linguarte-school",
+  "mondly-slovak",
+  "omniglot-slovak",
+  "quia-slovak",
+  "rozpravkozem",
+  "simply-put-slovak",
+  "slovak-cooking-language",
+  "slovak-sound-check",
+  "slovakforu",
+  "tatoeba-sk",
+  "narecie",
+  "verbix",
+  "slovnik-iz",
+]);
+
 const youtubeResourceIds = new Set([
   "learn-slovak-stories-podcast",
   "yt-slovakforu",
@@ -42,7 +71,7 @@ let ok = 0;
 let failed = 0;
 
 for (const resource of learningResources) {
-  if (youtubeResourceIds.has(resource.id)) {
+  if (youtubeResourceIds.has(resource.id) || curatedIconIds.has(resource.id)) {
     continue;
   }
 
@@ -96,16 +125,8 @@ for (const resource of learningResources) {
   }
 }
 
-const youtubeBytes = await fetchIconBytes(
-  "https://www.youtube.com/s/desktop/014dbbed/img/favicon_32x32.png",
-);
-if (youtubeBytes) {
-  await writeFile(`${outDir}/youtube.png`, youtubeBytes);
-  console.log("ok youtube.png (shared)");
-} else {
-  console.warn("skip youtube.png");
-  failed += 1;
-}
+// youtube.png is the official YouTube icon rendered from vector and kept in the
+// repo; it is no longer re-fetched from the 32px favicon.
 
 const slovakeEuPath = `${outDir}/slovake-eu.png`;
 const slovakeGrammarPath = `${outDir}/slovake-grammar.png`;
