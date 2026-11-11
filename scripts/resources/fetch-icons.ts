@@ -125,7 +125,7 @@ for (const resource of learningResources) {
   }
 }
 
-// youtube.png is the official YouTube icon rendered from vector and kept in the
+// youtube.png is YouTube's brand-kit icon (yt_icon_rgb.png), kept in the
 // repo; it is no longer re-fetched from the 32px favicon.
 
 const slovakeEuPath = `${outDir}/slovake-eu.png`;
