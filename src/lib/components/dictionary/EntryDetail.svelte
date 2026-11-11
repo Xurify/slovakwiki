@@ -145,14 +145,20 @@
   }
 
   function glossesFor(senseEntry: ContentEntry): string[] {
+    const seen = new Set<string>();
+
     return senseEntry.english
       .split(";")
       .map((part) => part.trim())
-      .filter(
-        (part) =>
-          part &&
-          part.toLocaleLowerCase("sk") !== senseEntry.slovak.toLocaleLowerCase("sk"),
-      );
+      .filter((part) => {
+        if (!part) return false;
+
+        const key = part.toLocaleLowerCase("sk");
+        if (seen.has(key)) return false;
+
+        seen.add(key);
+        return true;
+      });
   }
 </script>
 
@@ -281,14 +287,7 @@
                 <h2 class={grammarHeadingClass}>Meanings</h2>
               {/if}
 
-              {#if glosses.length === 0}
-                <p class="{grammarProseClass} mt-3">
-                  {senseEntry.category === "Places" ? "Place name, written" : "Written"} the
-                  same in English.
-                </p>
-              {:else}
-                <SenseList class="mt-3" {glosses} />
-              {/if}
+              <SenseList class="mt-3" {glosses} />
 
               {#if summary}
                 <p class="{grammarProseClass} mt-3">{summary}</p>
