@@ -5,6 +5,7 @@ import variantFormGroups from "../../../../content/dictionary/variant-forms.json
 import { normalizeLemma } from "../frequency";
 import { type FrequencyPartOfSpeech } from "../frequency/types";
 import { dictionarySource, julsSourceLabel, snkSourceUrl } from "../sources";
+import { wiktionarySourceLabel, wiktionarySourceUrl } from "../sources";
 import type { ContentEntry, Example, WordFrequency, WordOrigin } from "../types";
 
 /**
@@ -25,6 +26,7 @@ type WordSeed = Pick<
   | "pluralOnlyGender"
   | "dialect"
   | "declension"
+  | "origin"
 >;
 
 type LemmaFrequencyHit = { partOfSpeech: FrequencyPartOfSpeech; rank: number };
@@ -967,6 +969,14 @@ function wordAttribution(origin: WordOrigin, examples: Example[]) {
     };
   }
 
+  if (origin === "wiktionary") {
+    return {
+      source: wiktionarySourceUrl,
+      sourceLabel: wiktionarySourceLabel,
+      sourceNote: "English meanings come from English Wiktionary (via Kaikki and wty).",
+    };
+  }
+
   return {
     source: snkSourceUrl,
     sourceLabel: "Slovak National Corpus (SNK)",
@@ -975,7 +985,12 @@ function wordAttribution(origin: WordOrigin, examples: Example[]) {
 }
 
 const mappedWords: ContentEntry[] = wordSeed.map((word) => {
-  const origin: WordOrigin = curatedSlugs.has(word.slug) ? "curated" : "frequency";
+  const origin: WordOrigin =
+    curatedSlugs.has(word.slug) || word.origin === "curated"
+      ? "curated"
+      : word.origin === "wiktionary"
+        ? "wiktionary"
+        : "frequency";
   const frequency = wordFrequency(word);
   const attribution = wordAttribution(origin, word.examples);
 

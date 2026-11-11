@@ -81718,5 +81718,124 @@
       "english": "He can't have done it; he was at home at the time.",
       "note": "Curated"
     }
+  ],
+  "zbohom": [
+    {
+      "slovak": "Zbohom, priatelia!",
+      "english": "Goodbye, friends!",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Zbohom a šťastnú cestu.",
+      "english": "Goodbye and have a safe journey.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Povedal zbohom a odišiel.",
+      "english": "He said goodbye and left.",
+      "note": "Curated"
+    }
+  ],
+  "hoci": [
+    {
+      "slovak": "Hoci sme boli unavení, pokračovali sme.",
+      "english": "Although we were tired, we continued.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Hoci pršalo, išli sme von.",
+      "english": "Although it was raining, we went out.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Hoci to bolo ťažké, zvládli sme to.",
+      "english": "Although it was hard, we managed it.",
+      "note": "Curated"
+    }
+  ],
+  "avsak": [
+    {
+      "slovak": "Bolo to ťažké, avšak zvládli sme to.",
+      "english": "It was hard, however we managed it.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Avšak to nie je pravda.",
+      "english": "However, that is not true.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Chceli sme prísť, avšak nemali sme čas.",
+      "english": "We wanted to come, but we didn't have time.",
+      "note": "Curated"
+    }
+  ],
+  "akonahle": [
+    {
+      "slovak": "Akonáhle prídeš, zavolaj mi.",
+      "english": "As soon as you arrive, call me.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Akonáhle skončil, odišiel.",
+      "english": "As soon as he finished, he left.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Akonáhle to bude možné, dám ti vedieť.",
+      "english": "As soon as it is possible, I will let you know.",
+      "note": "Curated"
+    }
+  ],
+  "pokym": [
+    {
+      "slovak": "Pokým čakáš, prečítaj si to.",
+      "english": "While you wait, read this.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Zostaň tu, pokým sa nevrátim.",
+      "english": "Stay here until I return.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Pokým neprídeš, nebudeme jesť.",
+      "english": "Until you come, we won't eat.",
+      "note": "Curated"
+    }
+  ],
+  "nazdar": [
+    {
+      "slovak": "Nazdar, ako sa máš?",
+      "english": "Hi, how are you?",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Nazdar! Dlho sme sa nevideli.",
+      "english": "Hi! Long time no see.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Nazdar, chlapi!",
+      "english": "Hi, guys!",
+      "note": "Curated"
+    }
+  ],
+  "lenze": [
+    {
+      "slovak": "Chceli sme prísť, lenže sme nemali čas.",
+      "english": "We wanted to come, but we didn't have time.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Je to dobré, lenže drahé.",
+      "english": "It is good, but expensive.",
+      "note": "Curated"
+    },
+    {
+      "slovak": "Lenže to nie je pravda.",
+      "english": "But that's not true.",
+      "note": "Curated"
+    }
   ]
 }

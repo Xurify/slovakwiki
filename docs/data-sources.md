@@ -14,6 +14,17 @@ Primary source link on curated dictionary entries.
 - [slovnik.juls.savba.sk](https://slovnik.juls.savba.sk/)
 - [Jazykovedný ústav Ľ. Štúra](https://www.juls.savba.sk/)
 
+### Wiktionary (English), via Kaikki and wty
+
+English meanings for common pronouns, conjunctions, prepositions, particles, numerals and interjections, which the SNK part-of-speech lists do not cover.
+
+License: CC BY-SA 3.0 (Wiktionary), CC BY-SA (Kaikki extract)
+
+- [English Wiktionary](https://en.wiktionary.org/wiki/)
+- [Kaikki Slovak dictionary extract](https://kaikki.org/dictionary/Slovak/)
+- [wiktionary-to-yomitan (wty)](https://github.com/yomidevs/wiktionary-to-yomitan)
+- [wty release: sk → en (Yomitan)](https://huggingface.co/datasets/daxida/wty-release)
+
 ## Corpus and frequency
 
 Trusted frequency lists for the most common lemmas by part of speech.

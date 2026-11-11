@@ -101,6 +101,32 @@ export const referenceSources: ReferenceSource[] = [
     ],
   },
   {
+    id: "wiktionary",
+    group: "dictionary",
+    name: "Wiktionary (English), via Kaikki and wty",
+    usedFor:
+      "English meanings for common pronouns, conjunctions, prepositions, particles, numerals and interjections, which the SNK part-of-speech lists do not cover.",
+    license: "CC BY-SA 3.0 (Wiktionary), CC BY-SA (Kaikki extract)",
+    links: [
+      {
+        href: "https://en.wiktionary.org/wiki/",
+        label: "English Wiktionary",
+      },
+      {
+        href: "https://kaikki.org/dictionary/Slovak/",
+        label: "Kaikki Slovak dictionary extract",
+      },
+      {
+        href: "https://github.com/yomidevs/wiktionary-to-yomitan",
+        label: "wiktionary-to-yomitan (wty)",
+      },
+      {
+        href: "https://huggingface.co/datasets/daxida/wty-release",
+        label: "wty release: sk → en (Yomitan)",
+      },
+    ],
+  },
+  {
     id: "snk-word-forms",
     group: "corpus",
     name: "Slovak National Corpus (SNK) word-form lists",
