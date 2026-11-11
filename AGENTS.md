@@ -8,6 +8,7 @@ Domain-specific authoring and pipelines live next to the work — not here:
 | ------------------------------------------- | --------------------------------------------------------------------------- |
 | Dictionary / frequency / audio / images ops | [`scripts/README.md`](scripts/README.md)                                    |
 | Hand-add a lemma                            | [`content/dictionary/README.md`](content/dictionary/README.md)              |
+| Write or replace dictionary examples        | [`docs/dictionary-examples.md`](docs/dictionary-examples.md)                |
 | Create or expand a lesson                   | [`docs/lesson-authoring.md`](docs/lesson-authoring.md) · `new-lesson` skill |
 | Write a listening episode (podcast)         | [`docs/listening-authoring.md`](docs/listening-authoring.md)                |
 | Brief a new episode in one prompt           | [`docs/listening-one-prompt.md`](docs/listening-one-prompt.md)              |

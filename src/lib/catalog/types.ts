@@ -4,7 +4,7 @@ import type { FrequencyPartOfSpeech } from "./frequency/types";
 
 export type EntryKind = "word" | "grammar" | "pronunciation";
 
-export type WordOrigin = "curated" | "frequency";
+export type WordOrigin = "curated" | "frequency" | "wiktionary";
 
 export type WordRegister = "colloquial" | "slang";
 

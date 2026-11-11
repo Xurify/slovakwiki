@@ -59,6 +59,7 @@ interface PlanItem {
   category: string;
   gender?: string;
   slug?: string;
+  origin?: string;
 }
 interface Row {
   slug: string;
@@ -66,6 +67,7 @@ interface Row {
   english: string;
   category: string;
   gender?: string;
+  origin?: string;
   examples: Example[];
   related: string[];
 }
@@ -271,6 +273,7 @@ async function main(): Promise<void> {
           english: item.english,
           category: item.category,
           ...(item.gender ? { gender: item.gender } : {}),
+          ...(item.origin ? { origin: item.origin } : {}),
           examples: picked,
           related: [],
         });

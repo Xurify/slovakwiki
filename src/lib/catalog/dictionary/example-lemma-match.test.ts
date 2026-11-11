@@ -33,6 +33,13 @@ describe("exampleContainsLemma", () => {
     expect(exampleContainsLemma("Slnko zapadá na západe.", "západ", "Nouns")).toBe(true);
   });
 
+  it("matches a hyphenated lemma as one token", () => {
+    expect(exampleContainsLemma("Šach-mat! Vyhral som.", "šach-mat", "Phrases")).toBe(
+      true,
+    );
+    expect(exampleContainsLemma("Šach mat!", "šach-mat", "Phrases")).toBe(false);
+  });
+
   it("rejects another word that only looks like a case form", () => {
     expect(
       exampleContainsLemma("Dnes je streda.", "stred", "Nouns", "masculine-inanimate"),

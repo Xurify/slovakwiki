@@ -24,6 +24,10 @@ function verbStem(lemma: string): string | undefined {
 
 export function lemmaAppearsAsToken(text: string, lemma: string): boolean {
   const lemmaLower = lemma.toLocaleLowerCase("sk");
+  if (lemmaLower.includes("-")) {
+    const hyphenated = text.match(/[\p{L}\p{M}]+(?:-[\p{L}\p{M}]+)+/gu) ?? [];
+    return hyphenated.some((token) => token.toLocaleLowerCase("sk") === lemmaLower);
+  }
   return tokenizeSlovak(text).some((token) => token === lemmaLower);
 }
 

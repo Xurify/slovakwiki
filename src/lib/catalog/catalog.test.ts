@@ -529,11 +529,14 @@ describe("Slovak content", () => {
   it("attributes frequency dictionary words to SNK, not JÚĽŠ", () => {
     const frequencyWord = words.find((word) => word.origin === "frequency");
     const curated = words.find((word) => word.origin === "curated");
+    const wiktionaryWord = words.find((word) => word.origin === "wiktionary");
 
     expect(frequencyWord).toBeDefined();
     expect(curated).toBeDefined();
+    expect(wiktionaryWord).toBeDefined();
     expect(frequencyWord?.sourceLabel).toContain("Slovak National Corpus");
     expect(curated?.sourceLabel).toContain("Jazykovedný ústav");
+    expect(wiktionaryWord?.sourceLabel).toContain("Wiktionary");
   });
 
   it("attaches frequency rank for SNK lemmas", () => {
