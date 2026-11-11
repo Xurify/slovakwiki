@@ -13,7 +13,7 @@ Read the entries from `words` in `src/lib/catalog/entries.ts` (curated seed and 
 
 Skip a slug that a `variant-forms.json` group lists after its first slug: it has no page.
 
-On 2026-11-11 only five entries had fewer than four (`nikde`, `nikam`, `inde`, `kedysi`, `nijaky`) and 1,137 showed four Tatoeba lines, so most batches are replacement work.
+After the coverage import (Xurify/slovakwiki#131), 128 entries show fewer than four: 123 of the new `origin: "wiktionary"` rows (65 nouns, 56 function words under `Phrases`) and five older adverbs. Fill those first. Then 1,137 entries show four Tatoeba lines, which is replacement work.
 
 ## Input
 
@@ -53,7 +53,7 @@ You are a Slovak lexicographer writing learner examples for slovak.wiki. For eac
 
 Each sentence must:
 
-- **contain the headword** as a whole word, or a correct inflected form of it. A suffix inside another word does not count. A reflexive verb shows its `sa` / `si` (`Bojím sa tmy.` on `báť`).
+- **contain the headword** as a whole word, or a correct inflected form of it. A suffix inside another word does not count. A reflexive verb shows its `sa` / `si` (`Bojím sa tmy.` on `báť`). Keep a word apart from its compounds: `krát` (_times, multiplied by_) is the word in `Dva krát tri je šesť.` and `20-krát`, while `trikrát` is an adverb of its own.
 - **use the sense in `english`**, not a sense from `sameSpelling` and not another part of speech: `krásne dievča` is the adjective, so it is not an example for the adverb `krásne`.
 - **show the word working**, each sentence in a different frame from the others and from the existing ones:
   - noun: a different case in each, with a preposition or an agreeing adjective where it shows gender (`do vane`, `stará vaňa`);
@@ -95,7 +95,20 @@ Return only JSON:
 
 Every line you write is `Curated`. Never copy a Tatoeba sentence into the output, and never fix one: a Tatoeba line with a fault is dropped and replaced (see **Apply**).
 
-### Worked example
+### Worked examples
+
+`vaňa` (feminine) shows `vo vani` and `s vaňou` and needs two more, in other cases.
+
+Good:
+
+- `Vaňu treba po použití umyť.`: _The bathtub needs washing after use._ Accusative.
+- `Napustila vodu do vane.`: _She ran water into the tub._ Genitive after `do`; the English says _she_ because the Slovak does.
+
+Bad:
+
+- `Vaňa je vaňa.`: tautology.
+- `Toto je vaňa.`: a frame that fits every noun.
+- `Kúpil som novú vanu.`: `vanu` is Czech; Slovak is `vaňu`.
 
 `nikam` has one example and needs three.
 
