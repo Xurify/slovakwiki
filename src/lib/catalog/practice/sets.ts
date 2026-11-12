@@ -1,5 +1,9 @@
 import type { LessonTrackId } from "$lib/learning/types";
 import {
+  ASPECT_SESSION_SIZE,
+  aspectPracticeItemIds,
+} from "$lib/learning/aspect/practice";
+import {
   DEMONSTRATIVES_SESSION_SIZE,
   demonstrativesPracticeItemIds,
 } from "$lib/learning/demonstratives/session";
@@ -159,5 +163,15 @@ export const practiceSets: PracticeSet[] = [
     sessionKind: "demonstratives",
     sessionSize: DEMONSTRATIVES_SESSION_SIZE,
     itemIds: [...demonstrativesPracticeItemIds],
+  },
+  {
+    id: "aspect",
+    lessonId: "grammar/aspect",
+    title: "Imperfective or perfective?",
+    summary:
+      "Ten sentences a session from a pool of thirty-two: right now or done, how long or how fast, budem, keď, and začať.",
+    track: "grammar",
+    sessionSize: ASPECT_SESSION_SIZE,
+    itemIds: [...aspectPracticeItemIds],
   },
 ];

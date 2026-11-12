@@ -232,7 +232,7 @@ describe("Slovak content", () => {
       expect(lessonById.has(set.lessonId)).toBe(true);
     }
 
-    expect(practiceSets).toHaveLength(12);
+    expect(practiceSets).toHaveLength(13);
     const present = practiceSetForLesson("grammar/present-tense-i");
     expect(present?.id).toBe("present-tense-i");
     expect(present?.sessionSize).toBe(7);

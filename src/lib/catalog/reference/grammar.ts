@@ -854,6 +854,10 @@ export const grammarEntries: GrammarTopic[] = [
       "English tenses do not map onto aspect. Ask: process, or result?",
     ],
     nextSlug: "future-tense",
+    lessonLink: {
+      href: "/lessons/grammar/aspect",
+      label: "Aspect: imperfective and perfective",
+    },
   },
   {
     slug: "future-tense",
