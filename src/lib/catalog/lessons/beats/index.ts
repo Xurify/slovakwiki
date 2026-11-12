@@ -28,3 +28,4 @@ export {
   withDemonstrativesExercises,
   demonstrativesLineIds,
 } from "./demonstratives";
+export { aspectBeatShells, withAspectExercises, aspectLineIds } from "./aspect";

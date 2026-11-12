@@ -1,6 +1,7 @@
 import type { Lesson } from "$lib/learning/types";
 import { demonstrativesLesson } from "$lib/learning/demonstratives/lesson";
 import { possessivesLesson } from "$lib/learning/possessives/lesson";
+import { aspectLesson } from "$lib/learning/aspect/lesson";
 import {
   withBytExercises,
   withMatExercises,
@@ -560,4 +561,5 @@ export const grammarLessons: Lesson[] = [
   },
   possessivesLesson,
   demonstrativesLesson,
+  aspectLesson,
 ];

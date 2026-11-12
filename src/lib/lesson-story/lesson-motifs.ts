@@ -32,6 +32,7 @@ const BY_LESSON_ID: Record<string, LessonMotifId> = {
   "grammar/byt-present": "byt",
   "grammar/mat-present": "mat",
   "grammar/demonstratives": "demonstratives",
+  "grammar/aspect": "aspect",
   "pronunciation/first-syllable-stress": "stress",
 };
 

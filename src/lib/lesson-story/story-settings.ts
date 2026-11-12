@@ -68,6 +68,11 @@ const byLessonId: Record<string, LessonStorySetting> = {
     place: "Summer photos at a café",
     placeSk: "V kaviarni s Annou",
   },
+  "grammar/aspect": {
+    art: "home",
+    place: "Sunday soup at home",
+    placeSk: "Doma pri varení",
+  },
   "pronunciation/first-syllable-stress": {
     art: "classroom",
     place: "Hearing the beat of Slovak",

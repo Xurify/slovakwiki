@@ -22,8 +22,8 @@ describe("sitemap", () => {
     expect(byName.pages).toContain(`${SITE_ORIGIN}/dictionary`);
     expect(byName.dictionary?.length).toBeGreaterThan(6500);
     expect(byName.grammar?.length).toBe(26);
-    expect(byName.lessons?.length).toBe(13);
-    expect(byName.practice?.length).toBe(12);
+    expect(byName.lessons?.length).toBe(14);
+    expect(byName.practice?.length).toBe(13);
     expect(byName.listening?.length).toBe(7);
     expect(byName.pages).toContain(`${SITE_ORIGIN}/listening`);
     expect(byName.pronunciation?.length).toBe(5);

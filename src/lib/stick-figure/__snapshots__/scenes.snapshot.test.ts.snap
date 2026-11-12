@@ -1321,6 +1321,247 @@ exports[`every scene, directed > lesson everyday/numbers-and-personal-details 1`
 }
 `;
 
+exports[`every scene, directed > lesson grammar/aspect 1`] = `
+{
+  "cast": [
+    "anna",
+    "alex",
+  ],
+  "lines": [
+    {
+      "line": "anna: Ahoj! Čo robíš?",
+      "plan": {
+        "beats": [
+          "50 wave",
+          "800 ask",
+        ],
+        "ms": 1650,
+        "questions": "800-1450",
+        "sentences": "50-429 800-1450",
+        "words": "50-429 800-992 992-1450",
+      },
+      "staging": {
+        "addressee": "alex",
+        "facing": {
+          "alex": -1,
+          "anna": 1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "alex",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "alex: Varím polievku.",
+      "plan": {
+        "beats": [
+          "0 tell",
+        ],
+        "ms": 1550,
+        "sentences": "0-1200",
+        "words": "0-496 496-1200",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "alex": -1,
+          "anna": 1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Ty každú nedeľu varíš polievku!",
+      "plan": {
+        "beats": [
+          "50 stress",
+        ],
+        "ms": 2350,
+        "sentences": "50-2200",
+        "words": "50-227 227-649 649-1179 1179-1601 1601-2200",
+      },
+      "staging": {
+        "addressee": "alex",
+        "facing": {
+          "alex": -1,
+          "anna": 1,
+        },
+      },
+    },
+    {
+      "line": "anna: Mám hlad. Kedy budeme jesť?",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "1200 ask",
+        ],
+        "ms": 2500,
+        "questions": "1200-2350",
+        "sentences": "50-616 1200-2350",
+        "words": "50-339 339-616 1200-1563 1563-2108 2108-2350",
+      },
+      "staging": {
+        "addressee": "alex",
+        "facing": {
+          "alex": -1,
+          "anna": 1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "alex",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "line": "alex: Polievku uvarím za pol hodiny.",
+      "plan": {
+        "beats": [
+          "100 tell",
+        ],
+        "ms": 2250,
+        "sentences": "100-2000",
+        "words": "100-647 647-1167 1167-1328 1328-1516 1516-2000",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "alex": -1,
+          "anna": 1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Fajn. Keď ju uvaríš, zjem celý hrniec!",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "850 stress",
+        ],
+        "ms": 3550,
+        "sentences": "50-343 850-3400",
+        "words": "50-343 850-1100 1100-1315 1315-2006 2125-2411 2411-2888 2888-3400",
+      },
+      "staging": {
+        "addressee": "alex",
+        "facing": {
+          "alex": -1,
+          "anna": 1,
+        },
+      },
+    },
+    {
+      "held": {
+        "anna": "umbrella",
+      },
+      "line": "anna: Medzitým kúpim chlieb. Vezmem si tvoj dáždnik, dobre?",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "1700 show",
+        ],
+        "ms": 3550,
+        "questions": "1700-3350",
+        "sentences": "50-1295 1700-3350",
+        "words": "50-625 625-1031 1031-1295 1700-2081 2081-2244 2244-2462 2462-2906 2996-3350",
+      },
+      "props": [
+        undefined,
+        "umbrella",
+      ],
+      "staging": {
+        "addressee": "alex",
+        "approach": {
+          "characterId": "alex",
+          "toward": -1,
+        },
+        "facing": {
+          "alex": -1,
+          "anna": 1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "alex",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+    {
+      "held": {
+        "anna": "umbrella",
+      },
+      "line": "alex: Jasné. Vonku začalo pršať.",
+      "plan": {
+        "beats": [
+          "50 nod",
+          "1000 tell",
+        ],
+        "ms": 2500,
+        "sentences": "50-519 1000-2350",
+        "words": "50-519 1000-1399 1399-1951 1951-2350",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "alex": -1,
+          "anna": 1,
+        },
+        "looksAt": "anna",
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 1,
+          },
+        ],
+      },
+    },
+  ],
+  "setting": "home",
+  "things": [
+    "muz",
+    "zena",
+    "okno",
+    "taska",
+    "zaves",
+    "obraz",
+    "pohovka",
+    "vankus",
+    "lampa",
+    "koberec",
+    "voditko",
+    "rastlina",
+  ],
+}
+`;
+
 exports[`every scene, directed > lesson grammar/byt-present 1`] = `
 {
   "cast": [

@@ -1,6 +1,11 @@
 import { describe, expect, it } from "vitest";
 
-import { drawWithNewSentence, insertRetryCard, CARDS_BEFORE_RETRY } from "./retry";
+import {
+  drawWithNewSentence,
+  insertRetryCard,
+  retryNote,
+  CARDS_BEFORE_RETRY,
+} from "./retry";
 
 describe("insertRetryCard", () => {
   it("places the retry CARDS_BEFORE_RETRY cards after the miss", () => {
@@ -37,5 +42,12 @@ describe("drawWithNewSentence", () => {
         3,
       ),
     ).toBe("same");
+  });
+});
+
+describe("retryNote", () => {
+  it("promises a new sentence only when the retry has one", () => {
+    expect(retryNote("Varím obed.", "Varím obed.")).not.toMatch(/new sentence/);
+    expect(retryNote("Varím obed.", "Pijem kávu.")).toMatch(/with a new sentence/);
   });
 });
