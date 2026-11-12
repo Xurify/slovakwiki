@@ -1103,15 +1103,19 @@ function markVariants(entries: ContentEntry[]): ContentEntry[] {
 
 /**
  * Imperfective and perfective verbs point at each other. Pairs are listed in
- * `aspect-pairs.json` as [imperfective, perfective]; a pair with a missing
- * member is left unmarked.
+ * `aspect-pairs.json` as [imperfective, perfective]. A pair with a missing
+ * member, or with a variant form that has no page of its own, is left unmarked.
  */
 function markAspectPairs(entries: ContentEntry[]): ContentEntry[] {
   const bySlug = new Map(entries.map((entry) => [entry.slug, entry]));
   const partnerBySlug = new Map<string, Pick<ContentEntry, "aspect" | "aspectPartner">>();
+  const hasOwnPage = (slug: string) => {
+    const entry = bySlug.get(slug);
+    return entry !== undefined && entry.variantOf === undefined;
+  };
 
   for (const [imperfective, perfective] of aspectPairs) {
-    if (!bySlug.has(imperfective) || !bySlug.has(perfective)) continue;
+    if (!hasOwnPage(imperfective) || !hasOwnPage(perfective)) continue;
     partnerBySlug.set(imperfective, {
       aspect: "imperfective",
       aspectPartner: perfective,

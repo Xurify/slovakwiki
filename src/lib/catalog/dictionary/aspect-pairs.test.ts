@@ -38,11 +38,19 @@ describe("aspect pairs", () => {
     }
   });
 
-  it("link jesť and zjesť both ways", () => {
-    expect(bySlug.get("jest")?.aspect).toBe("imperfective");
-    expect(bySlug.get("jest")?.aspectPartner).toBe("zjest");
-    expect(bySlug.get("zjest")?.aspect).toBe("perfective");
-    expect(bySlug.get("zjest")?.aspectPartner).toBe("jest");
+  it("pair only words with a page of their own", () => {
+    for (const slug of aspectPairs.flat()) {
+      expect(bySlug.get(slug)?.variantOf, slug).toBeUndefined();
+    }
+  });
+
+  it("do not list the partner again under related words", () => {
+    for (const slug of aspectPairs.flat()) {
+      const props = dictionaryPagePropsForSlug(slug);
+      const partner = bySlug.get(slug)?.aspectPartner;
+      const relatedSlugs = props?.relatedEntries.map((related) => related.slug) ?? [];
+      expect(relatedSlugs, slug).not.toContain(partner);
+    }
   });
 
   it("link the partner from the dictionary page", () => {

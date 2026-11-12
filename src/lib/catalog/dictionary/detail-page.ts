@@ -26,13 +26,15 @@ import { frequencyListFor } from "$lib/catalog/frequency/load";
 import { contentCacheKey } from "$lib/build/cache-key";
 import type { ContentEntry, VerbAspect } from "$lib/catalog/types";
 
+/** The other member of an aspect pair, linked from this page. */
+export type AspectPartnerLink = {
+  aspect: VerbAspect;
+  href: string;
+  slovak: string;
+};
+
 export type DictionaryPageProps = {
-  /** The other member of an aspect pair, linked from this page. */
-  aspectPartner?: {
-    aspect: VerbAspect;
-    href: string;
-    slovak: string;
-  };
+  aspectPartner?: AspectPartnerLink;
   entry: ContentEntry;
   entriesNear: NearbyEntry[];
   exampleAudioSrcs: string[];
@@ -102,7 +104,9 @@ function dictionaryPageProps(entry: ContentEntry): DictionaryPageProps | undefin
 
   const senses = lemmaSenseGroup(entry, words);
 
+  // The partner already has its own line in the header.
   const relatedEntries = relatedSlugsForLemmaPage(senses)
+    .filter((slug) => slug !== entry.aspectPartner)
     .map((slug) => entryBySlug.get(slug))
     .filter((related): related is NonNullable<typeof related> => related !== undefined)
     .map((related) => ({

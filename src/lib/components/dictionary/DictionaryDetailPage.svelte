@@ -5,7 +5,8 @@
   import type { NearbyEntry } from "$lib/catalog/dictionary/entries-near";
   import type { FrequencyNeighbor } from "$lib/catalog/dictionary/frequency-neighbors";
   import type { DictionaryImageView } from "$lib/catalog/dictionary/images";
-  import type { ContentEntry, EntryKind, VerbAspect } from "$lib/catalog/types";
+  import type { AspectPartnerLink } from "$lib/catalog/dictionary/detail-page";
+  import type { ContentEntry, EntryKind } from "$lib/catalog/types";
 
   interface RelatedEntry {
     english: string;
@@ -26,7 +27,7 @@
   }: {
     audioMount?: Snippet;
     data: {
-      aspectPartner?: { aspect: VerbAspect; href: string; slovak: string };
+      aspectPartner?: AspectPartnerLink;
       entry: ContentEntry;
       entriesNear: NearbyEntry[];
       exampleAudioSrcs: string[];
