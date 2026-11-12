@@ -4,6 +4,8 @@ import type { FrequencyPartOfSpeech } from "./frequency/types";
 
 export type EntryKind = "word" | "grammar" | "pronunciation";
 
+export type VerbAspect = "imperfective" | "perfective";
+
 export type WordOrigin = "curated" | "frequency" | "wiktionary";
 
 export type WordRegister = "colloquial" | "slang";
@@ -146,6 +148,10 @@ export interface ContentEntry {
   origin?: WordOrigin;
   /** Existing lemma slugs only — never free-text labels. */
   related: string[];
+  /** Verb aspect, set for members of a pair in `aspect-pairs.json`. */
+  aspect?: VerbAspect;
+  /** Slug of the other member of an aspect pair. */
+  aspectPartner?: string;
   /** Slug of the lemma whose page this form is listed on (zas → zasa). No page of its own. */
   variantOf?: string;
   /** URL id from `lemmaToSlug(slovak)`; unique across curated seed + words.json. */

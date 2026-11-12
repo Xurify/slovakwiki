@@ -25,6 +25,7 @@
   import type { DictionaryImageView } from "$lib/catalog/dictionary/images";
   import { senseSectionId } from "$lib/catalog/dictionary/lemma-senses";
   import { cx } from "$lib/ui/classes";
+  import type { AspectPartnerLink } from "$lib/catalog/dictionary/detail-page";
   import type { ContentEntry, EntryKind, Example } from "$lib/catalog/types";
 
   interface RelatedEntry {
@@ -41,6 +42,7 @@
   }
 
   let {
+    aspectPartner,
     audioMount,
     entry,
     entriesNear = [],
@@ -52,6 +54,7 @@
     senses,
     variants = [],
   }: {
+    aspectPartner?: AspectPartnerLink;
     /** Client island that mounts AudioButtons into `[data-audio-mount]` hosts. */
     audioMount?: Snippet;
     entry: ContentEntry;
@@ -214,6 +217,20 @@
         <p class="m-0 mt-2 text-sm text-slate-700">
           Also
           <span class="font-serif text-slate-900" lang="sk">{variants.join(", ")}</span>
+        </p>
+      {/if}
+
+      {#if aspectPartner}
+        <p class="m-0 mt-2 text-sm text-slate-700">
+          {aspectPartner.aspect === "perfective" ? "Perfective" : "Imperfective"} partner:
+          <a
+            class={cx(
+              "font-serif text-slate-900 underline decoration-slate-300 underline-offset-[3px]",
+              "hover:decoration-blue-800",
+            )}
+            href={aspectPartner.href}
+            lang="sk">{aspectPartner.slovak}</a
+          >
         </p>
       {/if}
     </header>
