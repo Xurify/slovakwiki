@@ -1455,23 +1455,40 @@ exports[`every scene, directed > lesson grammar/aspect 1`] = `
       },
     },
     {
-      "held": {
-        "anna": "umbrella",
-      },
-      "line": "anna: Fajn. Medzitým kúpim chlieb. Vezmem si tvoj dáždnik, dobre?",
+      "line": "anna: Fajn. Keď ju uvaríš, zjem celý hrniec!",
       "plan": {
         "beats": [
           "50 tell",
-          "750 tell",
-          "2350 show",
+          "850 stress",
         ],
-        "ms": 4200,
-        "questions": "2350-4000",
-        "sentences": "50-281 750-1900 2350-4000",
-        "words": "50-281 750-1281 1281-1656 1656-1900 2350-2731 2731-2894 2894-3112 3112-3556 3646-4000",
+        "ms": 3550,
+        "sentences": "50-343 850-3400",
+        "words": "50-343 850-1100 1100-1315 1315-2006 2125-2411 2411-2888 2888-3400",
+      },
+      "staging": {
+        "addressee": "alex",
+        "facing": {
+          "alex": -1,
+          "anna": 1,
+        },
+      },
+    },
+    {
+      "held": {
+        "anna": "umbrella",
+      },
+      "line": "anna: Medzitým kúpim chlieb. Vezmem si tvoj dáždnik, dobre?",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "1700 show",
+        ],
+        "ms": 3550,
+        "questions": "1700-3350",
+        "sentences": "50-1295 1700-3350",
+        "words": "50-625 625-1031 1031-1295 1700-2081 2081-2244 2244-2462 2462-2906 2996-3350",
       },
       "props": [
-        undefined,
         undefined,
         "umbrella",
       ],
@@ -1490,7 +1507,7 @@ exports[`every scene, directed > lesson grammar/aspect 1`] = `
             "at": 0.5,
             "characterId": "alex",
             "gesture": "lean",
-            "sentence": 2,
+            "sentence": 1,
           },
         ],
       },
@@ -1524,27 +1541,6 @@ exports[`every scene, directed > lesson grammar/aspect 1`] = `
             "sentence": 1,
           },
         ],
-      },
-    },
-    {
-      "held": {
-        "anna": "umbrella",
-      },
-      "line": "anna: Keď sa vrátim, zjem celý hrniec!",
-      "plan": {
-        "beats": [
-          "50 stress",
-        ],
-        "ms": 2800,
-        "sentences": "50-2650",
-        "words": "50-320 320-552 552-1144 1273-1582 1582-2097 2097-2650",
-      },
-      "staging": {
-        "addressee": "alex",
-        "facing": {
-          "alex": -1,
-          "anna": 1,
-        },
       },
     },
   ],

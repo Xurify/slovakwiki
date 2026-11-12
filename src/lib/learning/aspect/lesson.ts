@@ -33,7 +33,7 @@ const halfHourLine = markedText([
 ]);
 
 const breadLine = markedText([
-  "Fajn. Medzitým ",
+  "Medzitým ",
   { role: "contrast", text: "kúpim" },
   " chlieb. ",
   { role: "contrast", text: "Vezmem" },
@@ -47,8 +47,8 @@ const rainLine = markedText([
 ]);
 
 const potLine = markedText([
-  "Keď sa ",
-  { role: "contrast", text: "vrátim" },
+  "Fajn. Keď ju ",
+  { role: "contrast", text: "uvaríš" },
   ", ",
   { role: "contrast", text: "zjem" },
   " celý hrniec!",
@@ -123,7 +123,7 @@ export const aspectGradedExercises: LessonExercise[] = [
   {
     id: "aspect-which-perfective",
     type: "selectAll",
-    practiceItemId: practiceId("cv-taska-pomoct"),
+    practiceItemId: practiceId("cv-prestal-jest"),
     prompt: "Which verbs are perfective?",
     choices: [
       { id: "zjest", label: "zjesť", correct: true },
@@ -151,7 +151,7 @@ export const aspectGradedExercises: LessonExercise[] = [
   {
     id: "aspect-bought-phone",
     type: "choice",
-    practiceItemId: practiceId("cv-za-vikend-precital"),
+    practiceItemId: practiceId("cv-konecne-opravili"),
     prompt: "Yesterday I bought a new phone.",
     choices: [
       { id: "perfective", label: "Včera som kúpil nový telefón." },
@@ -219,7 +219,11 @@ export const aspectGradedExercises: LessonExercise[] = [
     prompt: "Repair this sentence.",
     inputLabel: "Correct Slovak sentence",
     answer: "Zajtra napíšem e-mail.",
-    acceptedAnswers: ["Zajtra budem písať e-mail."],
+    acceptedAnswers: [
+      "Zajtra napíšem email.",
+      "Zajtra budem písať e-mail.",
+      "Zajtra budem písať email.",
+    ],
     mistakes: [
       {
         wrong: "budem napísať",
@@ -241,7 +245,8 @@ export const aspectGradedExercises: LessonExercise[] = [
       {
         id: "imperfective",
         label: "Čítal si tú knihu?",
-        whyWrong: "**Čítal si** asks whether you read it at all, even a page.",
+        whyWrong:
+          "**Čítal si** asks whether you've read it at all, not whether you got to the end.",
       },
       { id: "perfective", label: "Prečítal si tú knihu?" },
     ],
@@ -334,11 +339,19 @@ export const aspectLesson: Lesson = {
       },
     },
     {
+      id: aspectLineIds.annaWholePot,
+      speaker: "Anna",
+      slovak: potLine.text,
+      marks: potLine.marks,
+      english: "Great. When you've cooked it, I'll eat the whole pot!",
+      audio: { transcript: potLine.text },
+    },
+    {
       id: aspectLineIds.annaBreadAndUmbrella,
       speaker: "Anna",
       slovak: breadLine.text,
       marks: breadLine.marks,
-      english: "Great. Meanwhile I'll buy some bread. I'll take your umbrella, OK?",
+      english: "Meanwhile I'll buy some bread. I'll take your umbrella, OK?",
       audio: { transcript: breadLine.text },
     },
     {
@@ -360,14 +373,6 @@ export const aspectLesson: Lesson = {
           },
         ],
       },
-    },
-    {
-      id: aspectLineIds.annaWholePot,
-      speaker: "Anna",
-      slovak: potLine.text,
-      marks: potLine.marks,
-      english: "When I get back, I'll eat the whole pot!",
-      audio: { transcript: potLine.text },
     },
   ],
   keyPhrases: aspectBeatShells.flatMap((beat) => beat.teach.phrases ?? []),

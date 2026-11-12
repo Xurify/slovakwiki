@@ -24,3 +24,10 @@ export function drawWithNewSentence<T>(
   }
   return candidate;
 }
+
+/** What the player says after a miss: a fixed-item set brings the same card back. */
+export function retryNote(missedSentence?: string, retrySentence?: string): string {
+  return missedSentence === retrySentence
+    ? "This card comes back in a few cards. The count stays the same."
+    : "This card comes back in a few cards, with a new sentence. The count stays the same.";
+}

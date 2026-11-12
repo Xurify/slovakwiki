@@ -169,7 +169,7 @@ export const practiceSets: PracticeSet[] = [
     lessonId: "grammar/aspect",
     title: "Imperfective or perfective?",
     summary:
-      "Ten sentences a session from a pool of thirty-two: right now or done, how long or how fast, budem, keď, and začať.",
+      "Pick the verb each sentence needs: going on now or done, how long or how fast, budem, keď, and začať. Each session draws new sentences.",
     track: "grammar",
     sessionSize: ASPECT_SESSION_SIZE,
     itemIds: [...aspectPracticeItemIds],

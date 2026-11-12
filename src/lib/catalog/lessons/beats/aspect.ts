@@ -11,9 +11,9 @@ export const aspectLineIds = {
   annaSoupEverySunday: "aspect-anna-soup-every-sunday",
   annaWhenWillWeEat: "aspect-anna-when-will-we-eat",
   youSoupInHalfAnHour: "aspect-you-soup-in-half-an-hour",
+  annaWholePot: "aspect-anna-whole-pot",
   annaBreadAndUmbrella: "aspect-anna-bread-and-umbrella",
   youStartedRaining: "aspect-you-started-raining",
-  annaWholePot: "aspect-anna-whole-pot",
 } as const;
 
 const IMPERFECTIVE: FormTableHeading = {
@@ -108,10 +108,10 @@ export const aspectBeatShells: Omit<LessonBeat, "exercises">[] = [
           audio: { transcript: "Každú nedeľu varím polievku." },
         },
         {
-          slovak: "Anna uvarila polievku.",
-          english: "Anna has cooked the soup.",
-          note: "Perfective: done, and the soup is ready.",
-          audio: { transcript: "Anna uvarila polievku." },
+          slovak: "Uvaril som polievku.",
+          english: "I've cooked the soup.",
+          note: "Perfective: done, and the soup is ready. A woman says **uvarila som**.",
+          audio: { transcript: "Uvaril som polievku." },
         },
       ],
       note: "Most Slovak verbs come in pairs. The **imperfective** (**nedokonavý vid**) is the action going on, again and again, or for a while. The **perfective** (**dokonavý vid**) is one action done, with its result. English tense does not decide it. Ask: the process, or the result?",
@@ -121,7 +121,11 @@ export const aspectBeatShells: Omit<LessonBeat, "exercises">[] = [
     id: "aspect-future",
     title: "Perfective present means later",
     teach: {
-      sceneLineIds: [aspectLineIds.annaWhenWillWeEat, aspectLineIds.youSoupInHalfAnHour],
+      sceneLineIds: [
+        aspectLineIds.annaWhenWillWeEat,
+        aspectLineIds.youSoupInHalfAnHour,
+        aspectLineIds.annaWholePot,
+      ],
       phrases: [
         {
           slovak: "Budeme jesť.",
@@ -142,7 +146,7 @@ export const aspectBeatShells: Omit<LessonBeat, "exercises">[] = [
           audio: { transcript: "Zajtra ti zavolám." },
         },
       ],
-      note: "Perfective verbs have no present meaning. Their present forms are the future: **uvarím** is “I will cook”, **kúpim** is “I will buy”. The imperfective future is **budem** + infinitive, as in **budeme jesť**. **Budem** never goes with a perfective verb.",
+      note: "Perfective verbs have no present meaning. Their present forms are the future: **uvarím** is “I will cook”, **zjem** is “I will eat up”. The imperfective future is **budem** + infinitive, as in **budeme jesť**. **Budem** never goes with a perfective verb. After **keď**, one event still to come is perfective too: **keď ju uvaríš**.",
       visual: futureTable(),
     },
   },
@@ -161,7 +165,7 @@ export const aspectBeatShells: Omit<LessonBeat, "exercises">[] = [
         {
           slovak: "kupovať · kúpiť",
           english: "to buy",
-          note: "A different suffix: the longer verb is the imperfective.",
+          note: "A different suffix: the imperfective often has **-ova-**, **-áva-** or **-á-**.",
           audio: { transcript: "kupovať, kúpiť" },
         },
         {
@@ -179,7 +183,7 @@ export const aspectBeatShells: Omit<LessonBeat, "exercises">[] = [
     id: "aspect-start-stop",
     title: "Začať and prestať",
     teach: {
-      sceneLineIds: [aspectLineIds.youStartedRaining, aspectLineIds.annaWholePot],
+      sceneLineIds: [aspectLineIds.youStartedRaining],
       phrases: [
         {
           slovak: "Začalo pršať.",
@@ -217,7 +221,7 @@ export const aspectBeatShells: Omit<LessonBeat, "exercises">[] = [
         {
           slovak: "Čítal si tú knihu?",
           english: "Have you read that book?",
-          note: "Imperfective: at all, even a page.",
+          note: "Imperfective: whether you've read it at all, not whether you got to the end.",
           audio: { transcript: "Čítal si tú knihu?" },
         },
         {

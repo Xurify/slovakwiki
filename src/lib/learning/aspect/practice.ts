@@ -13,6 +13,9 @@ const aspectSource = {
 /** The lesson teaches A1–A2 cues; the harder items stay in the level test. */
 const PRACTICE_LEVELS: ReadonlySet<CefrLevel> = new Set(["A1", "A2"]);
 
+/** Fine in the level test, but too close to call as drill: ešte raz opakovať is common too. */
+const LEFT_OUT = new Set(["cv-este-raz-zopakovat"]);
+
 export const ASPECT_SESSION_SIZE = 10;
 
 const ASPECT_IDS = ["imperfective", "perfective"] as const;
@@ -21,11 +24,31 @@ function capitalize(text: string): string {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
-const WHY_WRONG = {
-  imperfective: (form: string) =>
-    `**${capitalize(form)}** is the imperfective: an action going on, repeated, or lasting a while.`,
-  perfective: (form: string) =>
-    `**${capitalize(form)}** is the perfective: one action, done, with its result.`,
+type FormKind = "infinitive" | "past" | "present" | "imperative";
+
+function formKind(item: Pick<AuthoredChooseVerbItem, "options">, form: string): FormKind {
+  if (form.endsWith("ť")) return "infinitive";
+  if (/l[aoi]?$/.test(form)) return "past";
+  if (item.options.every((option) => option.startsWith("ne"))) return "imperative";
+  return "present";
+}
+
+const WHY_WRONG: Record<(typeof ASPECT_IDS)[number], Record<FormKind, string>> = {
+  imperfective: {
+    infinitive:
+      "is the imperfective: the activity, or doing it again and again, not one act.",
+    past: "is the imperfective past: it says the action went on, not that it got done.",
+    present:
+      "is the imperfective: something going on or happening again and again, not one event still to come.",
+    imperative: "is the imperfective: a ban on doing it at all.",
+  },
+  perfective: {
+    infinitive: "is the perfective: the whole thing done once, not the activity.",
+    past: "is the perfective past: it sees the action as one finished act, not as time spent.",
+    present: "is perfective, so its present form means later, not now.",
+    imperative:
+      "is perfective: it warns against an accident, not against doing something on purpose.",
+  },
 };
 
 // Slovak letters with diacritics never occur in the English of a why line.
@@ -62,6 +85,20 @@ export function aspectWhy(
   return marked.replace(/perfective\.$/, `perfective: **${answer}**.`);
 }
 
+/**
+ * The note on the wrong pick. When the why line already names that form, the
+ * note is its own clause of the why, which the feedback then leaves out as a repeat.
+ */
+export function aspectWhyWrong(item: AuthoredChooseVerbItem, why: string): string {
+  const wrong = (1 - item.answer) as 0 | 1;
+  const form = item.options[wrong];
+  const named = why
+    .split(/(?<=[;.])\s+/)
+    .find((clause) => words(clause.replace(/\*\*/g, "")).includes(form.toLowerCase()));
+  if (named) return named.replace(/;$/, "");
+  return `**${capitalize(form)}** ${WHY_WRONG[ASPECT_IDS[wrong]][formKind(item, form)]}`;
+}
+
 function sentence(item: AuthoredChooseVerbItem, form: string): string {
   return `${item.before}${form}${item.after}`;
 }
@@ -80,6 +117,7 @@ export function aspectChoiceExercise(
   id: string,
 ): ChoiceExercise {
   const answer = ASPECT_IDS[item.answer];
+  const why = aspectWhy(item);
 
   return {
     id,
@@ -91,13 +129,13 @@ export function aspectChoiceExercise(
       const label = sentence(item, form);
       return aspect === answer
         ? { id: aspect, label }
-        : { id: aspect, label, whyWrong: WHY_WRONG[aspect](form) };
+        : { id: aspect, label, whyWrong: aspectWhyWrong(item, why) };
     }),
     answerId: answer,
     feedback: {
       correction: sentence(item, item.options[item.answer]),
       english: item.english,
-      why: aspectWhy(item),
+      why,
     },
   };
 }
@@ -109,7 +147,7 @@ export function aspectItem(id: string): AuthoredChooseVerbItem {
 }
 
 export const aspectPracticeItems: PracticeItem[] = aspectItems
-  .filter((item) => PRACTICE_LEVELS.has(item.level))
+  .filter((item) => PRACTICE_LEVELS.has(item.level) && !LEFT_OUT.has(item.id))
   .map((item) => {
     const task = aspectChoiceExercise(item, `review-aspect-${shortId(item)}`);
     return {

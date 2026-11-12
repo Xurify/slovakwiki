@@ -70,7 +70,7 @@
     sessionTypedInputIdleClass,
   } from "$lib/components/practice/practice-session-ui";
   import { practiceTaskKicker } from "$lib/practice/task-kicker";
-  import { insertRetryCard, MAX_RETRIES_PER_SESSION } from "$lib/practice/retry";
+  import { insertRetryCard, MAX_RETRIES_PER_SESSION, retryNote } from "$lib/practice/retry";
   import type { PracticeSessionContext } from "$lib/catalog/practice/hub";
   import type { PracticeItem } from "$lib/learning/types";
 
@@ -136,6 +136,7 @@
   let sessionResults = $state<SessionPhraseResult[]>([]);
   let retriesQueued = $state(0);
   let retryQueuedForCurrentCard = $state(false);
+  let retryNoteText = $state("");
 
   const activeItems = $derived(itemOverride ?? items);
   const current = $derived(activeItems[activeIndex]);
@@ -247,8 +248,10 @@
     if (current.isRetryOfMissedCard || retriesQueued >= MAX_RETRIES_PER_SESSION) return;
     retriesQueued += 1;
     retryQueuedForCurrentCard = true;
+    const retry = buildRetryOfMissedCard(current);
+    retryNoteText = retryNote(current.feedback.correction, retry.feedback.correction);
     itemOverride = insertRetryCard(activeItems, activeIndex, {
-      ...buildRetryOfMissedCard(current),
+      ...retry,
       isRetryOfMissedCard: true,
     });
   }
@@ -575,8 +578,7 @@
       >
         {#if retryQueuedForCurrentCard}
           <p class="m-0 text-sm text-pretty text-slate-500">
-            This card comes back in a few cards, with a new sentence. The count stays the
-            same.
+            {retryNoteText}
           </p>
         {:else}
           <span class="hidden sm:block" aria-hidden="true"></span>
