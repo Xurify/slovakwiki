@@ -1161,12 +1161,13 @@ const outro: ListeningChapter = {
 
 export const possessivesEpisode: ListeningEpisode = {
   id: "listening/possessives",
+  cover: { segment: "Hľadám svoj dáždnik", atMs: 20000 },
   slug: "possessives",
   number: 2,
   level: "A1–A2",
   titleSk: "Čí je to dáždnik?",
   title: "Whose umbrella is this?",
-  topic: "môj, jeho, svoj",
+  topic: "Possessives",
   promise:
     "Anna and Marek find an umbrella nobody owns, ask at the language school, find Lucia on the square and look at Marek's family photos back in the studio. At the end, you decide whether Marek got it right.",
   grammarSlug: "possessives",

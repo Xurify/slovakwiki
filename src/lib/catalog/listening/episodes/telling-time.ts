@@ -1132,12 +1132,13 @@ const outro: ListeningChapter = {
 
 export const tellingTimeEpisode: ListeningEpisode = {
   id: "listening/telling-time",
+  cover: { segment: "Na zastávke", atMs: 34000 },
   slug: "telling-time",
   number: 3,
   level: "A1–A2",
   titleSk: "Koľko je hodín?",
   title: "What time is it?",
-  topic: "koľko je hodín",
+  topic: "Telling time",
   promise:
     "Marek is late, then there's a tram at ten, a café that closes at six and a guest who comes at three. Back in the studio, Anna goes over the clock with him once more, and then it's your turn.",
   grammarSlug: "telling-time",

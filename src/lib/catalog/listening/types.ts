@@ -52,8 +52,24 @@ export interface EpisodeNextSteps {
   practiceHref?: string;
 }
 
+/**
+ * The moment of the story the episode's card shows: a segment, by its Slovak
+ * title, and how far into it, in ms of stage time. `bun run listening:covers`
+ * plays the segment to there and saves the stage as the cover.
+ */
+export interface EpisodeCover {
+  atMs: number;
+  segment: string;
+  /**
+   * Where the 2:1 crop is centred across the stage, 0 to 1; the middle when
+   * unset. The café's cake stands past what a phone shows.
+   */
+  x?: number;
+}
+
 export interface ListeningEpisode {
   chapters: ListeningChapter[];
+  cover: EpisodeCover;
   /** The grammar page the episode teaches; a story told for its own sake has none. */
   grammarSlug?: string;
   speakers: string[];
@@ -66,7 +82,7 @@ export interface ListeningEpisode {
   slug: string;
   title: string;
   titleSk: string;
-  /** The grammar label, read as "an episode on …"; none for a story with no topic. */
+  /** The grammar term in English, as its grammar page names it; none for a story with no topic. */
   topic?: string;
   vocabulary: KeyPhrase[];
 }

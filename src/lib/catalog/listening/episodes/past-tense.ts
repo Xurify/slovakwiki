@@ -1142,12 +1142,13 @@ const closed: ListeningChapter = {
 
 export const pastTenseEpisode: ListeningEpisode = {
   id: "listening/past-tense",
+  cover: { segment: "Pozeral na koláč", atMs: 28500, x: 0.62 },
   slug: "past-tense",
   number: 4,
   level: "A1–A2",
   titleSk: "Kto zjedol koláč?",
   title: "Who ate the cake?",
-  topic: "bol, bola, boli",
+  topic: "Past tense",
   promise:
     "A detective story. Marek's poppy-seed cake is gone, and Anna questions everyone who was in the studio today. You name the culprit before she does.",
   grammarSlug: "past-tense",

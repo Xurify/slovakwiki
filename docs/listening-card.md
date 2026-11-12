@@ -11,7 +11,8 @@ One page for a thread that starts a listening episode. It says what to read when
 | 3. Stage it        | skill §4, `AGENTS.md` → Stick-figure scenes                        | `bunx vitest run src/lib/stick-figure` clean                             |
 | 4. Voice it        | skill §5, `AGENTS.md` → Audio                                      | every clip verified (Scribe), pauses and lip sync checked, then uploaded |
 | 5. Game at the end | authoring §2b                                                      | each path walked with `scripts/critic/game-walk.cjs`                     |
-| 6. Check and PR    | skill §6 and §7, one-prompt §4 and §6                              | CI green, motion critic clean, proof in the PR                           |
+| 6. Cover           | authoring §5                                                       | the still shows the moment the title asks about, `.webp` committed       |
+| 7. Check and PR    | skill §6 and §7, one-prompt §4 and §6                              | CI green, motion critic clean, proof in the PR                           |
 
 ## Rules that cost the most time
 

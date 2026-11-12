@@ -1,3 +1,5 @@
+import { existsSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 
 import { spokenText } from "../audio/core";
@@ -8,6 +10,7 @@ import { lessonById } from "../lessons";
 import { practiceSetById } from "../practice";
 import {
   episodeCheckCount,
+  episodeCoverSrc,
   episodeForGrammarSlug,
   episodeLines,
   episodeMinutes,
@@ -18,6 +21,20 @@ import {
 import { dialogueSpeakerLabel } from "$lib/components/practice/dialogue-speaker";
 
 describe("listening episodes", () => {
+  it("has a cover still for every episode, from a segment it has", () => {
+    const staticDir = new URL("../../../../static", import.meta.url);
+    for (const episode of listeningEpisodes) {
+      expect(
+        episode.chapters.map(({ titleSk }) => titleSk),
+        episode.slug,
+      ).toContain(episode.cover.segment);
+      const file = fileURLToPath(
+        new URL(`.${episodeCoverSrc(episode)}`, `${staticDir.href}/`),
+      );
+      expect(existsSync(file), `${file}: run bun run listening:covers`).toBe(true);
+    }
+  });
+
   it("validate", () => {
     expect(validateListeningEpisodes()).toEqual([]);
   });

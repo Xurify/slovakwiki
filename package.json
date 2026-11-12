@@ -16,6 +16,7 @@
     "frequency:static": "bun scripts/frequency/publish-static.ts",
     "cwv:check": "bun scripts/cwv/check-dictionary-size.ts",
     "audio:check": "bun scripts/audio/check-build.ts",
+    "listening:covers": "node scripts/listening/covers.cjs",
     "fouc:boot": "bun scripts/fouc/generate.ts",
     "format": "bun fmt",
     "format:check": "bun fmt --check",

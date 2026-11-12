@@ -844,6 +844,7 @@ const home: ListeningChapter = {
 
 export const whatBobikSaysEpisode: ListeningEpisode = {
   id: "listening/what-bobik-says",
+  cover: { segment: "Na námestí", atMs: 4000 },
   slug: "what-bobik-says",
   number: 6,
   level: "A1–A2",
