@@ -1118,12 +1118,13 @@ const monday: ListeningChapter = {
 
 export const futureTenseEpisode: ListeningEpisode = {
   id: "listening/future-tense",
+  cover: { segment: "V parku", atMs: 26000 },
   slug: "future-tense",
   number: 7,
   level: "A1–A2",
   titleSk: "Budem čakať s tebou",
   title: "I'll wait with you",
-  topic: "budem, pôjdem, hodím",
+  topic: "Future tense",
   promise:
     "A radio play. Marek flies to London and leaves his dog Dunčo with Domo, a robot Dunčo doesn't know yet. At six Dunčo is sad, and you can work out why before Domo does.",
   grammarSlug: "future-tense",

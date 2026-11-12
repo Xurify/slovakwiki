@@ -118,7 +118,9 @@ Work through the one-prompt guide's §4 loop. `bunx vitest run` covers the check
 
 Scrub and seek across each segment's lines (jump forward, jump back, seek during walks/runs/throws). Verify that positions and facings match `actedWorlds[index]`, walking/throwing animations and sounds cancel immediately without lingering or stuck walk-in-place, and subtitles update to the sought line without showing stuck captions. Verify floor objects (bags, cans) do not overlap standing marks or spots (`space/floor-object`). Verify point cues aim at target height (`point/miss`).
 
-Done when every check is clean, you have played the whole episode through once with Play along on, and a Playwright walk of the listener's game has played each path (all right, all wrong, all left to Marek, and one mix) to the right ending, with the transcript never showing an answer before the pick.
+Pick the card's cover last, from the final staging: [`listening-authoring.md`](../../../docs/listening-authoring.md) §5 (a contact sheet with `covers.cjs --every`, then the moment the title asks about).
+
+Done when every check is clean, the cover is committed, you have played the whole episode through once with Play along on, and a Playwright walk of the listener's game has played each path (all right, all wrong, all left to Marek, and one mix) to the right ending, with the transcript never showing an answer before the pick.
 
 ## 7. PR
 

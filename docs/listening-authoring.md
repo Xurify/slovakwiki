@@ -57,6 +57,35 @@ Every show episode ends on a game the listener plays, and it comes after the for
 - [ ] Update the `listening` count in `src/lib/seo/sitemap.test.ts`, and the stage snapshot (`bunx vitest run src/lib/stick-figure/scenes.snapshot.test.ts -u`); read its diff for the new segments.
 - [ ] `bun run format`, `bun run lint`, `bun run typecheck`, `bunx vitest run`, `bun run index:search`.
 - [ ] In the browser, on the episode page (`/listening/<slug>`), not `/dev/scenes`: play every chapter on the stage, checking mouths, props and who faces whom; play a chapter through, answer the questions, read the text, go to the next chapter, try the speed (1×) and transcript buttons. Phone width and dark mode.
+- [ ] Pick the cover (§5) once the staging is final: a re-staged segment moves everyone in it.
+
+## 5. Pick the cover
+
+The card on `/listening` shows one still of the episode's own stage: `cover: { segment, atMs, x? }` on the episode, rendered by `scripts/listening/covers.cjs` to `static/listening/covers/<slug>.webp`. The listening test fails until the file exists.
+
+**Choose the moment the title asks about.** A learner reads the title and the picture together, so the picture shows what the title is about, in a place the story goes:
+
+- _Kde je ten kľúč?_: Anna pointing at the bag by the window where the key is, not two people standing on a rug.
+- _Kto zjedol koláč?_: the café with the cake in view; the first pick had it cut off at the edge.
+- _Čí je to dáždnik?_: Marek holding the umbrella out to Lucia, in the rain.
+- A story segment, not the studio: every episode has the studio, so it tells cards apart by nothing.
+
+**Look for these before you keep a frame.** Each came up in the first audit:
+
+- **A touch that reads as something else.** An arm that ends on someone's shoulder reads as a shove or a handshake. Take a frame where hands point at things or rest, with space between people.
+- **Something growing out of a head.** A rail, a lamp or a frame edge behind a head at the same height. Take another moment or another spot; when the set piece itself is the problem, fix the set.
+- **The subject cut by the crop.** The default crop is the middle 2:1, which is what a phone shows; anything past it (the café's cake) needs `x` (0 to 1, where the crop is centred).
+- **Nothing happening.** Everyone standing at rest, half the picture empty. Prefer a frame mid-gesture: a point, a wave, a hand at the pot.
+- **The highlight ring.** The script hides the blue ring a named thing gets, so a frame where something is pointed at is fine.
+
+**Steps.** The dev server must be running, and Playwright is not a dependency: install it in a scratch folder and put its `node_modules` on `NODE_PATH` (see `scripts/stage-review/README.md`).
+
+1. Set a first guess, `cover: { segment: "<chapter titleSk>", atMs: 0 }`, so the type checks.
+2. Render a contact sheet of the segment, labelled with the ms and line of each frame: `node scripts/listening/covers.cjs --only <slug> --every 1500 --out <scratch dir>` (`--segment` to try another chapter, `--x` to move the crop).
+3. Pick two or three frames, and render each at full size with `--at <ms> --out <scratch dir>`. Look at each at full size and at card size (about 330 px wide) against the list above.
+4. Put the ms (and `x`) in `cover`, run `node scripts/listening/covers.cjs --only <slug>`, and commit the `.webp`.
+
+Re-render every cover after a change to a place's drawing or the cast's looks: `node scripts/listening/covers.cjs` with no `--only`.
 
 ## Slips we shipped
 

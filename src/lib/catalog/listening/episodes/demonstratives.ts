@@ -1088,12 +1088,13 @@ const outro: ListeningChapter = {
 
 export const demonstrativesEpisode: ListeningEpisode = {
   id: "listening/demonstratives",
+  cover: { segment: "Doma", atMs: 21000 },
   slug: "demonstratives",
   number: 1,
   level: "A1–A2",
   titleSk: "Kde je ten kľúč?",
   title: "Where is that key?",
-  topic: "ten, tá, to",
+  topic: "Demonstratives",
   promise:
     "Anna and Marek shop at the market and lose the car key at home. Back in the studio, Marek needs your help with the little words.",
   grammarSlug: "demonstratives",

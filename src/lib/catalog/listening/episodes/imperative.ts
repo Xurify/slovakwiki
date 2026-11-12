@@ -1836,12 +1836,13 @@ const outro: ListeningChapter = {
 
 export const imperativeEpisode: ListeningEpisode = {
   id: "listening/imperative",
+  cover: { segment: "U Márie", atMs: 122000 },
   slug: "imperative",
   number: 5,
   level: "A1–A2",
   titleSk: "Polej tú rastlinku!",
   title: "Water that little plant!",
-  topic: "rob, robte, robme",
+  topic: "Imperative",
   promise:
     "Anna and Marek cook soup at Mária's and take Lucia's call. The next morning, with the studio plant still waiting for water, Marek needs your help with the commands.",
   grammarSlug: "imperative",

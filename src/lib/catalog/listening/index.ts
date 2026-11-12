@@ -9,7 +9,12 @@ import { tellingTimeEpisode } from "./episodes/telling-time";
 import { whatBobikSaysEpisode } from "./episodes/what-bobik-says";
 import type { ListeningChapter, ListeningEpisode } from "./types";
 
-export type { ListeningChapter, ListeningCheck, ListeningEpisode } from "./types";
+export type {
+  EpisodeCover,
+  ListeningChapter,
+  ListeningCheck,
+  ListeningEpisode,
+} from "./types";
 
 export const listeningEpisodes: ListeningEpisode[] = [
   demonstrativesEpisode,
@@ -27,6 +32,11 @@ export const episodeBySlug = new Map(
 
 export function episodePath(episode: Pick<ListeningEpisode, "slug">): string {
   return `/listening/${episode.slug}`;
+}
+
+/** A still of the episode's own stage, from `scripts/listening/covers.cjs`. */
+export function episodeCoverSrc(episode: Pick<ListeningEpisode, "slug">): string {
+  return `/listening/covers/${episode.slug}.webp`;
 }
 
 export function episodeLines(episode: ListeningEpisode): DialogueTurn[] {
