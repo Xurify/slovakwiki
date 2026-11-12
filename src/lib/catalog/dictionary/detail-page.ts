@@ -24,9 +24,15 @@ import {
 } from "$lib/catalog/dictionary/frequency-neighbors";
 import { frequencyListFor } from "$lib/catalog/frequency/load";
 import { contentCacheKey } from "$lib/build/cache-key";
-import type { ContentEntry } from "$lib/catalog/types";
+import type { ContentEntry, VerbAspect } from "$lib/catalog/types";
 
 export type DictionaryPageProps = {
+  /** The other member of an aspect pair, linked from this page. */
+  aspectPartner?: {
+    aspect: VerbAspect;
+    href: string;
+    slovak: string;
+  };
   entry: ContentEntry;
   entriesNear: NearbyEntry[];
   exampleAudioSrcs: string[];
@@ -109,7 +115,17 @@ function dictionaryPageProps(entry: ContentEntry): DictionaryPageProps | undefin
 
   const titleEnglish = senses.map((sense) => sense.english).join(" · ");
 
+  const partner = entry.aspectPartner ? entryBySlug.get(entry.aspectPartner) : undefined;
+
   return {
+    aspectPartner:
+      partner?.aspect && partner.slovak
+        ? {
+            aspect: partner.aspect,
+            href: entryHref(partner, words),
+            slovak: partner.slovak,
+          }
+        : undefined,
     entry,
     variants: variantsOf(entry.slug)
       .map((variant) => variant.slovak)

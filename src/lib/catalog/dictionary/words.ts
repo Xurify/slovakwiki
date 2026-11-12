@@ -2,6 +2,7 @@ import { curatedEssentialsSeed } from "./curated-essentials-seed";
 import lemmaFrequencyIndex from "../../../../content/frequency/lemma-index.json";
 import dictionaryWords from "../../../../content/dictionary/words.json";
 import variantFormGroups from "../../../../content/dictionary/variant-forms.json";
+import aspectPairs from "../../../../content/dictionary/aspect-pairs.json";
 import { normalizeLemma } from "../frequency";
 import { type FrequencyPartOfSpeech } from "../frequency/types";
 import { dictionarySource, julsSourceLabel, snkSourceUrl } from "../sources";
@@ -1100,4 +1101,30 @@ function markVariants(entries: ContentEntry[]): ContentEntry[] {
   });
 }
 
-export const words: ContentEntry[] = attachGlossPeers(markVariants(mappedWords));
+/**
+ * Imperfective and perfective verbs point at each other. Pairs are listed in
+ * `aspect-pairs.json` as [imperfective, perfective]; a pair with a missing
+ * member is left unmarked.
+ */
+function markAspectPairs(entries: ContentEntry[]): ContentEntry[] {
+  const bySlug = new Map(entries.map((entry) => [entry.slug, entry]));
+  const partnerBySlug = new Map<string, Pick<ContentEntry, "aspect" | "aspectPartner">>();
+
+  for (const [imperfective, perfective] of aspectPairs) {
+    if (!bySlug.has(imperfective) || !bySlug.has(perfective)) continue;
+    partnerBySlug.set(imperfective, {
+      aspect: "imperfective",
+      aspectPartner: perfective,
+    });
+    partnerBySlug.set(perfective, { aspect: "perfective", aspectPartner: imperfective });
+  }
+
+  return entries.map((entry) => {
+    const partner = partnerBySlug.get(entry.slug);
+    return partner ? { ...entry, ...partner } : entry;
+  });
+}
+
+export const words: ContentEntry[] = attachGlossPeers(
+  markAspectPairs(markVariants(mappedWords)),
+);
