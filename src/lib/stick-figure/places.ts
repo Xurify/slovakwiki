@@ -586,14 +586,14 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       drawn(WORDS.dvere, [202, 38, 80, 188]),
       drawn(WORDS.hodiny, clockBox(PARTS.studio.clock)),
       // The desk and mics are drawn at the cast's scale (StudioDesk.svelte); these boxes are where they land on a wide stage.
-      drawn(WORDS.stol, [285, 208, 390, 70]),
+      drawn(WORDS.stol, [322, 208, 316, 70]),
       drawn(WORDS.mikrofon, [423, 158, 28, 22], [509, 158, 28, 22]),
       // The plant by the desk is the set's; the little one on the shelf is drawn with the shelf.
       {
         ...drawn(WORDS.rastlina, plantBox(PARTS.studio.plant), [722, 92, 20, 24]),
         of: ["plant"],
       },
-      onSet(WORDS.krhla, ["can"], [726, 222, 38, 24]),
+      onSet(WORDS.krhla, ["can"], [704, 222, 40, 24]),
       // On the shelf, for tapping only: a line about a book means one in someone's hands, not these.
       { ...drawn(WORDS.platna, [650, 30, 72, 54]), quiet: true },
       { ...drawn(WORDS.knihy, [652, 86, 40, 30]), quiet: true },
@@ -612,16 +612,16 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
         { id: "corner", kind: "floor", x: PARTS.studio.plant.x },
       ],
       objects: [
-        // Beside the pot on the far side, within the waterer's reach, listed first so the pot stands in front of it: the gap to the desk's end is where the waterer stands.
+        // Beside the pot on the far side, within the waterer's reach: the gap to the desk's end is where the waterer stands.
         {
           id: "can",
           kind: "can",
-          start: { where: { on: "corner", dx: 14 }, fill: "water" },
+          start: { where: { on: "corner", dx: 15 }, fill: "water" },
         },
         { id: "plant", kind: "plant", start: { where: { on: "corner", dx: 0 } } },
       ],
       spots: {
-        plant: { piece: "corner", dx: -22, facing: 1 },
+        plant: { piece: "corner", dx: -21, facing: 1 },
         "desk-left": { chair: 0 },
         "desk-right": { chair: 1 },
         // The same door as the kitchen's: in on its latch side, then past it to push it to.

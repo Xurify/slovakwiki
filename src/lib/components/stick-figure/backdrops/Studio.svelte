@@ -150,11 +150,6 @@
 <rect x={WALL.left - 6} y={WALL.top - 6} width={WALL.right - WALL.left + 12} height="5" rx="1" fill="#7a4e33" />
 <rect x={WALL.left - 4} y={WALL.bottom} width={WALL.right - WALL.left + 8} height="6" fill="#2a221d" />
 
-<!-- An outlet by the panel, a cable from it running behind. -->
-<rect x="302" y="196" width="10" height="13" rx="1.5" fill="#f6f2ea" stroke="#cfc5b5" stroke-width="0.8" />
-<circle cx="305.4" cy="202.5" r="0.9" fill="#8a8f96" />
-<circle cx="308.6" cy="202.5" r="0.9" fill="#8a8f96" />
-<path d="M307 207Q314 214 330 211" stroke="#2a2f37" stroke-width="1.4" />
 
 <!-- Pendant lamps, each on a cord from a ceiling rose. -->
 {#each [380, 580] as x (x)}

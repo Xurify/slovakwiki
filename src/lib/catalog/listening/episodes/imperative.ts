@@ -1640,7 +1640,7 @@ const OUTRO_ACTS: Record<string, Cue[]> = {
     { do: "pour", what: "can", to: "plant", on: "tu" },
     { do: "wag", on: "nezaspi" },
     // Done with it, the can goes straight back where it lives.
-    { do: "put", what: "can", to: "corner", dx: 14 },
+    { do: "put", what: "can", to: "corner", dx: 15 },
   ],
   "anna-water-yours-too": [
     { do: "laugh", on: "marek" },

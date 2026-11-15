@@ -64,7 +64,7 @@
 >
   {#if layer === "behind"}
     {#each seats as seat, index (index)}
-      <!-- An office chair: five-star base on casters, a gas lift, a tall back behind the sitter. -->
+      <!-- An office chair: five-star base on casters, a gas lift, a mesh back behind the sitter. -->
       <g transform="translate({seat.x} {base}) scale({unit}) scale({seat.facing} 1)">
         <path
           d="M-3 {SEAT_Y + 3}V{GROUND_Y - 6}L-16 {GROUND_Y - 2}M-3 {GROUND_Y -
@@ -81,7 +81,12 @@
           stroke-width="2.4"
         />
         <rect x="-17" y={SEAT_Y - 2} width="28" height="5.5" rx="2.5" fill="#2a2f37" />
-        <rect x="-22" y={SEAT_Y - 40} width="8" height="30" rx="3.6" fill="#2a2f37" />
+        <!-- The back, a little wider than the sitter's shoulders: a dark shell round a mesh panel. -->
+        <rect x="-19" y={SEAT_Y - 40} width="27" height="34" rx="7" fill="#2a2f37" />
+        <rect x="-16.5" y={SEAT_Y - 37.5} width="22" height="28" rx="5" fill="#4a5461" />
+        {#each [-31, -26, -21, -16] as dy (dy)}
+          <path d="M-15 {SEAT_Y + dy}H4" stroke="#3a424d" stroke-width="0.6" />
+        {/each}
       </g>
     {/each}
   {:else}
@@ -145,12 +150,12 @@
       >
       <!-- The top: an oak surface seen a little from above, a darker front edge. -->
       <rect x={left} y={TOP - 3.2} width={right - left} height="6.4" rx="1.2" fill="#8a5a3b" />
-      <rect x={left} y={TOP - 3.2} width={right - left} height="2.6" rx="1" fill="#d2a77a" />
+      <rect x={left} y={TOP - 3.2} width={right - left} height="4.6" rx="1" fill="#d2a77a" />
       <path d="M{left + 1} {TOP + 3.2}H{right - 1}" stroke="#3a2a20" stroke-opacity="0.5" stroke-width="0.8" />
 
       <!-- At the left end, the laptop running the recording, its screen to the room; a notebook and pen at the other. -->
       {#if seats.length}
-        {@const lap = seats[0].x / unit - 30}
+        {@const lap = seats[0].x / unit - 31}
         <path d="M{lap - 10} {TOP - 3}L{lap - 8.6} {TOP - 4.4}H{lap + 8.6}L{lap + 10} {TOP - 3}Z" fill="#9aa6b0" stroke="#3a3f47" stroke-width="0.4" />
         <rect x={lap - 8} y={TOP - 16.6} width="16" height="12.2" rx="1" fill="#3a3f47" />
         <rect x={lap - 7} y={TOP - 15.6} width="14" height="9.6" rx="0.4" fill="#1d2a3a" />
@@ -160,7 +165,7 @@
           stroke-width="0.5"
         />
         <circle cx={lap - 5.4} cy={TOP - 14} r="0.8" fill="#e0453c" />
-        {@const book = seats[seats.length - 1].x / unit + 36}
+        {@const book = seats[seats.length - 1].x / unit + 32}
         <rect x={book - 8} y={TOP - 5.6} width="15" height="2.6" rx="0.4" fill="#22385c" />
         <rect x={book - 7.4} y={TOP - 7.8} width="13.6" height="2.2" rx="0.4" fill="#c23b35" />
         <path d="M{book - 6.6} {TOP - 8.6}h11" stroke="#ecc77f" stroke-width="0.9" />
@@ -239,7 +244,6 @@
           />
         {/if}
         <rect x="21" y={TOP - 6.2} width="7" height="3.2" rx="0.8" fill="#2a2f37" />
-        <rect x="22.4" y={TOP - 3.2} width="4.2" height="2" fill="#2a2f37" fill-opacity="0.35" />
         <rect x="23.3" y={TOP - 12} width="2.4" height="6" rx="0.6" fill="#3a3f47" />
         <path
           d="M24.5 {TOP - 10}L{ELBOW.x} {ELBOW.y}L{MIC.x + 3} {MIC.y - 7}L{MIC.x + 1} {MIC.y}"
