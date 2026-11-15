@@ -100,7 +100,7 @@ export const PARTS = {
   street: {
     // The bench is in the shelter; the lamp stands on the platform between the tram's first door and
     // its middle bogie; the tree is past what a 1280-wide stage shows.
-    bench: { ground: 268, width: 126, x: 220 },
+    bench: { ground: 268, width: 126, x: 236 },
     lamp: { ground: 276, x: 710 },
     tree: { ground: 272, x: 58 },
   },

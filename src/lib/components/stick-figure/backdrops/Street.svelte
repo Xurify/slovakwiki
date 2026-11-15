@@ -83,9 +83,10 @@
   <rect x="800" y="132" width="60" height="6" rx="2" class="fill-scene-steel" />
 
   {#each BOGIES as x (x)}
-    <rect x={x - 22} y="236" width="44" height="12" rx="2" class="fill-scene-line/70" />
-    <circle cx={x - 12} cy="247.5" r="6" class="fill-scene-line/80" />
-    <circle cx={x + 12} cy="247.5" r="6" class="fill-scene-line/80" />
+    <rect x={x - 22} y="236" width="44" height="12" rx="2" class="fill-scene-steel-dark" />
+    <rect x={x - 22} y="236" width="44" height="3" class="fill-scene-line/30" />
+    <circle cx={x - 12} cy="247.5" r="6" class="fill-portrait-hair" />
+    <circle cx={x + 12} cy="247.5" r="6" class="fill-portrait-hair" />
     <circle cx={x - 12} cy="247.5" r="2" class="fill-scene-steel" />
     <circle cx={x + 12} cy="247.5" r="2" class="fill-scene-steel" />
   {/each}
@@ -96,14 +97,15 @@
   />
   <path d="M{FRONT + 1} 204H1010V240H{FRONT + 4}Z" class="fill-scene-red-mid" />
   <rect x={FRONT + 2} y="202" width="470" height="3" class="fill-scene-red" />
-  <rect x={FRONT + 4} y="236" width="470" height="4" class="fill-scene-line/25" />
+  <rect x={FRONT + 4} y="236" width="470" height="4" class="fill-scene-steel-dark" />
   <!-- The roof's edge, dark against the houses behind. -->
   <path d="M{FRONT + 16} 146Q{FRONT + 26} 138 {FRONT + 44} 138H1010" class="stroke-scene-line/45" stroke-width="1.6" fill="none" />
   <rect x={FRONT + 40} y="139" width="430" height="3" class="fill-scene-line/10" />
 
   <!-- The cab: a raked windscreen under the route display, a headlight low down. -->
   <path d="M{FRONT + 4} 196Q{FRONT + 4} 164 {FRONT + 20} 156H{FRONT + 46}V196Z" class="fill-scene-line/50" />
-  <path d="M{FRONT + 7} 194Q{FRONT + 7} 166 {FRONT + 21} 159H{FRONT + 43}V194Z" class="fill-scene-sky" />
+  <path d="M{FRONT + 7} 194Q{FRONT + 7} 166 {FRONT + 21} 159H{FRONT + 43}V194Z" class="fill-scene-steel" />
+  <path d="M{FRONT + 7} 194Q{FRONT + 7} 166 {FRONT + 21} 159H{FRONT + 43}V194Z" class="fill-scene-sky/55" />
   <path d="M{FRONT + 10} 186Q{FRONT + 12} 168 {FRONT + 24} 162H{FRONT + 30}L{FRONT + 12} 192Z" class="fill-white/40" />
   <rect x={FRONT + 14} y="142" width="44" height="11" rx="1.5" class="fill-scene-line/85" />
   <text
@@ -119,23 +121,25 @@
   <ellipse cx={FRONT + 8} cy="218.5" rx="3.2" ry="3" class="fill-white" />
   <ellipse cx={FRONT + 8} cy="218.5" rx="2" ry="1.8" class="fill-scene-honey" />
   <rect x={FRONT + 12} y="216.5" width="2.5" height="4" rx="1" class="fill-scene-carrot" />
-  <path d="M{FRONT + 3} 228H{FRONT + 34}V238H{FRONT + 4}Z" class="fill-scene-line/75" />
-  <rect x={FRONT + 4} y="229" width="30" height="1.5" class="fill-white/25" />
 
   <!-- Doors: two glazed leaves each, low to the kerb. -->
   {#each [TRAM.door, 781, 960] as door (door)}
     <rect x={door - 22} y="150" width="44" height="88" rx="2" class="fill-scene-line/45" />
-    <rect x={door - 20} y="152" width="19" height="84" rx="1.5" class="fill-scene-sky" />
-    <rect x={door + 1} y="152" width="19" height="84" rx="1.5" class="fill-scene-sky" />
-    <rect x={door - 20} y="196" width="40" height="40" class="fill-scene-line/12" />
+    <rect x={door - 20} y="152" width="19" height="84" rx="1.5" class="fill-scene-steel" />
+    <rect x={door + 1} y="152" width="19" height="84" rx="1.5" class="fill-scene-steel" />
+    <rect x={door - 20} y="152" width="40" height="84" class="fill-scene-sky/50" />
+    <rect x={door - 20} y="200" width="40" height="36" class="fill-scene-steel-dark/35" />
+    <path d="M{door - 1} 152V236M{door - 12} 170V214M{door + 12} 170V214" class="stroke-scene-line/45" stroke-width="1" />
     <path d="M{door - 18} 182L{door - 6} 156H{door - 3}L{door - 18} 190Z" class="fill-white/35" />
   {/each}
   <circle cx={TRAM.door + 28} cy="214" r="3.5" class="fill-scene-honey" />
 
   {#each SIDE_WINDOWS as x (x)}
     <rect {x} y="152" width="38" height="44" rx="3" class="fill-scene-line/40" />
-    <rect x={x + 2} y="154" width="34" height="40" rx="2" class="fill-scene-sky" />
-    <rect x={x + 2} y="154" width="34" height="8" class="fill-scene-line/12" />
+    <rect x={x + 2} y="154" width="34" height="40" rx="2" class="fill-scene-steel" />
+    <rect x={x + 2} y="154" width="34" height="40" rx="2" class="fill-scene-sky/55" />
+    <rect x={x + 2} y="182" width="34" height="12" class="fill-scene-steel-dark/30" />
+    <path d="M{x + 2} 166H{x + 36}" class="stroke-scene-line/30" stroke-width="1" />
     <path d="M{x + 4} 186L{x + 22} 156H{x + 27}L{x + 6} 192Z" class="fill-white/30" />
   {/each}
   </g>
@@ -164,16 +168,32 @@
   frosted glass so the street behind stays out of it, an advert at one end and
   the timetable at the other, a bin inside.
 -->
+<g transform="translate(16 0)">
 <ellipse cx="274" cy="277" rx="94" ry="4" class="fill-scene-line/12" />
-<rect x="198" y="66" width="152" height="202" class="fill-scene-steel-light" />
-<rect x="198" y="66" width="152" height="202" class="fill-white/55" />
+<rect x="198" y="66" width="152" height="202" class="fill-scene-sky/35" />
+<rect x="198" y="66" width="152" height="202" class="fill-white/25" />
+<path d="M204 140L230 72H240L210 158ZM290 150L320 72H326L296 164Z" class="fill-white/30" />
 <path d="M198 172H350M274 66V268" class="stroke-scene-steel-dark" stroke-width="1.5" />
-<rect x="204" y="80" width="56" height="168" rx="1" class="fill-scene-line/60" />
-<rect x="206" y="82" width="52" height="164" class="fill-scene-sky" />
-<circle cx="232" cy="122" r="15" class="fill-scene-honey" />
-<path d="M206 246V198Q232 172 258 198V246Z" class="fill-scene-leaf" />
-<rect x="212" y="206" width="40" height="12" rx="1" class="fill-white/90" />
-<path d="M217 212h30" class="stroke-scene-line/40" stroke-width="2" />
+<!-- A lit city map in a steel frame. -->
+<rect x="203" y="78" width="58" height="172" rx="1.5" class="fill-scene-steel-dark" />
+<rect x="206" y="81" width="52" height="166" class="fill-white" />
+<rect x="206" y="81" width="52" height="16" class="fill-scene-red-mid" />
+<text x="232" y="92" text-anchor="middle" font-size="7" font-weight="700" class="fill-white font-sans"
+  >Bratislava</text
+>
+<rect x="209" y="100" width="46" height="128" class="fill-scene-warm" />
+<path d="M209 196Q228 182 238 196T255 190V228H209Z" class="fill-scene-water/45" />
+<path
+  d="M209 120H255M209 146H255M209 170H255M222 100V196M240 100V190M209 110L232 140L255 128"
+  class="stroke-white"
+  stroke-width="2"
+  fill="none"
+/>
+<rect x="224" y="148" width="14" height="20" class="fill-scene-sage" />
+<path d="M240 104h12v12h-12Z" class="fill-scene-clay" />
+<circle cx="231" cy="158" r="3" class="fill-scene-red" />
+<rect x="209" y="232" width="46" height="12" class="fill-scene-line/10" />
+<path d="M212 236h28M212 240h20" class="stroke-scene-line/40" stroke-width="1" />
 <rect x="314" y="128" width="30" height="48" rx="1" class="fill-white" />
 <rect x="314" y="128" width="30" height="7" class="fill-scene-red-mid" />
 <path d="M318 141h22M318 147h16M318 153h22M318 159h14M318 165h20M318 171h12" class="stroke-scene-line/40" stroke-width="1" />
@@ -185,14 +205,18 @@
 <text x="312.5" y="62" text-anchor="middle" font-size="6.5" font-weight="700" class="fill-scene-line font-sans">4</text>
 <rect x="325" y="56" width="17" height="7" rx="1" class="fill-white" />
 <text x="333.5" y="62" text-anchor="middle" font-size="6.5" font-weight="700" class="fill-scene-line font-sans">9</text>
-<Bench bench={PARTS.street.bench} />
 <ellipse cx="208" cy="276" rx="9" ry="2" class="fill-scene-line/15" />
 <rect x="206.5" y="256" width="3" height="20" class="fill-scene-steel-dark" />
 <rect x="203" y="274" width="10" height="2" class="fill-scene-steel-dark" />
 <path d="M200 232h16l-1.5 22h-13Z" class="fill-scene-steel" />
 <rect x="199" y="230" width="18" height="3" rx="1" class="fill-scene-steel-dark" />
 
+</g>
+
+<Bench bench={PARTS.street.bench} />
+
 <!-- The stop's sign on its own pole beside the shelter: a tram, the stop's name. -->
+<g transform="translate(18 0)">
 <ellipse cx="392" cy="277" rx="9" ry="2.5" class="fill-scene-line/15" />
 <rect x="386" y="270" width="12" height="7" rx="1.5" class="fill-scene-steel-dark" />
 <rect x="390" y="40" width="4" height="232" class="fill-scene-steel-dark" />
@@ -208,5 +232,6 @@
 <text x="392" y="43.4" text-anchor="middle" font-size="6" font-weight="700" class="fill-white font-sans"
   >Kamenné nám.</text
 >
+</g>
 
 <StreetLamp lamp={PARTS.street.lamp} />
