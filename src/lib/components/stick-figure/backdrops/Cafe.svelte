@@ -12,11 +12,11 @@
   const LAMP = 466;
   const BAR_LAMP = 778;
   const BACK = { bottom: 124, left: 800, right: 928, shelves: [60, 94], top: 34 };
-  const BENCH_TABLE = 540;
+  const BENCH_TABLE = 544;
   const CUSHIONS = [
     { paint: "fill-scene-clay", x: 412 },
     { paint: "fill-scene-honey", x: 500 },
-    { paint: "fill-scene-plum", x: 580 },
+    { paint: "fill-scene-plum", x: 544 },
   ];
   const SYRUPS = [
     "fill-scene-red",
@@ -109,30 +109,30 @@
 <rect x="394" y="150" width="176" height="7" rx="2" class="fill-scene-wood" />
 
 <!-- A banquette against the far wall, drawn smaller than the cast's table because it stands further back. -->
-<rect x="392" y="178" width="206" height="4" rx="1.5" class="fill-scene-wood" />
-<rect x="394" y="182" width="202" height="27" rx="2" class="fill-scene-green" />
-{#each [420, 450, 480, 510, 540, 570] as x (x)}
+<rect x="392" y="178" width="180" height="4" rx="1.5" class="fill-scene-wood" />
+<rect x="394" y="182" width="176" height="27" rx="2" class="fill-scene-green" />
+{#each [420, 450, 480, 510, 540] as x (x)}
   <path d="M{x} 185v20" class="stroke-portrait-ink/15" stroke-width="1" />
 {/each}
 {#each CUSHIONS as { paint, x } (x)}
   <rect x={x - 8} y="194" width="16" height="14" rx="4" class={paint} transform="rotate(-6 {x} 208)" />
   <path d="M{x - 5} 201h10" class="stroke-white/40" stroke-width="0.8" transform="rotate(-6 {x} 208)" />
 {/each}
-<rect x="392" y="208" width="206" height="7" rx="2.5" class="fill-scene-green-mid" />
-<rect x="394" y="215" width="202" height="11" class="fill-scene-coffee/70" />
-<path d="M394 217H596" class="stroke-portrait-ink/15" stroke-width="1" />
-{#each [388, 596] as x (x)}
+<rect x="392" y="208" width="180" height="7" rx="2.5" class="fill-scene-green-mid" />
+<rect x="394" y="215" width="176" height="11" class="fill-scene-coffee/70" />
+<path d="M394 217H570" class="stroke-portrait-ink/15" stroke-width="1" />
+{#each [388, 570] as x (x)}
   <rect {x} y="174" width="6" height="52" rx="1.5" class="fill-scene-wood" />
   <rect {x} y="174" width="6" height="3" rx="1" class="fill-scene-coffee" />
 {/each}
 
-<!-- The banquette's table, out on the floor in front of it, in the gap between the cast's table and where the cast stands. -->
+<!-- The banquette's table, in front of a cushion so the bench is its seat, in the gap between the cast's table and where the cast stands. -->
 <ellipse cx={BENCH_TABLE} cy="236" rx="11" ry="1.8" class="fill-scene-line/15" />
 <path d="M{BENCH_TABLE - 9} 236q9 -4 18 0Z" class="fill-scene-line/80" />
 <rect x={BENCH_TABLE - 1.4} y="195" width="2.8" height="40" class="fill-scene-line/80" />
-<ellipse cx={BENCH_TABLE} cy="195" rx="14" ry="2.4" class="fill-scene-edge" />
-<ellipse cx={BENCH_TABLE} cy="193.4" rx="14" ry="2.4" class="fill-portrait-bib" />
-{#each [-7, 5] as dx (dx)}
+<ellipse cx={BENCH_TABLE} cy="195" rx="11" ry="2.2" class="fill-scene-edge" />
+<ellipse cx={BENCH_TABLE} cy="193.4" rx="11" ry="2.2" class="fill-portrait-bib" />
+{#each [-5, 4] as dx (dx)}
   <ellipse cx={BENCH_TABLE + dx} cy="193" rx="3.6" ry="0.8" class="fill-white" />
   <path d="M{BENCH_TABLE + dx - 2} 192.6v-3.4h4v3.4Z" class="fill-white" />
   <path d="M{BENCH_TABLE + dx + 2} 189.8q1.8 0 1.8 1.2t-1.8 1.2" class="stroke-white" fill="none" stroke-width="0.7" />

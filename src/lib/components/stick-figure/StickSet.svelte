@@ -412,15 +412,15 @@
         {#each [-half + 8, 0, half - 8] as x (x)}
           <path d="M{x} {GROUND_Y - 8}v-3" class="stroke-scene-steel-dark" stroke-width="1" />
         {/each}
-        <!-- Saucers where the coffees wait (CAFE_SET's ledge), under the machine's group heads. -->
-        {#each [-18, -6] as x (x)}
+        <!-- Saucers where the coffees wait (CAFE_SET's ledge), under the machine's group heads, with the waiter beside it rather than behind it. -->
+        {#each [-19, -7] as x (x)}
           <ellipse cx={x} cy={top - 1.3} rx="4.4" ry="0.9" class="fill-white" />
         {/each}
-        <g transform="translate(-12 {top - 1})">
-          <rect x="-12" y="-22" width="24" height="22" rx="1" class="fill-scene-steel-dark" />
-          <rect x="-12" y="-22" width="24" height="12" rx="1.5" class="fill-scene-steel" />
-          <rect x="-12.5" y="-23.4" width="25" height="1.8" rx="0.9" class="fill-scene-steel-light" />
-          {#each [-7, 0, 7] as x (x)}
+        <g transform="translate(-13 {top - 1})">
+          <rect x="-11" y="-22" width="22" height="22" rx="1" class="fill-scene-steel-dark" />
+          <rect x="-11" y="-22" width="22" height="12" rx="1.5" class="fill-scene-steel" />
+          <rect x="-11.5" y="-23.4" width="23" height="1.8" rx="0.9" class="fill-scene-steel-light" />
+          {#each [-6.5, 0, 6.5] as x (x)}
             <path d="M{x - 2.6} -23.4h5.2l-0.5 -0.6h-4.2Z" class="fill-white" />
             <path d="M{x - 1.8} -24l0.4 -2.4h2.8l0.4 2.4Z" class="fill-white" />
           {/each}
@@ -431,12 +431,12 @@
             <path d="M{x} -8.6h{x < 0 ? -5 : 5}" class="stroke-portrait-vest" stroke-width="1.2" />
             <path d="M{x - 0.8} -8.2v1.2M{x + 0.8} -8.2v1.2" class="stroke-scene-steel-dark" stroke-width="0.5" />
           {/each}
-          <path d="M10.8 -11v7l-1.4 2" class="stroke-scene-steel-light" fill="none" stroke-width="0.8" />
-          <rect x="-11" y="-1.6" width="22" height="1.6" rx="0.4" class="fill-scene-steel" />
+          <path d="M9.8 -11v7l-1.4 2" class="stroke-scene-steel-light" fill="none" stroke-width="0.8" />
+          <rect x="-10" y="-1.6" width="20" height="1.6" rx="0.4" class="fill-scene-steel" />
         </g>
         <!-- With no coffees of the story's on the bar, two wait there anyway. -->
         {#if !Object.values(world.objects).some((object) => object.kind === "cup")}
-          {#each [-18, -6] as x (x)}
+          {#each [-19, -7] as x (x)}
             <path d="M{x - 3} {top - 1.6}v-4.6q0 -1 1 -1h4q1 0 1 1v4.6Z" class="fill-white" />
             <path d="M{x + 3} {top - 5.4}q2 0 2 1.4t-2 1.4" class="stroke-white" fill="none" stroke-width="0.8" />
             <path d="M{x - 2.4} {top - 6.6}h4.8" class="stroke-scene-coffee" stroke-width="0.7" />
