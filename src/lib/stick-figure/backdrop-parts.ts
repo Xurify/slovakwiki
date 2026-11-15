@@ -78,14 +78,15 @@ export const PARTS = {
     plant: { x: 944, y: 232 },
   },
   default: {
-    bench: { ground: 266, width: 104, x: 662 },
-    lamp: { ground: 264, x: 252 },
+    bench: { ground: 266, width: 104, x: 640 },
+    lamp: { ground: 262, x: 370 },
   },
   home: { plant: { x: 40, y: 244 } },
   plaza: {
-    bench: { ground: 251, width: 112, x: 24 },
+    // Bench and tree stand past what a 1280-wide stage shows (x 120 to 840), whole on a wider one.
+    bench: { ground: 250, width: 104, x: 4 },
     clock: { hand: 9, r: 14, x: 283, y: 128 },
-    lamp: { ground: 231, x: 779 },
+    lamp: { ground: 238, x: 222 },
     tree: { ground: 250, planter: true, x: 902 },
   },
   kitchen: {
@@ -96,9 +97,10 @@ export const PARTS = {
     plant: { x: 256, y: 228 },
   },
   street: {
-    bench: { ground: 279, width: 130, x: 668 },
-    lamp: { ground: 257, x: 300 },
-    tree: { ground: 258, x: 100 },
+    // The bench is in the shelter, the lamp on the platform; the tree is past what a 1280-wide stage shows.
+    bench: { ground: 268, width: 92, x: 228 },
+    lamp: { ground: 276, x: 740 },
+    tree: { ground: 272, x: 58 },
   },
   studio: {
     clock: { hand: 10, r: 18, ticks: true, x: 289, y: 74 },
