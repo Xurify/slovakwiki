@@ -186,14 +186,13 @@
 <WallClock clock={PARTS.cafe.clock} {hour} />
 
 <path d="M650 -10V12M746 -10V12" class="stroke-scene-line/50" stroke-width="1.2" />
-<Chalkboard x={642} y={18} width={112} height={46}>
-  <text x="56" y="12" text-anchor="middle" font-size="11">Menu</text>
-  <text x="7" y="23" font-size="9.5">Káva</text>
-  <text x="105" y="23" text-anchor="end" font-size="9.5">2,50&nbsp;€</text>
-  <text x="7" y="33.5" font-size="9.5">Čaj</text>
-  <text x="105" y="33.5" text-anchor="end" font-size="9.5">2,00&nbsp;€</text>
-  <text x="7" y="44" font-size="9.5">Koláč</text>
-  <text x="105" y="44" text-anchor="end" font-size="9.5">3,00&nbsp;€</text>
+<Chalkboard x={642} y={18} width={112} height={60}>
+  <text x="56" y="15" text-anchor="middle" font-size="11">Menu</text>
+  <path d="M40 20.5H72" class="stroke-portrait-bib/50" stroke-width="0.6" />
+  {#each [["Káva", "2,50"], ["Čaj", "2,00"], ["Koláč", "3,00"]] as [item, price], row (item)}
+    <text x="9" y={32.5 + row * 10.5} font-size="9.5">{item}</text>
+    <text x="103" y={32.5 + row * 10.5} text-anchor="end" font-size="9.5">{price}&nbsp;€</text>
+  {/each}
 </Chalkboard>
 
 <!-- The back bar hangs on the wall, high enough that the machine on the counter clears it at any cast size; below it the wainscot shows through the aisle behind the counter. -->
