@@ -38,41 +38,37 @@
   };
 
   /**
-   * The crates are heaped with seasonal Slovak market produce: a back row
-   * sitting slightly higher and a front row in the foreground to give
-   * authentic depth.
+   * Heaped, as a stall keeps its crates: three staggered rows rising to the
+   * middle, each fruit turned a little its own way, so the crate reads full
+   * rather than as one line of fruit along its rim.
    */
-  const items = $derived<Array<{ at: number; back?: boolean; item: Item }>>([
-    ...(crate === "vegetables"
-      ? [
-          { at: 0.5, back: true, item: "onion" as const },
-          { at: 1.6, back: true, item: "potato" as const },
-          { at: 3.5, back: true, item: "kohlrabi" as const },
-          { at: 0, item: "carrots" as const },
-          { at: 1, item: "beet" as const },
-          { at: 3, item: "pepper" as const },
-          { at: 4, item: "yellow-pepper" as const },
-          { at: 2, item: "cabbage" as const },
-        ]
-      : [
-          { at: 0.5, back: true, item: ITEMS[crate] },
-          { at: 1.5, back: true, item: ITEMS[crate] },
-          { at: 2.5, back: true, item: ITEMS[crate] },
-          { at: 3.5, back: true, item: ITEMS[crate] },
-          { at: 0, item: ITEMS[crate] },
-          { at: 1, item: ITEMS[crate] },
-          { at: 2, item: ITEMS[crate] },
-          { at: 3, item: ITEMS[crate] },
-          { at: 4, item: ITEMS[crate] },
-        ]),
-  ]);
+  const ROWS = [
+    { lift: 10, ats: [1, 2, 3] },
+    { lift: 5, ats: [0.5, 1.5, 2.5, 3.5] },
+    { lift: 0, ats: [0, 1, 2, 3, 4] },
+  ];
+  const MIXED: Item[][] = [
+    ["kohlrabi", "cabbage", "onion"],
+    ["potato", "onion", "beet", "yellow-pepper"],
+    ["carrots", "beet", "cabbage", "pepper", "yellow-pepper"],
+  ];
+  const TILT = [-8, 5, -3, 7, -6, 4, -2, 6, -5, 3, -7, 2, 8, -4];
+
+  const items = $derived(
+    ROWS.flatMap(({ lift, ats }, row) =>
+      ats.map((at, index) => ({
+        at,
+        lift,
+        item: crate === "vegetables" ? MIXED[row]![index]! : ITEMS[crate],
+      })),
+    ).map((entry, index) => ({ ...entry, tilt: TILT[index % TILT.length]! })),
+  );
 </script>
 
-{#each items as { at, back, item }, i (`${back ? "b" : "f"}-${at}-${i}`)}
+<path d="M{x + 3} 149Q{x + 38} 124 {x + 73} 149Z" class="fill-scene-line/25" />
+{#each items as { at, lift, item, tilt }, i (i)}
   {@const c = x + 10 + at * 14}
-
-  <!-- The back row sits a little higher, behind the front one. -->
-  <g transform={back ? "translate(0 -5)" : undefined}>
+  <g transform="translate(0 {-lift}) rotate({tilt} {c} 146)">
     {#if item === "apple"}
       <path
         d="M{c} 139q.4-2.6 1.8-3.6"
@@ -155,12 +151,18 @@
       />
     {:else if item === "strawberry"}
       <path
-        d="M{c - 6} 142Q{c} 140 {c + 6} 142Q{c + 5} 150 {c} 154Q{c - 5} 150 {c - 6} 142Z"
+        d="M{c} 153C{c - 3} 151 {c - 6.2} 146 {c - 6} 142.6C{c - 5.8} 140 {c - 3} 139.4 {c} 140.4C{c +
+          3} 139.4 {c + 5.8} 140 {c + 6} 142.6C{c + 6.2} 146 {c + 3} 151 {c} 153Z"
         class="fill-scene-red"
       />
-      <path d="M{c - 4} 142l4 -3l4 3Z" class="fill-scene-leaf" />
-      <circle cx={c - 2} cy="146" r="0.9" class="fill-white/60" />
-      <circle cx={c + 2} cy="149" r="0.9" class="fill-white/60" />
+      <path
+        d="M{c - 5} 141l2.5-2 1.2 1.4 1.3-2.4 1.3 2.4 1.2-1.4 2.5 2Q{c} 142.8 {c - 5} 141Z"
+        class="fill-scene-leaf"
+      />
+      {#each [[-2.6, 145], [2, 144.6], [-0.2, 147.8], [2.8, 148.4], [-2.2, 149.4], [0.6, 151]] as [dx, y] (`${dx}-${y}`)}
+        <ellipse cx={c + dx!} cy={y} rx="0.45" ry="0.65" class="fill-scene-honey" />
+      {/each}
+      <ellipse cx={c - 3} cy="143.4" rx="1" ry="1.8" class="fill-white/30" />
     {:else if item === "carrots"}
       <!-- Two carrots standing in the crate, tips down, tops up. -->
       {#each [c - 3.4, c + 3.4] as cx (cx)}

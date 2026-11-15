@@ -11,6 +11,9 @@ python3 scripts/stage-review/frame-strips.py /tmp/frames/kitchen /tmp/strips/kit
 
 # One triage table from the critics' JSON-line replies
 python3 scripts/stage-review/merge-findings.py critic-*.txt --out triage.md
+
+# Each set at desktop, tablet and phone width, and one sheet of the three, for the set critic (docs/critics/set-critic.md)
+BASE=http://localhost:4321 node scripts/stage-review/set-shots.cjs /tmp/sets kitchen,cafe 2
 ```
 
 After a fix, render only the lines whose cues changed and the line after each (`--lines 5-7`, same as `--from 5 --to 7`) instead of the whole segment. Start long renders with `run_in_background` and carry on; you are told when they exit, so do not poll the log in a loop. Name the segment exactly (a loose regex can pick the wrong one), and never use `pkill -f`, which can kill your own shell: stop the one process by its pid.

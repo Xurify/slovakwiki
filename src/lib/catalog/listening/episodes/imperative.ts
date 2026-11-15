@@ -55,7 +55,7 @@ const INTRO_ACTS: Record<string, Cue[]> = {
   "marek-drinking": [
     { do: "take", what: "cup-marek", on: "dobre" },
     { do: "taste", what: "cup-marek", on: "pijem" },
-    { do: "put", what: "cup-marek", to: "desk", dx: 17, on: "after" },
+    { do: "put", what: "cup-marek", to: "desk", dx: 29, on: "after" },
   ],
   "marek-yellow-plant": [
     { do: "point", to: "plant", on: "rastlinku" },
@@ -85,16 +85,16 @@ const intro: ListeningChapter = {
       {
         id: "cup-anna",
         kind: "cup",
-        start: { where: { on: "desk", dx: -25 }, fill: "coffee" },
+        start: { where: { on: "desk", dx: -30 }, fill: "coffee" },
       },
       // Its handle away from Marek, as he holds it to drink.
       {
         id: "cup-marek",
         kind: "cup",
-        start: { where: { on: "desk", dx: 17 }, fill: "coffee", turned: true },
+        start: { where: { on: "desk", dx: 29 }, fill: "coffee", turned: true },
       },
       // In front of Marek, clear of his mic's clamp and his mug.
-      { id: "recorder", kind: "mic", start: { where: { on: "desk", dx: 33 } } },
+      { id: "recorder", kind: "mic", start: { where: { on: "desk", dx: 38 } } },
     ],
     state: { plant: { wilt: 1 } },
   },
@@ -328,7 +328,6 @@ const KITCHEN_ACTS: Record<string, Cue[]> = {
     { who: "anna", do: "wash" },
     { who: "marek", do: "go", to: "counter-end", on: "ruky" },
     { do: "point", to: "basin", on: "tam" },
-    { do: "camera", to: "counter", zoom: 1.3, on: "tam" },
     { who: "marek", do: "take", what: "recorder" },
     { who: "marek", do: "put", what: "recorder", to: "counter", dx: -50 },
   ],
@@ -433,7 +432,7 @@ const KITCHEN_ACTS: Record<string, Cue[]> = {
     // Called over, and held out to him once he is there.
     { who: "marek", do: "go", to: "pot-left", on: "marek" },
     { do: "offer", what: "spoon", to: "marek", on: "ochutnaj" },
-    { do: "camera", to: "marek", zoom: 1.6, on: "ochutnaj" },
+    { do: "camera", to: "stove", zoom: 2.1, on: "ochutnaj" },
     // Over to watch the tasting, a step back from him so she can lean in.
     { who: "anna", do: "go", to: "board-back", on: "ochutnaj" },
   ],
@@ -445,7 +444,7 @@ const KITCHEN_ACTS: Record<string, Cue[]> = {
     { who: "maria", do: "wag", on: "páli" },
   ],
   "anna-is-it-good": [
-    { do: "camera", to: "counter", zoom: 1.3, on: "start" },
+    { do: "camera", to: "wide", on: "start" },
     { do: "lean", to: "marek", on: "start" },
     { who: "marek", do: "dip", what: "spoon", to: "pot", on: "start" },
     { who: "marek", do: "blow", what: "spoon" },
@@ -1629,7 +1628,7 @@ const OUTRO_ACTS: Record<string, Cue[]> = {
   "marek-right-away": [
     { do: "take", what: "headphones", on: "jaj" },
     // In front of him, a hand clear of his mug.
-    { do: "put", what: "headphones", to: "desk", dx: 38 },
+    { do: "put", what: "headphones", to: "desk", dx: 45 },
     { do: "stand", on: "už" },
     { do: "go", to: "plant" },
   ],
@@ -1640,7 +1639,7 @@ const OUTRO_ACTS: Record<string, Cue[]> = {
     { do: "pour", what: "can", to: "plant", on: "tu" },
     { do: "wag", on: "nezaspi" },
     // Done with it, the can goes straight back where it lives.
-    { do: "put", what: "can", to: "corner", dx: -15 },
+    { do: "put", what: "can", to: "corner", dx: 15 },
   ],
   "anna-water-yours-too": [
     { do: "laugh", on: "marek" },

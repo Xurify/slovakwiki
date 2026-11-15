@@ -19,6 +19,8 @@ export interface WallClock {
   hand: number;
   r: number;
   ticks?: boolean;
+  /** A mark at every hour and the quarter numerals, for a clock big enough to read. */
+  numerals?: boolean;
   x: number;
   y: number;
 }
@@ -72,37 +74,47 @@ export function benchBox({ ground, width, x }: Bench): Rect {
 
 /** Where each place's shared scenery stands. */
 export const PARTS = {
-  cafe: { plant: { x: 44, y: 246 } },
+  cafe: {
+    clock: { hand: 12, numerals: true, r: 21, x: 604, y: 44 },
+    // Hangs from its own hook at the window's left edge, clear of a phone's left edge: its pot's foot at 88, the trailing leaves past it.
+    plant: { x: 390, y: 118 },
+  },
   classroom: {
     clock: { hand: 12, r: 20, x: 800, y: 78 },
     plant: { x: 944, y: 232 },
   },
   default: {
-    bench: { ground: 266, width: 104, x: 662 },
-    lamp: { ground: 264, x: 252 },
+    // The bench stands at the promenade's edge, its back to the river.
+    bench: { ground: 266, width: 104, x: 616 },
+    lamp: { ground: 262, x: 370 },
   },
-  home: { plant: { x: 40, y: 244 } },
+  home: { plant: { x: 738, y: 234 } },
   plaza: {
-    bench: { ground: 251, width: 112, x: 24 },
-    clock: { hand: 9, r: 14, x: 283, y: 128 },
-    lamp: { ground: 231, x: 779 },
+    // Bench and tree stand past what a 1280-wide stage shows (x 120 to 840), whole on a wider one.
+    bench: { ground: 250, width: 104, x: 4 },
+    clock: { hand: 12, r: 17, x: 283, y: 128 },
+    lamp: { ground: 238, x: 240 },
     tree: { ground: 250, planter: true, x: 902 },
   },
   kitchen: {
-    clock: { hand: 10, r: 18, ticks: false, x: 496, y: 70 },
+    clock: { hand: 9, r: 15, ticks: false, x: 491, y: 54 },
   },
   registration: {
-    clock: { hand: 12, r: 24, ticks: true, x: 300, y: 72 },
-    plant: { x: 256, y: 228 },
+    clock: { hand: 11, r: 20, ticks: true, x: 462, y: 54 },
+    // A small pot at the binder shelf's end.
+    plant: { x: 732, y: 132 },
   },
   street: {
-    bench: { ground: 279, width: 130, x: 668 },
-    lamp: { ground: 257, x: 300 },
-    tree: { ground: 258, x: 100 },
+    // The bench in the shelter beside its map, and the lamp at the back of the platform just past the
+    // tram's first door; the tree is past what a 1280-wide stage shows.
+    bench: { ground: 284, width: 68, x: 270 },
+    lamp: { ground: 292, x: 740 },
+    tree: { ground: 284, x: 58 },
   },
+
   studio: {
-    clock: { hand: 10, r: 18, ticks: true, x: 289, y: 74 },
-    plant: { x: 724, y: 246 },
+    clock: { hand: 9, r: 16, ticks: true, x: 308, y: 76 },
+    plant: { x: 690, y: 246 },
   },
 } as const satisfies Partial<
   Record<

@@ -25,7 +25,7 @@ const INTRO_ACTS: Record<string, Cue[]> = {
     { do: "raise", what: "umbrella", on: "dáždnik" },
   ],
   "anna-not-mine": [{ do: "point", to: "umbrella", on: "môj" }],
-  "marek-so-whose": [{ do: "put", what: "umbrella", to: "desk", dx: 30, on: "nie" }],
+  "marek-so-whose": [{ do: "put", what: "umbrella", to: "desk", dx: 38, on: "nie" }],
 };
 
 const intro: ListeningChapter = {
@@ -34,7 +34,7 @@ const intro: ListeningChapter = {
   title: "An umbrella nobody owns",
   setup: {
     objects: [
-      { id: "umbrella", kind: "umbrella", start: { where: { on: "desk", dx: 30 } } },
+      { id: "umbrella", kind: "umbrella", start: { where: { on: "desk", dx: 38 } } },
     ],
   },
   lines: staged(
@@ -1052,8 +1052,8 @@ const quiz: ListeningChapter = {
 const OUTRO_ACTS: Record<string, Cue[]> = {
   "marek-here-take-mine": [
     { do: "take", what: "marek-umbrella", on: "páči" },
-    { do: "put", what: "marek-umbrella", to: "desk", dx: 31, on: "máš" },
-    { do: "slide", what: "marek-umbrella", to: "desk", dx: -20 },
+    { do: "put", what: "marek-umbrella", to: "desk", dx: 38, on: "máš" },
+    { do: "slide", what: "marek-umbrella", to: "desk", dx: -38 },
   ],
   "anna-yours-is-small": [
     { do: "take", what: "marek-umbrella", on: "ďakujem" },
