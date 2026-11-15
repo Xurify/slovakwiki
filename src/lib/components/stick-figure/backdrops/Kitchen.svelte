@@ -17,14 +17,75 @@
     return `M${on(u0, v0)}L${on(u1, v0)}L${on(u1, v1)}L${on(u0, v1)}Z`;
   }
 
-  /** The tiles behind the counter, a row of them. */
-  const tiles = Array.from({ length: 8 }, (_, index) => 536 + index * 30);
+  /**
+   * Floor tiles in a checker, their joints running back to a point high over
+   * the middle of the room, so the floor reads as lying flat.
+   */
+  const ROWS = [226, 235, 246, 259, 275, 300];
+  const COLUMNS = Array.from({ length: 27 }, (_, index) => -40 + index * 40);
+  const across = (x: number, y: number) => 480 + ((x - 480) * (y + 380)) / 606;
+  const floorTiles = ROWS.slice(0, -1).flatMap((top, row) =>
+    COLUMNS.slice(0, -1).flatMap((left, column) =>
+      (row + column) % 2
+        ? []
+        : [
+            `M${across(left, top)} ${top}H${across(left + 40, top)}L${across(left + 40, ROWS[row + 1])} ${ROWS[row + 1]}H${across(left, ROWS[row + 1])}Z`,
+          ],
+    ),
+  );
+
+  /** The tiled wall the counter and stove stand against, the top row painted. */
+  const TILE = 32;
+  const tileColumns = Array.from({ length: 8 }, (_, index) => 514 + index * TILE);
+  const tileRows = [100, 132, 164, 196];
 </script>
 
-<!-- Everything sits between x 180 and 780, all a phone's 2:1 stage shows. -->
 <Room wall="fill-scene-warm" floor="fill-scene-sand" />
 
+<!-- The floor: big tiles in a checker. -->
+<path d={floorTiles.join("")} class="fill-scene-line/8" />
+<g class="stroke-scene-line/12" stroke-width="0.8" fill="none">
+  {#each ROWS as y (y)}
+    <path d="M-10 {y}H970" />
+  {/each}
+  {#each COLUMNS as x (x)}
+    <path d="M{across(x, 226)} 226L{across(x, 300)} 300" />
+  {/each}
+</g>
+
+<!-- Skirting along the wall's foot and a plaster cornice at the top. -->
+<rect x="-10" y="218" width="980" height="8" class="fill-portrait-bib" />
+<rect x="-10" y="218" width="980" height="1.2" class="fill-scene-line/12" />
+<rect x="-10" y="0" width="980" height="5" class="fill-portrait-bib" />
+<rect x="-10" y="5" width="980" height="1.2" class="fill-scene-line/10" />
+
+<!-- The pantry door, far left, for the widest stages. -->
+<rect x="36" y="56" width="62" height="170" class="fill-portrait-bib" />
+<rect x="41" y="61" width="52" height="165" class="fill-scene-wood" />
+<path d="M48 70h38v62h-38ZM48 142h38v74h-38Z" class="fill-scene-line/8" />
+<rect x="83" y="136" width="8" height="2.6" rx="1.3" class="fill-scene-line/70" />
+
+<!-- Painted plates from Modra on the wall by the door: white glaze, a blue rim, flowers. -->
+{#each [72, 104, 136] as y, index (y)}
+  <circle cx="146" cy={y} r="13" class="fill-white" />
+  <circle cx="146" cy={y} r="13" class="stroke-scene-blue/60" stroke-width="1.4" fill="none" />
+  <circle cx="146" cy={y} r="8.6" class="stroke-scene-blue/25" stroke-width="0.8" fill="none" />
+  <circle cx="146" cy={y} r="2.6" class={index === 1 ? "fill-scene-red-mid" : "fill-scene-honey"} />
+  {#each [0, 72, 144, 216, 288] as turn (turn)}
+    <ellipse
+      cx="146"
+      cy={y - 5.4}
+      rx="1.4"
+      ry="2.6"
+      transform="rotate({turn} 146 {y})"
+      class={index === 1 ? "fill-scene-honey" : "fill-scene-blue/60"}
+    />
+  {/each}
+  <path d="M146 {y - 13}v-3" class="stroke-scene-line/50" stroke-width="0.8" />
+{/each}
+
 <rect x="190" y="40" width="72" height="186" rx="2" class="fill-portrait-bib" />
+<rect x="190" y="40" width="72" height="186" rx="2" class="fill-scene-line/5" />
 {#if open > 0}
   <!-- The dim hall beyond the open door. -->
   <rect x="196" y="46" width="60" height="180" class="fill-scene-line/55" />
@@ -39,32 +100,168 @@
   class="fill-scene-line/70"
 />
 
-<ellipse cx="308" cy="227" rx="34" ry="3" class="fill-scene-line/12" />
-<rect x="280" y="66" width="56" height="160" rx="6" class="fill-white" />
-<rect x="280" y="66" width="56" height="160" rx="6" class="fill-scene-line/5" />
-<path d="M280 122H336" class="stroke-scene-line/30" stroke-width="1.6" />
-<path d="M328 82v26M328 134v36" class="stroke-scene-line/50" stroke-width="3" />
-<rect x="292" y="80" width="12" height="9" rx="1.5" class="fill-scene-apple" />
-<circle cx="312" cy="92" r="4" class="fill-scene-honey" />
+<!-- The light switch by the door. -->
+<rect x="266" y="118" width="8" height="11" rx="1.4" class="fill-white" />
+<path d="M266 118h8v11h-8Z" class="stroke-scene-line/20" stroke-width="0.6" fill="none" />
+<rect x="268.2" y="120.4" width="3.6" height="6" rx="0.8" class="fill-scene-line/10" />
 
+<!-- Her old kredenc: plates and cups behind the glass, tins on the worktop, cupboards below. -->
+<ellipse cx="310" cy="233" rx="40" ry="3" class="fill-scene-line/15" />
+<rect x="280" y="60" width="60" height="6" rx="1" class="fill-scene-wood" />
+<rect x="282" y="66" width="56" height="80" class="fill-scene-wood" />
+<rect x="286" y="70" width="23" height="72" class="fill-scene-sky/70" />
+<rect x="311" y="70" width="23" height="72" class="fill-scene-sky/70" />
+<path d="M286 106h48" class="stroke-scene-wood" stroke-width="2.4" />
+{#each [291, 298, 305] as x (x)}
+  <ellipse cx={x} cy="96" rx="3.2" ry="9" class="fill-white" />
+  <ellipse cx={x} cy="96" rx="1.6" ry="5" class="fill-scene-blue/20" />
+{/each}
+{#each [316, 324] as x (x)}
+  <path d="M{x - 3} 98h6l-0.6 6h-4.8Z" class="fill-white" />
+  <path d="M{x + 3} 99q2 0 2 2t-2 2" class="stroke-white" stroke-width="1" fill="none" />
+{/each}
+<path d="M329 104v-8h4v8Z" class="fill-scene-honey" />
+{#each [291, 302, 316, 328] as x, index (x)}
+  <path d="M{x - 3.5} 140h7l-0.8 -8h-5.4Z" class={index % 2 ? "fill-scene-red-mid" : "fill-white"} />
+{/each}
+<path d="M290 116l10-12M314 124l14-16" class="stroke-white/60" stroke-width="1.6" />
+<path d="M307 102v8M313 102v8" class="stroke-scene-line/50" stroke-width="1.4" />
+<rect x="278" y="146" width="64" height="4" class="fill-scene-coffee/50" />
+<rect x="284" y="150" width="52" height="16" class="fill-scene-coffee/15" />
+<path d="M288 166v-12h10v12Z" class="fill-scene-red" />
+<path d="M288 157h10" class="stroke-white/70" stroke-width="1.4" />
+<path d="M302 166v-10h9v10Z" class="fill-scene-steel" />
+<path d="M318 166q0-8 8-8t8 8Z" class="fill-scene-onion" />
+<path d="M321 162l4-3M326 164l4-4" class="stroke-scene-coffee/50" stroke-width="0.8" />
+<rect x="276" y="166" width="68" height="5" rx="1" class="fill-scene-wood" />
+<rect x="276" y="169.6" width="68" height="1.4" class="fill-scene-coffee/30" />
+<rect x="280" y="171" width="60" height="57" class="fill-scene-wood" />
+<path d="M280 183h60M310 183v45" class="stroke-scene-coffee/40" stroke-width="1" />
+<path d="M296 177h8M316 177h8M304 196v8M316 196v8" class="stroke-scene-line/50" stroke-width="1.6" />
+<path d="M282 228h4v5h-4ZM334 228h4v5h-4Z" class="fill-scene-coffee" />
+
+<!-- The window over the table: a lace curtain across its top, geraniums on the sill, the radiator under it. -->
+<rect x="364" y="150" width="80" height="42" rx="3" class="fill-portrait-bib" />
+<g class="stroke-scene-line/20" stroke-width="1">
+  {#each Array.from({ length: 12 }, (_, index) => 369 + index * 6.4) as x (x)}
+    <path d="M{x} 153V189" />
+  {/each}
+</g>
+<path d="M438 192v34" class="stroke-portrait-bib" stroke-width="3" />
 <rect x="352" y="54" width="104" height="80" class="fill-portrait-bib" />
 <rect x="360" y="62" width="88" height="64" class="fill-scene-sky" />
 <path d="M360 126V108Q380 96 404 104Q426 94 448 104V126Z" class="fill-scene-sage" />
 <path d="M402 62h4v64h-4Z" class="fill-portrait-bib" />
+<path d="M366 120l18-40h6l-18 40ZM414 120l18-40h4l-18 40Z" class="fill-white/25" />
+<path
+  d="M360 62h88v28q-5.5 5-11 0q-5.5 5-11 0q-5.5 5-11 0q-5.5 5-11 0q-5.5 5-11 0q-5.5 5-11 0q-5.5 5-11 0q-5.5 5-11 0Z"
+  class="fill-white/80"
+/>
+<g class="fill-scene-line/10">
+  {#each [371, 393, 415, 437] as x (x)}
+    <circle cx={x} cy="76" r="4" />
+    <circle cx={x - 11} cy="84" r="1.6" />
+  {/each}
+</g>
 <rect x="346" y="132" width="116" height="6" rx="2" class="fill-portrait-bib" />
+<rect x="350" y="138" width="108" height="3" class="fill-scene-line/10" />
+{#each [372, 404, 436] as x, index (x)}
+  <path d="M{x - 13} 120q4-10 13-8q10-2 13 8q-6 5-13 3q-7 2-13-3Z" class="fill-scene-leaf" />
+  <path d="M{x - 6} 117q6-6 12 0" class="stroke-scene-board/40" stroke-width="1" fill="none" />
+  {#each [-7, 0, 7] as dx (dx)}
+    <circle cx={x + dx} cy={110 - Math.abs(dx) * 0.4 - (index === 1 && dx === 0 ? 3 : 0)} r="3.6" class="fill-scene-red" />
+    <circle cx={x + dx - 1} cy={109 - Math.abs(dx) * 0.4 - (index === 1 && dx === 0 ? 3 : 0)} r="1.4" class="fill-white/30" />
+  {/each}
+  <path d="M{x - 8} 122h16l-2 10h-12Z" class="fill-scene-clay" />
+  <path d="M{x - 9} 121h18v3h-18Z" class="fill-scene-clay" />
+  <path d="M{x - 9} 124h18" class="stroke-scene-line/20" stroke-width="0.8" />
+{/each}
+<rect x="340" y="46" width="128" height="3" rx="1.5" class="fill-scene-line/40" />
+<path d="M342 48Q338 92 348 140H356Q350 96 356 48Z" class="fill-scene-red-mid" />
+<path d="M466 48Q470 92 460 140H452Q458 96 452 48Z" class="fill-scene-red-mid" />
+<path d="M346 52v84M462 52v84" class="stroke-white/40" stroke-width="1.2" stroke-dasharray="3 3" />
+
+<!-- The light over the table: an enamel shade on a cord. -->
+<path d="M404 0V26" class="stroke-scene-line/60" stroke-width="1" />
+<rect x="401" y="24" width="6" height="4" rx="1" class="fill-scene-line/50" />
+<path d="M396 28h16l10 14h-36Z" class="fill-scene-green-mid" />
+<path d="M386 42h36" class="stroke-white/60" stroke-width="1.4" />
+<ellipse cx="404" cy="43" rx="5" ry="1.6" class="fill-scene-honey" />
 
 <WallClock clock={PARTS.kitchen.clock} {hour} />
 
+<!-- An embroidered kitchen hanging under the clock, red cross-stitch on white linen. -->
+<path d="M473 98h36" class="stroke-scene-coffee/70" stroke-width="2" />
+<circle cx="491" cy="96" r="1.2" class="fill-scene-line/60" />
+<path d="M475 99h32v32q-16 5-32 0Z" class="fill-white" />
+<path d="M475 99h32v32q-16 5-32 0Z" class="stroke-scene-red/60" stroke-width="1" fill="none" stroke-dasharray="1.6 1.2" />
+<path d="M480 106h22M482 111h18" class="stroke-scene-red/70" stroke-width="1.3" stroke-dasharray="2 1" />
+<path d="M491 127q-5-3.4-5-6.6a2.5 2.5 0 0 1 5-1a2.5 2.5 0 0 1 5 1q0 3.2-5 6.6Z" class="fill-scene-red/80" />
+<path d="M479 120l2.4-2.4 2.4 2.4-2.4 2.4ZM498.6 120l2.4-2.4 2.4 2.4-2.4 2.4Z" class="fill-scene-green-mid" />
+
+<!-- The wall cupboards over the counter, a pot and a basket kept on top. -->
+<path d="M552 32v-16q0 -4 4 -4h24q4 0 4 4v16Z" class="fill-scene-steel" />
+<path d="M548 18h40" class="stroke-scene-steel-dark" stroke-width="2.2" />
+<path d="M564 12q4 -4 8 0" class="stroke-scene-steel-dark" stroke-width="1.6" fill="none" />
+<path d="M692 32l-4 -14h40l-4 14Z" class="fill-scene-onion" />
+<path d="M690 22h36M691 27h34" class="stroke-scene-coffee/40" stroke-width="0.8" />
+<rect x="514" y="32" width="256" height="60" rx="2" class="fill-scene-wood" />
+<path d="M578.5 32V92M643 32V92M707.5 32V92" class="stroke-scene-line/25" stroke-width="1.6" />
+<rect x="520" y="38" width="52" height="48" class="fill-scene-coffee/10" />
+<rect x="585" y="38" width="52" height="48" class="fill-scene-sky/70" />
+<rect x="649" y="38" width="52" height="48" class="fill-scene-sky/70" />
+<rect x="714" y="38" width="52" height="48" class="fill-scene-coffee/10" />
+{#each [592, 601, 610] as x (x)}
+  <path d="M{x} 62h7l-1 9h-5Z" class="fill-white" />
+  <path d="M{x + 7} 64q2.4 0 2.4 2t-2.4 2" class="stroke-white" stroke-width="1" fill="none" />
+{/each}
+<path d="M622 71v-12h6v12Z" class="fill-scene-honey" />
+<path d="M585 72h52M649 72h52" class="stroke-scene-wood" stroke-width="2" />
+{#each [656, 664, 672, 680] as x (x)}
+  <ellipse cx={x} cy="63" rx="3" ry="8.4" class="fill-white" />
+{/each}
+<path d="M656 80h40v-4h-40Z" class="fill-scene-red-mid" />
+<path d="M590 44l12 -6M656 44l12 -6" class="stroke-white/60" stroke-width="1.6" />
+<path d="M572 74v10M585 74v10M701 74v10M714 74v10" class="stroke-scene-line/50" stroke-width="2.4" />
+<rect x="514" y="88" width="256" height="4" class="fill-scene-coffee/30" />
+
 <!-- The tiled wall the counter and stove stand against; they are the set's, drawn at the cast's scale (StickSet.svelte). -->
-{#each tiles as x (x)}
-  {#each [110, 140, 170, 200] as y (y)}
-    <rect x={x + 1} {y} width="28" height="28" class="fill-scene-cool" />
+{#each tileColumns as x (x)}
+  {#each tileRows as y, row (y)}
+    <rect x={x + 1} {y} width={TILE - 2} height={Math.min(TILE - 2, 226 - y)} class="fill-scene-cool" />
+    {#if row === 0}
+      <path
+        d="M{x + TILE / 2} {y + 6}l4 9-4 9-4-9Z"
+        class="fill-scene-blue/30"
+      />
+      <circle cx={x + TILE / 2} cy={y + TILE / 2 - 1} r="2" class="fill-scene-honey" />
+      <path d="M{x + 4} {y + 15}h6M{x + TILE - 10} {y + 15}h6" class="stroke-scene-blue/30" stroke-width="1.4" />
+    {/if}
   {/each}
 {/each}
-<rect x="560" y="40" width="214" height="58" rx="3" class="fill-scene-wood" />
-<path d="M631 40V98M702 40V98" class="stroke-scene-line/25" stroke-width="1.6" />
-<path
-  d="M620 64v12M642 64v12M713 64v12"
-  class="stroke-scene-line/50"
-  stroke-width="2.4"
-/>
+
+<!-- A little spice shelf on the tiles, and a socket for the kettle. -->
+<rect x="520" y="146" width="52" height="3" rx="1" class="fill-scene-wood" />
+<path d="M524 149l4 5M568 149l-4 5" class="stroke-scene-wood" stroke-width="1.6" />
+{#each [{ x: 526, paint: "fill-scene-apple" }, { x: 537, paint: "fill-scene-onion" }, { x: 548, paint: "fill-scene-leaf" }, { x: 559, paint: "fill-scene-carrot" }] as jar (jar.x)}
+  <rect x={jar.x} y="134" width="8" height="12" rx="1.4" class="fill-white" />
+  <rect x={jar.x + 1} y="138" width="6" height="7" rx="1" class={jar.paint} />
+  <rect x={jar.x} y="132" width="8" height="3" rx="1" class="fill-scene-red-mid" />
+{/each}
+<rect x="742" y="176" width="10" height="10" rx="1.5" class="fill-white" />
+<path d="M742 176h10v10h-10Z" class="stroke-scene-line/25" stroke-width="0.6" fill="none" />
+<circle cx="745.4" cy="181" r="0.9" class="fill-scene-line/50" />
+<circle cx="748.6" cy="181" r="0.9" class="fill-scene-line/50" />
+
+<!-- The fridge at the end of the run, past where a phone's stage stops. -->
+<ellipse cx="805" cy="233" rx="24" ry="3" class="fill-scene-line/15" />
+<rect x="782" y="74" width="46" height="156" rx="5" class="fill-white" />
+<rect x="782" y="74" width="46" height="156" rx="5" class="fill-scene-line/5" />
+<path d="M782 124H828" class="stroke-scene-line/30" stroke-width="1.4" />
+<path d="M820 88v22M820 136v32" class="stroke-scene-line/50" stroke-width="2.6" />
+<rect x="790" y="86" width="10" height="8" rx="1.4" class="fill-scene-apple" />
+<circle cx="806" cy="98" r="3.4" class="fill-scene-honey" />
+<rect x="792" y="140" width="16" height="20" class="fill-white" />
+<path d="M794 146h12M794 150h10M794 154h12" class="stroke-scene-line/30" stroke-width="0.8" />
+<circle cx="800" cy="140" r="1.6" class="fill-scene-red" />
+<path d="M784 228h4v3h-4ZM822 228h4v3h-4Z" class="fill-scene-line/40" />

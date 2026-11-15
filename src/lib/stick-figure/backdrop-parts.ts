@@ -81,7 +81,7 @@ export const PARTS = {
     bench: { ground: 266, width: 104, x: 662 },
     lamp: { ground: 264, x: 252 },
   },
-  home: { plant: { x: 40, y: 244 } },
+  home: { plant: { x: 738, y: 234 } },
   plaza: {
     bench: { ground: 251, width: 112, x: 24 },
     clock: { hand: 9, r: 14, x: 283, y: 128 },
@@ -89,7 +89,7 @@ export const PARTS = {
     tree: { ground: 250, planter: true, x: 902 },
   },
   kitchen: {
-    clock: { hand: 10, r: 18, ticks: false, x: 496, y: 70 },
+    clock: { hand: 10, r: 17, ticks: false, x: 491, y: 68 },
   },
   registration: {
     clock: { hand: 12, r: 24, ticks: true, x: 300, y: 72 },

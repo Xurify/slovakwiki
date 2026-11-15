@@ -311,6 +311,26 @@
             {/each}
           </g>
         {/if}
+      {:else if piece.kind === "rail" && piece.coats}
+        <!-- A board of hooks by the door: the lead's in the middle, a scarf and a jacket on the two past it. -->
+        <rect x="-5" y={top - 4.4} width="28" height="4.4" rx="1" class="fill-scene-wood" />
+        <rect x="-5" y={top - 1.2} width="28" height="1.2" class="fill-scene-coffee/30" />
+        {#each [0, 8, 17] as x (x)}
+          <circle cx={x} cy={top - 1.2} r="1.3" class="fill-scene-steel-dark" />
+        {/each}
+        <path d="M6.4 {top - 0.6}h3.2l0.4 21-1.6 1.4-1.6-1.4Z" class="fill-scene-red-mid" />
+        <path d="M6.6 {top + 17}h3M6.6 {top + 19}h3" class="stroke-white/60" stroke-width="0.7" />
+        <path
+          d="M14.6 {top - 0.4}Q17 {top - 1.4} 19.4 {top - 0.4}L23.6 {top + 4}L24.2 {top +
+            24}H9.8L10.4 {top + 4}Z"
+          class="fill-scene-green-mid"
+        />
+        <path
+          d="M17 {top}V{top + 24}M14 {top + 2}L17 {top + 8}L20 {top + 2}"
+          class="stroke-scene-line/40"
+          stroke-width="0.7"
+        />
+        <path d="M11 {top + 15}h4M19 {top + 15}h4" class="stroke-scene-line/30" stroke-width="0.7" />
       {:else if piece.kind === "rail" && width <= 6}
         <path d="M-1.6 {top - 2.4}h3.2" class="stroke-scene-line/80" stroke-width="2" />
         <path
@@ -329,6 +349,20 @@
           class="stroke-scene-line"
           stroke-width="2.4"
         />
+      {:else if piece.kind === "bag"}
+        <!-- A canvas shopping bag set down on the floor, its handles up. -->
+        <path
+          d="M-6.4 {GROUND_Y - 15}Q-6.4 {GROUND_Y - 24} 0 {GROUND_Y - 24}Q6.4 {GROUND_Y -
+            24} 6.4 {GROUND_Y - 15}"
+          class="stroke-scene-line/60"
+          stroke-width="1.5"
+        />
+        <path
+          d="M-11 {GROUND_Y - 16}h22l-1.3 14.6a1.8 1.8 0 0 1-1.8 1.4h-15.8a1.8 1.8 0 0 1-1.8-1.4Z"
+          class="fill-scene-clay"
+        />
+        <path d="M-10.6 {GROUND_Y - 11}h21.2" class="stroke-white/40" stroke-width="1.3" />
+        <path d="M-11 {GROUND_Y - 16}h22l-0.2 1.6h-21.6Z" class="fill-scene-line/15" />
       {:else if piece.kind === "stand"}
         {@const hem = GROUND_Y - 8}
         <!-- A market table: legs under the hem of a green gingham cloth, so it stands apart from the stall's red one. -->
@@ -407,6 +441,31 @@
           class="stroke-scene-line/30"
           stroke-width="1"
         />
+        {#if piece.cloth}
+          <!-- A white cloth with a red check, hanging a hand's width over the edges. -->
+          <path
+            d="M{-width / 2 - 2} {top - 0.6}H{width / 2 + 2}L{width / 2 + 3} {top +
+              11}H{-width / 2 - 3}Z"
+            class="fill-portrait-bib"
+          />
+          {#each Array.from({ length: Math.floor((width + 4) / 5) }, (_, index) => -width / 2 - 1 + index * 5) as x (x)}
+            <rect {x} y={top - 0.6} width="2.4" height="11.6" class="fill-scene-red/20" />
+          {/each}
+          {#each [top + 2, top + 7] as y (y)}
+            <rect
+              x={-width / 2 - 2.6}
+              {y}
+              width={width + 5.2}
+              height="2.4"
+              class="fill-scene-red/20"
+            />
+          {/each}
+          <path
+            d="M{-width / 2 - 3} {top + 11}H{width / 2 + 3}"
+            class="stroke-scene-red/50"
+            stroke-width="1"
+          />
+        {/if}
       {/if}
     </g>
   {/each}
