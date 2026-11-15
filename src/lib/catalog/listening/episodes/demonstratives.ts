@@ -135,7 +135,7 @@ const market: ListeningChapter = {
   setup: {
     objects: [
       { id: "basket", kind: "basket", start: { where: { hand: "lucia", side: "lead" } } },
-      { id: "cheese", kind: "cheese", start: { where: { on: "counter", dx: 0 } } },
+      { id: "cheese", kind: "cheese", start: { where: { on: "counter", dx: -17 } } },
     ],
   },
   lines: staged(

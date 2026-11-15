@@ -329,26 +329,65 @@
           class="stroke-scene-line"
           stroke-width="2.4"
         />
-      {:else if piece.kind === "crate"}
-        {@const tall = GROUND_Y - top}
-        <!-- Slats with gaps between them, so it reads as a crate and not as part of the stall behind. -->
-        <rect x={-width / 2} y={top} {width} height={tall} rx="1" class="fill-scene-wood" />
-        <rect x={-width / 2} y={top} {width} height={tall} rx="1" class="fill-scene-line/25" />
-        {#each [0, 1, 2] as slat (slat)}
-          <rect
-            x={-width / 2 + 1}
-            y={top + 1 + (slat * (tall - 2)) / 3}
-            width={width - 2}
-            height={(tall - 2) / 3 - 1.6}
-            rx="0.6"
-            class="fill-scene-wood"
-          />
+      {:else if piece.kind === "stand"}
+        {@const hem = GROUND_Y - 8}
+        <!-- A market table: legs under the hem of a green gingham cloth, so it stands apart from the stall's red one. -->
+        <path
+          d="M{-width / 2 + 4} {hem}V{GROUND_Y}M{width / 2 - 4} {hem}V{GROUND_Y}"
+          class="stroke-scene-coffee/70"
+          stroke-width="2.4"
+        />
+        <rect x={-width / 2} y={top} {width} height={hem - top} class="fill-scene-warm" />
+        {#each Array.from({ length: Math.floor(width / 6) }, (_, index) => -width / 2 + index * 6) as x (x)}
+          <rect {x} y={top} width="3" height={hem - top} class="fill-scene-green/15" />
+        {/each}
+        {#each Array.from({ length: Math.floor((hem - top) / 6) }, (_, index) => top + 3 + index * 6) as y (y)}
+          <rect x={-width / 2} {y} {width} height="3" class="fill-scene-green/15" />
         {/each}
         <path
-          d="M{-width / 2 + 3} {top + 1}V{GROUND_Y - 1}M{width / 2 - 3} {top + 1}V{GROUND_Y - 1}"
-          class="stroke-scene-line/12"
-          stroke-width="2"
+          d="M{-width / 2} {hem}H{width / 2}"
+          class="stroke-scene-line/25"
+          stroke-width="0.8"
         />
+        <rect x={-width / 2 - 1} y={top - 1} width={width + 2} height="3" rx="1" class="fill-scene-wood" />
+        <rect x={-width / 2 - 1} y={top + 1} width={width + 2} height="1" class="fill-scene-coffee/30" />
+        <!-- Her oštiepky stood on end on a board, as they hang over the stall, and a bundle of korbáčiky. -->
+        <rect x="-8" y={top - 2.4} width="22" height="2.4" rx="0.8" class="fill-scene-wood" />
+        <rect x="-8" y={top - 2.4} width="22" height="2.4" rx="0.8" class="fill-scene-coffee/25" />
+        <path d="M-8 {top}h22" class="stroke-scene-line/25" stroke-width="0.8" />
+        {#each [-3, 3, 9] as x (x)}
+          <g transform="translate({x} {top - 2.4})">
+            <path
+              d="M0 -11C2.6 -10.4 3.4 -7.6 3.4 -5.4C3.4 -2.4 2 -0.6 0 0C-2 -0.6 -3.4 -2.4 -3.4 -5.4C-3.4 -7.6 -2.6 -10.4 0 -11Z"
+              class="fill-scene-onion"
+            />
+            <path d="M1.2 -10.2C3.2 -8 3.2 -2.6 1 -0.6" class="stroke-scene-coffee/30" stroke-width="1" fill="none" />
+            <path
+              d="M-2.6 -7.2l0.9 1.2 0.9 -1.2 0.9 1.2 0.9 -1.2 0.9 1.2 0.9 -1.2M-2.8 -4.4l0.9 1.2 0.9 -1.2 0.9 1.2 0.9 -1.2 0.9 1.2 0.9 -1.2"
+              class="stroke-scene-coffee/50"
+              stroke-width="0.45"
+              fill="none"
+            />
+            <path d="M-1.2 -10.4l1.2 -1.6 1.2 1.6" class="stroke-scene-coffee/70" stroke-width="0.5" fill="none" />
+          </g>
+        {/each}
+        {#each [-1.6, 0, 1.6] as dy (dy)}
+          <path
+            d="M-36 {top - 2 + dy}q1 -1.2 2 0t2 0 2 0 2 0 2 0 2 0"
+            class="stroke-scene-honey"
+            stroke-width="1.3"
+            fill="none"
+          />
+        {/each}
+        <!-- A shop scale, big enough to weigh a cheese on. -->
+        <g transform="translate(-10 {top}) scale(1.35) translate(0 {-top})">
+          <path d="M19 {top}h11" class="stroke-scene-line/25" stroke-width="0.8" />
+          <rect x="20" y={top - 9} width="9" height="8" rx="1" class="fill-scene-steel-light" />
+          <circle cx="24.5" cy={top - 5} r="2.6" class="fill-white" />
+          <path d="M24.5 {top - 5}l1.2 -1.6" class="stroke-scene-red" stroke-width="0.6" />
+          <path d="M24.5 {top - 9}v-1.6" class="stroke-scene-steel-dark" stroke-width="1.2" />
+          <rect x="19" y={top - 12} width="11" height="1.6" rx="0.8" class="fill-scene-steel" />
+        </g>
       {:else if piece.kind === "table"}
         <path
           d="M{-width / 2 + 6} {top + 3}V{GROUND_Y}M{width / 2 - 6} {top + 3}V{GROUND_Y}"

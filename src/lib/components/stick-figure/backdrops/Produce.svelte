@@ -1,6 +1,13 @@
 <script lang="ts" module>
   /** What a market crate holds: fruit and vegetables a Slovak market sells in season. */
-  export type Crate = "apples" | "pears" | "plums" | "strawberries" | "vegetables";
+  export type Crate =
+    | "apples"
+    | "pears"
+    | "plums"
+    | "strawberries"
+    | "potatoes"
+    | "onions"
+    | "vegetables";
 </script>
 
 <script lang="ts">
@@ -26,6 +33,8 @@
     pears: "pear",
     plums: "plum",
     strawberries: "strawberry",
+    potatoes: "potato",
+    onions: "onion",
   };
 
   /**

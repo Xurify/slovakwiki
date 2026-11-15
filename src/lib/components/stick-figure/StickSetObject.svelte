@@ -575,10 +575,20 @@
     <circle cx="1.2" cy="-1.2" r="0.35" class="fill-scene-line/60" stroke="none" />
     <circle cx="2.6" cy="-1.7" r="0.4" class="fill-scene-line/60" stroke="none" />
   {:else if kind === "cheese"}
-    <path d="M-5.5 0v-5.5l11 -3v8.5Z" class="fill-scene-honey" />
-    <path d="M-5.5 -5.5l11 -3" stroke-width="0.6" />
-    <circle cx="-1.5" cy="-2.6" r="1" class="fill-scene-wood" stroke="none" />
-    <circle cx="2.6" cy="-4.4" r="0.8" class="fill-scene-wood" stroke="none" />
+    <!-- A small oštiepok, as the ones hanging over the stall: spindle-shaped, smoked, stamped round the middle, its cord tied on top. -->
+    <path
+      d="M0 -11C2.6 -10.4 3.4 -7.6 3.4 -5.4C3.4 -2.4 2 -0.6 0 0C-2 -0.6 -3.4 -2.4 -3.4 -5.4C-3.4 -7.6 -2.6 -10.4 0 -11Z"
+      class="fill-scene-onion"
+      stroke-width="0.6"
+    />
+    <path d="M1.2 -10.2C3.2 -8 3.2 -2.6 1 -0.6" class="stroke-scene-coffee/30" stroke-width="1" fill="none" />
+    <path
+      d="M-2.6 -7.2l0.9 1.2 0.9 -1.2 0.9 1.2 0.9 -1.2 0.9 1.2 0.9 -1.2M-2.8 -4.4l0.9 1.2 0.9 -1.2 0.9 1.2 0.9 -1.2 0.9 1.2 0.9 -1.2"
+      class="stroke-scene-coffee/50"
+      stroke-width="0.45"
+      fill="none"
+    />
+    <path d="M-1.2 -10.4l1.2 -1.6 1.2 1.6" class="stroke-scene-coffee/70" stroke-width="0.5" fill="none" />
   {:else if kind === "book"}
     <rect x="-4" y="-11.5" width="9" height="11.5" rx="1" class="fill-scene-honey" />
     <path d="M-2.2 -11.5V0" stroke-width="0.6" />

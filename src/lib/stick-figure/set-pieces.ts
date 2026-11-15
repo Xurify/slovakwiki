@@ -11,11 +11,11 @@ import { GROUND_Y, SEAT_Y, type Point } from "./rig";
  * are surfaces only: the shelf in the counter's open cupboard, the spot on
  * the floor a plant stands on. The `desk` is the studio's, drawn with it.
  * Things on a `rail` hang from its hooks: a ladle, a lid. A rail a few
- * units wide is a single hook on the wall: a towel. A `crate` is a market
- * box stood on its end in front of a stall, to set things out on.
+ * units wide is a single hook on the wall: a towel. A `stand` is a
+ * market table under a cloth, set out with a cut cheese wheel and a scale.
  */
 export type PieceKind =
-  "counter" | "stove" | "table" | "rail" | "ledge" | "floor" | "desk" | "crate";
+  "counter" | "stove" | "table" | "rail" | "ledge" | "floor" | "desk" | "stand";
 
 export interface SetPiece {
   id: string;
@@ -50,7 +50,7 @@ const SIZE: Record<PieceKind, { width: number; height: number }> = {
   floor: { width: 40, height: 0 },
   // StudioDesk.svelte's top, lower than a real desk's.
   desk: { width: 200, height: 28 },
-  crate: { width: 28, height: 44 },
+  stand: { width: 76, height: 44 },
 };
 
 /**
@@ -159,7 +159,7 @@ export const OBJECT_SIZE: Record<
   book: { grip: { x: 0, y: 5 }, top: 11.5, width: 9 },
   clipboard: { grip: { x: 0, y: 6 }, top: 14, width: 10 },
   umbrella: { grip: { x: 0, y: 6 }, top: 21, width: 6 },
-  cheese: { grip: { x: 0, y: 3 }, top: 6, width: 11 },
+  cheese: { grip: { x: 0, y: 5 }, top: 11, width: 7 },
   plate: { grip: { x: 6, y: 1 }, top: 2.4, width: 15 },
   // The home backdrop's bag by the window: its opening at the top of the drawn bag.
   stash: { grip: { x: 0, y: 12 }, top: 20, width: 30 },
