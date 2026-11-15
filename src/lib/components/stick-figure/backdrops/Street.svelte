@@ -49,7 +49,8 @@
   const DOORS = [D - 116, D, D + 170, D + 340];
   /** Side windows as [left, width]; the one before the door stops short so a pier stands behind the cast. */
   const SIDE_WINDOWS = [[D - 92, 28], [D + 30, 38], [D + 72, 38], [D + 114, 38], [D + 200, 38], [D + 242, 38], [D + 284, 38]];
-  const BOGIES = [D - 100, D + 60, D + 230];
+  /** Bogies as [middle, half the wheelbase]; the short one under the cab keeps its wheels behind the nose and clear of the bin. */
+  const BOGIES = [[D - 160, 8], [D - 100, 13], [D + 60, 13], [D + 230, 13]];
 
   const shift = $derived(tram === "away" ? TRAM.away : 0);
   const id = $props.id();
@@ -111,9 +112,9 @@
     <rect x={D + 100} y="133" width="50" height="6" rx="2" class="fill-scene-steel-dark" />
     <rect x={D - 90} y="134" width="40" height="5" rx="2" class="fill-scene-steel" />
 
-    {#each BOGIES as x (x)}
-      <rect x={x - 26} y="232" width="52" height="14" rx="2" class="fill-scene-steel-dark" />
-      {#each [x - 13, x + 13] as wheel (wheel)}
+    {#each BOGIES as [x, half] (x)}
+      <rect x={x - half - 13} y="232" width={half * 2 + 26} height="14" rx="2" class="fill-scene-steel-dark" />
+      {#each [x - half, x + half] as wheel (wheel)}
         <circle cx={wheel} cy="244.5" r="9" class="fill-portrait-hair" />
         <circle cx={wheel} cy="244.5" r="5.5" class="fill-scene-steel-dark" />
         <circle cx={wheel} cy="244.5" r="2" class="fill-scene-steel" />
@@ -128,7 +129,10 @@
     <path d="M{FRONT + 0.2} 204H{D + 520}V206H{FRONT + 0.4}Z" class="fill-portrait-hair/80" />
     <!-- The skirt, down close to the rails between the bogies. -->
     <path d="M{FRONT + 5.5} 238H{D + 520}V241H{FRONT + 6}Z" class="fill-portrait-hair" />
-    <path d="M{FRONT + 14} 148Q{FRONT + 24} 138 {FRONT + 42} 138H{D + 520}" class="stroke-scene-steel-dark" stroke-width="1.2" fill="none" />
+    <path
+      d="M{FRONT + 14} 148Q{FRONT + 24} 138 {FRONT + 42} 138H{D + 520}V142H{FRONT + 42}Q{FRONT + 27} 142 {FRONT + 17} 150.5Z"
+      class="fill-scene-steel-light"
+    />
 
     <!-- The cab: a raked windscreen, a pair of headlights on the nose's curve, a bumper. -->
     <path d="M{FRONT + 3} 198Q{FRONT + 3} 165 {FRONT + 16} 156H{FRONT + 40}V198Z" class="fill-portrait-hair" />
@@ -228,8 +232,11 @@
 <rect x="316" y="120" width="26" height="52" class="fill-white" />
 <rect x="316" y="120" width="26" height="7" class="fill-scene-red-mid" />
 <path d="M319 132h20M319 138h15M319 144h20M319 150h13M319 156h18M319 162h11" class="stroke-scene-line/40" stroke-width="1" />
-<rect x="342" y="124" width="6" height="4" class="fill-scene-steel-dark" />
-<rect x="342" y="162" width="6" height="4" class="fill-scene-steel-dark" />
+{#each [123, 161] as y (y)}
+  <rect x="340" {y} width="14" height="6" rx="1" class="fill-scene-steel-dark" />
+  <rect x="340" {y} width="14" height="1.5" class="fill-white/30" />
+  <circle cx="351" cy={y + 3.5} r="0.9" class="fill-scene-steel-light" />
+{/each}
 
 <Bench bench={PARTS.street.bench} />
 
@@ -240,13 +247,15 @@
 <rect x="362" y={PAVING + 4} width="10" height="4" rx="1" class="fill-scene-steel-dark" />
 
 <!-- The departure board, hung from the shelter roof: the next trams and their minutes. -->
-<path d="M286 64V70M324 64V70" class="stroke-scene-steel-dark" stroke-width="1.5" />
-<rect x="276" y="70" width="58" height="19" rx="1.5" class="fill-scene-steel-dark" />
-<rect x="278" y="72" width="54" height="15" class="fill-portrait-hair" />
-<text x="280.5" y="78.4" font-size="5" font-weight="700" class="fill-scene-honey font-sans">4 Dúbravka</text>
-<text x="329.5" y="78.4" text-anchor="end" font-size="5" class="fill-scene-honey font-sans">2'</text>
-<text x="280.5" y="85" font-size="5" font-weight="700" class="fill-scene-honey font-sans">9 Karlova Ves</text>
-<text x="329.5" y="85" text-anchor="end" font-size="5" class="fill-scene-honey font-sans">6'</text>
+<path d="M279 63V76M331 63V76" class="stroke-scene-steel-dark" stroke-width="2.2" />
+<rect x="275" y="62.5" width="8" height="2.5" class="fill-scene-steel-dark" />
+<rect x="327" y="62.5" width="8" height="2.5" class="fill-scene-steel-dark" />
+<rect x="276" y="74" width="58" height="19" rx="1.5" class="fill-scene-steel-dark" />
+<rect x="278" y="76" width="54" height="15" class="fill-portrait-hair" />
+<text x="280.5" y="82.4" font-size="5" font-weight="700" class="fill-scene-honey font-sans">4 Dúbravka</text>
+<text x="329.5" y="82.4" text-anchor="end" font-size="5" class="fill-scene-honey font-sans">{tram === "away" ? "2'" : "teraz"}</text>
+<text x="280.5" y="89" font-size="5" font-weight="700" class="fill-scene-honey font-sans">9 Karlova Ves</text>
+<text x="329.5" y="89" text-anchor="end" font-size="5" class="fill-scene-honey font-sans">6'</text>
 
 <!-- The stop's sign flying from its own pole beside the shelter: a tram, the stop's name. -->
 <ellipse cx="388" cy={PAVING + 8} rx="8" ry="2.5" class="fill-scene-line/15" />
