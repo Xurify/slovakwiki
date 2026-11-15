@@ -272,8 +272,10 @@ const CAFE_SET: PlaceSet = {
  * done stands back a step left of the other.
  */
 const MARKET_SET: PlaceSet = {
-  // The stall's counter top behind Lucia, at the hip, where she keeps what she has weighed and wrapped.
-  pieces: [{ id: "counter", kind: "ledge", x: 774, width: 40, height: 44 }],
+  // Lucia's cheese table beside her, at the hip: the stall's own counter is drawn in the backdrop,
+  // whose scale against the cast's changes with the stage, so a surface at its height would float
+  // off it on another screen; the table stands on the cast's floor.
+  pieces: [{ id: "counter", kind: "stand", x: 800 }],
   objects: [],
   spots: {
     stall: { x: 660, facing: 1 },
@@ -458,11 +460,11 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     align: 1,
     sun: { day: { x: 738, y: 30 }, morning: { x: 738, y: 32 } },
     things: [
-      drawn(WORDS.ovocie, [40, 136, 260, 38]),
-      drawn(WORDS.zelenina, [748, 128, 84, 46]),
-      twins(WORDS.syr, [662, 100, 28, 42], [890, 100, 28, 42]),
-      twins(WORDS.jahody, [660, 134, 84, 24], [836, 134, 84, 24]),
-      drawn(WORDS.stanok, [636, 66, 308, 162], [16, 66, 308, 162]),
+      drawn(WORDS.ovocie, [390, 122, 164, 52]),
+      drawn(WORDS.zelenina, [736, 114, 84, 60]),
+      twins(WORDS.syr, [620, 96, 20, 34], [922, 96, 16, 28]),
+      twins(WORDS.jahody, [648, 134, 76, 24], [824, 134, 76, 24]),
+      drawn(WORDS.stanok, [626, 60, 308, 166], [368, 76, 204, 150]),
     ],
     sounds: ["murmur", "birds"],
     // Lucia sells at the market in the podcast, from the stall on the right.
