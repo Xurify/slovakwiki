@@ -148,7 +148,7 @@
     {@const top = pieceTop(piece)}
     {@const lit = world.lit?.includes(piece.id)}
     <g transform="translate({n(x)} 0)" data-set-id={piece.id}>
-      {#if piece.kind !== "rail"}
+      {#if piece.kind !== "rail" && piece.kind !== "stool"}
         <ellipse
           cx="0"
           cy={GROUND_Y + 0.5}
@@ -403,10 +403,14 @@
           <rect x={side < 0 ? -half - 1 : half - 3} y={top + 2} width="4" height={GROUND_Y - top + 2} class="fill-scene-coffee" />
         {/each}
         <rect x={-half - 2} y={top - 1} width={width + 4} height="3.4" rx="1" class="fill-scene-coffee" />
-        <!-- The lift-up flap the waiter comes out through. -->
-        <path d="M{flap} {top - 1}V{GROUND_Y + 4}" class="stroke-portrait-ink/40" stroke-width="0.7" />
-        {#each [top - 1.6, top + 10] as y (y)}
-          <rect x={flap - 0.8} {y} width="1.6" height="2.4" rx="0.4" class="fill-scene-steel-dark" />
+        <!-- The lift-up flap the waiter comes out through: a seam in the top on two hinges. -->
+        <path d="M{flap} {top - 1}v3.4" class="stroke-portrait-ink/50" stroke-width="0.6" />
+        {#each [-1.6, 1.6] as dx (dx)}
+          <rect x={flap + dx - 1} y={top - 1.8} width="2" height="1" rx="0.3" class="fill-scene-steel" />
+        {/each}
+        <path d="M{-half + 3} {GROUND_Y - 8}H{half - 3}" class="stroke-scene-steel" stroke-width="1.4" />
+        {#each [-half + 8, 0, half - 8] as x (x)}
+          <path d="M{x} {GROUND_Y - 8}v-3" class="stroke-scene-steel-dark" stroke-width="1" />
         {/each}
         <!-- Saucers where the coffees wait (CAFE_SET's ledge), under the machine's group heads. -->
         {#each [-18, -6] as x (x)}
@@ -430,6 +434,14 @@
           <path d="M10.8 -11v7l-1.4 2" class="stroke-scene-steel-light" fill="none" stroke-width="0.8" />
           <rect x="-11" y="-1.6" width="22" height="1.6" rx="0.4" class="fill-scene-steel" />
         </g>
+        <!-- With no coffees of the story's on the bar, two wait there anyway. -->
+        {#if !Object.values(world.objects).some((object) => object.kind === "cup")}
+          {#each [-18, -6] as x (x)}
+            <path d="M{x - 3} {top - 1.6}v-4.6q0 -1 1 -1h4q1 0 1 1v4.6Z" class="fill-white" />
+            <path d="M{x + 3} {top - 5.4}q2 0 2 1.4t-2 1.4" class="stroke-white" fill="none" stroke-width="0.8" />
+            <path d="M{x - 2.4} {top - 6.6}h4.8" class="stroke-scene-coffee" stroke-width="0.7" />
+          {/each}
+        {/if}
         <g transform="translate(3 {top - 1})">
           <path d="M-1.8 0l0.3 -5.4h3l0.3 5.4Z" class="fill-scene-steel-light" />
           <path d="M1.5 -5.4l1.2 -0.8" class="stroke-scene-steel-light" stroke-width="0.6" />
@@ -473,14 +485,14 @@
           <path d="M-5.6 -3l4 -10" class="stroke-white/70" stroke-width="0.6" />
         </g>
       {:else if piece.kind === "stool"}
-        <!-- Its feet a little below the floor line, as it stands in front of the bar's foot. -->
-        <ellipse cx="0" cy={GROUND_Y + 5} rx={width / 2 + 1} ry="1.2" class="fill-portrait-ink/15" />
+        <!-- Its feet below the floor line, as it stands out in front of the bar's foot. -->
+        <ellipse cx="0" cy={GROUND_Y + 7.4} rx={width / 2} ry="0.8" class="fill-portrait-ink/10" />
         <path
-          d="M-3 {top + 2}L{-width / 2 + 1} {GROUND_Y + 5}M3 {top + 2}L{width / 2 - 1} {GROUND_Y + 5}M-1 {top + 2}L-2 {GROUND_Y + 5}M1 {top + 2}L2 {GROUND_Y + 5}"
+          d="M-3 {top + 2}L{-width / 2 + 1} {GROUND_Y + 7}M3 {top + 2}L{width / 2 - 1} {GROUND_Y + 7}M-1 {top + 2}L-2 {GROUND_Y + 7}M1 {top + 2}L2 {GROUND_Y + 7}"
           class="stroke-scene-steel-dark"
           stroke-width="1.2"
         />
-        <ellipse cx="0" cy={GROUND_Y - 7} rx={width / 2 - 2.4} ry="1.4" class="stroke-scene-steel" fill="none" stroke-width="1" />
+        <ellipse cx="0" cy={GROUND_Y - 5} rx={width / 2 - 2.2} ry="1.4" class="stroke-scene-steel" fill="none" stroke-width="1" />
         <rect x={-width / 2} y={top} {width} height="3" rx="1.4" class="fill-scene-coffee" />
         <ellipse cx="0" cy={top} rx={width / 2} ry="1.6" class="fill-scene-green" />
       {:else if piece.kind === "bistro"}

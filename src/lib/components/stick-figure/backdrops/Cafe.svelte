@@ -14,7 +14,7 @@
   const BACK = { bottom: 124, left: 800, right: 928, shelves: [60, 94], top: 34 };
   const BENCH_TABLE = 540;
   const CUSHIONS = [
-    { paint: "fill-scene-clay", x: 408 },
+    { paint: "fill-scene-clay", x: 412 },
     { paint: "fill-scene-honey", x: 500 },
     { paint: "fill-scene-plum", x: 580 },
   ];
@@ -109,21 +109,21 @@
 <rect x="394" y="150" width="176" height="7" rx="2" class="fill-scene-wood" />
 
 <!-- A banquette against the far wall, drawn smaller than the cast's table because it stands further back. -->
-<rect x="384" y="172" width="214" height="4" rx="1.5" class="fill-scene-wood" />
-<rect x="386" y="176" width="210" height="24" rx="2" class="fill-scene-green" />
-{#each [414, 444, 474, 504, 534, 564] as x (x)}
-  <path d="M{x} 179v18" class="stroke-portrait-ink/15" stroke-width="1" />
+<rect x="392" y="178" width="206" height="4" rx="1.5" class="fill-scene-wood" />
+<rect x="394" y="182" width="202" height="27" rx="2" class="fill-scene-green" />
+{#each [420, 450, 480, 510, 540, 570] as x (x)}
+  <path d="M{x} 185v20" class="stroke-portrait-ink/15" stroke-width="1" />
 {/each}
 {#each CUSHIONS as { paint, x } (x)}
-  <rect x={x - 8} y="186" width="16" height="14" rx="4" class={paint} transform="rotate(-6 {x} 200)" />
-  <path d="M{x - 5} 193h10" class="stroke-white/40" stroke-width="0.8" transform="rotate(-6 {x} 200)" />
+  <rect x={x - 8} y="194" width="16" height="14" rx="4" class={paint} transform="rotate(-6 {x} 208)" />
+  <path d="M{x - 5} 201h10" class="stroke-white/40" stroke-width="0.8" transform="rotate(-6 {x} 208)" />
 {/each}
-<rect x="384" y="199" width="214" height="7" rx="2.5" class="fill-scene-green-mid" />
-<rect x="386" y="206" width="210" height="20" class="fill-scene-coffee/70" />
-<path d="M386 208H596" class="stroke-portrait-ink/15" stroke-width="1" />
-{#each [380, 596] as x (x)}
-  <rect {x} y="168" width="6" height="58" rx="1.5" class="fill-scene-wood" />
-  <rect {x} y="168" width="6" height="3" rx="1" class="fill-scene-coffee" />
+<rect x="392" y="208" width="206" height="7" rx="2.5" class="fill-scene-green-mid" />
+<rect x="394" y="215" width="202" height="11" class="fill-scene-coffee/70" />
+<path d="M394 217H596" class="stroke-portrait-ink/15" stroke-width="1" />
+{#each [388, 596] as x (x)}
+  <rect {x} y="174" width="6" height="52" rx="1.5" class="fill-scene-wood" />
+  <rect {x} y="174" width="6" height="3" rx="1" class="fill-scene-coffee" />
 {/each}
 
 <!-- The banquette's table, out on the floor in front of it, in the gap between the cast's table and where the cast stands. -->
@@ -216,8 +216,9 @@
   <rect x={BACK.left + 6} {y} width={BACK.right - BACK.left - 12} height="4" class="fill-scene-coffee" />
 {/each}
 <rect x={BACK.left - 2} y={BACK.bottom} width={BACK.right - BACK.left + 4} height="5" rx="1" class="fill-scene-coffee" />
-{#each [BACK.left + 3, BACK.right - 3] as x (x)}
-  <path d="M{x - 3} {BACK.bottom + 5}h6v3q0 9 -3 13h-3Z" class="fill-scene-coffee" />
+{#each [BACK.left + 4, BACK.right - 4] as x (x)}
+  <rect x={x - 3} y={BACK.bottom + 5} width="6" height="2" rx="0.6" class="fill-scene-coffee" />
+  <path d="M{x - 2} {BACK.bottom + 7}h4l-2 4Z" class="fill-scene-coffee" />
 {/each}
 
 {#each SYRUPS.slice(0, 7) as paint, index (index)}
