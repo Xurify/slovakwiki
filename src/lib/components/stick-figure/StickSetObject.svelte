@@ -211,11 +211,10 @@
       />
     {/if}
   {:else if kind === "board"}
-    <!-- A beech board with a handle at its left end, the hole to hang it by. -->
-    <path d="M-11 -3.2H9.6Q11 -3.2 11 -1.8V0H-11Z" class="fill-scene-wood" />
-    <path d="M-11 -1H11" class="stroke-scene-coffee/40" stroke-width="0.6" />
-    <path d="M-14.4 -2.6H-11V-0.6H-14.4Q-15.4 -1.6 -14.4 -2.6Z" class="fill-scene-wood" />
-    <circle cx="-13.4" cy="-1.6" r="0.5" class="fill-scene-coffee" stroke="none" />
+    <!-- A beech chopping board lying flat: its top catching the light, its thick front edge. -->
+    <rect x="-11" y="-2.6" width="22" height="2.6" rx="0.8" class="fill-scene-wood" />
+    <rect x="-11" y="-2.6" width="22" height="1" rx="0.5" class="fill-white/35" />
+    <path d="M-10 -0.8H10" class="stroke-scene-coffee/40" stroke-width="0.6" />
   {:else if kind === "knife"}
     <path d="M-1 -0.3H8.2Q8 -2.4 5 -2.7H-1Z" class="fill-scene-cool" />
     <rect x="-6" y="-2.6" width="5" height="2.3" rx="0.8" class="fill-portrait-vest" />

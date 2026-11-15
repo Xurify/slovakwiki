@@ -213,9 +213,9 @@ describe("cues against the set", () => {
         rule.endsWith("props/overlap"),
       );
     };
-    // The set lays the knife at dx 40 and the jug at 49, overlapping a little: the knife lies in front.
+    // The set lays the knife at dx 31, between the board and the jug at 49.
     expect(overlaps(46)).toEqual(["error props/overlap"]);
-    expect(overlaps(40)).toEqual([]);
+    expect(overlaps(31)).toEqual([]);
     expect(overlaps(0)).toEqual([]);
   });
 

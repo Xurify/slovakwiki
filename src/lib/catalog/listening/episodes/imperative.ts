@@ -432,7 +432,7 @@ const KITCHEN_ACTS: Record<string, Cue[]> = {
     // Called over, and held out to him once he is there.
     { who: "marek", do: "go", to: "pot-left", on: "marek" },
     { do: "offer", what: "spoon", to: "marek", on: "ochutnaj" },
-    { do: "camera", to: "marek", zoom: 2.1, on: "ochutnaj" },
+    { do: "camera", to: "stove", zoom: 2.1, on: "ochutnaj" },
     // Over to watch the tasting, a step back from him so she can lean in.
     { who: "anna", do: "go", to: "board-back", on: "ochutnaj" },
   ],

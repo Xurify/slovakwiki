@@ -27,7 +27,7 @@
    * The rug, a trapezoid seen from the room's height: its far edge
    * narrower than the near one, which runs off the bottom of the stage.
    */
-  const RUG = { far: 248, near: 300, farLeft: 290, farRight: 612, nearLeft: 256, nearRight: 634 };
+  const RUG = { far: 248, near: 300, farLeft: 290, farRight: 598, nearLeft: 256, nearRight: 616 };
   function rugX(y: number, side: 0 | 1): number {
     const t = (y - RUG.far) / (RUG.near - RUG.far);
     return side === 0
@@ -323,8 +323,7 @@
   {/each}
 </g>
 <rect x="120" y="210" width="102" height="4" rx="2" class="fill-scene-line/10" />
-<path d="M216 214v12" class="stroke-portrait-bib" stroke-width="3" />
-<circle cx="216" cy="218" r="2.6" class="fill-scene-steel" />
+<path d="M126 178v4M214 178v4" class="stroke-scene-line/40" stroke-width="2" />
 
 </g>
 <!-- Bobík's bed on the floor by the radiator, a chewed rope toy in it. -->
@@ -485,11 +484,13 @@
 <circle cx="925" cy="146" r="2.4" class="fill-portrait-bib" />
 
 <!-- The light over the middle of the room, hanging from the ceiling. -->
-<path d="M480 0V24" class="stroke-scene-line/60" stroke-width="1" />
-<path d="M470 24h20l8 18h-36Z" class="fill-scene-clay" />
-<path d="M470 24h20l1.4 3h-22.8Z" class="fill-scene-line/15" />
-<path d="M462 42h36" class="stroke-scene-line/20" stroke-width="1.2" />
-<rect x="477" y="20" width="6" height="5" rx="1" class="fill-scene-line/50" />
+<ellipse cx="410" cy="7" rx="9" ry="2.6" class="fill-portrait-bib" />
+<ellipse cx="410" cy="7" rx="9" ry="2.6" class="stroke-scene-line/20" stroke-width="0.8" fill="none" />
+<path d="M410 8V24" class="stroke-scene-line/60" stroke-width="1" />
+<path d="M400 24h20l8 18h-36Z" class="fill-scene-clay" />
+<path d="M400 24h20l1.4 3h-22.8Z" class="fill-scene-line/15" />
+<path d="M392 42h36" class="stroke-scene-line/20" stroke-width="1.2" />
+<rect x="407" y="20" width="6" height="5" rx="1" class="fill-scene-line/50" />
 
 <!-- A folk-woven rug under the cast, fringed at the near end. -->
 <path d={rugBand(0, 0, 0)} class="fill-scene-red-mid" />

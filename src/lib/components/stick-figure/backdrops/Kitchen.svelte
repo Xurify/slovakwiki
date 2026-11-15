@@ -195,14 +195,14 @@
 
 <WallClock clock={PARTS.kitchen.clock} {hour} />
 
-<!-- An embroidered kitchen hanging under the clock, red cross-stitch on white linen. -->
-<path d="M473 98h36" class="stroke-scene-coffee/70" stroke-width="2" />
-<circle cx="491" cy="96" r="1.2" class="fill-scene-line/60" />
-<path d="M475 99h32v32q-16 5-32 0Z" class="fill-white" />
-<path d="M475 99h32v32q-16 5-32 0Z" class="stroke-scene-red/60" stroke-width="1" fill="none" stroke-dasharray="1.6 1.2" />
-<path d="M480 106h22M482 111h18" class="stroke-scene-red/70" stroke-width="1.3" stroke-dasharray="2 1" />
-<path d="M491 127q-5-3.4-5-6.6a2.5 2.5 0 0 1 5-1a2.5 2.5 0 0 1 5 1q0 3.2-5 6.6Z" class="fill-scene-red/80" />
-<path d="M479 120l2.4-2.4 2.4 2.4-2.4 2.4ZM498.6 120l2.4-2.4 2.4 2.4-2.4 2.4Z" class="fill-scene-green-mid" />
+<!-- An embroidered kitchen hanging under the clock, red cross-stitch on white linen, high enough to stay out of the close shot at the stove. -->
+<path d="M475 75h32" class="stroke-scene-coffee/70" stroke-width="2" />
+<circle cx="491" cy="73.4" r="1.1" class="fill-scene-line/60" />
+<path d="M477 76h28v24q-14 4-28 0Z" class="fill-white" />
+<path d="M477 76h28v24q-14 4-28 0Z" class="stroke-scene-red/60" stroke-width="1" fill="none" stroke-dasharray="1.6 1.2" />
+<path d="M481 82h20M483 86.4h16" class="stroke-scene-red/70" stroke-width="1.2" stroke-dasharray="2 1" />
+<path d="M491 98q-4-2.8-4-5.4a2 2 0 0 1 4-0.8a2 2 0 0 1 4 0.8q0 2.6-4 5.4Z" class="fill-scene-red/80" />
+<path d="M481 93l2-2 2 2-2 2ZM497 93l2-2 2 2-2 2Z" class="fill-scene-green-mid" />
 
 <!-- The wall cupboards over the counter, a pot and a basket kept on top. -->
 <path d="M552 32v-16q0 -4 4 -4h24q4 0 4 4v16Z" class="fill-scene-steel" />
@@ -259,17 +259,17 @@
 <circle cx="606.6" cy="181" r="0.9" class="fill-scene-line/50" />
 
 <!-- Her small fridge at the end of the run, past where a phone's stage stops, a radio on top. -->
-<ellipse cx="798" cy="233" rx="23" ry="3" class="fill-scene-line/15" />
-<rect x="776" y="136" width="44" height="94" rx="5" class="fill-white" />
-<rect x="776" y="136" width="44" height="94" rx="5" class="fill-scene-line/5" />
-<path d="M776 164H820" class="stroke-scene-line/30" stroke-width="1.4" />
-<path d="M813 142v14M813 172v26" class="stroke-scene-line/50" stroke-width="2.6" />
-<rect x="784" y="143" width="9" height="7" rx="1.4" class="fill-scene-apple" />
-<circle cx="799" cy="152" r="3" class="fill-scene-honey" />
-<rect x="784" y="168" width="15" height="19" class="fill-white" />
-<path d="M786 174h11M786 178h9M786 182h11" class="stroke-scene-line/30" stroke-width="0.8" />
-<circle cx="791.5" cy="168" r="1.6" class="fill-scene-red" />
-<path d="M778 228h4v3h-4ZM814 228h4v3h-4Z" class="fill-scene-line/40" />
-<rect x="782" y="124" width="32" height="12" rx="2" class="fill-scene-red-mid" />
-<circle cx="790" cy="130" r="3.6" class="fill-scene-line/40" />
-<rect x="798" y="128" width="12" height="3" rx="1" class="fill-white/70" />
+<ellipse cx="803" cy="233" rx="21" ry="3" class="fill-scene-line/15" />
+<rect x="784" y="136" width="38" height="94" rx="5" class="fill-white" />
+<rect x="784" y="136" width="38" height="94" rx="5" class="fill-scene-line/5" />
+<path d="M784 164H822" class="stroke-scene-line/30" stroke-width="1.4" />
+<path d="M815 142v14M815 172v26" class="stroke-scene-line/50" stroke-width="2.6" />
+<rect x="792" y="143" width="9" height="7" rx="1.4" class="fill-scene-apple" />
+<circle cx="805" cy="152" r="3" class="fill-scene-honey" />
+<rect x="792" y="168" width="15" height="19" class="fill-white" />
+<path d="M794 174h11M794 178h9M794 182h11" class="stroke-scene-line/30" stroke-width="0.8" />
+<circle cx="799.5" cy="168" r="1.6" class="fill-scene-red" />
+<path d="M786 228h4v3h-4ZM816 228h4v3h-4Z" class="fill-scene-line/40" />
+<rect x="787" y="124" width="32" height="12" rx="2" class="fill-scene-red-mid" />
+<circle cx="795" cy="130" r="3.6" class="fill-scene-line/40" />
+<rect x="803" y="128" width="12" height="3" rx="1" class="fill-white/70" />
