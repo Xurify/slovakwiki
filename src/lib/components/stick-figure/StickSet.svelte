@@ -401,6 +401,9 @@
         {/each}
         <rect x={-width / 2 + 1} y={GROUND_Y - 4} width={width - 2} height="4" class="fill-scene-coffee/60" />
         <rect x={-width / 2 + 1} y={top + 2} width={width - 2} height="2" class="fill-scene-coffee/30" />
+        {#each [-1, 1] as side (side)}
+          <rect x={side < 0 ? -width / 2 - 1 : width / 2 - 3} y={top + 2} width="4" height={GROUND_Y - top - 2} class="fill-scene-coffee" />
+        {/each}
         <rect x={-width / 2 - 2} y={top - 1} width={width + 4} height="3.4" rx="1" class="fill-scene-coffee" />
         <!-- The machine's group heads stand over the coffees' places (CAFE_SET), so the cups wait under the spouts. -->
         <g transform="translate(-27 {top - 1})">
@@ -420,19 +423,26 @@
           <path d="M11.5 -13v8l-1.6 2" class="stroke-scene-steel-light" fill="none" stroke-width="0.8" />
           <rect x="-12" y="-1.8" width="24" height="1.8" rx="0.4" class="fill-scene-steel" />
         </g>
-        <g transform="translate(-7 {top - 1})">
+        <g transform="translate(-8 {top - 1})">
           <rect x="-3" y="-11" width="6" height="11" rx="0.8" class="fill-portrait-vest" />
           <rect x="-1.6" y="-5" width="3.2" height="2" class="fill-scene-steel" />
           <path d="M-3.6 -11l1 -8h5.2l1 8Z" class="fill-white/60" />
           <path d="M-2.8 -11.6l0.8 -5.6h4l0.8 5.6Z" class="fill-scene-coffee" />
           <rect x="-3" y="-20.4" width="6" height="1.6" rx="0.6" class="fill-portrait-vest" />
         </g>
-        <g transform="translate(1.5 {top - 1})">
+        <g transform="translate(1 {top - 1})">
+          <rect x="-3.4" y="-2.4" width="6.8" height="2.4" rx="0.4" class="fill-portrait-vest" />
+          <path d="M-0.6 -2.4l-0.6 -4h2.4l-0.6 4Z" class="fill-scene-steel-dark" />
+          <rect x="-4" y="-13" width="8" height="6.4" rx="0.8" class="fill-portrait-vest" transform="rotate(-8 0 -7)" />
+          <rect x="-3.2" y="-12.2" width="6.4" height="4.8" class="fill-scene-sky" transform="rotate(-8 0 -7)" />
+          <path d="M-2.4 -11h3M-2.4 -9.4h4.4" class="stroke-scene-coffee/50" stroke-width="0.5" transform="rotate(-8 0 -7)" />
+        </g>
+        <g transform="translate(9.5 {top - 1})">
           <path d="M-2 0l0.6 -2h2.8l0.6 2Z" class="fill-scene-steel-dark" />
           <rect x="-1.8" y="-7.4" width="3.6" height="5.6" rx="0.6" class="fill-portrait-vest" transform="rotate(-12 0 -2)" />
           <rect x="-1.2" y="-6.8" width="2.4" height="1.6" class="fill-scene-sky" transform="rotate(-12 0 -2)" />
         </g>
-        <g transform="translate({width / 2 - 17} {top - 1}) scale(0.86 1)">
+        <g transform="translate({width / 2 - 15} {top - 1}) scale(0.72 1)">
           <rect x="-17" y="-1.6" width="34" height="1.6" rx="0.4" class="fill-scene-steel-dark" />
           <rect x="-16.4" y="-16" width="32.8" height="14.4" class="fill-scene-sky/70" />
           <path d="M-16 -8.8h32" class="stroke-scene-steel" stroke-width="0.8" />
@@ -453,6 +463,16 @@
           <path d="M-16.4 -16v14.4M16.4 -16v14.4" class="stroke-scene-steel" stroke-width="0.8" />
           <path d="M-14 -2.6l6 -12M-9 -2.6l3.4 -7" class="stroke-white/70" stroke-width="0.7" />
         </g>
+      {:else if piece.kind === "stool"}
+        <ellipse cx="0" cy={GROUND_Y + 0.6} rx={width / 2} ry="1.2" class="fill-scene-line/15" />
+        <path
+          d="M-3 {top + 2}L{-width / 2 + 1} {GROUND_Y}M3 {top + 2}L{width / 2 - 1} {GROUND_Y}M-1 {top + 2}L-2 {GROUND_Y}M1 {top + 2}L2 {GROUND_Y}"
+          class="stroke-scene-steel-dark"
+          stroke-width="1.2"
+        />
+        <ellipse cx="0" cy={GROUND_Y - 10} rx={width / 2 - 2.6} ry="1.4" class="stroke-scene-steel" fill="none" stroke-width="1" />
+        <rect x={-width / 2} y={top} {width} height="3" rx="1.4" class="fill-scene-coffee" />
+        <ellipse cx="0" cy={top} rx={width / 2} ry="1.6" class="fill-scene-green" />
       {:else if piece.kind === "bistro"}
         {#each [-1, 1] as side (side)}
           {@const back = side * (width / 2 - 2)}

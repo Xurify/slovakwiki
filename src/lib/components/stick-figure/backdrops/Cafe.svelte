@@ -8,9 +8,11 @@
 
   // A phone shows x 360 to 960 of the café and a desktop 240 to 960: the window, the bar
   // and the back bar stand inside the phone's part, and nothing straddles 240 or 360.
-  // The table and its chairs are the cast's (CAFE_SET), so they keep their size against people.
+  // The window table, its chairs and the bar stools are the cast's (CAFE_SET), so they keep their size against people.
   const LAMP = 466;
-  const BACK = { left: 782, right: 946, top: 40, shelves: [66, 112, 150] };
+  const BACK = { bottom: 154, left: 782, right: 946, shelves: [66, 112, 150], top: 40 };
+  const BANQUETTE_TABLES = [392, 580];
+  const BANQUETTE_TUFTS = [400, 430, 460, 490, 520, 550, 574];
   const SYRUPS = [
     "fill-scene-red",
     "fill-scene-honey",
@@ -49,38 +51,44 @@
 <path d="M136 34h4v166h-4ZM60 126h156v4H60Z" class="fill-portrait-bib" />
 <rect x="42" y="200" width="192" height="9" rx="3" class="fill-scene-wood" />
 
-<!-- Shown from a desktop on: the town's castle framed, and the day's papers on their sticks. -->
-<path d="M272 41L298 30L324 41" class="stroke-scene-line/60" fill="none" stroke-width="0.8" />
-<circle cx="298" cy="30" r="1.4" class="fill-scene-line" />
-<rect x="274" y="44" width="56" height="44" class="fill-scene-line/10" />
-<rect x="270" y="40" width="56" height="44" class="fill-scene-coffee" />
-<rect x="275" y="45" width="46" height="34" class="fill-scene-sky" />
-<path d="M275 79V70H321V79Z" class="fill-scene-leaf" />
-<path d="M284 70V58h4v-3h3v3h14v-3h3v3h4v12Z" class="fill-white" />
-<path d="M288 62h20" class="stroke-scene-clay" stroke-width="1.4" />
-<rect x="276" y="104" width="44" height="4" rx="1" class="fill-scene-coffee" />
-<circle cx="279" cy="106" r="0.9" class="fill-scene-steel-light" />
-<circle cx="317" cy="106" r="0.9" class="fill-scene-steel-light" />
-{#each [282, 296, 310] as x, index (x)}
-  <rect x={x - 1} y="102" width="2" height="8" class="fill-scene-coffee" />
-  <rect x={x - 6} y="108" width="12" height={44 - index * 6} class="fill-white" />
-  <rect x={x - 5} y="110" width="10" height="3" class="fill-portrait-ink" />
-  <path
-    d="M{x - 4} 117h8M{x - 4} 121h6M{x - 4} 125h8M{x - 4} 129h5"
-    class="stroke-scene-line/40"
-    stroke-width="0.8"
-  />
-{/each}
+<!-- Shown from a desktop on: the street door, and a coat stand beside it. -->
+<rect x="248" y="68" width="60" height="158" class="fill-scene-coffee" />
+<rect x="254" y="74" width="48" height="152" class="fill-scene-wood" />
+<rect x="260" y="80" width="36" height="88" rx="1" class="fill-scene-sky" />
+<path d="M260 150H296V168H260Z" class="fill-scene-clay/60" />
+<path d="M264 92l14 -10M264 110l24 -18" class="stroke-white/70" stroke-width="1.6" />
+<rect x="260" y="178" width="36" height="38" rx="1" class="fill-scene-coffee/20" />
+<path d="M292 128v26" class="stroke-scene-steel-dark" stroke-width="2.4" stroke-linecap="round" />
+<path d="M270 98l8 -8 8 8" class="stroke-scene-line/50" fill="none" stroke-width="0.6" />
+<rect x="263" y="98" width="30" height="10" rx="1.5" class="fill-white" />
+<text x="278" y="105.4" text-anchor="middle" class="fill-scene-green font-sans" font-size="5.4" font-weight="700">
+  Otvorené
+</text>
+<rect x="244" y="224" width="68" height="3" class="fill-scene-steel" />
+
+<ellipse cx="336" cy="227" rx="13" ry="2.4" class="fill-scene-line/12" />
+<path d="M336 96V224M326 226l10 -5 10 5" class="stroke-scene-coffee" stroke-width="2.6" />
+<path d="M336 102l-9 -5M336 102l9 -5" class="stroke-scene-coffee" stroke-width="1.8" />
+<circle cx="336" cy="94" r="2.6" class="fill-scene-coffee" />
+<path d="M344 100L334 108L332 156H356L354 108Z" class="fill-scene-plum" />
+<path d="M339 103l5 9 5 -9Z" class="fill-scene-plum/70" />
+<path d="M344 112V154" class="stroke-portrait-ink/20" stroke-width="0.8" />
+<path d="M322 97q6 -7 12 0Z" class="fill-scene-clay" />
+<rect x="320" y="96" width="16" height="2.4" rx="1" class="fill-scene-clay" />
 
 <!-- The window, its sill above the table's top at any cast size. -->
 <rect x="400" y="20" width="164" height="132" rx="2" class="fill-portrait-bib" />
 <rect x="408" y="28" width="148" height="116" class="fill-scene-sky" />
-<path d="M408 144V96H436V76H476V100H516V84H556V144Z" class="fill-scene-clay/80" />
-<path d="M516 144V112H556V144ZM436 144V108H476V144Z" class="fill-scene-honey/80" />
+<path d="M408 94V60H436V44H476V64H516V52H556V94Z" class="fill-scene-clay/80" />
+<path d="M436 94V70H476V94ZM516 94V74H556V94Z" class="fill-scene-honey/80" />
 <path
-  d="M444 84h8v10h-8ZM460 84h8v10h-8ZM524 92h8v10h-8ZM542 92h8v10h-8Z"
+  d="M444 50h8v8h-8ZM460 50h8v8h-8ZM524 58h8v8h-8ZM542 58h8v8h-8ZM444 78h8v8h-8ZM524 80h8v8h-8Z"
   class="fill-portrait-bib/80"
 />
+<rect x="408" y="94" width="148" height="10" class="fill-scene-steel-light" />
+<path d="M408 98H556" class="stroke-scene-steel/70" stroke-width="1" />
+<path d="M492 98V66M492 66h-5" class="stroke-scene-line/60" fill="none" stroke-width="1.2" />
+<rect x="484" y="65" width="6" height="3" rx="1" class="fill-scene-line/60" />
 <path d="M457 28v116M507 28v116M408 76h148" class="stroke-portrait-bib" stroke-width="4" />
 <path d="M414 44l22 -14M414 62l34 -24" class="stroke-white/70" stroke-width="2" />
 <path d="M404 104h156" class="stroke-scene-line/60" stroke-width="1.6" />
@@ -94,6 +102,29 @@
   stroke-width="1.2"
 />
 <rect x="394" y="150" width="176" height="7" rx="2" class="fill-scene-wood" />
+
+<!-- A banquette against the far wall, drawn smaller than the cast's table because it stands further back. -->
+<rect x="372" y="172" width="228" height="4" rx="1.5" class="fill-scene-wood" />
+<rect x="374" y="176" width="224" height="24" rx="2" class="fill-scene-green" />
+{#each BANQUETTE_TUFTS as x (x)}
+  <path d="M{x} 179v18" class="stroke-portrait-ink/15" stroke-width="1" />
+{/each}
+<rect x="372" y="199" width="228" height="7" rx="2.5" class="fill-scene-green-mid" />
+<rect x="374" y="206" width="224" height="20" class="fill-scene-coffee/70" />
+<path d="M374 208H598" class="stroke-portrait-ink/15" stroke-width="1" />
+{#each [368, 598] as x (x)}
+  <rect {x} y="168" width="6" height="58" rx="1.5" class="fill-scene-wood" />
+  <rect {x} y="168" width="6" height="3" rx="1" class="fill-scene-coffee" />
+{/each}
+{#each BANQUETTE_TABLES as x (x)}
+  <ellipse cx={x} cy="225" rx="7" ry="1.6" class="fill-scene-line/15" />
+  <path d="M{x - 6} 225q6 -3 12 0Z" class="fill-scene-line/70" />
+  <path d="M{x} 192V224" class="stroke-scene-line/70" stroke-width="1.6" />
+  <ellipse cx={x} cy="191" rx="12" ry="1.8" class="fill-scene-edge" />
+  <ellipse cx={x} cy="190" rx="12" ry="1.8" class="fill-portrait-bib" />
+  <path d="M{x - 6} 189.6v-2.6h3.6v2.6ZM{x + 2} 189.6v-2.6h3.6v2.6Z" class="fill-white" />
+  <path d="M{x - 6} 187h3.6M{x + 2} 187h3.6" class="stroke-scene-coffee" stroke-width="0.5" />
+{/each}
 
 <g transform="translate({PARTS.cafe.plant.x} 0)">
   <path d="M0 6V58M0 58L-12 74M0 58L12 74" class="stroke-scene-coffee/70" stroke-width="1" />
@@ -112,10 +143,8 @@
   />
 </g>
 
-<!-- The pendant hangs in front of the window: its shadow falls on the frame behind it. -->
-<ellipse cx={LAMP + 6} cy="62" rx="16" ry="4" class="fill-scene-line/12" />
 <path d="M{LAMP} 6V40" class="stroke-scene-line/60" stroke-width="1.2" />
-<rect x={LAMP - 3} y="5" width="6" height="2.4" rx="1" class="fill-scene-coffee" />
+<path d="M{LAMP - 7} 6Q{LAMP} 12 {LAMP + 7} 6Z" class="fill-portrait-bib" />
 <path d="M{LAMP - 16} 56Q{LAMP - 16} 40 {LAMP} 40Q{LAMP + 16} 40 {LAMP + 16} 56Z" class="fill-scene-green" />
 <ellipse cx={LAMP} cy="56" rx="16" ry="2.4" class="fill-scene-line/15" />
 <ellipse cx={LAMP} cy="57" rx="5" ry="2.6" class="fill-portrait-bib" />
@@ -137,8 +166,8 @@
   <text x="105" y="44" text-anchor="end" font-size="9.5">3,00&nbsp;€</text>
 </Chalkboard>
 
-<!-- The back bar, standing on the floor behind the counter: syrups on top, cakes and cups below. -->
-<rect x={BACK.left} y={BACK.top} width={BACK.right - BACK.left} height={226 - BACK.top} class="fill-scene-coffee/25" />
+<!-- The back bar hangs on the wall: below it the wainscot shows through the aisle behind the counter. -->
+<rect x={BACK.left} y={BACK.top} width={BACK.right - BACK.left} height={BACK.bottom - BACK.top} class="fill-scene-coffee/25" />
 <rect x={BACK.left} y={BACK.top - 6} width={BACK.right - BACK.left} height="7" rx="1" class="fill-scene-coffee" />
 <text
   x={(BACK.left + BACK.right) / 2}
@@ -151,13 +180,15 @@
 >
   KAVIAREŇ
 </text>
-<rect x={BACK.left} y={BACK.top} width="6" height={226 - BACK.top} class="fill-scene-coffee" />
-<rect x={BACK.right - 6} y={BACK.top} width="6" height={226 - BACK.top} class="fill-scene-coffee" />
+<rect x={BACK.left} y={BACK.top} width="6" height={BACK.bottom - BACK.top} class="fill-scene-coffee" />
+<rect x={BACK.right - 6} y={BACK.top} width="6" height={BACK.bottom - BACK.top} class="fill-scene-coffee" />
 {#each BACK.shelves as y (y)}
   <rect x={BACK.left + 6} {y} width={BACK.right - BACK.left - 12} height="4" class="fill-scene-coffee" />
 {/each}
-<rect x={BACK.left + 6} y="154" width={BACK.right - BACK.left - 12} height="72" class="fill-scene-wood" />
-<path d="M{(BACK.left + BACK.right) / 2} 158v64" class="stroke-scene-line/25" stroke-width="1" />
+<rect x={BACK.left - 2} y={BACK.bottom} width={BACK.right - BACK.left + 4} height="4" rx="1" class="fill-scene-coffee" />
+{#each [BACK.left + 12, BACK.right - 12] as x (x)}
+  <path d="M{x - 1} {BACK.bottom + 4}h2v8l-6 -6v-2Z" class="fill-scene-coffee" />
+{/each}
 
 {#each SYRUPS as paint, index (index)}
   {@const x = 796 + index * 18}

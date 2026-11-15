@@ -264,6 +264,9 @@ const CAFE_SET: PlaceSet = {
     // The window table, clear of where a cast of two or three stands, and of a phone's left edge.
     { id: "table", kind: "bistro", x: 464 },
     { id: "back", kind: "ledge", at: { piece: "bar", dx: -28 }, width: 30, height: 44 },
+    // In front of the pastry case, away from the machine's end where the waiter works.
+    { id: "stool-1", kind: "stool", at: { piece: "bar", dx: 10 } },
+    { id: "stool-2", kind: "stool", at: { piece: "bar", dx: 28 } },
   ],
   objects: [],
   spots: {
@@ -317,6 +320,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     align: 1,
     things: [
       drawn(WORDS.okno, [400, 20, 164, 137], [42, 24, 192, 186]),
+      drawn(WORDS.dvere, [248, 68, 60, 158]),
       drawn(WORDS.lampa, [450, 40, 32, 20]),
       drawn(WORDS.tabula, [636, 12, 124, 58]),
       drawn(WORDS.pult, [791, 192, 150, 86]),
