@@ -47,6 +47,11 @@
     return house.shop ? 0 : Math.floor(bays(house).length / 2);
   }
 
+  /** Half a shop window's width; a shop showing wares has a wider window to show them in. */
+  function shopWindow(house: Facade, count: number): number {
+    return Math.min(house.wares ? 20 : 15, (house.width / count - 8) / 2);
+  }
+
   /** A baroque gable: scrolls at the shoulders, upright sides, a cornice and a triangular pediment. */
   function gablePath({ top, width, x }: Facade, lift = 0): string {
     const cx = x + width / 2;
@@ -177,6 +182,9 @@
   <!-- The ground floor: a shop's sign, awning and display windows, a door under an arch, or plain windows. -->
   {#if house.shop}
     <rect x={house.x + 6} y="186" width={house.width - 12} height="10" rx="1" class="fill-scene-board" />
+    {#each [house.x + 9, house.x + house.width - 9] as fixing (fixing)}
+      <circle cx={fixing} cy="191" r="0.9" class="fill-white/50" />
+    {/each}
     <text
       x={cx}
       y="193.8"
@@ -203,7 +211,7 @@
       <rect x={column - 6} y="204" width="12" height="22" rx="1" class="fill-scene-coffee/70" />
       <rect x={column - 4} y="207" width="8" height="7" class="fill-scene-sky/70" />
     {:else if house.shop}
-      {@const half = Math.min(15, (house.width / columns.length - 8) / 2)}
+      {@const half = shopWindow(house, columns.length)}
       <rect x={column - half - 2} y="199" width={half * 2 + 4} height="25" class="fill-scene-line/45" />
       <rect x={column - half} y="201" width={half * 2} height="21" class="fill-scene-sky" />
       <path d="M{column - half} 212L{column - half + 10} 201H{column - half + 15}L{column - half} 218Z" class="fill-white/30" />
@@ -211,10 +219,11 @@
       {#if house.wares === "flowers"}
         {#each [-0.6, 0, 0.6] as at, index (at)}
           {@const bx = column + at * half}
-          <path d="M{bx - 3} 217.5h6l-0.8 4.5h-4.4Z" class="fill-scene-steel-dark" />
-          <path d="M{bx} 218V215M{bx} 217L{bx - 2.5} 214.5M{bx} 217L{bx + 2.5} 214.5" class="stroke-scene-leaf" stroke-width="1" />
-          {#each [-2.5, 0, 2.5] as dx (dx)}
-            <circle cx={bx + dx} cy={dx === 0 ? 213.2 : 214} r="1.8" class={["fill-scene-red", "fill-scene-honey", "fill-scene-plum"][(index + Math.round(dx / 2.5) + 3) % 3]} />
+          <!-- Buckets of flowers out on the pavement in front of the window. -->
+          <path d="M{bx - 3.5} 221.5h7l-1 7h-5Z" class="fill-scene-steel-dark" />
+          <path d="M{bx} 222V218M{bx} 221L{bx - 3} 217.5M{bx} 221L{bx + 3} 217.5" class="stroke-scene-leaf" stroke-width="1" />
+          {#each [-3, 0, 3] as dx (dx)}
+            <circle cx={bx + dx} cy={dx === 0 ? 215.6 : 216.6} r="2" class={["fill-scene-red", "fill-scene-honey", "fill-scene-plum"][(index + Math.round(dx / 3) + 3) % 3]} />
           {/each}
         {/each}
       {/if}
@@ -228,7 +237,7 @@
     <!-- An awning over each shop window: canvas sloping out from the wall, a scalloped valance at its edge. -->
     {#each columns as column, bay (column)}
       {#if !(house.door && bay === doorBay(house))}
-        {@const half = Math.min(15, (house.width / columns.length - 8) / 2) + 4}
+        {@const half = shopWindow(house, columns.length) + 4}
         <rect x={column - half - 1} y="197" width={half * 2 + 2} height="2" class="fill-scene-line/50" />
         {#each [0, 1, 2, 3, 4] as index (index)}
           {@const top = column - half + 2 + index * ((half * 2 - 4) / 5)}
