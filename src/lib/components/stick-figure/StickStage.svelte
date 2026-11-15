@@ -1512,10 +1512,11 @@
         return { kind: piece.kind, span: [at - half, at + half] };
       })
       // The studio desk's chairs are behind it: getting up from one, or going
-      // back to it, is a walk behind the desk, not round its front.
+      // back to it, is a walk behind the desk, not round its front. So is
+      // the waiter's way in and out from behind the café's bar.
       .filter(
         ({ kind, span }) =>
-          kind !== "desk" || !(within(span, start) || within(span, end)),
+          (kind !== "desk" && kind !== "bar") || !(within(span, start) || within(span, end)),
       )
       .map(({ span }) => span);
     return [...chairs, ...fronts].some(([start, end]) => right > start && left < end);

@@ -389,88 +389,98 @@
           <rect x="19" y={top - 12} width="11" height="1.6" rx="0.8" class="fill-scene-steel" />
         </g>
       {:else if piece.kind === "bar"}
-        <rect
-          x={-width / 2 + 1}
-          y={top + 2}
-          width={width - 2}
-          height={GROUND_Y - top - 2}
-          class="fill-scene-wood"
-        />
-        {#each Array.from({ length: Math.floor(width / 6) - 1 }, (_, index) => -width / 2 + 6 + index * 6) as x (x)}
-          <path d="M{x} {top + 6}V{GROUND_Y - 5}" class="stroke-scene-coffee/20" stroke-width="0.6" />
+        {@const half = width / 2}
+        {@const flap = -half + 9}
+        <!-- Down past the floor line, over the feet of whoever works behind it. -->
+        <ellipse cx="0" cy={GROUND_Y + 4.5} rx={half + 3} ry="1.8" class="fill-portrait-ink/15" />
+        <rect x={-half + 1} y={top + 2} width={width - 2} height={GROUND_Y - top + 2} class="fill-scene-wood" />
+        {#each Array.from({ length: Math.floor(width / 6) - 1 }, (_, index) => -half + 6 + index * 6) as x (x)}
+          <path d="M{x} {top + 6}V{GROUND_Y - 2}" class="stroke-scene-coffee/20" stroke-width="0.6" />
         {/each}
-        <rect x={-width / 2 + 1} y={GROUND_Y - 4} width={width - 2} height="4" class="fill-scene-coffee/60" />
-        <rect x={-width / 2 + 1} y={top + 2} width={width - 2} height="2" class="fill-scene-coffee/30" />
+        <rect x={-half + 1} y={GROUND_Y - 1} width={width - 2} height="5" class="fill-scene-coffee/60" />
+        <rect x={-half + 1} y={top + 2} width={width - 2} height="2" class="fill-scene-coffee/30" />
         {#each [-1, 1] as side (side)}
-          <rect x={side < 0 ? -width / 2 - 1 : width / 2 - 3} y={top + 2} width="4" height={GROUND_Y - top - 2} class="fill-scene-coffee" />
+          <rect x={side < 0 ? -half - 1 : half - 3} y={top + 2} width="4" height={GROUND_Y - top + 2} class="fill-scene-coffee" />
         {/each}
-        <rect x={-width / 2 - 2} y={top - 1} width={width + 4} height="3.4" rx="1" class="fill-scene-coffee" />
-        <!-- The machine's group heads stand over the coffees' places (CAFE_SET), so the cups wait under the spouts. -->
-        <g transform="translate(-27 {top - 1})">
-          <rect x="-13" y="-26" width="26" height="26" rx="1" class="fill-scene-steel-dark" />
-          <rect x="-13" y="-26" width="26" height="15" rx="1.5" class="fill-scene-steel" />
-          <rect x="-13.5" y="-27.4" width="27" height="2" rx="1" class="fill-scene-steel-light" />
-          {#each [-8, 0, 8] as x (x)}
-            <path d="M{x - 3} -27.4h6l-0.6 -0.6h-4.8Z" class="fill-white" />
-            <path d="M{x - 2} -28l0.4 -2.6h3.2l0.4 2.6Z" class="fill-white" />
+        <rect x={-half - 2} y={top - 1} width={width + 4} height="3.4" rx="1" class="fill-scene-coffee" />
+        <!-- The lift-up flap the waiter comes out through. -->
+        <path d="M{flap} {top - 1}V{GROUND_Y + 4}" class="stroke-portrait-ink/40" stroke-width="0.7" />
+        {#each [top - 1.6, top + 10] as y (y)}
+          <rect x={flap - 0.8} {y} width="1.6" height="2.4" rx="0.4" class="fill-scene-steel-dark" />
+        {/each}
+        <!-- Saucers where the coffees wait (CAFE_SET's ledge), under the machine's group heads. -->
+        {#each [-18, -6] as x (x)}
+          <ellipse cx={x} cy={top - 1.3} rx="4.4" ry="0.9" class="fill-white" />
+        {/each}
+        <g transform="translate(-12 {top - 1})">
+          <rect x="-12" y="-22" width="24" height="22" rx="1" class="fill-scene-steel-dark" />
+          <rect x="-12" y="-22" width="24" height="12" rx="1.5" class="fill-scene-steel" />
+          <rect x="-12.5" y="-23.4" width="25" height="1.8" rx="0.9" class="fill-scene-steel-light" />
+          {#each [-7, 0, 7] as x (x)}
+            <path d="M{x - 2.6} -23.4h5.2l-0.5 -0.6h-4.2Z" class="fill-white" />
+            <path d="M{x - 1.8} -24l0.4 -2.4h2.8l0.4 2.4Z" class="fill-white" />
           {/each}
-          <circle cx="0" cy="-19" r="2.6" class="fill-white" />
-          <path d="M0 -19l1.4 -1.4" class="stroke-scene-red" stroke-width="0.5" />
-          {#each [-7, 5] as x (x)}
-            <rect x={x - 2.4} y="-11" width="4.8" height="2" rx="0.5" class="fill-scene-steel-light" />
-            <path d="M{x} -9.4h{x < 0 ? -6 : 6}" class="stroke-portrait-vest" stroke-width="1.3" />
+          <circle cx="0" cy="-16" r="2.4" class="fill-white" />
+          <path d="M0 -16l1.3 -1.3" class="stroke-scene-red" stroke-width="0.5" />
+          {#each [-6, 6] as x (x)}
+            <rect x={x - 2.4} y="-10" width="4.8" height="1.8" rx="0.5" class="fill-scene-steel-light" />
+            <path d="M{x} -8.6h{x < 0 ? -5 : 5}" class="stroke-portrait-vest" stroke-width="1.2" />
+            <path d="M{x - 0.8} -8.2v1.2M{x + 0.8} -8.2v1.2" class="stroke-scene-steel-dark" stroke-width="0.5" />
           {/each}
-          <path d="M11.5 -13v8l-1.6 2" class="stroke-scene-steel-light" fill="none" stroke-width="0.8" />
-          <rect x="-12" y="-1.8" width="24" height="1.8" rx="0.4" class="fill-scene-steel" />
+          <path d="M10.8 -11v7l-1.4 2" class="stroke-scene-steel-light" fill="none" stroke-width="0.8" />
+          <rect x="-11" y="-1.6" width="22" height="1.6" rx="0.4" class="fill-scene-steel" />
         </g>
-        <g transform="translate(-8 {top - 1})">
+        <g transform="translate(3 {top - 1})">
+          <path d="M-1.8 0l0.3 -5.4h3l0.3 5.4Z" class="fill-scene-steel-light" />
+          <path d="M1.5 -5.4l1.2 -0.8" class="stroke-scene-steel-light" stroke-width="0.6" />
+          <path d="M-1.6 -4.4q-1.6 0 -1.6 1.6t1.6 1.4" class="stroke-scene-steel" fill="none" stroke-width="0.5" />
+        </g>
+        <g transform="translate(8.5 {top - 1})">
           <rect x="-3" y="-11" width="6" height="11" rx="0.8" class="fill-portrait-vest" />
           <rect x="-1.6" y="-5" width="3.2" height="2" class="fill-scene-steel" />
           <path d="M-3.6 -11l1 -8h5.2l1 8Z" class="fill-white/60" />
           <path d="M-2.8 -11.6l0.8 -5.6h4l0.8 5.6Z" class="fill-scene-coffee" />
           <rect x="-3" y="-20.4" width="6" height="1.6" rx="0.6" class="fill-portrait-vest" />
         </g>
-        <g transform="translate(1 {top - 1})">
+        <g transform="translate(14.5 {top - 1})">
           <rect x="-3.4" y="-2.4" width="6.8" height="2.4" rx="0.4" class="fill-portrait-vest" />
           <path d="M-0.6 -2.4l-0.6 -4h2.4l-0.6 4Z" class="fill-scene-steel-dark" />
           <rect x="-4" y="-13" width="8" height="6.4" rx="0.8" class="fill-portrait-vest" transform="rotate(-8 0 -7)" />
           <rect x="-3.2" y="-12.2" width="6.4" height="4.8" class="fill-scene-sky" transform="rotate(-8 0 -7)" />
           <path d="M-2.4 -11h3M-2.4 -9.4h4.4" class="stroke-scene-coffee/50" stroke-width="0.5" transform="rotate(-8 0 -7)" />
         </g>
-        <g transform="translate(9.5 {top - 1})">
+        <g transform="translate(20.5 {top - 1})">
           <path d="M-2 0l0.6 -2h2.8l0.6 2Z" class="fill-scene-steel-dark" />
           <rect x="-1.8" y="-7.4" width="3.6" height="5.6" rx="0.6" class="fill-portrait-vest" transform="rotate(-12 0 -2)" />
           <rect x="-1.2" y="-6.8" width="2.4" height="1.6" class="fill-scene-sky" transform="rotate(-12 0 -2)" />
         </g>
-        <g transform="translate({width / 2 - 15} {top - 1}) scale(0.72 1)">
-          <rect x="-17" y="-1.6" width="34" height="1.6" rx="0.4" class="fill-scene-steel-dark" />
-          <rect x="-16.4" y="-16" width="32.8" height="14.4" class="fill-scene-sky/70" />
-          <path d="M-16 -8.8h32" class="stroke-scene-steel" stroke-width="0.8" />
-          {#each [-12, -5, 2] as x (x)}
-            <rect {x} y="-14.6" width="5.6" height="5.4" class="fill-scene-honey" />
-            <rect {x} y="-12.6" width="5.6" height="0.9" class="fill-white" />
-            <rect {x} y="-14.6" width="5.6" height="1.2" class="fill-scene-coffee" />
-            <circle cx={x + 2.8} cy="-15.2" r="0.8" class="fill-scene-red" />
+        <g transform="translate({half - 10} {top - 1})">
+          <rect x="-7.8" y="-1.8" width="15.6" height="1.8" rx="0.4" class="fill-scene-coffee" />
+          <rect x="-7" y="-15.4" width="14" height="13.6" class="fill-scene-sky/60" />
+          <path d="M-7 -8.6h14" class="stroke-scene-steel" stroke-width="0.8" />
+          {#each [-5.8, -1.8, 2.2] as x (x)}
+            <rect {x} y="-13.8" width="3.6" height="4.4" class="fill-scene-honey" />
+            <rect {x} y="-12.2" width="3.6" height="0.7" class="fill-white" />
+            <rect {x} y="-13.8" width="3.6" height="1" class="fill-scene-coffee" />
+            <circle cx={x + 1.8} cy="-14.3" r="0.6" class="fill-scene-red" />
           {/each}
-          <rect x="-14.6" y="-5.2" width="13" height="3.6" rx="1.6" class="fill-scene-onion" />
-          <path d="M-12 -4.8l-1 2.8M-8.6 -4.8l-1 2.8M-5.2 -4.8l-1 2.8" class="stroke-scene-coffee/40" stroke-width="0.5" />
-          <path d="M-13.6 -5.1h11" class="stroke-white" stroke-width="0.6" stroke-dasharray="0.6 1" />
-          {#each [4, 11] as x (x)}
-            <ellipse cx={x} cy="-2.6" rx="3" ry="1.2" class="fill-scene-onion" />
-            <ellipse cx={x} cy="-3.2" rx="1.8" ry="0.6" class="fill-scene-plum" />
-          {/each}
-          <rect x="-17" y="-17" width="34" height="1.4" rx="0.4" class="fill-scene-steel" />
-          <path d="M-16.4 -16v14.4M16.4 -16v14.4" class="stroke-scene-steel" stroke-width="0.8" />
-          <path d="M-14 -2.6l6 -12M-9 -2.6l3.4 -7" class="stroke-white/70" stroke-width="0.7" />
+          <rect x="-6.2" y="-5.6" width="7" height="3" rx="1.4" class="fill-scene-onion" />
+          <path d="M-5.4 -5.4h5.4" class="stroke-white" stroke-width="0.5" stroke-dasharray="0.6 1" />
+          <ellipse cx="4" cy="-2.9" rx="2.4" ry="1" class="fill-scene-onion" />
+          <ellipse cx="4" cy="-3.4" rx="1.4" ry="0.5" class="fill-scene-plum" />
+          <rect x="-7.6" y="-16.4" width="15.2" height="1.2" rx="0.4" class="fill-scene-steel" />
+          <path d="M-7 -15.4v13.6M7 -15.4v13.6" class="stroke-scene-steel" stroke-width="0.8" />
+          <path d="M-5.6 -3l4 -10" class="stroke-white/70" stroke-width="0.6" />
         </g>
       {:else if piece.kind === "stool"}
-        <ellipse cx="0" cy={GROUND_Y + 0.6} rx={width / 2} ry="1.2" class="fill-scene-line/15" />
+        <!-- Its feet a little below the floor line, as it stands in front of the bar's foot. -->
+        <ellipse cx="0" cy={GROUND_Y + 5} rx={width / 2 + 1} ry="1.2" class="fill-portrait-ink/15" />
         <path
-          d="M-3 {top + 2}L{-width / 2 + 1} {GROUND_Y}M3 {top + 2}L{width / 2 - 1} {GROUND_Y}M-1 {top + 2}L-2 {GROUND_Y}M1 {top + 2}L2 {GROUND_Y}"
+          d="M-3 {top + 2}L{-width / 2 + 1} {GROUND_Y + 5}M3 {top + 2}L{width / 2 - 1} {GROUND_Y + 5}M-1 {top + 2}L-2 {GROUND_Y + 5}M1 {top + 2}L2 {GROUND_Y + 5}"
           class="stroke-scene-steel-dark"
           stroke-width="1.2"
         />
-        <ellipse cx="0" cy={GROUND_Y - 10} rx={width / 2 - 2.6} ry="1.4" class="stroke-scene-steel" fill="none" stroke-width="1" />
+        <ellipse cx="0" cy={GROUND_Y - 7} rx={width / 2 - 2.4} ry="1.4" class="stroke-scene-steel" fill="none" stroke-width="1" />
         <rect x={-width / 2} y={top} {width} height="3" rx="1.4" class="fill-scene-coffee" />
         <ellipse cx="0" cy={top} rx={width / 2} ry="1.6" class="fill-scene-green" />
       {:else if piece.kind === "bistro"}
@@ -487,14 +497,8 @@
             class="stroke-scene-coffee"
             stroke-width="1.8"
           />
-          <rect
-            x={Math.min(back, front) - 1}
-            y={GROUND_Y - 23}
-            width={Math.abs(back - front) + 2}
-            height="3"
-            rx="1.2"
-            class="fill-scene-coffee"
-          />
+          <ellipse cx={(back + front) / 2} cy={GROUND_Y - 21.4} rx={Math.abs(back - front) / 2 + 1.4} ry="1.8" class="fill-scene-coffee" />
+          <ellipse cx={(back + front) / 2} cy={GROUND_Y - 22.6} rx={Math.abs(back - front) / 2 + 1.4} ry="1.8" class="fill-scene-wood" />
         {/each}
         <path d="M-1 {top + 2}h2V{GROUND_Y - 2}h-2Z" class="fill-scene-line/80" />
         <path d="M-9 {GROUND_Y}q9 -5 18 0Z" class="fill-scene-line/80" />

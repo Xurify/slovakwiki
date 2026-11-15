@@ -13,8 +13,9 @@ import { GROUND_Y, SEAT_Y, type Point } from "./rig";
  * Things on a `rail` hang from its hooks: a ladle, a lid. A rail a few
  * units wide is a single hook on the wall: a towel. A `stand` is a
  * market table under a cloth, set out with a cut cheese wheel and a scale.
- * A `bar` is a café counter, a till by its card reader and a glass case of
- * pastries at its right end; a `stool` is a bar stool to set in front of it. A
+ * A `bar` is a café counter with its espresso machine, a till by its card
+ * reader and a glass case of pastries at its right end, drawn over whoever
+ * works behind it; a `stool` is a bar stool to set in front of it. A
  * `reception` is a front desk, drawn over whoever works behind it. A
  * `bistro` is a café table with a bentwood chair either side, facing it.
  */

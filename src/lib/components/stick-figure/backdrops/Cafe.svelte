@@ -10,9 +10,14 @@
   // and the back bar stand inside the phone's part, and nothing straddles 240 or 360.
   // The window table, its chairs and the bar stools are the cast's (CAFE_SET), so they keep their size against people.
   const LAMP = 466;
-  const BACK = { bottom: 154, left: 782, right: 946, shelves: [66, 112, 150], top: 40 };
-  const BANQUETTE_TABLES = [392, 580];
-  const BANQUETTE_TUFTS = [400, 430, 460, 490, 520, 550, 574];
+  const BAR_LAMP = 778;
+  const BACK = { bottom: 124, left: 800, right: 928, shelves: [60, 94], top: 34 };
+  const BENCH_TABLE = 540;
+  const CUSHIONS = [
+    { paint: "fill-scene-clay", x: 408 },
+    { paint: "fill-scene-honey", x: 500 },
+    { paint: "fill-scene-plum", x: 580 },
+  ];
   const SYRUPS = [
     "fill-scene-red",
     "fill-scene-honey",
@@ -104,39 +109,59 @@
 <rect x="394" y="150" width="176" height="7" rx="2" class="fill-scene-wood" />
 
 <!-- A banquette against the far wall, drawn smaller than the cast's table because it stands further back. -->
-<rect x="372" y="172" width="228" height="4" rx="1.5" class="fill-scene-wood" />
-<rect x="374" y="176" width="224" height="24" rx="2" class="fill-scene-green" />
-{#each BANQUETTE_TUFTS as x (x)}
+<rect x="384" y="172" width="214" height="4" rx="1.5" class="fill-scene-wood" />
+<rect x="386" y="176" width="210" height="24" rx="2" class="fill-scene-green" />
+{#each [414, 444, 474, 504, 534, 564] as x (x)}
   <path d="M{x} 179v18" class="stroke-portrait-ink/15" stroke-width="1" />
 {/each}
-<rect x="372" y="199" width="228" height="7" rx="2.5" class="fill-scene-green-mid" />
-<rect x="374" y="206" width="224" height="20" class="fill-scene-coffee/70" />
-<path d="M374 208H598" class="stroke-portrait-ink/15" stroke-width="1" />
-{#each [368, 598] as x (x)}
+{#each CUSHIONS as { paint, x } (x)}
+  <rect x={x - 8} y="186" width="16" height="14" rx="4" class={paint} transform="rotate(-6 {x} 200)" />
+  <path d="M{x - 5} 193h10" class="stroke-white/40" stroke-width="0.8" transform="rotate(-6 {x} 200)" />
+{/each}
+<rect x="384" y="199" width="214" height="7" rx="2.5" class="fill-scene-green-mid" />
+<rect x="386" y="206" width="210" height="20" class="fill-scene-coffee/70" />
+<path d="M386 208H596" class="stroke-portrait-ink/15" stroke-width="1" />
+{#each [380, 596] as x (x)}
   <rect {x} y="168" width="6" height="58" rx="1.5" class="fill-scene-wood" />
   <rect {x} y="168" width="6" height="3" rx="1" class="fill-scene-coffee" />
 {/each}
-{#each BANQUETTE_TABLES as x (x)}
-  <ellipse cx={x} cy="225" rx="7" ry="1.6" class="fill-scene-line/15" />
-  <path d="M{x - 6} 225q6 -3 12 0Z" class="fill-scene-line/70" />
-  <path d="M{x} 192V224" class="stroke-scene-line/70" stroke-width="1.6" />
-  <ellipse cx={x} cy="191" rx="12" ry="1.8" class="fill-scene-edge" />
-  <ellipse cx={x} cy="190" rx="12" ry="1.8" class="fill-portrait-bib" />
-  <path d="M{x - 6} 189.6v-2.6h3.6v2.6ZM{x + 2} 189.6v-2.6h3.6v2.6Z" class="fill-white" />
-  <path d="M{x - 6} 187h3.6M{x + 2} 187h3.6" class="stroke-scene-coffee" stroke-width="0.5" />
+
+<!-- The banquette's table, out on the floor in front of it, in the gap between the cast's table and where the cast stands. -->
+<ellipse cx={BENCH_TABLE} cy="236" rx="11" ry="1.8" class="fill-scene-line/15" />
+<path d="M{BENCH_TABLE - 9} 236q9 -4 18 0Z" class="fill-scene-line/80" />
+<rect x={BENCH_TABLE - 1.4} y="195" width="2.8" height="40" class="fill-scene-line/80" />
+<ellipse cx={BENCH_TABLE} cy="195" rx="14" ry="2.4" class="fill-scene-edge" />
+<ellipse cx={BENCH_TABLE} cy="193.4" rx="14" ry="2.4" class="fill-portrait-bib" />
+{#each [-7, 5] as dx (dx)}
+  <ellipse cx={BENCH_TABLE + dx} cy="193" rx="3.6" ry="0.8" class="fill-white" />
+  <path d="M{BENCH_TABLE + dx - 2} 192.6v-3.4h4v3.4Z" class="fill-white" />
+  <path d="M{BENCH_TABLE + dx + 2} 189.8q1.8 0 1.8 1.2t-1.8 1.2" class="stroke-white" fill="none" stroke-width="0.7" />
+  <path d="M{BENCH_TABLE + dx - 2} 189.4h4" class="stroke-scene-coffee" stroke-width="0.6" />
 {/each}
 
+<!-- A macramé hanger on its own hook, clear of the window and of the lamp's cord. -->
 <g transform="translate({PARTS.cafe.plant.x} 0)">
-  <path d="M0 6V58M0 58L-12 74M0 58L12 74" class="stroke-scene-coffee/70" stroke-width="1" />
-  <path d="M-12 74H12L9 88H-9Z" class="fill-scene-clay" />
-  <rect x="-13" y="72" width="26" height="4" rx="1" class="fill-scene-clay" />
+  <path d="M-3 6h6" class="stroke-scene-line/60" stroke-width="1.6" />
+  <circle cx="0" cy="10" r="2.4" class="stroke-scene-line/60" fill="none" stroke-width="1" />
+  <path
+    d="M0 12.4L-12 72M0 12.4L0 72M0 12.4L12 72M-6 42L0 52L6 42M-9 58L-3 66M9 58L3 66"
+    class="stroke-scene-onion"
+    fill="none"
+    stroke-width="1.1"
+  />
+  {#each [[-6, 42], [0, 52], [6, 42], [-0.6, 30]] as [dx, dy] (`${dx} ${dy}`)}
+    <circle cx={dx} cy={dy} r="1.5" class="fill-scene-onion" />
+  {/each}
+  <path d="M0 72v8M-2 80l2 6 2 -6" class="stroke-scene-onion" fill="none" stroke-width="0.9" />
+  <path d="M-12 72H12L9 86H-9Z" class="fill-scene-clay" />
+  <rect x="-13" y="70" width="26" height="4" rx="1" class="fill-scene-clay" />
   <g class="fill-scene-leaf">
-    {#each [[-11, 84], [-14, 94], [-12, 104], [-10, 114], [11, 86], [13, 96], [10, 106], [-4, 92], [5, 94], [3, 104]] as [dx, dy] (`${dx} ${dy}`)}
+    {#each [[-11, 82], [-14, 92], [-12, 102], [-10, 112], [11, 84], [13, 94], [10, 104], [-4, 90], [5, 92], [3, 102]] as [dx, dy] (`${dx} ${dy}`)}
       <ellipse cx={dx} cy={dy} rx="3.4" ry="2.2" transform="rotate({dx * 3} {dx} {dy})" />
     {/each}
   </g>
   <path
-    d="M-11 80Q-15 94 -10 116M11 82Q14 94 10 108M3 86Q4 96 3 106"
+    d="M-11 78Q-15 92 -10 114M11 80Q14 92 10 106M3 84Q4 94 3 104"
     class="stroke-scene-leaf"
     stroke-width="0.8"
     fill="none"
@@ -148,6 +173,11 @@
 <path d="M{LAMP - 16} 56Q{LAMP - 16} 40 {LAMP} 40Q{LAMP + 16} 40 {LAMP + 16} 56Z" class="fill-scene-green" />
 <ellipse cx={LAMP} cy="56" rx="16" ry="2.4" class="fill-scene-line/15" />
 <ellipse cx={LAMP} cy="57" rx="5" ry="2.6" class="fill-portrait-bib" />
+
+<path d="M{BAR_LAMP} 6V30" class="stroke-scene-line/60" stroke-width="1.2" />
+<path d="M{BAR_LAMP - 5} 6Q{BAR_LAMP} 11 {BAR_LAMP + 5} 6Z" class="fill-portrait-bib" />
+<path d="M{BAR_LAMP - 9} 42Q{BAR_LAMP - 9} 30 {BAR_LAMP} 30Q{BAR_LAMP + 9} 30 {BAR_LAMP + 9} 42Z" class="fill-scene-green" />
+<ellipse cx={BAR_LAMP} cy="42.6" rx="3.6" ry="2" class="fill-portrait-bib" />
 
 <path
   d="M{PARTS.cafe.clock.x - 1} {PARTS.cafe.clock.y - PARTS.cafe.clock.r - 3}h2v3h-2Z"
@@ -166,7 +196,7 @@
   <text x="105" y="44" text-anchor="end" font-size="9.5">3,00&nbsp;€</text>
 </Chalkboard>
 
-<!-- The back bar hangs on the wall: below it the wainscot shows through the aisle behind the counter. -->
+<!-- The back bar hangs on the wall, high enough that the machine on the counter clears it at any cast size; below it the wainscot shows through the aisle behind the counter. -->
 <rect x={BACK.left} y={BACK.top} width={BACK.right - BACK.left} height={BACK.bottom - BACK.top} class="fill-scene-coffee/25" />
 <rect x={BACK.left} y={BACK.top - 6} width={BACK.right - BACK.left} height="7" rx="1" class="fill-scene-coffee" />
 <text
@@ -185,24 +215,24 @@
 {#each BACK.shelves as y (y)}
   <rect x={BACK.left + 6} {y} width={BACK.right - BACK.left - 12} height="4" class="fill-scene-coffee" />
 {/each}
-<rect x={BACK.left - 2} y={BACK.bottom} width={BACK.right - BACK.left + 4} height="4" rx="1" class="fill-scene-coffee" />
-{#each [BACK.left + 12, BACK.right - 12] as x (x)}
-  <path d="M{x - 1} {BACK.bottom + 4}h2v8l-6 -6v-2Z" class="fill-scene-coffee" />
+<rect x={BACK.left - 2} y={BACK.bottom} width={BACK.right - BACK.left + 4} height="5" rx="1" class="fill-scene-coffee" />
+{#each [BACK.left + 3, BACK.right - 3] as x (x)}
+  <path d="M{x - 3} {BACK.bottom + 5}h6v3q0 9 -3 13h-3Z" class="fill-scene-coffee" />
 {/each}
 
-{#each SYRUPS as paint, index (index)}
-  {@const x = 796 + index * 18}
+{#each SYRUPS.slice(0, 7) as paint, index (index)}
+  {@const x = 814 + index * 16.6}
   <path d="M{x - 4} {BACK.shelves[0]}v-14q0 -3 2.6 -4v-4h2.8v4q2.6 1 2.6 4v14Z" class={paint} />
   <rect x={x - 3} y={BACK.shelves[0] - 12} width="6" height="5" class="fill-white/80" />
   <rect x={x - 1.4} y={BACK.shelves[0] - 23} width="2.8" height="2" class="fill-portrait-vest" />
 {/each}
 
-{#each [794, 808] as x (x)}
-  <rect {x} y={BACK.shelves[1] - 18} width="12" height="18" rx="2" class="fill-white/60" />
-  <rect x={x + 1.5} y={BACK.shelves[1] - 13} width="9" height="12" rx="1" class="fill-scene-coffee" />
-  <rect {x} y={BACK.shelves[1] - 21} width="12" height="4" rx="1" class="fill-scene-line/60" />
+{#each [810, 822] as x (x)}
+  <rect {x} y={BACK.shelves[1] - 16} width="10" height="16" rx="2" class="fill-white/60" />
+  <rect x={x + 1.2} y={BACK.shelves[1] - 11.5} width="7.6" height="10.5" rx="1" class="fill-scene-coffee" />
+  <rect {x} y={BACK.shelves[1] - 19} width="10" height="3.6" rx="1" class="fill-scene-line/60" />
 {/each}
-<g transform="translate(848 {BACK.shelves[1]}) scale(0.78)">
+<g transform="translate(856 {BACK.shelves[1]}) scale(0.6)">
   <rect x="-1.5" y="-7" width="3" height="7" class="fill-scene-edge" />
   <ellipse cx="0" cy="-7" rx="24" ry="2.6" class="fill-scene-edge" />
   <path d="M-18 -9V-20H18V-9Z" class="fill-scene-onion" />
@@ -220,7 +250,7 @@
   <circle cx="0" cy="-52" r="2.4" class="fill-scene-line/70" />
   <path d="M-17 -28a17 17 0 0 1 9 -12" class="stroke-white" fill="none" stroke-width="2" />
 </g>
-<g transform="translate(906 {BACK.shelves[1]})">
+<g transform="translate(900 {BACK.shelves[1]}) scale(0.82)">
   <path d="M-18 0h36l-2 -2h-32Z" class="fill-scene-steel" />
   <rect x="-1.5" y="-6" width="3" height="5" class="fill-scene-steel" />
   <rect x="-16" y="-24" width="32" height="18" rx="2" class="fill-scene-honey" />
@@ -232,18 +262,17 @@
   {/each}
 </g>
 
-{#each [800, 816, 832, 848, 864, 880, 896, 912, 928] as x (x)}
+{#each [814, 828, 842, 856, 870] as x (x)}
   <path d="M{x} {BACK.shelves[1] + 4}v3q0 2 2 2" class="stroke-scene-steel-dark" fill="none" stroke-width="0.9" />
   <path d="M{x - 4} {BACK.shelves[1] + 10}h8v7q0 2 -2 2h-4q-2 0 -2 -2Z" class="fill-white" />
   <path d="M{x + 4} {BACK.shelves[1] + 12}q3 0 3 2.4t-3 2.4" class="stroke-white" fill="none" stroke-width="1" />
 {/each}
-
-{#each [804, 830, 856] as x (x)}
+{#each [886, 898] as x (x)}
   {#each [0, 1, 2] as level (level)}
-    <path d="M{x - 7} {BACK.shelves[2] - level * 5}h14l-1 -1.4h-12Z" class="fill-white" />
-    <path d="M{x - 4} {BACK.shelves[2] - 1.4 - level * 5}l0.6 -3.4h6.8l0.6 3.4Z" class="fill-white" />
+    <path d="M{x - 6} {BACK.bottom - level * 4.6}h12l-1 -1.4h-10Z" class="fill-white" />
+    <path d="M{x - 3.6} {BACK.bottom - 1.4 - level * 4.6}l0.6 -3h6l0.6 3Z" class="fill-white" />
   {/each}
 {/each}
-{#each [884, 896, 908, 920, 932] as x (x)}
-  <path d="M{x - 3.5} {BACK.shelves[2]}l-1 -14h9l-1 14Z" class="fill-scene-sky/70 stroke-scene-line/30" stroke-width="0.6" />
+{#each [910, 918] as x (x)}
+  <path d="M{x - 3.2} {BACK.bottom}l-0.8 -12h8l-0.8 12Z" class="fill-scene-sky/70 stroke-scene-line/30" stroke-width="0.6" />
 {/each}
