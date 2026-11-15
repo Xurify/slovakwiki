@@ -47,8 +47,9 @@
   /** The tram in its own drawing: its nose, its doors and windows, its bogies. */
   const FRONT = D - 180;
   const DOORS = [D - 116, D, D + 170, D + 340];
-  const SIDE_WINDOWS = [D - 86, D + 30, D + 72, D + 114, D + 200, D + 242, D + 284];
-  const BOGIES = [D - 140, D - 60, D + 60, D + 230];
+  /** Side windows as [left, width]; the one before the door stops short so a pier stands behind the cast. */
+  const SIDE_WINDOWS = [[D - 92, 28], [D + 30, 38], [D + 72, 38], [D + 114, 38], [D + 200, 38], [D + 242, 38], [D + 284, 38]];
+  const BOGIES = [D - 100, D + 60, D + 230];
 
   const shift = $derived(tram === "away" ? TRAM.away : 0);
   const id = $props.id();
@@ -59,7 +60,7 @@
 
 <Facades {houses} />
 
-<!-- The far pavement and its kerb; the road, its track bed of setts with the two grooved rails set in. -->
+<!-- The far pavement and its kerb; the road paved in setts, the masts and the two grooved rails set into it. -->
 <defs>
   <pattern id="{id}-setts" x="0" y={FAR_RAIL - 6} width="20" height="6" patternUnits="userSpaceOnUse">
     <rect width="20" height="6" class="fill-scene-steel-dark/55" />
@@ -70,21 +71,21 @@
     <rect x="15.7" y="3.6" width="8.6" height="2.3" rx="0.8" class="fill-scene-pale" />
   </pattern>
 </defs>
-<rect x="-10" y="226" width="980" height="7" class="fill-white/35" />
-<rect x="-10" y="233" width="980" height="2" class="fill-scene-line/25" />
-<rect x="-10" y="235" width="980" height={FAR_RAIL - 6 - 235} class="fill-scene-pale" />
+<rect x="-10" y="226" width="980" height="5" class="fill-white/50" />
+<rect x="-10" y="231" width="980" height="2" class="fill-scene-steel-light" />
+<rect x="-10" y="233" width="980" height="1" class="fill-scene-line/35" />
 <FloorShade y={235} />
-<rect x="-10" y={FAR_RAIL - 6} width="980" height={KERB - FAR_RAIL + 6} fill="url(#{id}-setts)" />
+<rect x="-10" y="234" width="980" height={KERB - 234} fill="url(#{id}-setts)" />
 {#each [FAR_RAIL, NEAR_RAIL] as y (y)}
-  <rect x="-10" y={y - 2.5} width="980" height="3" class="fill-scene-steel" />
-  <rect x="-10" y={y - 2.5} width="980" height="1" class="fill-white/80" />
-  <rect x="-10" y={y + 0.5} width="980" height="1.5" class="fill-portrait-hair/70" />
+  <rect x="-10" y={y - 2.5} width="980" height="3" class="fill-scene-steel-light" />
+  <rect x="-10" y={y - 2.5} width="980" height="1" class="fill-white" />
+  <rect x="-10" y={y + 0.5} width="980" height="1.5" class="fill-portrait-hair" />
   <rect x="-10" y={y + 2} width="980" height="1" class="fill-scene-steel" />
 {/each}
 
 {#each POLES as x (x)}
-  <rect x={x - 6} y="225" width="12" height="7" rx="1.5" class="fill-scene-steel-dark" />
-  <path d="M{x - 2.5} 226L{x - 1.5} -10H{x + 1.5}L{x + 2.5} 226Z" class="fill-scene-steel-dark" />
+  <rect x={x - 6} y="234" width="12" height="6" rx="1.5" class="fill-scene-steel-dark" />
+  <path d="M{x - 2.5} 235L{x - 1.5} 0H{x + 1.5}L{x + 2.5} 235Z" class="fill-scene-steel-dark" />
   <!-- The arm out over the track, its stay, and the hanger the wire is clamped to. -->
   <path d="M{x} 2H{x + 36}M{x} 20L{x + 30} 2M{x + 32} 2V{WIRE}" class="stroke-scene-steel-dark" stroke-width="1.8" fill="none" />
   <rect x={x + 29} y={WIRE - 2} width="6" height="4" rx="1" class="fill-scene-steel-dark" />
@@ -129,14 +130,14 @@
     <path d="M{FRONT + 5.5} 238H{D + 520}V241H{FRONT + 6}Z" class="fill-portrait-hair" />
     <path d="M{FRONT + 14} 148Q{FRONT + 24} 138 {FRONT + 42} 138H{D + 520}" class="stroke-scene-steel-dark" stroke-width="1.2" fill="none" />
 
-    <!-- The cab: a raked windscreen under the route display, a pair of headlights on the nose's curve, a bumper. -->
+    <!-- The cab: a raked windscreen, a pair of headlights on the nose's curve, a bumper. -->
     <path d="M{FRONT + 3} 198Q{FRONT + 3} 165 {FRONT + 16} 156H{FRONT + 40}V198Z" class="fill-portrait-hair" />
     <path d="M{FRONT + 5.5} 196Q{FRONT + 5.5} 167 {FRONT + 17} 158.5H{FRONT + 38}V196Z" class="fill-scene-steel-dark" />
     <path d="M{FRONT + 5.5} 196Q{FRONT + 5.5} 167 {FRONT + 17} 158.5H{FRONT + 38}V196Z" class="fill-scene-sky/30" />
     <path d="M{FRONT + 8} 186Q{FRONT + 9} 168 {FRONT + 19} 161H{FRONT + 25}L{FRONT + 10} 192Z" class="fill-white/35" />
-    <rect x={FRONT + 6} y="140.5" width="36" height="9" rx="1.2" class="fill-portrait-hair" />
-    <text x={FRONT + 8.5} y="147.8" font-size="7" font-weight="700" class="fill-scene-honey font-sans">4</text>
-    <text x={FRONT + 14.5} y="147.4" font-size="5.2" class="fill-scene-honey font-sans">Dúbravka</text>
+    <rect x={D - 61} y="140.5" width="36" height="9" rx="1.2" class="fill-portrait-hair" />
+    <text x={D - 58.5} y="147.8" font-size="7" font-weight="700" class="fill-scene-honey font-sans">4</text>
+    <text x={D - 52.5} y="147.4" font-size="5.2" class="fill-scene-honey font-sans">Dúbravka</text>
     {#each [FRONT + 4.6, FRONT + 11.5] as x, index (x)}
       <ellipse cx={x} cy="225" rx={index === 0 ? 2.6 : 2.2} ry="2.2" class="fill-portrait-hair" />
       <ellipse cx={x} cy="225" rx={index === 0 ? 1.7 : 1.4} ry="1.4" class="fill-scene-honey" />
@@ -155,12 +156,12 @@
       <circle cx={door + 26} cy="214" r="2.5" class="fill-scene-honey" />
     {/each}
 
-    {#each SIDE_WINDOWS as x (x)}
-      <rect {x} y="152" width="38" height="44" rx="3" class="fill-portrait-hair" />
-      <rect x={x + 2} y="154" width="34" height="40" rx="2" class="fill-scene-steel-dark" />
-      <rect x={x + 2} y="154" width="34" height="28" rx="2" class="fill-scene-sky/30" />
-      <path d="M{x + 2} 166H{x + 36}" class="stroke-portrait-hair" stroke-width="1" />
-      <path d="M{x + 4} 186L{x + 22} 156H{x + 27}L{x + 6} 192Z" class="fill-white/25" />
+    {#each SIDE_WINDOWS as [x, width] (x)}
+      <rect {x} y="152" {width} height="44" rx="3" class="fill-portrait-hair" />
+      <rect x={x + 2} y="154" width={width - 4} height="40" rx="2" class="fill-scene-steel-dark" />
+      <rect x={x + 2} y="154" width={width - 4} height="28" rx="2" class="fill-scene-sky/30" />
+      <path d="M{x + 2} 166H{x + width - 2}" class="stroke-portrait-hair" stroke-width="1" />
+      <path d="M{x + 4} 186L{x + width * 0.58} 156H{x + width * 0.71}L{x + 6} 192Z" class="fill-white/25" />
     {/each}
   </g>
 </g>
@@ -189,11 +190,10 @@
   a lit city map in its own frame down to the ground at one end, the timetable
   clamped to the other post, and the bench between.
 -->
-<ellipse cx="290" cy={PAVING + 8} rx="96" ry="4" class="fill-scene-line/12" />
-<rect x="214" y="66" width="152" height={PAVING + 8 - 66} class="fill-scene-sky/35" />
-<rect x="214" y="66" width="152" height={PAVING + 8 - 66} class="fill-white/25" />
-<path d="M220 140L246 72H256L226 158ZM306 150L336 72H342L312 164Z" class="fill-white/30" />
-<path d="M214 172H366" class="stroke-scene-steel-dark" stroke-width="1.5" />
+<ellipse cx="278" cy={PAVING + 8} rx="84" ry="4" class="fill-scene-line/12" />
+<rect x="214.5" y="66.5" width="131" height={PAVING + 8 - 67} class="fill-white/10 stroke-scene-steel-dark" stroke-width="1" />
+<path d="M220 140L246 72H252L223 152ZM300 150L326 72H330L303 160Z" class="fill-white/45" />
+<path d="M214 172H346" class="stroke-scene-steel-dark" stroke-width="1.5" />
 
 <rect x="218" y="76" width="48" height={PAVING + 8 - 76} rx="1.5" class="fill-scene-steel-dark" />
 <rect x="221" y="79" width="42" height="150" class="fill-white" />
@@ -215,29 +215,29 @@
 <rect x="221" y="232" width="42" height={PAVING - 228} class="fill-scene-steel" />
 
 <rect x="208" y="62" width="6" height={PAVING + 8 - 62} class="fill-scene-steel-dark" />
-<rect x="366" y="62" width="6" height={PAVING + 8 - 62} class="fill-scene-steel-dark" />
-<rect x="200" y="54" width="180" height="10" rx="1" class="fill-scene-steel-dark" />
-<rect x="200" y="54" width="180" height="2.5" class="fill-white/30" />
-<rect x="318" y="55.5" width="40" height="7.5" rx="1" class="fill-white" />
-<path d="M338 56.5v5.5" class="stroke-scene-line/30" stroke-width="1" />
-<text x="328" y="61.6" text-anchor="middle" font-size="6.5" font-weight="700" class="fill-scene-line font-sans">4</text>
-<text x="348" y="61.6" text-anchor="middle" font-size="6.5" font-weight="700" class="fill-scene-line font-sans">9</text>
+<rect x="346" y="62" width="6" height={PAVING + 8 - 62} class="fill-scene-steel-dark" />
+<rect x="200" y="54" width="160" height="10" rx="1" class="fill-scene-steel-dark" />
+<rect x="200" y="54" width="160" height="2.5" class="fill-white/30" />
+<rect x="300" y="55.5" width="40" height="7.5" rx="1" class="fill-white" />
+<path d="M320 56.5v5.5" class="stroke-scene-line/30" stroke-width="1" />
+<text x="310" y="61.6" text-anchor="middle" font-size="6.5" font-weight="700" class="fill-scene-line font-sans">4</text>
+<text x="330" y="61.6" text-anchor="middle" font-size="6.5" font-weight="700" class="fill-scene-line font-sans">9</text>
 
 <!-- The timetable in a steel frame, clamped to the post. -->
-<rect x="334" y="118" width="30" height="56" rx="1" class="fill-scene-steel-dark" />
-<rect x="336" y="120" width="26" height="52" class="fill-white" />
-<rect x="336" y="120" width="26" height="7" class="fill-scene-red-mid" />
-<path d="M339 132h20M339 138h15M339 144h20M339 150h13M339 156h18M339 162h11" class="stroke-scene-line/40" stroke-width="1" />
-<rect x="362" y="124" width="6" height="4" class="fill-scene-steel-dark" />
-<rect x="362" y="162" width="6" height="4" class="fill-scene-steel-dark" />
+<rect x="314" y="118" width="30" height="56" rx="1" class="fill-scene-steel-dark" />
+<rect x="316" y="120" width="26" height="52" class="fill-white" />
+<rect x="316" y="120" width="26" height="7" class="fill-scene-red-mid" />
+<path d="M319 132h20M319 138h15M319 144h20M319 150h13M319 156h18M319 162h11" class="stroke-scene-line/40" stroke-width="1" />
+<rect x="342" y="124" width="6" height="4" class="fill-scene-steel-dark" />
+<rect x="342" y="162" width="6" height="4" class="fill-scene-steel-dark" />
 
 <Bench bench={PARTS.street.bench} />
 
-<!-- A litter bin on its post in the shelter, clear of the bench and the post. -->
-<ellipse cx="352" cy={PAVING + 8} rx="8" ry="2" class="fill-scene-line/15" />
-<path d="M346 {PAVING - 22}h12l-1 26h-10Z" class="fill-scene-steel" />
-<path d="M345.5 {PAVING - 24}h13v3h-13Z" class="fill-scene-steel-dark" />
-<rect x="347" y={PAVING + 4} width="10" height="4" rx="1" class="fill-scene-steel-dark" />
+<!-- A litter bin between the shelter and the stop's pole, a step from each. -->
+<ellipse cx="367" cy={PAVING + 8} rx="8" ry="2" class="fill-scene-line/15" />
+<path d="M361 {PAVING - 22}h12l-1 26h-10Z" class="fill-scene-steel" />
+<path d="M360.5 {PAVING - 24}h13v3h-13Z" class="fill-scene-steel-dark" />
+<rect x="362" y={PAVING + 4} width="10" height="4" rx="1" class="fill-scene-steel-dark" />
 
 <!-- The departure board, hung from the shelter roof: the next trams and their minutes. -->
 <path d="M286 64V70M324 64V70" class="stroke-scene-steel-dark" stroke-width="1.5" />

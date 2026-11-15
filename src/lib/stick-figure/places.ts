@@ -541,7 +541,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       ),
       drawn(WORDS.strom, treeBox(PARTS.street.tree)),
       drawn({ ...WORDS.lampa, english: "street lamp" }, lampBox(PARTS.street.lamp)),
-      drawn(WORDS.zastavka, [200, 54, 180, 234], [384, 8, 54, 280]),
+      drawn(WORDS.zastavka, [200, 54, 160, 234], [384, 8, 54, 280]),
       drawn(WORDS.lavicka, benchBox(PARTS.street.bench)),
       drawn(WORDS.oblak, [120, 11, 61, 25], [577, 3, 46, 19]),
     ],
