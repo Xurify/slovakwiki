@@ -13,9 +13,20 @@ import { GROUND_Y, SEAT_Y, type Point } from "./rig";
  * Things on a `rail` hang from its hooks: a ladle, a lid. A rail a few
  * units wide is a single hook on the wall: a towel. A `stand` is a
  * market table under a cloth, set out with a cut cheese wheel and a scale.
+ * A `bar` is a café counter, a glass case of pastries at its right end. A
+ * `reception` is a front desk, drawn over whoever works behind it.
  */
 export type PieceKind =
-  "counter" | "stove" | "table" | "rail" | "ledge" | "floor" | "desk" | "stand";
+  | "counter"
+  | "stove"
+  | "table"
+  | "rail"
+  | "ledge"
+  | "floor"
+  | "desk"
+  | "stand"
+  | "bar"
+  | "reception";
 
 export interface SetPiece {
   id: string;
@@ -51,6 +62,9 @@ const SIZE: Record<PieceKind, { width: number; height: number }> = {
   // StudioDesk.svelte's top, lower than a real desk's.
   desk: { width: 200, height: 28 },
   stand: { width: 76, height: 44 },
+  bar: { width: 84, height: 44 },
+  // A raised ledge at the waist of whoever stands behind it.
+  reception: { width: 80, height: 48 },
 };
 
 /**

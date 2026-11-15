@@ -765,6 +765,7 @@ exports[`every scene, directed > lesson everyday/days-dates-and-time 1`] = `
     "kavovar",
     "stol",
     "stolicka",
+    "hodiny",
     "rastlina",
   ],
 }
@@ -1098,6 +1099,7 @@ exports[`every scene, directed > lesson everyday/negation-in-conversation 1`] = 
     "kavovar",
     "stol",
     "stolicka",
+    "hodiny",
     "rastlina",
   ],
 }
@@ -1317,6 +1319,7 @@ exports[`every scene, directed > lesson everyday/numbers-and-personal-details 1`
     "pult",
     "pocitac",
     "zvoncek",
+    "dvere",
   ],
 }
 `;
@@ -1686,6 +1689,7 @@ exports[`every scene, directed > lesson grammar/byt-present 1`] = `
     "pult",
     "pocitac",
     "zvoncek",
+    "dvere",
   ],
 }
 `;
@@ -2183,6 +2187,7 @@ exports[`every scene, directed > lesson grammar/demonstratives 1`] = `
     "kavovar",
     "stol",
     "stolicka",
+    "hodiny",
     "rastlina",
   ],
 }
@@ -2883,6 +2888,7 @@ exports[`every scene, directed > lesson grammar/present-tense-i 1`] = `
     "kavovar",
     "stol",
     "stolicka",
+    "hodiny",
     "rastlina",
   ],
 }
@@ -9935,6 +9941,7 @@ exports[`every scene, directed > podcast podcast-past-tense-cafe 1`] = `
     "kavovar",
     "stol",
     "stolicka",
+    "hodiny",
     "rastlina",
   ],
 }
@@ -11463,6 +11470,7 @@ exports[`every scene, directed > podcast podcast-past-tense-school 1`] = `
     "pult",
     "pocitac",
     "zvoncek",
+    "dvere",
   ],
 }
 `;
@@ -13450,6 +13458,7 @@ exports[`every scene, directed > podcast podcast-possessives-school 1`] = `
     "pult",
     "pocitac",
     "zvoncek",
+    "dvere",
   ],
 }
 `;
@@ -14263,6 +14272,7 @@ exports[`every scene, directed > podcast podcast-telling-time-cafe 1`] = `
     "kavovar",
     "stol",
     "stolicka",
+    "hodiny",
     "rastlina",
   ],
 }

@@ -93,7 +93,7 @@
   /** For a drawing that uses none of the props: Svelte types a component without props as refusing any. */
   const still = (drawing: unknown) => drawing as Drawing;
   const DRAWINGS: Record<StageSetting, Drawing> = {
-    cafe: still(Cafe),
+    cafe: Cafe,
     classroom: Classroom,
     default: still(Park),
     home: Home,
