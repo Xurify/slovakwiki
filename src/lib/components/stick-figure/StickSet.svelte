@@ -47,7 +47,7 @@
       (piece) =>
         (layer === "front") === Boolean(piece.front) &&
         piece.kind !== "ledge" &&
-        piece.kind !== "floor" &&
+        (piece.kind !== "floor" || piece.mat) &&
         piece.kind !== "desk" &&
         !piece.bare,
     ),
@@ -167,19 +167,47 @@
           class="fill-scene-wood"
         />
         {#if sink !== undefined}
-          <!-- The cupboard under the sink stands open: the big pot lives on its shelf. -->
+          <!-- The cupboard under the sink stands open, both doors swung out: the big pot lives on its shelf. -->
           <rect
             x={-width / 2 + 5}
             y={top + 8}
             width={width / 2 - 8}
             height={GROUND_Y - top - 16}
             rx="1"
-            class="fill-scene-line/45"
+            class="fill-scene-coffee/45"
+          />
+          <rect
+            x={-width / 2 + 5}
+            y={top + 8}
+            width={width / 2 - 8}
+            height="3"
+            class="fill-scene-line/20"
           />
           <path
             d="M{-width / 2 + 5} {GROUND_Y - 12}h{width / 2 - 8}"
             class="stroke-scene-wood"
             stroke-width="1.6"
+          />
+          <path
+            d="M{-width / 2 + 5} {top + 8}l-5 -1.6V{GROUND_Y - 6.4}l5 -1.6Z"
+            class="fill-scene-wood"
+          />
+          <path
+            d="M{-width / 2 + 5} {top + 8}l-5 -1.6V{GROUND_Y - 6.4}l5 -1.6Z"
+            class="fill-white/15"
+          />
+          <path
+            d="M-3 {top + 8}l5 -1.6V{GROUND_Y - 6.4}l-5 -1.6Z"
+            class="fill-scene-wood"
+          />
+          <path
+            d="M-3 {top + 8}l5 -1.6V{GROUND_Y - 6.4}l-5 -1.6Z"
+            class="fill-scene-line/15"
+          />
+          <path
+            d="M{-width / 2 + 1.4} {top + 22}v6M0.4 {top + 22}v6"
+            class="stroke-scene-line/50"
+            stroke-width="1.2"
           />
           <path
             d="M2 {top + 6}V{GROUND_Y - 4}M{width / 4 + 1} {top + 6}V{GROUND_Y - 4}"
@@ -258,7 +286,42 @@
             />
           {/if}
         {/if}
+        {#if sink !== undefined}
+          <!-- An oil bottle between the sink and the board, and a bowl of apples at the counter's free end. -->
+          <path
+            d="M2.6 {top - 1}v-9q0-2 1-3v-3h1.6v3q1 1 1 3v9Z"
+            class="fill-scene-pear/80"
+          />
+          <rect x="3.6" y={top - 15.6} width="1.6" height="1.4" class="fill-scene-red" />
+          <path d="M-46 {top - 1}h12l1.4 -4h-14.8Z" class="fill-scene-blue/60" />
+          <circle cx="-42" cy={top - 6.4} r="2.4" class="fill-scene-apple" />
+          <circle cx="-37.6" cy={top - 6.6} r="2.4" class="fill-scene-pear" />
+          <circle cx="-39.8" cy={top - 8.8} r="2.2" class="fill-scene-apple" />
+        {:else}
+          <!-- A stoneware crock of flour with its lid. -->
+          <path d="M10.4 {top - 1}v-9q0-1.4 1.2-1.4h4.6q1.2 0 1.2 1.4v9Z" class="fill-scene-sand" />
+          <rect x="10" y={top - 12.6} width="7.8" height="2" rx="1" class="fill-scene-coffee/70" />
+          <path d="M10.4 {top - 6}h7" class="stroke-scene-blue/50" stroke-width="1" />
+        {/if}
       {:else if piece.kind === "stove"}
+        <!-- The cooker hood over it, its duct up into the wall cupboards. -->
+        <rect x="-6" y={top - 100} width="12" height="38" class="fill-scene-steel-light" />
+        <path
+          d="M-13 {top - 64}H13L22 {top - 52}H-22Z"
+          class="fill-scene-steel"
+        />
+        <rect x="-22" y={top - 52} width="44" height="2.4" class="fill-scene-steel-dark" />
+        <path d="M-4 {top - 58}h8" class="stroke-white/60" stroke-width="1" />
+        <!-- The backguard behind the hob, and the pan supports over the burners. -->
+        <rect
+          x={-width / 2}
+          y={top - 7}
+          {width}
+          height="7"
+          rx="1"
+          class="fill-portrait-bib"
+        />
+        <rect x={-width / 2} y={top - 7} {width} height="7" rx="1" class="fill-scene-line/10" />
         <rect
           x={-width / 2}
           y={top + 1}
@@ -277,8 +340,8 @@
         />
         <path
           d="M{-width / 2 + 7} {top + 9}h{width - 14}"
-          class="stroke-scene-line/60"
-          stroke-width="1.4"
+          class="stroke-scene-steel-dark"
+          stroke-width="2"
         />
         {#each [-12, -4, 4, 12] as knob, index (knob)}
           <circle cx={knob} cy={top + 4.6} r="1.3" class="fill-scene-line/60" />
@@ -299,6 +362,23 @@
           rx="1"
           class="fill-scene-line/80"
         />
+        <path
+          d="M{-width / 2 + 1} {top - 1}v-2.2h7v2.2M{width / 2 - 1} {top - 1}v-2.2h-7v2.2"
+          class="stroke-portrait-ink/70"
+          stroke-width="1.2"
+          fill="none"
+        />
+        <!-- The oven's glass and the drawer under it. -->
+        <path
+          d="M{-width / 2 + 7} {top + 14}l6 -2v8Z"
+          class="fill-white/30"
+        />
+        <path
+          d="M{-width / 2 + 3} {GROUND_Y - 7}h{width - 6}"
+          class="stroke-scene-line/30"
+          stroke-width="0.8"
+        />
+        <path d="M-4 {GROUND_Y - 4.5}h8" class="stroke-scene-line/50" stroke-width="1.2" />
         {#if lit}
           <!-- The gas, a ring of blue under the pot. -->
           <g class="animate-flicker [transform-box:fill-box] origin-bottom">
@@ -313,8 +393,10 @@
         {/if}
       {:else if piece.kind === "rail" && piece.coats}
         <!-- A board of hooks by the door: the lead's in the middle, a scarf and a jacket on the two past it. -->
-        <rect x="-5" y={top - 4.4} width="28" height="4.4" rx="1" class="fill-scene-wood" />
-        <rect x="-5" y={top - 1.2} width="28" height="1.2" class="fill-scene-coffee/30" />
+        <rect x="-6" y={top - 7} width="30" height="7" rx="1.2" class="fill-scene-wood" />
+        <rect x="-6" y={top - 1.4} width="30" height="1.4" class="fill-scene-coffee/30" />
+        <circle cx="-3.4" cy={top - 4} r="0.7" class="fill-scene-coffee/70" />
+        <circle cx="21.4" cy={top - 4} r="0.7" class="fill-scene-coffee/70" />
         {#each [0, 8, 17] as x (x)}
           <circle cx={x} cy={top - 1.2} r="1.3" class="fill-scene-steel-dark" />
         {/each}
@@ -349,20 +431,48 @@
           class="stroke-scene-line"
           stroke-width="2.4"
         />
+        {#if piece.utensils}
+          <!-- A whisk and a turner that always hang there, left of the spoon's and ladle's hooks. -->
+          <path d="M-11 {top}v9" class="stroke-scene-steel-dark" stroke-width="1.2" />
+          <path
+            d="M-11 {top + 8}q-3 4 0 9q3-5 0-9M-11 {top + 8}v9"
+            class="stroke-scene-steel"
+            stroke-width="0.7"
+            fill="none"
+          />
+          <path d="M-4 {top}v11" class="stroke-scene-coffee" stroke-width="1.4" />
+          <rect x="-6" y={top + 11} width="4" height="6" rx="0.8" class="fill-portrait-vest" />
+        {/if}
+      {:else if piece.kind === "floor"}
+        <!-- A rubber mat under the dog's bowl. -->
+        <rect
+          x={-width / 2}
+          y={GROUND_Y - 1.4}
+          {width}
+          height="2.8"
+          rx="1.4"
+          class="fill-scene-green-mid"
+        />
+        <path
+          d="M{-width / 2 + 2} {GROUND_Y}h{width - 4}"
+          class="stroke-white/40"
+          stroke-width="0.6"
+          stroke-dasharray="1.6 1.6"
+        />
       {:else if piece.kind === "bag"}
         <!-- A canvas shopping bag set down on the floor, its handles up. -->
         <path
-          d="M-6.4 {GROUND_Y - 15}Q-6.4 {GROUND_Y - 24} 0 {GROUND_Y - 24}Q6.4 {GROUND_Y -
-            24} 6.4 {GROUND_Y - 15}"
+          d="M-5 {GROUND_Y - 12}Q-5 {GROUND_Y - 19} 0 {GROUND_Y - 19}Q5 {GROUND_Y - 19} 5 {GROUND_Y -
+            12}"
           class="stroke-scene-line/60"
-          stroke-width="1.5"
+          stroke-width="1.3"
         />
         <path
-          d="M-11 {GROUND_Y - 16}h22l-1.3 14.6a1.8 1.8 0 0 1-1.8 1.4h-15.8a1.8 1.8 0 0 1-1.8-1.4Z"
+          d="M-9 {GROUND_Y - 13}h18l-1.1 11.8a1.6 1.6 0 0 1-1.6 1.2h-12.6a1.6 1.6 0 0 1-1.6-1.2Z"
           class="fill-scene-clay"
         />
-        <path d="M-10.6 {GROUND_Y - 11}h21.2" class="stroke-white/40" stroke-width="1.3" />
-        <path d="M-11 {GROUND_Y - 16}h22l-0.2 1.6h-21.6Z" class="fill-scene-line/15" />
+        <path d="M-8.6 {GROUND_Y - 9}h17.2" class="stroke-white/40" stroke-width="1.1" />
+        <path d="M-9 {GROUND_Y - 13}h18l-0.2 1.4h-17.6Z" class="fill-scene-line/15" />
       {:else if piece.kind === "stand"}
         {@const hem = GROUND_Y - 8}
         <!-- A market table: legs under the hem of a green gingham cloth, so it stands apart from the stall's red one. -->

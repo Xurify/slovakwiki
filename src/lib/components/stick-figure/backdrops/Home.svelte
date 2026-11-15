@@ -27,7 +27,7 @@
    * The rug, a trapezoid seen from the room's height: its far edge
    * narrower than the near one, which runs off the bottom of the stage.
    */
-  const RUG = { far: 248, near: 300, farLeft: 290, farRight: 670, nearLeft: 252, nearRight: 708 };
+  const RUG = { far: 248, near: 300, farLeft: 290, farRight: 612, nearLeft: 256, nearRight: 634 };
   function rugX(y: number, side: 0 | 1): number {
     const t = (y - RUG.far) / (RUG.near - RUG.far);
     return side === 0
@@ -39,7 +39,7 @@
     return `M${rugX(a, 0) + inset} ${a}H${rugX(a, 1) - inset}L${rugX(b, 1) - inset} ${b}H${rugX(b, 0) + inset}Z`;
   }
   /** Lozenges down the rug's middle, as on a woven folk runner. */
-  const LOZENGES = Array.from({ length: 7 }, (_, index) => 330 + index * 50);
+  const LOZENGES = Array.from({ length: 5 }, (_, index) => 336 + index * 50);
 
   /** The bookcase's shelves, each with its books: width and height from the shelf, paint. */
   const SHELVES: { y: number; books: [number, number, string][] }[] = [
@@ -61,18 +61,6 @@
         [4, 22, "fill-scene-pale"],
         [5, 25, "fill-scene-beet"],
         [4, 21, "fill-scene-honey"],
-      ],
-    },
-    {
-      y: 172,
-      books: [
-        [4, 20, "fill-scene-apple"],
-        [5, 23, "fill-portrait-ground"],
-        [4, 22, "fill-scene-onion"],
-        [6, 24, "fill-scene-green-mid"],
-        [4, 21, "fill-portrait-suit"],
-        [5, 23, "fill-scene-red-mid"],
-        [4, 20, "fill-scene-sage"],
       ],
     },
   ];
@@ -114,18 +102,33 @@
   fill="none"
 />
 
+<g transform="translate(10 0)">
 <rect x="96" y="44" width="150" height="120" class="fill-portrait-bib" />
 <rect
   x="106"
   y="54"
   width="130"
   height="100"
-  class={dark ? (night ? "fill-portrait-suit" : "fill-scene-clay/80") : "fill-scene-sky"}
+  class={dark ? (night ? "fill-portrait-suit" : "fill-scene-blue/40") : "fill-scene-sky"}
 />
-<path
-  d="M106 154V128Q140 108 172 124Q204 104 236 120V154Z"
-  class={dark ? "fill-scene-line/40" : "fill-scene-sage"}
-/>
+<!-- Across the street, seen from upstairs: house fronts, their windows lit after dark, and the pavement below. -->
+{#each [{ x: 106, w: 44, top: 70, paint: "fill-scene-honey" }, { x: 150, w: 50, top: 62, paint: "fill-scene-clay" }, { x: 200, w: 36, top: 76, paint: "fill-scene-sage" }] as house (house.x)}
+  <rect x={house.x} y={house.top} width={house.w} height={142 - house.top} class={dark ? "fill-scene-line/70" : house.paint} />
+  <path d="M{house.x} {house.top}h{house.w}v3h-{house.w}Z" class="fill-scene-line/20" />
+  {#each [house.top + 10, house.top + 30] as y, row (y)}
+    {#each [house.x + 7, house.x + house.w - 15] as x, column (x)}
+      <rect
+        {x}
+        {y}
+        width="8"
+        height="11"
+        class={dark && (row + column + house.x) % 3 === 0 ? "fill-scene-honey" : dark ? "fill-portrait-suit/70" : "fill-white/70"}
+      />
+    {/each}
+  {/each}
+{/each}
+<rect x="106" y="140" width="130" height="14" class={dark ? "fill-scene-line/60" : "fill-scene-sand"} />
+<path d="M106 141h130" class="stroke-scene-line/30" stroke-width="1" />
 
 {#if !dark}
   <!-- Pán Novák and his sister on the street outside, back from the shop. -->
@@ -288,8 +291,8 @@
 {:else}
   <!-- Evening / night street scene through the window: dark silhouettes and quiet lantern light -->
   {#if night}
-    <circle cx="205" cy="78" r="7" class="fill-scene-honey/70" />
-    <circle cx="202" cy="76" r="6" class="fill-portrait-suit" />
+    <circle cx="224" cy="64" r="6" class="fill-scene-honey/70" />
+    <circle cx="221.6" cy="62.4" r="5" class="fill-portrait-suit" />
   {:else}
     <!-- Dusk: warm street lamp across the street -->
     <path d="M192 148v-26" class="stroke-scene-line" stroke-width="1.2" />
@@ -309,6 +312,9 @@
 <path d="M100 36Q98 100 104 178H112Q100 112 110 36Z" class="fill-scene-line/8" />
 <path d="M242 36Q240 100 246 178H250Q242 112 232 36Z" class="fill-scene-line/8" />
 
+</g>
+
+<g transform="translate(10 0)">
 <!-- The radiator under the sill, its pipe down into the floor. -->
 <rect x="120" y="182" width="102" height="32" rx="3" class="fill-portrait-bib" />
 <g class="stroke-scene-line/20" stroke-width="1">
@@ -320,17 +326,18 @@
 <path d="M216 214v12" class="stroke-portrait-bib" stroke-width="3" />
 <circle cx="216" cy="218" r="2.6" class="fill-scene-steel" />
 
-<!-- Bobík's bed by the radiator, a chewed rope toy in it. -->
-<ellipse cx="128" cy="234" rx="30" ry="4" class="fill-scene-line/15" />
-<path d="M98 230Q98 218 128 218Q158 218 158 230Q158 236 128 236Q98 236 98 230Z" class="fill-scene-red-mid" />
-<ellipse cx="128" cy="225" rx="22" ry="5" class="fill-scene-sand" />
-<path d="M106 229Q128 234 150 229" class="stroke-scene-line/20" stroke-width="1" fill="none" />
-<path d="M120 224q4 -2 8 0t8 0" class="stroke-scene-honey" stroke-width="2" fill="none" />
+</g>
+<!-- Bobík's bed on the floor by the radiator, a chewed rope toy in it. -->
+<ellipse cx="138" cy="246" rx="31" ry="4" class="fill-scene-line/15" />
+<path d="M108 241Q108 230 138 230Q168 230 168 241Q168 247 138 247Q108 247 108 241Z" class="fill-scene-red-mid" />
+<ellipse cx="138" cy="237" rx="22" ry="5" class="fill-scene-sand" />
+<path d="M116 240Q138 245 160 240" class="stroke-scene-line/20" stroke-width="1" fill="none" />
+<path d="M130 236q4 -2 8 0t8 0" class="stroke-scene-honey" stroke-width="2" fill="none" />
 
 <!-- A mirror over the coat hooks, to check yourself on the way out. -->
-<rect x="288" y="42" width="48" height="62" rx="2" class="fill-scene-wood" />
-<rect x="292" y="46" width="40" height="54" rx="1" class="fill-scene-sky" />
-<path d="M296 70l14-20h8l-14 20ZM306 92l20-28h4l-20 28Z" class="fill-white/40" />
+<rect x="290" y="30" width="44" height="58" rx="2" class="fill-scene-wood" />
+<rect x="294" y="34" width="36" height="50" rx="1" class="fill-scene-sky" />
+<path d="M298 56l12-18h8l-12 18ZM306 78l18-26h4l-18 26Z" class="fill-white/40" />
 
 <!-- Shoes on the mat under the coat hooks, as anyone coming in leaves them. -->
 <path d="M280 226H338L342 236H276Z" class="fill-scene-sage" />
@@ -367,10 +374,11 @@
 <circle cx="437.4" cy="205" r="0.9" class="fill-scene-line/50" />
 <circle cx="440.6" cy="205" r="0.9" class="fill-scene-line/50" />
 
-<!-- The bookcase: books on three shelves, a cupboard below. -->
+<!-- The bookcase: books on two shelves, the television on the third, a cupboard below. -->
 <ellipse cx="480" cy="233" rx="38" ry="3" class="fill-scene-line/15" />
 <rect x="448" y="62" width="64" height="170" rx="1" class="fill-scene-wood" />
 <rect x="453" y="67" width="54" height="111" class="fill-scene-coffee/25" />
+<rect x="451" y="172" width="58" height="3.4" class="fill-scene-wood" />
 {#each SHELVES as shelf (shelf.y)}
   {#each spines(shelf.books, 455) as book (book.x)}
     <rect x={book.x} y={shelf.y - book.height} width={book.width} height={book.height} rx="0.6" class={book.paint} />
@@ -387,8 +395,13 @@
 <path d="M484 136v-10q0 -4 4 -4h6q4 0 4 4v10Z" class="fill-white" />
 <path d="M485 128h12" class="stroke-scene-blue/50" stroke-width="1.6" />
 <path d="M498 126q4 0 4 4t-4 3" class="stroke-white" stroke-width="1.6" fill="none" />
-<rect x="485" y="168" width="20" height="4" rx="0.6" class="fill-scene-line" />
-<rect x="487" y="164" width="17" height="4" rx="0.6" class="fill-scene-honey" />
+<!-- The television in the bookcase's wide bottom shelf, a little speaker beside it. -->
+<rect x="456" y="140" width="40" height="27" rx="1.4" class="fill-portrait-vest" />
+<rect x="458.4" y="142.4" width="35.2" height="21" class="fill-portrait-suit" />
+<path d="M461 160l14-16h4l-14 16Z" class="fill-white/10" />
+<path d="M472 167h8l1.6 5h-11.2Z" class="fill-portrait-vest" />
+<rect x="499" y="156" width="7" height="16" rx="1" class="fill-scene-line" />
+<circle cx="502.5" cy="164" r="2" class="fill-scene-line/50" />
 <rect x="453" y="180" width="54" height="44" class="fill-scene-coffee/10" />
 <path d="M480 180v44" class="stroke-scene-coffee/40" stroke-width="1" />
 <path d="M476 196v8M484 196v8" class="stroke-scene-line/50" stroke-width="1.6" />
@@ -396,9 +409,13 @@
 <!-- On top, a woven box and a trailing plant. -->
 <path d="M456 62V50h22v12Z" class="fill-scene-onion" />
 <path d="M456 54h22M456 58h22" class="stroke-scene-coffee/30" stroke-width="0.8" />
-<path d="M490 62l-2 -10h14l-2 10Z" class="fill-scene-clay" />
-<path d="M490 52q-6 4 -4 14q1 6 -2 12M498 52q8 6 4 16M494 52q-2 -8 2 -12M494 52q4 -6 8 -6" class="stroke-scene-leaf" stroke-width="2.4" fill="none" />
+<path d="M489 50h16l-2 12h-12Z" class="fill-scene-clay" />
+<rect x="487.6" y="48" width="18.8" height="4" rx="1" class="fill-scene-clay" />
+<path d="M488 52h18" class="stroke-scene-line/20" stroke-width="0.8" />
+<path d="M492 48q-4-6 0-10M497 48q2-8 8-9M501 48q-6-6-2-12" class="stroke-scene-leaf" stroke-width="2.4" fill="none" />
+<path d="M490 52q-6 4-4 14q1 6-2 12M504 52q6 6 3 15" class="stroke-scene-leaf" stroke-width="2" fill="none" />
 
+<g transform="translate(-6 0)">
 <!-- Pictures over the sofa: the castle by the Danube, a meadow and a portrait. -->
 <rect x="536" y="62" width="80" height="58" class="fill-scene-wood" />
 <rect x="542" y="68" width="68" height="46" class="fill-scene-sky" />
@@ -437,6 +454,7 @@
 <path d="M626 168Q638 162 653 170V214Q647 220 640 216L638 196Q632 190 626 188Z" class="fill-scene-sage" />
 <path d="M630 176Q640 170 651 176M636 190Q644 186 651 190M640 204Q646 202 651 204" class="stroke-white/50" stroke-width="1.6" fill="none" />
 <path d="M640 216l-1 5M644 217l0 5M648 216l1 5" class="stroke-scene-sage" stroke-width="1.2" />
+</g>
 
 <!-- A reading lamp in the corner past the sofa, plugged in by the skirting. -->
 <ellipse cx="690" cy="233" rx="12" ry="2.4" class="fill-scene-line/15" />
@@ -450,16 +468,16 @@
 
 <Plant plant={PARTS.home.plant} />
 
-<!-- The far right, for the widest stages: the television on a low sideboard. -->
+<!-- The far right, for the widest stages: a low sideboard, flowers on it and a picture over it. -->
 <ellipse cx="868" cy="233" rx="74" ry="3.4" class="fill-scene-line/15" />
 <rect x="798" y="188" width="140" height="40" rx="2" class="fill-scene-wood" />
 <path d="M844 192v32M892 192v32M800 200h-2" class="stroke-scene-coffee/40" stroke-width="1" />
 <path d="M818 204h8M864 204h8M910 204h8" class="stroke-scene-line/50" stroke-width="1.6" />
 <path d="M804 228h4v4h-4ZM928 228h4v4h-4Z" class="fill-scene-coffee" />
-<rect x="828" y="134" width="82" height="48" rx="2" class="fill-portrait-vest" />
-<rect x="832" y="138" width="74" height="40" class="fill-portrait-suit" />
-<path d="M836 172l22-30h6l-22 30Z" class="fill-white/10" />
-<path d="M862 182h14l3 6h-20Z" class="fill-portrait-vest" />
+<rect x="830" y="92" width="78" height="56" class="fill-scene-wood" />
+<rect x="836" y="98" width="66" height="44" class="fill-scene-sky" />
+<path d="M836 142V124Q856 112 872 120Q888 110 902 122V142Z" class="fill-scene-leaf" />
+<circle cx="888" cy="108" r="4" class="fill-scene-honey" />
 <path d="M922 188v-14q0-4 3-4t3 4v14Z" class="fill-scene-clay" />
 <path d="M925 170q-6-14-2-22M925 170q4-12 10-18M925 170q0-10 0-24" class="stroke-scene-leaf" stroke-width="1.4" fill="none" />
 <circle cx="923" cy="148" r="3" class="fill-scene-red-mid" />
@@ -485,9 +503,18 @@
 {/each}
 <path d={rugBand(0, 0, 0)} class="fill-scene-line/5" />
 
-<!-- One bag at the front by the cast, táto taška; the one by the window is the set's (StickSet.svelte). -->
-<g transform="translate(534 288) scale(1.25)">
-  <ellipse cx="0" cy="0" rx="22" ry="3" class="fill-scene-line/15" />
+<!-- The coffee table in front of the sofa: a mug and a magazine on it. -->
+<ellipse cx="582" cy="250" rx="42" ry="3" class="fill-scene-line/15" />
+<path d="M548 230v19M616 230v19" class="stroke-scene-coffee" stroke-width="3" />
+<rect x="540" y="224" width="84" height="7" rx="2" class="fill-scene-wood" />
+<rect x="540" y="229" width="84" height="2" class="fill-scene-coffee/30" />
+<path d="M548 224l4-3h18l-2 3Z" class="fill-scene-blue/50" />
+<path d="M596 224v-7h7v7Z" class="fill-white" />
+<path d="M603 219q3 0 3 2t-3 2" class="stroke-white" stroke-width="1.2" fill="none" />
+
+<!-- Táto taška, set down on the shoe mat by the door; the one by the window is the set's (StickSet.svelte). -->
+<g transform="translate(344 230) scale(0.8)">
+  <ellipse cx="0" cy="0" rx="20" ry="2.6" class="fill-scene-line/15" />
   <path d="M-10 -23Q-10 -37 0 -37Q10 -37 10 -23" class="stroke-scene-line/60" fill="none" stroke-width="2.4" />
   <path d="M-17 -25h34l-2 22a3 3 0 0 1-3 3h-24a3 3 0 0 1-3-3Z" class="fill-scene-honey" />
   <path d="M-16 -17h32" class="stroke-white/40" stroke-width="2" />

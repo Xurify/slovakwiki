@@ -128,7 +128,14 @@ const KITCHEN_SET: PlaceSet = {
     },
     { id: "side", kind: "counter", at: { piece: "stove", dx: 37 }, width: 36 },
     // Under the wall cupboards, out of a tall pot's way.
-    { id: "rail", kind: "rail", at: { piece: "side", dx: 0 }, width: 30, height: 88 },
+    {
+      id: "rail",
+      kind: "rail",
+      at: { piece: "side", dx: 0 },
+      width: 30,
+      height: 88,
+      utensils: true,
+    },
     // A small table for four, so the floor between its end chairs and the door and the counter is free to stand on, clear of the chairs' backs.
     { id: "table", kind: "table", x: 370, width: 84, front: true, cloth: true },
   ],
@@ -218,8 +225,8 @@ const KITCHEN_SET: PlaceSet = {
  */
 const HOME_SET: PlaceSet = {
   pieces: [
-    { id: "pegs", kind: "rail", x: 304, width: 24, coats: true },
-    { id: "by-sofa", kind: "floor", x: 640, width: 24 },
+    { id: "pegs", kind: "rail", x: 304, width: 24, height: 86, coats: true },
+    { id: "by-sofa", kind: "floor", x: 648, width: 22, mat: true },
     // Floor spot in front of the dog's nose at rug-left, where its bowl stands; a dog there faces right.
     { id: "by-dog", kind: "floor", x: 380, width: 24 },
     // The bag set down by the window, so a scene can keep something in it.
@@ -380,29 +387,27 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     // The window.
     align: 0.2,
     things: [
-      drawn(WORDS.muz, [140, 108, 24, 45]),
-      drawn(WORDS.zena, [184, 111, 25, 41]),
-      drawn(WORDS.okno, [96, 44, 150, 124]),
+      drawn(WORDS.muz, [150, 108, 24, 45]),
+      drawn(WORDS.zena, [194, 111, 25, 41]),
+      drawn(WORDS.okno, [106, 44, 150, 124]),
       // The one by the window is the set's, measured where it is drawn at the cast's scale.
       {
-        ...twins(WORDS.taska, [510, 240, 48, 50], [156, 247, 30, 33], "far"),
+        ...twins(WORDS.taska, [330, 200, 28, 29], [159, 254, 25, 26], "far"),
         of: ["window-bag"],
       },
-      drawn(WORDS.zaves, [78, 36, 34, 142], [230, 36, 34, 142]),
-      drawn(WORDS.obraz, [536, 62, 80, 58], [624, 62, 28, 26], [624, 94, 28, 26]),
-      drawn(WORDS.pohovka, [522, 148, 132, 86]),
-      drawn(WORDS.vankus, [546, 156, 36, 33], [594, 156, 36, 33]),
+      drawn(WORDS.zaves, [88, 36, 34, 142], [240, 36, 34, 142]),
+      drawn(WORDS.obraz, [530, 62, 80, 58], [618, 62, 28, 26], [618, 94, 28, 26]),
+      drawn(WORDS.pohovka, [516, 148, 132, 86]),
+      drawn(WORDS.vankus, [540, 156, 36, 33], [588, 156, 36, 33]),
       drawn(WORDS.lampa, [462, 4, 36, 38], [676, 74, 28, 160]),
-      drawn(WORDS.koberec, [252, 248, 456, 52]),
-      drawn(WORDS.dvere, [358, 48, 72, 178]),
-      drawn(WORDS.knihy, [453, 70, 54, 102]),
+      drawn(WORDS.koberec, [256, 248, 378, 52]),
       onSet(WORDS.voditko, ["lead"], [282, 92, 44, 66]),
       drawn(WORDS.rastlina, plantBox(PARTS.home.plant)),
     ],
     sounds: ["hum"],
     // On the rug (480 ± 250), left of the bag on it so nobody stands on that.
     post: 410,
-    glass: { height: 100, width: 130, x: 106, y: 54 },
+    glass: { height: 100, width: 130, x: 116, y: 54 },
     set: HOME_SET,
   },
   kitchen: {
@@ -412,10 +417,8 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     outdoors: false,
     things: [
       drawn(WORDS.dvere, [190, 40, 72, 186]),
-      drawn(WORDS.chladnicka, [782, 74, 46, 156]),
+      drawn(WORDS.chladnicka, [776, 136, 44, 94]),
       drawn(WORDS.okno, [352, 54, 104, 80]),
-      drawn(WORDS.zaves, [340, 46, 18, 94], [450, 46, 18, 94]),
-      drawn(WORDS.lampa, [386, 4, 36, 38]),
       drawn(WORDS.hodiny, clockBox(PARTS.kitchen.clock)),
       // The sink, pot and stove are the set's, at the cast's scale: these boxes fit a cast of three or
       // more (StickSet.svelte), whose floor is at y 280, in front of the wall's foot.

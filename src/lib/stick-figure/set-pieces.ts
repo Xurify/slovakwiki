@@ -36,6 +36,10 @@ export interface SetPiece {
   bare?: boolean;
   /** A rail drawn as a board of coat hooks by a door, a scarf and a jacket on the hooks right of its middle one. */
   coats?: boolean;
+  /** A rail that keeps a whisk and a turner on its left hooks. */
+  utensils?: boolean;
+  /** A floor spot drawn as a small mat, which a dog's bowl stands on. */
+  mat?: boolean;
   /** A table laid with a cloth that hangs over its edges. */
   cloth?: boolean;
 }
@@ -56,7 +60,7 @@ const SIZE: Record<PieceKind, { width: number; height: number }> = {
   // StudioDesk.svelte's top, lower than a real desk's.
   desk: { width: 200, height: 28 },
   stand: { width: 76, height: 44 },
-  bag: { width: 22, height: 0 },
+  bag: { width: 18, height: 0 },
 };
 
 /**
@@ -168,7 +172,7 @@ export const OBJECT_SIZE: Record<
   cheese: { grip: { x: 0, y: 5 }, top: 11, width: 7 },
   plate: { grip: { x: 6, y: 1 }, top: 2.4, width: 15 },
   // In the bag piece by the home's window: its opening at the top of the bag.
-  stash: { grip: { x: 0, y: 10 }, top: 16, width: 22 },
+  stash: { grip: { x: 0, y: 8 }, top: 13, width: 18 },
 };
 
 /**
