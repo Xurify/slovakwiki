@@ -98,12 +98,13 @@ export const PARTS = {
     plant: { x: 256, y: 228 },
   },
   street: {
-    // The bench is in the shelter; the lamp stands on the platform between the tram's first door and
-    // its middle bogie; the tree is past what a 1280-wide stage shows.
-    bench: { ground: 268, width: 126, x: 236 },
-    lamp: { ground: 276, x: 710 },
-    tree: { ground: 272, x: 58 },
+    // The bench in the shelter beside its map, and the lamp at the back of the platform, between the
+    // tram's first door and its middle bogie; the tree is past what a 1280-wide stage shows.
+    bench: { ground: 284, width: 92, x: 270 },
+    lamp: { ground: 292, x: 744 },
+    tree: { ground: 284, x: 58 },
   },
+
   studio: {
     clock: { hand: 10, r: 18, ticks: true, x: 289, y: 74 },
     plant: { x: 724, y: 246 },
