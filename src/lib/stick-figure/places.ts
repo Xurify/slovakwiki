@@ -328,7 +328,6 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     align: 1,
     things: [
       drawn(WORDS.okno, [400, 20, 164, 137], [42, 24, 192, 186]),
-      drawn(WORDS.dvere, [248, 68, 60, 158]),
       drawn(WORDS.lampa, [450, 40, 32, 20], [769, 28, 18, 16]),
       drawn(WORDS.tabula, [636, 12, 124, 58]),
       drawn(WORDS.pult, [782, 196, 150, 82]),
@@ -337,7 +336,6 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       drawn(WORDS.kavovar, [808, 150, 48, 66]),
       drawn(WORDS.stol, [420, 194, 60, 84]),
       drawn(WORDS.stolicka, [380, 160, 40, 118], [480, 160, 40, 118]),
-      drawn(WORDS.hodiny, clockBox(PARTS.cafe.clock)),
       drawn(WORDS.rastlina, plantBox(PARTS.cafe.plant)),
     ],
     sounds: ["murmur", "clinks"],
@@ -544,7 +542,6 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       drawn(WORDS.pult, [570, 188, 144, 90]),
       drawn(WORDS.pocitac, [664, 150, 36, 42]),
       drawn(WORDS.zvoncek, [576, 194, 28, 18]),
-      drawn(WORDS.dvere, [192, 74, 64, 152]),
     ],
     sounds: ["hum", "murmur"],
     staff: ["receptionist", "maria"],
