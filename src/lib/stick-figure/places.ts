@@ -253,14 +253,14 @@ const HOME_SET: PlaceSet = {
 
 /**
  * The café's bar on the right, at the cast's scale so the cups the waiter
- * takes stand on its top at any stage size: the coffees wait at its near
- * end, clear of the pastry case at the far end, and he steps up to them
- * from where he takes orders. The cast's floor is the bar's, so a cast of
+ * takes stand on its top at any stage size: the coffees wait under the
+ * espresso machine at its near end, the grinder, card reader and pastry
+ * case past them, and he steps up to them from where he takes orders. The cast's floor is the bar's, so a cast of
  * two, drawn bigger, still has all of it inside a phone's stage.
  */
 const CAFE_SET: PlaceSet = {
   pieces: [
-    { id: "bar", kind: "bar", x: 864, width: 78 },
+    { id: "bar", kind: "bar", x: 856, width: 80 },
     { id: "back", kind: "ledge", at: { piece: "bar", dx: -28 }, width: 30, height: 44 },
   ],
   objects: [],
@@ -315,20 +315,14 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     align: 1,
     things: [
       drawn(WORDS.okno, [400, 38, 164, 149], [42, 24, 192, 186]),
-      drawn(WORDS.lampa, [424, 40, 32, 20], [532, 40, 32, 20]),
-      drawn(WORDS.tabula, [788, 0, 152, 66]),
-      drawn(WORDS.pult, [794, 192, 156, 86]),
-      drawn(WORDS.kolac, [826, 70, 40, 42]),
-      drawn(WORDS.torta, [888, 82, 36, 30]),
-      drawn(WORDS.kavovar, [804, 158, 66, 42]),
-      drawn(WORDS.stol, [410, 198, 60, 48], [518, 198, 60, 48]),
-      drawn(
-        WORDS.stolicka,
-        [388, 178, 30, 68],
-        [460, 178, 30, 68],
-        [534, 182, 28, 64],
-        [570, 178, 30, 68],
-      ),
+      drawn(WORDS.lampa, [404, 40, 32, 20], [500, 40, 32, 20]),
+      drawn(WORDS.tabula, [788, 8, 152, 62]),
+      drawn(WORDS.pult, [781, 192, 150, 86]),
+      drawn(WORDS.kolac, [826, 74, 40, 44]),
+      drawn(WORDS.torta, [888, 88, 36, 30]),
+      drawn(WORDS.kavovar, [786, 138, 56, 80]),
+      drawn(WORDS.stol, [390, 198, 60, 48], [486, 198, 60, 48], [266, 198, 60, 48]),
+      drawn(WORDS.stolicka, [368, 178, 30, 68], [464, 178, 30, 68], [316, 178, 30, 68]),
       drawn(WORDS.hodiny, clockBox(PARTS.cafe.clock)),
       drawn(WORDS.rastlina, plantBox(PARTS.cafe.plant)),
     ],
@@ -527,7 +521,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     things: [
       drawn(WORDS.hodiny, clockBox(PARTS.registration.clock)),
       drawn(WORDS.stolicka, [270, 148, 40, 78], [312, 148, 40, 78], [354, 148, 40, 78]),
-      drawn(WORDS.rastlina, plantBox(PARTS.registration.plant)),
+      drawn(WORDS.rastlina, [720, 108, 26, 36]),
       drawn(WORDS.pult, [570, 188, 144, 90]),
       drawn(WORDS.pocitac, [664, 150, 36, 42]),
       drawn(WORDS.zvoncek, [576, 194, 28, 18]),

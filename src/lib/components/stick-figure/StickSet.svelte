@@ -402,7 +402,37 @@
         <rect x={-width / 2 + 1} y={GROUND_Y - 4} width={width - 2} height="4" class="fill-scene-coffee/60" />
         <rect x={-width / 2 + 1} y={top + 2} width={width - 2} height="2" class="fill-scene-coffee/30" />
         <rect x={-width / 2 - 2} y={top - 1} width={width + 4} height="3.4" rx="1" class="fill-scene-coffee" />
-        <g transform="translate({width / 2 - 20} {top - 1})">
+        <!-- The machine's group heads stand over the coffees' places (CAFE_SET), so the cups wait under the spouts. -->
+        <g transform="translate(-27 {top - 1})">
+          <rect x="-13" y="-26" width="26" height="26" rx="1" class="fill-scene-steel-dark" />
+          <rect x="-13" y="-26" width="26" height="15" rx="1.5" class="fill-scene-steel" />
+          <rect x="-13.5" y="-27.4" width="27" height="2" rx="1" class="fill-scene-steel-light" />
+          {#each [-8, 0, 8] as x (x)}
+            <path d="M{x - 3} -27.4h6l-0.6 -0.6h-4.8Z" class="fill-white" />
+            <path d="M{x - 2} -28l0.4 -2.6h3.2l0.4 2.6Z" class="fill-white" />
+          {/each}
+          <circle cx="0" cy="-19" r="2.6" class="fill-white" />
+          <path d="M0 -19l1.4 -1.4" class="stroke-scene-red" stroke-width="0.5" />
+          {#each [-7, 5] as x (x)}
+            <rect x={x - 2.4} y="-11" width="4.8" height="2" rx="0.5" class="fill-scene-steel-light" />
+            <path d="M{x} -9.4h{x < 0 ? -6 : 6}" class="stroke-portrait-vest" stroke-width="1.3" />
+          {/each}
+          <path d="M11.5 -13v8l-1.6 2" class="stroke-scene-steel-light" fill="none" stroke-width="0.8" />
+          <rect x="-12" y="-1.8" width="24" height="1.8" rx="0.4" class="fill-scene-steel" />
+        </g>
+        <g transform="translate(-7 {top - 1})">
+          <rect x="-3" y="-11" width="6" height="11" rx="0.8" class="fill-portrait-vest" />
+          <rect x="-1.6" y="-5" width="3.2" height="2" class="fill-scene-steel" />
+          <path d="M-3.6 -11l1 -8h5.2l1 8Z" class="fill-white/60" />
+          <path d="M-2.8 -11.6l0.8 -5.6h4l0.8 5.6Z" class="fill-scene-coffee" />
+          <rect x="-3" y="-20.4" width="6" height="1.6" rx="0.6" class="fill-portrait-vest" />
+        </g>
+        <g transform="translate(1.5 {top - 1})">
+          <path d="M-2 0l0.6 -2h2.8l0.6 2Z" class="fill-scene-steel-dark" />
+          <rect x="-1.8" y="-7.4" width="3.6" height="5.6" rx="0.6" class="fill-portrait-vest" transform="rotate(-12 0 -2)" />
+          <rect x="-1.2" y="-6.8" width="2.4" height="1.6" class="fill-scene-sky" transform="rotate(-12 0 -2)" />
+        </g>
+        <g transform="translate({width / 2 - 17} {top - 1}) scale(0.86 1)">
           <rect x="-17" y="-1.6" width="34" height="1.6" rx="0.4" class="fill-scene-steel-dark" />
           <rect x="-16.4" y="-16" width="32.8" height="14.4" class="fill-scene-sky/70" />
           <path d="M-16 -8.8h32" class="stroke-scene-steel" stroke-width="0.8" />
@@ -458,7 +488,9 @@
           <rect x="-4" y="-1" width="8" height="1" rx="0.5" class="fill-portrait-vest" />
           <rect x="-0.8" y="-5" width="1.6" height="4.4" class="fill-portrait-vest" />
           <rect x="-9" y="-17" width="18" height="12.5" rx="1" class="fill-portrait-vest" />
-          <rect x="-9" y="-17" width="2" height="12.5" rx="0.6" class="fill-scene-sky" />
+          <!-- Its back to the visitor: the screen faces whoever works behind the desk. -->
+          <rect x="-5" y="-14.6" width="10" height="7" rx="1.4" class="fill-scene-line/60" />
+          <path d="M-3 -12.6h6M-3 -10.8h6M-3 -9h6" class="stroke-portrait-vest" stroke-width="0.5" />
         </g>
         <g transform="translate({width / 2 - 4} {top - 1})">
           <path d="M-1.4 -5.6l0.6 -3M0 -5.6l0.2 -3.4M1.4 -5.6l1 -2.6" class="stroke-scene-blue" stroke-width="0.6" />

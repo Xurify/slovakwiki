@@ -75,7 +75,7 @@ export const PARTS = {
   cafe: {
     clock: { hand: 10, r: 17, ticks: true, x: 652, y: 42 },
     // Hangs from the ceiling: its pot's foot at 100, the trailing leaves past it.
-    plant: { x: 482, y: 128 },
+    plant: { x: 472, y: 128 },
   },
   classroom: {
     clock: { hand: 12, r: 20, x: 800, y: 78 },
@@ -97,7 +97,8 @@ export const PARTS = {
   },
   registration: {
     clock: { hand: 11, r: 20, ticks: true, x: 462, y: 54 },
-    plant: { x: 736, y: 228 },
+    // A small pot at the binder shelf's end.
+    plant: { x: 732, y: 132 },
   },
   street: {
     bench: { ground: 279, width: 130, x: 668 },

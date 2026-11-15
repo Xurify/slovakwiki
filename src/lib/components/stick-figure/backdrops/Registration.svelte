@@ -1,6 +1,5 @@
 <script lang="ts">
   import { PARTS } from "$lib/stick-figure/backdrop-parts";
-  import Plant from "./Plant.svelte";
   import Room from "./Room.svelte";
   import WallClock from "./WallClock.svelte";
 
@@ -17,12 +16,12 @@
     out: [3, 8].includes(index),
   }));
   const BINDERS = [
-    { paint: "fill-scene-blue/60", label: "2024" },
-    { paint: "fill-scene-blue/60", label: "2025" },
-    { paint: "fill-scene-red-mid", label: "A1" },
-    { paint: "fill-scene-red-mid", label: "A2" },
-    { paint: "fill-scene-green-mid", label: "B1" },
-    { paint: "fill-scene-green-mid", label: "B2" },
+    { paint: "fill-scene-blue/60", label: "A1" },
+    { paint: "fill-scene-blue/60", label: "A2" },
+    { paint: "fill-scene-red-mid", label: "B1" },
+    { paint: "fill-scene-red-mid", label: "B2" },
+    { paint: "fill-scene-green-mid", label: "C1" },
+    { paint: "fill-scene-green-mid", label: "C2" },
   ];
 </script>
 
@@ -68,6 +67,9 @@
 <rect x="276" y="64" width="122" height="70" rx="2" class="fill-scene-line/10" />
 <rect x="272" y="60" width="122" height="70" rx="2" class="fill-scene-wood" />
 <rect x="276" y="64" width="114" height="62" class="fill-scene-onion/60" />
+{#each [[275, 63], [391, 63], [275, 127], [391, 127]] as [x, y] (`${x} ${y}`)}
+  <circle cx={x} cy={y} r="1" class="fill-scene-steel-dark" />
+{/each}
 <rect x="281" y="69" width="48" height="50" class="fill-white" />
 <text x="305" y="77" text-anchor="middle" class="fill-portrait-ink font-sans" font-size="6" font-weight="700">
   Rozvrh
@@ -112,13 +114,39 @@
   <rect x={x - 5} y="166" width="10" height="4" rx="2" class="fill-scene-line/70" />
 {/each}
 
-<ellipse cx="422" cy="227" rx="20" ry="3" class="fill-scene-line/12" />
-<path d="M408 206v20M436 206v20" class="stroke-scene-line/60" stroke-width="2.4" />
-<rect x="404" y="202" width="36" height="5" rx="1" class="fill-scene-wood" />
-<path d="M410 202l2 -3h12l2 3Z" class="fill-white" />
-<path d="M412 199l2 -2h10l2 2Z" class="fill-scene-honey" />
-<rect x="426" y="196" width="10" height="6" rx="1" class="fill-scene-sage" />
+<rect x="404" y="88" width="36" height="44" rx="1" class="fill-scene-line/50" />
+<circle cx="408" cy="91" r="0.9" class="fill-scene-steel-light" />
+<circle cx="436" cy="91" r="0.9" class="fill-scene-steel-light" />
+{#each [0, 1] as row (row)}
+  {#each [0, 1] as column (column)}
+    {@const x = 407 + column * 17}
+    {@const y = 96 + row * 18}
+    <rect {x} y={y - 4} width="13" height="15" class={row ? (column ? "fill-scene-sage" : "fill-white") : column ? "fill-scene-honey" : "fill-scene-red-mid"} />
+    <path d="M{x + 2} {y}h9M{x + 2} {y + 3}h7" class="stroke-scene-line/40" stroke-width="1" />
+    <rect x={x - 1} {y} width="15" height="11" class="fill-scene-sky/70" />
+    <path d="M{x - 1} {y}h15" class="stroke-scene-line/40" stroke-width="0.8" />
+  {/each}
+{/each}
 
+<ellipse cx="422" cy="227" rx="16" ry="3" class="fill-scene-line/12" />
+<rect x="410" y="168" width="24" height="58" rx="2" class="fill-white" />
+<rect x="410" y="214" width="24" height="12" rx="1" class="fill-scene-line/20" />
+<rect x="414" y="182" width="16" height="6" rx="1" class="fill-scene-line/30" />
+<path d="M418 188v3M426 188v3" class="stroke-scene-blue" stroke-width="1.6" />
+<path d="M418 191v-1M426 191v-1" class="stroke-scene-red" stroke-width="1.6" />
+<rect x="415" y="196" width="14" height="2" rx="0.6" class="fill-scene-line/40" />
+<path d="M416 168V164h12v4Z" class="fill-scene-line/30" />
+<path d="M415 164q-2 -8 0 -22q7 -4 14 0q2 14 0 22Z" class="fill-scene-blue/30" />
+<path d="M418 146v14" class="stroke-white/70" stroke-width="1.6" />
+<path d="M436 176h4v10h-4" class="fill-white" />
+<path d="M436 178h4v10h-4Z" class="fill-white" />
+
+<path
+  d="M{PARTS.registration.clock.x - 1} {PARTS.registration.clock.y -
+    PARTS.registration.clock.r -
+    3}h2v3h-2Z"
+  class="fill-scene-line"
+/>
 <WallClock clock={PARTS.registration.clock} {hour} />
 
 <rect x="508" y="16" width="42" height="56" class="fill-scene-line/10" />
@@ -140,6 +168,12 @@
 <text x="525" y="62" text-anchor="middle" class="fill-scene-red font-sans" font-size="6" font-weight="700">
   A1 – C1
 </text>
+<g class="fill-scene-honey/60">
+  <rect x="500" y="10" width="9" height="4" transform="rotate(-35 504 12)" />
+  <rect x="541" y="10" width="9" height="4" transform="rotate(35 546 12)" />
+  <rect x="500" y="66" width="9" height="4" transform="rotate(35 504 68)" />
+  <rect x="541" y="66" width="9" height="4" transform="rotate(-35 546 68)" />
+</g>
 
 <path d="M610 -10V20M694 -10V20" class="stroke-scene-line/40" stroke-width="1.2" />
 <rect x="594" y="22" width="116" height="24" rx="4" class="fill-scene-line/10" />
@@ -150,6 +184,14 @@
 
 <rect x="652" y="54" width="92" height="46" rx="2" class="fill-scene-coffee" />
 <rect x="656" y="58" width="84" height="38" rx="1" class="fill-scene-wood" />
+<path d="M658 66h80M658 84h80" class="stroke-scene-steel-dark" stroke-width="1.2" />
+{#each [[655, 57], [741, 57], [655, 97], [741, 97]] as [x, y] (`${x} ${y}`)}
+  <circle cx={x} cy={y} r="0.9" class="fill-scene-steel-light" />
+{/each}
+<rect x="681" y="48" width="34" height="9" rx="1.5" class="fill-white" />
+<text x="698" y="55" text-anchor="middle" class="fill-portrait-ink font-sans" font-size="6.5" font-weight="700">
+  Kľúče
+</text>
 {#each KEYS as { x, y, number, out } (number)}
   <circle cx={x} cy={y} r="1.1" class="fill-scene-steel-dark" />
   {#if !out}
@@ -168,23 +210,25 @@
   {@const x = 658 + index * 10}
   <rect {x} y="108" width="9" height="24" rx="1" class={paint} />
   <rect x={x + 1.5} y="111" width="6" height="8" rx="0.6" class="fill-white" />
-  <text x={x + 4.5} y="117" text-anchor="middle" class="fill-portrait-ink font-sans" font-size="3">
+  <text x={x + 4.5} y="116.6" text-anchor="middle" class="fill-portrait-ink font-sans" font-size="3.4" font-weight="700">
     {label}
   </text>
   <circle cx={x + 4.5} cy="126" r="1.3" class="fill-white/80" />
 {/each}
 
-<rect x="640" y="172" width="72" height="54" class="fill-scene-wood" />
-<rect x="638" y="168" width="76" height="5" rx="1" class="fill-scene-coffee" />
-<rect x="644" y="178" width="34" height="42" rx="1" class="fill-scene-line/8" />
-<rect x="682" y="178" width="26" height="42" rx="1" class="fill-scene-line/8" />
-<path d="M675 196v6M685 196v6" class="stroke-scene-line/50" stroke-width="1.4" />
-<rect x="684" y="152" width="30" height="16" rx="2" class="fill-scene-steel-light" />
-<rect x="688" y="148" width="22" height="5" rx="1" class="fill-scene-steel" />
-<path d="M688 160h22" class="stroke-scene-line/40" stroke-width="1.2" />
-<rect x="690" y="144" width="18" height="5" class="fill-white" />
-
-<Plant plant={PARTS.registration.plant} />
+<g transform="translate({PARTS.registration.plant.x} {PARTS.registration.plant.y})">
+  <path d="M-6 0l-1 -9h14l-1 9Z" class="fill-scene-clay" />
+  <rect x="-7.5" y="-10" width="15" height="2.4" rx="1" class="fill-scene-clay" />
+  <g class="fill-scene-leaf">
+    <ellipse cx="-6" cy="-14" rx="3" ry="6" transform="rotate(-30 -6 -14)" />
+    <ellipse cx="6" cy="-15" rx="3" ry="6" transform="rotate(28 6 -15)" />
+    <ellipse cx="0" cy="-17" rx="3" ry="7" />
+    <ellipse cx="-9" cy="-4" rx="2.6" ry="1.8" />
+    <ellipse cx="-10" cy="4" rx="2.6" ry="1.8" />
+    <ellipse cx="-9" cy="11" rx="2.6" ry="1.8" />
+  </g>
+  <path d="M-7 -6Q-11 2 -9 12" class="stroke-scene-leaf" fill="none" stroke-width="0.8" />
+</g>
 
 <!-- Right of what a desktop shows: the office door. -->
 <rect x="866" y="70" width="80" height="156" class="fill-scene-edge" />
