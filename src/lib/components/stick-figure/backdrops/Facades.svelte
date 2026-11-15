@@ -11,6 +11,8 @@
     x: number;
     /** A shop in the ground floor: its name on a board over wide display windows. */
     shop?: string;
+    /** What a shop shows in its windows. */
+    wares?: "flowers";
     /** A striped awning over the shop windows, in this paint. */
     awning?: string;
     /** Red geraniums in boxes on the first-floor sills. */
@@ -127,6 +129,8 @@
     {#each columns as column, bay (column)}
       {@const x = column - WINDOW.width / 2}
       {@const balcony = house.balcony && pediment && bay === Math.floor(columns.length / 2)}
+      {@const lift = balcony ? 6 : 0}
+      <!-- A balcony's window is a door down to its floor, and rises to make room. -->
       {#if house.shutters}
         {#each [x - 9, x + WINDOW.width + 3] as leaf (leaf)}
           <rect x={leaf} y={y - 1} width="6" height={WINDOW.height + 2} class="fill-scene-board/55" />
@@ -134,20 +138,22 @@
         {/each}
       {/if}
       {#if pediment}
-        <path d="M{x - 4} {y - 3}L{column} {y - 10}L{x + WINDOW.width + 4} {y - 3}Z" class="fill-white/65" />
+        <path d="M{x - 4} {y - 3 - lift}L{column} {y - 10 - lift}L{x + WINDOW.width + 4} {y - 3 - lift}Z" class="fill-white/65" />
       {:else}
         <rect x={x - 3} y={y - 6} width={WINDOW.width + 6} height="3.5" class="fill-white/65" />
       {/if}
-      <rect x={x - 2} y={y - 2} width={WINDOW.width + 4} height={WINDOW.height + 4} class="fill-white/55" />
-      <rect {x} {y} width={WINDOW.width} height={WINDOW.height} class="fill-scene-sky" />
+      <rect x={x - 2} y={y - 2 - lift} width={WINDOW.width + 4} height={WINDOW.height + 4 + lift} class="fill-white/55" />
+      <rect {x} y={y - lift} width={WINDOW.width} height={WINDOW.height + lift + (balcony ? 2 : 0)} class="fill-scene-sky" />
       <path d="M{x} {y + 12}L{x + 9} {y}H{x + 14}L{x} {y + 19}Z" class="fill-white/25" />
       <path
-        d="M{column} {y}v{WINDOW.height}M{x} {y + 8}h{WINDOW.width}"
+        d="M{column} {y - lift}v{WINDOW.height + lift}M{x} {y + 8 - lift}h{WINDOW.width}"
         class="stroke-white/80"
         stroke-width="1.4"
       />
-      <rect x={x - 3} y={y + WINDOW.height + 1} width={WINDOW.width + 6} height="3" class="fill-white/80" />
-      <rect x={x - 3} y={y + WINDOW.height + 4} width={WINDOW.width + 6} height="1.5" class="fill-scene-line/12" />
+      {#if !balcony}
+        <rect x={x - 3} y={y + WINDOW.height + 1} width={WINDOW.width + 6} height="3" class="fill-white/80" />
+        <rect x={x - 3} y={y + WINDOW.height + 4} width={WINDOW.width + 6} height="1.5" class="fill-scene-line/12" />
+      {/if}
       {#if balcony}
         <rect x={x - 10} y={y + WINDOW.height + 2} width={WINDOW.width + 20} height="4" class="fill-white/80" />
         <rect x={x - 10} y={y + WINDOW.height + 6} width={WINDOW.width + 20} height="2" class="fill-scene-line/15" />
@@ -202,6 +208,16 @@
       <rect x={column - half} y="201" width={half * 2} height="21" class="fill-scene-sky" />
       <path d="M{column - half} 212L{column - half + 10} 201H{column - half + 15}L{column - half} 218Z" class="fill-white/30" />
       <rect x={column - half} y="216" width={half * 2} height="6" class="fill-scene-line/15" />
+      {#if house.wares === "flowers"}
+        {#each [-0.6, 0, 0.6] as at, index (at)}
+          {@const bx = column + at * half}
+          <path d="M{bx - 3} 217.5h6l-0.8 4.5h-4.4Z" class="fill-scene-steel-dark" />
+          <path d="M{bx} 218V215M{bx} 217L{bx - 2.5} 214.5M{bx} 217L{bx + 2.5} 214.5" class="stroke-scene-leaf" stroke-width="1" />
+          {#each [-2.5, 0, 2.5] as dx (dx)}
+            <circle cx={bx + dx} cy={dx === 0 ? 213.2 : 214} r="1.8" class={["fill-scene-red", "fill-scene-honey", "fill-scene-plum"][(index + Math.round(dx / 2.5) + 3) % 3]} />
+          {/each}
+        {/each}
+      {/if}
     {:else}
       <rect x={column - 9} y="194" width="18" height="24" class="fill-white/55" />
       <rect x={column - 7} y="196" width="14" height="20" class="fill-scene-sky" />

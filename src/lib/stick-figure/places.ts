@@ -525,8 +525,8 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     ground: "stone",
     label: "On the street, by the tram stop",
     outdoors: true,
-    // Clear of the tram's roof when it stands at the stop.
-    sun: { day: { x: 468, y: 28 }, morning: { x: 470, y: 28 } },
+    // Left of the tram's roof when it stands at the stop.
+    sun: { day: { x: 255, y: 28 }, morning: { x: 250, y: 30 } },
     things: [
       drawn(
         WORDS.dom,
@@ -541,9 +541,9 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       ),
       drawn(WORDS.strom, treeBox(PARTS.street.tree)),
       drawn({ ...WORDS.lampa, english: "street lamp" }, lampBox(PARTS.street.lamp)),
-      drawn(WORDS.zastavka, [200, 10, 246, 278]),
+      drawn(WORDS.zastavka, [200, 54, 180, 234], [384, 8, 54, 280]),
       drawn(WORDS.lavicka, benchBox(PARTS.street.bench)),
-      drawn(WORDS.oblak, [292, 19, 76, 31], [733, 40, 54, 22]),
+      drawn(WORDS.oblak, [120, 11, 61, 25], [577, 3, 46, 19]),
     ],
     sounds: ["murmur"],
     set: EMPTY_SET,
