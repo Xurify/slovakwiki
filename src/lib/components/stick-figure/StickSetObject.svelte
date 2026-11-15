@@ -211,8 +211,11 @@
       />
     {/if}
   {:else if kind === "board"}
-    <rect x="-11" y="-2.4" width="22" height="2.4" rx="1" class="fill-scene-sand" />
-    <circle cx="-8.6" cy="-1.2" r="0.6" class="fill-scene-line" stroke="none" />
+    <!-- A beech board with a handle at its left end, the hole to hang it by. -->
+    <path d="M-11 -3.2H9.6Q11 -3.2 11 -1.8V0H-11Z" class="fill-scene-wood" />
+    <path d="M-11 -1H11" class="stroke-scene-coffee/40" stroke-width="0.6" />
+    <path d="M-14.4 -2.6H-11V-0.6H-14.4Q-15.4 -1.6 -14.4 -2.6Z" class="fill-scene-wood" />
+    <circle cx="-13.4" cy="-1.6" r="0.5" class="fill-scene-coffee" stroke="none" />
   {:else if kind === "knife"}
     <path d="M-1 -0.3H8.2Q8 -2.4 5 -2.7H-1Z" class="fill-scene-cool" />
     <rect x="-6" y="-2.6" width="5" height="2.3" rx="0.8" class="fill-portrait-vest" />
@@ -321,9 +324,10 @@
       />
     {/if}
   {:else if kind === "cutlery"}
-    <path d="M-5 -0.6H1.6" stroke-width="1.6" />
-    <path d="M-5 -0.6H1.6" class="stroke-scene-edge" stroke-width="0.6" />
-    <ellipse cx="3.4" cy="-0.8" rx="2" ry="0.9" class="fill-scene-edge" />
+    <!-- A soup spoon lying by the bowl: a long handle and a round bowl. -->
+    <path d="M-5.6 -0.7H1.4" stroke-width="1.8" />
+    <path d="M-5.6 -0.7H1.4" class="stroke-scene-steel-light" stroke-width="0.8" />
+    <ellipse cx="3.6" cy="-1" rx="2.6" ry="1.3" class="fill-scene-steel-light" />
   {:else if kind === "towel"}
     <!-- A tea towel folded over its hook: the fold at the top, two stripes near the hem. -->
     <path

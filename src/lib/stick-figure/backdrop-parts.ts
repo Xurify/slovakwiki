@@ -88,7 +88,7 @@ export const PARTS = {
     bench: { ground: 266, width: 104, x: 616 },
     lamp: { ground: 262, x: 370 },
   },
-  home: { plant: { x: 40, y: 244 } },
+  home: { plant: { x: 738, y: 234 } },
   plaza: {
     // Bench and tree stand past what a 1280-wide stage shows (x 120 to 840), whole on a wider one.
     bench: { ground: 250, width: 104, x: 4 },
@@ -97,7 +97,7 @@ export const PARTS = {
     tree: { ground: 250, planter: true, x: 902 },
   },
   kitchen: {
-    clock: { hand: 10, r: 18, ticks: false, x: 496, y: 70 },
+    clock: { hand: 10, r: 17, ticks: false, x: 491, y: 68 },
   },
   registration: {
     clock: { hand: 11, r: 20, ticks: true, x: 462, y: 54 },

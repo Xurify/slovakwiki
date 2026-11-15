@@ -18,6 +18,7 @@ import { GROUND_Y, SEAT_Y, type Point } from "./rig";
  * works behind it; a `stool` is a bar stool to set in front of it. A
  * `reception` is a front desk, drawn over whoever works behind it. A
  * `bistro` is a café table with a bentwood chair either side, facing it.
+ * A `bag` is a shopping bag set down on the floor, which a stash stands in.
  */
 export type PieceKind =
   | "counter"
@@ -31,7 +32,8 @@ export type PieceKind =
   | "bar"
   | "reception"
   | "bistro"
-  | "stool";
+  | "stool"
+  | "bag";
 
 export interface SetPiece {
   id: string;
@@ -49,6 +51,14 @@ export interface SetPiece {
   sink?: number;
   /** Not drawn, as what it is on draws it: the oven door's handle, which a towel hangs over. */
   bare?: boolean;
+  /** A rail drawn as a board of coat hooks by a door, a scarf and a jacket on the hooks right of its middle one. */
+  coats?: boolean;
+  /** A rail that keeps a whisk and a turner on its left hooks. */
+  utensils?: boolean;
+  /** A floor spot drawn as a small mat, which a dog's bowl stands on. */
+  mat?: boolean;
+  /** A table laid with a cloth that hangs over its edges. */
+  cloth?: boolean;
 }
 
 /**
@@ -74,6 +84,7 @@ const SIZE: Record<PieceKind, { width: number; height: number }> = {
   bistro: { width: 84, height: 40 },
   // Its seat under the bar's top, as a real stool sits a hand below the counter.
   stool: { width: 14, height: 31 },
+  bag: { width: 18, height: 0 },
 };
 
 /**
@@ -184,8 +195,8 @@ export const OBJECT_SIZE: Record<
   umbrella: { grip: { x: 0, y: 6 }, top: 21, width: 6 },
   cheese: { grip: { x: 0, y: 5 }, top: 11, width: 7 },
   plate: { grip: { x: 6, y: 1 }, top: 2.4, width: 15 },
-  // The home backdrop's bag by the window: its opening at the top of the drawn bag.
-  stash: { grip: { x: 0, y: 12 }, top: 20, width: 30 },
+  // In the bag piece by the home's window: its opening at the top of the bag.
+  stash: { grip: { x: 0, y: 8 }, top: 13, width: 18 },
 };
 
 /**
