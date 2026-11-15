@@ -260,12 +260,25 @@ const HOME_SET: PlaceSet = {
  */
 const CAFE_SET: PlaceSet = {
   pieces: [
-    { id: "bar", kind: "bar", x: 856, width: 80 },
-    { id: "back", kind: "ledge", at: { piece: "bar", dx: -28 }, width: 30, height: 44 },
+    // Drawn over the waiter, who works behind it and comes out through the flap at its left end.
+    { id: "bar", kind: "bar", x: 860, width: 80, front: true },
+    // The window table, clear of where a cast of two or three stands, and of a phone's left edge.
+    { id: "table", kind: "bistro", x: 450, width: 76 },
+    // Under the machine's group heads, so the coffees wait there on their saucers.
+    {
+      id: "back",
+      kind: "ledge",
+      at: { piece: "bar", dx: -12 },
+      width: 24,
+      height: 44,
+      front: true,
+    },
+    { id: "stool-1", kind: "stool", at: { piece: "bar", dx: 13 }, front: true },
+    { id: "stool-2", kind: "stool", at: { piece: "bar", dx: 29 }, front: true },
   ],
   objects: [],
   spots: {
-    back: { piece: "back", dx: -16, facing: 1 },
+    back: { piece: "back", dx: -14, facing: 1 },
     waiter: { x: 767, facing: -1 },
   },
 };
@@ -314,22 +327,23 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     // The counter, where the cakes the scenes point at are.
     align: 1,
     things: [
-      drawn(WORDS.okno, [400, 38, 164, 149], [42, 24, 192, 186]),
-      drawn(WORDS.lampa, [404, 40, 32, 20], [500, 40, 32, 20]),
-      drawn(WORDS.tabula, [788, 8, 152, 62]),
-      drawn(WORDS.pult, [781, 192, 150, 86]),
-      drawn(WORDS.kolac, [826, 74, 40, 44]),
-      drawn(WORDS.torta, [888, 88, 36, 30]),
-      drawn(WORDS.kavovar, [786, 138, 56, 80]),
-      drawn(WORDS.stol, [390, 198, 60, 48], [486, 198, 60, 48], [266, 198, 60, 48]),
-      drawn(WORDS.stolicka, [368, 178, 30, 68], [464, 178, 30, 68], [316, 178, 30, 68]),
+      drawn(WORDS.okno, [400, 20, 164, 137], [42, 24, 192, 186]),
+      drawn(WORDS.dvere, [248, 68, 60, 158]),
+      drawn(WORDS.lampa, [450, 40, 32, 20], [769, 28, 18, 16]),
+      drawn(WORDS.tabula, [636, 12, 124, 58]),
+      drawn(WORDS.pult, [786, 196, 150, 82]),
+      drawn(WORDS.kolac, [843, 62, 26, 32]),
+      drawn(WORDS.torta, [885, 68, 30, 26]),
+      drawn(WORDS.kavovar, [814, 150, 46, 66]),
+      drawn(WORDS.stol, [420, 194, 60, 84]),
+      drawn(WORDS.stolicka, [380, 160, 40, 118], [480, 160, 40, 118]),
       drawn(WORDS.hodiny, clockBox(PARTS.cafe.clock)),
       drawn(WORDS.rastlina, plantBox(PARTS.cafe.plant)),
     ],
     sounds: ["murmur", "clinks"],
     staff: ["waiter"],
     post: 690,
-    glass: { height: 128, width: 148, x: 408, y: 46 },
+    glass: { height: 116, width: 148, x: 408, y: 28 },
     set: CAFE_SET,
   },
   classroom: {

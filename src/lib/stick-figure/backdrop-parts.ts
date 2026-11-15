@@ -19,6 +19,8 @@ export interface WallClock {
   hand: number;
   r: number;
   ticks?: boolean;
+  /** A mark at every hour and the quarter numerals, for a clock big enough to read. */
+  numerals?: boolean;
   x: number;
   y: number;
 }
@@ -73,9 +75,9 @@ export function benchBox({ ground, width, x }: Bench): Rect {
 /** Where each place's shared scenery stands. */
 export const PARTS = {
   cafe: {
-    clock: { hand: 10, r: 17, ticks: true, x: 652, y: 42 },
-    // Hangs from the ceiling: its pot's foot at 100, the trailing leaves past it.
-    plant: { x: 472, y: 128 },
+    clock: { hand: 12, numerals: true, r: 21, x: 604, y: 44 },
+    // Hangs from its own hook at the window's left edge, clear of a phone's left edge: its pot's foot at 88, the trailing leaves past it.
+    plant: { x: 390, y: 118 },
   },
   classroom: {
     clock: { hand: 12, r: 20, x: 800, y: 78 },

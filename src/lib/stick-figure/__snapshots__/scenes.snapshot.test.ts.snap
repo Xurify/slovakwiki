@@ -757,6 +757,7 @@ exports[`every scene, directed > lesson everyday/days-dates-and-time 1`] = `
   "setting": "cafe",
   "things": [
     "okno",
+    "dvere",
     "lampa",
     "tabula",
     "pult",
@@ -1091,6 +1092,7 @@ exports[`every scene, directed > lesson everyday/negation-in-conversation 1`] = 
   "setting": "cafe",
   "things": [
     "okno",
+    "dvere",
     "lampa",
     "tabula",
     "pult",
@@ -2179,6 +2181,7 @@ exports[`every scene, directed > lesson grammar/demonstratives 1`] = `
   "setting": "cafe",
   "things": [
     "okno",
+    "dvere",
     "lampa",
     "tabula",
     "pult",
@@ -2880,6 +2883,7 @@ exports[`every scene, directed > lesson grammar/present-tense-i 1`] = `
   "setting": "cafe",
   "things": [
     "okno",
+    "dvere",
     "lampa",
     "tabula",
     "pult",
@@ -9933,6 +9937,7 @@ exports[`every scene, directed > podcast podcast-past-tense-cafe 1`] = `
   "setting": "cafe",
   "things": [
     "okno",
+    "dvere",
     "lampa",
     "tabula",
     "pult",
@@ -14264,6 +14269,7 @@ exports[`every scene, directed > podcast podcast-telling-time-cafe 1`] = `
   "setting": "cafe",
   "things": [
     "okno",
+    "dvere",
     "lampa",
     "tabula",
     "pult",
