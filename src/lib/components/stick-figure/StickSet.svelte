@@ -388,6 +388,33 @@
           <path d="M24.5 {top - 9}v-1.6" class="stroke-scene-steel-dark" stroke-width="1.2" />
           <rect x="19" y={top - 12} width="11" height="1.6" rx="0.8" class="fill-scene-steel" />
         </g>
+      {:else if piece.kind === "bar"}
+        <rect
+          x={-width / 2 + 1}
+          y={top + 2}
+          width={width - 2}
+          height={GROUND_Y - top - 2}
+          class="fill-scene-wood"
+        />
+        {#each Array.from({ length: Math.floor(width / 6) - 1 }, (_, index) => -width / 2 + 6 + index * 6) as x (x)}
+          <path d="M{x} {top + 6}V{GROUND_Y - 5}" class="stroke-scene-coffee/20" stroke-width="0.6" />
+        {/each}
+        <rect x={-width / 2 + 1} y={GROUND_Y - 4} width={width - 2} height="4" class="fill-scene-coffee/60" />
+        <rect x={-width / 2 + 1} y={top + 2} width={width - 2} height="2" class="fill-scene-coffee/30" />
+        <rect x={-width / 2 - 2} y={top - 1} width={width + 4} height="3.4" rx="1" class="fill-scene-coffee" />
+        <g transform="translate({width / 2 - 21} {top - 1})">
+          <rect x="-17" y="-15" width="34" height="15" rx="1" class="fill-white/35" />
+          <path d="M-16 -7.5h32" class="stroke-scene-steel" stroke-width="0.8" />
+          {#each [-11, -3, 5, 12] as x (x)}
+            <path d="M{x - 3} -8l3 -5 3 5Z" class="fill-scene-honey" />
+            <path d="M{x - 3} -8l3 -5 3 5" class="stroke-portrait-bib" stroke-width="0.8" fill="none" />
+          {/each}
+          {#each [-10, 0, 10] as x (x)}
+            <path d="M{x - 4} -0.6q4 -6 8 0q-4 -2 -8 0Z" class="fill-scene-onion" />
+          {/each}
+          <path d="M-17 -15h34v15h-34Z" class="stroke-scene-steel-dark/70" stroke-width="0.7" fill="none" />
+          <path d="M-13 -3l7 -10M-8 -2l5 -7" class="stroke-white/70" stroke-width="0.8" />
+        </g>
       {:else if piece.kind === "table"}
         <path
           d="M{-width / 2 + 6} {top + 3}V{GROUND_Y}M{width / 2 - 6} {top + 3}V{GROUND_Y}"

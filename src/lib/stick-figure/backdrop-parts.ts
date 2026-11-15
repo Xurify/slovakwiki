@@ -72,7 +72,10 @@ export function benchBox({ ground, width, x }: Bench): Rect {
 
 /** Where each place's shared scenery stands. */
 export const PARTS = {
-  cafe: { plant: { x: 44, y: 246 } },
+  cafe: {
+    clock: { hand: 10, r: 18, ticks: true, x: 590, y: 50 },
+    plant: { x: 300, y: 238 },
+  },
   classroom: {
     clock: { hand: 12, r: 20, x: 800, y: 78 },
     plant: { x: 944, y: 232 },
@@ -92,8 +95,8 @@ export const PARTS = {
     clock: { hand: 10, r: 18, ticks: false, x: 496, y: 70 },
   },
   registration: {
-    clock: { hand: 12, r: 24, ticks: true, x: 300, y: 72 },
-    plant: { x: 256, y: 228 },
+    clock: { hand: 11, r: 21, ticks: true, x: 452, y: 58 },
+    plant: { x: 356, y: 228 },
   },
   street: {
     bench: { ground: 279, width: 130, x: 668 },
