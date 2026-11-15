@@ -15,6 +15,14 @@
     awning?: string;
     /** Red geraniums in boxes on the first-floor sills. */
     flowers?: boolean;
+    /** Painted shutters folded back beside the upper windows. */
+    shutters?: boolean;
+    /** A wrought-iron balcony in front of the middle first-floor window. */
+    balcony?: boolean;
+    /** An arcade along the ground floor: open arches on piers instead of windows. */
+    arcade?: boolean;
+    /** A sign hung out from the wall on a bracket: a pharmacy's green cross or a café's cup. */
+    emblem?: "cross" | "cup";
   }
 </script>
 
@@ -32,9 +40,9 @@
     return Array.from({ length: count }, (_, index) => house.x + step * (index + 0.5));
   }
 
-  /** Which bay the door takes: the middle one, or right of the middle in an even row. */
+  /** Which bay the door takes: a shop's is at its left end, beside its windows; a house's in the middle. */
   function doorBay(house: Facade): number {
-    return Math.floor(bays(house).length / 2);
+    return house.shop ? 0 : Math.floor(bays(house).length / 2);
   }
 
   /** A baroque gable: scrolls at the shoulders, upright sides, a cornice and a triangular pediment. */
@@ -116,8 +124,15 @@
 
   {#each FLOORS.filter((y) => y > house.top + 12) as y, floor (y)}
     {@const pediment = floor === FLOORS.filter((row) => row > house.top + 12).length - 1}
-    {#each columns as column (column)}
+    {#each columns as column, bay (column)}
       {@const x = column - WINDOW.width / 2}
+      {@const balcony = house.balcony && pediment && bay === Math.floor(columns.length / 2)}
+      {#if house.shutters}
+        {#each [x - 9, x + WINDOW.width + 3] as leaf (leaf)}
+          <rect x={leaf} y={y - 1} width="6" height={WINDOW.height + 2} class="fill-scene-board/55" />
+          <path d="M{leaf + 1} {y + 5}h4M{leaf + 1} {y + 11}h4M{leaf + 1} {y + 17}h4" class="stroke-white/30" stroke-width="1" />
+        {/each}
+      {/if}
       {#if pediment}
         <path d="M{x - 4} {y - 3}L{column} {y - 10}L{x + WINDOW.width + 4} {y - 3}Z" class="fill-white/65" />
       {:else}
@@ -133,7 +148,17 @@
       />
       <rect x={x - 3} y={y + WINDOW.height + 1} width={WINDOW.width + 6} height="3" class="fill-white/80" />
       <rect x={x - 3} y={y + WINDOW.height + 4} width={WINDOW.width + 6} height="1.5" class="fill-scene-line/12" />
-      {#if house.flowers && pediment}
+      {#if balcony}
+        <rect x={x - 10} y={y + WINDOW.height + 2} width={WINDOW.width + 20} height="4" class="fill-white/80" />
+        <rect x={x - 10} y={y + WINDOW.height + 6} width={WINDOW.width + 20} height="2" class="fill-scene-line/15" />
+        <path
+          d="M{x - 9} {y + 12}H{x + WINDOW.width + 9}M{x - 9} {y + 12}V{y + WINDOW.height + 2}M{x + WINDOW.width + 9} {y + 12}V{y + WINDOW.height + 2}M{x - 4} {y + 12}V{y + WINDOW.height + 2}M{x + 1} {y + 12}V{y + WINDOW.height + 2}M{x + 6} {y + 12}V{y + WINDOW.height + 2}M{x + 13} {y + 12}V{y + WINDOW.height + 2}M{x + 18} {y + 12}V{y + WINDOW.height + 2}"
+          class="stroke-scene-line/60"
+          stroke-width="1.2"
+          fill="none"
+        />
+      {/if}
+      {#if house.flowers && pediment && !balcony}
         <rect x={x - 1} y={y + WINDOW.height - 4} width={WINDOW.width + 2} height="5" rx="1" class="fill-scene-wood" />
         {#each [0, 4, 8, 12] as dx (dx)}
           <circle cx={x + 1 + dx} cy={y + WINDOW.height - 5.5} r="2.2" class="fill-scene-leaf" />
@@ -164,6 +189,11 @@
       <circle cx={column - 3} cy="212" r="1" class="fill-scene-honey" />
       <circle cx={column + 3} cy="212" r="1" class="fill-scene-honey" />
       <rect x={column - 15} y="223" width="30" height="3" class="fill-white/60" />
+    {:else if house.arcade}
+      {@const half = house.width / columns.length / 2 - 4}
+      <path d="M{column - half} 226V{GROUND_FLOOR + 18}a{half} {half} 0 0 1 {half * 2} 0V226Z" class="fill-scene-line/35" />
+      <path d="M{column - half + 4} 226V{GROUND_FLOOR + 22}a{half - 4} {half - 4} 0 0 1 {half * 2 - 8} 0V226Z" class="fill-scene-line/15" />
+      <rect x={column - 5} y="206" width="10" height="20" rx="1" class="fill-scene-coffee/50" />
     {:else if house.shop}
       {@const half = Math.min(15, (house.width / columns.length - 8) / 2)}
       <rect x={column - half - 2} y="199" width={half * 2 + 4} height="25" class="fill-scene-line/45" />
@@ -185,5 +215,18 @@
         class={index % 2 === 0 ? house.awning : "fill-white/90"}
       />
     {/each}
+  {/if}
+  {#if house.emblem}
+    {@const at = house.x + 14}
+    <path d="M{house.x} 162H{at + 6}M{house.x} 168L{at - 2} 162" class="stroke-scene-line/60" stroke-width="1.5" fill="none" />
+    <path d="M{at + 4} 162v3" class="stroke-scene-line/60" stroke-width="1" />
+    {#if house.emblem === "cross"}
+      <path d="M{at + 1} 165h6v6h6v6h-6v6h-6v-6h-6v-6h6Z" class="fill-scene-green" />
+      <path d="M{at + 2.5} 166.5h3v6h6v3h-6v6h-3v-6h-6v-3h6Z" class="fill-white/30" />
+    {:else}
+      <circle cx={at + 4} cy="174" r="9" class="fill-scene-board" />
+      <path d="M{at - 1} 171h9v4a4.5 4.5 0 0 1 -9 0ZM{at + 8} 172.5a2 2 0 0 1 0 4" class="fill-white/85 stroke-white/85" stroke-width="1" />
+      <path d="M{at - 3} 180.5h14" class="stroke-white/85" stroke-width="1.2" />
+    {/if}
   {/if}
 {/each}

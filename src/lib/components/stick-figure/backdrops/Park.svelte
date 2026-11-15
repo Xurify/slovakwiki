@@ -3,6 +3,7 @@
   import Bench from "./Bench.svelte";
   import Castle from "./Castle.svelte";
   import Cloud from "./Cloud.svelte";
+  import Cobbles from "./Cobbles.svelte";
   import FloorShade from "./FloorShade.svelte";
   import StreetLamp from "./StreetLamp.svelte";
 
@@ -11,6 +12,14 @@
 
   /** The far bank's old town under the castle hill, small with distance; neighbours never share a paint. */
   const TOWN = [
+    { x: -10, width: 40, top: 166, paint: "fill-scene-sage" },
+    { x: 30, width: 34, top: 160, paint: "fill-scene-warm" },
+    { x: 64, width: 44, top: 168, paint: "fill-scene-clay" },
+    { x: 108, width: 30, top: 162, paint: "fill-scene-honey" },
+    { x: 138, width: 42, top: 166, paint: "fill-scene-sage" },
+    { x: 180, width: 30, top: 158, paint: "fill-scene-warm" },
+    { x: 210, width: 40, top: 168, paint: "fill-scene-clay" },
+    { x: 250, width: 50, top: 162, paint: "fill-scene-honey" },
     { x: 300, width: 34, top: 166, paint: "fill-scene-warm" },
     { x: 334, width: 26, top: 160, paint: "fill-scene-clay" },
     { x: 360, width: 40, top: 168, paint: "fill-scene-honey" },
@@ -29,13 +38,10 @@
     { x: 890, r: 46 },
   ];
 
-  /**
-   * The UFO bridge: its pylon with the saucer on top, stays fanning down to the deck. The pylon stands
-   * past what a 1280-wide stage shows, so a narrower one sees the deck and stays run in from the edge,
-   * never half a saucer.
-   */
-  const PYLON = { x: 60, top: 98 };
-  const DECK = 180;
+  /** The far bank is lifted this much, so the Danube between the banks reads as the wide river it is. */
+  const FAR = -18;
+  /** Lamps along the promenade: the place's lamp, and one more past the bench. */
+  const LAMPS = [PARTS.default.lamp, { ground: PARTS.default.lamp.ground, x: 752 }];
 </script>
 
 <!-- By the Danube, looking across at the old town and Bratislava Castle on its hill. -->
@@ -43,6 +49,7 @@
 <Cloud x={770} y={40} size={0.6} />
 <Cloud x={890} y={58} size={0.8} />
 
+<g transform="translate(0 {FAR})">
 <!-- The castle is drawn before its hill, so the hill hides the foot of the walls. -->
 <Castle x={680} y={112} />
 <path
@@ -74,31 +81,18 @@
   {/each}
 {/each}
 
-<!-- The bridge: the deck on its piers, the stays, the pylon's two legs and the saucer. -->
-<path
-  d="M{PYLON.x} {PYLON.top + 8}L{PYLON.x + 60} {DECK}M{PYLON.x} {PYLON.top + 8}L{PYLON.x + 110} {DECK}M{PYLON.x} {PYLON.top + 8}L{PYLON.x + 160} {DECK}M{PYLON.x} {PYLON.top + 8}L{PYLON.x + 210} {DECK}"
-  class="stroke-scene-line/30"
-  stroke-width="1"
-/>
-<rect x="-10" y={DECK} width="460" height="6" class="fill-scene-steel-light" />
-<rect x="-10" y={DECK + 6} width="460" height="2" class="fill-scene-line/20" />
-<path d="M-10 {DECK - 3}H450" class="stroke-scene-line/30" stroke-width="1" />
-{#each [100, 300, 440] as x (x)}
-  <rect x={x - 3} y={DECK + 8} width="6" height="8" class="fill-scene-steel" />
-{/each}
-<path d="M{PYLON.x - 18} 194L{PYLON.x - 4} {PYLON.top + 10}H{PYLON.x + 4}L{PYLON.x - 8} 194Z" class="fill-scene-steel" />
-<path d="M{PYLON.x + 6} 194L{PYLON.x - 2} {PYLON.top + 10}H{PYLON.x + 6}L{PYLON.x + 16} 194Z" class="fill-scene-steel" />
-<ellipse cx={PYLON.x} cy={PYLON.top + 2} rx="22" ry="6" class="fill-scene-steel" />
-<path d="M{PYLON.x - 13} {PYLON.top}Q{PYLON.x} {PYLON.top - 12} {PYLON.x + 13} {PYLON.top}Z" class="fill-scene-steel-light" />
-<path d="M{PYLON.x - 20} {PYLON.top + 2}H{PYLON.x + 20}" class="stroke-scene-line/30" stroke-width="1.5" />
+<!-- The far bank's quay along the water. -->
+<rect x="-10" y="190" width="980" height="5" class="fill-scene-warm" />
+<rect x="-10" y="190" width="980" height="1.5" class="fill-white/60" />
+</g>
 
 <!-- Distance pales the far bank. -->
-<rect x="-10" y="40" width="980" height="152" class="fill-scene-cool/35" />
+<rect x="-10" y="40" width="980" height="138" class="fill-scene-cool/20" />
 
 <!-- The Danube, a river boat on it, and the light on the water. -->
-<rect x="-10" y="190" width="980" height="34" class="fill-portrait-ground" />
-<rect x="-10" y="190" width="980" height="3" class="fill-scene-line/10" />
-<g transform="translate(616 207) scale(0.8)">
+<rect x="-10" y="177" width="980" height="47" class="fill-portrait-ground" />
+<rect x="-10" y="177" width="980" height="3" class="fill-scene-line/12" />
+<g transform="translate(616 196) scale(0.8)">
   <path d="M-46 0H46L40 9H-40Z" class="fill-white" />
   <rect x="-40" y="5" width="80" height="2" class="fill-scene-line/40" />
   <rect x="-30" y="-9" width="58" height="9" rx="1.5" class="fill-white" />
@@ -110,7 +104,7 @@
   <path d="M-44 12H44" class="stroke-white/60" stroke-width="1.2" />
 </g>
 <path
-  d="M60 200h30M150 212h44M300 204h36M420 216h28M540 202h40M820 214h36M900 202h30"
+  d="M60 190h30M150 200h44M300 186h36M420 196h28M540 188h40M820 194h36M900 186h30M200 184h20M720 202h30"
   class="stroke-white/70"
   stroke-width="1.5"
 />
@@ -138,20 +132,19 @@
   <circle cx={bush.x} cy={246 - bush.r * 0.7} r={bush.r} class="fill-scene-leaf" />
   <circle cx={bush.x - bush.r * 0.3} cy={246 - bush.r * 1.1} r={bush.r * 0.35} class="fill-white/15" />
 {/each}
-<path
-  d="M396 244h3v3h-3ZM408 241h3v3h-3ZM506 245h3v3h-3ZM620 240h3v3h-3ZM672 244h3v3h-3ZM736 241h3v3h-3Z"
-  class="fill-scene-red"
-/>
-<path d="M418 245h3v3h-3ZM498 241h3v3h-3ZM646 243h3v3h-3ZM712 245h3v3h-3Z" class="fill-scene-honey" />
+<!-- Flower beds in the lawn: red and yellow tulips in dark soil. -->
+{#each [{ x: 404, width: 44 }, { x: 884, width: 56 }] as bed (bed.x)}
+  <ellipse cx={bed.x} cy="243" rx={bed.width / 2} ry="4.5" class="fill-scene-coffee/45" />
+  {#each Array.from({ length: Math.floor(bed.width / 5) }, (_, index) => bed.x - bed.width / 2 + 4 + index * 5) as x, index (x)}
+    <path d="M{x} 243v-4" class="stroke-scene-leaf" stroke-width="1.2" />
+    <circle cx={x} cy={238.5 - (index % 2)} r="2" class={index % 3 === 1 ? "fill-scene-honey" : "fill-scene-red"} />
+  {/each}
+{/each}
 
 <rect x="-10" y="250" width="980" height="52" class="fill-scene-sand" />
 <rect x="-10" y="250" width="980" height="3" class="fill-white/50" />
 <rect x="-10" y="253" width="980" height="1.5" class="fill-scene-line/10" />
-<path
-  d="M40 266h3M130 280h2M220 270h3M330 290h2M410 262h3M520 284h2M610 272h3M700 292h2M800 268h3M880 286h2"
-  class="stroke-scene-line/20"
-  stroke-width="1.5"
-/>
+<Cobbles from={256} to={300} />
 <rect x="-10" y="300" width="980" height="10" class="fill-scene-sage" />
 <rect x="-10" y="299" width="980" height="2" class="fill-white/40" />
 
@@ -173,11 +166,14 @@
   <circle cx={tree.x + tree.r * 0.2} cy="100" r={tree.r * 0.16} class="fill-white/15" />
 {/each}
 
-<StreetLamp lamp={PARTS.default.lamp} />
+{#each LAMPS as lamp (lamp.x)}
+  <StreetLamp {lamp} />
+{/each}
 <Bench bench={PARTS.default.bench} />
 
-<!-- A litter bin at the bench's end. -->
-<ellipse cx="622" cy="266" rx="9" ry="2" class="fill-scene-line/15" />
-<rect x="620.5" y="242" width="3" height="24" class="fill-scene-steel-dark" />
-<path d="M614 232h16l-1.5 22h-13Z" class="fill-scene-board" />
-<rect x="613" y="230" width="18" height="3" rx="1" class="fill-scene-line/50" />
+<!-- A litter bin at the bench's end, on its post. -->
+<ellipse cx="600" cy="259" rx="9" ry="2.2" class="fill-scene-line/20" />
+<rect x="595" y="256" width="10" height="3" rx="1" class="fill-scene-steel-dark" />
+<rect x="598.5" y="238" width="3" height="19" class="fill-scene-steel-dark" />
+<path d="M592 226h16l-1.5 20h-13Z" class="fill-scene-board" />
+<rect x="591" y="224" width="18" height="3" rx="1" class="fill-scene-line/50" />
