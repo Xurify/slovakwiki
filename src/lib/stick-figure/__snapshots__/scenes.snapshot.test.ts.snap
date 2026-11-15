@@ -1319,6 +1319,7 @@ exports[`every scene, directed > lesson everyday/numbers-and-personal-details 1`
     "pult",
     "pocitac",
     "zvoncek",
+    "dvere",
   ],
 }
 `;
@@ -1688,6 +1689,7 @@ exports[`every scene, directed > lesson grammar/byt-present 1`] = `
     "pult",
     "pocitac",
     "zvoncek",
+    "dvere",
   ],
 }
 `;
@@ -11468,6 +11470,7 @@ exports[`every scene, directed > podcast podcast-past-tense-school 1`] = `
     "pult",
     "pocitac",
     "zvoncek",
+    "dvere",
   ],
 }
 `;
@@ -13455,6 +13458,7 @@ exports[`every scene, directed > podcast podcast-possessives-school 1`] = `
     "pult",
     "pocitac",
     "zvoncek",
+    "dvere",
   ],
 }
 `;

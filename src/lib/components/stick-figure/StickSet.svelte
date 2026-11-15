@@ -402,18 +402,67 @@
         <rect x={-width / 2 + 1} y={GROUND_Y - 4} width={width - 2} height="4" class="fill-scene-coffee/60" />
         <rect x={-width / 2 + 1} y={top + 2} width={width - 2} height="2" class="fill-scene-coffee/30" />
         <rect x={-width / 2 - 2} y={top - 1} width={width + 4} height="3.4" rx="1" class="fill-scene-coffee" />
-        <g transform="translate({width / 2 - 21} {top - 1})">
-          <rect x="-17" y="-15" width="34" height="15" rx="1" class="fill-white/35" />
-          <path d="M-16 -7.5h32" class="stroke-scene-steel" stroke-width="0.8" />
-          {#each [-11, -3, 5, 12] as x (x)}
-            <path d="M{x - 3} -8l3 -5 3 5Z" class="fill-scene-honey" />
-            <path d="M{x - 3} -8l3 -5 3 5" class="stroke-portrait-bib" stroke-width="0.8" fill="none" />
+        <g transform="translate({width / 2 - 20} {top - 1})">
+          <rect x="-17" y="-1.6" width="34" height="1.6" rx="0.4" class="fill-scene-steel-dark" />
+          <rect x="-16.4" y="-16" width="32.8" height="14.4" class="fill-scene-sky/70" />
+          <path d="M-16 -8.8h32" class="stroke-scene-steel" stroke-width="0.8" />
+          {#each [-12, -5, 2] as x (x)}
+            <rect {x} y="-14.6" width="5.6" height="5.4" class="fill-scene-honey" />
+            <rect {x} y="-12.6" width="5.6" height="0.9" class="fill-white" />
+            <rect {x} y="-14.6" width="5.6" height="1.2" class="fill-scene-coffee" />
+            <circle cx={x + 2.8} cy="-15.2" r="0.8" class="fill-scene-red" />
           {/each}
-          {#each [-10, 0, 10] as x (x)}
-            <path d="M{x - 4} -0.6q4 -6 8 0q-4 -2 -8 0Z" class="fill-scene-onion" />
+          <rect x="-14.6" y="-5.2" width="13" height="3.6" rx="1.6" class="fill-scene-onion" />
+          <path d="M-12 -4.8l-1 2.8M-8.6 -4.8l-1 2.8M-5.2 -4.8l-1 2.8" class="stroke-scene-coffee/40" stroke-width="0.5" />
+          <path d="M-13.6 -5.1h11" class="stroke-white" stroke-width="0.6" stroke-dasharray="0.6 1" />
+          {#each [4, 11] as x (x)}
+            <ellipse cx={x} cy="-2.6" rx="3" ry="1.2" class="fill-scene-onion" />
+            <ellipse cx={x} cy="-3.2" rx="1.8" ry="0.6" class="fill-scene-plum" />
           {/each}
-          <path d="M-17 -15h34v15h-34Z" class="stroke-scene-steel-dark/70" stroke-width="0.7" fill="none" />
-          <path d="M-13 -3l7 -10M-8 -2l5 -7" class="stroke-white/70" stroke-width="0.8" />
+          <rect x="-17" y="-17" width="34" height="1.4" rx="0.4" class="fill-scene-steel" />
+          <path d="M-16.4 -16v14.4M16.4 -16v14.4" class="stroke-scene-steel" stroke-width="0.8" />
+          <path d="M-14 -2.6l6 -12M-9 -2.6l3.4 -7" class="stroke-white/70" stroke-width="0.7" />
+        </g>
+      {:else if piece.kind === "reception"}
+        <!-- Down past the floor line, over the feet of whoever stands behind it. -->
+        <ellipse cx="0" cy={GROUND_Y + 4.5} rx={width / 2 + 3} ry="1.8" class="fill-portrait-ink/15" />
+        <rect x={-width / 2} y={top + 3} {width} height={GROUND_Y - top + 1} class="fill-scene-wood" />
+        {#each [-0.375, -0.125, 0.125, 0.375] as at (at)}
+          <rect
+            x={at * width - width / 8 + 2}
+            y={top + 8}
+            width={width / 4 - 4}
+            height={GROUND_Y - top - 16}
+            rx="1"
+            class="fill-scene-line/8"
+          />
+        {/each}
+        <rect x={-width / 2} y={GROUND_Y} {width} height="4" class="fill-scene-coffee/50" />
+        <rect x={-width / 2} y={top + 3} {width} height="1.5" class="fill-scene-line/20" />
+        <rect x={-width / 2 - 2} y={top - 1} width={width + 4} height="4" rx="1" class="fill-portrait-bib" />
+        <rect x="-11" y={top + 12} width="22" height="6" rx="1" class="fill-scene-honey" />
+        <text x="0" y={top + 16.4} text-anchor="middle" font-size="3.8" font-weight="700" class="fill-scene-coffee font-sans">
+          Recepcia
+        </text>
+        <g transform="translate({-width / 2 + 8} {top - 1})">
+          <rect x="-4" y="-1" width="8" height="1" rx="0.5" class="fill-scene-steel-dark" />
+          <path d="M-3.4 -1a3.4 3.4 0 0 1 6.8 0Z" class="fill-scene-honey" />
+          <rect x="-0.4" y="-5.6" width="0.8" height="1.4" class="fill-scene-steel-dark" />
+        </g>
+        <g transform="translate(-6 {top - 1})">
+          <path d="M-6 0l1 -2h10l1 2Z" class="fill-white" />
+          <path d="M-5 -2.4l1 -1h8l1 1" class="fill-portrait-bib" />
+          <path d="M-3 -3.6l7 -1.2" class="stroke-portrait-ink" stroke-width="0.6" />
+        </g>
+        <g transform="translate({width / 2 - 16} {top - 1})">
+          <rect x="-4" y="-1" width="8" height="1" rx="0.5" class="fill-portrait-vest" />
+          <rect x="-0.8" y="-5" width="1.6" height="4.4" class="fill-portrait-vest" />
+          <rect x="-9" y="-17" width="18" height="12.5" rx="1" class="fill-portrait-vest" />
+          <rect x="-9" y="-17" width="2" height="12.5" rx="0.6" class="fill-scene-sky" />
+        </g>
+        <g transform="translate({width / 2 - 4} {top - 1})">
+          <path d="M-1.4 -5.6l0.6 -3M0 -5.6l0.2 -3.4M1.4 -5.6l1 -2.6" class="stroke-scene-blue" stroke-width="0.6" />
+          <rect x="-2.4" y="-5.6" width="4.8" height="5.6" rx="0.6" class="fill-scene-green-mid" />
         </g>
       {:else if piece.kind === "table"}
         <path
