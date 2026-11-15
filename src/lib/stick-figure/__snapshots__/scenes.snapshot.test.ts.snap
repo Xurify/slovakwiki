@@ -395,6 +395,10 @@ exports[`every scene, directed > dev rain-and-tram 1`] = `
     "zastavka",
     "lavicka",
     "oblak",
+    "elektricka",
+    "mapa",
+    "tabula",
+    "kos",
   ],
 }
 `;
@@ -689,6 +693,11 @@ exports[`every scene, directed > dev weather-today 1`] = `
     "lampa",
     "oblak",
     "slnko",
+    "lod",
+    "kostol",
+    "dom",
+    "kos",
+    "kvety",
   ],
 }
 `;
@@ -766,6 +775,11 @@ exports[`every scene, directed > lesson everyday/days-dates-and-time 1`] = `
     "stol",
     "stolicka",
     "rastlina",
+    "dvere",
+    "hodiny",
+    "vesiak",
+    "lavicka",
+    "polica",
   ],
 }
 `;
@@ -939,6 +953,11 @@ exports[`every scene, directed > lesson everyday/meet-someone 1`] = `
     "lampa",
     "strom",
     "oblak",
+    "fontana",
+    "kaviaren",
+    "lekaren",
+    "bicykel",
+    "kos",
   ],
 }
 `;
@@ -1099,6 +1118,11 @@ exports[`every scene, directed > lesson everyday/negation-in-conversation 1`] = 
     "stol",
     "stolicka",
     "rastlina",
+    "dvere",
+    "hodiny",
+    "vesiak",
+    "lavicka",
+    "polica",
   ],
 }
 `;
@@ -1317,6 +1341,13 @@ exports[`every scene, directed > lesson everyday/numbers-and-personal-details 1`
     "pult",
     "pocitac",
     "zvoncek",
+    "dvere",
+    "vesiak",
+    "nastenka",
+    "plagat",
+    "napis",
+    "kluce",
+    "sanony",
   ],
 }
 `;
@@ -1557,7 +1588,17 @@ exports[`every scene, directed > lesson grammar/aspect 1`] = `
     "lampa",
     "koberec",
     "voditko",
+    "miska",
     "rastlina",
+    "dvere",
+    "knihy",
+    "televizor",
+    "kniznica",
+    "stolik",
+    "radiator",
+    "zrkadlo",
+    "pelech",
+    "vesiak",
   ],
 }
 `;
@@ -1686,6 +1727,13 @@ exports[`every scene, directed > lesson grammar/byt-present 1`] = `
     "pult",
     "pocitac",
     "zvoncek",
+    "dvere",
+    "vesiak",
+    "nastenka",
+    "plagat",
+    "napis",
+    "kluce",
+    "sanony",
   ],
 }
 `;
@@ -2184,6 +2232,11 @@ exports[`every scene, directed > lesson grammar/demonstratives 1`] = `
     "stol",
     "stolicka",
     "rastlina",
+    "dvere",
+    "hodiny",
+    "vesiak",
+    "lavicka",
+    "polica",
   ],
 }
 `;
@@ -2689,7 +2742,17 @@ exports[`every scene, directed > lesson grammar/possessives 1`] = `
     "lampa",
     "koberec",
     "voditko",
+    "miska",
     "rastlina",
+    "dvere",
+    "knihy",
+    "televizor",
+    "kniznica",
+    "stolik",
+    "radiator",
+    "zrkadlo",
+    "pelech",
+    "vesiak",
   ],
 }
 `;
@@ -2884,6 +2947,11 @@ exports[`every scene, directed > lesson grammar/present-tense-i 1`] = `
     "stol",
     "stolicka",
     "rastlina",
+    "dvere",
+    "hodiny",
+    "vesiak",
+    "lavicka",
+    "polica",
   ],
 }
 `;
@@ -3276,7 +3344,17 @@ exports[`every scene, directed > podcast podcast-demonstratives-home 1`] = `
     "lampa",
     "koberec",
     "voditko",
+    "miska",
     "rastlina",
+    "dvere",
+    "knihy",
+    "televizor",
+    "kniznica",
+    "stolik",
+    "radiator",
+    "zrkadlo",
+    "pelech",
+    "vesiak",
   ],
 }
 `;
@@ -3404,11 +3482,17 @@ exports[`every scene, directed > podcast podcast-demonstratives-intro 1`] = `
     "stol",
     "mikrofon",
     "rastlina",
+    "hrncek",
     "krhla",
     "platna",
     "knihy",
     "polica",
     "koberec",
+    "lampa",
+    "napis",
+    "reproduktor",
+    "notebook",
+    "mixpult",
   ],
 }
 `;
@@ -3875,11 +3959,17 @@ exports[`every scene, directed > podcast podcast-demonstratives-outro 1`] = `
     "stol",
     "mikrofon",
     "rastlina",
+    "hrncek",
     "krhla",
     "platna",
     "knihy",
     "polica",
     "koberec",
+    "lampa",
+    "napis",
+    "reproduktor",
+    "notebook",
+    "mixpult",
   ],
 }
 `;
@@ -4968,11 +5058,17 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
     "stol",
     "mikrofon",
     "rastlina",
+    "hrncek",
     "krhla",
     "platna",
     "knihy",
     "polica",
     "koberec",
+    "lampa",
+    "napis",
+    "reproduktor",
+    "notebook",
+    "mixpult",
   ],
 }
 `;
@@ -5450,7 +5546,17 @@ exports[`every scene, directed > podcast podcast-future-tense-friday 1`] = `
     "lampa",
     "koberec",
     "voditko",
+    "miska",
     "rastlina",
+    "dvere",
+    "knihy",
+    "televizor",
+    "kniznica",
+    "stolik",
+    "radiator",
+    "zrkadlo",
+    "pelech",
+    "vesiak",
   ],
 }
 `;
@@ -5840,7 +5946,17 @@ exports[`every scene, directed > podcast podcast-future-tense-monday 1`] = `
     "lampa",
     "koberec",
     "voditko",
+    "miska",
     "rastlina",
+    "dvere",
+    "knihy",
+    "televizor",
+    "kniznica",
+    "stolik",
+    "radiator",
+    "zrkadlo",
+    "pelech",
+    "vesiak",
   ],
 }
 `;
@@ -6126,7 +6242,17 @@ exports[`every scene, directed > podcast podcast-future-tense-morning 1`] = `
     "lampa",
     "koberec",
     "voditko",
+    "miska",
     "rastlina",
+    "dvere",
+    "knihy",
+    "televizor",
+    "kniznica",
+    "stolik",
+    "radiator",
+    "zrkadlo",
+    "pelech",
+    "vesiak",
   ],
 }
 `;
@@ -6498,6 +6624,11 @@ exports[`every scene, directed > podcast podcast-future-tense-park 1`] = `
     "lampa",
     "oblak",
     "slnko",
+    "lod",
+    "kostol",
+    "dom",
+    "kos",
+    "kvety",
   ],
 }
 `;
@@ -6676,7 +6807,17 @@ exports[`every scene, directed > podcast podcast-future-tense-six 1`] = `
     "lampa",
     "koberec",
     "voditko",
+    "miska",
     "rastlina",
+    "dvere",
+    "knihy",
+    "televizor",
+    "kniznica",
+    "stolik",
+    "radiator",
+    "zrkadlo",
+    "pelech",
+    "vesiak",
   ],
 }
 `;
@@ -6952,7 +7093,17 @@ exports[`every scene, directed > podcast podcast-future-tense-window 1`] = `
     "lampa",
     "koberec",
     "voditko",
+    "miska",
     "rastlina",
+    "dvere",
+    "knihy",
+    "televizor",
+    "kniznica",
+    "stolik",
+    "radiator",
+    "zrkadlo",
+    "pelech",
+    "vesiak",
   ],
 }
 `;
@@ -8330,11 +8481,17 @@ exports[`every scene, directed > podcast podcast-imperative-help 1`] = `
     "stol",
     "mikrofon",
     "rastlina",
+    "hrncek",
     "krhla",
     "platna",
     "knihy",
     "polica",
     "koberec",
+    "lampa",
+    "napis",
+    "reproduktor",
+    "notebook",
+    "mixpult",
   ],
 }
 `;
@@ -8673,11 +8830,17 @@ exports[`every scene, directed > podcast podcast-imperative-intro 1`] = `
     "stol",
     "mikrofon",
     "rastlina",
+    "hrncek",
     "krhla",
     "platna",
     "knihy",
     "polica",
     "koberec",
+    "lampa",
+    "napis",
+    "reproduktor",
+    "notebook",
+    "mixpult",
   ],
 }
 `;
@@ -9211,6 +9374,8 @@ exports[`every scene, directed > podcast podcast-imperative-kitchen 1`] = `
     "dvere",
     "chladnicka",
     "okno",
+    "zaves",
+    "lampa",
     "hodiny",
     "umyvadlo",
     "hrniec",
@@ -9224,6 +9389,9 @@ exports[`every scene, directed > podcast podcast-imperative-kitchen 1`] = `
     "noz",
     "dzban",
     "sol",
+    "kredenc",
+    "skrinky",
+    "kvety",
   ],
 }
 `;
@@ -9403,11 +9571,17 @@ exports[`every scene, directed > podcast podcast-imperative-outro 1`] = `
     "stol",
     "mikrofon",
     "rastlina",
+    "hrncek",
     "krhla",
     "platna",
     "knihy",
     "polica",
     "koberec",
+    "lampa",
+    "napis",
+    "reproduktor",
+    "notebook",
+    "mixpult",
   ],
 }
 `;
@@ -9625,6 +9799,8 @@ exports[`every scene, directed > podcast podcast-imperative-table 1`] = `
     "dvere",
     "chladnicka",
     "okno",
+    "zaves",
+    "lampa",
     "hodiny",
     "umyvadlo",
     "hrniec",
@@ -9638,6 +9814,9 @@ exports[`every scene, directed > podcast podcast-imperative-table 1`] = `
     "noz",
     "dzban",
     "sol",
+    "kredenc",
+    "skrinky",
+    "kvety",
   ],
 }
 `;
@@ -9936,6 +10115,11 @@ exports[`every scene, directed > podcast podcast-past-tense-cafe 1`] = `
     "stol",
     "stolicka",
     "rastlina",
+    "dvere",
+    "hodiny",
+    "vesiak",
+    "lavicka",
+    "polica",
   ],
 }
 `;
@@ -10326,11 +10510,17 @@ exports[`every scene, directed > podcast podcast-past-tense-closed 1`] = `
     "stol",
     "mikrofon",
     "rastlina",
+    "hrncek",
     "krhla",
     "platna",
     "knihy",
     "polica",
     "koberec",
+    "lampa",
+    "napis",
+    "reproduktor",
+    "notebook",
+    "mixpult",
   ],
 }
 `;
@@ -11081,11 +11271,17 @@ exports[`every scene, directed > podcast podcast-past-tense-plate 1`] = `
     "stol",
     "mikrofon",
     "rastlina",
+    "hrncek",
     "krhla",
     "platna",
     "knihy",
     "polica",
     "koberec",
+    "lampa",
+    "napis",
+    "reproduktor",
+    "notebook",
+    "mixpult",
   ],
 }
 `;
@@ -11463,6 +11659,13 @@ exports[`every scene, directed > podcast podcast-past-tense-school 1`] = `
     "pult",
     "pocitac",
     "zvoncek",
+    "dvere",
+    "vesiak",
+    "nastenka",
+    "plagat",
+    "napis",
+    "kluce",
+    "sanony",
   ],
 }
 `;
@@ -11674,11 +11877,17 @@ exports[`every scene, directed > podcast podcast-past-tense-whodunit 1`] = `
     "stol",
     "mikrofon",
     "rastlina",
+    "hrncek",
     "krhla",
     "platna",
     "knihy",
     "polica",
     "koberec",
+    "lampa",
+    "napis",
+    "reproduktor",
+    "notebook",
+    "mixpult",
   ],
 }
 `;
@@ -11873,11 +12082,17 @@ exports[`every scene, directed > podcast podcast-possessives-intro 1`] = `
     "stol",
     "mikrofon",
     "rastlina",
+    "hrncek",
     "krhla",
     "platna",
     "knihy",
     "polica",
     "koberec",
+    "lampa",
+    "napis",
+    "reproduktor",
+    "notebook",
+    "mixpult",
   ],
 }
 `;
@@ -12106,11 +12321,17 @@ exports[`every scene, directed > podcast podcast-possessives-outro 1`] = `
     "stol",
     "mikrofon",
     "rastlina",
+    "hrncek",
     "krhla",
     "platna",
     "knihy",
     "polica",
     "koberec",
+    "lampa",
+    "napis",
+    "reproduktor",
+    "notebook",
+    "mixpult",
   ],
 }
 `;
@@ -12645,11 +12866,17 @@ exports[`every scene, directed > podcast podcast-possessives-photos 1`] = `
     "stol",
     "mikrofon",
     "rastlina",
+    "hrncek",
     "krhla",
     "platna",
     "knihy",
     "polica",
     "koberec",
+    "lampa",
+    "napis",
+    "reproduktor",
+    "notebook",
+    "mixpult",
   ],
 }
 `;
@@ -13094,11 +13321,17 @@ exports[`every scene, directed > podcast podcast-possessives-quiz 1`] = `
     "stol",
     "mikrofon",
     "rastlina",
+    "hrncek",
     "krhla",
     "platna",
     "knihy",
     "polica",
     "koberec",
+    "lampa",
+    "napis",
+    "reproduktor",
+    "notebook",
+    "mixpult",
   ],
 }
 `;
@@ -13450,6 +13683,13 @@ exports[`every scene, directed > podcast podcast-possessives-school 1`] = `
     "pult",
     "pocitac",
     "zvoncek",
+    "dvere",
+    "vesiak",
+    "nastenka",
+    "plagat",
+    "napis",
+    "kluce",
+    "sanony",
   ],
 }
 `;
@@ -13844,6 +14084,11 @@ exports[`every scene, directed > podcast podcast-possessives-square 1`] = `
     "lampa",
     "strom",
     "oblak",
+    "fontana",
+    "kaviaren",
+    "lekaren",
+    "bicykel",
+    "kos",
   ],
 }
 `;
@@ -14264,6 +14509,11 @@ exports[`every scene, directed > podcast podcast-telling-time-cafe 1`] = `
     "stol",
     "stolicka",
     "rastlina",
+    "dvere",
+    "hodiny",
+    "vesiak",
+    "lavicka",
+    "polica",
   ],
 }
 `;
@@ -14700,11 +14950,17 @@ exports[`every scene, directed > podcast podcast-telling-time-clock-lesson 1`] =
     "stol",
     "mikrofon",
     "rastlina",
+    "hrncek",
     "krhla",
     "platna",
     "knihy",
     "polica",
     "koberec",
+    "lampa",
+    "napis",
+    "reproduktor",
+    "notebook",
+    "mixpult",
   ],
 }
 `;
@@ -14922,11 +15178,17 @@ exports[`every scene, directed > podcast podcast-telling-time-intro 1`] = `
     "stol",
     "mikrofon",
     "rastlina",
+    "hrncek",
     "krhla",
     "platna",
     "knihy",
     "polica",
     "koberec",
+    "lampa",
+    "napis",
+    "reproduktor",
+    "notebook",
+    "mixpult",
   ],
 }
 `;
@@ -15093,11 +15355,17 @@ exports[`every scene, directed > podcast podcast-telling-time-outro 1`] = `
     "stol",
     "mikrofon",
     "rastlina",
+    "hrncek",
     "krhla",
     "platna",
     "knihy",
     "polica",
     "koberec",
+    "lampa",
+    "napis",
+    "reproduktor",
+    "notebook",
+    "mixpult",
   ],
 }
 `;
@@ -15508,11 +15776,17 @@ exports[`every scene, directed > podcast podcast-telling-time-quiz 1`] = `
     "stol",
     "mikrofon",
     "rastlina",
+    "hrncek",
     "krhla",
     "platna",
     "knihy",
     "polica",
     "koberec",
+    "lampa",
+    "napis",
+    "reproduktor",
+    "notebook",
+    "mixpult",
   ],
 }
 `;
@@ -15756,6 +16030,10 @@ exports[`every scene, directed > podcast podcast-telling-time-tram-stop 1`] = `
     "zastavka",
     "lavicka",
     "oblak",
+    "elektricka",
+    "mapa",
+    "tabula",
+    "kos",
   ],
 }
 `;
@@ -16228,7 +16506,17 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-home 1`] = `
     "lampa",
     "koberec",
     "voditko",
+    "miska",
     "rastlina",
+    "dvere",
+    "knihy",
+    "televizor",
+    "kniznica",
+    "stolik",
+    "radiator",
+    "zrkadlo",
+    "pelech",
+    "vesiak",
   ],
 }
 `;
@@ -16536,7 +16824,17 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-lead 1`] = `
     "lampa",
     "koberec",
     "voditko",
+    "miska",
     "rastlina",
+    "dvere",
+    "knihy",
+    "televizor",
+    "kniznica",
+    "stolik",
+    "radiator",
+    "zrkadlo",
+    "pelech",
+    "vesiak",
   ],
 }
 `;
@@ -16902,7 +17200,17 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-morning 1`] = `
     "lampa",
     "koberec",
     "voditko",
+    "miska",
     "rastlina",
+    "dvere",
+    "knihy",
+    "televizor",
+    "kniznica",
+    "stolik",
+    "radiator",
+    "zrkadlo",
+    "pelech",
+    "vesiak",
   ],
 }
 `;
@@ -17318,6 +17626,11 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-square 1`] = `
     "lampa",
     "strom",
     "oblak",
+    "fontana",
+    "kaviaren",
+    "lekaren",
+    "bicykel",
+    "kos",
   ],
 }
 `;
@@ -17625,7 +17938,17 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-window 1`] = `
     "lampa",
     "koberec",
     "voditko",
+    "miska",
     "rastlina",
+    "dvere",
+    "knihy",
+    "televizor",
+    "kniznica",
+    "stolik",
+    "radiator",
+    "zrkadlo",
+    "pelech",
+    "vesiak",
   ],
 }
 `;
@@ -17843,6 +18166,11 @@ exports[`every scene, directed > talk day-anna {"cinema":2} 1`] = `
     "lampa",
     "strom",
     "oblak",
+    "fontana",
+    "kaviaren",
+    "lekaren",
+    "bicykel",
+    "kos",
   ],
 }
 `;
@@ -18056,6 +18384,11 @@ exports[`every scene, directed > talk day-anna {"hello":1} 1`] = `
     "lampa",
     "strom",
     "oblak",
+    "fontana",
+    "kaviaren",
+    "lekaren",
+    "bicykel",
+    "kos",
   ],
 }
 `;
@@ -18269,6 +18602,11 @@ exports[`every scene, directed > talk day-anna {"hello":2} 1`] = `
     "lampa",
     "strom",
     "oblak",
+    "fontana",
+    "kaviaren",
+    "lekaren",
+    "bicykel",
+    "kos",
   ],
 }
 `;
@@ -18482,6 +18820,11 @@ exports[`every scene, directed > talk day-anna {"meet":2} 1`] = `
     "lampa",
     "strom",
     "oblak",
+    "fontana",
+    "kaviaren",
+    "lekaren",
+    "bicykel",
+    "kos",
   ],
 }
 `;
@@ -18705,6 +19048,11 @@ exports[`every scene, directed > talk day-anna {"time":2} 1`] = `
     "lampa",
     "strom",
     "oblak",
+    "fontana",
+    "kaviaren",
+    "lekaren",
+    "bicykel",
+    "kos",
   ],
 }
 `;
@@ -18918,6 +19266,11 @@ exports[`every scene, directed > talk day-anna {"tomorrow":2} 1`] = `
     "lampa",
     "strom",
     "oblak",
+    "fontana",
+    "kaviaren",
+    "lekaren",
+    "bicykel",
+    "kos",
   ],
 }
 `;
@@ -19131,6 +19484,11 @@ exports[`every scene, directed > talk day-anna {} 1`] = `
     "lampa",
     "strom",
     "oblak",
+    "fontana",
+    "kaviaren",
+    "lekaren",
+    "bicykel",
+    "kos",
   ],
 }
 `;
@@ -19458,6 +19816,11 @@ exports[`every scene, directed > talk day-lucia {"bye":2} 1`] = `
     "lampa",
     "strom",
     "oblak",
+    "fontana",
+    "kaviaren",
+    "lekaren",
+    "bicykel",
+    "kos",
   ],
 }
 `;
@@ -19794,6 +20157,11 @@ exports[`every scene, directed > talk day-lucia {"cheese":2} 1`] = `
     "lampa",
     "strom",
     "oblak",
+    "fontana",
+    "kaviaren",
+    "lekaren",
+    "bicykel",
+    "kos",
   ],
 }
 `;
@@ -20130,6 +20498,11 @@ exports[`every scene, directed > talk day-lucia {"hello":1} 1`] = `
     "lampa",
     "strom",
     "oblak",
+    "fontana",
+    "kaviaren",
+    "lekaren",
+    "bicykel",
+    "kos",
   ],
 }
 `;
@@ -20420,6 +20793,11 @@ exports[`every scene, directed > talk day-lucia {"inside":2} 1`] = `
     "lampa",
     "strom",
     "oblak",
+    "fontana",
+    "kaviaren",
+    "lekaren",
+    "bicykel",
+    "kos",
   ],
 }
 `;
@@ -20756,6 +21134,11 @@ exports[`every scene, directed > talk day-lucia {"later":2} 1`] = `
     "lampa",
     "strom",
     "oblak",
+    "fontana",
+    "kaviaren",
+    "lekaren",
+    "bicykel",
+    "kos",
   ],
 }
 `;
@@ -21079,6 +21462,11 @@ exports[`every scene, directed > talk day-lucia {"pay":2} 1`] = `
     "lampa",
     "strom",
     "oblak",
+    "fontana",
+    "kaviaren",
+    "lekaren",
+    "bicykel",
+    "kos",
   ],
 }
 `;
@@ -21285,6 +21673,11 @@ exports[`every scene, directed > talk day-lucia {"shop":2} 1`] = `
     "lampa",
     "strom",
     "oblak",
+    "fontana",
+    "kaviaren",
+    "lekaren",
+    "bicykel",
+    "kos",
   ],
 }
 `;
@@ -21621,6 +22014,11 @@ exports[`every scene, directed > talk day-lucia {} 1`] = `
     "lampa",
     "strom",
     "oblak",
+    "fontana",
+    "kaviaren",
+    "lekaren",
+    "bicykel",
+    "kos",
   ],
 }
 `;
@@ -21894,6 +22292,11 @@ exports[`every scene, directed > talk day-marek {"good":2} 1`] = `
     "lampa",
     "strom",
     "oblak",
+    "fontana",
+    "kaviaren",
+    "lekaren",
+    "bicykel",
+    "kos",
   ],
 }
 `;
@@ -22151,6 +22554,11 @@ exports[`every scene, directed > talk day-marek {"hello":2} 1`] = `
     "lampa",
     "strom",
     "oblak",
+    "fontana",
+    "kaviaren",
+    "lekaren",
+    "bicykel",
+    "kos",
   ],
 }
 `;
@@ -22408,6 +22816,11 @@ exports[`every scene, directed > talk day-marek {"how":1} 1`] = `
     "lampa",
     "strom",
     "oblak",
+    "fontana",
+    "kaviaren",
+    "lekaren",
+    "bicykel",
+    "kos",
   ],
 }
 `;
@@ -22691,6 +23104,11 @@ exports[`every scene, directed > talk day-marek {"how":2} 1`] = `
     "lampa",
     "strom",
     "oblak",
+    "fontana",
+    "kaviaren",
+    "lekaren",
+    "bicykel",
+    "kos",
   ],
 }
 `;
@@ -22948,6 +23366,11 @@ exports[`every scene, directed > talk day-marek {"study":1} 1`] = `
     "lampa",
     "strom",
     "oblak",
+    "fontana",
+    "kaviaren",
+    "lekaren",
+    "bicykel",
+    "kos",
   ],
 }
 `;
@@ -23205,6 +23628,11 @@ exports[`every scene, directed > talk day-marek {"study":2} 1`] = `
     "lampa",
     "strom",
     "oblak",
+    "fontana",
+    "kaviaren",
+    "lekaren",
+    "bicykel",
+    "kos",
   ],
 }
 `;
@@ -23462,6 +23890,11 @@ exports[`every scene, directed > talk day-marek {"study-bye":1} 1`] = `
     "lampa",
     "strom",
     "oblak",
+    "fontana",
+    "kaviaren",
+    "lekaren",
+    "bicykel",
+    "kos",
   ],
 }
 `;
@@ -23719,6 +24152,11 @@ exports[`every scene, directed > talk day-marek {"study-bye":2} 1`] = `
     "lampa",
     "strom",
     "oblak",
+    "fontana",
+    "kaviaren",
+    "lekaren",
+    "bicykel",
+    "kos",
   ],
 }
 `;
@@ -23976,6 +24414,11 @@ exports[`every scene, directed > talk day-marek {"tired":2} 1`] = `
     "lampa",
     "strom",
     "oblak",
+    "fontana",
+    "kaviaren",
+    "lekaren",
+    "bicykel",
+    "kos",
   ],
 }
 `;
@@ -24243,6 +24686,11 @@ exports[`every scene, directed > talk day-marek {"trip":2} 1`] = `
     "lampa",
     "strom",
     "oblak",
+    "fontana",
+    "kaviaren",
+    "lekaren",
+    "bicykel",
+    "kos",
   ],
 }
 `;
@@ -24500,6 +24948,11 @@ exports[`every scene, directed > talk day-marek {"trip-bye":2} 1`] = `
     "lampa",
     "strom",
     "oblak",
+    "fontana",
+    "kaviaren",
+    "lekaren",
+    "bicykel",
+    "kos",
   ],
 }
 `;
@@ -24757,6 +25210,11 @@ exports[`every scene, directed > talk day-marek {} 1`] = `
     "lampa",
     "strom",
     "oblak",
+    "fontana",
+    "kaviaren",
+    "lekaren",
+    "bicykel",
+    "kos",
   ],
 }
 `;
@@ -24984,6 +25442,11 @@ exports[`every scene, directed > talk day-maria {"bye":2} 1`] = `
     "lampa",
     "strom",
     "oblak",
+    "fontana",
+    "kaviaren",
+    "lekaren",
+    "bicykel",
+    "kos",
   ],
 }
 `;
@@ -25212,6 +25675,11 @@ exports[`every scene, directed > talk day-maria {"done":2} 1`] = `
     "lampa",
     "strom",
     "oblak",
+    "fontana",
+    "kaviaren",
+    "lekaren",
+    "bicykel",
+    "kos",
   ],
 }
 `;
@@ -25431,6 +25899,11 @@ exports[`every scene, directed > talk day-maria {"hello":3} 1`] = `
     "lampa",
     "strom",
     "oblak",
+    "fontana",
+    "kaviaren",
+    "lekaren",
+    "bicykel",
+    "kos",
   ],
 }
 `;
@@ -25620,6 +26093,11 @@ exports[`every scene, directed > talk day-maria {"lesson":2} 1`] = `
     "lampa",
     "strom",
     "oblak",
+    "fontana",
+    "kaviaren",
+    "lekaren",
+    "bicykel",
+    "kos",
   ],
 }
 `;
@@ -25839,6 +26317,11 @@ exports[`every scene, directed > talk day-maria {"notyet":2} 1`] = `
     "lampa",
     "strom",
     "oblak",
+    "fontana",
+    "kaviaren",
+    "lekaren",
+    "bicykel",
+    "kos",
   ],
 }
 `;
@@ -26058,6 +26541,11 @@ exports[`every scene, directed > talk day-maria {} 1`] = `
     "lampa",
     "strom",
     "oblak",
+    "fontana",
+    "kaviaren",
+    "lekaren",
+    "bicykel",
+    "kos",
   ],
 }
 `;

@@ -8,17 +8,20 @@ import { PARTS, benchBox, clockBox, lampBox, plantBox, treeBox } from "./backdro
 import type { SetPlan } from "./acts";
 import type { Point } from "./rig";
 import type { SetPiece } from "./set-pieces";
-import { isFair, type SceneMood } from "./scene-mood";
+import { isDark, isFair, type SceneMood } from "./scene-mood";
 import type { StageSetting } from "./stage-setting";
 import {
   THING_WORDS as WORDS,
   drawn,
   onSet,
+  thingBoxes,
   toBox,
   twins,
+  type Rect,
   type SceneThing,
   type ThingBox,
 } from "./thing-words";
+import type { TramState } from "./street";
 
 /** A room window's glass, inside its frame and sill: an arched one is round at the top. */
 export interface Glass extends ThingBox {
@@ -317,6 +320,9 @@ const MARKET_SET: PlaceSet = {
   },
 };
 
+/** The stopped tram as Street.svelte draws it: from its nose past the stage's right edge, roof to rails. */
+const TRAM_BOX: Rect = [280, 28, 680, 232];
+
 /** The park's afternoon sun, which a line can point at and Find it can ask for. */
 const PARK_SUN = { x: 562, y: 36 };
 
@@ -337,13 +343,22 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       drawn(WORDS.okno, [400, 20, 164, 137], [42, 24, 192, 186]),
       drawn(WORDS.lampa, [450, 40, 32, 20], [769, 28, 18, 16]),
       drawn(WORDS.tabula, [636, 12, 124, 58]),
-      drawn(WORDS.pult, [782, 196, 150, 82]),
+      // The bar, its machine, the window table and the chairs are the set's, at the cast's scale (StickSet.svelte).
+      { ...drawn(WORDS.pult, [782, 196, 150, 82]), of: ["bar"] },
       drawn(WORDS.kolac, [843, 62, 26, 32]),
       drawn(WORDS.torta, [885, 68, 30, 26]),
-      drawn(WORDS.kavovar, [808, 150, 48, 66]),
-      drawn(WORDS.stol, [420, 194, 60, 84]),
-      drawn(WORDS.stolicka, [380, 160, 40, 118], [480, 160, 40, 118]),
+      { ...drawn(WORDS.kavovar, [808, 150, 48, 66]), of: ["bar-machine"] },
+      { ...drawn(WORDS.stol, [420, 194, 60, 84]), of: ["table-top"] },
+      {
+        ...drawn(WORDS.stolicka, [380, 160, 40, 118]),
+        of: ["table-chair-l", "table-chair-r", "stool-1", "stool-2"],
+      },
       drawn(WORDS.rastlina, plantBox(PARTS.cafe.plant)),
+      drawn(WORDS.dvere, [246, 68, 66, 160]),
+      drawn(WORDS.hodiny, clockBox(PARTS.cafe.clock)),
+      drawn(WORDS.vesiak, [320, 88, 40, 142]),
+      drawn({ ...WORDS.lavicka, english: "banquette" }, [392, 174, 180, 54]),
+      drawn({ ...WORDS.polica, english: "back bar" }, [800, 28, 128, 104]),
     ],
     sounds: ["murmur", "clinks"],
     staff: ["waiter"],
@@ -394,6 +409,11 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       ),
       drawn(WORDS.oblak, [216, 30, 68, 28], [746, 20, 48, 20], [860, 33, 60, 25]),
       drawn(WORDS.slnko, [PARK_SUN.x - 22, PARK_SUN.y - 22, 44, 44]),
+      drawn(WORDS.lod, [578, 170, 76, 26]),
+      drawn({ ...WORDS.kostol, english: "cathedral" }, [484, 48, 38, 126]),
+      drawn(WORDS.dom, [0, 132, 628, 42]),
+      drawn(WORDS.kos, [590, 228, 20, 38]),
+      drawn(WORDS.kvety, [380, 234, 48, 14], [854, 234, 60, 14]),
     ],
     sounds: ["birds", "wind"],
     // Nothing of its own, so other scenes here stay as they were: a scene brings what it acts with (setup).
@@ -429,13 +449,29 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
         of: ["window-bag"],
       },
       drawn(WORDS.zaves, [88, 36, 34, 142], [240, 36, 34, 142]),
-      drawn(WORDS.obraz, [530, 62, 80, 58], [618, 62, 28, 26], [618, 94, 28, 26]),
+      drawn(
+        WORDS.obraz,
+        [530, 62, 80, 58],
+        [618, 62, 28, 26],
+        [618, 94, 28, 26],
+        [10, 78, 30, 40],
+      ),
       drawn(WORDS.pohovka, [516, 148, 132, 86]),
       drawn(WORDS.vankus, [540, 156, 36, 33], [588, 156, 36, 33]),
       drawn(WORDS.lampa, [392, 4, 36, 38], [676, 74, 28, 160]),
       drawn(WORDS.koberec, [256, 248, 360, 52]),
       onSet(WORDS.voditko, ["lead"], [282, 92, 44, 66]),
+      onSet(WORDS.miska, ["bowl"], [370, 240, 20, 10]),
       drawn(WORDS.rastlina, plantBox(PARTS.home.plant)),
+      drawn(WORDS.dvere, [358, 48, 72, 178]),
+      drawn(WORDS.knihy, [454, 74, 36, 66]),
+      drawn(WORDS.televizor, [456, 140, 40, 32]),
+      drawn(WORDS.kniznica, [448, 46, 64, 188]),
+      drawn(WORDS.stolik, [538, 218, 88, 34]),
+      drawn(WORDS.radiator, [128, 178, 106, 36]),
+      drawn(WORDS.zrkadlo, [290, 30, 44, 58]),
+      drawn(WORDS.pelech, [106, 228, 64, 20]),
+      { ...drawn(WORDS.vesiak, [288, 92, 34, 40]), of: ["pegs"] },
     ],
     sounds: ["hum"],
     // On the rug (480 ± 250), left of the bag on it so nobody stands on that.
@@ -449,13 +485,15 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     label: "In the kitchen",
     outdoors: false,
     things: [
-      drawn(WORDS.dvere, [190, 40, 72, 186]),
+      drawn(WORDS.dvere, [190, 40, 72, 186], [36, 56, 62, 170]),
       drawn(WORDS.chladnicka, [784, 136, 38, 94]),
       drawn(WORDS.okno, [352, 54, 104, 80]),
+      drawn(WORDS.zaves, [338, 46, 20, 96], [450, 46, 20, 96]),
+      drawn(WORDS.lampa, [352, 60, 36, 20]),
       drawn(WORDS.hodiny, clockBox(PARTS.kitchen.clock)),
       // The sink, pot and stove are the set's, at the cast's scale: these boxes fit a cast of three or
       // more (StickSet.svelte), whose floor is at y 280, in front of the wall's foot.
-      drawn(WORDS.umyvadlo, [548, 212, 34, 12]),
+      { ...drawn(WORDS.umyvadlo, [548, 212, 34, 12]), of: ["counter-sink"] },
       { ...drawn(WORDS.hrniec, [675, 196, 44, 24]), of: ["pot"] },
       { ...drawn(WORDS.sporak, [668, 219, 52, 61]), of: ["stove"] },
       onSet(WORDS.stol, ["table"], [330, 236, 80, 30]),
@@ -479,6 +517,9 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       onSet(WORDS.noz, ["knife"], [636, 210, 12, 3]),
       onSet(WORDS.dzban, ["jug"], [646, 200, 10, 12]),
       onSet(WORDS.sol, ["salt"], [728, 204, 5, 9]),
+      drawn(WORDS.kredenc, [273, 54, 74, 180]),
+      drawn(WORDS.skrinky, [514, 32, 256, 60]),
+      drawn({ ...WORDS.kvety, english: "geraniums" }, [358, 102, 92, 32]),
     ],
     sounds: ["hum"],
     // The cook works at the stove end; guests eat at the table by the window.
@@ -539,6 +580,12 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       drawn({ ...WORDS.lampa, english: "street lamp" }, lampBox(PARTS.plaza.lamp)),
       drawn(WORDS.strom, treeBox(PARTS.plaza.tree)),
       drawn(WORDS.oblak, [522, 29, 76, 31], [833, 42, 54, 22], [80, 31, 61, 25]),
+      drawn(WORDS.fontana, [670, 164, 76, 88]),
+      // For tapping only: the scenes here say where they are going, and nobody points there.
+      { ...drawn(WORDS.kaviaren, [588, 182, 78, 60]), quiet: true },
+      drawn(WORDS.lekaren, [320, 182, 142, 44]),
+      drawn(WORDS.bicykel, [132, 220, 34, 22]),
+      drawn(WORDS.kos, [206, 220, 20, 23]),
     ],
     sounds: ["murmur", "birds", "tram"],
     set: EMPTY_SET,
@@ -551,9 +598,18 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       drawn(WORDS.hodiny, clockBox(PARTS.registration.clock)),
       drawn(WORDS.stolicka, [270, 148, 40, 78], [312, 148, 40, 78], [354, 148, 40, 78]),
       drawn(WORDS.rastlina, [720, 108, 26, 36]),
-      drawn(WORDS.pult, [570, 188, 144, 90]),
-      drawn(WORDS.pocitac, [664, 150, 36, 42]),
-      drawn(WORDS.zvoncek, [576, 194, 28, 18]),
+      // The desk and what stands on it are the set's, at the cast's scale (StickSet.svelte).
+      { ...drawn(WORDS.pult, [570, 188, 144, 90]), of: ["counter"] },
+      { ...drawn(WORDS.pocitac, [664, 150, 36, 42]), of: ["counter-computer"] },
+      { ...drawn(WORDS.zvoncek, [576, 194, 28, 18]), of: ["counter-bell"] },
+      drawn(WORDS.dvere, [192, 74, 64, 152], [866, 70, 80, 156]),
+      drawn(WORDS.vesiak, [132, 86, 44, 144]),
+      drawn(WORDS.nastenka, [272, 60, 124, 74]),
+      drawn(WORDS.plagat, [500, 10, 50, 62]),
+      drawn(WORDS.napis, [592, 20, 118, 26]),
+      // For tapping only: a line about keys means the ones handed over the desk.
+      { ...drawn(WORDS.kluce, [652, 48, 92, 52]), quiet: true },
+      { ...drawn(WORDS.sanony, [656, 106, 62, 28]), quiet: true },
     ],
     sounds: ["hum", "murmur"],
     staff: ["receptionist", "maria"],
@@ -583,6 +639,11 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       drawn(WORDS.zastavka, [200, 54, 160, 234], [384, 8, 54, 280]),
       drawn(WORDS.lavicka, benchBox(PARTS.street.bench)),
       drawn(WORDS.oblak, [120, 11, 61, 25], [577, 3, 46, 19]),
+      // There to tap only while it stands at the stop (thingsIn); the cast watches it pull in rather than point.
+      { ...drawn(WORDS.elektricka, TRAM_BOX), quiet: true },
+      drawn({ ...WORDS.mapa, english: "city map" }, [218, 76, 48, 208]),
+      drawn({ ...WORDS.tabula, english: "departure board" }, [274, 72, 62, 23]),
+      drawn(WORDS.kos, [359, 250, 16, 36]),
     ],
     sounds: ["murmur"],
     set: EMPTY_SET,
@@ -595,12 +656,15 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       drawn(WORDS.dvere, [202, 38, 80, 188]),
       drawn(WORDS.hodiny, clockBox(PARTS.studio.clock)),
       // The desk and mics are drawn at the cast's scale (StudioDesk.svelte); these boxes are where they land on a wide stage.
-      drawn(WORDS.stol, [322, 208, 316, 70]),
-      drawn(WORDS.mikrofon, [423, 158, 28, 22], [509, 158, 28, 22]),
-      // The plant by the desk is the set's; the little one on the shelf is drawn with the shelf.
+      { ...drawn(WORDS.stol, [322, 208, 316, 70]), of: ["studio-desk"] },
       {
-        ...drawn(WORDS.rastlina, plantBox(PARTS.studio.plant), [722, 92, 20, 24]),
-        of: ["plant"],
+        ...drawn(WORDS.mikrofon, [423, 158, 28, 22]),
+        of: ["studio-mic-0", "studio-mic-1", "studio-mic-2"],
+      },
+      { ...drawn(WORDS.rastlina, plantBox(PARTS.studio.plant)), of: ["plant"] },
+      {
+        ...drawn(WORDS.hrncek, [376, 186, 10, 12]),
+        of: ["studio-mug-0", "studio-mug-1", "studio-mug-2"],
       },
       onSet(WORDS.krhla, ["can"], [704, 222, 40, 24]),
       // On the shelf, for tapping only: a line about a book means one in someone's hands, not these.
@@ -608,6 +672,11 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       { ...drawn(WORDS.knihy, [652, 86, 40, 30]), quiet: true },
       { ...drawn(WORDS.polica, [648, 114, 104, 8]), quiet: true },
       drawn(WORDS.koberec, [226, 250, 508, 48]),
+      drawn(WORDS.lampa, [362, 30, 36, 26], [562, 30, 36, 26]),
+      drawn({ ...WORDS.napis, english: "on-air sign" }, [404, 26, 152, 38]),
+      { ...drawn(WORDS.reproduktor, [700, 90, 18, 26]), quiet: true },
+      { ...drawn(WORDS.notebook, [334, 178, 30, 26]), of: ["studio-laptop"] },
+      { ...drawn(WORDS.mixpult, [460, 186, 40, 16]), of: ["studio-mixer"] },
     ],
     sounds: ["hum"],
     // Podcast hosts sit at their desk mics, headphones on.
@@ -662,15 +731,38 @@ export function sunIn(
   return undefined;
 }
 
-/** The things a place shows in a mood: the sun only while it is out, and where it is drawn. */
+/**
+ * The things a place shows in a mood: the sun only while it is out, and
+ * where it is drawn; the couple outside home only by day; the tram only while it stands at the stop, and then
+ * the houses only where they show past it.
+ */
 export function thingsIn(
   things: readonly SceneThing[],
   setting: StageSetting,
   mood: SceneMood,
+  tram: TramState = "away",
 ): readonly SceneThing[] {
   const sun = sunIn(setting, mood);
+  // "coming" is drawn at the stop too, eased in from the right over TRAM.ms (Street.svelte).
+  const atStop = tram !== "away";
   return things.flatMap((thing) => {
-    if (thing.id !== "slnko") return [thing];
-    return sun ? [{ ...thing, box: toBox([sun.x - 22, sun.y - 22, 44, 44]) }] : [];
+    if (thing.id === "slnko") {
+      return sun ? [{ ...thing, box: toBox([sun.x - 22, sun.y - 22, 44, 44]) }] : [];
+    }
+    if (thing.id === "elektricka") return atStop ? [thing] : [];
+    if (setting === "home" && OUT_IN_DAYLIGHT.has(thing.id) && isDark(mood.time))
+      return [];
+    if (setting !== "street" || thing.id !== "dom" || !atStop) return [thing];
+    const [box, ...more] = thingBoxes(thing).flatMap(pastTram);
+    return box ? [{ ...thing, box, more }] : [];
   });
+}
+
+/** Home's window shows the couple on the street only by day (Home.svelte). */
+const OUT_IN_DAYLIGHT = new Set(["muz", "zena"]);
+
+/** The part of a box the stopped tram leaves in view: what lies left of its nose. */
+function pastTram(box: ThingBox): ThingBox[] {
+  const width = Math.min(box.width, TRAM_BOX[0] - box.x);
+  return width > 10 ? [{ ...box, width }] : [];
 }

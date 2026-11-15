@@ -292,6 +292,7 @@
           class="fill-scene-edge"
         />
         {#if sink !== undefined}
+          <g data-set-id="{piece.id}-sink">
           <!-- The sink, sunk in the worktop, and its tap curving over it from the back. -->
           <!-- A steel sink: its rim on the worktop, the basin's dark inside, and its front dropping below the edge. -->
           <rect
@@ -342,6 +343,7 @@
               stroke-dasharray="3 1"
             />
           {/if}
+          </g>
         {/if}
         {#if sink !== undefined}
           <!-- An oil bottle between the sink and the board, and a bowl of apples at the counter's free end. -->
@@ -616,7 +618,7 @@
         {#each [-19, -7] as x (x)}
           <ellipse cx={x} cy={top - 1.3} rx="4.4" ry="0.9" class="fill-white" />
         {/each}
-        <g transform="translate(-13 {top - 1})">
+        <g transform="translate(-13 {top - 1})" data-set-id="{piece.id}-machine">
           <rect x="-11" y="-22" width="22" height="22" rx="1" class="fill-scene-steel-dark" />
           <rect x="-11" y="-22" width="22" height="12" rx="1.5" class="fill-scene-steel" />
           <rect x="-11.5" y="-23.4" width="23" height="1.8" rx="0.9" class="fill-scene-steel-light" />
@@ -699,6 +701,7 @@
         {#each [-1, 1] as side (side)}
           {@const back = side * (width / 2 - 2)}
           {@const front = side * (width / 2 - 20)}
+          <g data-set-id="{piece.id}-chair-{side < 0 ? 'l' : 'r'}">
           <path
             d="M{back} {GROUND_Y - 22}Q{back + side * 2} {GROUND_Y - 36} {back + side * 3} {GROUND_Y - 48}q{-side * 1.4} -2 {-side * 3} 0"
             class="stroke-scene-coffee"
@@ -711,7 +714,9 @@
           />
           <ellipse cx={(back + front) / 2} cy={GROUND_Y - 21.4} rx={Math.abs(back - front) / 2 + 1.4} ry="1.8" class="fill-scene-coffee" />
           <ellipse cx={(back + front) / 2} cy={GROUND_Y - 22.6} rx={Math.abs(back - front) / 2 + 1.4} ry="1.8" class="fill-scene-wood" />
+          </g>
         {/each}
+        <g data-set-id="{piece.id}-top">
         <path d="M-1 {top + 2}h2V{GROUND_Y - 2}h-2Z" class="fill-scene-line/80" />
         <path d="M-9 {GROUND_Y}q9 -5 18 0Z" class="fill-scene-line/80" />
         <ellipse cx="0" cy={top + 1.4} rx="17" ry="2.4" class="fill-scene-edge" />
@@ -725,6 +730,7 @@
         <rect x="-1.4" y={top - 5} width="2.8" height="4.6" rx="1" class="fill-scene-sky" />
         <path d="M0 {top - 5}v-4" class="stroke-scene-leaf" stroke-width="0.6" />
         <circle cx="0" cy={top - 9.4} r="1.5" class="fill-scene-red-mid" />
+        </g>
       {:else if piece.kind === "reception"}
         <!-- Down past the floor line, over the feet of whoever stands behind it. -->
         <ellipse cx="0" cy={GROUND_Y + 4.5} rx={width / 2 + 3} ry="1.8" class="fill-portrait-ink/15" />
@@ -746,7 +752,7 @@
         <text x="0" y={top + 16.4} text-anchor="middle" font-size="3.8" font-weight="700" class="fill-scene-coffee font-sans">
           Recepcia
         </text>
-        <g transform="translate({-width / 2 + 8} {top - 1})">
+        <g transform="translate({-width / 2 + 8} {top - 1})" data-set-id="{piece.id}-bell">
           <rect x="-4" y="-1" width="8" height="1" rx="0.5" class="fill-scene-steel-dark" />
           <path d="M-3.4 -1a3.4 3.4 0 0 1 6.8 0Z" class="fill-scene-honey" />
           <rect x="-0.4" y="-5.6" width="0.8" height="1.4" class="fill-scene-steel-dark" />
@@ -756,7 +762,7 @@
           <path d="M-5 -2.4l1 -1h8l1 1" class="fill-portrait-bib" />
           <path d="M-3 -3.6l7 -1.2" class="stroke-portrait-ink" stroke-width="0.6" />
         </g>
-        <g transform="translate({width / 2 - 16} {top - 1})">
+        <g transform="translate({width / 2 - 16} {top - 1})" data-set-id="{piece.id}-computer">
           <rect x="-4" y="-1" width="8" height="1" rx="0.5" class="fill-portrait-vest" />
           <rect x="-0.8" y="-5" width="1.6" height="4.4" class="fill-portrait-vest" />
           <rect x="-9" y="-17" width="18" height="12.5" rx="1" class="fill-portrait-vest" />

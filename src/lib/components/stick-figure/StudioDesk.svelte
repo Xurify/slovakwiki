@@ -90,7 +90,7 @@
       </g>
     {/each}
   {:else}
-    <g transform="translate(0 {base}) scale({unit})">
+    <g transform="translate(0 {base}) scale({unit})" data-set-id="studio-desk">
       <ellipse
         cx={middle}
         cy={GROUND_Y + 1.5}
@@ -156,6 +156,7 @@
       <!-- At the left end, the laptop running the recording, its screen to the room; a notebook and pen at the other. -->
       {#if seats.length}
         {@const lap = seats[0].x / unit - 31}
+        <g data-set-id="studio-laptop">
         <path d="M{lap - 10} {TOP - 3}L{lap - 8.6} {TOP - 4.4}H{lap + 8.6}L{lap + 10} {TOP - 3}Z" fill="#9aa6b0" stroke="#3a3f47" stroke-width="0.4" />
         <rect x={lap - 8} y={TOP - 16.6} width="16" height="12.2" rx="1" fill="#3a3f47" />
         <rect x={lap - 7} y={TOP - 15.6} width="14" height="9.6" rx="0.4" fill="#1d2a3a" />
@@ -165,6 +166,7 @@
           stroke-width="0.5"
         />
         <circle cx={lap - 5.4} cy={TOP - 14} r="0.8" fill="#e0453c" />
+        </g>
         {@const book = seats[seats.length - 1].x / unit + 32}
         <rect x={book - 8} y={TOP - 5.6} width="15" height="2.6" rx="0.4" fill="#22385c" />
         <rect x={book - 7.4} y={TOP - 7.8} width="13.6" height="2.2" rx="0.4" fill="#c23b35" />
@@ -174,6 +176,7 @@
       <!-- The mixer between the first two hosts: a sloped deck of channel strips, knobs over faders, a level meter. -->
       {#if seats.length > 1}
         {@const mix = (seats[0].x + seats[1].x) / 2 / unit}
+        <g data-set-id="studio-mixer">
         <path
           d="M{mix - 10.5} {TOP - 3}V{TOP - 5.4}L{mix - 9.4} {TOP - 10.6}H{mix +
             9.4}L{mix + 10.5} {TOP - 5.4}V{TOP - 3}Z"
@@ -201,34 +204,37 @@
             fill={row === 3 ? "#e0453c" : row === 2 ? "#ecc77f" : "#5fd3c8"}
           />
         {/each}
+        </g>
       {/if}
 
       {#each mugs ? seats : [] as seat, index (index)}
         {@const x = seat.x / unit + seat.facing * 14}
         {@const mug = index % 2 ? "#f4f1ea" : "#d9675b"}
-        <path
-          d="M{x + seat.facing * 2.8} {TOP - 8.4}q{seat.facing * 2.6} 0 {seat.facing *
-            2.6} 2.2t{-seat.facing * 2.6} 2.2"
-          stroke="#142a38"
-          stroke-width="1.6"
-        />
-        <path
-          d="M{x + seat.facing * 2.8} {TOP - 8.4}q{seat.facing * 2.6} 0 {seat.facing *
-            2.6} 2.2t{-seat.facing * 2.6} 2.2"
-          stroke={mug}
-          stroke-width="0.8"
-        />
-        <rect
-          x={x - 2.8}
-          y={TOP - 10}
-          width="5.6"
-          height="7"
-          rx="1"
-          fill={mug}
-          stroke="#142a38"
-          stroke-width="0.6"
-        />
-        <ellipse cx={x} cy={TOP - 9.9} rx="2.2" ry="0.5" fill="#6b4a33" />
+        <g data-set-id="studio-mug-{index}">
+          <path
+            d="M{x + seat.facing * 2.8} {TOP - 8.4}q{seat.facing * 2.6} 0 {seat.facing *
+              2.6} 2.2t{-seat.facing * 2.6} 2.2"
+            stroke="#142a38"
+            stroke-width="1.6"
+          />
+          <path
+            d="M{x + seat.facing * 2.8} {TOP - 8.4}q{seat.facing * 2.6} 0 {seat.facing *
+              2.6} 2.2t{-seat.facing * 2.6} 2.2"
+            stroke={mug}
+            stroke-width="0.8"
+          />
+          <rect
+            x={x - 2.8}
+            y={TOP - 10}
+            width="5.6"
+            height="7"
+            rx="1"
+            fill={mug}
+            stroke="#142a38"
+            stroke-width="0.6"
+          />
+          <ellipse cx={x} cy={TOP - 9.9} rx="2.2" ry="0.5" fill="#6b4a33" />
+        </g>
       {/each}
     </g>
     {#each seats as seat, index (index)}
@@ -262,7 +268,7 @@
           stroke-width="0.6"
         />
         <circle cx={ELBOW.x} cy={ELBOW.y} r="1.9" fill="#2a2f37" />
-        <g transform="translate({MIC.x} {MIC.y}) rotate({aim})">
+        <g transform="translate({MIC.x} {MIC.y}) rotate({aim})" data-set-id="studio-mic-{index}">
           <rect x="-9" y="-3.6" width="16" height="7.2" rx="3.4" fill="#5b636e" />
           <path d="M-6 -3.4V3.4" stroke="#9aa6b0" stroke-width="1.1" />
           <rect x="1.5" y="-4" width="7" height="8" rx="3.8" fill="#14181d" />

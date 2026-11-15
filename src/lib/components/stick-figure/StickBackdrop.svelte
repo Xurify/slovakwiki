@@ -8,6 +8,7 @@
     BACKDROP_HEIGHT,
     BACKDROP_WIDTH,
     backdropScale,
+    boxInView,
   } from "$lib/stick-figure/backdrop-geometry";
   import { PLACES, backdropAlign, thingsIn } from "$lib/stick-figure/places";
   import type { StageSetting } from "$lib/stick-figure/stage-setting";
@@ -135,7 +136,7 @@
 
   const Drawing = $derived(DRAWINGS[setting]);
   const things = $derived(
-    withDrawn(thingsIn(PLACES[setting].things, setting, mood), drawnAt),
+    withDrawn(thingsIn(PLACES[setting].things, setting, mood, tram), drawnAt),
   );
 
   // The clocks start at the scene's told hour; skipping ahead spins them forward.
@@ -213,27 +214,45 @@
     End: Number.POSITIVE_INFINITY,
   };
 
+  /** Only what the stage shows: a phone slices off the ends, and a hidden box must not take focus. */
   const boxes = $derived(
     things.flatMap((thing) =>
-      thingBoxes(thing).map((box, copy) => ({ box, copy, thing })),
+      thingBoxes(thing)
+        .map((box, copy) => ({ box, copy, thing }))
+        .filter(({ box }) => boxInView(box, setting, width, height)),
     ),
   );
 
+  /** Backdrop units per column the arrow keys walk down before moving right. */
+  const COLUMN = 48;
+  const column = (box: ThingBox) => Math.floor((box.x + box.width / 2) / COLUMN);
   /**
-   * The order the Tab key visits things in: left to right across the scene,
-   * then top to bottom, as they are seen on the screen.
+   * The order the arrow keys visit things in: left to right across the
+   * scene in columns, top to bottom within one, so a shelf and the plant
+   * below it come one after the other rather than by a few units of x.
    */
   const hitOrder = $derived(
-    boxes.slice().sort((a, b) => a.box.x - b.box.x || a.box.y - b.box.y),
+    boxes
+      .slice()
+      .sort(
+        (a, b) =>
+          column(a.box) - column(b.box) || a.box.y - b.box.y || a.box.x - b.box.x,
+      ),
   );
   /**
    * The set's things last, on top, as the set is drawn over the backdrop:
-   * the watering can stands on the rug and needs its own tap.
+   * the watering can stands on the rug and needs its own tap. Otherwise the
+   * smaller of two boxes is on top, so what stands in front of a bigger
+   * thing (the fountain before a house, the TV in the bookcase) gets its tap.
    */
   const paintOrder = $derived(
     hitOrder
       .map((hit, index) => ({ ...hit, index }))
-      .sort((a, b) => Number(!!a.thing.of) - Number(!!b.thing.of)),
+      .sort(
+        (a, b) =>
+          Number(!!a.thing.of) - Number(!!b.thing.of) ||
+          b.box.width * b.box.height - a.box.width * a.box.height,
+      ),
   );
 </script>
 
@@ -279,7 +298,7 @@
         class="pointer-events-auto cursor-pointer outline-none"
         role="button"
         data-hit={index}
-        tabindex={index === tabStop ? 0 : -1}
+        tabindex={index === Math.min(tabStop, hitOrder.length - 1) ? 0 : -1}
         aria-label={hint ? `${hint}: ${thing.word}` : thing.word}
         aria-pressed={picked === key || (picked === thing.id && copy === 0)}
         onclick={() => onpick(key)}

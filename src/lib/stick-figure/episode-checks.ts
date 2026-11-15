@@ -555,6 +555,24 @@ export function checkCues(
     "hodiny",
     "lampa",
     "stena",
+    // Drawn back by the wall or across the street, behind where the cast stands.
+    "kniznica",
+    "televizor",
+    "stolik",
+    "radiator",
+    "pelech",
+    "vesiak",
+    "kredenc",
+    "kvety",
+    "kos",
+    "bicykel",
+    "fontana",
+    "kaviaren",
+    "lekaren",
+    "mapa",
+    "elektricka",
+    // Home's dog bowl goes wherever a scene sets it down; its box here is only a stand-in until measured.
+    "miska",
   ]);
 
   /** What floor object a person standing at cast x `x` stands on: a bag, plant, dog bowl, suitcase, etc. */

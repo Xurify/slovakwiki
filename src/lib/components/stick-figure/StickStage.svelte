@@ -358,7 +358,7 @@
     });
   });
   /** The scene's things as the stage shows them now: the sun only while it is out. */
-  const fixedThings = $derived(thingsIn(direction.things, setting, mood));
+  const fixedThings = $derived(thingsIn(direction.things, setting, mood, tram));
   /** The set's things where they are drawn now, as the backdrop measures them. */
   let drawnAt = $state<Record<string, ThingBox | null>>({});
   const things = $derived(withDrawn(fixedThings, drawnAt));
@@ -2164,11 +2164,14 @@
   /** A tap anywhere but the card or a thing puts the card away; so does Escape. */
   function closeCard(event: PointerEvent | KeyboardEvent): void {
     if (!picked) return;
+    const target = event.target instanceof Element ? event.target : null;
     if ("key" in event) {
-      if (event.key === "Escape") picked = undefined;
+      // Arrowing on to the next thing leaves the card behind, naming the wrong one.
+      const moving =
+        /^Arrow|^Home$|^End$/.test(event.key) && target?.closest('svg [role="button"]');
+      if (event.key === "Escape" || moving) picked = undefined;
       return;
     }
-    const target = event.target instanceof Element ? event.target : null;
     if (target?.closest("[data-word-card]") || target?.closest('svg [role="button"]'))
       return;
     picked = undefined;
