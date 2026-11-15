@@ -56,7 +56,6 @@
   d="M520 192V170Q600 96 680 88Q760 84 880 120Q930 142 970 156V192Z"
   class="fill-scene-sage"
 />
-<path d="M640 108Q700 96 760 100L770 112Q700 106 640 116Z" class="fill-scene-leaf/50" />
 <!-- Trees along the foot of the hill. -->
 {#each Array.from({ length: 33 }, (_, index) => 526 + index * 14) as x, index (x)}
   <circle cx={x} cy={178 - (index % 3) * 2} r={9 + (index % 2) * 2} class="fill-scene-leaf/70" />
@@ -92,7 +91,7 @@
 <!-- The Danube, a river boat on it, and the light on the water. -->
 <rect x="-10" y="177" width="980" height="47" class="fill-portrait-ground" />
 <rect x="-10" y="177" width="980" height="3" class="fill-scene-line/12" />
-<g transform="translate(616 196) scale(0.8)">
+<g transform="translate(616 188) scale(0.8)">
   <path d="M-46 0H46L40 9H-40Z" class="fill-white" />
   <rect x="-40" y="5" width="80" height="2" class="fill-scene-line/40" />
   <rect x="-30" y="-9" width="58" height="9" rx="1.5" class="fill-white" />
@@ -172,8 +171,8 @@
 <Bench bench={PARTS.default.bench} />
 
 <!-- A litter bin at the bench's end, on its post. -->
-<ellipse cx="600" cy="259" rx="9" ry="2.2" class="fill-scene-line/20" />
-<rect x="595" y="256" width="10" height="3" rx="1" class="fill-scene-steel-dark" />
-<rect x="598.5" y="238" width="3" height="19" class="fill-scene-steel-dark" />
-<path d="M592 226h16l-1.5 20h-13Z" class="fill-scene-board" />
-<rect x="591" y="224" width="18" height="3" rx="1" class="fill-scene-line/50" />
+<ellipse cx="600" cy="265" rx="9" ry="2.2" class="fill-scene-line/20" />
+<rect x="595" y="262" width="10" height="3" rx="1" class="fill-scene-steel-dark" />
+<rect x="598.5" y="244" width="3" height="19" class="fill-scene-steel-dark" />
+<path d="M592 232h16l-1.5 20h-13Z" class="fill-scene-board" />
+<rect x="591" y="230" width="18" height="3" rx="1" class="fill-scene-line/50" />

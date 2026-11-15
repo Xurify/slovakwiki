@@ -191,9 +191,11 @@
       <rect x={column - 15} y="223" width="30" height="3" class="fill-white/60" />
     {:else if house.arcade}
       {@const half = house.width / columns.length / 2 - 4}
-      <path d="M{column - half} 226V{GROUND_FLOOR + 18}a{half} {half} 0 0 1 {half * 2} 0V226Z" class="fill-scene-line/35" />
-      <path d="M{column - half + 4} 226V{GROUND_FLOOR + 22}a{half - 4} {half - 4} 0 0 1 {half * 2 - 8} 0V226Z" class="fill-scene-line/15" />
-      <rect x={column - 5} y="206" width="10" height="20" rx="1" class="fill-scene-coffee/50" />
+      <path d="M{column - half - 2} 226V{GROUND_FLOOR + 18}a{half + 2} {half + 2} 0 0 1 {half * 2 + 4} 0V226Z" class="fill-white/60" />
+      <path d="M{column - half} 226V{GROUND_FLOOR + 18}a{half} {half} 0 0 1 {half * 2} 0V226Z" class="fill-scene-line/55" />
+      <path d="M{column - half + 5} 226V{GROUND_FLOOR + 24}a{half - 5} {half - 5} 0 0 1 {half * 2 - 10} 0V226Z" class="fill-scene-line/20" />
+      <rect x={column - 6} y="204" width="12" height="22" rx="1" class="fill-scene-coffee/70" />
+      <rect x={column - 4} y="207" width="8" height="7" class="fill-scene-sky/70" />
     {:else if house.shop}
       {@const half = Math.min(15, (house.width / columns.length - 8) / 2)}
       <rect x={column - half - 2} y="199" width={half * 2 + 4} height="25" class="fill-scene-line/45" />
@@ -207,18 +209,34 @@
     {/if}
   {/each}
   {#if house.awning}
-    {@const stripes = Math.max(3, Math.round((house.width - 8) / 12))}
-    {@const stripe = (house.width - 8) / stripes}
-    {#each Array.from({ length: stripes }, (_, index) => house.x + 4 + index * stripe) as x, index (x)}
-      <path
-        d="M{x + stripe * 0.15} 197H{x + stripe * 0.85}L{x + stripe} 205V207A{stripe / 2} 3 0 0 1 {x} 207V205Z"
-        class={index % 2 === 0 ? house.awning : "fill-white/90"}
-      />
+    <!-- An awning over each shop window: canvas sloping out from the wall, a scalloped valance at its edge. -->
+    {#each columns as column, bay (column)}
+      {#if !(house.door && bay === doorBay(house))}
+        {@const half = Math.min(15, (house.width / columns.length - 8) / 2) + 4}
+        <rect x={column - half - 1} y="197" width={half * 2 + 2} height="2" class="fill-scene-line/50" />
+        {#each [0, 1, 2, 3, 4] as index (index)}
+          {@const top = column - half + 2 + index * ((half * 2 - 4) / 5)}
+          {@const bottom = column - half - 3 + index * ((half * 2 + 6) / 5)}
+          <path
+            d="M{top} 198H{top + (half * 2 - 4) / 5}L{bottom + (half * 2 + 6) / 5} 209H{bottom}Z"
+            class={index % 2 === 0 ? house.awning : "fill-white/95"}
+          />
+          <path
+            d="M{bottom} 209H{bottom + (half * 2 + 6) / 5}V212A{(half * 2 + 6) / 10} 3 0 0 1 {bottom} 212Z"
+            class={index % 2 === 0 ? house.awning : "fill-white/95"}
+          />
+        {/each}
+        <rect x={column - half - 3} y="209" width={half * 2 + 6} height="1.5" class="fill-scene-line/15" />
+        <rect x={column - half} y="215" width={half * 2} height="3" class="fill-scene-line/10" />
+      {/if}
     {/each}
   {/if}
   {#if house.emblem}
-    {@const at = house.x + 14}
-    <path d="M{house.x} 162H{at + 6}M{house.x} 168L{at - 2} 162" class="stroke-scene-line/60" stroke-width="1.5" fill="none" />
+    {@const at = house.x + 20}
+    <rect x={house.x + 5} y="156" width="5" height="16" rx="1" class="fill-scene-line/70" />
+    <circle cx={house.x + 7.5} cy="159" r="0.9" class="fill-white/60" />
+    <circle cx={house.x + 7.5} cy="169" r="0.9" class="fill-white/60" />
+    <path d="M{house.x + 10} 162H{at + 6}M{house.x + 10} 170L{at - 2} 162" class="stroke-scene-line/70" stroke-width="1.6" fill="none" />
     <path d="M{at + 4} 162v3" class="stroke-scene-line/60" stroke-width="1" />
     {#if house.emblem === "cross"}
       <path d="M{at + 1} 165h6v6h6v6h-6v6h-6v-6h-6v-6h6Z" class="fill-scene-green" />

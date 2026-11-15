@@ -7,7 +7,6 @@
   import FloorShade from "./FloorShade.svelte";
   import StreetLamp from "./StreetLamp.svelte";
   import Tree from "./Tree.svelte";
-  import WallClock from "./WallClock.svelte";
 
   let { hour }: { hour: number } = $props();
 
@@ -56,10 +55,23 @@
 
   /** Roland's fountain stands out on the square, its basin's front edge at `ground`. */
   // Inside what a phone shows (x 180 to 780), right of the café's sign.
-  const FOUNTAIN = { x: 720, ground: 248, size: 0.7 };
+  const FOUNTAIN = { x: 708, ground: 248, size: 0.62 };
   /** The café's terrace under its awning: a table with a chair either side. */
-  const TABLES = [610, 658];
+  const TABLES = [606, 646];
   const BOLLARDS = [258, 308];
+  /**
+   * The gate's clock face: a short thick hour hand and a long thin minute
+   * hand, so half past eleven does not read as one straight stroke.
+   */
+  const clock = PARTS.plaza.clock;
+  const hands = $derived.by(() => {
+    const hourAngle = ((hour % 12) / 12) * 2 * Math.PI;
+    const minuteAngle = (hour % 1) * 2 * Math.PI;
+    return {
+      hour: { x: clock.x + Math.sin(hourAngle) * clock.hand * 0.62, y: clock.y - Math.cos(hourAngle) * clock.hand * 0.62 },
+      minute: { x: clock.x + Math.sin(minuteAngle) * clock.hand, y: clock.y - Math.cos(minuteAngle) * clock.hand },
+    };
+  });
   const quoins = [112, 128, 144, 160, 176, 192, 208];
 </script>
 
@@ -107,7 +119,19 @@
 <path d="M282.2 26V12h1.6V26Z" class="fill-scene-line/50" />
 <circle cx="283" cy="19" r="2.2" class="fill-scene-honey" />
 <path d="M283 12l-2.5-4h5Z" class="fill-scene-honey" />
-<WallClock clock={PARTS.plaza.clock} {hour} />
+<circle cx={clock.x} cy={clock.y} r={clock.r + 2} class="fill-white" />
+<circle cx={clock.x} cy={clock.y} r={clock.r} class="fill-scene-edge" />
+<circle cx={clock.x} cy={clock.y} r={clock.r * 0.86} class="fill-white" />
+{#each Array.from({ length: 12 }, (_, index) => (index * Math.PI) / 6) as angle (angle)}
+  <path
+    d="M{clock.x + Math.sin(angle) * clock.r * 0.72} {clock.y - Math.cos(angle) * clock.r * 0.72}L{clock.x + Math.sin(angle) * clock.r * 0.84} {clock.y - Math.cos(angle) * clock.r * 0.84}"
+    class="stroke-scene-line/60"
+    stroke-width={angle % (Math.PI / 2) === 0 ? 1.8 : 0.9}
+  />
+{/each}
+<path d="M{clock.x} {clock.y}L{hands.minute.x} {hands.minute.y}" class="stroke-scene-line" stroke-width="1.2" stroke-linecap="round" />
+<path d="M{clock.x} {clock.y}L{hands.hour.x} {hands.hour.y}" class="stroke-scene-line" stroke-width="2.6" stroke-linecap="round" />
+<circle cx={clock.x} cy={clock.y} r="1.6" class="fill-scene-line" />
 
 <!-- The square: a pavement of slabs along the houses, then cobbles. -->
 <rect x="-10" y="226" width="980" height="84" class="fill-scene-sand" />
@@ -124,20 +148,21 @@
   <rect x={x - 3} y="222" width="6" height="14" rx="2.5" class="fill-scene-line/60" />
   <rect x={x - 3} y="225" width="6" height="2" class="fill-white/40" />
 {/each}
-<ellipse cx="242" cy="241" rx="8" ry="2" class="fill-scene-line/15" />
-<path d="M235 224h14l-1.5 17h-11Z" class="fill-scene-line/55" />
-<rect x="234" y="222" width="16" height="3" rx="1" class="fill-scene-line/70" />
-<g class="stroke-scene-line/60" fill="none" stroke-width="1.4">
+<ellipse cx="216" cy="241" rx="8" ry="2" class="fill-scene-line/15" />
+<path d="M209 224h14l-1.5 17h-11Z" class="fill-scene-line/55" />
+<rect x="208" y="222" width="16" height="3" rx="1" class="fill-scene-line/70" />
+<g class="stroke-scene-line/85" fill="none" stroke-width="1.8">
   <path d="M148 240V228a6 6 0 0 1 12 0V240" />
   {#each [140] as x (x)}
     <circle cx={x} cy="234" r="6" />
     <circle cx={x + 18} cy="234" r="6" />
-    <path d="M{x} 234l6-8h9l3 8M{x + 6} 226l3 8h6M{x + 4} 224h4M{x + 15} 226v-3h3" />
+    <path d="M{x} 234l6-8h9l3 8M{x + 6} 226l3 8h6" class="stroke-scene-red-mid" stroke-width="2.2" />
+    <path d="M{x + 4} 224h4M{x + 15} 226v-3h3" />
   {/each}
 </g>
 
 <!-- The café's terrace: bistro tables and chairs under its awning, planters at either end. -->
-{#each [592] as x (x)}
+{#each [584] as x (x)}
   <rect x={x - 6} y="230" width="12" height="9" rx="1" class="fill-scene-clay" />
   <circle cx={x - 3} cy="228" r="4" class="fill-scene-leaf" />
   <circle cx={x + 3} cy="227" r="4.5" class="fill-scene-leaf" />

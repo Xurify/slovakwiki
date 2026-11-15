@@ -6,6 +6,6 @@ export const TRAM = {
   /** The middle of its door, where the cast gets on. */
   door: 621,
   /** How far off the right edge it waits, and how long it takes to pull in. */
-  away: 460,
+  away: 520,
   ms: 2600,
 } as const;

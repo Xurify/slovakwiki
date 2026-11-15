@@ -79,15 +79,15 @@ export const PARTS = {
   },
   default: {
     // The bench stands at the promenade's edge, its back to the river.
-    bench: { ground: 258, width: 104, x: 616 },
+    bench: { ground: 266, width: 104, x: 616 },
     lamp: { ground: 262, x: 370 },
   },
   home: { plant: { x: 40, y: 244 } },
   plaza: {
     // Bench and tree stand past what a 1280-wide stage shows (x 120 to 840), whole on a wider one.
     bench: { ground: 250, width: 104, x: 4 },
-    clock: { hand: 9, r: 14, x: 283, y: 128 },
-    lamp: { ground: 238, x: 222 },
+    clock: { hand: 12, r: 17, x: 283, y: 128 },
+    lamp: { ground: 238, x: 240 },
     tree: { ground: 250, planter: true, x: 902 },
   },
   kitchen: {
@@ -98,10 +98,10 @@ export const PARTS = {
     plant: { x: 256, y: 228 },
   },
   street: {
-    // The bench is in the shelter, the lamp on the platform beside it, clear of the tram; the tree is
-    // past what a 1280-wide stage shows.
-    bench: { ground: 268, width: 92, x: 232 },
-    lamp: { ground: 276, x: 364 },
+    // The bench is in the shelter; the lamp stands on the platform between the tram's first door and
+    // its middle bogie; the tree is past what a 1280-wide stage shows.
+    bench: { ground: 268, width: 126, x: 220 },
+    lamp: { ground: 276, x: 710 },
     tree: { ground: 272, x: 58 },
   },
   studio: {
