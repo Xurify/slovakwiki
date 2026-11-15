@@ -127,6 +127,12 @@ From the review of the robot story (#77):
 - **An abrupt end.** A good last joke cut short. The last beat gets a set-up, a pause and a reaction.
 - **Kept: the camera.** The stage growing as the scene grew was liked. Open close and widen as people and things come in.
 
+From the review of the market (PR #139):
+
+- **Decorations off what they hang from.** The bunting's flags were laid on a shallower curve than the string drawn under them, so they floated above it. Place each thing on the very geometry it claims to hang from or stand on.
+- **A prop on nothing.** Lucia's wrapped cheese stood on an invisible shelf in front of the sign, then on a lone block of wood. A surface a figure uses is a set piece with its own legs, and a stall is dressed like a real one: roof, sign, stocked crates on a cloth, a scale and tags.
+- **A set judged by its maker.** Small fixes kept looking fine to the one who made them. A fresh set critic that saw only screenshots found what was off, round after round, until the person loved it.
+
 From the frame-by-frame review of episode 5's acted kitchen and studio (rules under **Acting from cues** in `AGENTS.md`):
 
 - **A hand that only nearly does it.** The tasted spoon stopped at the cheek; the pot hung from one hand at the hip like a bag. A spoon goes into the mouth, and each thing is held as its kind is held.

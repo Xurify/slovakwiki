@@ -18,7 +18,7 @@ One page for a thread that starts a listening episode. It says what to read when
 
 - Never end a turn on a question unless the step cannot be undone. Choices go to the council (`docs/critics/council.md`).
 - Every helper agent (critic, validator, council member) is started with `model: "sonnet"`. Without it, it runs on your model and is several times slower.
-- Lines are what a real person says in that place; no form is forced into a line. Every object comes from somewhere, every set looks like what it claims to be.
+- Lines are what a real person says in that place; no form is forced into a line. Every object comes from somewhere, every set looks like the real place (stocked, nothing floating, all of it inside a phone's stage), and a new or redesigned set passes the set critic (`docs/critics/set-critic.md`).
 - Lock the script before generating a clip. A retake round is 20 to 40 minutes.
 - Frames stay out of your own context: a subagent looks at them and returns text.
 - Renders and long generate runs go in the background (`run_in_background`); do not poll a log in a loop. `render-frames.cjs --lines 5-7` re-renders only what changed.

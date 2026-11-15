@@ -18,7 +18,7 @@ Each member is a fresh agent started with `model: "sonnet"`; an agent started wi
 1. **Native ear.** An adult Slovak editor. Is it correct, and is it what a Slovak would say here, in this register? When unsure, says so instead of guessing.
 2. **First-time viewer.** Watches the episode once. Does the story hold together, does the picture match the words, does each scene end naturally and the episode end with a laugh?
 3. **Teacher.** Teaches A1–A2 learners. Will a learner come away with the right form and the right rule, or will they learn something false? Games and quizzes come after the forms are heard.
-4. **Xurify's eye.** Answers as Xurify would, from Xurify's reviews: naturalness and realism come first. No line exists to carry a form. Every place has a reason, every set looks like what it claims to be, and every prop comes from somewhere. Turns are bridged with a filler. Nobody knows what they were not told. Endings get a set-up, a pause and a reaction. Fewer, richer scenes beat many thin ones.
+4. **Xurify's eye.** Answers as Xurify would, from Xurify's reviews: naturalness and realism come first. No line exists to carry a form. Every place has a reason, every set looks like what it claims to be, and every prop comes from somewhere and rests on or hangs from something drawn. Turns are bridged with a filler. Nobody knows what they were not told. Endings get a set-up, a pause and a reaction. Fewer, richer scenes beat many thin ones.
 5. **Devil's advocate.** Makes the strongest case for the option the others are least likely to pick. Then gives its own vote.
 
 ## The brief each member gets
