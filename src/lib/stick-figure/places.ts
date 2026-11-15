@@ -261,24 +261,24 @@ const HOME_SET: PlaceSet = {
 const CAFE_SET: PlaceSet = {
   pieces: [
     // Drawn over the waiter, who works behind it and comes out through the flap at its left end.
-    { id: "bar", kind: "bar", x: 860, width: 80, front: true },
+    { id: "bar", kind: "bar", x: 856, width: 80, front: true },
     // The window table, clear of where a cast of two or three stands, and of a phone's left edge.
     { id: "table", kind: "bistro", x: 450, width: 76 },
     // Under the machine's group heads, so the coffees wait there on their saucers.
     {
       id: "back",
       kind: "ledge",
-      at: { piece: "bar", dx: -12 },
+      at: { piece: "bar", dx: -13 },
       width: 24,
       height: 44,
       front: true,
     },
-    { id: "stool-1", kind: "stool", at: { piece: "bar", dx: 13 }, front: true },
-    { id: "stool-2", kind: "stool", at: { piece: "bar", dx: 29 }, front: true },
+    { id: "stool-1", kind: "stool", at: { piece: "bar", dx: 8 }, front: true },
+    { id: "stool-2", kind: "stool", at: { piece: "bar", dx: 24 }, front: true },
   ],
   objects: [],
   spots: {
-    back: { piece: "back", dx: -14, facing: 1 },
+    back: { piece: "back", dx: -18, facing: 1 },
     waiter: { x: 767, facing: -1 },
   },
 };
@@ -331,10 +331,10 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       drawn(WORDS.dvere, [248, 68, 60, 158]),
       drawn(WORDS.lampa, [450, 40, 32, 20], [769, 28, 18, 16]),
       drawn(WORDS.tabula, [636, 12, 124, 58]),
-      drawn(WORDS.pult, [786, 196, 150, 82]),
+      drawn(WORDS.pult, [782, 196, 150, 82]),
       drawn(WORDS.kolac, [843, 62, 26, 32]),
       drawn(WORDS.torta, [885, 68, 30, 26]),
-      drawn(WORDS.kavovar, [814, 150, 46, 66]),
+      drawn(WORDS.kavovar, [808, 150, 48, 66]),
       drawn(WORDS.stol, [420, 194, 60, 84]),
       drawn(WORDS.stolicka, [380, 160, 40, 118], [480, 160, 40, 118]),
       drawn(WORDS.hodiny, clockBox(PARTS.cafe.clock)),
