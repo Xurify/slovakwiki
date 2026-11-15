@@ -453,6 +453,42 @@
           <path d="M-16.4 -16v14.4M16.4 -16v14.4" class="stroke-scene-steel" stroke-width="0.8" />
           <path d="M-14 -2.6l6 -12M-9 -2.6l3.4 -7" class="stroke-white/70" stroke-width="0.7" />
         </g>
+      {:else if piece.kind === "bistro"}
+        {#each [-1, 1] as side (side)}
+          {@const back = side * (width / 2 - 2)}
+          {@const front = side * (width / 2 - 20)}
+          <path
+            d="M{back} {GROUND_Y - 22}Q{back + side * 2} {GROUND_Y - 36} {back + side * 3} {GROUND_Y - 48}q{-side * 1.4} -2 {-side * 3} 0"
+            class="stroke-scene-coffee"
+            stroke-width="2.2"
+          />
+          <path
+            d="M{back - side} {GROUND_Y - 20}L{back + side * 1.5} {GROUND_Y}M{front} {GROUND_Y - 20}L{front - side * 2} {GROUND_Y}M{back - side * 2} {GROUND_Y - 8}H{front}"
+            class="stroke-scene-coffee"
+            stroke-width="1.8"
+          />
+          <rect
+            x={Math.min(back, front) - 1}
+            y={GROUND_Y - 23}
+            width={Math.abs(back - front) + 2}
+            height="3"
+            rx="1.2"
+            class="fill-scene-coffee"
+          />
+        {/each}
+        <path d="M-1 {top + 2}h2V{GROUND_Y - 2}h-2Z" class="fill-scene-line/80" />
+        <path d="M-9 {GROUND_Y}q9 -5 18 0Z" class="fill-scene-line/80" />
+        <ellipse cx="0" cy={top + 1.4} rx="17" ry="2.4" class="fill-scene-edge" />
+        <ellipse cx="0" cy={top} rx="17" ry="2.4" class="fill-portrait-bib" />
+        {#each [-9, 5] as x (x)}
+          <path d="M{x - 3.5} {top - 0.4}h7" class="stroke-scene-line/40" stroke-width="0.9" />
+          <path d="M{x - 2.4} {top - 0.8}v-3.4h4.8v3.4Z" class="fill-white" />
+          <path d="M{x + 2.4} {top - 3.6}q2 0 2 1.3t-2 1.3" class="stroke-white" fill="none" stroke-width="0.7" />
+          <path d="M{x - 2.4} {top - 4.2}h4.8" class="stroke-scene-coffee" stroke-width="0.6" />
+        {/each}
+        <rect x="-1.4" y={top - 5} width="2.8" height="4.6" rx="1" class="fill-scene-sky" />
+        <path d="M0 {top - 5}v-4" class="stroke-scene-leaf" stroke-width="0.6" />
+        <circle cx="0" cy={top - 9.4} r="1.5" class="fill-scene-red-mid" />
       {:else if piece.kind === "reception"}
         <!-- Down past the floor line, over the feet of whoever stands behind it. -->
         <ellipse cx="0" cy={GROUND_Y + 4.5} rx={width / 2 + 3} ry="1.8" class="fill-portrait-ink/15" />

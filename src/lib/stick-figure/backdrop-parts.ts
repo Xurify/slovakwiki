@@ -73,9 +73,9 @@ export function benchBox({ ground, width, x }: Bench): Rect {
 /** Where each place's shared scenery stands. */
 export const PARTS = {
   cafe: {
-    clock: { hand: 10, r: 17, ticks: true, x: 652, y: 42 },
-    // Hangs from the ceiling: its pot's foot at 100, the trailing leaves past it.
-    plant: { x: 472, y: 128 },
+    clock: { hand: 10, r: 17, ticks: true, x: 600, y: 42 },
+    // Hangs from the ceiling in the window: its pot's foot at 88, the trailing leaves past it.
+    plant: { x: 420, y: 118 },
   },
   classroom: {
     clock: { hand: 12, r: 20, x: 800, y: 78 },

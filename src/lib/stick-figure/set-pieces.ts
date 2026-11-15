@@ -14,7 +14,8 @@ import { GROUND_Y, SEAT_Y, type Point } from "./rig";
  * units wide is a single hook on the wall: a towel. A `stand` is a
  * market table under a cloth, set out with a cut cheese wheel and a scale.
  * A `bar` is a café counter, a glass case of pastries at its right end. A
- * `reception` is a front desk, drawn over whoever works behind it.
+ * `reception` is a front desk, drawn over whoever works behind it. A
+ * `bistro` is a café table with a bentwood chair either side, facing it.
  */
 export type PieceKind =
   | "counter"
@@ -26,7 +27,8 @@ export type PieceKind =
   | "desk"
   | "stand"
   | "bar"
-  | "reception";
+  | "reception"
+  | "bistro";
 
 export interface SetPiece {
   id: string;
@@ -65,6 +67,8 @@ const SIZE: Record<PieceKind, { width: number; height: number }> = {
   bar: { width: 84, height: 44 },
   // A raised ledge at the waist of whoever stands behind it.
   reception: { width: 80, height: 48 },
+  // The table top, at a seated figure's elbow; the chairs stand at its sides.
+  bistro: { width: 84, height: 40 },
 };
 
 /**
