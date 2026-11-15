@@ -528,9 +528,9 @@
       <circle cx="-2" cy="-5.6" r="1" class="fill-white/60" stroke="none" />
     {/if}
   {:else if kind === "bag"}
-    <path d="M-4 -12Q-4 -18 0 -18Q4 -18 4 -12" fill="none" stroke-width="1.1" />
-    <path d="M-7 -12h14l-1 12a2 2 0 0 1-2 2h-8a2 2 0 0 1-2-2Z" class="fill-scene-clay" />
-    <path d="M-6.6 -8h13.2" class="stroke-white/50" stroke-width="1.2" />
+    <path d="M-4 -14Q-4 -20 0 -20Q4 -20 4 -14" fill="none" stroke-width="1.1" />
+    <path d="M-7 -14h14l-1 12a2 2 0 0 1-2 2h-8a2 2 0 0 1-2-2Z" class="fill-scene-clay" />
+    <path d="M-6.6 -10h13.2" class="stroke-white/50" stroke-width="1.2" />
   {:else if kind === "basket"}
     <path d="M-6 -8Q-6 -15 0 -15Q6 -15 6 -8" fill="none" stroke-width="1.1" />
     <circle cx="-3.6" cy="-8.6" r="2.2" class="fill-scene-red-mid" />

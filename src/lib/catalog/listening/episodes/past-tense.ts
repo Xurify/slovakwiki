@@ -937,7 +937,7 @@ const closed: ListeningChapter = {
   titleSk: "Prípad uzavretý",
   title: "Case closed",
   setup: {
-    objects: [{ id: "bag", kind: "bag", start: { where: { on: "desk", dx: 40 } } }],
+    objects: [{ id: "bag", kind: "bag", start: { where: { on: "desk", dx: 54 } } }],
   },
   lines: staged(
     PREFIX,

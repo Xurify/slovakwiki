@@ -102,7 +102,7 @@ export const PARTS = {
   },
   studio: {
     clock: { hand: 9, r: 16, ticks: true, x: 308, y: 76 },
-    plant: { x: 706, y: 246 },
+    plant: { x: 690, y: 246 },
   },
 } as const satisfies Partial<
   Record<

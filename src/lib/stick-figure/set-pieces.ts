@@ -58,7 +58,7 @@ const SIZE: Record<PieceKind, { width: number; height: number }> = {
  * mugs and the boom arms, and short of the studio plant, so whoever waters
  * it stands clear of the desk's end, not half behind it.
  */
-export const DESK_REACH = 46;
+export const DESK_REACH = 42;
 
 /**
  * A desk mic in the rig space of the host seated facing +x behind it, and
