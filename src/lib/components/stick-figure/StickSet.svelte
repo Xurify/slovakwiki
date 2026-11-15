@@ -329,6 +329,26 @@
           class="stroke-scene-line"
           stroke-width="2.4"
         />
+      {:else if piece.kind === "crate"}
+        {@const tall = GROUND_Y - top}
+        <!-- Slats with gaps between them, so it reads as a crate and not as part of the stall behind. -->
+        <rect x={-width / 2} y={top} {width} height={tall} rx="1" class="fill-scene-wood" />
+        <rect x={-width / 2} y={top} {width} height={tall} rx="1" class="fill-scene-line/25" />
+        {#each [0, 1, 2] as slat (slat)}
+          <rect
+            x={-width / 2 + 1}
+            y={top + 1 + (slat * (tall - 2)) / 3}
+            width={width - 2}
+            height={(tall - 2) / 3 - 1.6}
+            rx="0.6"
+            class="fill-scene-wood"
+          />
+        {/each}
+        <path
+          d="M{-width / 2 + 3} {top + 1}V{GROUND_Y - 1}M{width / 2 - 3} {top + 1}V{GROUND_Y - 1}"
+          class="stroke-scene-line/12"
+          stroke-width="2"
+        />
       {:else if piece.kind === "table"}
         <path
           d="M{-width / 2 + 6} {top + 3}V{GROUND_Y}M{width / 2 - 6} {top + 3}V{GROUND_Y}"

@@ -6,25 +6,52 @@
 
   const FLAG_PAINTS = ["fill-scene-clay", "fill-scene-honey", "fill-scene-sage"];
 
-  /** Bunting tied to the inner stall poles, sagging from (300, 30) through (480, 74) to (660, 30). */
-  const flags = Array.from({ length: 9 }, (_, index) => {
-    const t = 0.1 + index * 0.1;
-    const x = (1 - t) ** 2 * 300 + 2 * (1 - t) * t * 480 + t ** 2 * 660;
-    const y = (1 - t) ** 2 * 30 + 2 * (1 - t) * t * 74 + t ** 2 * 30;
-    return { paint: FLAG_PAINTS[index % 3], x, y };
-  });
+  /** Bunting tied just under the tops of the inner stall poles, sagging between them. */
+  const STRING = { from: { x: 300, y: 32 }, sag: { x: 480, y: 116 }, to: { x: 660, y: 32 } };
+  const FLAG = { count: 9, half: 7, drop: 15 };
+
+  function along(t: number): { x: number; y: number } {
+    const { from, sag, to } = STRING;
+    return {
+      x: (1 - t) ** 2 * from.x + 2 * (1 - t) * t * sag.x + t ** 2 * to.x,
+      y: (1 - t) ** 2 * from.y + 2 * (1 - t) * t * sag.y + t ** 2 * to.y,
+    };
+  }
+
+  // Spaced by length along the string, not by t, so they sit evenly where it sags and where it climbs,
+  // each turned with the string so its top edge lies on it.
+  const flags = (() => {
+    const points = Array.from({ length: 201 }, (_, index) => along(index / 200));
+    const lengths = [0];
+    for (let index = 1; index < points.length; index++) {
+      const { x, y } = points[index];
+      const last = points[index - 1];
+      lengths.push(lengths[index - 1] + Math.hypot(x - last.x, y - last.y));
+    }
+    const total = lengths[lengths.length - 1];
+    return Array.from({ length: FLAG.count }, (_, index) => {
+      const at = lengths.findIndex((length) => length >= (total * (index + 1)) / (FLAG.count + 1));
+      const before = points[at - 1];
+      const after = points[at + 1];
+      const angle = (Math.atan2(after.y - before.y, after.x - before.x) * 180) / Math.PI;
+      return { paint: FLAG_PAINTS[index % 3], ...points[at], angle };
+    });
+  })();
 
   const stalls: Array<{
     cheeses: number[];
     crates: Crate[];
     inner: number;
     label: string;
+    /** The chalkboard's left edge, from the stall's. */
+    sign: number;
     x: number;
   }> = [
     {
       label: "Ovocie",
       x: 20,
       inner: 300,
+      sign: 105,
       crates: ["apples", "pears", "plums"],
       cheeses: [],
     },
@@ -32,9 +59,11 @@
       label: "Z farmy",
       x: 640,
       inner: 660,
+      // Right of the middle, clear of Lucia at the stall's end and of the crate beside her (MARKET_SET).
+      sign: 186,
       // Tieto jahody and tamtie jahody, with the vegetables between them.
       crates: ["strawberries", "vegetables", "strawberries"],
-      cheeses: [676, 904],
+      cheeses: [680, 896],
     },
   ];
 
@@ -54,14 +83,15 @@
 <FloorShade />
 
 <path
-  d="M300 30Q480 118 660 30"
+  d="M{STRING.from.x} {STRING.from.y}Q{STRING.sag.x} {STRING.sag.y} {STRING.to.x} {STRING.to.y}"
   class="stroke-scene-line/40"
   fill="none"
   stroke-width="1.2"
 />
 {#each flags as flag (flag.x)}
   <path
-    d="M{flag.x - 7} {flag.y}H{flag.x + 7}L{flag.x} {flag.y + 15}Z"
+    d="M{-FLAG.half} -0.4H{FLAG.half}L0 {FLAG.drop}Z"
+    transform="translate({flag.x} {flag.y}) rotate({flag.angle})"
     class={flag.paint}
   />
 {/each}
@@ -122,7 +152,7 @@
   <rect x={stall.x + 4} y="170" width="292" height="8" rx="2" class="fill-scene-wood" />
   <rect x={stall.x + 10} y="178" width="280" height="48" class="fill-scene-wood" />
   <rect x={stall.x + 10} y="178" width="280" height="4" class="fill-scene-line/12" />
-  <Chalkboard x={stall.x + 105} y={188} width={90} height={28}>
+  <Chalkboard x={stall.x + stall.sign} y={188} width={90} height={28}>
     <text x="45" y="21" text-anchor="middle" font-size="19">{stall.label}</text>
   </Chalkboard>
 {/each}

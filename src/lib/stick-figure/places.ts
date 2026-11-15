@@ -272,8 +272,10 @@ const CAFE_SET: PlaceSet = {
  * done stands back a step left of the other.
  */
 const MARKET_SET: PlaceSet = {
-  // The stall's counter top behind Lucia, at the hip, where she keeps what she has weighed and wrapped.
-  pieces: [{ id: "counter", kind: "ledge", x: 774, width: 40, height: 44 }],
+  // A crate stood on end in front of the stall, beside Lucia, where she keeps what she has weighed and wrapped.
+  // The stall's own counter is drawn in the backdrop, whose scale against the cast's changes with the stage,
+  // so a surface at its height would float off it on another screen; the crate stands on the cast's floor.
+  pieces: [{ id: "counter", kind: "crate", x: 774 }],
   objects: [],
   spots: {
     stall: { x: 660, facing: 1 },
@@ -460,7 +462,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     things: [
       drawn(WORDS.ovocie, [40, 136, 260, 38]),
       drawn(WORDS.zelenina, [748, 128, 84, 46]),
-      twins(WORDS.syr, [662, 100, 28, 42], [890, 100, 28, 42]),
+      twins(WORDS.syr, [666, 100, 28, 42], [882, 100, 28, 42]),
       twins(WORDS.jahody, [660, 134, 84, 24], [836, 134, 84, 24]),
       drawn(WORDS.stanok, [636, 66, 308, 162], [16, 66, 308, 162]),
     ],

@@ -11,10 +11,11 @@ import { GROUND_Y, SEAT_Y, type Point } from "./rig";
  * are surfaces only: the shelf in the counter's open cupboard, the spot on
  * the floor a plant stands on. The `desk` is the studio's, drawn with it.
  * Things on a `rail` hang from its hooks: a ladle, a lid. A rail a few
- * units wide is a single hook on the wall: a towel.
+ * units wide is a single hook on the wall: a towel. A `crate` is a market
+ * box stood on its end in front of a stall, to set things out on.
  */
 export type PieceKind =
-  "counter" | "stove" | "table" | "rail" | "ledge" | "floor" | "desk";
+  "counter" | "stove" | "table" | "rail" | "ledge" | "floor" | "desk" | "crate";
 
 export interface SetPiece {
   id: string;
@@ -49,6 +50,7 @@ const SIZE: Record<PieceKind, { width: number; height: number }> = {
   floor: { width: 40, height: 0 },
   // StudioDesk.svelte's top, lower than a real desk's.
   desk: { width: 200, height: 28 },
+  crate: { width: 28, height: 44 },
 };
 
 /**
