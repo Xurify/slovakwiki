@@ -32,7 +32,7 @@ const PLATE_ACTS: Record<string, Cue[]> = {
   ],
   "anna-empty-plate-who": [
     { do: "point", to: "plate", on: "tanier" },
-    { who: "marek", do: "put", what: "plate", to: "desk", dx: 17, on: "Kto" },
+    { who: "marek", do: "put", what: "plate", to: "desk", dx: 38, on: "Kto" },
   ],
 };
 
@@ -42,7 +42,7 @@ const plate: ListeningChapter = {
   title: "An empty plate",
   // All that is left of the cake: the plate on the desk, crumbs on it.
   setup: {
-    objects: [{ id: "plate", kind: "plate", start: { where: { on: "desk", dx: 17 } } }],
+    objects: [{ id: "plate", kind: "plate", start: { where: { on: "desk", dx: 38 } } }],
   },
   lines: staged(
     PREFIX,
@@ -923,7 +923,7 @@ const whodunit: ListeningChapter = {
 const CLOSED_ACTS: Record<string, Cue[]> = {
   "anna-give-me-your-bag": [{ do: "point", to: "bag", on: "taška" }],
   "marek-here-is-the-bag": [
-    { do: "slide", what: "bag", to: "desk", dx: -20, on: "páči" },
+    { do: "slide", what: "bag", to: "desk", dx: -38, on: "páči" },
   ],
   "anna-crumbs-in-the-bag": [
     { do: "take", what: "bag", on: "start" },
@@ -937,7 +937,7 @@ const closed: ListeningChapter = {
   titleSk: "Prípad uzavretý",
   title: "Case closed",
   setup: {
-    objects: [{ id: "bag", kind: "bag", start: { where: { on: "desk", dx: 30 } } }],
+    objects: [{ id: "bag", kind: "bag", start: { where: { on: "desk", dx: 40 } } }],
   },
   lines: staged(
     PREFIX,

@@ -30,6 +30,8 @@
 </script>
 
 <script lang="ts">
+  import { untrack } from "svelte";
+  import { Tween } from "svelte/motion";
   import Self from "./StickSetObject.svelte";
   import StickHeadphones from "./StickHeadphones.svelte";
 
@@ -58,58 +60,68 @@
   const soup = $derived(fill === "soup");
 
   /**
-   * A floor plant's leaves, from its rim: each leans `up` degrees from
-   * upright and, thirsty, folds over past its middle towards `side`, its tip
-   * hanging, so a dry plant stays as narrow as a watered one (the studio's
+   * A floor plant's stems, from the soil: each leans `up` degrees from
+   * upright and carries a leaf at its tip. Thirsty, each stem sags at the soil
+   * and arches over past its `knee` towards `side`, the leaf hanging from it,
+   * so a dry plant stays about as narrow as a watered one (the studio's
    * stands between the desk and the stage's edge).
    */
-  const LEAVES = [
-    {
-      x: -5,
-      up: -34,
-      side: -1,
-      length: 34,
-      width: 4.2,
-      tint: "fill-scene-leaf",
-      dry: "fill-scene-honey",
-    },
-    {
-      x: 5,
-      up: 30,
-      side: 1,
-      length: 36,
-      width: 4.2,
-      tint: "fill-scene-leaf",
-      dry: "fill-scene-honey",
-    },
-    {
-      x: -2.5,
-      up: -13,
-      side: -1,
-      length: 46,
-      width: 5,
-      tint: "fill-scene-sage",
-      dry: "fill-scene-wood",
-    },
-    {
-      x: 2.5,
-      up: 15,
-      side: 1,
-      length: 46,
-      width: 5,
-      tint: "fill-scene-sage",
-      dry: "fill-scene-wood",
-    },
-    {
-      x: 0,
-      up: 1,
-      side: 1,
-      length: 56,
-      width: 5.5,
-      tint: "fill-scene-leaf",
-      dry: "fill-scene-honey",
-    },
+  const STEMS = [
+    { x: -3, up: -38, side: -1, knee: 12, tip: 7, leaf: 16, width: 5.4 },
+    { x: 3, up: 36, side: 1, knee: 13, tip: 7, leaf: 16, width: 5.4 },
+    { x: -2, up: -18, side: -1, knee: 19, tip: 8, leaf: 19, width: 6 },
+    { x: 2, up: 16, side: 1, knee: 20, tip: 8, leaf: 19, width: 6 },
+    { x: -0.5, up: -4, side: -1, knee: 25, tip: 8, leaf: 20, width: 6.2 },
+    { x: 1, up: 6, side: 1, knee: 23, tip: 8, leaf: 18, width: 5.8 },
   ];
+  const SOIL = -24.6;
+  /** Degrees a thirsty stem sags at the soil, bends at its knee, and its leaf hangs on past that. */
+  const DROOP = { sag: 10, bend: 95, leaf: 40 };
+  /** Watered, the plant lifts over this long, each stem a beat after the one before. */
+  const LIFT_MS = 1500;
+  const STAGGER_MS = 140;
+  const GREEN = { leaf: ["#6f9e80", "#84ab92"], rib: "#4f7a60", stem: "#5f8c6a" };
+  const THIRSTY = { leaf: ["#c9b45e", "#d8c06c"], rib: "#97803f", stem: "#8f9a58" };
+
+  function mix(from: string, to: string, by: number): string {
+    const channel = (hex: string, at: number) => parseInt(hex.slice(at, at + 2), 16);
+    return `rgb(${[1, 3, 5].map((at) => Math.round(channel(from, at) + (channel(to, at) - channel(from, at)) * by)).join(" ")})`;
+  }
+  function toward(degrees: number, length: number): { x: number; y: number } {
+    const radians = (degrees * Math.PI) / 180;
+    return { x: Math.sin(radians) * length, y: -Math.cos(radians) * length };
+  }
+
+  const THIRST_MS = LIFT_MS + STAGGER_MS * (STEMS.length - 1);
+  const thirst = new Tween(untrack(() => wilt), { duration: THIRST_MS });
+  $effect(() => {
+    thirst.target = wilt;
+  });
+  const stems = $derived(
+    STEMS.map((stem, index) => {
+      const spread = (STAGGER_MS * index) / THIRST_MS;
+      const share = LIFT_MS / THIRST_MS;
+      const eased = Math.min(1, Math.max(0, (thirst.current - spread) / share));
+      const w = eased * eased * (3 - 2 * eased);
+      const lean = stem.up + stem.side * DROOP.sag * w;
+      const bent = lean + stem.side * DROOP.bend * w;
+      const base = { x: stem.x, y: SOIL };
+      const knee = toward(lean, stem.knee);
+      const bend = { x: base.x + knee.x, y: base.y + knee.y };
+      const reach = toward(bent, stem.tip);
+      const end = { x: bend.x + reach.x, y: bend.y + reach.y };
+      const n = (value: number) => value.toFixed(2);
+      return {
+        stem: `M${n(base.x)} ${n(base.y)}Q${n(bend.x)} ${n(bend.y)} ${n(end.x)} ${n(end.y)}`,
+        leaf: `translate(${n(end.x)} ${n(end.y)}) rotate(${n(bent + stem.side * DROOP.leaf * w)})`,
+        length: stem.leaf,
+        width: stem.width,
+        fill: mix(GREEN.leaf[index % 2], THIRSTY.leaf[index % 2], w),
+        rib: mix(GREEN.rib, THIRSTY.rib, w),
+        stroke: mix(GREEN.stem, THIRSTY.stem, w),
+      };
+    }),
+  );
   /** Carrot chunks: big for a first go, small once shown how. */
   const CHUNKS = [-5.5, -1.8, 1.8, 5.5];
   const PIECES = [-6, -4.4, -2.8, -1.2, 0.4, 2, 3.6, 5.2, -5.2, -2, 1.2, 4.4];
@@ -467,58 +479,24 @@
     />
     <path d="M-6.8 -8H5.8" class="stroke-white/30" stroke-width="0.8" />
   {:else if kind === "plant"}
-    {#each LEAVES as leaf, index (index)}
-      {@const lower = leaf.length * 0.55}
-      {@const upper = leaf.length - lower}
-      {@const tint = wilt > 0.5 ? leaf.dry : leaf.tint}
-      <!-- Watered, each leaf lifts back up and greens over a second or two, one after another. -->
-      <g
-        class="transition-transform duration-1500 ease-out"
-        style:transform="translate({leaf.x}px, -23px) rotate({leaf.up +
-          leaf.side * 10 * wilt}deg)"
-        style:transition-delay="{index * 140}ms"
-      >
+    <path d="M-13 0.2H13" class="stroke-scene-line/25" stroke-width="1.6" />
+    <path d="M-10 -21H10L7.8 -1Q7.6 0 6.6 0H-6.6Q-7.6 0 -7.8 -1Z" class="fill-scene-clay" />
+    <path d="M-11.6 -25H11.6V-20H-11.6Z" class="fill-scene-clay" />
+    <path d="M-9.8 -20H9.8L9.6 -18.4H-9.6Z" class="fill-scene-line/15" stroke="none" />
+    <ellipse cx="0" cy={SOIL} rx="10" ry="1.3" fill="#5a3f2e" stroke="none" />
+    {#each stems as stem, index (index)}
+      <path d={stem.stem} stroke={stem.stroke} stroke-width="1.5" fill="none" />
+      <g transform={stem.leaf}>
         <path
-          d="M0 2Q{-leaf.width} {-lower *
-            0.45} {-leaf.width} {-lower}H{leaf.width}Q{leaf.width} {-lower * 0.45} 0 2Z"
-          class="transition-colors duration-1500 {tint}"
-          style:transition-delay="{index * 140}ms"
+          d="M0 0.5C{stem.width * 1.2} {-stem.length * 0.25} {stem.width * 0.9} {-stem.length *
+            0.75} 0 {-stem.length}C{-stem.width * 0.9} {-stem.length * 0.75} {-stem.width *
+            1.2} {-stem.length * 0.25} 0 0.5Z"
+          fill={stem.fill}
           stroke="none"
         />
-        <path d="M0 0V{-lower}" class="stroke-scene-line/15" stroke-width="0.6" />
-        <g
-          class="transition-transform duration-1500 ease-out"
-          style:transform="translate(0px, -{lower}px) rotate({leaf.side * 125 * wilt}deg)"
-          style:transition-delay="{index * 140}ms"
-        >
-          <!-- The fold, rounded so a bent leaf has no notch on its outside. -->
-          <circle
-            r={leaf.width}
-            class="transition-colors duration-1500 {tint}"
-            style:transition-delay="{index * 140}ms"
-            stroke="none"
-          />
-          <path
-            d="M{-leaf.width} 0Q{-leaf.width} {-upper *
-              0.6} 0 {-upper}Q{leaf.width} {-upper * 0.6} {leaf.width} 0Z"
-            class="transition-colors duration-1500 {tint}"
-            style:transition-delay="{index * 140}ms"
-            stroke="none"
-          />
-          <path d="M0 0V{-upper * 0.8}" class="stroke-scene-line/15" stroke-width="0.6" />
-        </g>
+        <path d="M0 0V{-stem.length * 0.85}" stroke={stem.rib} stroke-width="0.5" />
       </g>
     {/each}
-    <path
-      d="M-11 -21H11L8.4 -1Q8.2 0 7.2 0H-7.2Q-8.2 0 -8.4 -1Z"
-      class="fill-scene-clay"
-    />
-    <path d="M-12.4 -25H12.4V-20H-12.4Z" class="fill-scene-clay" />
-    <path
-      d="M-10.6 -20H10.6L10.4 -18.4H-10.4Z"
-      class="fill-scene-line/15"
-      stroke="none"
-    />
   {:else if kind === "headphones"}
     <StickHeadphones far={{ x: -6, y: -4.5 }} near={{ x: 6, y: -4.5 }} />
   {:else if kind === "apple"}
