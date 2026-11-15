@@ -101,8 +101,8 @@ export const PARTS = {
     tree: { ground: 258, x: 100 },
   },
   studio: {
-    clock: { hand: 10, r: 18, ticks: true, x: 289, y: 74 },
-    plant: { x: 724, y: 246 },
+    clock: { hand: 9, r: 16, ticks: true, x: 308, y: 76 },
+    plant: { x: 706, y: 246 },
   },
 } as const satisfies Partial<
   Record<
