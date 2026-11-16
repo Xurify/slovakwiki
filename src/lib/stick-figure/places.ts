@@ -233,6 +233,8 @@ const HOME_SET: PlaceSet = {
   pieces: [
     { id: "pegs", kind: "rail", x: 304, width: 24, height: 86, coats: true },
     { id: "by-sofa", kind: "floor", x: 634, width: 22, mat: true },
+    // In front of the sofa, short of its end: a dog eating at the by-sofa bowl stood at a phone's edge.
+    { id: "bowl-mat", kind: "floor", x: 578, width: 22, mat: true },
     // Floor spot in front of the dog's nose at rug-left, where its bowl stands; a dog there faces right.
     { id: "by-dog", kind: "floor", x: 380, width: 24 },
     // Beside the dog's bed under the window, where his bowl is kept between meals.
@@ -262,13 +264,14 @@ const HOME_SET: PlaceSet = {
     // At the window, looking out: the dog under the sill, the one waiting with it beside.
     window: { x: 235, facing: -1 },
     // On his bed under the sill, turned up toward the glass.
-    "dog-bed": { x: 166, facing: -1 },
+    "dog-bed": { x: 154, facing: -1 },
     "window-dog": { x: 118, facing: -1 },
     // Dunčo by his bed under the window, in frame on a phone, looking up at the glass.
     "dunco-window": { x: 128, facing: 1 },
     "by-sofa": { piece: "by-sofa", dx: 0, facing: -1 },
     // The dog eating: just left of the bowl, facing it, so its head is down in it and its tail inside a phone's stage.
     "bowl-dog": { piece: "by-sofa", dx: -16, facing: 1 },
+    "bowl-mat-dog": { piece: "bowl-mat", dx: -16, facing: 1 },
     // Beside the bag by the window, to reach down into it.
     "window-bag": { piece: "window-bag", dx: 30, facing: -1 },
     // The hall door opens into the room on hinges at its left, like the kitchen's: in on its latch
@@ -551,6 +554,8 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       { ...drawn(WORDS.kabat, [318, 92, 14, 30]), of: ["pegs-coat"] },
       drawn(WORDS.hrncek, [484, 121, 20, 16], [595, 216, 12, 9]),
       onSet(WORDS.pes, ["dog"], [280, 200, 60, 40]),
+      onSet(WORDS.robot, ["robot"], [400, 120, 40, 110]),
+      drawn(WORDS.topanky, [276, 224, 66, 13]),
     ],
     sounds: ["hum"],
     // On the rug (480 ± 250), left of the bag on it so nobody stands on that.
@@ -690,6 +695,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
         [630, 222, 32, 18],
       ),
       onSet(WORDS.pes, ["dog"], [440, 200, 60, 40]),
+      onSet(WORDS.robot, ["robot"], [380, 120, 40, 110]),
     ],
     sounds: ["murmur", "birds", "tram"],
     set: PLAZA_SET,
@@ -843,6 +849,8 @@ export const PROP_THINGS: Readonly<Partial<Record<string, SceneThing>>> = {
   phone: { ...WORDS.telefon, box: { x: 0, y: 0, width: 0, height: 0 }, quiet: true },
   keys: { ...WORDS.kluce, box: { x: 0, y: 0, width: 0, height: 0 }, quiet: true },
   bag: { ...WORDS.taska, box: { x: 0, y: 0, width: 0, height: 0 }, quiet: true },
+  // Held, or clipped on and walked: the home's own vodítko covers it on its peg.
+  lead: { ...WORDS.voditko, box: { x: 0, y: 0, width: 0, height: 0 }, quiet: true },
 };
 
 export function backdropAlign(setting: StageSetting): number {

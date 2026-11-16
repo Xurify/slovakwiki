@@ -54,7 +54,7 @@ export type Target =
   /** Where the hand lets go of what it puts down: the object's grip once it is there. */
   | { landing: true; dx?: number; dy?: number }
   /** Toward a named point, the arm straight out: pointing at it. */
-  | { toward: string };
+  | { toward: string; as?: "grip" | "top" | "base"; dx?: number };
 
 export interface MotionKey {
   at: number;
@@ -1334,6 +1334,13 @@ export function motionFor(
     }
     case "point": {
       // The arm comes up as the figure turns round to what it points at (TURN_MS), and stays long enough to follow.
+      // At a dog, down at its back past the middle, with a stoop: from beside its head, aimed at the head, the
+      // point went out level over it (a point no steeper than STANDING_POINT_DROP of the way across).
+      const dog = Boolean(LOOKS[to as LessonCharacterId]?.dog);
+      const pointing = dog
+        ? { toward: to, as: "grip" as const, dx: DOG_BACK }
+        : { toward: to };
+      const stoop = dog ? { lean: 8, bob: 4 } : {};
       return {
         motion: {
           ms: 1900,
@@ -1342,13 +1349,13 @@ export function motionFor(
             { at: 0 },
             {
               at: 450,
-              ...hands(free, { toward: to }),
-              body: { look: 1, brow: 0.3 },
+              ...hands(free, pointing),
+              body: { look: 1, brow: 0.3, ...stoop },
             },
             {
               at: 1500,
-              ...hands(free, { toward: to }),
-              body: { look: 1, brow: 0.3 },
+              ...hands(free, pointing),
+              body: { look: 1, brow: 0.3, ...stoop },
             },
             { at: 1900 },
           ],
@@ -1982,8 +1989,10 @@ export function targetPoint(
   }
   if ("toward" in target) {
     const shoulder = hand === "lead" ? rig.leadShoulder : rig.rearShoulder;
-    const aim = around.pointOf(target.toward, "top") ?? around.pointOf(target.toward);
-    if (!aim) return rest;
+    const found =
+      around.pointOf(target.toward, target.as ?? "top") ?? around.pointOf(target.toward);
+    if (!found) return rest;
+    const aim = { x: found.x + (target.dx ?? 0), y: found.y };
     // Seated behind a desk mic, the hand stays in under it and the finger shows the way: held out level, the arm went behind the mic's boom and read as gripping it; raised over the mic, it crossed the boom.
     if (sit > 0.5 && around.mic?.side === 1 && aim.x > shoulder.x) {
       return { x: shoulder.x + UNDER_MIC_POINT.x, y: shoulder.y + UNDER_MIC_POINT.y };
@@ -2056,6 +2065,8 @@ function clearOfMic(
   return point;
 }
 
+/** Rig units past a dog's middle, away from whoever points: along its back toward the tail. */
+const DOG_BACK = 14;
 /** The steepest a point goes below level, as a slope: about 6 degrees. */
 const POINT_DROP = 0.1;
 /** Standing, about 60 degrees: steeper, the arm hangs down and reads as resting, not pointing. */
@@ -2101,6 +2112,10 @@ function leanToReach(
   return best;
 }
 
+/** The deepest a robot squats, as its kneel by a dog does: its hips still well off the floor. */
+const SQUAT_MOST = 22;
+/** A hand this low is at the floor, setting something down on it, not at a dog's collar or head. */
+const FLOOR_REACH_Y = 112;
 /** Lowest a hand reaches standing straight; below it the figure bends at the hip and knees. */
 const STOOP_Y = 98;
 /** The deepest stoop: a hand down at the floor. */
@@ -2216,6 +2231,12 @@ export function frameBetween(
   const low = Object.values(points).some((point) => point && point.y > STOOP_Y);
   body.lean += leaned;
   if (low && sit === 0) body.bob += leaned * (around.squats ? 1.4 : 0.5);
+  // Squatting further after a dog's collar out of reach, a robot's hips went through the floor and its legs
+  // folded flat behind it: the whole casing read as tipped over. No deeper than its kneel, the arm falls short.
+  // Only setting something on the floor itself takes it lower.
+  if (around.squats && sit === 0 && lowest < FLOOR_REACH_Y) {
+    body.bob = Math.min(body.bob, SQUAT_MOST);
+  }
 
   let pose = mic ? headClearOfMic(body, sit, mic.side) : body;
   for (const hand of ["lead", "rear"] as const) {

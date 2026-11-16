@@ -207,6 +207,8 @@
   const DOG_COLLAR = { x: 12.8, y: 102 };
   /** Where StickDog draws the top of its head, in its rig space, for a hand to rest on. */
   const DOG_HEAD = { x: 15, y: 87.8 };
+  /** Centre to centre, in figure widths, from a dog's head end: its head and a hand's reach. */
+  const DOG_HEAD_GAP = 0.55;
   /** How far above a dog's head, in rig units, a look target has to be for it to lift its nose; and how far it lifts. */
   const DOG_LOOK_ABOVE = 12;
   const DOG_LOOK_UP = -28;
@@ -685,8 +687,10 @@
     }
     if (!isCast(to)) return undefined;
     const toward: Facing = castMiddle(to) >= castMiddle(id) ? 1 : -1;
-    // A dog is a body length long: stopping as close as to a person stands on it.
-    const gap = LOOKS[to].dog ? 1 : 0.62;
+    // A dog is a body length long: stopping as close as to a person stands on it. At its head end, a
+    // step off is close enough to reach the collar; a body length off, clipping a lead on tipped Robo over.
+    const headOn = facingOf(to) === -toward;
+    const gap = !LOOKS[to].dog ? 0.62 : headOn ? DOG_HEAD_GAP : 1;
     return { offset: beside(frame, id, to, toward, offsets, gap), facing: toward };
   }
 

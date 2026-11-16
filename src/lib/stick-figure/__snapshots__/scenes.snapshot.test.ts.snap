@@ -962,6 +962,7 @@ exports[`every scene, directed > lesson everyday/meet-someone 1`] = `
     "kos",
     "stolik",
     "pes",
+    "robot",
   ],
 }
 `;
@@ -1612,6 +1613,8 @@ exports[`every scene, directed > lesson grammar/aspect 1`] = `
     "kabat",
     "hrncek",
     "pes",
+    "robot",
+    "topanky",
   ],
 }
 `;
@@ -2778,6 +2781,8 @@ exports[`every scene, directed > lesson grammar/possessives 1`] = `
     "kabat",
     "hrncek",
     "pes",
+    "robot",
+    "topanky",
   ],
 }
 `;
@@ -3403,6 +3408,8 @@ exports[`every scene, directed > podcast podcast-demonstratives-home 1`] = `
     "kabat",
     "hrncek",
     "pes",
+    "robot",
+    "topanky",
   ],
 }
 `;
@@ -5769,6 +5776,8 @@ exports[`every scene, directed > podcast podcast-future-tense-friday 1`] = `
     "kabat",
     "hrncek",
     "pes",
+    "robot",
+    "topanky",
   ],
 }
 `;
@@ -6174,6 +6183,8 @@ exports[`every scene, directed > podcast podcast-future-tense-monday 1`] = `
     "kabat",
     "hrncek",
     "pes",
+    "robot",
+    "topanky",
   ],
 }
 `;
@@ -6474,6 +6485,8 @@ exports[`every scene, directed > podcast podcast-future-tense-morning 1`] = `
     "kabat",
     "hrncek",
     "pes",
+    "robot",
+    "topanky",
   ],
 }
 `;
@@ -7027,6 +7040,8 @@ exports[`every scene, directed > podcast podcast-future-tense-six 1`] = `
     "kabat",
     "hrncek",
     "pes",
+    "robot",
+    "topanky",
   ],
 }
 `;
@@ -7337,6 +7352,8 @@ exports[`every scene, directed > podcast podcast-future-tense-window 1`] = `
     "kabat",
     "hrncek",
     "pes",
+    "robot",
+    "topanky",
   ],
 }
 `;
@@ -14715,6 +14732,7 @@ exports[`every scene, directed > podcast podcast-possessives-square 1`] = `
     "kos",
     "stolik",
     "pes",
+    "robot",
   ],
 }
 `;
@@ -17699,6 +17717,8 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-home 1`] = `
     "kabat",
     "hrncek",
     "pes",
+    "robot",
+    "topanky",
   ],
 }
 `;
@@ -18021,6 +18041,8 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-lead 1`] = `
     "kabat",
     "hrncek",
     "pes",
+    "robot",
+    "topanky",
   ],
 }
 `;
@@ -18401,6 +18423,8 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-morning 1`] = `
     "kabat",
     "hrncek",
     "pes",
+    "robot",
+    "topanky",
   ],
 }
 `;
@@ -18541,12 +18565,12 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-square 1`] = `
       "line": "anna: Ty rozumieš psom?",
       "plan": {
         "beats": [
-          "50 chuckle",
+          "0 chuckle",
         ],
-        "ms": 2500,
-        "questions": "50-2200",
-        "sentences": "50-2200",
-        "words": "50-426 426-1699 1699-2200",
+        "ms": 2350,
+        "questions": "0-2150",
+        "sentences": "0-2150",
+        "words": "0-376 376-1649 1649-2150",
       },
       "staging": {
         "addressee": "robo",
@@ -18837,6 +18861,7 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-square 1`] = `
     "kos",
     "stolik",
     "pes",
+    "robot",
   ],
 }
 `;
@@ -19157,6 +19182,8 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-window 1`] = `
     "kabat",
     "hrncek",
     "pes",
+    "robot",
+    "topanky",
   ],
 }
 `;
@@ -19381,6 +19408,7 @@ exports[`every scene, directed > talk day-anna {"cinema":2} 1`] = `
     "kos",
     "stolik",
     "pes",
+    "robot",
   ],
 }
 `;
@@ -19601,6 +19629,7 @@ exports[`every scene, directed > talk day-anna {"hello":1} 1`] = `
     "kos",
     "stolik",
     "pes",
+    "robot",
   ],
 }
 `;
@@ -19821,6 +19850,7 @@ exports[`every scene, directed > talk day-anna {"hello":2} 1`] = `
     "kos",
     "stolik",
     "pes",
+    "robot",
   ],
 }
 `;
@@ -20041,6 +20071,7 @@ exports[`every scene, directed > talk day-anna {"meet":2} 1`] = `
     "kos",
     "stolik",
     "pes",
+    "robot",
   ],
 }
 `;
@@ -20271,6 +20302,7 @@ exports[`every scene, directed > talk day-anna {"time":2} 1`] = `
     "kos",
     "stolik",
     "pes",
+    "robot",
   ],
 }
 `;
@@ -20491,6 +20523,7 @@ exports[`every scene, directed > talk day-anna {"tomorrow":2} 1`] = `
     "kos",
     "stolik",
     "pes",
+    "robot",
   ],
 }
 `;
@@ -20711,6 +20744,7 @@ exports[`every scene, directed > talk day-anna {} 1`] = `
     "kos",
     "stolik",
     "pes",
+    "robot",
   ],
 }
 `;
@@ -21045,6 +21079,7 @@ exports[`every scene, directed > talk day-lucia {"bye":2} 1`] = `
     "kos",
     "stolik",
     "pes",
+    "robot",
   ],
 }
 `;
@@ -21388,6 +21423,7 @@ exports[`every scene, directed > talk day-lucia {"cheese":2} 1`] = `
     "kos",
     "stolik",
     "pes",
+    "robot",
   ],
 }
 `;
@@ -21731,6 +21767,7 @@ exports[`every scene, directed > talk day-lucia {"hello":1} 1`] = `
     "kos",
     "stolik",
     "pes",
+    "robot",
   ],
 }
 `;
@@ -22028,6 +22065,7 @@ exports[`every scene, directed > talk day-lucia {"inside":2} 1`] = `
     "kos",
     "stolik",
     "pes",
+    "robot",
   ],
 }
 `;
@@ -22371,6 +22409,7 @@ exports[`every scene, directed > talk day-lucia {"later":2} 1`] = `
     "kos",
     "stolik",
     "pes",
+    "robot",
   ],
 }
 `;
@@ -22701,6 +22740,7 @@ exports[`every scene, directed > talk day-lucia {"pay":2} 1`] = `
     "kos",
     "stolik",
     "pes",
+    "robot",
   ],
 }
 `;
@@ -22914,6 +22954,7 @@ exports[`every scene, directed > talk day-lucia {"shop":2} 1`] = `
     "kos",
     "stolik",
     "pes",
+    "robot",
   ],
 }
 `;
@@ -23257,6 +23298,7 @@ exports[`every scene, directed > talk day-lucia {} 1`] = `
     "kos",
     "stolik",
     "pes",
+    "robot",
   ],
 }
 `;
@@ -23537,6 +23579,7 @@ exports[`every scene, directed > talk day-marek {"good":2} 1`] = `
     "kos",
     "stolik",
     "pes",
+    "robot",
   ],
 }
 `;
@@ -23801,6 +23844,7 @@ exports[`every scene, directed > talk day-marek {"hello":2} 1`] = `
     "kos",
     "stolik",
     "pes",
+    "robot",
   ],
 }
 `;
@@ -24065,6 +24109,7 @@ exports[`every scene, directed > talk day-marek {"how":1} 1`] = `
     "kos",
     "stolik",
     "pes",
+    "robot",
   ],
 }
 `;
@@ -24355,6 +24400,7 @@ exports[`every scene, directed > talk day-marek {"how":2} 1`] = `
     "kos",
     "stolik",
     "pes",
+    "robot",
   ],
 }
 `;
@@ -24619,6 +24665,7 @@ exports[`every scene, directed > talk day-marek {"study":1} 1`] = `
     "kos",
     "stolik",
     "pes",
+    "robot",
   ],
 }
 `;
@@ -24883,6 +24930,7 @@ exports[`every scene, directed > talk day-marek {"study":2} 1`] = `
     "kos",
     "stolik",
     "pes",
+    "robot",
   ],
 }
 `;
@@ -25147,6 +25195,7 @@ exports[`every scene, directed > talk day-marek {"study-bye":1} 1`] = `
     "kos",
     "stolik",
     "pes",
+    "robot",
   ],
 }
 `;
@@ -25411,6 +25460,7 @@ exports[`every scene, directed > talk day-marek {"study-bye":2} 1`] = `
     "kos",
     "stolik",
     "pes",
+    "robot",
   ],
 }
 `;
@@ -25675,6 +25725,7 @@ exports[`every scene, directed > talk day-marek {"tired":2} 1`] = `
     "kos",
     "stolik",
     "pes",
+    "robot",
   ],
 }
 `;
@@ -25949,6 +26000,7 @@ exports[`every scene, directed > talk day-marek {"trip":2} 1`] = `
     "kos",
     "stolik",
     "pes",
+    "robot",
   ],
 }
 `;
@@ -26213,6 +26265,7 @@ exports[`every scene, directed > talk day-marek {"trip-bye":2} 1`] = `
     "kos",
     "stolik",
     "pes",
+    "robot",
   ],
 }
 `;
@@ -26477,6 +26530,7 @@ exports[`every scene, directed > talk day-marek {} 1`] = `
     "kos",
     "stolik",
     "pes",
+    "robot",
   ],
 }
 `;
@@ -26711,6 +26765,7 @@ exports[`every scene, directed > talk day-maria {"bye":2} 1`] = `
     "kos",
     "stolik",
     "pes",
+    "robot",
   ],
 }
 `;
@@ -26946,6 +27001,7 @@ exports[`every scene, directed > talk day-maria {"done":2} 1`] = `
     "kos",
     "stolik",
     "pes",
+    "robot",
   ],
 }
 `;
@@ -27172,6 +27228,7 @@ exports[`every scene, directed > talk day-maria {"hello":3} 1`] = `
     "kos",
     "stolik",
     "pes",
+    "robot",
   ],
 }
 `;
@@ -27368,6 +27425,7 @@ exports[`every scene, directed > talk day-maria {"lesson":2} 1`] = `
     "kos",
     "stolik",
     "pes",
+    "robot",
   ],
 }
 `;
@@ -27594,6 +27652,7 @@ exports[`every scene, directed > talk day-maria {"notyet":2} 1`] = `
     "kos",
     "stolik",
     "pes",
+    "robot",
   ],
 }
 `;
@@ -27820,6 +27879,7 @@ exports[`every scene, directed > talk day-maria {} 1`] = `
     "kos",
     "stolik",
     "pes",
+    "robot",
   ],
 }
 `;
