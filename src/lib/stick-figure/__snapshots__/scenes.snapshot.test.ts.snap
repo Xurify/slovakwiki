@@ -699,8 +699,10 @@ exports[`every scene, directed > dev weather-today 1`] = `
     "dom",
     "kos",
     "kvety",
+    "zabradlie",
     "lopticka",
     "voditko",
+    "pes",
   ],
 }
 `;
@@ -6883,8 +6885,10 @@ exports[`every scene, directed > podcast podcast-future-tense-park 1`] = `
     "dom",
     "kos",
     "kvety",
+    "zabradlie",
     "lopticka",
     "voditko",
+    "pes",
   ],
 }
 `;

@@ -71,7 +71,7 @@ const MOODS: Record<string, { gap: number; shape: string; single?: [number, numb
   sighs: {
     gap: 0.4,
     shape:
-      "aresample=44100,asetrate=44100*0.93,aresample=44100,atempo=0.9,lowpass=f=2800,volume=-3dB",
+      "aresample=44100,asetrate=44100*0.93,aresample=44100,atempo=0.9,lowpass=f=2800,volume=-1dB",
   },
 };
 
@@ -136,7 +136,8 @@ export async function barkClip(text: string): Promise<Uint8Array> {
         ? mood.single
         : RUNS[count]
       : SMALL;
-    const shape = full ? "volume=0dB" : "volume=-8dB,lowpass=f=2400,afade=t=in:d=0.04";
+    // A small bark ends near -24 LUFS, under a full one's -19: at -8 dB the sighed "Haf." was -30.6, lost under the room.
+    const shape = full ? "volume=0dB" : "volume=-4.5dB,lowpass=f=2400,afade=t=in:d=0.04";
     const moodShape = mood ? `,${mood.shape}` : "";
     return `[0:a]atrim=${start}:${end},asetpts=PTS-STARTPTS,afade=t=in:d=0.015,afade=t=out:st=${(end - start - 0.04).toFixed(3)}:d=0.04,${shape}${moodShape},apad=pad_dur=${mood?.gap ?? 0.25}[p${index}]`;
   });

@@ -13,12 +13,14 @@ import {
   episodeCoverSrc,
   episodeForGrammarSlug,
   episodeLines,
+  HEARD_GAP_MS,
   episodeMinutes,
   episodePath,
   listeningEpisodes,
   validateListeningEpisodes,
 } from "./index";
 import { dialogueSpeakerLabel } from "$lib/components/practice/dialogue-speaker";
+import { LINE_GAP_MS } from "$lib/listening/line-player.svelte";
 
 describe("listening episodes", () => {
   it("has a cover still for every episode, from a segment it has", () => {
@@ -138,5 +140,15 @@ describe("listening episodes", () => {
     expect(episodeMinutes(episode)).toBeGreaterThanOrEqual(1);
     expect(episodeMinutes(episode)).toBeLessThanOrEqual(6);
     expect(episodeCheckCount(episode)).toBeGreaterThanOrEqual(5);
+  });
+
+  it("times a listen from the clips, with the player's gap after each line", () => {
+    const [episode] = listeningEpisodes;
+    if (!episode) return;
+    expect(HEARD_GAP_MS).toBe(LINE_GAP_MS);
+    // Each line a 10 s clip: the minutes follow the clips, not the word count.
+    const long = episodeMinutes(episode, () => 10_000);
+    const short = episodeMinutes(episode, () => 1_000);
+    expect(long).toBeGreaterThan(short);
   });
 });

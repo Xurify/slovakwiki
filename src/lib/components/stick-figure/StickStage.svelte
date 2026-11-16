@@ -38,7 +38,7 @@
   } from "$lib/stick-figure/backdrop-geometry";
   import { demonstrativeForm } from "$lib/learning/demonstratives/paradigm";
   import { LOOKS } from "$lib/stick-figure/looks";
-  import { PLACES, backdropAlign, thingsIn } from "$lib/stick-figure/places";
+  import { PLACES, backdropAlign, thingsIn, withProps } from "$lib/stick-figure/places";
   import {
     boxCenter,
     isPlural,
@@ -193,6 +193,9 @@
   const LIT_MS = 1600;
   /** A dog after a ball runs this many times as fast as anyone walks. */
   const RUN_PACE = 2.6;
+  /** The top of a standing figure's head and its hip, in rig units (solveRig at rest: head 46.5 less its 12.5 radius). */
+  const HEAD_TOP_Y = 34;
+  const HIP_Y = 92;
   /** How long a thrown ball takes to leave the stage. */
   const THROW_MS = 700;
   /** Turning round to a chair, as far as a person gets before they start to lower. */
@@ -337,6 +340,8 @@
 
   /** When each walk in flight ends, on the play clock. */
   let walkEndsAt: Partial<Record<LessonCharacterId, number>> = {};
+  /** Where and when each walk in flight set off, to know where its figure has got to. */
+  let walkFrom: Partial<Record<LessonCharacterId, { offset: number; at: number }>> = {};
   /** Never reset, so a figure's next walk always has a cue it has not seen. */
   let walkCount = 0;
   let playToken = 0;
@@ -392,16 +397,6 @@
   );
   /** Someone on a chair faces the way it does, whoever points or talks. */
   const sitting = $derived(seatedFacings(seated, frame));
-  const pickedParsed = $derived.by(() => {
-    if (!picked) return undefined;
-    const [id, copyStr] = picked.split("#");
-    const thing = things.find((candidate) => candidate.id === id);
-    if (!thing) return undefined;
-    const copy = copyStr !== undefined ? Number.parseInt(copyStr, 10) : 0;
-    const box = thingBoxes(thing)[copy] ?? thing.box;
-    return { thing, copy, box };
-  });
-  const pickedThing = $derived(pickedParsed?.thing);
 
   /** The world before each line, and after the last; a scene nobody acts keeps the one it starts with. */
   const actedWorlds = $derived.by((): World[] | undefined => {
@@ -516,6 +511,20 @@
       Object.entries(actedWorlds?.[0]?.objects ?? {}).map(([id, { kind }]) => [id, kind]),
     ),
   );
+  /** Everything there is to tap, as the backdrop rings it: held and placed props too. */
+  const tappable = $derived(
+    withDrawn(thingsIn(withProps(direction.things, setKinds), setting, mood, tram), drawnAt),
+  );
+  const pickedParsed = $derived.by(() => {
+    if (!picked) return undefined;
+    const [id, copyStr] = picked.split("#");
+    const thing = tappable.find((candidate) => candidate.id === id);
+    if (!thing) return undefined;
+    const copy = copyStr !== undefined ? Number.parseInt(copyStr, 10) : 0;
+    const box = thingBoxes(thing)[copy] ?? thing.box;
+    return { thing, copy, box };
+  });
+  const pickedThing = $derived(pickedParsed?.thing);
 
   /**
    * Where the set's cups stood on the studio desk as the scene began, in rig
@@ -647,6 +656,22 @@
               at.y < cast.bottom + margin;
             return inside(handAt, HAND_CLEAR) && !inside(shoulderAt, 0);
           });
+        });
+      },
+      between: (target) => {
+        const [name] = target.split("#");
+        const goal = castPoint(target, "top", facingOf(id));
+        if (!goal) return [];
+        const from = castMiddle(id);
+        return direction.cast.flatMap((other) => {
+          if (other === id || other === name || outside.includes(other)) return [];
+          if (LOOKS[other].dog || seated[other] !== undefined) return [];
+          const x = castMiddle(other);
+          if ((x - from) * (goal.x - from) <= 0 || Math.abs(x - from) >= Math.abs(goal.x - from))
+            return [];
+          // A standing figure's head top and hip, in the cast's units (rig.ts at rest).
+          const top = toRig(id, { x, y: HEAD_TOP_Y });
+          return [{ x: top.x, top: top.y, hip: toRig(id, { x, y: HIP_Y }).y }];
         });
       },
       pointOf: (name, as = "grip") => {
@@ -1657,7 +1682,16 @@
 
   /** Walk a figure to `offset` figure widths from its mark, a step at a time. */
   function walkTo(id: LessonCharacterId, offset: number, pace = 1): void {
-    const from = offsets[id] ?? 0;
+    const target = offsets[id] ?? 0;
+    // Sent on mid-walk (a dog after a thrown ball), it goes on from where it has got to, not from where
+    // that walk was headed: timed from there, the run reached the edge too soon and the legs stopped before it.
+    const now = playClockNow();
+    const ends = walkEndsAt[id] ?? 0;
+    const set = walkFrom[id];
+    const from =
+      set && now < ends && ends > set.at
+        ? set.offset + (target - set.offset) * ((now - set.at) / (ends - set.at))
+        : target;
     if (from === offset) return;
 
     const steps = stepsFor(offset - from);
@@ -1665,10 +1699,15 @@
     const { [id]: _, ...still } = perched;
     perched = still;
     walkCount += 1;
-    walks = { ...walks, [id]: { cue: walkCount, ms, pace } };
+    const cue = walkCount;
+    walks = { ...walks, [id]: { cue, ms, pace } };
     offsets = { ...offsets, [id]: offset };
+    walkFrom[id] = { offset: from, at: now };
     striding = [...striding.filter((other) => other !== id), id];
-    later(ms, () => (striding = striding.filter((other) => other !== id)));
+    // Only this walk's own end: the end of one it took over from stopped the legs mid-run.
+    later(ms, () => {
+      if (walks[id]?.cue === cue || !walks[id]) striding = striding.filter((other) => other !== id);
+    });
     const passed = passedBy(id, from, offset);
     if (passed.length && passed.every((other) => seated[other] !== undefined)) {
       passingBehind = [...passingBehind.filter((other) => other !== id), id];

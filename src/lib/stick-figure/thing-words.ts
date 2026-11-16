@@ -53,6 +53,12 @@ export interface SceneThing {
   /** Only tapped for its word: the cast handles it by cues, so a line naming it is not pointed at. */
   quiet?: boolean;
   /**
+   * Scenery at the back, the houses across a street: whatever overlaps it
+   * gets the tap there. A house's box is smaller than the tram shelter's
+   * in front of it, and won the shelter's middle.
+   */
+  behind?: boolean;
+  /**
    * The thing it lies on, by id: while their boxes touch it is tapped as that
    * thing. A carrot and a knife on the board were three targets in 40×18 px.
    */
@@ -217,6 +223,7 @@ export const THING_WORDS = {
     word: "abeceda",
   },
   dom: {
+    behind: true,
     english: "house",
     forms: ["dom", "domu", "dome", "domom", "domy", "domoch", "domami"],
     gender: "masculine-inanimate",
@@ -982,6 +989,13 @@ export const THING_WORDS = {
     plural: true,
     stems: ["priecink", "priecinok"],
     word: "priečinky",
+  },
+  zabradlie: {
+    english: "railing",
+    gender: "neuter",
+    id: "zabradlie",
+    stems: ["zabradl"],
+    word: "zábradlie",
   },
   zrkadlo: {
     english: "mirror",
