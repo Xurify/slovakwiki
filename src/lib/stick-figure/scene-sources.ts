@@ -174,6 +174,10 @@ export function episodeStages(episode: ListeningEpisode): {
         chapter.id,
         {
           ...(index > 0 && before.length > 0 ? { before } : {}),
+          ...(chapter.clock ? { clock: clockOf(chapter.clock) } : {}),
+          ...(index > 0 && (previous?.stage ?? "studio") !== setting
+            ? { moved: true }
+            : {}),
           ...(chapter.carrying
             ? {
                 carried: Object.fromEntries(
@@ -205,6 +209,12 @@ export function episodeStages(episode: ListeningEpisode): {
   );
 
   return { scenes, thingWords };
+}
+
+/** "14:30" as 14.5. */
+function clockOf(time: string): number {
+  const [hours, minutes] = time.split(":").map(Number);
+  return hours + minutes / 60;
 }
 
 /** Hosts the stage seats at the desk, being nowhere else, are seated in the world too, so a cue knows they sit. */

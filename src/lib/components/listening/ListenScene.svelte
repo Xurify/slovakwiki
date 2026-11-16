@@ -76,6 +76,8 @@
 
   /** The place is seen and heard this long before the first line of a segment that follows on. */
   const SETTLE_MS = 1400;
+  /** More before the first line where the story has gone somewhere else: the trip there gets a breath. */
+  const MOVED_MS = 1200;
   /** The next segment takes the sound over within this, rather than start it again. */
   const HANDOVER_MS = 1500;
 
@@ -99,14 +101,16 @@
   const direction = $derived(
     directScene(scene.lines, scene.setting, scene.order, scene.carried),
   );
-  const mood = $derived(
-    sceneMood(
-      scene.lines.map((line) => line.slovak),
-      Math.max(at, 0),
-      scene.before,
-      new Set(scene.lines.flatMap((line, index) => (line.quiz ? [index] : []))),
-    ),
-  );
+  const mood = $derived.by(() => {
+    const said = scene.lines.map((line) => line.slovak);
+    const upTo = Math.max(at, 0);
+    const quiz = new Set(scene.lines.flatMap((line, index) => (line.quiz ? [index] : [])));
+    const told = sceneMood(said, upTo, scene.before, quiz);
+    if (scene.clock === undefined) return told;
+    // The segment's own clock, unless one of its own lines has told a time since.
+    const here = sceneMood(said, upTo, undefined, quiz).hour;
+    return { ...told, hour: here ?? scene.clock };
+  });
 
   $effect(() => {
     if (!follows) return;
@@ -152,7 +156,7 @@
     if (!settled && index === 0) {
       settled = true;
       playSegmentCue();
-      wait = Math.max(wait, SETTLE_MS);
+      wait = Math.max(wait, SETTLE_MS + (scene.moved ? MOVED_MS : 0));
     }
 
     const ring = scene.lines[index]?.ring;

@@ -32,6 +32,12 @@ export interface ListeningChapter {
   /** Who stands where, left to right, when the episode's speakers order is wrong here: whoever comes in the door stands at its end. */
   cast?: string[];
   checks: ListeningCheck[];
+  /**
+   * What the wall clock reads as the segment starts ("14:30"), where it is
+   * later than what was told before: the outro an hour after the quiz. A time
+   * a line tells in the segment still sets it.
+   */
+  clock?: `${number}:${number}`;
   id: string;
   lines: DialogueTurn[];
   /** Where the stick-figure stage acts the segment out; the podcast studio unless set. */

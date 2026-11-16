@@ -1213,7 +1213,14 @@ export function motionFor(
       };
     }
     case "lean": {
-      const near = { body: { lean: 10, tilt: 6, brow: 0.6, look: 1 } };
+      // To see a phone someone holds out (not one at their ear on a call), over from the hips, the head some 8 rig units nearer: at 10° it read as standing still.
+      // Leaning to a person's face stays small, or heads met.
+      const shown = Object.values(heldBy(world, to as LessonCharacterId)).some(
+        (id) => world.objects[id]?.kind === "phone" && !world.objects[id]?.call,
+      );
+      const near = {
+        body: { lean: shown ? 20 : 10, tilt: shown ? 8 : 6, brow: 0.6, look: 1 },
+      };
       return {
         motion: {
           ms: 700,
@@ -1424,6 +1431,8 @@ export function motionFor(
       return {
         motion: {
           ms: 2800,
+          // Down by then: the next line need not wait out the rest of the hold, which left 3 s of dead air.
+          takes: 700,
           face: target,
           // Down until their next cue: up again after a few seconds, they rose mid-sentence while still talking to the dog.
           hold: true,

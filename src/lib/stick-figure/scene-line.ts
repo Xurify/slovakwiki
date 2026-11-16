@@ -70,6 +70,10 @@ export interface StagedScene {
   before?: string[];
   /** What the cast walks in holding (ListeningChapter.carrying). */
   carried?: CastProps;
+  /** The segment before was somewhere else: the trip gets a breath before the first line. */
+  moved?: boolean;
+  /** The hour the clock reads as it starts, minutes as a fraction (ListeningChapter.clock). */
+  clock?: number;
   lines: DirectedLine[];
   order?: LessonCharacterId[];
   setting: StageSetting;
