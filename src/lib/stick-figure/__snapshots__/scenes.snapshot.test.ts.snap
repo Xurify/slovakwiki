@@ -774,7 +774,6 @@ exports[`every scene, directed > lesson everyday/days-dates-and-time 1`] = `
     "torta",
     "kavovar",
     "stol",
-    "salka",
     "stolicka",
     "rastlina",
     "dvere",
@@ -960,8 +959,6 @@ exports[`every scene, directed > lesson everyday/meet-someone 1`] = `
     "lekaren",
     "bicykel",
     "kos",
-    "stolik",
-    "pes",
   ],
 }
 `;
@@ -1120,7 +1117,6 @@ exports[`every scene, directed > lesson everyday/negation-in-conversation 1`] = 
     "torta",
     "kavovar",
     "stol",
-    "salka",
     "stolicka",
     "rastlina",
     "dvere",
@@ -1346,7 +1342,6 @@ exports[`every scene, directed > lesson everyday/numbers-and-personal-details 1`
     "pult",
     "pocitac",
     "zvoncek",
-    "formular",
     "dvere",
     "vesiak",
     "nastenka",
@@ -1607,9 +1602,6 @@ exports[`every scene, directed > lesson grammar/aspect 1`] = `
     "pelech",
     "vesiak",
     "hodiny",
-    "kabat",
-    "hrncek",
-    "pes",
   ],
 }
 `;
@@ -1738,7 +1730,6 @@ exports[`every scene, directed > lesson grammar/byt-present 1`] = `
     "pult",
     "pocitac",
     "zvoncek",
-    "formular",
     "dvere",
     "vesiak",
     "nastenka",
@@ -2242,7 +2233,6 @@ exports[`every scene, directed > lesson grammar/demonstratives 1`] = `
     "torta",
     "kavovar",
     "stol",
-    "salka",
     "stolicka",
     "rastlina",
     "dvere",
@@ -2417,9 +2407,11 @@ exports[`every scene, directed > lesson grammar/mat-present 1`] = `
     "zelenina",
     "syr",
     "jahody",
-    "stanok",
     "vaha",
+    "kosik",
     "lampa",
+    "stanok",
+    "dom",
   ],
 }
 `;
@@ -2769,9 +2761,6 @@ exports[`every scene, directed > lesson grammar/possessives 1`] = `
     "pelech",
     "vesiak",
     "hodiny",
-    "kabat",
-    "hrncek",
-    "pes",
   ],
 }
 `;
@@ -2964,7 +2953,6 @@ exports[`every scene, directed > lesson grammar/present-tense-i 1`] = `
     "torta",
     "kavovar",
     "stol",
-    "salka",
     "stolicka",
     "rastlina",
     "dvere",
@@ -3258,16 +3246,16 @@ exports[`every scene, directed > podcast podcast-demonstratives-home 1`] = `
       },
     },
     {
-      "line": "marek: Áno! A kto je tá žena pri ňom?",
+      "line": "marek: Jasné, pán Novák! A kto je tá žena pri ňom?",
       "plan": {
         "beats": [
           "0 nod",
-          "1600 ask",
+          "2500 ask",
         ],
-        "ms": 3450,
-        "questions": "1600-3250",
-        "sentences": "0-406 1600-3250",
-        "words": "0-406 1600-1761 1761-1986 1986-2179 2179-2414 2414-2800 2800-3025 3025-3250",
+        "ms": 4400,
+        "questions": "2500-4200",
+        "sentences": "0-1337 2500-4200",
+        "words": "0-475 586-862 862-1337 2500-2666 2666-2897 2897-3096 3096-3339 3339-3736 3736-3968 3968-4200",
       },
       "staging": {
         "addressee": "anna",
@@ -3312,15 +3300,15 @@ exports[`every scene, directed > podcast podcast-demonstratives-home 1`] = `
       },
     },
     {
-      "line": "marek: Aha, tú ženu poznám z obchodu. Tí ľudia sú milí.",
+      "line": "marek: Aha, tú ženu poznám z obchodu. Tí ľudia sú naozaj milí.",
       "plan": {
         "beats": [
           "0 tell",
-          "3850 tell",
+          "3750 tell",
         ],
-        "ms": 5200,
-        "sentences": "0-2361 3850-5050",
-        "words": "0-388 505-763 763-1186 1186-1726 1726-1726 1726-2361 3850-4063 4063-4450 4450-4663 4663-5050",
+        "ms": 5600,
+        "sentences": "0-2243 3750-5400",
+        "words": "0-368 480-725 725-1127 1127-1640 1640-1640 1640-2243 3750-3954 3954-4325 4325-4529 4529-5029 5029-5400",
       },
       "staging": {
         "addressee": "anna",
@@ -3394,9 +3382,6 @@ exports[`every scene, directed > podcast podcast-demonstratives-home 1`] = `
     "pelech",
     "vesiak",
     "hodiny",
-    "kabat",
-    "hrncek",
-    "pes",
   ],
 }
 `;
@@ -3526,7 +3511,6 @@ exports[`every scene, directed > podcast podcast-demonstratives-intro 1`] = `
     "rastlina",
     "hrncek",
     "krhla",
-    "tanier",
     "platna",
     "knihy",
     "polica",
@@ -3923,15 +3907,15 @@ exports[`every scene, directed > podcast podcast-demonstratives-market 1`] = `
       },
     },
     {
-      "line": "marek: Tak poďme domov. Potom pôjdeme autom.",
+      "line": "marek: Tak poďme k tebe. Moje auto stojí pred tvojím domom.",
       "plan": {
         "beats": [
           "50 tell",
-          "2250 tell",
+          "2450 tell",
         ],
-        "ms": 3700,
-        "sentences": "50-1043 2250-3500",
-        "words": "50-261 261-652 652-1043 2250-2598 2598-3143 3143-3500",
+        "ms": 4750,
+        "sentences": "50-1064 2450-4550",
+        "words": "50-272 272-684 684-684 684-1064 2450-2786 2786-3131 3131-3533 3533-3757 3757-4186 4186-4550",
       },
       "staging": {
         "addressee": "anna",
@@ -3949,9 +3933,11 @@ exports[`every scene, directed > podcast podcast-demonstratives-market 1`] = `
     "zelenina",
     "syr",
     "jahody",
-    "stanok",
     "vaha",
+    "kosik",
     "lampa",
+    "stanok",
+    "dom",
   ],
 }
 `;
@@ -3964,14 +3950,14 @@ exports[`every scene, directed > podcast podcast-demonstratives-outro 1`] = `
   ],
   "lines": [
     {
-      "line": "marek: To je na dnes všetko.",
+      "line": "marek: Tak, to je na dnes všetko.",
       "plan": {
         "beats": [
-          "100 tell",
+          "50 tell",
         ],
-        "ms": 1400,
-        "sentences": "100-1200",
-        "words": "100-265 265-430 430-595 595-815 815-1200",
+        "ms": 2000,
+        "sentences": "50-1850",
+        "words": "50-300 420-634 634-849 849-1063 1063-1349 1349-1850",
       },
       "staging": {
         "addressee": "anna",
@@ -4117,6 +4103,25 @@ exports[`every scene, directed > podcast podcast-demonstratives-outro 1`] = `
         },
       },
     },
+    {
+      "line": "anna: Tak. A teraz už naozaj ahojte!",
+      "plan": {
+        "beats": [
+          "0 chuckle",
+          "1626 stress",
+        ],
+        "ms": 4250,
+        "sentences": "0-271 1626-3950",
+        "words": "0-271 1626-1820 1820-2324 2324-2556 2556-3253 3253-3950",
+      },
+      "staging": {
+        "addressee": "marek",
+        "audience": true,
+        "facing": {
+          "marek": -1,
+        },
+      },
+    },
   ],
   "setting": "studio",
   "things": [
@@ -4127,7 +4132,6 @@ exports[`every scene, directed > podcast podcast-demonstratives-outro 1`] = `
     "rastlina",
     "hrncek",
     "krhla",
-    "tanier",
     "platna",
     "knihy",
     "polica",
@@ -4707,7 +4711,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
       "line": "marek: Juchú!",
       "plan": {
         "beats": [
-          "0 stress",
+          "0 cheer",
         ],
         "ms": 1150,
         "sentences": "0-950",
@@ -4742,14 +4746,15 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
       },
     },
     {
-      "line": "anna: Marek, nepočúvaj ich tak veľmi.",
+      "line": "anna: Ale Marek. Nepočúvaj ich tak veľmi.",
       "plan": {
         "beats": [
-          "0 chuckle",
+          "50 chuckle",
+          "2600 tell",
         ],
-        "ms": 3550,
-        "sentences": "0-3300",
-        "words": "0-625 785-2050 2050-2339 2339-2675 2675-3300",
+        "ms": 4800,
+        "sentences": "50-999 2600-4450",
+        "words": "50-485 485-999 2600-3531 3531-3743 3743-3990 3990-4450",
       },
       "staging": {
         "addressee": "marek",
@@ -4987,15 +4992,15 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
       },
     },
     {
-      "line": "marek: Uf. To bolo ťažké.",
+      "line": "marek: Uf. To bolo ale ťažké.",
       "plan": {
         "beats": [
           "50 tell",
-          "1850 tell",
+          "1350 tell",
         ],
         "ms": 3200,
-        "sentences": "50-287 1850-2950",
-        "words": "50-287 1850-2054 2054-2462 2462-2950",
+        "sentences": "50-256 1350-2950",
+        "words": "50-256 1350-1572 1572-2015 2015-2421 2421-2950",
       },
       "staging": {
         "addressee": "anna",
@@ -5116,14 +5121,15 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
       },
     },
     {
-      "line": "marek: Aj tak ďakujem, pomocníci.",
+      "line": "marek: No nič. Aj tak ďakujem, pomocníci.",
       "plan": {
         "beats": [
-          "0 chuckle",
+          "50 chuckle",
+          "1800 tell",
         ],
-        "ms": 3550,
-        "sentences": "0-3200",
-        "words": "0-311 311-675 675-1661 1834-3200",
+        "ms": 4750,
+        "sentences": "50-583 1800-4550",
+        "words": "50-296 296-583 1800-2068 2068-2380 2380-3227 3376-4550",
       },
       "staging": {
         "addressee": "anna",
@@ -5228,7 +5234,6 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
     "rastlina",
     "hrncek",
     "krhla",
-    "tanier",
     "platna",
     "knihy",
     "polica",
@@ -5728,9 +5733,6 @@ exports[`every scene, directed > podcast podcast-future-tense-friday 1`] = `
     "pelech",
     "vesiak",
     "hodiny",
-    "kabat",
-    "hrncek",
-    "pes",
   ],
 }
 `;
@@ -6132,9 +6134,6 @@ exports[`every scene, directed > podcast podcast-future-tense-monday 1`] = `
     "pelech",
     "vesiak",
     "hodiny",
-    "kabat",
-    "hrncek",
-    "pes",
   ],
 }
 `;
@@ -6432,9 +6431,6 @@ exports[`every scene, directed > podcast podcast-future-tense-morning 1`] = `
     "pelech",
     "vesiak",
     "hodiny",
-    "kabat",
-    "hrncek",
-    "pes",
   ],
 }
 `;
@@ -6985,9 +6981,6 @@ exports[`every scene, directed > podcast podcast-future-tense-six 1`] = `
     "pelech",
     "vesiak",
     "hodiny",
-    "kabat",
-    "hrncek",
-    "pes",
   ],
 }
 `;
@@ -7295,9 +7288,6 @@ exports[`every scene, directed > podcast podcast-future-tense-window 1`] = `
     "pelech",
     "vesiak",
     "hodiny",
-    "kabat",
-    "hrncek",
-    "pes",
   ],
 }
 `;
@@ -8676,7 +8666,6 @@ exports[`every scene, directed > podcast podcast-imperative-help 1`] = `
     "rastlina",
     "hrncek",
     "krhla",
-    "tanier",
     "platna",
     "knihy",
     "polica",
@@ -9026,7 +9015,6 @@ exports[`every scene, directed > podcast podcast-imperative-intro 1`] = `
     "rastlina",
     "hrncek",
     "krhla",
-    "tanier",
     "platna",
     "knihy",
     "polica",
@@ -9842,7 +9830,6 @@ exports[`every scene, directed > podcast podcast-imperative-outro 1`] = `
     "rastlina",
     "hrncek",
     "krhla",
-    "tanier",
     "platna",
     "knihy",
     "polica",
@@ -10199,16 +10186,16 @@ exports[`every scene, directed > podcast podcast-past-tense-cafe 1`] = `
       },
     },
     {
-      "line": "waiter: Videl som. Bol na stole, ešte celý. A Marek sedel pri stole a pozeral sa na koláč.",
+      "line": "waiter: Videl som. Bol na stole, ešte celý. A Marek sedel pri stole a pozeral na koláč.",
       "plan": {
         "beats": [
           "0 tell",
           "1050 tell",
-          "4150 tell",
+          "4200 tell",
         ],
-        "ms": 7300,
-        "sentences": "0-641 1050-2779 4150-7150",
-        "words": "0-417 417-641 1050-1271 1271-1461 1461-1872 1978-2357 2357-2779 4150-4298 4298-4683 4683-5068 5068-5275 5275-5660 5660-5808 5808-6370 6370-6548 6548-6726 6726-7150",
+        "ms": 7150,
+        "sentences": "0-641 1050-2776 4200-6950",
+        "words": "0-416 416-641 1050-1271 1271-1460 1460-1871 1976-2355 2355-2776 4200-4344 4344-4719 4719-5094 5094-5296 5296-5671 5671-5815 5815-6363 6363-6537 6537-6950",
       },
       "staging": {
         "addressee": "anna",
@@ -10227,15 +10214,15 @@ exports[`every scene, directed > podcast podcast-past-tense-cafe 1`] = `
       },
     },
     {
-      "line": "anna: Pozeral sa na koláč?",
+      "line": "anna: Pozeral na koláč?",
       "plan": {
         "beats": [
           "50 ask",
         ],
-        "ms": 1600,
-        "questions": "50-1400",
-        "sentences": "50-1400",
-        "words": "50-616 616-794 794-973 973-1400",
+        "ms": 1450,
+        "questions": "50-1250",
+        "sentences": "50-1250",
+        "words": "50-630 630-813 813-1250",
       },
       "staging": {
         "addressee": "waiter",
@@ -10310,18 +10297,18 @@ exports[`every scene, directed > podcast podcast-past-tense-cafe 1`] = `
       },
     },
     {
-      "line": "waiter: Ja? Nie! Nič som nejedol. Koláčov tu mám dosť.",
+      "line": "waiter: Ja? Nie! Nič som nejedol. Koláčov mám tu dosť.",
       "plan": {
         "beats": [
           "0 self",
           "700 shake",
-          "1852 tell",
-          "4000 tell",
+          "2200 tell",
+          "3900 tell",
         ],
-        "ms": 5400,
-        "questions": "0-184",
-        "sentences": "0-184 650-778 1852-2865 4000-5250",
-        "words": "0-184 650-778 1852-2067 2067-2282 2282-2865 4000-4596 4596-4771 4771-5016 5016-5250",
+        "ms": 5300,
+        "questions": "0-181",
+        "sentences": "0-181 650-763 2200-2811 3900-5150",
+        "words": "0-181 650-763 2200-2330 2330-2459 2459-2811 3900-4496 4496-4740 4740-4916 4916-5150",
       },
       "staging": {
         "addressee": "anna",
@@ -10415,7 +10402,6 @@ exports[`every scene, directed > podcast podcast-past-tense-cafe 1`] = `
     "torta",
     "kavovar",
     "stol",
-    "salka",
     "stolicka",
     "rastlina",
     "dvere",
@@ -10499,34 +10485,6 @@ exports[`every scene, directed > podcast podcast-past-tense-closed 1`] = `
           {
             "at": 0.5,
             "characterId": "anna",
-            "gesture": "lean",
-            "sentence": 0,
-          },
-        ],
-      },
-    },
-    {
-      "line": "anna: Nikto? Dobre, tak vám to poviem.",
-      "plan": {
-        "beats": [
-          "50 ask",
-          "2250 nod",
-        ],
-        "ms": 4200,
-        "questions": "50-564",
-        "sentences": "50-564 2250-4000",
-        "words": "50-564 2250-2688 2800-3035 3035-3316 3316-3518 3518-4000",
-      },
-      "staging": {
-        "addressee": "marek",
-        "facing": {
-          "anna": 1,
-          "marek": -1,
-        },
-        "reactions": [
-          {
-            "at": 0.5,
-            "characterId": "marek",
             "gesture": "lean",
             "sentence": 0,
           },
@@ -10760,16 +10718,16 @@ exports[`every scene, directed > podcast podcast-past-tense-closed 1`] = `
       },
     },
     {
-      "line": "marek: Celý koláč. Prepáč, Anna. Bol taký dobrý… ",
+      "line": "marek: Celý koláč. Prepáč, Anna. Ja som si to ani nevšimol.",
       "plan": {
         "beats": [
-          "0 muse",
-          "2300 apologize",
-          "4450 muse",
+          "50 muse",
+          "2150 apologize",
+          "4050 shrug",
         ],
-        "ms": 5550,
-        "sentences": "0-917 2300-3092 4450-5400",
-        "words": "0-442 442-917 2300-2696 2782-3092 4450-4642 4642-5007 5007-5400",
+        "ms": 5700,
+        "sentences": "50-875 2150-2835 4050-5550",
+        "words": "50-448 448-875 2150-2492 2567-2835 4050-4211 4211-4398 4398-4559 4559-4720 4720-5014 5014-5550",
       },
       "staging": {
         "addressee": "anna",
@@ -10788,17 +10746,17 @@ exports[`every scene, directed > podcast podcast-past-tense-closed 1`] = `
       },
     },
     {
-      "line": "anna: Prípad uzavretý. Ja som dnes koláč nemala. Zajtra koláč kupujem ja. A schovám ho.",
+      "line": "anna: Prípad uzavretý. Dnes sme koláč nemali. Zajtra koláč kupujem ja. A schovám ho.",
       "plan": {
         "beats": [
           "100 tell",
-          "2500 self",
-          "5050 tell",
-          "7050 tell",
+          "2300 tell",
+          "4850 tell",
+          "6750 tell",
         ],
-        "ms": 8000,
-        "sentences": "100-1333 2500-4010 5050-6688 7050-7850",
-        "words": "100-565 565-1333 2500-2670 2670-2868 2868-3095 3095-3501 3501-4010 5050-5480 5480-5920 5920-6504 6504-6688 7050-7202 7202-7668 7668-7850",
+        "ms": 7800,
+        "sentences": "100-1322 2300-3795 4850-6448 6750-7600",
+        "words": "100-561 561-1322 2300-2553 2553-2774 2774-3226 3226-3795 4850-5270 5270-5699 5699-6269 6269-6448 6750-6911 6911-7406 7406-7600",
       },
       "staging": {
         "addressee": "marek",
@@ -10923,7 +10881,6 @@ exports[`every scene, directed > podcast podcast-past-tense-closed 1`] = `
     "rastlina",
     "hrncek",
     "krhla",
-    "tanier",
     "platna",
     "knihy",
     "polica",
@@ -10957,6 +10914,10 @@ exports[`every scene, directed > podcast podcast-past-tense-market 1`] = `
       },
       "staging": {
         "addressee": null,
+        "enter": {
+          "characterId": "anna",
+          "from": -1,
+        },
       },
     },
     {
@@ -11245,6 +11206,7 @@ exports[`every scene, directed > podcast podcast-past-tense-market 1`] = `
       },
       "staging": {
         "addressee": "lucia",
+        "exit": -1,
         "facing": {
           "anna": 1,
           "lucia": -1,
@@ -11266,9 +11228,11 @@ exports[`every scene, directed > podcast podcast-past-tense-market 1`] = `
     "zelenina",
     "syr",
     "jahody",
-    "stanok",
     "vaha",
+    "kosik",
     "lampa",
+    "stanok",
+    "dom",
   ],
 }
 `;
@@ -11459,16 +11423,16 @@ exports[`every scene, directed > podcast podcast-past-tense-plate 1`] = `
       },
     },
     {
-      "line": "marek: Ráno prišla Mária zo školy. Na obed prišiel čašník z kaviarne. A o jednej prišla Lucia z trhu.",
+      "line": "marek: Ráno prišla Mária zo školy. Na obed prišiel čašník z kaviarne. A o jednej prišla Lucia.",
       "plan": {
         "beats": [
-          "0 tell",
-          "3050 tell",
-          "6400 tell",
+          "50 tell",
+          "3150 tell",
+          "6200 tell",
         ],
-        "ms": 8650,
-        "sentences": "0-2047 3050-5338 6400-8450",
-        "words": "0-422 422-865 865-1445 1445-1635 1635-2047 3050-3249 3249-3647 3647-4155 4155-4664 4664-4664 4664-5338 6400-6562 6562-6724 6724-7177 7177-7630 7630-8062 8062-8062 8062-8450",
+        "ms": 8200,
+        "sentences": "50-2053 3150-5275 6200-7950",
+        "words": "50-463 463-897 897-1465 1465-1651 1651-2053 3150-3335 3335-3704 3704-4177 4177-4649 4649-4649 4649-5275 6200-6370 6370-6541 6541-7018 7018-7495 7495-7950",
       },
       "staging": {
         "addressee": "anna",
@@ -11684,7 +11648,6 @@ exports[`every scene, directed > podcast podcast-past-tense-plate 1`] = `
     "rastlina",
     "hrncek",
     "krhla",
-    "tanier",
     "platna",
     "knihy",
     "polica",
@@ -11897,16 +11860,16 @@ exports[`every scene, directed > podcast podcast-past-tense-school 1`] = `
       },
     },
     {
-      "line": "maria: Desať minút. O pol desiatej som už bola v škole. Celý deň som tu pracovala.",
+      "line": "maria: Desať minút. O pol desiatej som už bola v škole. Celý deň som pracovala tu.",
       "plan": {
         "beats": [
           "0 tell",
-          "1350 tell",
+          "1400 tell",
           "4850 tell",
         ],
         "ms": 6750,
-        "sentences": "0-882 1350-3539 4850-6550",
-        "words": "0-419 419-882 1350-1506 1506-1723 1723-2356 2356-2574 2574-2761 2761-3134 3134-3134 3134-3539 4850-5239 5239-5443 5443-5647 5647-5821 5821-6550",
+        "sentences": "0-882 1400-3539 4850-6550",
+        "words": "0-419 419-882 1400-1552 1552-1765 1765-2383 2383-2596 2596-2778 2778-3143 3143-3143 3143-3539 4850-5239 5239-5443 5443-5647 5647-6375 6375-6550",
       },
       "staging": {
         "addressee": "anna",
@@ -12071,7 +12034,6 @@ exports[`every scene, directed > podcast podcast-past-tense-school 1`] = `
     "pult",
     "pocitac",
     "zvoncek",
-    "formular",
     "dvere",
     "vesiak",
     "nastenka",
@@ -12145,16 +12107,16 @@ exports[`every scene, directed > podcast podcast-past-tense-whodunit 1`] = `
       },
     },
     {
-      "line": "anna: A potom na obed: čašník hovorí, že koláč bol celý. A že ty si sedel a pozeral sa na koláč.",
+      "line": "anna: A potom na obed: čašník hovorí, že koláč bol celý. A že ty si sedel a pozeral na koláč.",
       "plan": {
         "beats": [
-          "100 tell",
-          "2700 muse",
-          "5350 tell",
+          "50 tell",
+          "2650 muse",
+          "5050 tell",
         ],
-        "ms": 8250,
-        "sentences": "100-4044 5350-8100",
-        "words": "100-267 267-702 702-902 902-1303 1415-1927 1927-2574 2685-2886 2886-3365 3365-3599 3599-4044 5350-5509 5509-5700 5700-5892 5892-6083 6083-6497 6497-6656 6656-7261 7261-7452 7452-7643 7643-8100",
+        "ms": 7950,
+        "sentences": "50-3919 5050-7700",
+        "words": "50-214 214-640 640-837 837-1230 1340-1842 1842-2476 2585-2782 2782-3252 3252-3482 3482-3919 5050-5215 5215-5413 5413-5611 5611-5809 5809-6238 6238-6402 6402-7029 7029-7227 7227-7700",
       },
       "staging": {
         "addressee": "marek",
@@ -12231,16 +12193,17 @@ exports[`every scene, directed > podcast podcast-past-tense-whodunit 1`] = `
       },
     },
     {
-      "line": "anna: Tak kto bol v štúdiu celý deň? Hádajte s nami!",
+      "line": "anna: Tak kto bol v štúdiu celý deň? Kto bol ráno hladný a o jednej už nie? Hádajte s nami!",
       "plan": {
         "beats": [
-          "50 ask",
-          "3200 stress",
+          "0 ask",
+          "3300 ask",
+          "6950 stress",
         ],
-        "ms": 4250,
-        "questions": "50-1970",
-        "sentences": "50-1970 3200-4100",
-        "words": "50-271 271-493 493-714 714-714 714-1326 1326-1748 1748-1970 3200-3766 3766-3766 3766-4100",
+        "ms": 8000,
+        "questions": "0-1960 3300-5675",
+        "sentences": "0-1960 3300-5675 6950-7850",
+        "words": "0-226 226-452 452-678 678-678 678-1303 1303-1734 1734-1960 3300-3508 3508-3716 3716-4111 4111-4567 4567-4715 4715-4863 4863-5279 5279-5457 5457-5675 6950-7516 7516-7516 7516-7850",
       },
       "staging": {
         "addressee": "marek",
@@ -12253,7 +12216,7 @@ exports[`every scene, directed > podcast podcast-past-tense-whodunit 1`] = `
             "at": 0.5,
             "characterId": "marek",
             "gesture": "lean",
-            "sentence": 0,
+            "sentence": 1,
           },
         ],
       },
@@ -12287,7 +12250,6 @@ exports[`every scene, directed > podcast podcast-past-tense-whodunit 1`] = `
     "rastlina",
     "hrncek",
     "krhla",
-    "tanier",
     "platna",
     "knihy",
     "polica",
@@ -12493,7 +12455,6 @@ exports[`every scene, directed > podcast podcast-possessives-intro 1`] = `
     "rastlina",
     "hrncek",
     "krhla",
-    "tanier",
     "platna",
     "knihy",
     "polica",
@@ -12725,7 +12686,6 @@ exports[`every scene, directed > podcast podcast-possessives-outro 1`] = `
     "rastlina",
     "hrncek",
     "krhla",
-    "tanier",
     "platna",
     "knihy",
     "polica",
@@ -13297,7 +13257,6 @@ exports[`every scene, directed > podcast podcast-possessives-photos 1`] = `
     "rastlina",
     "hrncek",
     "krhla",
-    "tanier",
     "platna",
     "knihy",
     "polica",
@@ -13810,7 +13769,6 @@ exports[`every scene, directed > podcast podcast-possessives-quiz 1`] = `
     "rastlina",
     "hrncek",
     "krhla",
-    "tanier",
     "platna",
     "knihy",
     "polica",
@@ -14105,7 +14063,6 @@ exports[`every scene, directed > podcast podcast-possessives-school 1`] = `
     "pult",
     "pocitac",
     "zvoncek",
-    "formular",
     "dvere",
     "vesiak",
     "nastenka",
@@ -14512,8 +14469,6 @@ exports[`every scene, directed > podcast podcast-possessives-square 1`] = `
     "lekaren",
     "bicykel",
     "kos",
-    "stolik",
-    "pes",
   ],
 }
 `;
@@ -14527,20 +14482,19 @@ exports[`every scene, directed > podcast podcast-telling-time-cafe 1`] = `
   ],
   "lines": [
     {
-      "line": "anna: Tu je naša kaviareň. Sadnime si.",
+      "line": "anna: Teraz sme v kaviarni.",
       "plan": {
         "beats": [
-          "100 point",
-          "2150 tell",
+          "50 tell",
         ],
-        "ms": 3050,
-        "sentences": "100-1269 2150-2850",
-        "words": "100-258 258-416 416-733 733-1269 2150-2682 2682-2850",
+        "ms": 1600,
+        "sentences": "50-1450",
+        "words": "50-501 501-744 744-744 744-1450",
       },
       "staging": {
         "addressee": "waiter",
+        "audience": true,
         "facing": {
-          "anna": 1,
           "marek": -1,
           "waiter": -1,
         },
@@ -14936,7 +14890,6 @@ exports[`every scene, directed > podcast podcast-telling-time-cafe 1`] = `
     "torta",
     "kavovar",
     "stol",
-    "salka",
     "stolicka",
     "rastlina",
     "dvere",
@@ -14961,6 +14914,7 @@ exports[`every scene, directed > podcast podcast-telling-time-clock-lesson 1`] =
         "beats": [
           "0 tell",
           "3950 tell",
+          "5489 point → hodiny",
         ],
         "ms": 6400,
         "sentences": "0-2482 3950-6200",
@@ -14978,7 +14932,7 @@ exports[`every scene, directed > podcast podcast-telling-time-clock-lesson 1`] =
       "line": "marek: Znova hodiny? Prečo práve ja?",
       "plan": {
         "beats": [
-          "50 ask",
+          "236 point → hodiny",
           "1850 ask",
         ],
         "ms": 3150,
@@ -15069,6 +15023,7 @@ exports[`every scene, directed > podcast podcast-telling-time-clock-lesson 1`] =
       "plan": {
         "beats": [
           "0 tell",
+          "1171 point → hodiny",
         ],
         "ms": 2350,
         "sentences": "0-2150",
@@ -15149,16 +15104,20 @@ exports[`every scene, directed > podcast podcast-telling-time-clock-lesson 1`] =
       },
     },
     {
-      "line": "anna: Nie! Štvrť na tri je dve pätnásť. Pozeráme sa dopredu, na tretiu hodinu.",
+      "line": "anna: Nie! Štvrť na tri je dve pätnásť. Slovenčina sa pozerá dopredu, na tretiu hodinu.",
       "plan": {
         "beats": [
           "0 shake",
           "850 tell",
-          "3742 tell",
+          "3665 tell",
+          "6265 muse",
         ],
-        "ms": 7150,
-        "sentences": "0-260 850-2503 3742-7000",
-        "words": "0-260 850-1140 1140-1333 1333-1558 1558-1751 1751-1977 1977-2503 3742-4639 4639-4852 4852-5524 5642-5855 5855-6363 6363-7000",
+        "ms": 7800,
+        "pictures": [
+          "3665 flag-sk",
+        ],
+        "sentences": "0-254 850-2451 3665-7550",
+        "words": "0-254 850-1131 1131-1318 1318-1536 1536-1723 1723-1942 1942-2451 3665-4567 4567-4775 4775-5446 5446-6105 6220-6428 6428-6926 6926-7550",
       },
       "staging": {
         "addressee": "marek",
@@ -15257,6 +15216,7 @@ exports[`every scene, directed > podcast podcast-telling-time-clock-lesson 1`] =
         "beats": [
           "0 cheer",
           "1050 tell",
+          "2497 point → hodiny",
         ],
         "ms": 3450,
         "sentences": "0-740 1050-3250",
@@ -15275,7 +15235,7 @@ exports[`every scene, directed > podcast podcast-telling-time-clock-lesson 1`] =
       "plan": {
         "beats": [
           "50 tell",
-          "2650 ask",
+          "3242 point → hodiny",
         ],
         "ms": 5550,
         "questions": "2650-5300",
@@ -15303,6 +15263,7 @@ exports[`every scene, directed > podcast podcast-telling-time-clock-lesson 1`] =
       "plan": {
         "beats": [
           "0 tell",
+          "1454 point → hodiny",
           "4762 tell",
         ],
         "ms": 8350,
@@ -15330,8 +15291,7 @@ exports[`every scene, directed > podcast podcast-telling-time-clock-lesson 1`] =
       "plan": {
         "beats": [
           "0 tell",
-          "1550 tell",
-          "3150 tell",
+          "1988 point → hodiny",
           "5700 tell",
         ],
         "ms": 6500,
@@ -15375,7 +15335,6 @@ exports[`every scene, directed > podcast podcast-telling-time-clock-lesson 1`] =
     "rastlina",
     "hrncek",
     "krhla",
-    "tanier",
     "platna",
     "knihy",
     "polica",
@@ -15397,15 +15356,15 @@ exports[`every scene, directed > podcast podcast-telling-time-help 1`] = `
   ],
   "lines": [
     {
-      "line": "anna: Ešte máme chvíľu čas. Marek, malá skúška pre teba.",
+      "line": "anna: Je jedna hodina a ešte máme chvíľu čas. Marek, malá skúška pre teba.",
       "plan": {
         "beats": [
-          "50 tell",
-          "2700 tell",
+          "0 tell",
+          "3800 tell",
         ],
-        "ms": 4800,
-        "sentences": "50-1524 2700-4650",
-        "words": "50-429 429-850 850-1303 1303-1524 2700-3096 3198-3604 3604-4071 4071-4284 4284-4650",
+        "ms": 6100,
+        "sentences": "0-2788 3800-5900",
+        "words": "0-189 189-597 597-1163 1163-1320 1320-1698 1698-2117 2117-2567 2567-2788 3800-4227 4336-4773 4773-5277 5277-5506 5506-5900",
       },
       "staging": {
         "addressee": "marek",
@@ -15617,16 +15576,15 @@ exports[`every scene, directed > podcast podcast-telling-time-help 1`] = `
       },
     },
     {
-      "line": "anna: Správne! Pri dvoch, troch a štyroch hodinách hovoríme sú: sú tri hodiny.",
+      "line": "anna: Správne! Dve, tri, štyri hodiny: sú.",
       "plan": {
         "beats": [
           "50 nod",
-          "1900 tell",
-          "4500 muse",
+          "2200 tell",
         ],
-        "ms": 7400,
-        "sentences": "50-676 1900-7150",
-        "words": "50-676 1900-2174 2174-2488 2618-2932 2932-3128 3128-3676 3676-4473 4473-5465 5465-5753 5883-6171 6171-6445 6445-7150",
+        "ms": 4600,
+        "sentences": "50-682 2200-4450",
+        "words": "50-682 2200-2453 2573-2826 2946-3415 3415-4065 4185-4450",
       },
       "staging": {
         "addressee": "marek",
@@ -15674,16 +15632,16 @@ exports[`every scene, directed > podcast podcast-telling-time-help 1`] = `
       },
     },
     {
-      "line": "anna: Nesprávne! Pri dvoch, troch a štyroch hovoríme sú. Sú tri hodiny.",
+      "line": "anna: Nesprávne! Dve, tri, štyri hodiny: sú. Sú tri hodiny.",
       "plan": {
         "beats": [
-          "0 shake",
-          "2300 tell",
-          "6750 tell",
+          "50 shake",
+          "2000 tell",
+          "5900 tell",
         ],
-        "ms": 7950,
-        "sentences": "0-849 2300-5142 6750-7700",
-        "words": "0-849 2300-2555 2555-2846 2968-3259 3259-3442 3442-3952 3952-4875 4875-5142 6750-6965 6965-7171 7171-7700",
+        "ms": 7150,
+        "sentences": "50-868 2000-4434 5900-6900",
+        "words": "50-868 2000-2273 2403-2677 2807-3314 3314-4017 4147-4434 5900-6127 6127-6343 6343-6900",
       },
       "staging": {
         "addressee": "marek",
@@ -16362,7 +16320,6 @@ exports[`every scene, directed > podcast podcast-telling-time-help 1`] = `
     "rastlina",
     "hrncek",
     "krhla",
-    "tanier",
     "platna",
     "knihy",
     "polica",
@@ -16601,7 +16558,6 @@ exports[`every scene, directed > podcast podcast-telling-time-intro 1`] = `
     "rastlina",
     "hrncek",
     "krhla",
-    "tanier",
     "platna",
     "knihy",
     "polica",
@@ -16651,16 +16607,16 @@ exports[`every scene, directed > podcast podcast-telling-time-outro 1`] = `
       },
     },
     {
-      "line": "anna: Je štvrť na dve. Prečo?",
+      "line": "anna: Je presne jedna hodina. Prečo?",
       "plan": {
         "beats": [
-          "0 tell",
-          "1550 ask",
+          "50 tell",
+          "1950 ask",
         ],
-        "ms": 2200,
-        "questions": "1550-2000",
-        "sentences": "0-1057 1550-2000",
-        "words": "0-226 226-566 566-792 792-1057 1550-2000",
+        "ms": 2600,
+        "questions": "1950-2400",
+        "sentences": "50-1627 1950-2400",
+        "words": "50-236 236-668 668-1070 1070-1627 1950-2400",
       },
       "staging": {
         "addressee": "marek",
@@ -16706,14 +16662,14 @@ exports[`every scene, directed > podcast podcast-telling-time-outro 1`] = `
       },
     },
     {
-      "line": "anna: O hodinu a trištvrte, Marek.",
+      "line": "anna: O dve hodiny, Marek.",
       "plan": {
         "beats": [
           "100 sigh",
         ],
-        "ms": 3200,
-        "sentences": "100-3050",
-        "words": "100-326 326-1139 1139-1364 1364-2313 2463-3050",
+        "ms": 3000,
+        "sentences": "100-2600",
+        "words": "100-370 370-747 747-1719 1899-2600",
       },
       "staging": {
         "addressee": "marek",
@@ -16724,16 +16680,16 @@ exports[`every scene, directed > podcast podcast-telling-time-outro 1`] = `
       },
     },
     {
-      "line": "marek: Hodinu a trištvrte? Tak to stihnem ešte jednu kávu!",
+      "line": "marek: O dve? Tak to stihnem ešte jednu kávu!",
       "plan": {
         "beats": [
-          "50 ask",
-          "2450 stress",
+          "0 ask",
+          "1550 stress",
         ],
-        "ms": 4400,
-        "questions": "50-1291",
-        "sentences": "50-1291 2450-4150",
-        "words": "50-558 558-699 699-1291 2450-2629 2629-2783 2783-3168 3168-3475 3475-3808 3808-4150",
+        "ms": 3450,
+        "questions": "0-334",
+        "sentences": "0-334 1550-3150",
+        "words": "0-139 139-334 1550-1719 1719-1864 1864-2225 2225-2515 2515-2828 2828-3150",
       },
       "staging": {
         "addressee": "anna",
@@ -16752,34 +16708,15 @@ exports[`every scene, directed > podcast podcast-telling-time-outro 1`] = `
       },
     },
     {
-      "line": "anna: Jednu, Marek. A o tretej si tu.",
-      "plan": {
-        "beats": [
-          "0 chuckle",
-          "3100 tell",
-        ],
-        "ms": 4400,
-        "sentences": "0-1257 3100-4300",
-        "words": "0-557 700-1257 3100-3267 3267-3433 3433-3900 3900-4100 4100-4300",
-      },
-      "staging": {
-        "addressee": "marek",
-        "facing": {
-          "anna": 1,
-          "marek": -1,
-        },
-      },
-    },
-    {
       "line": "anna: Ďakujeme, že počúvate. Ahojte!",
       "plan": {
         "beats": [
-          "0 nod",
-          "2950 wave",
+          "50 chuckle",
+          "3400 wave",
         ],
-        "ms": 3700,
-        "sentences": "0-1839 2950-3500",
-        "words": "0-752 857-1045 1045-1839 2950-3500",
+        "ms": 4200,
+        "sentences": "50-2125 3400-4000",
+        "words": "50-899 1017-1229 1229-2125 3400-4000",
       },
       "staging": {
         "addressee": "marek",
@@ -16807,7 +16744,6 @@ exports[`every scene, directed > podcast podcast-telling-time-outro 1`] = `
     "rastlina",
     "hrncek",
     "krhla",
-    "tanier",
     "platna",
     "knihy",
     "polica",
@@ -16829,21 +16765,20 @@ exports[`every scene, directed > podcast podcast-telling-time-tram-stop 1`] = `
   ],
   "lines": [
     {
-      "line": "marek: Uf, stihli sme to. Sme na zastávke.",
+      "line": "marek: Teraz sme na ulici, na zastávke.",
       "plan": {
         "beats": [
           "50 tell",
-          "2650 tell",
         ],
-        "ms": 3950,
-        "sentences": "50-1322 2650-3750",
-        "words": "50-260 377-867 867-1112 1112-1322 2650-2874 2874-3067 3067-3750",
+        "ms": 2650,
+        "sentences": "50-2400",
+        "words": "50-465 465-688 688-879 879-1422 1528-1719 1719-2400",
       },
       "staging": {
         "addressee": "anna",
+        "audience": true,
         "facing": {
           "anna": 1,
-          "marek": -1,
         },
       },
     },
@@ -17483,9 +17418,6 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-home 1`] = `
     "pelech",
     "vesiak",
     "hodiny",
-    "kabat",
-    "hrncek",
-    "pes",
   ],
 }
 `;
@@ -17805,9 +17737,6 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-lead 1`] = `
     "pelech",
     "vesiak",
     "hodiny",
-    "kabat",
-    "hrncek",
-    "pes",
   ],
 }
 `;
@@ -17929,7 +17858,7 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-morning 1`] = `
         "beats": [
           "200 stress",
         ],
-        "ms": 950,
+        "ms": 1100,
         "sentences": "200-375 675-850",
         "words": "200-375 675-850",
       },
@@ -18185,9 +18114,6 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-morning 1`] = `
     "pelech",
     "vesiak",
     "hodiny",
-    "kabat",
-    "hrncek",
-    "pes",
   ],
 }
 `;
@@ -18457,36 +18383,18 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-square 1`] = `
       },
     },
     {
-      "line": "anna: Tak sa psí jazyk musíš naučiť ty.",
+      "line": "anna: Tak sa psí jazyk musíš naučiť ty. Vieš, Robo… pes nehovorí len haf. Pozri sa na chvost. Keď vrtí chvostom, je šťastný.",
       "plan": {
         "beats": [
           "50 tell",
+          "3450 muse",
+          "5400 tell",
+          "7550 point",
+          "8950 tell",
         ],
-        "ms": 2600,
-        "sentences": "50-2400",
-        "words": "50-276 276-470 470-740 740-1160 1160-1624 1624-2206 2206-2400",
-      },
-      "staging": {
-        "addressee": "robo",
-        "facing": {
-          "anna": -1,
-          "bobik": 1,
-          "robo": 1,
-        },
-      },
-    },
-    {
-      "line": "anna: Vieš, Robo… pes nehovorí len haf. Pozri sa na chvost. Keď vrtí chvostom, je šťastný.",
-      "plan": {
-        "beats": [
-          "0 muse",
-          "2100 tell",
-          "4300 point",
-          "5700 tell",
-        ],
-        "ms": 7950,
-        "sentences": "0-743 2100-3295 4300-5460 5700-7750",
-        "words": "0-261 366-743 2100-2280 2280-2934 2934-3114 3114-3295 4300-4743 4743-4948 4948-5153 5153-5460 5700-5935 5935-6383 6383-6887 6999-7201 7201-7750",
+        "ms": 11200,
+        "sentences": "50-2294 3450-4105 5400-6616 7550-8746 8950-11000",
+        "words": "50-266 266-451 451-709 709-1110 1110-1553 1553-2108 2108-2294 3450-3681 3773-4105 5400-5584 5584-6248 6248-6432 6432-6616 7550-8007 8007-8218 8218-8430 8430-8746 8950-9185 9185-9633 9633-10137 10249-10451 10451-11000",
       },
       "staging": {
         "addressee": "robo",
@@ -18622,8 +18530,6 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-square 1`] = `
     "lekaren",
     "bicykel",
     "kos",
-    "stolik",
-    "pes",
   ],
 }
 `;
@@ -18941,9 +18847,6 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-window 1`] = `
     "pelech",
     "vesiak",
     "hodiny",
-    "kabat",
-    "hrncek",
-    "pes",
   ],
 }
 `;
@@ -19166,8 +19069,6 @@ exports[`every scene, directed > talk day-anna {"cinema":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
-    "stolik",
-    "pes",
   ],
 }
 `;
@@ -19386,8 +19287,6 @@ exports[`every scene, directed > talk day-anna {"hello":1} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
-    "stolik",
-    "pes",
   ],
 }
 `;
@@ -19606,8 +19505,6 @@ exports[`every scene, directed > talk day-anna {"hello":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
-    "stolik",
-    "pes",
   ],
 }
 `;
@@ -19826,8 +19723,6 @@ exports[`every scene, directed > talk day-anna {"meet":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
-    "stolik",
-    "pes",
   ],
 }
 `;
@@ -20056,8 +19951,6 @@ exports[`every scene, directed > talk day-anna {"time":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
-    "stolik",
-    "pes",
   ],
 }
 `;
@@ -20276,8 +20169,6 @@ exports[`every scene, directed > talk day-anna {"tomorrow":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
-    "stolik",
-    "pes",
   ],
 }
 `;
@@ -20496,8 +20387,6 @@ exports[`every scene, directed > talk day-anna {} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
-    "stolik",
-    "pes",
   ],
 }
 `;
@@ -20830,8 +20719,6 @@ exports[`every scene, directed > talk day-lucia {"bye":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
-    "stolik",
-    "pes",
   ],
 }
 `;
@@ -21173,8 +21060,6 @@ exports[`every scene, directed > talk day-lucia {"cheese":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
-    "stolik",
-    "pes",
   ],
 }
 `;
@@ -21516,8 +21401,6 @@ exports[`every scene, directed > talk day-lucia {"hello":1} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
-    "stolik",
-    "pes",
   ],
 }
 `;
@@ -21813,8 +21696,6 @@ exports[`every scene, directed > talk day-lucia {"inside":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
-    "stolik",
-    "pes",
   ],
 }
 `;
@@ -22156,8 +22037,6 @@ exports[`every scene, directed > talk day-lucia {"later":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
-    "stolik",
-    "pes",
   ],
 }
 `;
@@ -22486,8 +22365,6 @@ exports[`every scene, directed > talk day-lucia {"pay":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
-    "stolik",
-    "pes",
   ],
 }
 `;
@@ -22699,8 +22576,6 @@ exports[`every scene, directed > talk day-lucia {"shop":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
-    "stolik",
-    "pes",
   ],
 }
 `;
@@ -23042,8 +22917,6 @@ exports[`every scene, directed > talk day-lucia {} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
-    "stolik",
-    "pes",
   ],
 }
 `;
@@ -23322,8 +23195,6 @@ exports[`every scene, directed > talk day-marek {"good":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
-    "stolik",
-    "pes",
   ],
 }
 `;
@@ -23586,8 +23457,6 @@ exports[`every scene, directed > talk day-marek {"hello":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
-    "stolik",
-    "pes",
   ],
 }
 `;
@@ -23850,8 +23719,6 @@ exports[`every scene, directed > talk day-marek {"how":1} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
-    "stolik",
-    "pes",
   ],
 }
 `;
@@ -24140,8 +24007,6 @@ exports[`every scene, directed > talk day-marek {"how":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
-    "stolik",
-    "pes",
   ],
 }
 `;
@@ -24404,8 +24269,6 @@ exports[`every scene, directed > talk day-marek {"study":1} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
-    "stolik",
-    "pes",
   ],
 }
 `;
@@ -24668,8 +24531,6 @@ exports[`every scene, directed > talk day-marek {"study":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
-    "stolik",
-    "pes",
   ],
 }
 `;
@@ -24932,8 +24793,6 @@ exports[`every scene, directed > talk day-marek {"study-bye":1} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
-    "stolik",
-    "pes",
   ],
 }
 `;
@@ -25196,8 +25055,6 @@ exports[`every scene, directed > talk day-marek {"study-bye":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
-    "stolik",
-    "pes",
   ],
 }
 `;
@@ -25460,8 +25317,6 @@ exports[`every scene, directed > talk day-marek {"tired":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
-    "stolik",
-    "pes",
   ],
 }
 `;
@@ -25734,8 +25589,6 @@ exports[`every scene, directed > talk day-marek {"trip":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
-    "stolik",
-    "pes",
   ],
 }
 `;
@@ -25998,8 +25851,6 @@ exports[`every scene, directed > talk day-marek {"trip-bye":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
-    "stolik",
-    "pes",
   ],
 }
 `;
@@ -26262,8 +26113,6 @@ exports[`every scene, directed > talk day-marek {} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
-    "stolik",
-    "pes",
   ],
 }
 `;
@@ -26496,8 +26345,6 @@ exports[`every scene, directed > talk day-maria {"bye":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
-    "stolik",
-    "pes",
   ],
 }
 `;
@@ -26731,8 +26578,6 @@ exports[`every scene, directed > talk day-maria {"done":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
-    "stolik",
-    "pes",
   ],
 }
 `;
@@ -26957,8 +26802,6 @@ exports[`every scene, directed > talk day-maria {"hello":3} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
-    "stolik",
-    "pes",
   ],
 }
 `;
@@ -27153,8 +26996,6 @@ exports[`every scene, directed > talk day-maria {"lesson":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
-    "stolik",
-    "pes",
   ],
 }
 `;
@@ -27379,8 +27220,6 @@ exports[`every scene, directed > talk day-maria {"notyet":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
-    "stolik",
-    "pes",
   ],
 }
 `;
@@ -27605,8 +27444,6 @@ exports[`every scene, directed > talk day-maria {} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
-    "stolik",
-    "pes",
   ],
 }
 `;

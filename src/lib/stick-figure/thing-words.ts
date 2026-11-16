@@ -663,6 +663,13 @@ export const THING_WORDS = {
     id: "kos",
     word: "kôš",
   },
+  kosik: {
+    english: "basket",
+    forms: ["kosik", "kosika", "kosiku", "kosikom", "kosiky", "kosikov", "kosikoch"],
+    gender: "masculine-inanimate",
+    id: "kosik",
+    word: "košík",
+  },
   kostol: {
     english: "church",
     forms: ["kostol", "kostola", "kostole", "kostolom", "kostoly", "kostolov"],
@@ -815,6 +822,13 @@ export const THING_WORDS = {
     stems: ["televizor"],
     word: "televízor",
   },
+  vaha: {
+    english: "scale",
+    forms: ["vaha", "vahy", "vahe", "vahu", "vahou", "vah", "vaham", "vahach", "vahami"],
+    gender: "feminine",
+    id: "vaha",
+    word: "váha",
+  },
   vesiak: {
     english: "coat stand",
     gender: "masculine-inanimate",
@@ -835,13 +849,6 @@ export const THING_WORDS = {
     id: "tanier",
     stems: ["tanier"],
     word: "tanier",
-  },
-  vaha: {
-    english: "scale",
-    forms: ["vaha", "vahy", "vahe", "vahu", "vahou"],
-    gender: "feminine",
-    id: "vaha",
-    word: "váha",
   },
   zrkadlo: {
     english: "mirror",

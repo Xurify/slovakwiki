@@ -330,21 +330,24 @@ const REGISTRATION_SET: PlaceSet = {
 };
 
 /**
- * The stall on the right, Lucia at its end. Whoever buys next steps up
- * beside her, where a cast of three has the one next to her, and the one
- * done stands back a step left of the other.
+ * The farm stall on the right, Lucia behind its selling counter in the
+ * middle, the crates on the stall's own counter behind her. Whoever buys
+ * steps up to the counter's left end, by the dearer cheese, and the one done
+ * stands back a step left of them.
  */
 const MARKET_SET: PlaceSet = {
-  // Lucia's cheese table beside her, at the hip: the stall's own counter is drawn in the backdrop,
-  // whose scale against the cast's changes with the stage, so a surface at its height would float
-  // off it on another screen; the table stands on the cast's floor.
-  // Drawn over Lucia, who sells from behind it.
-  pieces: [{ id: "counter", kind: "stand", x: 800, front: true }],
+  // The stall's own counter is drawn in the backdrop, whose scale against the cast's changes with
+  // the stage, so a surface at its height would float off it on another screen: the selling counter
+  // stands on the cast's floor in front of it, drawn over Lucia's legs.
+  pieces: [{ id: "counter", kind: "stand", x: 784, width: 100, front: true }],
   objects: [],
   spots: {
-    stall: { x: 660, facing: 1 },
-    "behind-counter": { piece: "counter", dx: -36, facing: -1 },
-    aside: { x: 530, facing: 1 },
+    stall: { x: 700, facing: 1 },
+    "behind-counter": { piece: "counter", dx: 0, facing: -1 },
+    // Behind the counter's ends: by the buyer to hand things over, by the far cheeses to take one.
+    "counter-near": { piece: "counter", dx: -26, facing: -1 },
+    "counter-far": { piece: "counter", dx: 26, facing: -1 },
+    aside: { x: 620, facing: 1 },
   },
 };
 
@@ -612,11 +615,26 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     things: [
       drawn(WORDS.ovocie, [430, 122, 164, 52]),
       drawn(WORDS.zelenina, [736, 114, 84, 60]),
-      twins(WORDS.syr, [609, 96, 34, 48], [925, 96, 26, 41]),
+      // On the selling counter: tento syr, the smoked wheel by the buyer, and tamten, the small oštiepky at the far end.
+      {
+        ...drawn(WORDS.syr, [722, 194, 30, 26], [824, 194, 30, 26]),
+        twins: { far: 1, near: 0 },
+        of: ["counter-near-cheese", "counter-far-cheese"],
+      },
       twins(WORDS.jahody, [648, 134, 76, 24], [824, 134, 76, 24]),
-      drawn(WORDS.stanok, [626, 60, 308, 166], [408, 76, 204, 150]),
-      onSet(WORDS.vaha, ["counter-scale"], [826, 168, 22, 20]),
+      { ...drawn(WORDS.vaha, [796, 190, 22, 26]), of: ["counter-scale"] },
+      { ...drawn(WORDS.kosik, [758, 194, 24, 22]), of: ["basket"] },
       drawn({ ...WORDS.lampa, english: "street lamp" }, lampBox(PARTS.market.lamp)),
+      drawn(WORDS.stanok, [626, 60, 308, 166], [408, 76, 204, 150]),
+      // The houses across the square, only where no stall stands in front of them.
+      drawn(
+        WORDS.dom,
+        [350, 70, 58, 142],
+        [930, 68, 30, 144],
+        [230, 32, 120, 180],
+        [120, 76, 110, 136],
+        [-10, 36, 130, 176],
+      ),
     ],
     sounds: ["murmur", "birds"],
     // Lucia sells at the market in the podcast, from the stall on the right.
