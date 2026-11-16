@@ -27,6 +27,7 @@ export const DOORS: Partial<Record<StageSetting, Door>> = {
   cafe: { hinge: 254, edge: 302, top: 74, height: 152 },
   home: { hinge: 364, edge: 424, top: 54, height: 172, keys: true },
   kitchen: { hinge: 196, edge: 256, top: 46, height: 180 },
+  registration: { hinge: 198, edge: 250, top: 80, height: 146 },
   studio: { hinge: 212, edge: 272, top: 46, height: 180 },
 };
 

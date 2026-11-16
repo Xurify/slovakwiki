@@ -51,6 +51,7 @@ const PLATE_ACTS: Record<string, Cue[]> = {
   "anna-detective-to-school": [
     { do: "stand", on: "detektívka" },
     { do: "leave", to: "door", on: "Najprv" },
+    { who: "marek", do: "look", to: "door", on: "Máriou" },
   ],
 };
 
@@ -262,16 +263,16 @@ const plate: ListeningChapter = {
 };
 
 const SCHOOL_ACTS: Record<string, Cue[]> = {
-  // Anna walks in while the card is read and steps up to the desk; Mária works behind it.
-  "card-school-half-past-three": [
-    { who: "anna", do: "enter", from: "off-left", to: "guest", on: "start" },
-  ],
+  // Anna comes in at the Vchod door while the card is read and steps up to the desk; Mária works behind it.
+  "card-school-half-past-three": [{ who: "anna", do: "enter", to: "guest", on: "start" }],
   "anna-did-you-see-cake": [
     { who: "maria", do: "put", what: "form", to: "counter", dx: -10, on: "start" },
   ],
+  "maria-saw-whole-cake": [{ do: "shrug", on: "nechcela" }],
+  // She turns to go once Mária has said goodbye, and out the way she came.
   "maria-goodbye": [
     { do: "wave", on: "dovidenia" },
-    { who: "anna", do: "leave", to: "left", on: "start" },
+    { who: "anna", do: "leave", to: "door", on: "end" },
   ],
 };
 
@@ -473,7 +474,8 @@ const school: ListeningChapter = {
 
 /** Anna comes in off the street to the counter, where the waiter works behind the bar, and goes out the same way. */
 const CAFE_ACTS: Record<string, Cue[]> = {
-  "anna-you-were-in-studio": [{ do: "enter", to: "counter", on: "before" }],
+  "card-cafe-four": [{ who: "anna", do: "enter", to: "counter", on: "start" }],
+  "anna-you-were-in-studio": [{ do: "face", to: "waiter", on: "start" }],
   "waiter-ate-nothing": [{ do: "look", to: "kolac", on: "Koláčov" }],
   "anna-poppy-cake-you-too": [{ do: "point", to: "kolac", on: "koláč" }],
   "anna-true-goodbye-market": [
@@ -655,6 +657,7 @@ const MARKET_ACTS: Record<string, Cue[]> = {
   "card-market-half-past-four": [
     { who: "anna", do: "enter", from: "off-left", to: "aside", on: "start" },
   ],
+  "anna-question-for-lucia": [{ do: "face", to: "lucia", on: "start" }],
   "lucia-came-for-umbrella": [
     { do: "take", what: "lucia-umbrella", on: "Prišla" },
     { do: "raise", what: "lucia-umbrella", on: "dáždnik" },
@@ -902,9 +905,11 @@ const market: ListeningChapter = {
 
 /** Anna back from town, in at the studio door, down at her place at the desk, and her headphones back on. */
 const WHODUNIT_ACTS: Record<string, Cue[]> = {
+  "card-studio-five": [
+    { who: "anna", do: "enter", to: "inside", on: "start" },
+    { who: "anna", do: "sit", to: "desk-left" },
+  ],
   "anna-back-what-we-know": [
-    { do: "enter", to: "inside", on: "before" },
-    { do: "sit", to: "desk-left", on: "start" },
     { do: "take", what: "anna-headphones", on: "Tak" },
     { do: "put", what: "anna-headphones", to: "anna" },
   ],
@@ -917,8 +922,10 @@ const WHODUNIT_ACTS: Record<string, Cue[]> = {
   "anna-think-coffee": [
     { do: "take", what: "anna-headphones", on: "start" },
     { do: "put", what: "anna-headphones", to: "desk", dx: -38 },
+    { do: "take", what: "anna-mug", on: "Ja" },
     { do: "stand", on: "idem" },
     { do: "leave", to: "door", on: "kávu" },
+    { who: "marek", do: "look", to: "door", on: "kávu" },
   ],
 };
 
@@ -934,6 +941,8 @@ const whodunit: ListeningChapter = {
         kind: "headphones",
         start: { where: { on: "desk", dx: -38 }, of: "anna" },
       },
+      // Her own mug, where the desk draws it, so she can take it to make her coffee.
+      { id: "anna-mug", kind: "cup", start: { where: { on: "desk", dx: -24 } } },
     ],
   },
   lines: staged(
@@ -1101,8 +1110,12 @@ const CLOSED_ACTS: Record<string, Cue[]> = {
     { who: "marek", do: "skip", minutes: 5, on: "start" },
     { who: "anna", do: "enter", to: "inside", on: "dark" },
     { who: "anna", do: "sit", to: "desk-left", on: "dark" },
-    { who: "anna", do: "take", what: "anna-headphones", on: "dark" },
-    { who: "anna", do: "put", what: "anna-headphones", to: "anna", on: "dark" },
+  ],
+  // The coffee down by her place first, then her headphones back on.
+  "anna-i-know-and-you": [
+    { do: "put", what: "anna-mug", to: "desk", dx: -24, on: "Tak" },
+    { do: "take", what: "anna-headphones" },
+    { do: "put", what: "anna-headphones", to: "anna" },
   ],
   // She turns to look at his teeth; a lean at the desk took her head into her own mic.
   "anna-smile-poppy-seeds": [
@@ -1114,7 +1127,10 @@ const CLOSED_ACTS: Record<string, Cue[]> = {
     { who: "marek", do: "grin", off: true, on: "No" },
     { do: "shrug", on: "Možno" },
   ],
-  "marek-stopped-counting": [{ do: "count", on: "Potom" }],
+  "marek-stopped-counting": [
+    { do: "count", on: "Potom" },
+    { do: "facepalm", on: "nepočítal" },
+  ],
   "anna-so-the-whole-cake": [{ do: "look", to: "plate", on: "celý" }],
   "marek-sorry-so-good": [{ do: "look", to: "plate", on: "Bol" }],
 };
@@ -1131,6 +1147,8 @@ const closed: ListeningChapter = {
         kind: "headphones",
         start: { where: { on: "desk", dx: -38 }, of: "anna" },
       },
+      // Back with the coffee she went to make.
+      { id: "anna-mug", kind: "cup", start: { where: { hand: "anna", side: "lead" } } },
     ],
   },
   lines: staged(
@@ -1376,7 +1394,7 @@ const closed: ListeningChapter = {
       {
         ...card(
           "card-the-end",
-          "Koniec. Ďakujeme, že počúvate.",
+          "Koniec. Ďakujeme, že ste počúvali.",
           "The end. Thank you for listening.",
         ),
         wait: 1500,
