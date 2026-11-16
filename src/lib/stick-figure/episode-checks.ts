@@ -562,6 +562,8 @@ export function checkCues(
     "radiator",
     "pelech",
     "vesiak",
+    // On the mat at the wall's foot under the pegs, where the dog lies and people stand in front of them.
+    "topanky",
     "kredenc",
     "kvety",
     "kos",
@@ -571,8 +573,9 @@ export function checkCues(
     "lekaren",
     "mapa",
     "elektricka",
-    // The dog is one of the cast, and moves.
+    // The dog and a robot are of the cast, and move.
     "pes",
+    "robot",
     // Home's dog bowl goes wherever a scene sets it down; its box here is only a stand-in until measured.
     "miska",
   ]);

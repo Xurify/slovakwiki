@@ -2,13 +2,13 @@ import { writeFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
 import { listeningEpisodes } from "$lib/catalog/listening";
-import { sampleMotion, type Surroundings } from "./act-motions";
+import { motionFor, sampleMotion, type Surroundings } from "./act-motions";
 import { startWorld, type Cue, type World } from "./acts";
 import baseline from "./episode-checks.baseline.json";
 import { checkCues, checkEpisode, type Finding } from "./episode-checks";
 import { PLACES } from "./places";
 import { REST_POSE } from "./pose";
-import { solveRig } from "./rig";
+import { GROUND_Y, solveRig } from "./rig";
 import { intoDeskMic } from "./set-pieces";
 import { stageFrame } from "./stage-frame";
 import { pointedThing } from "./thing-words";
@@ -356,3 +356,38 @@ it.skipIf(!process.env.SLUG || !process.env.OUT)(
     writeFileSync(process.env.OUT!, `${rows.join("\n")}\n`);
   },
 );
+
+describe("bending down to a dog", () => {
+  /** A dog whose head is `head` rig units in front, facing the mover: its collar there, its middle further off. */
+  const dog = (head: number, squats = false): Surroundings => ({
+    pointOf: (_name, as = "grip") =>
+      as === "top" ? { x: head, y: 88 } : { x: head + 13, y: 102 },
+    meetWith: () => undefined,
+    squats,
+  });
+
+  it("keeps a robot's hips off the floor clipping a lead on, even from a step too far", () => {
+    const world = startWorld([
+      { id: "lead", kind: "lead", start: { where: { hand: "robo", side: "lead" } } },
+    ]);
+    const { motion } = motionFor(
+      { do: "leash", what: "lead", to: "bobik" },
+      "robo",
+      world,
+    );
+    for (const head of [20, 40, 60]) {
+      const { pose } = sampleMotion(motion, 700, REST_POSE, dog(head, true));
+      expect(solveRig(pose).hip.y).toBeLessThanOrEqual(GROUND_Y - 16);
+    }
+  });
+
+  it("points down along a dog's back, not at its head under the hand", () => {
+    const { motion } = motionFor({ do: "point", to: "bobik" }, "anna", startWorld([]));
+    // Standing right over its head, as Anna does after crouching to it.
+    const { pose } = sampleMotion(motion, 1000, REST_POSE, dog(4));
+    const rig = solveRig(pose);
+    const { end } = rig.leadArm;
+    expect(end.x).toBeGreaterThan(4 + 10);
+    expect(end.y - rig.leadShoulder.y).toBeGreaterThan(15);
+  });
+});

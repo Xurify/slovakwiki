@@ -514,7 +514,10 @@
   stroke-linejoin="round"
   aria-hidden="true"
 >
-  <g transform="scale({n(side * (0.88 + 0.12 * round))} 1)">
+  <g
+    transform="scale({n(side * (0.88 + 0.12 * round))} 1)"
+    data-set-id={robot ? "robot" : undefined}
+  >
     {#if look.dog}
       <g data-set-id="dog">
         <StickDog
