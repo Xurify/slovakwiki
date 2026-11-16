@@ -23,6 +23,10 @@
 </script>
 
 <defs>
+  <linearGradient id="{id}-open" class="text-scene-water" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="currentColor" stop-opacity="0.42" />
+    <stop offset="1" stop-color="currentColor" stop-opacity="0.04" />
+  </linearGradient>
   <radialGradient id="{id}-sun" class="text-scene-honey">
     <stop offset="0" stop-color="currentColor" stop-opacity="0.75" />
     <stop offset="1" stop-color="currentColor" stop-opacity="0" />
@@ -30,6 +34,11 @@
 </defs>
 
 <rect x="-10" y="-10" width="980" height="236" class="fill-scene-sky" />
+{#if setting === "default" && mood.time !== "night"}
+  <!-- Open sky over the river, deeper overhead and paling to the far bank: the street's pale sky between
+       facades read as grey here, washed out beside the warm room at home. -->
+  <rect x="-10" y="-10" width="980" height="190" fill="url(#{id}-open)" />
+{/if}
 
 {#if sun}
   <g transition:fade={{ duration: WEATHER_FADE_MS }}>

@@ -341,6 +341,108 @@ describe("cues against the set", () => {
       "error point/miss",
     );
   });
+
+  describe("room between people and dogs", () => {
+    const HOME_SET = PLACES.home.set!;
+    const HOME_FRAME = stageFrame(
+      ["marek", "dog"],
+      {},
+      "home",
+      PLACES.home.things,
+      960,
+      480,
+    );
+    const at = (spots: Record<string, string>, ...acts: Cue[][]) => {
+      const { chapter, lines } = segment("marek", ...acts);
+      return rules(
+        checkCues(chapter, lines, HOME_SET, HOME_FRAME, {
+          ...startWorld(HOME_SET.objects),
+          spots,
+        }),
+      );
+    };
+
+    it("flags a dog standing in a standing person's legs, from the start or once someone walks", () => {
+      expect(at({ marek: "rug-mid", dog: "rug-mid" }, [{ do: "nod" }])).toContain(
+        "error space/crowded",
+      );
+      expect(
+        at({ marek: "rug-left", dog: "rug-right" }, [{ do: "go", to: "rug-right" }]),
+      ).toContain("error space/crowded");
+    });
+
+    it("leaves a dog room beside someone who walks over to it", () => {
+      expect(
+        at({ marek: "rug-right", dog: "rug-left" }, [{ do: "go", to: "dog" }]),
+      ).not.toContain("error space/crowded");
+    });
+
+    it("has a dog walk over before it gives what it carries", () => {
+      const ball = {
+        ...startWorld(HOME_SET.objects),
+        spots: { marek: "rug-right", dog: "rug-left" } as World["spots"],
+      };
+      const give = (acts: Cue[]) =>
+        rules(
+          checkCues(
+            segment("marek", acts).chapter,
+            [{ characterId: "dog", act: acts }],
+            {
+              ...HOME_SET,
+              objects: [
+                ...HOME_SET.objects,
+                {
+                  id: "ball",
+                  kind: "ball",
+                  start: { where: { hand: "dog", side: "lead" } },
+                },
+              ],
+            },
+            HOME_FRAME,
+            {
+              ...ball,
+              objects: {
+                ...ball.objects,
+                ball: { kind: "ball", where: { hand: "dog", side: "lead" } },
+              },
+            },
+          ),
+        );
+      expect(give([{ do: "give", what: "ball", to: "marek" }])).toContain(
+        "error space/out-of-reach",
+      );
+      expect(
+        give([
+          { do: "go", to: "marek" },
+          { do: "give", what: "ball", to: "marek" },
+        ]),
+      ).not.toContain("error space/out-of-reach");
+    });
+
+    it("flags a seller pressed against a buyer across the counter", () => {
+      const MARKET = PLACES.market.set!;
+      const frame = stageFrame(
+        ["marek", "lucia"],
+        {},
+        "market",
+        PLACES.market.things,
+        960,
+        480,
+      );
+      const across = (lucia: string) =>
+        rules(
+          checkCues(
+            segment("marek", [{ do: "nod" }]).chapter,
+            segment("marek", [{ do: "nod" }]).lines,
+            MARKET,
+            frame,
+            { ...startWorld(MARKET.objects), spots: { marek: "stall", lucia } },
+          ),
+        );
+      expect(across("counter-near")).toContain("error space/heads");
+      expect(across("counter-far")).not.toContain("error space/heads");
+    });
+  });
 });
 
 // For writers: SLUG=<slug> OUT=<file> bunx vitest run src/lib/stick-figure/episode-checks.test.ts

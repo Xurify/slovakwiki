@@ -57,11 +57,13 @@ export interface SceneThing {
    * thing. A carrot and a knife on the board were three targets in 40×18 px.
    */
   onto?: string;
+  /** What lies on it now and is tapped as part of it (`onto`), named on its card too: the carrot on the board. */
+  lying?: readonly SceneThing[];
 }
 
 export type ThingWord = Omit<
   SceneThing,
-  "box" | "more" | "twins" | "of" | "quiet" | "onto"
+  "box" | "more" | "twins" | "of" | "quiet" | "onto" | "lying"
 >;
 export type Rect = [x: number, y: number, width: number, height: number];
 
@@ -135,9 +137,16 @@ export function withDrawn(
     const kept = [...more, ...(thing.more ?? []).slice(Math.max(0, thing.of.length - 1))];
     return [{ ...thing, box, more: kept.length ? kept : undefined }];
   });
-  return placed.filter((thing) => {
-    const under = thing.onto && placed.find((other) => other.id === thing.onto);
-    return !under || !touching(thing.box, under.box);
+  const onTop = (thing: SceneThing) => {
+    const under = thing.onto
+      ? placed.find((other) => other.id === thing.onto)
+      : undefined;
+    return under !== undefined && touching(thing.box, under.box);
+  };
+  return placed.flatMap((thing) => {
+    if (onTop(thing)) return [];
+    const lying = placed.filter((other) => other.onto === thing.id && onTop(other));
+    return [lying.length ? { ...thing, lying } : thing];
   });
 }
 

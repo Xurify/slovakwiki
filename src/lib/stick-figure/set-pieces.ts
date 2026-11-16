@@ -371,7 +371,13 @@ export interface StageContext {
   middleOf(name: string): number | undefined;
   /** A chair's middle in cast units. */
   seatX(chair: number): number | undefined;
+  /** The way a dog of the cast faces, which puts its collar and head ahead of its middle. */
+  facingOf?(name: string): 1 | -1 | undefined;
 }
+
+/** A dog's collar and the top of its head, rig units ahead of its middle (StickDog). */
+const DOG_COLLAR_AHEAD = 12.8;
+const DOG_HEAD_AHEAD = 15;
 
 /**
  * A named point of the stage in cast units: an object (its grip, top or
@@ -400,7 +406,11 @@ export function stagePoint(
   if (middle !== undefined) {
     const isDog = Boolean(LOOKS[name as LessonCharacterId]?.dog);
     if (isDog) {
-      return { x: middle, y: as === "top" ? 94 : as === "base" ? 112 : 102 };
+      // Its collar and its head are ahead of its middle, the way it faces: a lead clipped at its middle was out of reach.
+      const ahead =
+        (context.facingOf?.(name) ?? 0) *
+        (as === "top" ? DOG_HEAD_AHEAD : as === "base" ? 0 : DOG_COLLAR_AHEAD);
+      return { x: middle + ahead, y: as === "top" ? 94 : as === "base" ? 112 : 102 };
     }
     return { x: middle, y: as === "top" ? 50 : as === "base" ? 112 : 68 };
   }

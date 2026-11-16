@@ -402,6 +402,61 @@ describe("a ball for the dog", () => {
   });
 });
 
+describe("a dog's postures and where people turn", () => {
+  const HOME = PLACES.home.set!;
+
+  it("lays a dog down until it stands, and does not walk it off lying", () => {
+    const [, down, up] = worlds(
+      [
+        { characterId: "dog", act: [{ do: "lie" }] },
+        { characterId: "dog", act: [{ do: "stand" }, { do: "go", to: "rug-left" }] },
+      ],
+      HOME,
+    );
+    expect(down.lying).toEqual(["dog"]);
+    expect(up.lying).toEqual([]);
+    expect(() =>
+      worlds(
+        [{ characterId: "dog", act: [{ do: "lie" }, { do: "go", to: "rug-left" }] }],
+        HOME,
+      ),
+    ).toThrow(CueError);
+    expect(() =>
+      worlds([{ characterId: "dog", act: [{ do: "lie" }, { do: "jump" }] }], HOME),
+    ).toThrow(CueError);
+  });
+
+  it("leaves lying down, drooping, growling and jumping to a dog", () => {
+    for (const verb of ["lie", "droop", "growl", "jump"] as const) {
+      expect(() => worlds([{ characterId: "marek", act: [{ do: verb }] }], HOME)).toThrow(
+        CueError,
+      );
+      expect(() =>
+        worlds([{ characterId: "bobik", act: [{ do: verb }] }], HOME),
+      ).not.toThrow();
+    }
+  });
+
+  it("remembers what someone turned to until they walk, so a jump to a later line turns them back to it", () => {
+    const [, looked, still, walked] = worlds(
+      [
+        { characterId: "dog", act: [{ do: "look", to: "okno" }] },
+        { characterId: "robot", act: [{ do: "nod" }] },
+        { characterId: "dog", act: [{ do: "go", to: "rug-left" }] },
+      ],
+      HOME,
+    );
+    expect(looked.faces).toEqual({ dog: "okno" });
+    expect(still.faces).toEqual({ dog: "okno" });
+    expect(walked.faces).toEqual({});
+    const [, growled] = worlds(
+      [{ characterId: "dog", act: [{ do: "growl", to: "robot" }] }],
+      HOME,
+    );
+    expect(growled.faces).toEqual({ dog: "robot" });
+  });
+});
+
 describe("cues on the clock", () => {
   const times: LineTimes = {
     lead: 0,

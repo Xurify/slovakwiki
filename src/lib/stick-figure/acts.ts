@@ -2,6 +2,7 @@ import {
   LESSON_CHARACTER_IDS,
   type LessonCharacterId,
 } from "$lib/catalog/lessons/character-ids";
+import { LOOKS } from "./looks";
 import type { StickPictureId } from "./pictures";
 import type { Hand } from "./reach";
 
@@ -57,6 +58,11 @@ export const VERBS = [
   "compute",
   "count",
   "eat",
+  // A dog's: lying down, head on its paws; head and tail low; head down at someone, growling; jumping up in greeting.
+  "lie",
+  "droop",
+  "growl",
+  "jump",
   "wag",
   "beckon",
   "wipe",
@@ -255,6 +261,14 @@ export interface World {
   out?: LessonCharacterId[];
   /** Who sits, on the chair their spot names. */
   seated?: LessonCharacterId[];
+  /** Dogs lying down, from a `lie` cue until `stand`. */
+  lying?: LessonCharacterId[];
+  /**
+   * What someone last turned to with a `face`, `look`, `point`, `growl` or
+   * `kneel`, until they walk: a jump to a later line turns them to it
+   * again, where their spot alone faced the dog away from the window.
+   */
+  faces?: Partial<Record<LessonCharacterId, string>>;
   /** Who grins wide, teeth showing, from a `grin` cue until one with `off`: `seeds` with poppy seeds on them. */
   grins?: Partial<Record<LessonCharacterId, "teeth" | "seeds">>;
   /** Pieces switched on: a stove's burner. */
@@ -446,6 +460,28 @@ export function applyCue(
   cue: Cue,
   plan?: SetPlan,
 ): World {
+  return turnedBy(cueApplied(world, who, cue, plan), who, cue);
+}
+
+const TURNS_TO = new Set<Verb>(["face", "look", "point", "growl", "jump", "kneel"]);
+const WALKS = new Set<Verb>(["go", "enter", "leave", "sit"]);
+
+/** `world` with what `who` faces after `cue`: turned to its target, or free again once they walk. */
+function turnedBy(world: World, who: LessonCharacterId, cue: Cue): World {
+  if (TURNS_TO.has(cue.do) && cue.to) {
+    return { ...world, faces: { ...world.faces, [who]: cue.to } };
+  }
+  if (!WALKS.has(cue.do) || world.faces?.[who] === undefined) return world;
+  const { [who]: _, ...faces } = world.faces;
+  return { ...world, faces };
+}
+
+function cueApplied(
+  world: World,
+  who: LessonCharacterId,
+  cue: Cue,
+  plan?: SetPlan,
+): World {
   const { what, to } = cue;
   const object = what ? world.objects[what] : undefined;
   // A switch is a piece's (the stove's), not an object's.
@@ -468,6 +504,9 @@ export function applyCue(
     (cue.do === "go" || cue.do === "enter" || cue.do === "leave")
   ) {
     throw new CueError(`${who} ${cue.do}: still sitting, a "stand" cue comes first`);
+  }
+  if (world.lying?.includes(who) && (WALKS.has(cue.do) || cue.do === "jump")) {
+    throw new CueError(`${who} ${cue.do}: lying down, a "stand" cue comes first`);
   }
 
   switch (cue.do) {
@@ -499,7 +538,21 @@ export function applyCue(
         seated: on(world.seated, who, true),
       };
     case "stand":
-      return { ...world, seated: on(world.seated, who, false) };
+      return {
+        ...world,
+        seated: on(world.seated, who, false),
+        ...(world.lying ? { lying: on(world.lying, who, false) } : {}),
+      };
+    case "lie":
+      if (!LOOKS[who].dog)
+        throw new CueError(`${who} lie: only a dog lies down on stage`);
+      return { ...world, lying: on(world.lying, who, true) };
+    case "droop":
+    case "growl":
+    case "jump":
+      if (!LOOKS[who].dog)
+        throw new CueError(`${who} ${cue.do}: a dog's, not a person's`);
+      return world;
     case "kneel":
     case "compute":
     case "count":
