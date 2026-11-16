@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
 
 import { listeningEpisodes } from "$lib/catalog/listening";
+import { motionFor } from "./act-motions";
 import { DARK_MS, REACT_MS, scheduleCues, type LineTimes } from "./act-schedule";
 import {
   CueError,
@@ -133,6 +134,14 @@ describe("the world the cues leave", () => {
     expect(far.objects.plate.where).toEqual({ hand: "marek", side: "rear" });
     const near = applyCue(start, "marek", { do: "take", what: "plate" }, studio);
     expect(near.objects.plate.where).toEqual({ hand: "marek", side: "lead" });
+  });
+
+  it("lifts the head to look at a wall clock, and keeps it level for a person", () => {
+    const world = startWorld([]);
+    const held = (to: string) =>
+      motionFor({ do: "look", to }, "marek", world).motion.keys[1]?.body?.tilt ?? 0;
+    expect(held("hodiny")).toBeLessThan(0);
+    expect(held("anna")).toBe(0);
   });
 
   it("keeps a grin on from its cue until one turns it off", () => {

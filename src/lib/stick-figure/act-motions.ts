@@ -1518,7 +1518,9 @@ export function motionFor(
       keys.push({ at: 1650 });
       return { motion: { ms: 1650, keys } };
     }
-    case "look":
+    case "look": {
+      // A wall clock hangs over everyone's head: looked at level, the head stayed on whoever stood under it.
+      const up = to === "hodiny" ? { tilt: -12, nod: -2 } : {};
       return {
         motion: {
           ms: 1400,
@@ -1526,11 +1528,12 @@ export function motionFor(
           hold: "line",
           keys: [
             { at: 0 },
-            { at: 350, body: { look: 1, brow: 0.3 } },
-            { at: 1400, body: { look: 1, brow: 0.3 } },
+            { at: 350, body: { look: 1, brow: 0.3, ...up } },
+            { at: 1400, body: { look: 1, brow: 0.3, ...up } },
           ],
         },
       };
+    }
     case "grin":
       // The grin itself is the face's (world.grins); the head comes up a touch to show it off.
       return {
