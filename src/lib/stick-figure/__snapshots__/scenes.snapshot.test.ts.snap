@@ -5495,16 +5495,16 @@ exports[`every scene, directed > podcast podcast-future-tense-friday 1`] = `
       },
     },
     {
-      "line": "anna: Neboj sa, Domo. Ja prídem zajtra ráno. A pôjdeme spolu do parku.",
+      "line": "anna: Neboj sa, Domo. Ja prídem zajtra ráno. A pôjdeme spolu k Dunaju.",
       "plan": {
         "beats": [
           "50 tell",
-          "1300 self",
-          "3700 tell",
+          "1350 self",
+          "4100 tell",
         ],
-        "ms": 5300,
-        "sentences": "50-985 1300-2636 3700-5150",
-        "words": "50-404 404-567 658-985 1300-1465 1465-1886 1886-2270 2270-2636 3700-3826 3826-4341 4341-4669 4669-4821 4821-5150",
+        "ms": 5800,
+        "sentences": "50-1073 1350-2880 4100-5600",
+        "words": "50-437 437-616 715-1073 1350-1539 1539-2021 2021-2461 2461-2880 4100-4233 4233-4775 4775-5121 5121-5121 5121-5600",
       },
       "staging": {
         "addressee": "robot",
@@ -5755,11 +5755,11 @@ exports[`every scene, directed > podcast podcast-future-tense-monday 1`] = `
       "line": "dog: Kňu.",
       "plan": {
         "beats": [
-          "0 tell",
+          "0 sigh",
         ],
-        "ms": 750,
-        "sentences": "0-750",
-        "words": "0-750",
+        "ms": 850,
+        "sentences": "0-800",
+        "words": "0-800",
       },
       "staging": {
         "addressee": "robot",
@@ -5880,16 +5880,17 @@ exports[`every scene, directed > podcast podcast-future-tense-monday 1`] = `
       },
     },
     {
-      "line": "robot: Dobre, pán Marek. V sobotu aj v nedeľu o šiestej sme čakali pri okne. Spolu.",
+      "line": "robot: Dobre, pán Marek. Veď ste nám v nedeľu volali. A v sobotu aj v nedeľu o šiestej sme čakali pri okne. Spolu.",
       "plan": {
         "beats": [
-          "0 nod",
-          "2300 tell",
-          "6200 tell",
+          "50 nod",
+          "2200 tell",
+          "4800 tell",
+          "8650 tell",
         ],
-        "ms": 6900,
-        "sentences": "0-1120 2300-5323 6200-6750",
-        "words": "0-387 486-733 733-1120 2300-2300 3049-3434 3434-3562 3562-3562 3562-3947 3947-4054 4054-4382 4382-4531 4531-4916 4916-5066 5066-5323 6200-6750",
+        "ms": 9550,
+        "sentences": "50-1109 2200-3734 4800-7850 8650-9200",
+        "words": "50-416 509-744 744-1109 2200-2384 2384-2568 2568-2787 2787-2787 2787-3261 3261-3734 4800-4937 4937-4937 4937-5430 5430-5594 5594-5594 5594-6088 6088-6225 6225-6645 6645-6836 6836-7329 7329-7521 7521-7850 8650-9200",
       },
       "staging": {
         "addressee": "marek",
@@ -5903,7 +5904,7 @@ exports[`every scene, directed > podcast podcast-future-tense-monday 1`] = `
             "at": 1,
             "characterId": "marek",
             "gesture": "nod",
-            "sentence": 2,
+            "sentence": 3,
           },
         ],
       },
@@ -6045,15 +6046,15 @@ exports[`every scene, directed > podcast podcast-future-tense-monday 1`] = `
       },
     },
     {
-      "line": "marek: Vidím, že sa už rozumiete. Ako na tej fotke z parku.",
+      "line": "marek: Vidím, že sa už rozumiete. Ako na tej fotke, čo mi poslala Anna.",
       "plan": {
         "beats": [
           "50 chuckle",
-          "3400 tell",
+          "3101 tell",
         ],
-        "ms": 5000,
-        "sentences": "50-2014 3400-4750",
-        "words": "50-511 619-812 812-1005 1005-1198 1198-2014 3400-3697 3697-3859 3859-4048 4048-4399 4399-4399 4399-4750",
+        "ms": 5950,
+        "sentences": "50-1989 3101-5750",
+        "words": "50-506 612-802 802-993 993-1184 1184-1989 3101-3451 3451-3642 3642-3864 3864-4277 4383-4574 4574-4765 4765-5369 5369-5750",
       },
       "staging": {
         "addressee": "robot",
@@ -6288,16 +6289,16 @@ exports[`every scene, directed > podcast podcast-future-tense-morning 1`] = `
       },
     },
     {
-      "line": "anna: Tu máš jeho loptičku. V parku mu ju hodíš. Uvidíš.",
+      "line": "anna: Tu máš jeho loptičku. Pri Dunaji mu ju hodíš. Uvidíš.",
       "plan": {
         "beats": [
           "100 point",
-          "2250 tell",
-          "3650 tell",
+          "2500 tell",
+          "4050 tell",
         ],
-        "ms": 4400,
-        "sentences": "100-1365 2250-3395 3650-4250",
-        "words": "100-264 264-491 491-819 819-1365 2250-2250 2789-2989 2989-3081 3081-3174 3174-3395 3650-4250",
+        "ms": 4900,
+        "sentences": "100-1400 2500-3821 4050-4700",
+        "words": "100-268 268-502 502-839 839-1400 2500-2680 2680-3143 3143-3298 3298-3452 3452-3821 4050-4700",
       },
       "staging": {
         "addressee": "robot",
@@ -6338,15 +6339,15 @@ exports[`every scene, directed > podcast podcast-future-tense-morning 1`] = `
       },
     },
     {
-      "line": "anna: Tak poďme! Dunčo, ideme do parku!",
+      "line": "anna: Tak poďme! Dunčo, ideme von!",
       "plan": {
         "beats": [
-          "0 stress",
+          "100 stress",
           "1400 stress",
         ],
-        "ms": 3200,
-        "sentences": "0-559 1400-3000",
-        "words": "0-196 196-559 1400-1797 1899-2419 2419-2603 2603-3000",
+        "ms": 3000,
+        "sentences": "100-656 1400-2750",
+        "words": "100-295 295-656 1400-1835 1947-2516 2516-2750",
       },
       "staging": {
         "addressee": "dog",
@@ -6415,15 +6416,15 @@ exports[`every scene, directed > podcast podcast-future-tense-park 1`] = `
   ],
   "lines": [
     {
-      "line": "-: Park pri Dunaji. Pol deviatej ráno.",
+      "line": "-: Nábrežie Dunaja. Pol deviatej ráno.",
       "plan": {
         "beats": [
-          "50 tell",
-          "1600 tell",
+          "0 tell",
+          "1650 tell",
         ],
         "ms": 3000,
-        "sentences": "50-1090 1600-2750",
-        "words": "50-302 302-523 523-1090 1600-1798 1798-2373 2373-2750",
+        "sentences": "0-1203 1650-2800",
+        "words": "0-657 657-1203 1650-1848 1848-2423 2423-2800",
       },
       "staging": {
         "addressee": null,
@@ -7079,11 +7080,11 @@ exports[`every scene, directed > podcast podcast-future-tense-window 1`] = `
       "line": "dog: Haf.",
       "plan": {
         "beats": [
-          "50 tell",
+          "50 sigh",
         ],
-        "ms": 350,
-        "sentences": "50-300",
-        "words": "50-300",
+        "ms": 400,
+        "sentences": "50-350",
+        "words": "50-350",
       },
       "staging": {
         "addressee": "robot",
@@ -7147,11 +7148,11 @@ exports[`every scene, directed > podcast podcast-future-tense-window 1`] = `
       "line": "dog: Haf.",
       "plan": {
         "beats": [
-          "50 tell",
+          "0 tell",
         ],
-        "ms": 350,
-        "sentences": "50-300",
-        "words": "50-300",
+        "ms": 400,
+        "sentences": "0-300",
+        "words": "0-300",
       },
       "staging": {
         "addressee": "robot",

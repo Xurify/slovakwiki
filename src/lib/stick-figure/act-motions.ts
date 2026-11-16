@@ -1259,9 +1259,13 @@ export function motionFor(
       const keys: MotionKey[] = [{ at: 0 }];
       for (let dip = 0; dip < 6; dip += 1) {
         const at = 400 + dip * 320;
-        keys.push({ at, body: { nod: 9, tilt: dip % 2 ? 30 : 24, lean: 6, look: 1 } });
+        keys.push({ at, body: { nod: 16, tilt: dip % 2 ? 62 : 50, lean: 8, look: 1 } });
       }
-      keys.push({ at: 2400, body: { nod: 9, tilt: 26, lean: 6, look: 1 } }, { at: 2900 });
+      // At a tilt of 24 to 30 the snout stayed level with the dog's back, well over the bowl on the floor.
+      keys.push(
+        { at: 2400, body: { nod: 16, tilt: 56, lean: 8, look: 1 } },
+        { at: 2900 },
+      );
       return {
         motion: {
           ms: 2900,
