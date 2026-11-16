@@ -244,6 +244,8 @@ const HOME_SET: PlaceSet = {
     "off-right": { x: 820, facing: -1 },
     // On the rug, where a cast of three or four stands talking; the right one past the bag on it.
     "rug-left": { x: 333, facing: 1 },
+    // A step right of the pegs: at rug-left the lead hung over the shoulder of whoever stood there.
+    "by-pegs": { x: 362, facing: 1 },
     "rug-mid": { x: 410, facing: 1 },
     "rug-mid-right": { x: 487, facing: -1 },
     "rug-right": { x: 585, facing: -1 },
@@ -254,8 +256,12 @@ const HOME_SET: PlaceSet = {
     "kneel-by-dog": { x: 355, facing: -1 },
     // At the window, looking out: the dog under the sill, the one waiting with it beside.
     window: { x: 235, facing: -1 },
+    // On his bed under the sill, turned up toward the glass.
+    "dog-bed": { x: 166, facing: 1 },
     "window-dog": { x: 118, facing: -1 },
     "by-sofa": { piece: "by-sofa", dx: 0, facing: -1 },
+    // The dog eating: just right of the bowl, facing it, so its head is down in it.
+    "bowl-dog": { x: 656, facing: -1 },
     // Beside the bag by the window, to reach down into it.
     "window-bag": { piece: "window-bag", dx: 30, facing: -1 },
     // The hall door opens into the room on hinges at its left, like the kitchen's: in on its latch
@@ -357,6 +363,21 @@ const STREET_SET: PlaceSet = {
 const EMPTY_SET: PlaceSet = {
   pieces: [],
   objects: [],
+};
+
+/** The old town square: open paving, where a walker and a dog on a lead stop to talk to someone. */
+const PLAZA_SET: PlaceSet = {
+  pieces: [],
+  objects: [],
+  spots: {
+    // The one holding the lead, the dog a lead's length ahead, and whoever greets the dog facing it.
+    walker: { x: 330, facing: 1 },
+    "walked-dog": { x: 410, facing: 1 },
+    greeter: { x: 468, facing: -1 },
+    // The edges, past what the widest stage shows, to walk on from.
+    "off-left": { x: 40, facing: 1 },
+    "off-right": { x: 1000, facing: -1 },
+  },
 };
 
 export const PLACES: Readonly<Record<StageSetting, Place>> = {
@@ -616,15 +637,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       drawn(WORDS.kos, [206, 220, 20, 23]),
     ],
     sounds: ["murmur", "birds", "tram"],
-    // Nothing of its own: only the edges, past what the widest stage shows, to walk on from.
-    set: {
-      pieces: [],
-      objects: [],
-      spots: {
-        "off-left": { x: 40, facing: 1 },
-        "off-right": { x: 1000, facing: -1 },
-      },
-    },
+    set: PLAZA_SET,
   },
   registration: {
     ground: "stone",

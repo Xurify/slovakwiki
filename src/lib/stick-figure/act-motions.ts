@@ -12,6 +12,7 @@ import {
   type World,
 } from "./acts";
 import { DOOR_OPEN_MS, DOOR_SHUT_MS } from "./door";
+import { LOOKS } from "./looks";
 import type { StickPictureId } from "./pictures";
 import { REST_POSE, easeInOut, type StickPose } from "./pose";
 import { mouthOf, reachFor, type Hand } from "./reach";
@@ -1521,7 +1522,8 @@ export function motionFor(
         motion: {
           ms: SCOOT_MS + sitMs(who, true),
           keys: [],
-          sounds: [{ at: 100, id: "chair" }],
+          // A dog gets up off its haunches, with no chair to scrape.
+          sounds: LOOKS[who].dog ? [] : [{ at: 100, id: "chair" }],
         },
       };
     case "go":

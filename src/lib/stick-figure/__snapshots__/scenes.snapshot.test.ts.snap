@@ -16664,10 +16664,6 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-home 1`] = `
       },
       "staging": {
         "addressee": null,
-        "enter": {
-          "characterId": "marek",
-          "from": -1,
-        },
       },
     },
     {
@@ -16696,9 +16692,9 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-home 1`] = `
         "beats": [
           "200 stress",
         ],
-        "ms": 1450,
-        "sentences": "200-348 601-749 1002-1150",
-        "words": "200-348 601-749 1002-1150",
+        "ms": 1100,
+        "sentences": "200-324 538-662 876-1000",
+        "words": "200-324 538-662 876-1000",
       },
       "staging": {
         "addressee": "marek",
@@ -16797,9 +16793,9 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-home 1`] = `
         "beats": [
           "200 stress",
         ],
-        "ms": 1100,
-        "sentences": "200-375 675-850",
-        "words": "200-375 675-850",
+        "ms": 1000,
+        "sentences": "200-362 638-800",
+        "words": "200-362 638-800",
       },
       "staging": {
         "addressee": "marek",
@@ -16859,68 +16855,6 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-home 1`] = `
             "sentence": 0,
           },
         ],
-      },
-    },
-    {
-      "line": "bobik: Haf.",
-      "plan": {
-        "beats": [
-          "200 tell",
-        ],
-        "ms": 800,
-        "sentences": "200-550",
-        "words": "200-550",
-      },
-      "staging": {
-        "addressee": "marek",
-        "facing": {
-          "bobik": -1,
-          "marek": 1,
-          "robo": -1,
-        },
-      },
-    },
-    {
-      "line": "robo: Tichý haf… Ale Marek je už doma. Neviem.",
-      "plan": {
-        "beats": [
-          "50 compute",
-          "1862 tell",
-          "4350 shrug",
-        ],
-        "ms": 5400,
-        "pictures": [
-          "50 computing",
-        ],
-        "sentences": "50-716 1862-3434 4350-5050",
-        "words": "50-487 487-716 1862-2222 2222-2648 2648-2845 2845-3041 3041-3434 4350-5050",
-      },
-      "staging": {
-        "addressee": "bobik",
-        "facing": {
-          "bobik": 1,
-          "marek": 1,
-          "robo": -1,
-        },
-      },
-    },
-    {
-      "line": "marek: Tak to máš úlohu na zajtra.",
-      "plan": {
-        "beats": [
-          "0 chuckle",
-        ],
-        "ms": 2750,
-        "sentences": "0-2500",
-        "words": "0-293 293-545 545-894 894-1662 1662-1913 1913-2500",
-      },
-      "staging": {
-        "addressee": "robo",
-        "facing": {
-          "bobik": -1,
-          "marek": 1,
-          "robo": -1,
-        },
       },
     },
     {
@@ -17064,9 +16998,9 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-home 1`] = `
         "beats": [
           "200 stress",
         ],
-        "ms": 800,
-        "sentences": "200-550",
-        "words": "200-550",
+        "ms": 700,
+        "sentences": "200-500",
+        "words": "200-500",
       },
       "staging": {
         "addressee": "marek",
@@ -17366,9 +17300,9 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-lead 1`] = `
         "beats": [
           "200 stress",
         ],
-        "ms": 800,
-        "sentences": "200-550",
-        "words": "200-550",
+        "ms": 700,
+        "sentences": "200-500",
+        "words": "200-500",
       },
       "staging": {
         "addressee": "robo",
@@ -17759,11 +17693,11 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-morning 1`] = `
       "line": "bobik: Haf.",
       "plan": {
         "beats": [
-          "200 tell",
+          "200 sigh",
         ],
-        "ms": 800,
-        "sentences": "200-550",
-        "words": "200-550",
+        "ms": 1000,
+        "sentences": "200-600",
+        "words": "200-600",
       },
       "staging": {
         "addressee": "marek",
@@ -17845,10 +17779,6 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-square 1`] = `
       },
       "staging": {
         "addressee": null,
-        "enter": {
-          "characterId": "anna",
-          "from": 1,
-        },
       },
     },
     {
@@ -17877,9 +17807,9 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-square 1`] = `
         "beats": [
           "200 stress",
         ],
-        "ms": 1100,
-        "sentences": "200-375 675-850",
-        "words": "200-375 675-850",
+        "ms": 1000,
+        "sentences": "200-362 638-800",
+        "words": "200-362 638-800",
       },
       "staging": {
         "addressee": "anna",
@@ -18093,18 +18023,18 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-square 1`] = `
       },
     },
     {
-      "line": "anna: Tak sa to musíš naučiť ty. Vieš, Robo… pes nehovorí len haf. Pozri sa na chvost. Keď vrtí chvostom, je šťastný.",
+      "line": "anna: Tak sa psí jazyk musíš naučiť ty. Vieš, Robo… pes nehovorí len haf. Pozri sa na chvost. Keď vrtí chvostom, je šťastný.",
       "plan": {
         "beats": [
           "50 tell",
-          "2550 muse",
-          "4550 tell",
-          "6600 point",
-          "7950 tell",
+          "3450 muse",
+          "5400 tell",
+          "7550 point",
+          "8950 tell",
         ],
-        "ms": 10100,
-        "sentences": "50-1723 2550-3434 4550-5807 6600-7820 7950-9950",
-        "words": "50-254 254-429 429-604 604-1022 1022-1548 1548-1723 2550-2861 2986-3434 4550-4740 4740-5427 5427-5617 5617-5807 6600-7067 7067-7282 7282-7497 7497-7820 7950-8180 8180-8617 8617-9108 9218-9414 9414-9950",
+        "ms": 11200,
+        "sentences": "50-2294 3450-4105 5400-6616 7550-8746 8950-11000",
+        "words": "50-266 266-451 451-709 709-1110 1110-1553 1553-2108 2108-2294 3450-3681 3773-4105 5400-5584 5584-6248 6248-6432 6432-6616 7550-8007 8007-8218 8218-8430 8430-8746 8950-9185 9185-9633 9633-10137 10249-10451 10451-11000",
       },
       "staging": {
         "addressee": "robo",
@@ -18289,11 +18219,11 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-window 1`] = `
       "line": "bobik: Haf.",
       "plan": {
         "beats": [
-          "200 tell",
+          "200 sigh",
         ],
-        "ms": 800,
-        "sentences": "200-550",
-        "words": "200-550",
+        "ms": 1000,
+        "sentences": "200-600",
+        "words": "200-600",
       },
       "staging": {
         "addressee": "robo",
@@ -18333,20 +18263,20 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-window 1`] = `
       },
     },
     {
-      "line": "robo: Chceš von? Nie. Nevrtíš chvostom. Si hladný? Nie. Večera je ešte v miske.",
+      "line": "robo: Chceš von? Nie. Nepozeráš na vodítko. Si hladný? Nie. Večera je ešte v miske.",
       "plan": {
         "beats": [
           "50 ask",
-          "1400 shake",
-          "2200 tell",
-          "3950 ask",
-          "5150 shake",
-          "5900 tell",
+          "1350 shake",
+          "2150 tell",
+          "4100 ask",
+          "6050 shake",
+          "6750 tell",
         ],
-        "ms": 7550,
-        "questions": "50-464 3950-4496",
-        "sentences": "50-464 1400-1633 2200-2941 3950-4496 5150-5665 5900-7350",
-        "words": "50-271 271-464 1400-1633 2200-2626 2626-2941 3950-4104 4104-4496 5150-5665 5900-6433 6433-6610 6610-6965 6965-6965 6965-7350",
+        "ms": 7700,
+        "questions": "50-449 4100-4799",
+        "sentences": "50-449 1350-1577 2150-3299 4100-4799 6050-5926 6050-7550",
+        "words": "50-263 263-449 1350-1577 2150-2724 2724-2855 2855-3299 4100-4296 4296-4799 6050-5926 6050-6601 6601-6785 6785-7152 7152-7152 7152-7550",
       },
       "staging": {
         "addressee": "bobik",
@@ -18368,15 +18298,13 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-window 1`] = `
       "line": "robo: Hm… Sedíš pri okne. Celý večer. Pozeráš na ulicu. Čakáš na Mareka.",
       "plan": {
         "beats": [
-          "50 compute",
-          "1713 point → okno",
+          "50 think",
+          "1500 tell",
+          "2483 tell",
           "4600 tell",
           "6350 tell",
         ],
         "ms": 7800,
-        "pictures": [
-          "50 computing",
-        ],
         "sentences": "50-219 1500-2145 2483-3225 4600-5433 6350-7500",
         "words": "50-219 1500-1777 1777-1913 1913-2145 2483-2859 2859-3225 4600-4991 4991-5106 5106-5433 6350-6780 6780-6960 6960-7500",
       },
@@ -18392,11 +18320,11 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-window 1`] = `
       "line": "bobik: Haf.",
       "plan": {
         "beats": [
-          "200 tell",
+          "200 sigh",
         ],
-        "ms": 800,
-        "sentences": "200-550",
-        "words": "200-550",
+        "ms": 1000,
+        "sentences": "200-600",
+        "words": "200-600",
       },
       "staging": {
         "addressee": "robo",
@@ -18429,7 +18357,7 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-window 1`] = `
       "line": "robo: Ahoj, Marek. Tu je Robo.",
       "plan": {
         "beats": [
-          "0 tell",
+          "0 wave",
           "1200 point",
         ],
         "ms": 1950,
@@ -18466,7 +18394,7 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-window 1`] = `
         "beats": [
           "0 nod",
           "1550 tell",
-          "2571 point → okno",
+          "3500 tell",
           "4700 tell",
         ],
         "ms": 5550,
@@ -18521,9 +18449,9 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-window 1`] = `
         "beats": [
           "200 stress",
         ],
-        "ms": 1100,
-        "sentences": "200-375 675-850",
-        "words": "200-375 675-850",
+        "ms": 1000,
+        "sentences": "200-362 638-800",
+        "words": "200-362 638-800",
       },
       "staging": {
         "addressee": "robo",
