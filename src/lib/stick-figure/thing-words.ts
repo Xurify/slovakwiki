@@ -50,9 +50,17 @@ export interface SceneThing {
   of?: readonly string[];
   /** Only tapped for its word: the cast handles it by cues, so a line naming it is not pointed at. */
   quiet?: boolean;
+  /**
+   * The thing it lies on, by id: while their boxes touch it is tapped as that
+   * thing. A carrot and a knife on the board were three targets in 40×18 px.
+   */
+  onto?: string;
 }
 
-export type ThingWord = Omit<SceneThing, "box" | "more" | "twins" | "of" | "quiet">;
+export type ThingWord = Omit<
+  SceneThing,
+  "box" | "more" | "twins" | "of" | "quiet" | "onto"
+>;
 export type Rect = [x: number, y: number, width: number, height: number];
 
 export function toBox([x, y, width, height]: Rect): ThingBox {
@@ -116,13 +124,26 @@ export function withDrawn(
   things: readonly SceneThing[],
   drawnAt: Readonly<Record<string, ThingBox | null>>,
 ): SceneThing[] {
-  return things.flatMap((thing) => {
+  const placed = things.flatMap((thing) => {
     if (!thing.of?.some((id) => id in drawnAt)) return [thing];
     const [box, ...more] = thing.of.flatMap((id) => drawnAt[id] ?? []);
     if (!box) return [];
     const kept = [...more, ...(thing.more ?? [])];
     return [{ ...thing, box, more: kept.length ? kept : undefined }];
   });
+  return placed.filter((thing) => {
+    const under = thing.onto && placed.find((other) => other.id === thing.onto);
+    return !under || !touching(thing.box, under.box);
+  });
+}
+
+function touching(a: ThingBox, b: ThingBox): boolean {
+  return (
+    a.x <= b.x + b.width + 1 &&
+    b.x <= a.x + a.width + 1 &&
+    a.y <= b.y + b.height + 1 &&
+    b.y <= a.y + a.height + 1
+  );
 }
 
 /** Every box a thing is drawn in, its main one first. */
@@ -188,6 +209,20 @@ export const THING_WORDS = {
     gender: "masculine-inanimate",
     id: "dom",
     word: "dom",
+  },
+  digestor: {
+    english: "cooker hood",
+    gender: "masculine-inanimate",
+    id: "digestor",
+    stems: ["digestor"],
+    word: "digestor",
+  },
+  diktafon: {
+    english: "voice recorder",
+    gender: "masculine-inanimate",
+    id: "diktafon",
+    stems: ["diktafon"],
+    word: "diktafón",
   },
   doska: {
     english: "chopping board",

@@ -288,20 +288,16 @@ const intro: ListeningChapter = {
  * much. An hour passes in the dark; then the tasting.
  */
 const KITCHEN_ACTS: Record<string, Cue[]> = {
-  // Mária checks what she has out: the carrot on the board, the salt by her.
+  // Mária checks what she has out, the carrot on the board and the salt by her, and the knock comes on the last of it.
   "maria-counting-veg": [
     { do: "point", to: "carrot", on: "mrkva" },
-    { do: "look", to: "salt", on: "soľ" },
-    { do: "take", what: "salt", on: "soľ" },
-    { do: "put", what: "salt", to: "salt-place" },
-    { who: "anna", do: "knock", on: "after" },
-    { do: "look", to: "door", on: "after" },
+    { who: "anna", do: "knock", on: "soľ" },
+    { do: "look", to: "door", on: "end" },
   ],
-  // Mária turns from the stove to the door as it opens, and nods the greeting back.
+  // Called out as she opens the door, so the room is not silent while she comes in. Mária wipes her hands and nods.
   "anna-good-evening": [
-    { do: "enter", to: "inside", on: "before" },
-    { who: "maria", do: "wipe", on: "before" },
-    { who: "maria", do: "look", to: "door", on: "before" },
+    { do: "enter", to: "inside", on: "start" },
+    { who: "maria", do: "wipe", on: "start" },
     { who: "maria", do: "nod", on: "večer" },
   ],
   "maria-come-in": [
@@ -311,28 +307,27 @@ const KITCHEN_ACTS: Record<string, Cue[]> = {
     { do: "look", to: "door", on: "marek" },
   ],
   // Both in the room turn to the door as it opens; Anna, who has just been greeted herself, waves him in.
+  // He says sorry on his way in; his keys go in his pocket once the door is shut.
   "marek-parking": [
-    { do: "enter", to: "inside", on: "before" },
-    { who: "anna", do: "look", to: "marek", on: "before" },
-    { who: "maria", do: "look", to: "door", on: "before" },
-    { do: "nod", on: "dobrý" },
+    { do: "enter", to: "inside", on: "start" },
+    { who: "anna", do: "look", to: "marek", on: "start" },
+    { who: "maria", do: "look", to: "door", on: "start" },
     { who: "maria", do: "nod", on: "dobrý" },
     { who: "anna", do: "wave", on: "večer" },
-    { do: "pocket", what: "keys", on: "parkoval" },
   ],
-  // The recorder goes on the counter's end, to catch the cooking and stay for supper; then Marek waits his turn at the sink.
-  // Anna goes when told to wash, and walks ahead of Marek, so nobody walks through anybody.
+  // Marek waits his turn at the sink by the counter's end. Anna goes when told to wash, and walks ahead of Marek, so nobody walks through anybody.
   "maria-wash-hands": [
     { do: "beckon", to: "marek", on: "poďte" },
-    { who: "anna", do: "go", to: "sink", on: "umyte" },
+    { who: "marek", do: "pocket", what: "keys", on: "poďte" },
+    { who: "anna", do: "go", to: "sink", on: "najprv" },
     { who: "anna", do: "wash" },
     { who: "marek", do: "go", to: "counter-end", on: "ruky" },
     { do: "point", to: "basin", on: "tam" },
-    { who: "marek", do: "take", what: "recorder" },
-    { who: "marek", do: "put", what: "recorder", to: "counter", dx: -50 },
   ],
-  // Drying her hands as she offers to help.
+  // Drying her hands as she offers to help. The recorder goes on the counter's end, to catch the cooking and stay for supper.
   "anna-help-with": [
+    { who: "marek", do: "take", what: "recorder", on: "start" },
+    { who: "marek", do: "put", what: "recorder", to: "counter", dx: -50 },
     { do: "go", to: "by-towel", on: "start" },
     { do: "dry", to: "towel" },
   ],
@@ -356,7 +351,7 @@ const KITCHEN_ACTS: Record<string, Cue[]> = {
   // The pot stands in the sink to fill, so the water is seen going in.
   "maria-fill-pot": [
     { do: "nod", on: "hej" },
-    { who: "marek", do: "put", what: "pot", to: "basin", on: "nalej" },
+    { who: "marek", do: "put", what: "pot", to: "basin", on: "ten" },
     { who: "marek", do: "fill", what: "pot" },
   ],
   "marek-full-pot": [{ do: "take", what: "pot", on: "start" }],
@@ -379,11 +374,15 @@ const KITCHEN_ACTS: Record<string, Cue[]> = {
     { do: "wag", on: "nie" },
     { do: "go", to: "board-across" },
     { who: "anna", do: "go", to: "board-back", on: "kúsky" },
-    { do: "take", what: "knife", on: "pozri" },
-    { do: "chop", what: "carrot", to: "small" },
-    { do: "put", what: "knife", to: "knife-place" },
-    { do: "go", to: "cook" },
-    { who: "anna", do: "go", to: "board" },
+    { do: "take", what: "knife" },
+    { do: "chop", what: "carrot", to: "small", on: "pozri" },
+  ],
+  // Both back to their own places while Anna takes it in.
+  "anna-ah-like-that": [
+    { who: "maria", do: "put", what: "knife", to: "knife-place", on: "start" },
+    { who: "maria", do: "go", to: "cook" },
+    // Once Mária is clear, or they cross at the board.
+    { do: "go", to: "board" },
   ],
   // Anna tips the carrots in from the stove's side, then Marek comes over for the salt, and she steps back to give him room.
   "maria-salt": [
@@ -399,33 +398,32 @@ const KITCHEN_ACTS: Record<string, Cue[]> = {
     // A step over to him, so the salt changes hands at the chest beside the pot, not across it at head height.
     { do: "go", to: "at-stove" },
     { do: "give", what: "salt", to: "marek" },
-    { do: "go", to: "cook" },
   ],
-  "marek-a-little": [{ do: "shake", what: "salt", to: "pot", on: "start" }],
-  // The wag from her own place, clear of him: wagged from the stove beside him, her hand landed on his head. Then she comes for the salt.
+  "marek-a-little": [
+    { do: "shake", what: "salt", to: "pot", on: "start" },
+    { who: "maria", do: "go", to: "cook", on: "start" },
+  ],
+  // The wag from her own place, clear of him: wagged from the stove beside him, her hand landed on his head.
+  // Marek backs off with the salt still in his hand, and Anna, knowing the fix, goes for the jug once he is clear.
   "maria-not-a-little": [
     { do: "wag", on: "nesyp" },
     { who: "anna", do: "laugh", on: "preboha" },
+    { who: "marek", do: "go", to: "aside", on: "preboha" },
     { who: "marek", do: "shrug", on: "toľko" },
-    { do: "go", to: "at-stove", on: "toľko" },
-    { do: "take", what: "salt" },
-    { do: "go", to: "cook" },
-    { do: "put", what: "salt", to: "salt-place" },
-    { who: "marek", do: "go", to: "aside", on: "after" },
+    { who: "anna", do: "go", to: "jug-left", on: "toľko" },
+    { who: "anna", do: "take", what: "jug" },
   ],
   "anna-top-up": [
-    { do: "go", to: "jug-left", on: "nevadí" },
-    { do: "take", what: "jug" },
-    { do: "go", to: "pot-left" },
+    { do: "go", to: "pot-left", on: "start" },
     { do: "pour", what: "jug", to: "pot", on: "dolejeme" },
   ],
   "maria-cook-an-hour": [
-    { who: "anna", do: "go", to: "jug-left", on: "start" },
-    { who: "anna", do: "put", what: "jug", to: "jug-place" },
-    { who: "anna", do: "go", to: "board" },
     { do: "look", to: "hodiny", on: "hodinku" },
     { do: "skip", minutes: 60, on: "after" },
     { do: "camera", to: "wide", on: "dark" },
+    // The jug went back and the salt was put down while the hour passed.
+    { who: "anna", do: "put", what: "jug", to: "jug-place", on: "dark" },
+    { who: "marek", do: "put", what: "salt", to: "counter", dx: -60, on: "dark" },
     { who: "marek", do: "go", to: "chat", on: "dark" },
     { who: "anna", do: "go", to: "middle", on: "dark" },
   ],
@@ -439,10 +437,10 @@ const KITCHEN_ACTS: Record<string, Cue[]> = {
     { do: "camera", to: "stove", zoom: 2.1, on: "ochutnaj" },
     // Over to watch the tasting, a step back from him so she can lean in.
     { who: "anna", do: "go", to: "board-back", on: "ochutnaj" },
+    { who: "marek", do: "take", what: "spoon", on: "pozor" },
   ],
   "marek-burns": [
-    { do: "take", what: "spoon", on: "before" },
-    { do: "taste", what: "spoon" },
+    { do: "taste", what: "spoon", on: "before" },
     { do: "burn", on: "start" },
     { who: "anna", do: "look", to: "marek", on: "start" },
     { who: "maria", do: "wag", on: "páli" },
@@ -450,8 +448,8 @@ const KITCHEN_ACTS: Record<string, Cue[]> = {
   "anna-is-it-good": [
     { do: "camera", to: "wide", on: "start" },
     { do: "lean", to: "marek", on: "start" },
-    { who: "marek", do: "dip", what: "spoon", to: "pot", on: "start" },
-    { who: "marek", do: "blow", what: "spoon" },
+    // What burned him is still on the spoon: he blows on it this time.
+    { who: "marek", do: "blow", what: "spoon", on: "start" },
   ],
   // The spoon goes back to the cook, who hangs it on the rail.
   "marek-bit-salty": [
@@ -491,8 +489,8 @@ const kitchen: ListeningChapter = {
       line(
         "anna-good-evening",
         "Anna",
-        ["Dobrý večer, pani Mária!"],
-        "Good evening, Mrs. Mária!",
+        ["Dobrý večer, pani Mária! ", PAUSE, "Tak čo, varíme?"],
+        "Good evening, Mrs. Mária! So, are we cooking?",
       ),
       line(
         "maria-come-in",
@@ -580,6 +578,12 @@ const kitchen: ListeningChapter = {
         ["Nie, nie, menšie kúsky. ", PAUSE, mark("Pozri sa"), ", takto."],
         "No, no, smaller pieces. Look, like this.",
         { to: "Anna" },
+      ),
+      line(
+        "anna-ah-like-that",
+        "Anna",
+        ["Aha, takto. ", PAUSE, "Dobre."],
+        "Oh, like that. OK.",
       ),
       line(
         "maria-salt",
@@ -747,25 +751,26 @@ const kitchen: ListeningChapter = {
  * on under the soup; they decide to wait for her, so nobody eats yet.
  */
 const TABLE_ACTS: Record<string, Cue[]> = {
+  // Everyone sits as she says it, and she looks round at the empty chair while Anna answers.
   "maria-sit-down": [
     { do: "beckon", to: "table", on: "sadnite" },
-    { who: "anna", do: "sit", to: "seat-l", on: "si" },
-    { who: "marek", do: "sit", to: "seat-br", on: "si" },
-    { do: "sit", to: "seat-r", on: "a" },
-    { do: "look", to: "seat-bl", on: "nikde" },
-    { do: "look", to: "hodiny", on: "veď" },
+    { who: "anna", do: "sit", to: "seat-l", on: "sadnite" },
+    { who: "marek", do: "sit", to: "seat-br", on: "sadnite" },
+    { do: "sit", to: "seat-r", on: "si" },
   ],
   "anna-late-again": [
+    { who: "maria", do: "look", to: "seat-bl", on: "start" },
     { do: "shrug", on: "start" },
-    { do: "take", what: "spoon-l", on: "after" },
   ],
   // He reaches for it while it rings, and Mária looks over at once; Anna, across the table, already faces him and keeps her spoon up.
   "marek-its-her": [
     { do: "take", what: "phone", on: "before" },
     { who: "maria", do: "look", to: "marek", on: "before" },
+    { who: "anna", do: "take", what: "spoon-l", on: "start" },
     { do: "call", what: "phone", on: "ahoj" },
   ],
-  "lucia-eat-without-me": [{ who: "maria", do: "lean", to: "marek", on: "start" }],
+  // A look, not a lean: leaning in, her head came within a hand of his.
+  "lucia-eat-without-me": [{ who: "maria", do: "look", to: "marek", on: "start" }],
   "marek-come": [{ do: "beckon", on: "príď" }],
   "maria-let-her-come": [{ do: "point", to: "pot", on: "polievky" }],
   "lucia-half-hour": [{ who: "marek", do: "nod", on: "start" }],
@@ -1019,13 +1024,13 @@ const help: ListeningChapter = {
         "anna-first-hodit",
         "Anna",
         [
-          "Prvé: hodiť. ",
+          "Prvé slovo: hodiť. ",
           PAUSE,
           "Čo mi včera povedala Mária, keď sme robili polievku? ",
           PAUSE,
           "Hoď mrkvu do hrnca, alebo hoďte mrkvu do hrnca?",
         ],
-        "First: hodiť, to throw. What did Mária tell me yesterday when we were making the soup? Hoď mrkvu do hrnca, or hoďte mrkvu do hrnca?",
+        "First word: hodiť, to throw. What did Mária tell me yesterday when we were making the soup? Hoď mrkvu do hrnca, or hoďte mrkvu do hrnca?",
       ),
       wait: BEAT_MS,
     },
@@ -1306,7 +1311,12 @@ const help: ListeningChapter = {
       ),
       wait: BEAT_MS,
     },
-    line("marek-shes-late", "Marek", ["Že mešká."], "That she's late."),
+    line(
+      "marek-shes-late",
+      "Marek",
+      ["Že je ešte v práci."],
+      "That she's still at work.",
+    ),
     line(
       "anna-and-then",
       "Anna",
@@ -1636,6 +1646,8 @@ const help: ListeningChapter = {
 
 /** The goodbye, and at last the plant gets its water: Marek leaves the desk for it. */
 const OUTRO_ACTS: Record<string, Cue[]> = {
+  // A glance at the studio clock before the wrap-up, so the game's last laugh has a breath after it.
+  "marek-thats-all": [{ do: "look", to: "hodiny", on: "before" }],
   "anna-and-the-plant": [
     { do: "point", to: "plant", on: "rastlinka" },
     { do: "fold", on: "včera" },
@@ -1694,8 +1706,8 @@ const outro: ListeningChapter = {
       line(
         "marek-thats-all",
         "Marek",
-        ["To je na dnes všetko."],
-        "That's all for today.",
+        ["Tak, to je na dnes všetko."],
+        "Right, that's all for today.",
       ),
       line(
         "anna-thanks-write-to-us",

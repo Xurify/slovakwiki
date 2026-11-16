@@ -2,7 +2,10 @@ import type { Headwear } from "./dress";
 
 /** What a place has underfoot: pavement and cobbles, floorboards, a carpet, a path or grass. */
 export type Ground = "stone" | "wood" | "carpet" | "soil" | "tile";
-import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
+import {
+  LESSON_CHARACTER_IDS,
+  type LessonCharacterId,
+} from "$lib/catalog/lessons/character-ids";
 import type { AmbienceLayer } from "./ambience";
 import { PARTS, benchBox, clockBox, lampBox, plantBox, treeBox } from "./backdrop-parts";
 import type { SetPlan } from "./acts";
@@ -550,7 +553,8 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       // more (StickSet.svelte), whose floor is at y 280, in front of the wall's foot.
       { ...drawn(WORDS.umyvadlo, [548, 212, 34, 12]), of: ["counter-sink"] },
       { ...drawn(WORDS.hrniec, [675, 196, 44, 24]), of: ["pot"] },
-      { ...drawn(WORDS.sporak, [668, 219, 52, 61]), of: ["stove"] },
+      { ...drawn(WORDS.sporak, [668, 219, 52, 61]), of: ["stove-body"] },
+      { ...drawn(WORDS.digestor, [674, 138, 44, 41]), of: ["stove-hood"] },
       onSet(WORDS.stol, ["table"], [330, 236, 80, 30]),
       onSet(
         WORDS.stolicka,
@@ -568,8 +572,9 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
         [692, 180, 6, 20],
       ),
       onSet(WORDS.doska, ["board"], [620, 210, 22, 4]),
-      onSet(WORDS.mrkva, ["carrot"], [622, 206, 14, 4]),
-      onSet(WORDS.noz, ["knife"], [636, 210, 12, 3]),
+      { ...onSet(WORDS.mrkva, ["carrot"], [622, 206, 14, 4]), onto: "doska" },
+      { ...onSet(WORDS.noz, ["knife"], [636, 210, 12, 3]), onto: "doska" },
+      onSet(WORDS.diktafon, ["recorder"], [560, 204, 8, 6]),
       onSet(WORDS.dzban, ["jug"], [646, 200, 10, 12]),
       onSet(WORDS.sol, ["salt"], [728, 204, 5, 9]),
       drawn(WORDS.kredenc, [273, 54, 74, 180]),
@@ -720,9 +725,16 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       { ...drawn(WORDS.rastlina, plantBox(PARTS.studio.plant)), of: ["plant"] },
       {
         ...drawn(WORDS.hrncek, [376, 186, 10, 12]),
-        of: ["studio-mug-0", "studio-mug-1", "studio-mug-2"],
+        // An episode that hands the mugs to the cast as cups draws them as those instead.
+        of: ["studio-mug-0", "studio-mug-1", "studio-mug-2", "cup-anna", "cup-marek"],
       },
       onSet(WORDS.krhla, ["can"], [704, 222, 40, 24]),
+      onSet(WORDS.diktafon, ["recorder"], [500, 196, 8, 6]),
+      {
+        ...onSet(WORDS.sluchadla, ["headphones"], [420, 120, 16, 14]),
+        // Worn, they are drawn on the head (StickHead), one id per wearer.
+        of: ["headphones", ...LESSON_CHARACTER_IDS.map((id) => `headphones-on-${id}`)],
+      },
       // On the shelf, for tapping only: a line about a book means one in someone's hands, not these.
       { ...drawn(WORDS.platna, [650, 30, 72, 54]), quiet: true },
       { ...drawn(WORDS.knihy, [652, 86, 40, 30]), quiet: true },

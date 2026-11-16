@@ -364,13 +364,17 @@
         {/if}
       {:else if piece.kind === "stove"}
         <!-- The cooker hood over it, its duct up to the underside of the wall cupboards. -->
-        <rect x="-6" y={top - 93} width="12" height="31" class="fill-scene-steel-light" />
-        <path
-          d="M-13 {top - 64}H13L22 {top - 52}H-22Z"
-          class="fill-scene-steel"
-        />
-        <rect x="-22" y={top - 52} width="44" height="2.4" class="fill-scene-steel-dark" />
-        <path d="M-4 {top - 58}h8" class="stroke-white/60" stroke-width="1" />
+        <g data-set-id="{piece.id}-hood">
+          <rect x="-6" y={top - 93} width="12" height="31" class="fill-scene-steel-light" />
+          <path
+            d="M-13 {top - 64}H13L22 {top - 52}H-22Z"
+            class="fill-scene-steel"
+          />
+          <rect x="-22" y={top - 52} width="44" height="2.4" class="fill-scene-steel-dark" />
+          <path d="M-4 {top - 58}h8" class="stroke-white/60" stroke-width="1" />
+        </g>
+        <!-- The cooker itself, measured apart from the hood so a tap on the hood is not the stove. -->
+        <g data-set-id="{piece.id}-body">
         <!-- The backguard behind the hob, and the pan supports over the burners. -->
         <rect
           x={-width / 2}
@@ -438,6 +442,7 @@
           stroke-width="0.8"
         />
         <path d="M-4 {GROUND_Y - 4.5}h8" class="stroke-scene-line/50" stroke-width="1.2" />
+        </g>
         {#if lit}
           <!-- The gas, a ring of blue under the pot. -->
           <g class="animate-flicker [transform-box:fill-box] origin-bottom">
