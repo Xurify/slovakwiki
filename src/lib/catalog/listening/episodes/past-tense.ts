@@ -1048,8 +1048,14 @@ const CLOSED_ACTS: Record<string, Cue[]> = {
   // The cut of the card: the clock runs on to five past five.
   "card-five-minutes-later": [{ who: "anna", do: "skip", minutes: 5, on: "start" }],
   // She turns to look at his teeth; a lean at the desk took her head into her own mic.
-  "anna-smile-poppy-seeds": [{ do: "look", to: "marek", on: "usmej" }],
-  "marek-did-i-eat-it": [{ do: "shrug", on: "žeby" }],
+  "anna-smile-poppy-seeds": [
+    { do: "look", to: "marek", on: "usmej" },
+    { who: "marek", do: "grin", seeds: true, on: "usmej" },
+  ],
+  "marek-did-i-eat-it": [
+    { do: "shrug", on: "žeby" },
+    { who: "marek", do: "grin", off: true, on: "end" },
+  ],
 };
 
 const closed: ListeningChapter = {
@@ -1082,9 +1088,27 @@ const closed: ListeningChapter = {
           choices: [
             // A name glossed with itself only repeats it.
             { id: "marek", label: "Marek", english: "" },
-            { id: "lucia", label: "Lucia", english: "" },
-            { id: "maria", label: "Mária", english: "" },
-            { id: "waiter", label: "Čašník", english: "The waiter" },
+            {
+              id: "lucia",
+              label: "Lucia",
+              english: "",
+              whyWrong:
+                "**Lucia** was there five minutes and saw half the cake already gone: **bola tam päť minút**.",
+            },
+            {
+              id: "maria",
+              label: "Mária",
+              english: "",
+              whyWrong:
+                "**Mária** was there at nine and the cake was still whole: **ráno nejem sladké**.",
+            },
+            {
+              id: "waiter",
+              label: "Čašník",
+              english: "The waiter",
+              whyWrong:
+                "**Čašník** says **nič som nejedol**, and the cake was still whole when he left at noon.",
+            },
           ],
           answerId: "marek",
           judge: "Anna",

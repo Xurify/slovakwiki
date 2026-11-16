@@ -163,21 +163,15 @@ const intro: ListeningChapter = {
   ],
 };
 
-/**
- * `keep` holds a shown photo up until Marek's next cue. It comes with the engine's `show`
- * hold (fix/engine-r2); cast, so this file still builds on a branch without it.
- */
-const KEEP = { keep: true } as unknown as Partial<Cue>;
-
 /** Turns the screen to Anna with the photo on it, and she leans in to see it. */
 function showPhoto(picture: StickPictureId): Cue[] {
   return [
-    { do: "show", what: "phone", to: "anna", picture, on: "fotka", ...KEEP },
+    { do: "show", what: "phone", to: "anna", picture, on: "fotka", keep: true },
     { who: "anna", do: "lean", to: "marek", on: "fotka" },
   ];
 }
 
-/** The same photo again on each line they talk about it, so it stays up where `keep` is not there. */
+/** The same photo again on each line they talk about it, so it is up after a jump to that line. */
 function stillShowing(picture: StickPictureId): Cue[] {
   return [
     {
@@ -187,7 +181,7 @@ function stillShowing(picture: StickPictureId): Cue[] {
       to: "anna",
       picture,
       on: "start",
-      ...KEEP,
+      keep: true,
     },
   ];
 }
