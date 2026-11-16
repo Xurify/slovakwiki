@@ -620,7 +620,8 @@ const waiting: ListeningChapter = {
       ["Bobík? ", PAUSE, "Tento haf je iný. Je tichý."],
       "Bobík? This woof is different. It's quiet.",
       {
-        act: [{ do: "go", to: "bobik", on: "before" }],
+        // Beside him at the window, short of the pegs: stopped a body length off the dog, the lead hung from his head.
+        act: [{ do: "go", to: "window", on: "before" }],
         to: "Bobík",
       },
     ),
