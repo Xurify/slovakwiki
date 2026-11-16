@@ -148,9 +148,9 @@
   <rect x={x - 3} y="222" width="6" height="14" rx="2.5" class="fill-scene-line/60" />
   <rect x={x - 3} y="225" width="6" height="2" class="fill-white/40" />
 {/each}
-<ellipse cx="216" cy="241" rx="8" ry="2" class="fill-scene-line/15" />
-<path d="M209 224h14l-1.5 17h-11Z" class="fill-scene-line/55" />
-<rect x="208" y="222" width="16" height="3" rx="1" class="fill-scene-line/70" />
+<ellipse cx="200" cy="241" rx="8" ry="2" class="fill-scene-line/15" />
+<path d="M193 224h14l-1.5 17h-11Z" class="fill-scene-line/55" />
+<rect x="192" y="222" width="16" height="3" rx="1" class="fill-scene-line/70" />
 <g class="stroke-scene-line/85" fill="none" stroke-width="1.8">
   <path d="M148 240V228a6 6 0 0 1 12 0V240" />
   {#each [140] as x (x)}

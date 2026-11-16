@@ -50,7 +50,8 @@ const SMALL: [number, number] = [14.69, 15.02];
  * How a line's leading direction changes the cut, so the same dog does not
  * bark the same "Haf! Haf!" for a warning, a hello and joy: glad and excited
  * barks come higher and closer together (a single glad bark is the first of
- * the two-bark run, another take), a sighed one lower, slower and duller.
+ * the two-bark run, another take), a startled one at a stranger deeper and
+ * sharper, a sighed one lower, slower and duller.
  */
 const MOODS: Record<string, { gap: number; shape: string; single?: [number, number] }> = {
   excited: {
@@ -61,6 +62,11 @@ const MOODS: Record<string, { gap: number; shape: string; single?: [number, numb
     gap: 0.16,
     shape: "aresample=44100,asetrate=44100*1.06,aresample=44100,atempo=1.04",
     single: [1.59, 1.92],
+  },
+  surprised: {
+    gap: 0.08,
+    shape:
+      "aresample=44100,asetrate=44100*0.9,aresample=44100,atempo=1.18,highpass=f=180,treble=g=4:f=3000",
   },
   sighs: {
     gap: 0.4,

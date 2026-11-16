@@ -90,14 +90,14 @@ export const PARTS = {
   },
   home: {
     // On the wall between the mirror and the door frame, clear of both.
-    clock: { hand: 8, r: 12, ticks: true, x: 346, y: 24 },
+    clock: { hand: 12, r: 17, ticks: true, x: 360, y: 26 },
     plant: { x: 738, y: 234 },
   },
   plaza: {
     // Bench and tree stand past what a 1280-wide stage shows (x 120 to 840), whole on a wider one.
     bench: { ground: 250, width: 104, x: 4 },
     clock: { hand: 12, r: 17, x: 283, y: 128 },
-    lamp: { ground: 238, x: 240 },
+    lamp: { ground: 238, x: 228 },
     tree: { ground: 250, planter: true, x: 902 },
   },
   kitchen: {

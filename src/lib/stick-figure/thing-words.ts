@@ -617,6 +617,13 @@ export const THING_WORDS = {
     stems: ["hrncek"],
     word: "hrnček",
   },
+  kabat: {
+    english: "coat",
+    gender: "masculine-inanimate",
+    id: "kabat",
+    stems: ["kabat"],
+    word: "kabát",
+  },
   kaviaren: {
     english: "café",
     gender: "feminine",
@@ -727,6 +734,15 @@ export const THING_WORDS = {
     id: "pelech",
     stems: ["pelech"],
     word: "pelech",
+  },
+  pes: {
+    accusative: "psa",
+    english: "dog",
+    // Not "psi": folded, psí jazyk would be a dog too.
+    forms: ["pes", "psa", "psovi", "psom", "psoch", "psy", "psov", "psami"],
+    gender: "masculine-animate",
+    id: "pes",
+    word: "pes",
   },
   plagat: {
     english: "poster",

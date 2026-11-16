@@ -49,7 +49,7 @@ const morning: ListeningChapter = {
   stage: "home",
   // Marek has his keys in his hand from the start, so "Kde mám kľúče?" is the joke Robo answers.
   setup: {
-    spots: { marek: "by-pegs" },
+    spots: { marek: "by-pegs", bobik: "dog-spot" },
     objects: [
       BOWL,
       LEAD,
@@ -87,7 +87,7 @@ const morning: ListeningChapter = {
       "Great, it works! Hi, Robo! I'm Marek. You can use ty with me.",
     ),
     line("robo-ok-marek", "Robo", ["Dobre. ", PAUSE, "Ahoj, Marek."], "OK. Hi, Marek."),
-    line("bobik-woof-stranger", "Bobík", ["Haf! Haf!"], "Woof! Woof!"),
+    line("bobik-woof-stranger", "Bobík", [SURPRISED, "Haf! Haf!"], "Woof! Woof!"),
     line(
       "robo-dont-know-this-one",
       "Robo",
@@ -110,7 +110,7 @@ const morning: ListeningChapter = {
         "Postaráš sa o Bobíka? O dvanástej ho vezmi von, na námestie. Večer mu daj jesť.",
       ],
       "Look, I have to go to work. Will you look after Bobík? At twelve take him out, to the square. In the evening give him his food.",
-      { to: "Robo" },
+      { act: [{ do: "go", to: "rug-mid", on: "postaráš" }], to: "Robo" },
     ),
     line(
       "robo-noted-schedule",
@@ -137,7 +137,7 @@ const morning: ListeningChapter = {
       {
         act: [
           { do: "raise", what: "keys", on: "aha" },
-          { do: "leave", to: "door", on: "after" },
+          { do: "leave", to: "door", on: "chlapci" },
         ],
       },
     ),
@@ -209,6 +209,7 @@ const morning: ListeningChapter = {
 const lead: ListeningChapter = {
   id: `${PREFIX}lead`,
   stage: "home",
+  setup: { spots: { bobik: "rug-mid" } },
   titleSk: "Haf znamená von",
   title: "Woof means out",
   lines: [
@@ -397,7 +398,7 @@ const square: ListeningChapter = {
       "Robo",
       ["Aha, kamarátka. ", PAUSE, "Dobrý deň. Som Robo, Marekov nový robot."],
       "Ah, a friend. Good day. I'm Robo, Marek's new robot.",
-      { to: "Anna" },
+      { act: [{ who: "anna", do: "look", to: "robo", on: "dobrý" }], to: "Anna" },
     ),
     line(
       "anna-i-am-anna",
@@ -443,11 +444,15 @@ const square: ListeningChapter = {
       "As always. Marek works a lot.",
     ),
     line(
+      "anna-learn-it-yourself",
+      "Anna",
+      ["Tak sa psí jazyk musíš naučiť ty."],
+      "Then you'll have to learn dog language yourself.",
+    ),
+    line(
       "anna-look-at-tail",
       "Anna",
       [
-        "Tak sa psí jazyk musíš naučiť ty. ",
-        PAUSE,
         "Vieš, Robo",
         STOP,
         PAUSE,
@@ -455,11 +460,12 @@ const square: ListeningChapter = {
         PAUSE,
         "Pozri sa na chvost. Keď vrtí chvostom, je šťastný.",
       ],
-      "Then you'll have to learn dog language yourself. You know, Robo… a dog doesn't only say woof. Look at his tail. When he wags it, he's happy.",
+      "You know, Robo… a dog doesn't only say woof. Look at his tail. When he wags it, he's happy.",
       {
         act: [
           { do: "point", to: "bobik", on: "chvost" },
           { who: "bobik", do: "wag", on: "vrtí" },
+          { do: "kneel", to: "bobik", on: "šťastný" },
         ],
       },
     ),
@@ -477,7 +483,7 @@ const square: ListeningChapter = {
       {
         act: [
           { do: "wave", on: "ahojte" },
-          { do: "leave", to: "right", on: "after" },
+          { do: "leave", to: "right", on: "chlapci" },
         ],
       },
     ),
@@ -601,7 +607,7 @@ const waiting: ListeningChapter = {
       ["Bobík? ", PAUSE, "Tento haf je iný. Je tichý."],
       "Bobík? This woof is different. It's quiet.",
       {
-        act: [{ do: "go", to: "rug-left", on: "before" }],
+        act: [{ do: "go", to: "rug-mid", on: "before" }],
         to: "Bobík",
       },
     ),
@@ -680,7 +686,7 @@ const waiting: ListeningChapter = {
       "Robo",
       ["Bobík. ", PAUSE, "Marek ide domov."],
       "Bobík. Marek is coming home.",
-      { to: "Bobík" },
+      { act: [{ who: "bobik", do: "face", to: "robo", on: "marek" }], to: "Bobík" },
     ),
     line("bobik-woof-glad", "Bobík", [HAPPY, "Haf! Haf!"], "Woof! Woof!", {
       act: [
@@ -824,10 +830,8 @@ const home: ListeningChapter = {
       "Hungry? At last! Come on, Bobík, dinner!",
       {
         act: [
+          { who: "bobik", do: "go", to: "bowl-dog", on: "poď", run: true },
           { do: "point", to: "bowl", on: "večera" },
-          { who: "bobik", do: "go", to: "bowl-dog", on: "večera" },
-          { who: "bobik", do: "face", to: "bowl" },
-          { who: "bobik", do: "eat", what: "bowl", on: "after" },
         ],
         to: "Bobík",
       },
@@ -837,6 +841,7 @@ const home: ListeningChapter = {
       "Robo",
       ["Dnes ráno som vedel sto jazykov. ", PAUSE, "Teraz viem stojeden."],
       "This morning I knew a hundred languages. Now I know a hundred and one.",
+      { act: [{ who: "bobik", do: "eat", what: "bowl", on: "start" }] },
     ),
     line(
       "marek-whole-dog-language",
