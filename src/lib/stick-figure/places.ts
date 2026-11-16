@@ -244,6 +244,8 @@ const HOME_SET: PlaceSet = {
     "off-right": { x: 820, facing: -1 },
     // On the rug, where a cast of three or four stands talking; the right one past the bag on it.
     "rug-left": { x: 333, facing: 1 },
+    // A step right of the pegs: at rug-left the lead hung over the shoulder of whoever stood there.
+    "by-pegs": { x: 362, facing: 1 },
     "rug-mid": { x: 410, facing: 1 },
     "rug-mid-right": { x: 487, facing: -1 },
     "rug-right": { x: 585, facing: -1 },
@@ -254,8 +256,12 @@ const HOME_SET: PlaceSet = {
     "kneel-by-dog": { x: 355, facing: -1 },
     // At the window, looking out: the dog under the sill, the one waiting with it beside.
     window: { x: 235, facing: -1 },
+    // On his bed under the sill, facing the left pane: from there a look at the window reads as looking out, not at whoever stands at the window spot.
+    "dog-bed": { x: 132, facing: -1 },
     "window-dog": { x: 118, facing: -1 },
     "by-sofa": { piece: "by-sofa", dx: 0, facing: -1 },
+    // The dog eating: just right of the bowl, facing it, so its head is down in it.
+    "bowl-dog": { x: 668, facing: -1 },
     // Beside the bag by the window, to reach down into it.
     "window-bag": { piece: "window-bag", dx: 30, facing: -1 },
     // The hall door opens into the room on hinges at its left, like the kitchen's: in on its latch
