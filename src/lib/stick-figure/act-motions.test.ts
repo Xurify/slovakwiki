@@ -207,3 +207,11 @@ describe("a dog jumping up in greeting", () => {
     expect(motion.face).toBe("marek");
   });
 });
+
+describe("looking out to the listeners", () => {
+  it("turns the face to the front without turning the body to a target", () => {
+    const { motion } = motionFor({ do: "look", to: "front" }, "marek", startWorld());
+    expect(motion.face).toBeUndefined();
+    expect(motion.keys.at(-1)?.body?.look).toBe(0);
+  });
+});

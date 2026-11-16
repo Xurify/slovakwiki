@@ -150,21 +150,36 @@
   }
 </script>
 
-<!-- An oštiepok standing on its end, its foot at 0: smoked, spindle-shaped, stamped round the middle. -->
-{#snippet ostiepok()}
-  <path
-    d="M0 -11C2.6 -10.4 3.4 -7.6 3.4 -5.4C3.4 -2.4 2 -0.6 0 0C-2 -0.6 -3.4 -2.4 -3.4 -5.4C-3.4 -7.6 -2.6 -10.4 0 -11Z"
-    class="fill-scene-onion stroke-scene-coffee/40"
-    stroke-width="0.4"
-  />
-  <path d="M1.2 -10.2C3.2 -8 3.2 -2.6 1 -0.6" class="stroke-scene-coffee/30" stroke-width="1" fill="none" />
-  <path
-    d="M-2.6 -7.2l0.9 1.2 0.9 -1.2 0.9 1.2 0.9 -1.2 0.9 1.2 0.9 -1.2M-2.8 -4.4l0.9 1.2 0.9 -1.2 0.9 1.2 0.9 -1.2 0.9 1.2 0.9 -1.2"
-    class="stroke-scene-coffee/50"
-    stroke-width="0.45"
-    fill="none"
-  />
-  <path d="M-1.2 -10.4l1.2 -1.6 1.2 1.6" class="stroke-scene-coffee/70" stroke-width="0.5" fill="none" />
+<!--
+  A wedge of cheese lying on its side, its foot at 0: pale yellow, the rind on its thick end, holes in
+  the cut face. Smoked oštiepky in brown read as loaves or pine cones; a yellow wedge with holes reads
+  as cheese at a glance, at phone size too.
+-->
+{#snippet wedge()}
+  <path d="M-4.5 0H4.5V-6Z" class="fill-scene-honey stroke-scene-onion" stroke-width="0.4" />
+  <path d="M-4.5 0H4.5V-6Z" class="fill-white/35" stroke="none" />
+  <path d="M4.5 0V-6" class="stroke-scene-onion" stroke-width="1.1" />
+  <circle cx="1.6" cy="-1.6" r="0.8" class="fill-scene-onion/55" stroke="none" />
+  <circle cx="-1.3" cy="-0.8" r="0.5" class="fill-scene-onion/55" stroke="none" />
+  <circle cx="3" cy="-3.6" r="0.55" class="fill-scene-onion/55" stroke="none" />
+{/snippet}
+
+<!--
+  A whole wheel with a wedge cut from its front, so the pale inside and its holes show; its foot at 0.
+-->
+{#snippet wheel()}
+  <path d="M-11 -9V-3Q-11 0 0 0Q11 0 11 -3V-9Z" class="fill-scene-honey stroke-scene-onion" stroke-width="0.5" />
+  <ellipse cx="0" cy="-9" rx="11" ry="2.8" class="fill-scene-honey stroke-scene-onion" stroke-width="0.5" />
+  <ellipse cx="0" cy="-9" rx="11" ry="2.8" class="fill-white/30" stroke="none" />
+  <!-- The cut: the top's missing slice and the two faces it leaves, paler than the rind. -->
+  <path d="M0 -9L4.2 -6.4L9.2 -7.5Z" class="fill-scene-warm" stroke="none" />
+  <path d="M0 -9L4.2 -6.4V-0.2L0 -2.6Z" class="fill-scene-honey stroke-scene-onion/70" stroke-width="0.4" />
+  <path d="M0 -9L4.2 -6.4V-0.2L0 -2.6Z" class="fill-white/45" stroke="none" />
+  <path d="M4.2 -6.4L9.2 -7.5V-1.4L4.2 -0.2Z" class="fill-scene-honey stroke-scene-onion/70" stroke-width="0.4" />
+  <path d="M4.2 -6.4L9.2 -7.5V-1.4L4.2 -0.2Z" class="fill-white/35" stroke="none" />
+  {#each [[1.4, -5.6, 0.7], [2.8, -2.8, 0.5], [6.4, -4.6, 0.75], [7.6, -2.4, 0.5], [-6, -4.6, 0.6], [-3, -3, 0.45]] as [cx, cy, r] (`${cx},${cy}`)}
+    <circle {cx} {cy} {r} class="fill-scene-onion/55" stroke="none" />
+  {/each}
 {/snippet}
 
 <svg
@@ -574,20 +589,23 @@
         <path d="M{-half} {hem}H{half}" class="stroke-scene-line/25" stroke-width="0.8" />
         <rect x={-half - 1} y={top - 1} width={width + 2} height="3" rx="1" class="fill-scene-wood" />
         <rect x={-half - 1} y={top + 1} width={width + 2} height="1" class="fill-scene-coffee/30" />
-        <!-- Tento syr by the buyer: a big smoked oštiepok stood on end. -->
-        <g transform="translate({-half + 15} {top - 1}) scale(2.2)" data-set-id="{piece.id}-near-cheese">
-          {@render ostiepok()}
+        <!-- Tento syr by the buyer: a big wheel on a board, cut into. -->
+        <g transform="translate({-half + 13} {top - 1})" data-set-id="{piece.id}-near-cheese">
+          <rect x="-12" y="-2" width="24" height="2" rx="0.6" class="fill-scene-wood" />
+          <rect x="-12" y="-2" width="24" height="2" rx="0.6" class="fill-scene-coffee/25" />
+          <g transform="translate(0 -2)">{@render wheel()}</g>
         </g>
-        <!-- Tamten at the far end: small ones on a board, cheaper; Lucia sells one off the front (the cheese object). -->
-        <g transform="translate({half - 12} {top - 1})" data-set-id="{piece.id}-far-cheese">
-          <rect x="-10" y="-2.4" width="20" height="2.4" rx="0.8" class="fill-scene-wood" />
-          <rect x="-10" y="-2.4" width="20" height="2.4" rx="0.8" class="fill-scene-coffee/25" />
-          {#each [-5, 5] as dx (dx)}
-            <g transform="translate({dx} -2.4) scale(1.3)">{@render ostiepok()}</g>
-          {/each}
+        <!--
+          Tamten at the far end: small wedges on a board, cheaper; Lucia sells the one in front
+          (the cheese object). The strawberry basket stands between them and the scale.
+        -->
+        <g transform="translate({half - 6.5} {top - 1})" data-set-id="{piece.id}-far-cheese">
+          <rect x="-6.5" y="-2.4" width="13" height="2.4" rx="0.8" class="fill-scene-wood" />
+          <rect x="-6.5" y="-2.4" width="13" height="2.4" rx="0.8" class="fill-scene-coffee/25" />
+          <g transform="translate(0 -2.4) scale(-1.3 1.3)">{@render wedge()}</g>
         </g>
         <!-- Their prices on cards pinned to the cloth under them, big enough to read on a phone. -->
-        {#each [{ dx: -half + 15, price: "5 €", end: "near" }, { dx: half - 12, price: "3 €", end: "far" }] as { dx, price, end } (price)}
+        {#each [{ dx: -half + 13, price: "5 €", end: "near" }, { dx: half - 11, price: "3 €", end: "far" }] as { dx, price, end } (price)}
           <g transform="translate({dx} {top + 4})" data-set-id="{piece.id}-price-{end}">
             <rect x="-10.5" y="0" width="21" height="13" rx="1.5" class="fill-white stroke-scene-line/30" stroke-width="0.6" />
             <circle cx="0" cy="1.6" r="0.9" class="fill-scene-red" />
@@ -603,7 +621,7 @@
           </g>
         {/each}
         <!-- A shop scale, big enough to weigh a cheese on. -->
-        <g transform="translate(18 {top}) scale(1.35)" data-set-id="{piece.id}-scale">
+        <g transform="translate(13 {top}) scale(1.35)" data-set-id="{piece.id}-scale">
           <path d="M-5.5 0h11" class="stroke-scene-line/25" stroke-width="0.8" />
           <rect x="-4.5" y="-9" width="9" height="8" rx="1" class="fill-scene-steel-light" />
           <circle cx="0" cy="-5" r="2.6" class="fill-white" />

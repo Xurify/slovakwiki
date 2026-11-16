@@ -181,6 +181,8 @@ export type ObjectKind =
   | "umbrella"
   | "cheese"
   | "plate"
+  /** A banknote, paid over a market counter. */
+  | "money"
   /** A bag the backdrop draws, standing in for it on the set so what is in it can be taken out. */
   | "stash";
 

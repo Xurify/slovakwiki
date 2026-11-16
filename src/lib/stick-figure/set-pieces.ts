@@ -12,7 +12,7 @@ import { GROUND_Y, SEAT_Y, type Point } from "./rig";
  * the floor a plant stands on. The `desk` is the studio's, drawn with it.
  * Things on a `rail` hang from its hooks: a ladle, a lid. A rail a few
  * units wide is a single hook on the wall: a towel. A `stand` is a
- * market table under a cloth, set out with a cut cheese wheel and a scale.
+ * market table under a cloth, set out with a cut cheese wheel, wedges and a scale.
  * A `bar` is a café counter with its espresso machine, a till by its card
  * reader and a glass case of pastries at its right end, drawn over whoever
  * works behind it; a `stool` is a bar stool to set in front of it. A
@@ -193,8 +193,11 @@ export const OBJECT_SIZE: Record<
   book: { grip: { x: 0, y: 5 }, top: 11.5, width: 9 },
   clipboard: { grip: { x: 0, y: 6 }, top: 14, width: 10 },
   umbrella: { grip: { x: 0, y: 6 }, top: 34, width: 9 },
-  cheese: { grip: { x: 0, y: 5 }, top: 11, width: 7 },
+  // A wedge on its side, held round its middle.
+  cheese: { grip: { x: 0, y: 3 }, top: 7.8, width: 11.7 },
   plate: { grip: { x: 9, y: 1.5 }, top: 3.6, width: 22.6 },
+  // Held by one short edge between finger and thumb, the note standing up out of the fist.
+  money: { grip: { x: 0, y: 0.5 }, top: 6, width: 10 },
   // In the bag piece by the home's window: its opening at the top of the bag.
   stash: { grip: { x: 0, y: 8 }, top: 13, width: 18 },
 };
