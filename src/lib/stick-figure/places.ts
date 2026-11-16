@@ -312,7 +312,11 @@ const CAFE_SET: PlaceSet = {
     "chair-r": { chair: 1 },
     // Where the waiter serves the window table from, past the right chair.
     "by-table": { piece: "table", dx: 70, facing: -1 },
+    // The street door opens into the room on hinges at its left, like the studio's: in on its latch side, then past it to push it to.
+    door: { x: 290, facing: -1 },
+    inside: { x: 262, facing: 1 },
   },
+  door: "door",
 };
 
 /**
@@ -403,6 +407,8 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       drawn(WORDS.torta, [885, 68, 30, 26]),
       { ...drawn(WORDS.kavovar, [808, 150, 48, 66]), of: ["bar-machine"] },
       { ...drawn(WORDS.stol, [420, 194, 60, 84]), of: ["table-top"] },
+      // A scene's coffees, wherever they stand or are held: they are the scene's objects, so only measured.
+      { ...drawn(WORDS.salka, [796, 180, 24, 12]), of: ["anna-cup", "marek-cup"] },
       {
         ...drawn(WORDS.stolicka, [380, 160, 40, 118]),
         of: ["table-chair-l", "table-chair-r", "stool-1", "stool-2"],
@@ -720,7 +726,16 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       { ...drawn(WORDS.rastlina, plantBox(PARTS.studio.plant)), of: ["plant"] },
       {
         ...drawn(WORDS.hrncek, [376, 186, 10, 12]),
-        of: ["studio-mug-0", "studio-mug-1", "studio-mug-2"],
+        // The desk's own mugs, or a scene's own when it brings them (and the desk's are left off).
+        of: [
+          "studio-mug-0",
+          "studio-mug-1",
+          "studio-mug-2",
+          "anna-mug",
+          "marek-mug",
+          "cup-anna",
+          "cup-marek",
+        ],
       },
       onSet(WORDS.krhla, ["can"], [704, 222, 40, 24]),
       // On the shelf, for tapping only: a line about a book means one in someone's hands, not these.

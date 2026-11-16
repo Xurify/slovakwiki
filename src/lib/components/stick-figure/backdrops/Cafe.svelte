@@ -1,10 +1,21 @@
 <script lang="ts">
   import { PARTS } from "$lib/stick-figure/backdrop-parts";
+  import { DOORS, HANDLE, doorPoint } from "$lib/stick-figure/door";
   import Chalkboard from "./Chalkboard.svelte";
   import Room from "./Room.svelte";
   import WallClock from "./WallClock.svelte";
 
-  let { hour }: { hour: number } = $props();
+  /** `open`: how far the street door has swung in, from 0 shut to 1 wide open against the wall. */
+  let { hour, open = 0 }: { hour: number; open?: number } = $props();
+
+  const door = DOORS.cafe!;
+  function on(u: number, v: number): string {
+    const { x, y } = doorPoint(door, open, u, v);
+    return `${x.toFixed(1)} ${y.toFixed(1)}`;
+  }
+  function quad(u0: number, u1: number, v0: number, v1: number): string {
+    return `M${on(u0, v0)}L${on(u1, v0)}L${on(u1, v1)}L${on(u0, v1)}Z`;
+  }
 
   // A phone shows x 360 to 960 of the café and a desktop 240 to 960: the window, the bar
   // and the back bar stand inside the phone's part, and nothing straddles 240 or 360.
@@ -58,17 +69,25 @@
 
 <!-- Shown from a desktop on: the street door, and a coat stand beside it. -->
 <rect x="248" y="68" width="60" height="158" class="fill-scene-coffee" />
-<rect x="254" y="74" width="48" height="152" class="fill-scene-wood" />
-<rect x="260" y="80" width="36" height="88" rx="1" class="fill-scene-sky" />
-<path d="M260 150H296V168H260Z" class="fill-scene-clay/60" />
-<path d="M264 92l14 -10M264 110l24 -18" class="stroke-white/70" stroke-width="1.6" />
-<rect x="260" y="178" width="36" height="38" rx="1" class="fill-scene-coffee/20" />
-<path d="M292 128v26" class="stroke-scene-steel-dark" stroke-width="2.4" stroke-linecap="round" />
-<path d="M270 98l8 -8 8 8" class="stroke-scene-line/50" fill="none" stroke-width="0.6" />
-<rect x="263" y="98" width="30" height="10" rx="1.5" class="fill-white" />
-<text x="278" y="105.4" text-anchor="middle" class="fill-scene-green font-sans" font-size="5.4" font-weight="700">
-  Otvorené
-</text>
+<rect x={door.hinge} y={door.top} width={door.edge - door.hinge} height={door.height} class="fill-scene-sky" />
+{#if open > 0}
+  <!-- The street, past the open door: the houses across the way. -->
+  <path d="M{door.hinge} 150V112H272V98H290V116H{door.edge}V150Z" class="fill-scene-clay/60" />
+  <rect x={door.hinge} y="150" width={door.edge - door.hinge} height={226 - 150} class="fill-scene-steel-light" />
+{/if}
+<path d={quad(0, 1, 0, 1)} class="fill-scene-wood" />
+<path d={quad(0.125, 0.875, 0.04, 0.62)} class="fill-scene-sky" />
+<path d={quad(0.125, 0.875, 0.5, 0.62)} class="fill-scene-clay/60" />
+<path d={quad(0.125, 0.875, 0.684, 0.934)} class="fill-scene-coffee/20" />
+{#if open === 0}
+  <path d="M264 92l14 -10M264 110l24 -18" class="stroke-white/70" stroke-width="1.6" />
+  <path d="M270 98l8 -8 8 8" class="stroke-scene-line/50" fill="none" stroke-width="0.6" />
+  <rect x="263" y="98" width="30" height="10" rx="1.5" class="fill-white" />
+  <text x="278" y="105.4" text-anchor="middle" class="fill-scene-green font-sans" font-size="5.4" font-weight="700">
+    Otvorené
+  </text>
+{/if}
+<path d={quad(HANDLE.u - 0.03, HANDLE.u + 0.03, HANDLE.v - 0.09, HANDLE.v + 0.08)} class="fill-scene-steel-dark" />
 <rect x="244" y="224" width="68" height="3" class="fill-scene-steel" />
 
 <ellipse cx="336" cy="227" rx="13" ry="2.4" class="fill-scene-line/12" />

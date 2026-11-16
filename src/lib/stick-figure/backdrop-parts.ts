@@ -119,7 +119,7 @@ export const PARTS = {
   },
 
   studio: {
-    clock: { hand: 13, numerals: true, r: 22, x: 310, y: 76 },
+    clock: { hand: 16, numerals: true, r: 26, x: 311, y: 76 },
     plant: { x: 690, y: 246 },
   },
 } as const satisfies Partial<

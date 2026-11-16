@@ -760,6 +760,13 @@ export const THING_WORDS = {
     plural: true,
     word: "šanóny",
   },
+  salka: {
+    english: "cup",
+    gender: "feminine",
+    id: "salka",
+    stems: ["salk", "salok"],
+    word: "šálka",
+  },
   skrinky: {
     english: "cupboards",
     gender: "feminine",

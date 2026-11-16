@@ -102,7 +102,7 @@ export interface Cue {
    * of the backdrop to look at ("clock"), or for the camera "wide"; for
    * `photo` and `show`, whom the phone is aimed or turned at. For
    * `switch`, "on" or "off"; for `chop`, "small" for fine pieces; for
-   * `leave`, the edge walked off by, "left" or "right", or "door" where the set has one; for `leash`, the dog;
+   * `leave`, the edge walked off by, "left" or "right", "door" where the set has one, or a spot they step in at (the tram's door); for `leash`, the dog;
    * for `slide`, the piece it is pushed along, to `dx`.
    */
   to?: LessonCharacterId | (string & {});
@@ -467,9 +467,11 @@ export function applyCue(
       return { ...world, spots: { ...world.spots, [who]: to ?? "" } };
     case "leave": {
       const byDoor = to === "door" && Boolean(plan?.door);
-      if (to !== "left" && to !== "right" && !byDoor) {
+      // A spot with no door to swing, like the tram's: they walk to it and step in, out of sight.
+      const bySpot = !plan?.door && Boolean(to && plan?.spots?.[to]);
+      if (to !== "left" && to !== "right" && !byDoor && !bySpot) {
         throw new CueError(
-          `${who} leave: by the "left" or the "right" edge${plan?.door ? ', or the "door"' : ""}?`,
+          `${who} leave: by the "left" or the "right" edge${plan?.door ? ', or the "door"' : ""}, or a spot to step in at?`,
         );
       }
       const { [who]: _, ...spots } = world.spots;

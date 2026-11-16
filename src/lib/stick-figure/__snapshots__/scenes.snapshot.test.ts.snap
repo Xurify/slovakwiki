@@ -774,6 +774,7 @@ exports[`every scene, directed > lesson everyday/days-dates-and-time 1`] = `
     "torta",
     "kavovar",
     "stol",
+    "salka",
     "stolicka",
     "rastlina",
     "dvere",
@@ -1117,6 +1118,7 @@ exports[`every scene, directed > lesson everyday/negation-in-conversation 1`] = 
     "torta",
     "kavovar",
     "stol",
+    "salka",
     "stolicka",
     "rastlina",
     "dvere",
@@ -2233,6 +2235,7 @@ exports[`every scene, directed > lesson grammar/demonstratives 1`] = `
     "torta",
     "kavovar",
     "stol",
+    "salka",
     "stolicka",
     "rastlina",
     "dvere",
@@ -2949,6 +2952,7 @@ exports[`every scene, directed > lesson grammar/present-tense-i 1`] = `
     "torta",
     "kavovar",
     "stol",
+    "salka",
     "stolicka",
     "rastlina",
     "dvere",
@@ -10373,6 +10377,7 @@ exports[`every scene, directed > podcast podcast-past-tense-cafe 1`] = `
     "torta",
     "kavovar",
     "stol",
+    "salka",
     "stolicka",
     "rastlina",
     "dvere",
@@ -14449,19 +14454,20 @@ exports[`every scene, directed > podcast podcast-telling-time-cafe 1`] = `
   ],
   "lines": [
     {
-      "line": "anna: Teraz sme v kaviarni.",
+      "line": "anna: Tu je naša kaviareň. Sadnime si.",
       "plan": {
         "beats": [
-          "50 tell",
+          "100 point",
+          "2150 tell",
         ],
-        "ms": 1600,
-        "sentences": "50-1450",
-        "words": "50-501 501-744 744-744 744-1450",
+        "ms": 3050,
+        "sentences": "100-1269 2150-2850",
+        "words": "100-258 258-416 416-733 733-1269 2150-2682 2682-2850",
       },
       "staging": {
         "addressee": "waiter",
-        "audience": true,
         "facing": {
+          "anna": 1,
           "marek": -1,
           "waiter": -1,
         },
@@ -14857,6 +14863,7 @@ exports[`every scene, directed > podcast podcast-telling-time-cafe 1`] = `
     "torta",
     "kavovar",
     "stol",
+    "salka",
     "stolicka",
     "rastlina",
     "dvere",
@@ -14881,7 +14888,6 @@ exports[`every scene, directed > podcast podcast-telling-time-clock-lesson 1`] =
         "beats": [
           "0 tell",
           "3950 tell",
-          "5489 point → hodiny",
         ],
         "ms": 6400,
         "sentences": "0-2482 3950-6200",
@@ -14899,7 +14905,7 @@ exports[`every scene, directed > podcast podcast-telling-time-clock-lesson 1`] =
       "line": "marek: Znova hodiny? Prečo práve ja?",
       "plan": {
         "beats": [
-          "236 point → hodiny",
+          "50 ask",
           "1850 ask",
         ],
         "ms": 3150,
@@ -14990,7 +14996,6 @@ exports[`every scene, directed > podcast podcast-telling-time-clock-lesson 1`] =
       "plan": {
         "beats": [
           "0 tell",
-          "1171 point → hodiny",
         ],
         "ms": 2350,
         "sentences": "0-2150",
@@ -15071,20 +15076,16 @@ exports[`every scene, directed > podcast podcast-telling-time-clock-lesson 1`] =
       },
     },
     {
-      "line": "anna: Nie! Štvrť na tri je dve pätnásť. Slovenčina sa pozerá dopredu, na tretiu hodinu.",
+      "line": "anna: Nie! Štvrť na tri je dve pätnásť. Pozeráme sa dopredu, na tretiu hodinu.",
       "plan": {
         "beats": [
           "0 shake",
           "850 tell",
-          "3665 tell",
-          "6265 muse",
+          "3742 tell",
         ],
-        "ms": 7800,
-        "pictures": [
-          "3665 flag-sk",
-        ],
-        "sentences": "0-254 850-2451 3665-7550",
-        "words": "0-254 850-1131 1131-1318 1318-1536 1536-1723 1723-1942 1942-2451 3665-4567 4567-4775 4775-5446 5446-6105 6220-6428 6428-6926 6926-7550",
+        "ms": 7150,
+        "sentences": "0-260 850-2503 3742-7000",
+        "words": "0-260 850-1140 1140-1333 1333-1558 1558-1751 1751-1977 1977-2503 3742-4639 4639-4852 4852-5524 5642-5855 5855-6363 6363-7000",
       },
       "staging": {
         "addressee": "marek",
@@ -15183,7 +15184,6 @@ exports[`every scene, directed > podcast podcast-telling-time-clock-lesson 1`] =
         "beats": [
           "0 cheer",
           "1050 tell",
-          "2497 point → hodiny",
         ],
         "ms": 3450,
         "sentences": "0-740 1050-3250",
@@ -15202,7 +15202,7 @@ exports[`every scene, directed > podcast podcast-telling-time-clock-lesson 1`] =
       "plan": {
         "beats": [
           "50 tell",
-          "3242 point → hodiny",
+          "2650 ask",
         ],
         "ms": 5550,
         "questions": "2650-5300",
@@ -15230,7 +15230,6 @@ exports[`every scene, directed > podcast podcast-telling-time-clock-lesson 1`] =
       "plan": {
         "beats": [
           "0 tell",
-          "1454 point → hodiny",
           "4762 tell",
         ],
         "ms": 8350,
@@ -15258,7 +15257,8 @@ exports[`every scene, directed > podcast podcast-telling-time-clock-lesson 1`] =
       "plan": {
         "beats": [
           "0 tell",
-          "1988 point → hodiny",
+          "1550 tell",
+          "3150 tell",
           "5700 tell",
         ],
         "ms": 6500,
@@ -15323,15 +15323,15 @@ exports[`every scene, directed > podcast podcast-telling-time-help 1`] = `
   ],
   "lines": [
     {
-      "line": "anna: Je jedna hodina a ešte máme chvíľu čas. Marek, malá skúška pre teba.",
+      "line": "anna: Ešte máme chvíľu čas. Marek, malá skúška pre teba.",
       "plan": {
         "beats": [
-          "0 tell",
-          "3800 tell",
+          "50 tell",
+          "2700 tell",
         ],
-        "ms": 6100,
-        "sentences": "0-2788 3800-5900",
-        "words": "0-189 189-597 597-1163 1163-1320 1320-1698 1698-2117 2117-2567 2567-2788 3800-4227 4336-4773 4773-5277 5277-5506 5506-5900",
+        "ms": 4800,
+        "sentences": "50-1524 2700-4650",
+        "words": "50-429 429-850 850-1303 1303-1524 2700-3096 3198-3604 3604-4071 4071-4284 4284-4650",
       },
       "staging": {
         "addressee": "marek",
@@ -15543,15 +15543,16 @@ exports[`every scene, directed > podcast podcast-telling-time-help 1`] = `
       },
     },
     {
-      "line": "anna: Správne! Dve, tri, štyri hodiny: sú.",
+      "line": "anna: Správne! Pri dvoch, troch a štyroch hodinách hovoríme sú: sú tri hodiny.",
       "plan": {
         "beats": [
           "50 nod",
-          "2200 tell",
+          "1900 tell",
+          "4500 muse",
         ],
-        "ms": 4600,
-        "sentences": "50-682 2200-4450",
-        "words": "50-682 2200-2453 2573-2826 2946-3415 3415-4065 4185-4450",
+        "ms": 7400,
+        "sentences": "50-676 1900-7150",
+        "words": "50-676 1900-2174 2174-2488 2618-2932 2932-3128 3128-3676 3676-4473 4473-5465 5465-5753 5883-6171 6171-6445 6445-7150",
       },
       "staging": {
         "addressee": "marek",
@@ -15599,16 +15600,16 @@ exports[`every scene, directed > podcast podcast-telling-time-help 1`] = `
       },
     },
     {
-      "line": "anna: Nesprávne! Dve, tri, štyri hodiny: sú. Sú tri hodiny.",
+      "line": "anna: Nesprávne! Pri dvoch, troch a štyroch hovoríme sú. Sú tri hodiny.",
       "plan": {
         "beats": [
-          "50 shake",
-          "2000 tell",
-          "5900 tell",
+          "0 shake",
+          "2300 tell",
+          "6750 tell",
         ],
-        "ms": 7150,
-        "sentences": "50-868 2000-4434 5900-6900",
-        "words": "50-868 2000-2273 2403-2677 2807-3314 3314-4017 4147-4434 5900-6127 6127-6343 6343-6900",
+        "ms": 7950,
+        "sentences": "0-849 2300-5142 6750-7700",
+        "words": "0-849 2300-2555 2555-2846 2968-3259 3259-3442 3442-3952 3952-4875 4875-5142 6750-6965 6965-7171 7171-7700",
       },
       "staging": {
         "addressee": "marek",
@@ -16574,16 +16575,16 @@ exports[`every scene, directed > podcast podcast-telling-time-outro 1`] = `
       },
     },
     {
-      "line": "anna: Je presne jedna hodina. Prečo?",
+      "line": "anna: Je štvrť na dve. Prečo?",
       "plan": {
         "beats": [
-          "50 tell",
-          "1950 ask",
+          "0 tell",
+          "1550 ask",
         ],
-        "ms": 2600,
-        "questions": "1950-2400",
-        "sentences": "50-1627 1950-2400",
-        "words": "50-236 236-668 668-1070 1070-1627 1950-2400",
+        "ms": 2200,
+        "questions": "1550-2000",
+        "sentences": "0-1057 1550-2000",
+        "words": "0-226 226-566 566-792 792-1057 1550-2000",
       },
       "staging": {
         "addressee": "marek",
@@ -16629,14 +16630,14 @@ exports[`every scene, directed > podcast podcast-telling-time-outro 1`] = `
       },
     },
     {
-      "line": "anna: O dve hodiny, Marek.",
+      "line": "anna: O hodinu a trištvrte, Marek.",
       "plan": {
         "beats": [
           "100 sigh",
         ],
-        "ms": 3000,
-        "sentences": "100-2600",
-        "words": "100-370 370-747 747-1719 1899-2600",
+        "ms": 3200,
+        "sentences": "100-3050",
+        "words": "100-326 326-1139 1139-1364 1364-2313 2463-3050",
       },
       "staging": {
         "addressee": "marek",
@@ -16647,16 +16648,16 @@ exports[`every scene, directed > podcast podcast-telling-time-outro 1`] = `
       },
     },
     {
-      "line": "marek: O dve? Tak to stihnem ešte jednu kávu!",
+      "line": "marek: Hodinu a trištvrte? Tak to stihnem ešte jednu kávu!",
       "plan": {
         "beats": [
-          "0 ask",
-          "1550 stress",
+          "50 ask",
+          "2450 stress",
         ],
-        "ms": 3450,
-        "questions": "0-334",
-        "sentences": "0-334 1550-3150",
-        "words": "0-139 139-334 1550-1719 1719-1864 1864-2225 2225-2515 2515-2828 2828-3150",
+        "ms": 4400,
+        "questions": "50-1291",
+        "sentences": "50-1291 2450-4150",
+        "words": "50-558 558-699 699-1291 2450-2629 2629-2783 2783-3168 3168-3475 3475-3808 3808-4150",
       },
       "staging": {
         "addressee": "anna",
@@ -16675,15 +16676,34 @@ exports[`every scene, directed > podcast podcast-telling-time-outro 1`] = `
       },
     },
     {
+      "line": "anna: Jednu, Marek. A o tretej si tu.",
+      "plan": {
+        "beats": [
+          "0 chuckle",
+          "3100 tell",
+        ],
+        "ms": 4400,
+        "sentences": "0-1257 3100-4300",
+        "words": "0-557 700-1257 3100-3267 3267-3433 3433-3900 3900-4100 4100-4300",
+      },
+      "staging": {
+        "addressee": "marek",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
       "line": "anna: Ďakujeme, že počúvate. Ahojte!",
       "plan": {
         "beats": [
-          "50 chuckle",
-          "3400 wave",
+          "0 nod",
+          "2950 wave",
         ],
-        "ms": 4200,
-        "sentences": "50-2125 3400-4000",
-        "words": "50-899 1017-1229 1229-2125 3400-4000",
+        "ms": 3700,
+        "sentences": "0-1839 2950-3500",
+        "words": "0-752 857-1045 1045-1839 2950-3500",
       },
       "staging": {
         "addressee": "marek",
@@ -16732,20 +16752,21 @@ exports[`every scene, directed > podcast podcast-telling-time-tram-stop 1`] = `
   ],
   "lines": [
     {
-      "line": "marek: Teraz sme na ulici, na zastávke.",
+      "line": "marek: Uf, stihli sme to. Sme na zastávke.",
       "plan": {
         "beats": [
           "50 tell",
+          "2650 tell",
         ],
-        "ms": 2650,
-        "sentences": "50-2400",
-        "words": "50-465 465-688 688-879 879-1422 1528-1719 1719-2400",
+        "ms": 3950,
+        "sentences": "50-1322 2650-3750",
+        "words": "50-260 377-867 867-1112 1112-1322 2650-2874 2874-3067 3067-3750",
       },
       "staging": {
         "addressee": "anna",
-        "audience": true,
         "facing": {
           "anna": 1,
+          "marek": -1,
         },
       },
     },
