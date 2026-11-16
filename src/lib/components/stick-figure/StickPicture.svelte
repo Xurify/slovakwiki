@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { StickPictureId } from "$lib/stick-figure/pictures";
+  import { clockHands, type StickPictureId } from "$lib/stick-figure/pictures";
 
   /** A 26×17 flag or photo centred on 0,0. */
   let { picture }: { picture: StickPictureId } = $props();
@@ -26,6 +26,14 @@
   const W = 26;
   const H = 17;
   const stripes = $derived(STRIPES[picture]);
+  const clock = $derived(clockHands(picture));
+
+  /** A stroke from `from` to `to` out from the clock's middle, `turns` of the way round from twelve. */
+  function hand(turns: number, to: number, from = 0): string {
+    const x = Math.sin(turns * 2 * Math.PI);
+    const y = -Math.cos(turns * 2 * Math.PI);
+    return `M${13 + x * from} ${8.5 + y * from}L${13 + x * to} ${8.5 + y * to}`;
+  }
 </script>
 
 <g transform="translate({-W / 2} {-H / 2})">
@@ -49,6 +57,30 @@
         />
       {/if}
     {/each}
+  {:else if clock}
+    <!-- A clock on a phone's screen, so the hands show the time said. -->
+    <rect width={W} height={H} class="fill-portrait-ink" />
+    <circle cx="13" cy="8.5" r="7.4" class="fill-white" />
+    {#each [0, 1, 2, 3] as quarter (quarter)}
+      <path
+        d={hand(quarter / 4, 6.6, 5.2)}
+        class="stroke-portrait-ink"
+        stroke-width="0.9"
+      />
+    {/each}
+    <path
+      d={hand(((clock.hour % 12) + clock.minute / 60) / 12, 3.6)}
+      class="stroke-portrait-ink"
+      stroke-width="1.3"
+      stroke-linecap="round"
+    />
+    <path
+      d={hand(clock.minute / 60, 5.8)}
+      class="stroke-portrait-ink"
+      stroke-width="0.8"
+      stroke-linecap="round"
+    />
+    <circle cx="13" cy="8.5" r="0.8" class="fill-portrait-ink" />
   {:else if picture === "computing"}
     <rect width={W} height={H} class="fill-portrait-ink" />
     {#each [0, 1, 2] as dot (dot)}

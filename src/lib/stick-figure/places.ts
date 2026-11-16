@@ -425,6 +425,8 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       { ...drawn(WORDS.stol, [420, 194, 60, 84]), of: ["table-top"] },
       // A scene's coffees, wherever they stand or are held: they are the scene's objects, so only measured.
       { ...drawn(WORDS.salka, [796, 180, 24, 12]), of: ["anna-cup", "marek-cup"] },
+      // A host's recorder set down on the table, there only while one is.
+      onSet(WORDS.diktafon, ["recorder"], [452, 188, 8, 6]),
       {
         ...drawn(WORDS.stolicka, [380, 160, 40, 118]),
         of: ["table-chair-l", "table-chair-r", "stool-1", "stool-2"],
