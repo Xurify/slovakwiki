@@ -332,6 +332,11 @@ const CAFE_SET: PlaceSet = {
 const REGISTRATION_SET: PlaceSet = {
   pieces: [{ id: "counter", kind: "reception", x: 642, width: 76, front: true }],
   objects: [],
+  spots: {
+    "behind-counter": { piece: "counter", dx: 0, facing: -1 },
+    // Across the desk from her, clear of its left end.
+    guest: { x: 528, facing: 1 },
+  },
 };
 
 /**
