@@ -1176,6 +1176,10 @@
     const act: Act = {
       line: motion.hold === "line",
       picture: motion.picture,
+      pictureOver:
+        motion.picture && isCast(item?.cue.to)
+          ? Math.abs(castMiddle(item.cue.to) - castMiddle(id))
+          : undefined,
       until: motion.hold ? Number.POSITIVE_INFINITY : start + motion.ms,
       sample: (now: number, base: StickPose, sit: number) => {
         const next = sampleMotion(motion, now - start, base, around, sit);
@@ -1324,6 +1328,7 @@
     const inside = contents(world!, id);
     return {
       kind: state.kind,
+      look: state.look,
       bitten: state.bitten,
       fill: state.fill,
       heat: state.heat,

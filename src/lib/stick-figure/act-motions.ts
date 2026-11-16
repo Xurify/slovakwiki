@@ -535,10 +535,17 @@ export function motionFor(
             }
           : object?.kind === "phone"
             ? { ...hands(hand, { mouth: true, dx: 15, dy: 17 }), body: { brow: 0.3 } }
-            : {
-                ...hands(hand, { mouth: true, dx: 18, dy: 10.5 }),
-                turn: { [hand]: -20 },
-              };
+            : object?.kind === "umbrella" && !world.seated?.includes(who)
+              ? // Standing, held up by the shaft with the crook at eye height, where a name on the handle is read.
+                {
+                  ...hands(hand, { mouth: true, dx: 15, dy: -6 }),
+                  turn: { [hand]: -10 },
+                  body: { brow: 0.3 },
+                }
+              : {
+                  ...hands(hand, { mouth: true, dx: 18, dy: 10.5 }),
+                  turn: { [hand]: -20 },
+                };
       return {
         motion: {
           ms: 800,

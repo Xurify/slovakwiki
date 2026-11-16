@@ -867,12 +867,13 @@
       >
         <StickSetObject
           kind={state.kind}
+          look={state.look}
           bitten={state.bitten}
           fill={state.fill}
           heat={state.heat}
           cut={state.cut}
           wilt={state.wilt}
-          flat={FLAT.has(state.kind)}
+          flat={FLAT.has(state.kind) || state.look === "sheet"}
           hang={hangs(world, id, geometry)}
           open={state.kind === "pot" ? !lidOn(id) : undefined}
           bits={state.kind === "pot" &&

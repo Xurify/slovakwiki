@@ -9,6 +9,7 @@ import StickFigure from "./StickFigure.svelte";
 import StickHead from "./StickHead.svelte";
 import StickPicture from "./StickPicture.svelte";
 import StickProp from "./StickProp.svelte";
+import StickSetObject from "./StickSetObject.svelte";
 
 /** How many shapes a drawing has; an id the component has no branch for draws none. */
 function shapes(body: string): number {
@@ -28,6 +29,19 @@ describe("drawings", () => {
 
     for (const body of bodies) expect(shapes(body)).toBeGreaterThan(0);
     expect(new Set(bodies).size).toBe(bodies.length);
+  });
+
+  it("draws an object's other look as a drawing of its own", () => {
+    const body = (kind: "umbrella" | "clipboard", look?: "small" | "sheet") =>
+      drawn(render(StickSetObject, { props: { kind, look } }).body);
+
+    for (const [kind, look] of [
+      ["umbrella", "small"],
+      ["clipboard", "sheet"],
+    ] as const) {
+      expect(shapes(body(kind, look))).toBeGreaterThan(0);
+      expect(body(kind, look)).not.toBe(body(kind));
+    }
   });
 
   it("draws every picture, each its own way", () => {

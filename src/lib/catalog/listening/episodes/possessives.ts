@@ -171,7 +171,7 @@ function showPhoto(picture: StickPictureId): Cue[] {
   ];
 }
 
-/** The same photo again on each line they talk about it, so it is up after a jump to that line. */
+/** The same photo again on each line they talk about it, so it is up after a jump to that line, and Anna still leaning in to see it. */
 function stillShowing(picture: StickPictureId): Cue[] {
   return [
     {
@@ -183,6 +183,7 @@ function stillShowing(picture: StickPictureId): Cue[] {
       on: "start",
       keep: true,
     },
+    { who: "anna", do: "lean", to: "marek", on: "start" },
   ];
 }
 
@@ -295,24 +296,19 @@ const photos: ListeningChapter = {
         ["Druhá fotka: dom a auto."],
         "Second photo: a house and a car.",
       ),
-      line(
-        "anna-your-house",
-        "Anna",
-        ["A to je ", mark("tvoj"), " dom?"],
-        "And is that your house?",
-      ),
+      line("anna-your-house", "Anna", ["A čí je ten dom?"], "And whose house is that?"),
       line(
         "marek-parents-house",
         "Marek",
         [
-          "Nie, to je dom ",
+          "To je dom ",
           mark("mojich"),
           " rodičov. ",
           PAUSE,
           mark("Ich"),
           " dom je pri lese.",
         ],
-        "No, that's my parents' house. Their house is by the forest.",
+        "That's my parents' house. Their house is by the forest.",
       ),
       line(
         "anna-their-car",
@@ -460,15 +456,24 @@ const SCHOOL_ACTS: Record<string, Cue[]> = {
     { do: "raise", what: "umbrella", on: "dáždnik" },
     { do: "give", what: "umbrella", to: "maria", on: "náš" },
   ],
-  // She holds it up to read the name on the handle, and gives it back for them to take to Lucia.
+  // She holds it up to read the name on the handle, and lays it on the counter while she sees to them.
   "maria-name-lucia": [
     { do: "raise", what: "umbrella", on: "pozriem" },
-    { do: "give", what: "umbrella", to: "marek", on: "študentka" },
+    { do: "put", what: "umbrella", to: "counter", dx: 16, on: "študentka" },
   ],
-  // The students' sentences for the quiz, from the desk: Marek reads them out in the studio.
+  "anna-square-thanks": [{ who: "marek", do: "nod", on: "ďakujeme" }],
+  // The students' sentences for the quiz, a sheet from the desk: Marek reads them out in the studio.
   "maria-sentences-for-podcast": [
     { do: "take", what: "sentences", on: "niečo" },
     { do: "give", what: "sentences", to: "marek", on: "vety" },
+  ],
+  "anna-a-test-for-listeners": [
+    { who: "marek", do: "put", what: "sentences", to: "bag", on: "skúška" },
+  ],
+  // The umbrella back to them, for Lucia.
+  "maria-youre-welcome": [
+    { do: "take", what: "umbrella", on: "prosím" },
+    { do: "give", what: "umbrella", to: "marek", on: "dovidenia" },
   ],
 };
 
@@ -484,10 +489,12 @@ const school: ListeningChapter = {
         kind: "umbrella",
         start: { where: { hand: "marek", side: "lead" } },
       },
+      // His keys are in it, for the square.
+      { id: "bag", kind: "bag", start: { where: { hand: "marek", side: "rear" } } },
       {
         id: "sentences",
         kind: "clipboard",
-        start: { where: { on: "counter", dx: -14 } },
+        start: { where: { on: "counter", dx: -14 }, look: "sheet" },
       },
     ],
   },
@@ -558,6 +565,7 @@ const school: ListeningChapter = {
         "Anna",
         ["Na námestí? ", PAUSE, "Super, ďakujeme!"],
         "On the square? Great, thank you!",
+        { gestures: ["ask", "nod"] },
       ),
       line(
         "maria-sentences-for-podcast",
@@ -586,6 +594,7 @@ const school: ListeningChapter = {
           " poslucháčov. Ďakujeme!",
         ],
         "Mistakes? Great, that'll be a little test for our listeners. Thank you!",
+        { gestures: ["ask", "chuckle", "nod"] },
       ),
       line(
         "maria-youre-welcome",
@@ -684,24 +693,22 @@ const school: ListeningChapter = {
 };
 
 const SQUARE_ACTS: Record<string, Cue[]> = {
-  // She is crossing the square when Anna sees her, and comes over to them.
+  // She is at the café, as Mária said, and comes over when Anna spots her.
   "anna-now-on-square": [
-    // She sets off as Anna names the place, so she is nearly there when Anna points. The point is
-    // listed first because the checks, replaying in list order, find no one to point at mid-walk.
+    { who: "marek", do: "look", to: "lucia", on: "pozri" },
     { do: "point", to: "lucia", on: "lucia" },
-    { who: "lucia", do: "enter", from: "off-right", to: "marek", on: "námestí" },
+    { who: "lucia", do: "go", to: "marek", on: "lucia" },
   ],
-  "marek-blue-umbrella": [{ do: "raise", what: "umbrella", on: "modrý" }],
-  "lucia-mine": [
-    { who: "marek", do: "give", what: "umbrella", to: "lucia", on: "môj" },
-    { do: "nod", on: "ďakujem" },
-  ],
+  "marek-blue-umbrella": [{ do: "raise", what: "umbrella", on: "tento" }],
+  "marek-is-it-yours-lucia": [{ do: "give", what: "umbrella", to: "lucia", on: "páči" }],
+  "lucia-mine": [{ do: "nod", on: "ďakujem" }],
   "marek-you-looked-i-look": [{ do: "pat", on: "kľúče" }],
   "marek-in-my-bag": [
     { do: "take", what: "keys", on: "taške" },
     { do: "raise", what: "keys", on: "sú" },
   ],
   "lucia-marek-and-his-keys": [
+    { who: "marek", do: "pocket", what: "keys", on: "ďakujem" },
     { do: "laugh", on: "kľúče" },
     { do: "wave", on: "majte" },
   ],
@@ -724,10 +731,16 @@ const square: ListeningChapter = {
         kind: "umbrella",
         start: { where: { hand: "marek", side: "lead" } },
       },
-      // His keys are in his bag, as Anna says: he carries it in his other hand.
+      // His keys are in his bag, as Anna says, with Mária's sheet: he carries it in his other hand.
       { id: "bag", kind: "bag", start: { where: { hand: "marek", side: "rear" } } },
       { id: "keys", kind: "keys", start: { where: { in: "bag" } } },
+      {
+        id: "sentences",
+        kind: "clipboard",
+        start: { where: { in: "bag" }, look: "sheet" },
+      },
     ],
+    spots: { lucia: "cafe" },
   },
   lines: staged(
     PREFIX,
@@ -759,13 +772,23 @@ const square: ListeningChapter = {
         ],
         "Me? I'm looking for my umbrella. I still had it yesterday.",
       ),
-      line("marek-blue-umbrella", "Marek", ["Modrý dáždnik?"], "A blue umbrella?"),
-      line("lucia-yes-blue", "Lucia", ["Áno! Modrý."], "Yes! Blue."),
+      line(
+        "marek-blue-umbrella",
+        "Marek",
+        ["Tento modrý dáždnik?"],
+        "This blue umbrella?",
+      ),
+      line(
+        "lucia-yes-blue",
+        "Lucia",
+        ["Áno! Je na ňom ", mark("moje"), " meno."],
+        "Yes! My name is on it.",
+      ),
       line(
         "marek-is-it-yours-lucia",
         "Marek",
-        ["Je to ", mark("tvoj"), " dáždnik?"],
-        "Is it your umbrella?",
+        ["Tak je to ", mark("tvoj"), " dáždnik. ", PAUSE, "Nech sa páči!"],
+        "So it's your umbrella. Here you are!",
       ),
       line(
         "lucia-mine",
@@ -912,12 +935,15 @@ const square: ListeningChapter = {
 
 const QUIZ_ACTS: Record<string, Cue[]> = {
   "anna-now-a-test": [{ do: "nod", on: "skúška" }],
-  // He reads each sentence off Mária's sheet.
-  "marek-sentence-cinema": [{ do: "raise", what: "sentences", on: "prvá" }],
-  "marek-sentence-moja-brat": [{ do: "raise", what: "sentences", on: "druhá" }],
-  "marek-sentence-svoj-brat": [{ do: "raise", what: "sentences", on: "tretia" }],
-  "marek-sentence-ich-auto": [{ do: "raise", what: "sentences", on: "štvrtá" }],
+  // He reads each sentence off Mária's sheet, held up over the desk, and lays it down when they are done.
+  "marek-sentence-cinema": [{ do: "raise", what: "sentences", on: "start" }],
+  "marek-sentence-moja-brat": [{ do: "raise", what: "sentences", on: "start" }],
+  "marek-sentence-svoj-brat": [{ do: "raise", what: "sentences", on: "start" }],
   "marek-students-do-this": [{ do: "shrug", on: "veľa" }],
+  "marek-sentence-ich-auto": [{ do: "raise", what: "sentences", on: "start" }],
+  "marek-better-than-students": [
+    { do: "put", what: "sentences", to: "desk", dx: 30, on: "študenti" },
+  ],
 };
 
 const quiz: ListeningChapter = {
@@ -930,7 +956,7 @@ const quiz: ListeningChapter = {
       {
         id: "sentences",
         kind: "clipboard",
-        start: { where: { hand: "marek", side: "rear" } },
+        start: { where: { hand: "marek", side: "rear" }, look: "sheet" },
       },
     ],
   },
@@ -993,13 +1019,13 @@ const quiz: ListeningChapter = {
           [
             "Správne! ",
             PAUSE,
-            "Idem ja a sestra je ",
+            "Ja idem a sestra je ",
             mark("moja"),
-            ", preto: so ",
+            ", takže: so ",
             mark("svojou"),
             " sestrou.",
           ],
-          "Right! I'm the one going and the sister is mine, so: so svojou sestrou.",
+          "Right! I'm going and the sister is mine, so: so svojou sestrou.",
         ),
       ),
       line("marek-good-student", "Marek", ["Dobrý študent!"], "Good student!"),
@@ -1054,14 +1080,15 @@ const quiz: ListeningChapter = {
           [
             "Nesprávne! ",
             PAUSE,
-            mark("Svoj"),
+            "Brat je tu podmet a ",
+            mark("svoj"),
             " nemôže byť v podmete. ",
             PAUSE,
             "Správne je: ",
             mark("môj"),
             " brat je učiteľ.",
           ],
-          "Wrong! Svoj can't be in the subject. The right one is: môj brat je učiteľ.",
+          "Wrong! Brat is the subject here, and svoj can't be in the subject. The right one is: môj brat je učiteľ.",
         ),
       ),
       line(
@@ -1151,7 +1178,8 @@ const quiz: ListeningChapter = {
       ],
       answerId: "svoj-brat",
       feedback: {
-        english: "Svoj can't be in the subject. The right one is: môj brat je učiteľ.",
+        english:
+          "Brat is the subject here, and svoj can't be in the subject. The right one is: môj brat je učiteľ.",
         why: "**Svoj** can't be part of the subject. The brother is the subject, so it is **môj brat**.",
       },
     },
@@ -1206,7 +1234,7 @@ const outro: ListeningChapter = {
       {
         id: "marek-umbrella",
         kind: "umbrella",
-        start: { where: { pocket: "marek" } },
+        start: { where: { pocket: "marek" }, look: "small" },
       },
     ],
   },

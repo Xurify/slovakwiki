@@ -4,6 +4,8 @@
   /** How an object looks right now: what is in it, how hot, how chopped, how thirsty. */
   export interface ObjectLook {
     kind: ObjectKind;
+    /** Another of its kind (ObjectState.look). */
+    look?: "small" | "sheet";
     /** A fruit (apple) with a bite taken out of it. */
     bitten?: boolean;
     fill?: Fill;
@@ -49,6 +51,7 @@
     hang = false,
     heat = 0,
     kind,
+    look,
     on = [],
     open,
     rattle = false,
@@ -585,6 +588,16 @@
     <rect x="-4" y="-11.5" width="9" height="11.5" rx="1" class="fill-scene-honey" />
     <path d="M-2.2 -11.5V0" stroke-width="0.6" />
     <path d="M0 -8.7h3M0 -6.9h2" class="stroke-portrait-bib" stroke-width="0.7" />
+  {:else if kind === "clipboard" && look === "sheet" && flat}
+    <!-- Laid down, a sheet lies flat: stood on its edge it read as a card propped on the desk. -->
+    <path d="M-7 0h12.4l1.6 -1.6h-12.4Z" class="fill-white stroke-portrait-ink" stroke-width="0.5" />
+  {:else if kind === "clipboard" && look === "sheet"}
+    <path d="M-4 -12.5h6.4l1.6 1.6v10.9h-8Z" class="fill-white stroke-portrait-ink" stroke-width="0.6" />
+    <path
+      d="M-2.6 -9.6h5.2M-2.6 -7.4h5.2M-2.6 -5.2h5.2M-2.6 -3h3.4"
+      class="stroke-scene-line/50"
+      stroke-width="0.6"
+    />
   {:else if kind === "clipboard"}
     <rect x="-5" y="-13" width="10" height="13" rx="0.8" class="fill-scene-wood" />
     <rect x="-4" y="-11.5" width="8" height="10" rx="0.4" class="fill-white" />
@@ -594,6 +607,22 @@
       class="stroke-scene-line/40"
       stroke-width="0.6"
     />
+  {:else if kind === "umbrella" && look === "small"}
+    <!-- A folding one, three fifths as long as the big blue one, red with white dots and a straight grip, so "Tvoj dáždnik je naozaj malý" shows. -->
+    <g transform={flat ? "translate(-9 -3.6) rotate(90)" : undefined}>
+      <path d="M0 0V-19" stroke-width="1.4" class="stroke-portrait-ink" />
+      <rect x="-1.5" y="-1" width="3" height="5.4" rx="1.2" class="fill-portrait-ink" />
+      <path d="M-0.8 -19L0 -21.2L0.8 -19Z" class="fill-scene-steel-dark" />
+      <path
+        d="M-1.2 -18.4Q-4.2 -12 -2.4 -3.4H2.4Q4.2 -12 1.2 -18.4Z"
+        class="fill-scene-red stroke-portrait-ink"
+        stroke-width="0.7"
+      />
+      <circle cx="-1" cy="-13.4" r="0.6" class="fill-white" />
+      <circle cx="1.3" cy="-10" r="0.6" class="fill-white" />
+      <circle cx="-1.2" cy="-6.6" r="0.6" class="fill-white" />
+      <path d="M-2.8 -9.2l5.6 1.1" class="stroke-portrait-ink" stroke-width="0.9" />
+    </g>
   {:else if kind === "umbrella"}
     <!-- Put down, a folded umbrella lies on its side, the crook up: stood on end, the crook went through the desk. -->
     <!-- Half again as long as a hand's span, so it reads as an umbrella and not a bottle: a hooked crook, the furled canopy with its ribs and strap, the tip. -->

@@ -119,6 +119,8 @@
       until: number;
       /** A photo on the phone held out, shown over the hand that holds it. */
       picture?: StickPictureId;
+      /** How far ahead the one it is shown to sits, in rig units: the photo goes over their head. */
+      pictureOver?: number;
       sample(
         now: number,
         base: StickPose,
@@ -155,6 +157,7 @@
   const calling = new PlayTween(0, { easing: cubicInOut });
 
   let picture = $state<StickPictureId>();
+  let pictureOver = $state<number>();
   /** The picture is the phone's screen, so it goes over the hand rather than the head. */
   let onHand = $state(false);
   /** The way a point in flight turns the figure, when its target is behind it. */
@@ -297,6 +300,8 @@
     const called = shown ?? next?.picture;
     if (called !== picture) picture = called;
     onHand = Boolean(shown);
+    const over = shown ? doing?.pictureOver : undefined;
+    if (over !== pictureOver) pictureOver = over;
 
     const walked = now - walkStartedAt;
     const walking = walked < walkMs && !reducedMotion;
@@ -384,6 +389,7 @@
   {front}
   {picture}
   pictureAt={onHand ? "hand" : "head"}
+  {pictureOver}
   {pose}
   {held}
   {dress}
