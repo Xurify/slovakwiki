@@ -7401,7 +7401,7 @@ exports[`every scene, directed > podcast podcast-imperative-help 1`] = `
         "beats": [
           "0 wave",
           "1050 tell",
-          "3500 point → rastlina",
+          "3500 tell",
         ],
         "ms": 6000,
         "sentences": "0-951 1050-2545 3500-5800",
@@ -7421,7 +7421,6 @@ exports[`every scene, directed > podcast podcast-imperative-help 1`] = `
         "beats": [
           "100 tell",
           "3750 muse",
-          "5259 point → hodiny",
           "6300 stress",
         ],
         "ms": 8250,
@@ -7801,7 +7800,6 @@ exports[`every scene, directed > podcast podcast-imperative-help 1`] = `
           "0 nod",
           "2450 tell",
           "5150 ask",
-          "6604 point → stol",
           "8220 ask",
         ],
         "ms": 10400,
@@ -7822,9 +7820,6 @@ exports[`every scene, directed > podcast podcast-imperative-help 1`] = `
             "gesture": "lean",
             "sentence": 3,
           },
-        ],
-        "sit": [
-          "marek",
         ],
       },
     },
@@ -7882,9 +7877,6 @@ exports[`every scene, directed > podcast podcast-imperative-help 1`] = `
             "sentence": 0,
           },
         ],
-        "sit": [
-          "anna",
-        ],
       },
     },
     {
@@ -7913,9 +7905,6 @@ exports[`every scene, directed > podcast podcast-imperative-help 1`] = `
             "sentence": 0,
           },
         ],
-        "sit": [
-          "anna",
-        ],
       },
     },
     {
@@ -7935,9 +7924,6 @@ exports[`every scene, directed > podcast podcast-imperative-help 1`] = `
           "anna": 1,
           "marek": -1,
         },
-        "sit": [
-          "anna",
-        ],
       },
     },
     {
@@ -7958,9 +7944,6 @@ exports[`every scene, directed > podcast podcast-imperative-help 1`] = `
           "anna": 1,
           "marek": -1,
         },
-        "sit": [
-          "marek",
-        ],
       },
     },
     {
@@ -7999,9 +7982,6 @@ exports[`every scene, directed > podcast podcast-imperative-help 1`] = `
           "anna": 1,
           "marek": -1,
         },
-        "sit": [
-          "marek",
-        ],
       },
     },
     {
@@ -8566,9 +8546,6 @@ exports[`every scene, directed > podcast podcast-imperative-help 1`] = `
           "anna": 1,
           "marek": -1,
         },
-        "sit": [
-          "marek",
-        ],
       },
     },
     {
@@ -8589,9 +8566,6 @@ exports[`every scene, directed > podcast podcast-imperative-help 1`] = `
           "anna": 1,
           "marek": -1,
         },
-        "sit": [
-          "anna",
-        ],
       },
     },
     {
@@ -8614,9 +8588,6 @@ exports[`every scene, directed > podcast podcast-imperative-help 1`] = `
           "anna": 1,
           "marek": -1,
         },
-        "sit": [
-          "marek",
-        ],
       },
     },
     {
@@ -8725,9 +8696,9 @@ exports[`every scene, directed > podcast podcast-imperative-help 1`] = `
         "beats": [
           "50 chuckle",
         ],
-        "ms": 2750,
-        "sentences": "50-2400",
-        "words": "50-461 461-814 814-1578 1578-1930 1930-2400",
+        "ms": 2600,
+        "sentences": "50-2250",
+        "words": "50-435 435-765 765-1480 1480-1810 1810-2250",
       },
       "staging": {
         "addressee": "marek",
@@ -8978,11 +8949,11 @@ exports[`every scene, directed > podcast podcast-imperative-intro 1`] = `
       "line": "anna: Tak ju hneď polej, chudinku.",
       "plan": {
         "beats": [
-          "100 tell",
+          "50 tell",
         ],
-        "ms": 2250,
-        "sentences": "100-2050",
-        "words": "100-342 342-550 550-827 827-1277 1392-2050",
+        "ms": 2200,
+        "sentences": "50-2000",
+        "words": "50-292 292-500 500-777 777-1227 1342-2000",
       },
       "staging": {
         "addressee": "marek",
@@ -10157,9 +10128,9 @@ exports[`every scene, directed > podcast podcast-imperative-table 1`] = `
         "beats": [
           "50 tell",
         ],
-        "ms": 1450,
-        "sentences": "50-1300",
-        "words": "50-274 274-915 915-1108 1108-1300",
+        "ms": 1550,
+        "sentences": "50-1350",
+        "words": "50-283 283-950 950-1150 1150-1350",
       },
       "staging": {
         "addressee": "maria",
