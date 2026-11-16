@@ -371,6 +371,7 @@
       <ListenerAsk
         answerer={answerer ? episodeSpeakerName(answerer) : "the host"}
         ask={askLine.ask}
+        judged={askLine.slovak}
         onpick={pick}
         onskip={() => player.answered()}
         picked={picks[askLine.id] ?? null}

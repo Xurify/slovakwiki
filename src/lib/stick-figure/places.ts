@@ -258,7 +258,12 @@ const HOME_SET: PlaceSet = {
     "by-sofa": { piece: "by-sofa", dx: 0, facing: -1 },
     // Beside the bag by the window, to reach down into it.
     "window-bag": { piece: "window-bag", dx: 30, facing: -1 },
+    // The hall door opens into the room on hinges at its left, like the kitchen's: in on its latch
+    // side, then past it to push it to; leaving, the same spot to pull it open from.
+    door: { x: 412, facing: -1 },
+    inside: { x: 372, facing: 1 },
   },
+  door: "door",
 };
 
 /**
@@ -415,7 +420,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       drawn(WORDS.kos, [590, 228, 20, 38]),
       drawn(WORDS.kvety, [380, 234, 48, 14], [854, 234, 60, 14]),
     ],
-    sounds: ["birds", "wind"],
+    sounds: ["birds", "wind", "water"],
     // Nothing of its own, so other scenes here stay as they were: a scene brings what it acts with (setup).
     set: {
       pieces: [],
@@ -472,6 +477,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       drawn(WORDS.zrkadlo, [290, 30, 44, 58]),
       drawn(WORDS.pelech, [106, 228, 64, 20]),
       { ...drawn(WORDS.vesiak, [288, 92, 34, 40]), of: ["pegs"] },
+      drawn(WORDS.hodiny, clockBox(PARTS.home.clock)),
     ],
     sounds: ["hum"],
     // On the rug (480 ± 250), left of the bag on it so nobody stands on that.

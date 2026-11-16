@@ -40,7 +40,7 @@ export function sceneLines(turns: readonly DialogueTurn[]): SceneLine[] {
   const srcs = sceneAudioSrcs([...turns]);
   const mouths = sceneMouthTracks([...turns]);
 
-  return turns.map((turn) => ({
+  return turns.map((turn, index) => ({
     act: turn.act,
     characterId:
       dialogueSpeakerLabel(turn.speaker) === null
@@ -63,6 +63,7 @@ export function sceneLines(turns: readonly DialogueTurn[]): SceneLine[] {
     to: turn.to ? characterIdForSpeaker(turn.to) : undefined,
     vowels: mouths[turn.id]?.v,
     wait: turn.wait,
+    ...(turn.ask || turn.when || turns[index - 1]?.ask ? { quiz: true } : {}),
   }));
 }
 

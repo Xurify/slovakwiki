@@ -65,6 +65,8 @@ export interface LinePlan {
   track?: number[];
   /** Where each word is spoken, in clip time, for captions that follow the voice. */
   words?: LineSpan[];
+  /** Said sadly or sorry (a sigh, `smutný`, `prepáč`): the face stays concerned for the whole line. */
+  glum?: boolean;
 }
 
 // Speech timing fitted on 120 lesson clips (eleven_v4, speed 0.88): sentence
@@ -103,6 +105,24 @@ const DIRECTED: Record<string, StickGestureId> = {
   sighs: "sigh",
   yawns: "yawn",
 };
+
+/** Folded word starts that make a line sad or sorry, whoever says it. */
+const GLUM_WORDS =
+  /(^| )(smutn|prepac|skoda|bohuzial|chyba mi|chybat|nanestastie|je mi lut)/;
+
+/**
+ * A sighed line, or one that says it is sad or sorry: a smile held through
+ * "Asi je smutný" or "Prepáč, Anna" read as not meaning it.
+ */
+export function isGlum(slovak: string, said?: string): boolean {
+  if (/^\s*\[sighs\]/i.test(said ?? "")) return true;
+  const folded = slovak
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/\p{M}/gu, "")
+    .replace(/[^\p{L} ]+/gu, " ");
+  return GLUM_WORDS.test(folded);
+}
 
 function directedGesture(sentence: string): StickGestureId | undefined {
   const tag = /^\[([^\]]+)\]/.exec(sentence.trim())?.[1]?.toLowerCase();
@@ -320,6 +340,7 @@ export function planLine(
     sentences: spans,
     track,
     words,
+    ...(isGlum(slovak, said) ? { glum: true } : {}),
   };
 }
 

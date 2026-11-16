@@ -72,7 +72,11 @@
       "voiceId": "uUnmszGfUW9O6qdstQHs",
       "voiceName": "Slovak Wiki Marek",
       "speakers": ["Marek"],
-      "voiceSettings": { "stability": 0.85, "style": 0, "speed": 1 },
+      "voiceSettings": {
+        "stability": 0.85,
+        "style": 0,
+        "speed": 1
+      },
       "note": "Voice Design. Classmate and coworker. Steadier than the shared settings since episode 5's review, where his reads sounded breathy and lost; his feelings come from directions on the line (dialogue.ts)."
     },
     "waiter": {
@@ -160,7 +164,12 @@
         "Haf! Haf!": "Two quick happy barks from a medium-sized dog running on grass in a park, close up, no music, no voices.",
         "Haf! Haf! Haf!": "Three excited, overjoyed barks from a medium-sized family dog greeting its owner at the door, close up indoors, no music, no voices.",
         "Vrrr…": "A short low warning growl from a medium-sized family dog, wary rather than angry, close up in a quiet living room, no barking, no music, no voices.",
-        "Kňu…": "A medium-sized dog whimpering softly once, a sad lonely whine, close up in a quiet living room, no barking, no music, no voices."
+        "Kňu…": "A medium-sized dog whimpering softly once, a sad lonely whine, close up in a quiet living room, no barking, no music, no voices.",
+        "[happy] Haf!": "One bright, glad bark from a medium-sized family dog, a little higher than usual, close up indoors, dry, no music, no voices.",
+        "[excited] Haf! Haf!": "Two quick, high, excited barks from a medium-sized dog, close together, close up, no music, no voices.",
+        "[excited] Haf! Haf! Haf!": "Three fast, high, overjoyed barks from a medium-sized family dog, close together, close up indoors, no music, no voices.",
+        "[sighs] Kňu…": "A medium-sized dog whining long and low, a drawn-out lonely whimper, close up in a quiet living room, no barking, no music, no voices.",
+        "Kňu.": "A medium-sized dog giving one short, quick whimper, close up in a quiet living room, no barking, no music, no voices."
       },
       "recordings": {
         "Haf!": "content/audio/sounds/dog/haf.mp3",
@@ -168,7 +177,12 @@
         "Haf! Haf!": "content/audio/sounds/dog/haf-haf.mp3",
         "Haf! Haf! Haf!": "content/audio/sounds/dog/haf-haf-haf.mp3",
         "Vrrr…": "content/audio/sounds/dog/growl.mp3",
-        "Kňu…": "content/audio/sounds/dog/whine.mp3"
+        "Kňu…": "content/audio/sounds/dog/whine.mp3",
+        "[happy] Haf!": "content/audio/sounds/dog/haf-happy.mp3",
+        "[excited] Haf! Haf!": "content/audio/sounds/dog/haf-haf-excited.mp3",
+        "[excited] Haf! Haf! Haf!": "content/audio/sounds/dog/haf-haf-haf-excited.mp3",
+        "[sighs] Kňu…": "content/audio/sounds/dog/whine-long.mp3",
+        "Kňu.": "content/audio/sounds/dog/whine-short.mp3"
       }
     }
   }

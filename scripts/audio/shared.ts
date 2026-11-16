@@ -98,6 +98,8 @@ export interface ManifestEntry {
   characterId?: string;
   generatedAt: string;
   kind: AudioKind;
+  /** Integrated loudness of the clip as stored (EBU R128), from loudness.ts or generate.ts. */
+  lufs?: number;
   /** The model that made the clip. Absent on entries older than this field and not matched by backfill-settings.ts. */
   modelId?: string;
   /** ElevenLabs speed setting (1 = natural, 0.88 = study pace). Same note as modelId. */

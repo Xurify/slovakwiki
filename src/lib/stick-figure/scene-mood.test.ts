@@ -17,10 +17,31 @@ describe("sceneMood", () => {
 
   it("hears rain and snow in any form, and nothing in words that only look alike", () => {
     expect(sceneMood(["Vonku prší."]).weather).toBe("rain");
-    expect(sceneMood(["Máš dáždnik?"]).weather).toBe("rain");
+    expect(sceneMood(["Ten dážď je strašný."]).weather).toBe("rain");
+    expect(sceneMood(["Bez dažďa to nepôjde."]).weather).toBe("rain");
+    expect(sceneMood(["Bol to daždivý deň."]).weather).toBe("rain");
     expect(sceneMood(["Pozri, sneží!"]).weather).toBe("snow");
     expect(sceneMood(["Je tu veľa snehu."]).weather).toBe("snow");
     expect(sceneMood(["Dobrý deň. Dáte si kávu?"]).weather).toBe("clear");
+  });
+
+  it("reads the minutes after a whole hour, and skips a quiz's sentences", () => {
+    expect(sceneMood(["Je jedenásť hodín a päť minút."]).hour).toBeCloseTo(11 + 5 / 60);
+    expect(sceneMood(["Sú dve hodiny a dvadsaťpäť minút."]).hour).toBeCloseTo(
+      2 + 25 / 60,
+    );
+    expect(sceneMood(["Je sedem hodín."]).hour).toBe(7);
+    const game = ["Tretí čas: je päť hodín.", "Správne!", "Je jedna hodina."];
+    expect(sceneMood(game).hour).toBe(5);
+    expect(sceneMood(game, 2, undefined, new Set([0, 1])).hour).toBe(1);
+  });
+
+  it("hears no rain in an umbrella, and no cloud in a skyscraper", () => {
+    expect(sceneMood(["Ja hľadám svoj dáždnik."]).weather).toBe("clear");
+    expect(sceneMood(["Prišla som po svoj dáždnik."]).weather).toBe("clear");
+    expect(sceneMood(["Máš dáždnik?", "Nie, dáždnikom nemávam."]).weather).toBe("clear");
+    expect(sceneMood(["Bývam v mrakodrape."]).weather).toBe("clear");
+    expect(sceneMood(["Sú tam mraky."]).weather).toBe("cloudy");
   });
 
   it("changes the sky line by line, as the words name the weather", () => {

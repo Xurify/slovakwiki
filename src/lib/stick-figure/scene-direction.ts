@@ -20,6 +20,8 @@ import type { SceneThing } from "./thing-words";
 
 export interface DirectedLine extends StageLine {
   gestures?: StickGestureId[];
+  /** Put to the listener, its verdict, or on one path of their picks: a time it tells is not the time now. */
+  quiz?: boolean;
   /** Loudness track of the clip, encoded (`content/audio/mouth.json`). */
   mouth?: string;
   /** The clip's text, when it marks pauses the line does not show. */

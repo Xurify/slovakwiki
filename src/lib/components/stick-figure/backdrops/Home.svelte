@@ -1,11 +1,24 @@
 <script lang="ts">
   import { PARTS } from "$lib/stick-figure/backdrop-parts";
+  import { DOORS, HANDLE, doorPoint } from "$lib/stick-figure/door";
   import { isDark, type SceneMood } from "$lib/stick-figure/scene-mood";
   import Castle from "./Castle.svelte";
   import Plant from "./Plant.svelte";
   import Room from "./Room.svelte";
+  import WallClock from "./WallClock.svelte";
 
-  let { mood }: { mood?: SceneMood } = $props();
+  /** `open`: how far the hall door has swung in, from 0 shut. */
+  let { hour = 12, mood, open = 0 }: { hour?: number; mood?: SceneMood; open?: number } =
+    $props();
+
+  const door = DOORS.home!;
+  function on(u: number, v: number): string {
+    const { x, y } = doorPoint(door, open, u, v);
+    return `${x.toFixed(1)} ${y.toFixed(1)}`;
+  }
+  function quad(u0: number, u1: number, v0: number, v1: number): string {
+    return `M${on(u0, v0)}L${on(u1, v0)}L${on(u1, v1)}L${on(u0, v1)}Z`;
+  }
   const dark = $derived(mood ? isDark(mood.time) : false);
   const night = $derived(mood?.time === "night");
 
@@ -350,19 +363,30 @@
   <path d="M320 232.6H334" class="stroke-scene-blue/60" stroke-width="1.2" />
 </g>
 
-<!-- The door to the hall: white, a frosted pane in its top half. -->
+<!-- The door to the hall: white, a frosted pane in its top half; it swings into the room on hinges at its left. -->
 <rect x="358" y="48" width="72" height="178" class="fill-portrait-bib" />
 <rect x="358" y="48" width="72" height="178" class="fill-scene-line/5" />
-<rect x="364" y="54" width="60" height="172" class="fill-white" />
-<rect x="372" y="64" width="44" height="70" rx="1" class="fill-scene-sky" />
-<path d="M372 64h44v70h-44Z" class="fill-white/40" />
-<path d="M394 64v70M372 99h44" class="stroke-white" stroke-width="2" />
-<path d="M376 128l14 -22M400 130l12 -20" class="stroke-white/70" stroke-width="2" />
-<rect x="372" y="146" width="44" height="66" rx="1" class="fill-scene-line/5" />
-<path d="M372 146h44v66h-44Z" class="stroke-scene-line/12" stroke-width="1" fill="none" />
-<circle cx="416" cy="142" r="2.4" class="fill-scene-steel" />
-<rect x="406" y="140.8" width="11" height="2.6" rx="1.3" class="fill-scene-steel-dark" />
+{#if open > 0}
+  <!-- The dim hall beyond the open door. -->
+  <rect x="364" y="54" width="60" height="172" class="fill-scene-line/55" />
+{/if}
+<path d={quad(0, 1, 0, 1)} class="fill-white" />
+<path d={quad(0.133, 0.867, 0.058, 0.465)} class="fill-scene-sky" />
+<path d={quad(0.133, 0.867, 0.058, 0.465)} class="fill-white/40" />
+<path
+  d="M{on(0.5, 0.058)}L{on(0.5, 0.465)}M{on(0.133, 0.262)}L{on(0.867, 0.262)}"
+  class="stroke-white"
+  stroke-width="2"
+/>
+<path d={quad(0.133, 0.867, 0.535, 0.919)} class="fill-scene-line/5" />
+<path d={quad(0.133, 0.867, 0.535, 0.919)} class="stroke-scene-line/12" stroke-width="1" />
+<path
+  d={quad(HANDLE.u - 0.1, HANDLE.u + 0.1, HANDLE.v - 0.008, HANDLE.v + 0.008)}
+  class="fill-scene-steel-dark"
+/>
 <path d="M364 70h2M364 204h2" class="stroke-scene-line/40" stroke-width="5" />
+
+<WallClock clock={PARTS.home.clock} {hour} />
 
 <!-- The light switch by the door, and a socket low on the wall. -->
 <rect x="436" y="126" width="9" height="12" rx="1.5" class="fill-white" />

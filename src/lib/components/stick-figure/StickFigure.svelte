@@ -63,6 +63,7 @@
     facing = 1,
     front = false,
     picture,
+    pictureAt = "head",
     pose = REST_POSE,
     held,
     sit = 0,
@@ -82,6 +83,8 @@
     front?: boolean;
     /** Shown in a bubble over the head, the right way round whichever way the figure faces. */
     picture?: StickPictureId;
+    /** Over the head (a thought, a flag), or over the lead hand (the photo on a phone held out). */
+    pictureAt?: "head" | "hand";
     pose?: StickPose;
     /** In the lead hand. */
     held?: Held;
@@ -677,7 +680,11 @@
   </g>
 
   {#if picture}
-    <g transform="translate({n(rig.head.x * side)} {n(rig.head.y - HEAD_RADIUS - 23)})">
+    {@const over =
+      pictureAt === "hand"
+        ? { x: rig.leadArm.end.x * side, y: rig.leadArm.end.y - 22 }
+        : { x: rig.head.x * side, y: rig.head.y - HEAD_RADIUS - 23 }}
+    <g transform="translate({n(over.x)} {n(over.y)})">
       <g class="animate-rise">
         <path
           d="M-17 -13h34a5 5 0 0 1 5 5v15a5 5 0 0 1-5 5h-13l-4 5-4-5h-13a5 5 0 0 1-5-5v-15a5 5 0 0 1 5-5Z"

@@ -436,6 +436,8 @@
   const DOOR_MS = DOOR_OPEN_MS + 400;
   /** How long the door takes to swing open far enough to show whoever is pushing it, their face clear of its edge. */
   const DOOR_OPENING_MS = 560;
+  /** From the sill out of sight into the hall, leaving. */
+  const DOOR_OUT_MS = 350;
   /** Bumped when the stage stops or jumps, so cues still on the clock let go. */
   let actToken = 0;
   type ActorAct = ComponentProps<typeof StickFigureActor>["doing"];
@@ -571,6 +573,7 @@
 
   function surroundings(id: LessonCharacterId, item?: ScheduledCue): Surroundings {
     return {
+      squats: Boolean(LOOKS[id].robot),
       pointOf: (name, as = "grip") => {
         // What the cue has just taken is where it was taken from, so the hand moves on from there rather than snapping to its side.
         const at =
@@ -675,6 +678,15 @@
   /** How long `go`, `enter`, `leave` or `sit` takes `id`, from where `before` has them. */
   function walkMsFor(id: LessonCharacterId, cue: Cue, before: World): number {
     const was = before.spots[id];
+    if (cue.do === "leave" && cue.to === "door" && set?.door) {
+      const from = (was ? spotOf(id, was)?.offset : undefined) ?? offsets[id] ?? 0;
+      const to = spotOf(id, set.door)?.offset ?? from;
+      const walk =
+        Math.abs(to - from) < 0.05
+          ? 0
+          : setOffFor(id, to > from ? 1 : -1) + walkDuration(stepsFor(to - from), id);
+      return walk + DOOR_MS + DOOR_OUT_MS + DOOR_SHUT_MS;
+    }
     if (cue.do === "leave") {
       const from = (was ? spotOf(id, was)?.offset : undefined) ?? offsets[id] ?? 0;
       const side = cue.to === "left" ? -1 : 1;
@@ -684,7 +696,7 @@
     }
     const from =
       cue.do === "enter"
-        ? spotOf(id, set?.door ?? cue.from ?? "door")?.offset
+        ? spotOf(id, cue.from ?? set?.door ?? "door")?.offset
         : ((was ? spotOf(id, was)?.offset : undefined) ?? offsets[id] ?? 0);
     const to = cue.to ? spotOf(id, cue.to)?.offset : undefined;
     const pace = cue.run ? RUN_PACE : 1;
@@ -694,7 +706,7 @@
         : (cue.do === "enter" ? 0 : setOffFor(id, to > from ? 1 : -1)) +
           Math.round(walkDuration(stepsFor(to - from), id) / pace);
     const enter =
-      cue.do === "enter" && set?.door
+      cue.do === "enter" && set?.door && (!cue.from || cue.from === set.door)
         ? DOOR_MS + TURN_MS * 0.6 + CLOSE_DOOR.ms + TURN_MS
         : 0;
     const sit =
@@ -822,7 +834,7 @@
 
   /** In through the door: they push it open, step in past it, and push it to behind them. */
   function comeIn(id: LessonCharacterId, to: string | undefined, from?: string): void {
-    if (!set?.door && from) return walkOn(id, from, to);
+    if (from && from !== set?.door) return walkOn(id, from, to);
     const door = set?.door ?? "door";
     const at = spotOf(id, door);
     const { [id]: _, ...still } = walks;
@@ -838,7 +850,8 @@
     // room on their next walk.
     swingDoor(true);
     shaded = [...shaded, id];
-    doorway = [...doorway, id];
+    doorway = [...doorway.filter((other) => other !== id), id];
+    if (DOORS[setting]?.keys) playFoley("keys");
     performHeard(id, OPEN_DOOR, playClockNow());
     later(DOOR_OPENING_MS, () => {
       outside = outside.filter((other) => other !== id);
@@ -866,6 +879,29 @@
     });
   }
 
+  /**
+   * Out through the door: over to it, the door pulled open by its handle, a
+   * step up onto the sill into the hall's shadow, and the door shut behind
+   * them. Leaving by the edge, Marek walked through the wall past the window.
+   */
+  function goOut(id: LessonCharacterId): void {
+    const door = set?.door ?? "door";
+    const there = walkToSpot(id, door);
+    later(there, () => {
+      doorway = [...doorway.filter((other) => other !== id), id];
+      swingDoor(true);
+      performHeard(id, OPEN_DOOR, playClockNow());
+    });
+    later(there + DOOR_MS, () => (shaded = [...shaded, id]));
+    later(there + DOOR_MS + DOOR_OUT_MS, () => {
+      outside = [...new Set([...outside, id])];
+      shaded = shaded.filter((other) => other !== id);
+      doorway = doorway.filter((other) => other !== id);
+      swingDoor(false);
+      later(DOOR_SHUT_MS, () => playFoley("door-shut"));
+    });
+  }
+
   /** Start `item`'s motion; returns how long its hands wait while the body turns to the thing. */
   function startCue(item: ScheduledCue): number {
     const { cue, who, motion } = item;
@@ -888,7 +924,9 @@
         comeIn(who, cue.to, cue.from);
         return 0;
       case "leave":
-        walkOff(who, cue.to === "left" ? -1 : 1);
+        stepDown(who);
+        if (cue.to === "door" && set?.door) goOut(who);
+        else walkOff(who, cue.to === "left" ? -1 : 1);
         return 0;
       case "go":
         stepDown(who);
@@ -1044,6 +1082,7 @@
     const from = previous && playClockNow() < previous.until ? previous : undefined;
     const act: Act = {
       line: motion.hold === "line",
+      picture: motion.picture,
       until: motion.hold ? Number.POSITIVE_INFINITY : start + motion.ms,
       sample: (now: number, base: StickPose, sit: number) => {
         const next = sampleMotion(motion, now - start, base, around, sit);
@@ -1566,6 +1605,8 @@
       from,
       to: { x: side > 0 ? stageWidth + 16 : -16, y: from.y + stageHeight * 0.08 },
     };
+    // It lands on the grass past the edge: a dull thud and a smaller bounce, heard, not seen.
+    later(THROW_MS + 250, () => playFoley("bounce"));
   }
 
   /** Moves the ball along its arc: level travel, rising and then dropping a stage-fifth. */

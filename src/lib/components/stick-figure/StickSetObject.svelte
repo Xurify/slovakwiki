@@ -354,10 +354,22 @@
       fill="none"
     />
   {:else if kind === "suitcase"}
-    <path d="M-3 -15V-18h6v3" fill="none" stroke-width="1.1" />
-    <rect x="-9" y="-15" width="18" height="14" rx="1.6" class="fill-portrait-vest" />
-    <path d="M-9 -10.6h18" class="stroke-white/40" stroke-width="1" />
-    <path d="M-5.4 -1v1M5.4 -1v1" stroke-width="1.4" />
+    <!-- A wheeled case for a flight, pulled by its handle drawn out: the wheels on the floor. -->
+    <path d="M-4 -29V-47M4 -29V-47" class="stroke-scene-steel-dark" stroke-width="1.3" />
+    <path d="M-5 -47.6h10" class="stroke-portrait-ink" stroke-width="2.2" />
+    <rect
+      x="-9"
+      y="-30"
+      width="18"
+      height="27"
+      rx="2.4"
+      class="fill-portrait-suit stroke-portrait-ink"
+      stroke-width="0.9"
+    />
+    <path d="M-4.5 -28v23M0 -28v23M4.5 -28v23" class="stroke-white/20" stroke-width="0.9" />
+    <path d="M-3 -30.6h6" class="stroke-portrait-ink" stroke-width="1.4" />
+    <circle cx="-5.6" cy="-1.8" r="1.8" class="fill-portrait-ink" />
+    <circle cx="5.6" cy="-1.8" r="1.8" class="fill-portrait-ink" />
   {:else if kind === "phone"}
     {#if flat}
       <rect
@@ -585,17 +597,29 @@
     />
   {:else if kind === "umbrella"}
     <!-- Put down, a folded umbrella lies on its side, the crook up: stood on end, the crook went through the desk. -->
-    <g transform={flat ? "translate(-9 -3.2) rotate(90)" : undefined}>
-      <path d="M0 0V-18" stroke-width="1.6" class="stroke-scene-edge" />
+    <!-- Half again as long as a hand's span, so it reads as an umbrella and not a bottle: a hooked crook, the furled canopy with its ribs and strap, the tip. -->
+    <g transform={flat ? "translate(-14 -3.6) rotate(90)" : undefined}>
+      <path d="M0 0V-31" stroke-width="1.6" class="stroke-portrait-ink" />
       <path
-        d="M0 0Q0 3 -2.5 3Q-5 3 -5 0.5"
+        d="M0 0Q0 4.2 -3.4 4.2Q-6.6 4.2 -6.6 0.8"
         fill="none"
-        stroke-width="1.4"
-        class="stroke-scene-wood"
+        stroke-width="1.8"
+        class="stroke-scene-coffee"
       />
-      <path d="M-1.5 -18L0 -21L1.5 -18Z" class="fill-scene-edge" />
-      <path d="M-3 -18L-1.5 -3L1.5 -3L3 -18Z" class="fill-scene-sky" />
-      <path d="M-3 -11H3" class="stroke-scene-line" stroke-width="0.8" />
+      <path d="M-1 -31L0 -34.5L1 -31Z" class="fill-scene-steel-dark" />
+      <path
+        d="M-1.2 -30Q-4.4 -19 -2.2 -5H2.2Q4.4 -19 1.2 -30Z"
+        class="fill-scene-blue stroke-portrait-ink"
+        stroke-width="0.7"
+      />
+      <path
+        d="M0 -30Q-2.2 -18 -1 -5M0 -30Q2.2 -18 1 -5"
+        class="stroke-portrait-ink/40"
+        stroke-width="0.5"
+        fill="none"
+      />
+      <path d="M-3.4 -15.4l6.8 1.4" class="stroke-portrait-ink" stroke-width="1" />
+      <circle cx="2.6" cy="-14.2" r="0.7" class="fill-white" />
     </g>
   {/if}
   {#each on as { dx, dy, ...look }, index (index)}

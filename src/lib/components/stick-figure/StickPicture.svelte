@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { StickPictureId } from "$lib/stick-figure/pictures";
 
-  /** A 26×17 flag centred on 0,0. */
+  /** A 26×17 flag or photo centred on 0,0. */
   let { picture }: { picture: StickPictureId } = $props();
 
   type Stripes = { paints: string[]; vertical?: boolean };
@@ -71,6 +71,37 @@
       style:transform-box="fill-box"
       style:transform-origin="left"
     />
+  {:else if picture === "photo-man-dog"}
+    <!-- A photo on a phone: a man standing with his big dog on a lawn. -->
+    <rect width={W} height={H} class="fill-scene-sky" />
+    <rect y="12" width={W} height="5" class="fill-scene-leaf" />
+    <circle cx="9" cy="4.2" r="1.9" class="fill-portrait-skin stroke-portrait-ink" stroke-width="0.5" />
+    <path d="M9 6.2v4.6M9 10.8l-1.6 3.4M9 10.8l1.6 3.4M9 7.6l-2 2M9 7.6l2.6 1.6" class="stroke-portrait-ink" stroke-width="0.9" />
+    <path d="M13.4 9.6h7.4q1.4 0 1.4 1.4v1.2h-8.8Z" class="fill-scene-coffee" />
+    <circle cx="21.6" cy="9" r="1.7" class="fill-scene-coffee" />
+    <path d="M14.2 12v2.2M15.8 12v2.2M19.6 12v2.2M21.2 12v2.2M13.4 10l-1.4-1.4" class="stroke-scene-coffee" stroke-width="0.9" />
+  {:else if picture === "photo-house"}
+    <!-- A photo on a phone: a house by trees, a car in front. -->
+    <rect width={W} height={H} class="fill-scene-sky" />
+    <rect y="13" width={W} height="4" class="fill-scene-sand" />
+    <circle cx="4" cy="7" r="3.4" class="fill-scene-leaf" />
+    <circle cx="22.6" cy="7.6" r="3" class="fill-scene-leaf" />
+    <path d="M7 13V7.6l5.5-4.4 5.5 4.4V13Z" class="fill-scene-honey" />
+    <path d="M6 8l6.5-5.4L19 8" class="stroke-scene-red-mid" stroke-width="1.1" fill="none" />
+    <rect x="11.2" y="9.2" width="2.6" height="3.8" class="fill-scene-coffee" />
+    <path d="M14 15.6v-1.8l1.4-1.6h5l1.4 1.6v1.8Z" class="fill-scene-blue" />
+    <circle cx="15.6" cy="15.8" r="0.9" class="fill-portrait-ink" />
+    <circle cx="20.4" cy="15.8" r="0.9" class="fill-portrait-ink" />
+  {:else if picture === "photo-mother-girl"}
+    <!-- A photo on a phone: a woman and a small girl, hand in hand. -->
+    <rect width={W} height={H} class="fill-scene-warm" />
+    <circle cx="10" cy="4" r="1.9" class="fill-portrait-skin stroke-portrait-ink" stroke-width="0.5" />
+    <path d="M8.1 4.2q0-3 1.9-3t1.9 3v2h-3.8Z" class="fill-portrait-hair" />
+    <path d="M8.2 6.6h3.6l1 6.6h-5.6Z" class="fill-scene-red-mid" />
+    <path d="M9 13.2v2.6M11 13.2v2.6" class="stroke-portrait-ink" stroke-width="0.9" />
+    <circle cx="16.6" cy="8.4" r="1.5" class="fill-portrait-skin stroke-portrait-ink" stroke-width="0.5" />
+    <path d="M15.4 10.2h2.4l0.8 3.8h-4Z" class="fill-scene-honey" />
+    <path d="M16 14v1.8M17.2 14v1.8M12.2 9.4l3.4 1.6" class="stroke-portrait-ink" stroke-width="0.8" />
   {:else if picture === "flag-ca"}
     <rect width={W} height={H} class="fill-white" />
     <rect width="6.5" height={H} class="fill-flag-red" />

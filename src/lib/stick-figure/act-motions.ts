@@ -12,6 +12,7 @@ import {
   type World,
 } from "./acts";
 import { DOOR_OPEN_MS, DOOR_SHUT_MS } from "./door";
+import type { StickPictureId } from "./pictures";
 import { REST_POSE, easeInOut, type StickPose } from "./pose";
 import { mouthOf, reachFor, type Hand } from "./reach";
 import { HEAD_RADIUS, solveRig, type Point } from "./rig";
@@ -103,6 +104,8 @@ export type FoleyId =
   | "thud"
   | "sniff"
   | "rattle"
+  | "bounce"
+  | "shutter"
   | "ring"
   | "compute";
 
@@ -151,6 +154,8 @@ export interface Motion {
   /** Which way the figure faces while it moves: toward what it reaches for. */
   face?: string;
   contacts?: Contact[];
+  /** Shown in a bubble over the lead hand while the motion runs: the photo on a phone held out. */
+  picture?: StickPictureId;
 }
 
 const REACHED = 420;
@@ -384,7 +389,15 @@ export function motionFor(
           face: to,
           takes: REACHED + 80,
           sounds: [
-            { at: REACHED + 60, id: what === "lid" ? "lid" : soundOf(object?.kind) },
+            {
+              at: REACHED + 60,
+              id:
+                what === "lid"
+                  ? "lid"
+                  : object?.fill === "kibble"
+                    ? "rattle"
+                    : soundOf(object?.kind),
+            },
           ],
           keys: [
             { at: 0 },
@@ -466,6 +479,40 @@ export function motionFor(
           ms: 700,
           takes: 520,
           keys: [{ at: 0 }, { at: 320, ...back }, { at: 520, ...away }, { at: 700 }],
+        },
+      };
+    }
+    case "photo": {
+      // At arm's length at eye height, aimed at whoever is in the picture, the head back a little to see the screen; the shutter on the hold.
+      const out = {
+        ...hands(hand, { up: { x: 25, y: -9 } }),
+        turn: { [hand]: 90 },
+        body: { lean: -2, tilt: -2, brow: 0.3, look: 0.8 },
+      };
+      return {
+        motion: {
+          ms: 1900,
+          face: cue.to,
+          takes: 1000,
+          sounds: [{ at: 1000, id: "shutter" }],
+          keys: [{ at: 0 }, { at: 550, ...out }, { at: 1350, ...out }, { at: 1900 }],
+        },
+      };
+    }
+    case "show": {
+      // The phone held out at chest height, turned to whoever it is shown to, the photo up over it until the line is over.
+      const out = {
+        ...hands(hand, { up: { x: 24, y: 6 } }),
+        turn: { [hand]: 70 },
+        body: { lean: 4, brow: 0.3, look: 0.6 },
+      };
+      return {
+        motion: {
+          ms: 700,
+          face: cue.to,
+          hold: "line",
+          picture: cue.picture,
+          keys: [{ at: 0 }, { at: 550, ...out }, { at: 700, ...out }],
         },
       };
     }
@@ -1786,6 +1833,12 @@ export interface Surroundings {
    * head go round it.
    */
   mic?: { side: 1 | -1; held: Partial<Record<Hand, ObjectKind>> };
+  /**
+   * A robot's body is one stiff casing: down to something low it bends at
+   * the knees and only a little at the waist. Folded at the hip like a
+   * person, it tipped over whole, as if falling.
+   */
+  squats?: boolean;
 }
 
 export interface MotionFrame {
@@ -1918,11 +1971,12 @@ function leanToReach(
   body: StickPose,
   points: Partial<Record<Hand, Point>>,
   sit: number,
+  squats = false,
 ): number {
   // Low down, the knees bend with the lean, as they do lifting something off a low shelf.
   const low = Object.values(points).some((point) => point && point.y > STOOP_Y);
   const shortfall = (lean: number) => {
-    const bob = low && sit === 0 ? lean * 0.5 : 0;
+    const bob = low && sit === 0 ? lean * (squats ? 1.4 : 0.5) : 0;
     const rig = solveRig({ ...body, lean: body.lean + lean, bob: body.bob + bob }, sit);
     let worst = 0;
     for (const hand of ["lead", "rear"] as const) {
@@ -2048,15 +2102,15 @@ export function frameBetween(
   const lowest = Math.max(0, ...Object.values(points).map((point) => point?.y ?? 0));
   if (lowest > STOOP_Y && sit === 0) {
     const depth = lowest - STOOP_Y;
-    body.lean += depth * 1.6;
-    body.bob += depth * 0.9;
+    body.lean += depth * (around.squats ? 0.6 : 1.6);
+    body.bob += depth * (around.squats ? 1.6 : 0.9);
   }
 
   // Still out of reach, the figure leans in to it, as far as it must.
-  const leaned = leanToReach(body, points, sit);
+  const leaned = leanToReach(body, points, sit, around.squats);
   const low = Object.values(points).some((point) => point && point.y > STOOP_Y);
   body.lean += leaned;
-  if (low && sit === 0) body.bob += leaned * 0.5;
+  if (low && sit === 0) body.bob += leaned * (around.squats ? 1.4 : 0.5);
 
   let pose = mic ? headClearOfMic(body, sit, mic.side) : body;
   for (const hand of ["lead", "rear"] as const) {

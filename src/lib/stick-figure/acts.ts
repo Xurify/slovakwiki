@@ -2,6 +2,7 @@ import {
   LESSON_CHARACTER_IDS,
   type LessonCharacterId,
 } from "$lib/catalog/lessons/character-ids";
+import type { StickPictureId } from "./pictures";
 import type { Hand } from "./reach";
 
 /**
@@ -33,6 +34,8 @@ export const VERBS = [
   "pocket",
   "offer",
   "raise",
+  "photo",
+  "show",
   "dip",
   "taste",
   "blow",
@@ -94,13 +97,14 @@ export interface Cue {
   /**
    * Where to, or to whom: a spot of the set ("sink"), a place on a piece
    * ("place-l"), a piece ("counter"), an object ("pot"), a person, a thing
-   * of the backdrop to look at ("clock"), or for the camera "wide". For
+   * of the backdrop to look at ("clock"), or for the camera "wide"; for
+   * `photo` and `show`, whom the phone is aimed or turned at. For
    * `switch`, "on" or "off"; for `chop`, "small" for fine pieces; for
-   * `leave`, the edge walked off by, "left" or "right"; for `leash`, the dog;
+   * `leave`, the edge walked off by, "left" or "right", or "door" where the set has one; for `leash`, the dog;
    * for `slide`, the piece it is pushed along, to `dx`.
    */
   to?: LessonCharacterId | (string & {});
-  /** What it comes out of: the pot a ladle is filled from; for `enter` where there is no door, the edge spot they walk on from. */
+  /** What it comes out of: the pot a ladle is filled from; for `enter`, the edge spot they walk on from instead of the door. */
   from?: string;
   on?: CueAnchor;
   /** Rig units along a piece, for `put` straight onto one or `slide` along it. */
@@ -111,6 +115,8 @@ export interface Cue {
   minutes?: number;
   /** With `go` by a dog: a gallop over the same ground, in less time. */
   run?: boolean;
+  /** For `show`: what the phone's screen shows, drawn in a bubble over it (a family photo). */
+  picture?: StickPictureId;
 }
 
 /** Where an object is. */
@@ -458,8 +464,11 @@ export function applyCue(
     case "go":
       return { ...world, spots: { ...world.spots, [who]: to ?? "" } };
     case "leave": {
-      if (to !== "left" && to !== "right") {
-        throw new CueError(`${who} leave: by the "left" or the "right" edge?`);
+      const byDoor = to === "door" && Boolean(plan?.door);
+      if (to !== "left" && to !== "right" && !byDoor) {
+        throw new CueError(
+          `${who} leave: by the "left" or the "right" edge${plan?.door ? ', or the "door"' : ""}?`,
+        );
       }
       const { [who]: _, ...spots } = world.spots;
       return { ...world, out: on(world.out, who, true), spots };
@@ -541,6 +550,8 @@ export function applyCue(
       return setObject(world, what!, { heat: Math.max(0, (object?.heat ?? 0) - 0.5) });
     case "offer":
     case "raise":
+    case "photo":
+    case "show":
       holds(world, who, cue);
       return world;
     case "peel":

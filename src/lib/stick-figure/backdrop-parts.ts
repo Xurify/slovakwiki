@@ -88,7 +88,11 @@ export const PARTS = {
     bench: { ground: 266, width: 104, x: 616 },
     lamp: { ground: 262, x: 370 },
   },
-  home: { plant: { x: 738, y: 234 } },
+  home: {
+    // On the wall between the mirror and the door frame, clear of both.
+    clock: { hand: 8, r: 12, ticks: true, x: 346, y: 24 },
+    plant: { x: 738, y: 234 },
+  },
   plaza: {
     // Bench and tree stand past what a 1280-wide stage shows (x 120 to 840), whole on a wider one.
     bench: { ground: 250, width: 104, x: 4 },

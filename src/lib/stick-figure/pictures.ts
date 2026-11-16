@@ -13,6 +13,9 @@ export const STICK_PICTURE_IDS = [
   "flag-sk",
   "flag-ua",
   "flag-us",
+  "photo-house",
+  "photo-man-dog",
+  "photo-mother-girl",
 ] as const;
 
 export type StickPictureId = (typeof STICK_PICTURE_IDS)[number];
@@ -31,6 +34,9 @@ export const STICK_PICTURE_NAMES: Record<StickPictureId, string> = {
   "flag-sk": "Slovak flag",
   "flag-ua": "Ukrainian flag",
   "flag-us": "American flag",
+  "photo-house": "Photo: a house by the trees, a car in front",
+  "photo-man-dog": "Photo: a man with a big dog",
+  "photo-mother-girl": "Photo: a woman with a small girl",
 };
 
 /**

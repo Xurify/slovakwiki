@@ -66,9 +66,11 @@
   const nextIndex = $derived.by(() => {
     const open = (index: number) => scores[episode.chapters[index]!.id] === undefined;
     const indexes = episode.chapters.map((_, index) => index);
+    // Back round to a skipped segment only while answering the questions: after the last one
+    // played straight through, "Next: Úvod" read as the episode starting over instead of ending.
     return (
       indexes.find((index) => index > active && open(index)) ??
-      indexes.find((index) => open(index)) ??
+      (questions ? indexes.find((index) => open(index)) : undefined) ??
       null
     );
   });

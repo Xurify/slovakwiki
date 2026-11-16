@@ -104,6 +104,7 @@
       scene.lines.map((line) => line.slovak),
       Math.max(at, 0),
       scene.before,
+      new Set(scene.lines.flatMap((line, index) => (line.quiz ? [index] : []))),
     ),
   );
 

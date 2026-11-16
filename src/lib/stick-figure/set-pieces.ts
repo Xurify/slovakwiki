@@ -183,8 +183,8 @@ export const OBJECT_SIZE: Record<
   headphones: { grip: { x: 6, y: 4.5 }, top: 18, width: 18 },
   // Held from underneath in the fingers, the ball over the fist.
   ball: { grip: { x: 0, y: 0 }, top: 8.4, width: 8.4 },
-  // Carried by the handle on its top, hanging beside the leg.
-  suitcase: { grip: { x: 0, y: 17 }, top: 15, width: 18 },
+  // A wheeled case pulled by its drawn-out handle, its wheels down by the feet.
+  suitcase: { grip: { x: 0, y: 47.6 }, top: 30, width: 18 },
   // Held by its handle's loop, the strap hanging down to the clip.
   lead: { grip: { x: 0, y: -3 }, top: 0, width: 5 },
   apple: { grip: { x: 0, y: 0 }, top: 8, width: 8 },
@@ -192,7 +192,7 @@ export const OBJECT_SIZE: Record<
   basket: { grip: { x: 0, y: 12 }, top: 14, width: 16 },
   book: { grip: { x: 0, y: 5 }, top: 11.5, width: 9 },
   clipboard: { grip: { x: 0, y: 6 }, top: 14, width: 10 },
-  umbrella: { grip: { x: 0, y: 6 }, top: 21, width: 6 },
+  umbrella: { grip: { x: 0, y: 6 }, top: 34, width: 9 },
   cheese: { grip: { x: 0, y: 5 }, top: 11, width: 7 },
   plate: { grip: { x: 6, y: 1 }, top: 2.4, width: 15 },
   // In the bag piece by the home's window: its opening at the top of the bag.

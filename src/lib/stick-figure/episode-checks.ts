@@ -643,6 +643,7 @@ export function checkCues(
       y: point.y,
     });
     const around: Surroundings = {
+      squats: Boolean(LOOKS[mover].robot),
       pointOf: (name, as = "grip") => {
         const point = stagePoint(context, name, as, facing);
         return point && toRig(point);

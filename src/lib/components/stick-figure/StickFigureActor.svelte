@@ -117,6 +117,8 @@
     doing?: {
       /** Wall time it is over; the last pose holds until then if `hold`. */
       until: number;
+      /** A photo on the phone held out, shown over the hand that holds it. */
+      picture?: StickPictureId;
       sample(
         now: number,
         base: StickPose,
@@ -153,6 +155,8 @@
   const calling = new PlayTween(0, { easing: cubicInOut });
 
   let picture = $state<StickPictureId>();
+  /** The picture is the phone's screen, so it goes over the hand rather than the head. */
+  let onHand = $state(false);
   /** The way a point in flight turns the figure, when its target is behind it. */
   let turned = $state<1 | -1>();
 
@@ -289,7 +293,10 @@
     if (next?.started) onbeat?.(next.started);
     if (next) act = next.state;
     if (next?.facing !== turned) turned = next?.facing;
-    if (next?.picture !== picture) picture = next?.picture;
+    const shown = doing && now < doing.until ? doing.picture : undefined;
+    const called = shown ?? next?.picture;
+    if (called !== picture) picture = called;
+    onHand = Boolean(shown);
 
     const walked = now - walkStartedAt;
     const walking = walked < walkMs && !reducedMotion;
@@ -342,11 +349,14 @@
     const living = reducedMotion
       ? (acted?.pose ?? still)
       : alive(acted?.pose ?? still, now, characterId, !acted && !released);
+    // A sad or sorry line keeps the brows knit through it, not only for the sigh at its start.
+    const felt =
+      plan?.glum && talking && !plan.silent
+        ? { ...living, brow: Math.min(living.brow, -0.8) }
+        : living;
     // A listener leaning in to a question leaned into the mic too.
     pose =
-      mic && sitting.current > 0.5
-        ? headClearOfMic(living, sitting.current, mic)
-        : living;
+      mic && sitting.current > 0.5 ? headClearOfMic(felt, sitting.current, mic) : felt;
     turn =
       acted?.turn ??
       (released
@@ -373,6 +383,7 @@
   facing={turned ?? facing}
   {front}
   {picture}
+  pictureAt={onHand ? "hand" : "head"}
   {pose}
   {held}
   {dress}

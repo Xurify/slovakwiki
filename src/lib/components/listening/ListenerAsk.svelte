@@ -11,6 +11,7 @@
   let {
     answerer,
     ask,
+    judged,
     onpick,
     onskip,
     picked,
@@ -19,6 +20,8 @@
     /** Who gives the answer once the listener has had their go. */
     answerer: string;
     ask: ListenerAsk;
+    /** The line the ask follows: quoted when the question is only right or wrong, so the card says what is judged. */
+    judged?: string;
     onpick: (id: string) => void;
     onskip: () => void;
     picked: string | null;
@@ -29,6 +32,9 @@
   let root: HTMLElement | undefined = $state();
 
   const right = $derived(picked === ask.answerId);
+  const verdict = $derived(
+    ask.choices.length === 2 && ask.choices.every((choice) => ["right", "wrong"].includes(choice.id)),
+  );
   const answer = $derived(ask.choices.find((choice) => choice.id === ask.answerId));
   /** The same English under every choice would only repeat itself, and a different one could give the answer away. */
   const glossed = $derived(new Set(ask.choices.map((choice) => choice.english)).size > 1);
@@ -52,6 +58,12 @@
   aria-labelledby="listener-ask-prompt"
 >
   <p class={eyebrowMutedClass}>Your turn</p>
+
+  {#if verdict && judged}
+    <blockquote class="m-0 mt-1 border-l-2 border-slate-300 pl-3 font-serif text-lg text-slate-700" lang="sk">
+      {judged}
+    </blockquote>
+  {/if}
 
   <p
     id="listener-ask-prompt"
@@ -113,8 +125,8 @@
     {/each}
 
     {#if !picked}
-      <!-- On a phone it wraps to its own row, so its text lines up with the card's left edge. -->
-      <ListenControl class="-ml-2.5 min-h-12 sm:-mr-2.5 sm:ml-auto" onclick={onskip}>
+      <!-- On a phone it wraps to its own row, its box flush with the card's left edge: pulled out by its padding, the hover box started left of the text above. -->
+      <ListenControl class="min-h-12 sm:-mr-2.5 sm:ml-auto" onclick={onskip}>
         Let {answerer} answer
       </ListenControl>
     {/if}
