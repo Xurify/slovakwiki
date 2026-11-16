@@ -87,7 +87,7 @@ export function easeInOut(t: number): number {
  * and the forearm comes up, so the hand beats in front of the chest, between
  * the desk's mug and the microphone, not out along the desk.
  */
-const OVER_TABLE = { swing: 0.4, forearm: 125 };
+const OVER_TABLE = { swing: 0.45, forearm: 92 };
 /** An arm raised further than this from rest points or waves, and is left be. */
 const RAISED = 50;
 

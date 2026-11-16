@@ -152,6 +152,8 @@ Xurify's bar is 9/10 or better on every dimension (`docs/critics/rubric.md` plus
 - A place where time matters had no clock, or the clock showed a quiz sentence's hour.
 - Signs crammed at the bottom: lettering on a board has even padding on all four sides and an even line pitch; check every sign at 3× zoom.
 - Drawn objects nobody could tap, or a tap box beside its drawing: every visible thing is a `thing` measured with `of`, and focus skips what the phone's window cuts off.
+- Text highlight drift during vocalization tags: leading `[chuckles]`, `[sighs]`, etc. must not cause the first spoken word to highlight early. Audit with `bun scripts/audio/highlight-critic.ts` and verify word drift is within tolerance.
+- Code-enforced invariants ($token-minimization): Use the model to invent, and code to enforce. Encode hard rules, checks, and critics into standalone test suites and deterministic scripts rather than manual prompting or multi-agent loops.
 
 ## 9. Learn from the review
 

@@ -134,10 +134,15 @@
 <path d="M{clock.x} {clock.y}L{hands.hour.x} {hands.hour.y}" class="stroke-scene-line" stroke-width="2.6" stroke-linecap="round" />
 <circle cx={clock.x} cy={clock.y} r="1.6" class="fill-scene-line" />
 
-<!-- The square: a pavement of slabs along the houses, then cobbles. -->
-<rect x="-10" y="226" width="980" height="84" class="fill-scene-sand" />
-<rect x="-10" y="226" width="980" height="6" class="fill-white/30" />
-<path d="M-10 232H970" class="stroke-scene-line/15" stroke-width="1" />
+<!-- The square: authentic Bratislava Old Town granite slabs along the houses, then granite cobblestones. -->
+<rect x="-10" y="226" width="980" height="84" class="fill-[#ccd4d9]" />
+<rect x="-10" y="226" width="980" height="8" class="fill-[#dbe2e6]" />
+<path d="M-10 234H970" class="stroke-scene-line/35" stroke-width="1.2" />
+<path
+  d={Array.from({ length: 45 }, (_, i) => `M${-10 + i * 22} 226v8`).join('')}
+  class="stroke-scene-line/15"
+  stroke-width="0.8"
+/>
 <Cobbles from={236} />
 <FloorShade />
 
