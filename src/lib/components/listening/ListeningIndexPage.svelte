@@ -18,7 +18,7 @@
 
       <Lead class="text-pretty">
         Anna and Marek lose keys, find umbrellas nobody owns and work out who ate the
-        cake. Watch it happen in easy Slovak, and help them out when they get stuck.
+        cake. Watch it happen in easy Slovak, and help them when they get stuck.
       </Lead>
     </header>
 
