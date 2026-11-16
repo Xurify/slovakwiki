@@ -194,7 +194,7 @@ export const OBJECT_SIZE: Record<
   clipboard: { grip: { x: 0, y: 6 }, top: 14, width: 10 },
   umbrella: { grip: { x: 0, y: 6 }, top: 21, width: 6 },
   cheese: { grip: { x: 0, y: 5 }, top: 11, width: 7 },
-  plate: { grip: { x: 6, y: 1 }, top: 2.4, width: 15 },
+  plate: { grip: { x: 9, y: 1.5 }, top: 3.6, width: 22.6 },
   // In the bag piece by the home's window: its opening at the top of the bag.
   stash: { grip: { x: 0, y: 8 }, top: 13, width: 18 },
 };

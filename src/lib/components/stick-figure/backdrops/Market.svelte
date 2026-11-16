@@ -24,7 +24,7 @@
    * Bunting from the fruit stall's pole to the farm stall's, sagging over the
    * fruit stall's lower roof: its flags clear the roof by about ten.
    */
-  const STRING = { from: { x: 384, y: 32 }, sag: { x: 513, y: 70 }, to: { x: 642, y: 32 } };
+  const STRING = { from: { x: 424, y: 32 }, sag: { x: 533, y: 70 }, to: { x: 642, y: 32 } };
   const FLAG = { count: 7, half: 7, drop: 14 };
 
   function along(t: number): { x: number; y: number } {
@@ -75,10 +75,10 @@
   const stalls: Stall[] = [
     {
       label: "Ovocie",
-      x: 372,
+      x: 412,
       width: 196,
       beam: 100,
-      pole: 384,
+      pole: 424,
       crates: ["apples", "plums"],
       back: ["pears", "pears"],
       cheeses: [],
