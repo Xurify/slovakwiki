@@ -574,7 +574,7 @@ const waiting: ListeningChapter = {
     seated: ["bobik"],
     state: {
       lead: { where: { on: "pegs", dx: 0 }, clipped: false },
-      bowl: { fill: "soup" },
+      bowl: { fill: "kibble" },
     },
   },
   titleSk: "Tichý haf",
@@ -827,7 +827,7 @@ const home: ListeningChapter = {
           { do: "point", to: "bowl", on: "večera" },
           { who: "bobik", do: "go", to: "bowl-dog", on: "večera" },
           { who: "bobik", do: "face", to: "bowl" },
-          { who: "bobik", do: "sniff", on: "after" },
+          { who: "bobik", do: "eat", what: "bowl", on: "after" },
         ],
         to: "Bobík",
       },
@@ -837,7 +837,6 @@ const home: ListeningChapter = {
       "Robo",
       ["Dnes ráno som vedel sto jazykov. ", PAUSE, "Teraz viem stojeden."],
       "This morning I knew a hundred languages. Now I know a hundred and one.",
-      { act: [{ who: "bobik", do: "sniff", on: "start" }] },
     ),
     line(
       "marek-whole-dog-language",

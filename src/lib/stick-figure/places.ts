@@ -310,6 +310,8 @@ const CAFE_SET: PlaceSet = {
     // The window table's chairs (stage-frame.ts seats them), for "Sadnite si."
     "chair-l": { chair: 0 },
     "chair-r": { chair: 1 },
+    // Where the waiter serves the window table from, past the right chair.
+    "by-table": { piece: "table", dx: 70, facing: -1 },
   },
 };
 

@@ -45,6 +45,8 @@ const INTRO_ACTS: Record<string, Cue[]> = {
   "marek-right-on-time": [
     { do: "enter", to: "inside", on: "start" },
     { do: "sit", to: "desk-right" },
+    { do: "take", what: "marek-headphones" },
+    { do: "put", what: "marek-headphones", to: "marek" },
   ],
 };
 
@@ -629,14 +631,19 @@ const tramStop: ListeningChapter = {
 };
 
 const CAFE_ACTS: Record<string, Cue[]> = {
+  "anna-now-in-cafe": [
+    { do: "sit", to: "chair-l", on: "start" },
+    { who: "marek", do: "sit", to: "chair-r", on: "start" },
+    { who: "waiter", do: "go", to: "by-table", on: "after" },
+  ],
   // He fetches the coffees from the back, past the stage's edge, while they talk.
   "waiter-right-away": [
     { do: "go", to: "back", on: "end" },
     { do: "take", what: "anna-cup" },
     { do: "take", what: "marek-cup" },
   ],
-  "marek-at-three-around-two": [{ who: "waiter", do: "go", to: "waiter", on: "start" }],
-  // Both to Marek, beside him: Anna is past Marek, out of his reach.
+  "marek-at-three-around-two": [{ who: "waiter", do: "go", to: "by-table", on: "start" }],
+  // Both to Marek, beside him: Anna is across the table, out of his reach.
   "waiter-here-two-coffees": [
     { do: "give", what: "marek-cup", to: "marek", on: "páči" },
     { do: "give", what: "anna-cup", to: "marek", on: "kávy" },

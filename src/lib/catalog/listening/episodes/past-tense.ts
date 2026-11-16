@@ -458,109 +458,121 @@ const school: ListeningChapter = {
   ],
 };
 
+/** Anna comes in off the street to the counter, where the waiter works. */
+const CAFE_ACTS: Record<string, Cue[]> = {
+  "anna-you-were-in-studio": [
+    { do: "enter", from: "off-left", to: "counter", on: "before" },
+  ],
+};
+
 const cafe: ListeningChapter = {
   id: `${PREFIX}cafe`,
   stage: "cafe",
   titleSk: "Pozeral na koláč",
   title: "The waiter: he was looking at the cake",
-  lines: [
-    card("card-cafe-four", "Kaviareň. Štyri hodiny.", "The café. Four o'clock."),
-    line(
-      "anna-you-were-in-studio",
-      "Anna",
-      ["Dobrý deň. ", PAUSE, "Vy ", past("ste dnes boli"), " u nás v štúdiu, áno?"],
-      "Hello. You were at our studio today, right?",
-      { to: "Waiter" },
-    ),
-    line(
-      "waiter-brought-coffee",
-      "Waiter",
-      ["Dobrý deň! Áno, na obed. ", PAUSE, past("Priniesol som"), " kávu pre Mareka."],
-      "Hello! Yes, at noon. I brought a coffee for Marek.",
-      // The coffee was at noon; he has nothing in his hands now.
-      { props: [null, null, null] },
-    ),
-    line(
-      "anna-and-the-cake",
-      "Anna",
-      [
-        "Na stole ",
-        past("bol"),
-        " koláč. Teraz je preč. ",
-        PAUSE,
-        past("Videli ste"),
-        " ho?",
-      ],
-      "There was a cake on the table. Now it's gone. Did you see it?",
-    ),
-    line(
-      "waiter-marek-looked-at-cake",
-      "Waiter",
-      [
-        past("Videl som"),
-        ". ",
-        past("Bol"),
-        " na stole, ešte celý. ",
-        PAUSE,
-        "A Marek ",
-        past("sedel"),
-        " pri stole a ",
-        past("pozeral"),
-        " na koláč.",
-      ],
-      "I did. It was on the table, still whole. And Marek was sitting at the table, looking at the cake.",
-    ),
-    line(
-      "anna-looked-at-cake",
-      "Anna",
-      [past("Pozeral"), " na koláč?"],
-      "Looking at the cake?",
-    ),
-    line(
-      "waiter-long-then-back",
-      "Waiter",
-      ["Áno. Dlho. ", PAUSE, "Potom ", past("som išiel"), " späť do kaviarne."],
-      "Yes. For a long time. Then I went back to the café.",
-    ),
-    line(
-      "anna-did-you-eat",
-      "Anna",
-      ["A vy? ", past("Jedli ste"), " niečo v štúdiu?"],
-      "And you? Did you eat anything in the studio?",
-    ),
-    line(
-      "waiter-ate-nothing",
-      "Waiter",
-      [
-        "Ja? Nie! ",
-        PAUSE,
-        "Nič ",
-        past("som nejedol"),
-        ". ",
-        PAUSE,
-        "Koláčov mám tu dosť.",
-      ],
-      "Me? No! I ate nothing. I've got plenty of cakes here.",
-    ),
-    line(
-      "anna-poppy-cake-you-too",
-      "Anna",
-      ["Hm", STOP, PAUSE, "Makový koláč máte aj vy."],
-      "Hmm… You have poppy-seed cake too.",
-    ),
-    line(
-      "waiter-but-its-ours",
-      "Waiter",
-      ["Áno, ale ten je náš!"],
-      "Yes, but that one is ours!",
-    ),
-    line(
-      "anna-true-goodbye-market",
-      "Anna",
-      ["To je pravda. Ďakujem, dovidenia! ", PAUSE, "Teraz na trh, za Luciou."],
-      "That's true. Thank you, goodbye! Now to the market, to see Lucia.",
-    ),
-  ],
+  setup: { spots: { waiter: "waiter" } },
+  lines: staged(
+    PREFIX,
+    [
+      card("card-cafe-four", "Kaviareň. Štyri hodiny.", "The café. Four o'clock."),
+      line(
+        "anna-you-were-in-studio",
+        "Anna",
+        ["Dobrý deň. ", PAUSE, "Vy ", past("ste dnes boli"), " u nás v štúdiu, áno?"],
+        "Hello. You were at our studio today, right?",
+        { to: "Waiter" },
+      ),
+      line(
+        "waiter-brought-coffee",
+        "Waiter",
+        ["Dobrý deň! Áno, na obed. ", PAUSE, past("Priniesol som"), " kávu pre Mareka."],
+        "Hello! Yes, at noon. I brought a coffee for Marek.",
+        // The coffee was at noon; he has nothing in his hands now.
+        { props: [null, null, null] },
+      ),
+      line(
+        "anna-and-the-cake",
+        "Anna",
+        [
+          "Na stole ",
+          past("bol"),
+          " koláč. Teraz je preč. ",
+          PAUSE,
+          past("Videli ste"),
+          " ho?",
+        ],
+        "There was a cake on the table. Now it's gone. Did you see it?",
+      ),
+      line(
+        "waiter-marek-looked-at-cake",
+        "Waiter",
+        [
+          past("Videl som"),
+          ". ",
+          past("Bol"),
+          " na stole, ešte celý. ",
+          PAUSE,
+          "A Marek ",
+          past("sedel"),
+          " pri stole a ",
+          past("pozeral"),
+          " na koláč.",
+        ],
+        "I did. It was on the table, still whole. And Marek was sitting at the table, looking at the cake.",
+      ),
+      line(
+        "anna-looked-at-cake",
+        "Anna",
+        [past("Pozeral"), " na koláč?"],
+        "Looking at the cake?",
+      ),
+      line(
+        "waiter-long-then-back",
+        "Waiter",
+        ["Áno. Dlho. ", PAUSE, "Potom ", past("som išiel"), " späť do kaviarne."],
+        "Yes. For a long time. Then I went back to the café.",
+      ),
+      line(
+        "anna-did-you-eat",
+        "Anna",
+        ["A vy? ", past("Jedli ste"), " niečo v štúdiu?"],
+        "And you? Did you eat anything in the studio?",
+      ),
+      line(
+        "waiter-ate-nothing",
+        "Waiter",
+        [
+          "Ja? Nie! ",
+          PAUSE,
+          "Nič ",
+          past("som nejedol"),
+          ". ",
+          PAUSE,
+          "Koláčov mám tu dosť.",
+        ],
+        "Me? No! I ate nothing. I've got plenty of cakes here.",
+      ),
+      line(
+        "anna-poppy-cake-you-too",
+        "Anna",
+        ["Hm", STOP, PAUSE, "Makový koláč máte aj vy."],
+        "Hmm… You have poppy-seed cake too.",
+      ),
+      line(
+        "waiter-but-its-ours",
+        "Waiter",
+        ["Áno, ale ten je náš!"],
+        "Yes, but that one is ours!",
+      ),
+      line(
+        "anna-true-goodbye-market",
+        "Anna",
+        ["To je pravda. Ďakujem, dovidenia! ", PAUSE, "Teraz na trh, za Luciou."],
+        "That's true. Thank you, goodbye! Now to the market, to see Lucia.",
+      ),
+    ],
+    CAFE_ACTS,
+  ),
   checks: [
     {
       id: `${PREFIX}check-what-marek-did-at-noon`,
@@ -826,6 +838,8 @@ const WHODUNIT_ACTS: Record<string, Cue[]> = {
     { do: "sit", to: "desk-left", on: "start" },
   ],
   "marek-only-looking": [{ do: "shrug", on: "pozeral" }],
+  // A finger for each of the three who came by.
+  "anna-they-were-here-briefly": [{ do: "count", on: "start" }],
 };
 
 const whodunit: ListeningChapter = {

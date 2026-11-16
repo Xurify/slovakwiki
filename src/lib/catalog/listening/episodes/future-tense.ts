@@ -253,7 +253,6 @@ const friday: ListeningChapter = {
         { who: "dog", do: "face", to: "marek", on: "before" },
         { do: "kneel", to: "dog", on: "dunčo" },
       ],
-      "dunco-soft-bark-friday": [{ who: "marek", do: "kneel", to: "dog", on: "start" }],
       "anna-both-will-be-fine": [
         { who: "marek", do: "take", what: "suitcase", on: "start" },
         { do: "wave", on: "šťastnú" },
@@ -843,6 +842,16 @@ const atWindow: ListeningChapter = {
   stage: "home",
   titleSk: "Budem čakať s tebou",
   title: "I'll wait with you",
+  // His breakfast, still in the bowl where Domo put it down that morning.
+  setup: {
+    objects: [
+      {
+        id: "bowl",
+        kind: "bowl",
+        start: { where: { on: "by-dog", dx: 0 }, fill: "kibble" },
+      },
+    ],
+  },
   lines: staged(
     PREFIX,
     [
@@ -972,13 +981,11 @@ const atWindow: ListeningChapter = {
       // Off to his bowl, still where Domo put it this morning, and his head goes down into it.
       "dunco-eats-bark": [
         { do: "go", to: "rug-left", on: "end" },
-        { do: "nod" },
-        { do: "nod" },
+        { do: "eat", what: "bowl" },
       ],
       "domo-hes-hungry": [
         { do: "look", to: "dog", on: "start" },
         { do: "compute", on: "uložím" },
-        { who: "dog", do: "nod", on: "start" },
       ],
     },
   ),
@@ -1172,7 +1179,11 @@ const monday: ListeningChapter = {
         { do: "kneel", to: "dog" },
       ],
       "marek-how-were-you": [{ who: "robot", do: "go", to: "rug-mid", on: "domo" }],
-      "marek-together-thank-you": [{ do: "nod", on: "ďakujem" }],
+      // Up from the dog and over to Domo, a hand on his shoulder for the thanks.
+      "marek-together-thank-you": [
+        { do: "go", to: "robot", on: "start" },
+        { do: "pat", to: "robot", on: "ďakujem" },
+      ],
       "domo-hi-or-thanks": [{ do: "compute", on: "uložím" }],
     },
   ),
