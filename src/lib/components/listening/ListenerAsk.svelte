@@ -3,6 +3,7 @@
 
   import type { ListenerAsk } from "$lib/learning/types";
   import { eyebrowMutedClass } from "$lib/components/ui/system-ui";
+  import { checkChoiceOrder } from "$lib/listening/check-order";
   import { focusUnlessTyping } from "$lib/listening/focus";
   import { cx } from "$lib/ui/classes";
 
@@ -11,6 +12,7 @@
   let {
     answerer,
     ask,
+    id,
     judged,
     onpick,
     onskip,
@@ -20,6 +22,8 @@
     /** Who gives the answer once the listener has had their go. */
     answerer: string;
     ask: ListenerAsk;
+    /** The asking line's id, which fixes the order its choices come in. */
+    id: string;
     /** The line the ask follows: quoted when the question is only right or wrong, so the card says what is judged. */
     judged?: string;
     onpick: (id: string) => void;
@@ -36,12 +40,26 @@
     ask.choices.length === 2 && ask.choices.every((choice) => ["right", "wrong"].includes(choice.id)),
   );
   const answer = $derived(ask.choices.find((choice) => choice.id === ask.answerId));
+  /** Right then wrong reads as a pair, so a verdict keeps it; any other ask written answer first would give it away. */
+  const choices = $derived(verdict ? ask.choices : checkChoiceOrder(id, ask.choices));
   /** The same English under every choice would only repeat itself, and a different one could give the answer away. */
   const glossed = $derived(new Set(ask.choices.map((choice) => choice.english)).size > 1);
+  const fold = (text: string) =>
+    text.trim().normalize("NFD").replace(/\p{M}/gu, "").toLocaleLowerCase("sk");
+  /** A name glossed with itself, Marek under Marek, says nothing. */
+  const glossOf = (choice: ListenerAsk["choices"][number]) =>
+    glossed && fold(choice.english) !== fold(choice.label) ? choice.english : undefined;
+  const whyWrong = $derived(
+    revealed && picked && !right
+      ? ask.choices.find((choice) => choice.id === picked)?.whyWrong
+      : undefined,
+  );
   const status = $derived.by(() => {
     if (!picked) return "";
     if (!revealed) return `${answerer} is answering…`;
-    return right ? "Right." : `Not quite. The answer is ${answer?.label}.`;
+    return right
+      ? "Right."
+      : `Not quite. The answer is ${answer?.label}.${whyWrong ? ` ${whyWrong}` : ""}`;
   });
 
   $effect(() => {
@@ -73,15 +91,17 @@
     {ask.prompt}
   </p>
 
-  <div class="mt-3 flex flex-wrap items-center gap-2">
-    {#each ask.choices as choice (choice.id)}
+  <!-- Below 480px one choice to a row, all one height: two to a row squeezed a word to a line and the buttons came out uneven. -->
+  <div class="mt-3 grid auto-rows-fr gap-2 min-[480px]:flex min-[480px]:flex-wrap min-[480px]:items-stretch">
+    {#each choices as choice (choice.id)}
       {@const chosen = picked === choice.id}
       {@const markWrong = revealed && chosen && !right}
       {@const markRight = revealed && choice.id === ask.answerId && (chosen || !right)}
+      {@const gloss = glossOf(choice)}
 
       <button
         class={cx(
-          "inline-flex min-h-12 min-w-32 flex-1 items-center justify-center gap-2 rounded-(--control-radius) border px-4 py-2 sm:flex-none",
+          "inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-(--control-radius) border px-4 py-2 text-balance min-[480px]:w-auto min-[480px]:min-w-32 min-[480px]:flex-1 sm:flex-none",
           "transition-[background-color,border-color,color] duration-150 ease-out",
           picked ? "cursor-default" : "cursor-pointer",
           markRight && "border-emerald-600 bg-emerald-50 text-emerald-800",
@@ -118,19 +138,23 @@
         {/if}
 
         <span class="font-serif font-semibold" lang="sk">{choice.label}</span>
-        {#if glossed}
-          <span class="text-sm text-slate-700">{choice.english}</span>
+        {#if gloss}
+          <span class="text-sm text-slate-700">{gloss}</span>
         {/if}
       </button>
     {/each}
-
-    {#if !picked}
-      <!-- On a phone it wraps to its own row, its box flush with the card's left edge: pulled out by its padding, the hover box started left of the text above. -->
-      <ListenControl class="min-h-12 sm:-mr-2.5 sm:ml-auto" onclick={onskip}>
-        Let {answerer} answer
-      </ListenControl>
-    {/if}
   </div>
+
+  {#if !picked}
+    <!-- Under the choices, its text in line with the card's: pulled out by its own padding. Pushed to the far right it sat alone, hundreds of px from the question. -->
+    <ListenControl class="mt-1 -ml-2.5 min-h-11" onclick={onskip}>
+      Let {answerer} answer
+    </ListenControl>
+  {/if}
+
+  {#if whyWrong}
+    <p class="m-0 mt-3 text-sm text-slate-700">{whyWrong}</p>
+  {/if}
 
   <p class="sr-only" aria-live="polite">{status}</p>
 </div>

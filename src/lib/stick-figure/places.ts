@@ -721,6 +721,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       {
         ...drawn(WORDS.hrncek, [376, 186, 10, 12]),
         of: ["studio-mug-0", "studio-mug-1", "studio-mug-2"],
+        ofKind: "cup",
       },
       onSet(WORDS.krhla, ["can"], [704, 222, 40, 24]),
       // On the shelf, for tapping only: a line about a book means one in someone's hands, not these.
@@ -765,6 +766,19 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       door: "door",
     },
   },
+};
+
+/**
+ * Props a learner can tap wherever the set draws one, in any place: an
+ * umbrella on the desk or in a hand, a phone out of the pocket. Each has no
+ * box of its own; it is measured where the set draws it, and is not there
+ * to tap while it is out of sight in a pocket or a bag.
+ */
+export const PROP_THINGS: Readonly<Partial<Record<string, SceneThing>>> = {
+  umbrella: { ...WORDS.dazdnik, box: { x: 0, y: 0, width: 0, height: 0 }, quiet: true },
+  phone: { ...WORDS.telefon, box: { x: 0, y: 0, width: 0, height: 0 }, quiet: true },
+  keys: { ...WORDS.kluce, box: { x: 0, y: 0, width: 0, height: 0 }, quiet: true },
+  bag: { ...WORDS.taska, box: { x: 0, y: 0, width: 0, height: 0 }, quiet: true },
 };
 
 export function backdropAlign(setting: StageSetting): number {

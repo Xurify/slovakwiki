@@ -10,7 +10,7 @@
     backdropScale,
     boxInView,
   } from "$lib/stick-figure/backdrop-geometry";
-  import { PLACES, backdropAlign, thingsIn } from "$lib/stick-figure/places";
+  import { PLACES, PROP_THINGS, backdropAlign, thingsIn } from "$lib/stick-figure/places";
   import type { StageSetting } from "$lib/stick-figure/stage-setting";
   import {
     litKey,
@@ -18,6 +18,7 @@
     withDrawn,
     type ThingBox,
   } from "$lib/stick-figure/thing-words";
+  import { arrowOrder, clipBox, verticalNeighbour } from "$lib/stick-figure/thing-order";
   import { cx } from "$lib/ui/classes";
   import Cafe from "./backdrops/Cafe.svelte";
   import Classroom from "./backdrops/Classroom.svelte";
@@ -46,6 +47,7 @@
     lit = [],
     minutes = 0,
     mood = DAYTIME,
+    objects = {},
     skipping = false,
     onpick,
     picked,
@@ -70,6 +72,8 @@
     lit?: readonly string[];
     /** How far the story has skipped ahead: the clock's hands run on that far. */
     minutes?: number;
+    /** The set's objects by id, each its kind: a thing with `ofKind` is also drawn wherever these are. */
+    objects?: Readonly<Record<string, string>>;
     /** The lights are down for a skip ahead: the hands run round to `minutes` rather than jump. */
     skipping?: boolean;
     /** Time of day and weather, from the dialogue or picked in the lab. */
@@ -135,9 +139,25 @@
   });
 
   const Drawing = $derived(DRAWINGS[setting]);
-  const things = $derived(
-    withDrawn(thingsIn(PLACES[setting].things, setting, mood, tram), drawnAt),
-  );
+  const ofKind = (kind: string) => Object.keys(objects).filter((id) => objects[id] === kind);
+  /**
+   * The place's things, each with the set's objects of its kind among its
+   * drawn copies, and the props on the set (an umbrella, a phone) that the
+   * place does not name itself.
+   */
+  const placeThings = $derived.by(() => {
+    const own = PLACES[setting].things.map((thing) => {
+      const ids = thing.ofKind ? ofKind(thing.ofKind) : [];
+      return ids.length ? { ...thing, of: [...(thing.of ?? []), ...ids] } : thing;
+    });
+    const props = Object.entries(PROP_THINGS).flatMap(([kind, thing]) => {
+      const ids = ofKind(kind);
+      if (!thing || !ids.length || own.some(({ id }) => id === thing.id)) return [];
+      return [{ ...thing, of: ids }];
+    });
+    return [...own, ...props];
+  });
+  const things = $derived(withDrawn(thingsIn(placeThings, setting, mood, tram), drawnAt));
 
   // The clocks start at the scene's told hour; skipping ahead spins them forward.
   const hour = new PlayTween(
@@ -158,7 +178,7 @@
 
   let svg = $state<SVGSVGElement>();
 
-  const measured = $derived(PLACES[setting].things.flatMap((thing) => thing.of ?? []));
+  const measured = $derived(placeThings.flatMap((thing) => thing.of ?? []));
   // The set and the cast are drawn over this svg in the same camera, so a box
   // measured in px maps to backdrop units by this svg's own px and viewBox.
   $effect(() => {
@@ -204,41 +224,41 @@
   });
   /** Which thing the Tab key lands on: the last one focused, so leaving and coming back keeps the place. */
   let tabStop = $state(0);
-  /** Right and Down go to the next thing, Left and Up to the one before; Home and End to the ends. */
+  /** Right goes to the next thing across, Left to the one before; Home and End to the ends. */
   const ARROW_STEPS: Record<string, number> = {
     ArrowRight: 1,
-    ArrowDown: 1,
     ArrowLeft: -1,
-    ArrowUp: -1,
     Home: Number.NEGATIVE_INFINITY,
     End: Number.POSITIVE_INFINITY,
   };
+  const ARROW_ROWS: Record<string, 1 | -1> = { ArrowDown: 1, ArrowUp: -1 };
+  /** How far a ring stands out from its thing's box. */
+  const RING_PAD = 5;
 
-  /** Only what the stage shows: a phone slices off the ends, and a hidden box must not take focus. */
+  /** The drawing's part the stage shows, in backdrop units. */
+  const shown = $derived.by(() => {
+    const [x, y, across, down] = view.box.split(" ").map(Number);
+    return { x, y, width: across, height: down };
+  });
+
+  /**
+   * Only what the stage shows: a phone slices off the ends, and a hidden box
+   * must not take focus. A box that runs past the stage (the park's river) is
+   * cut at its edge, ring and all.
+   */
   const boxes = $derived(
     things.flatMap((thing) =>
-      thingBoxes(thing)
-        .map((box, copy) => ({ box, copy, thing }))
-        .filter(({ box }) => boxInView(box, setting, width, height)),
+      thingBoxes(thing).flatMap((whole, copy) => {
+        const box = clipBox(whole, shown, RING_PAD);
+        return boxInView(whole, setting, width, height) && box.width > 0
+          ? [{ box, copy, thing }]
+          : [];
+      }),
     ),
   );
 
-  /** Backdrop units per column the arrow keys walk down before moving right. */
-  const COLUMN = 48;
-  const column = (box: ThingBox) => Math.floor((box.x + box.width / 2) / COLUMN);
-  /**
-   * The order the arrow keys visit things in: left to right across the
-   * scene in columns, top to bottom within one, so a shelf and the plant
-   * below it come one after the other rather than by a few units of x.
-   */
-  const hitOrder = $derived(
-    boxes
-      .slice()
-      .sort(
-        (a, b) =>
-          column(a.box) - column(b.box) || a.box.y - b.box.y || a.box.x - b.box.x,
-      ),
-  );
+  /** The order the arrow keys visit things in: Left and Right across the screen, Up and Down to the nearest above or below. */
+  const hitOrder = $derived(arrowOrder(boxes));
   /**
    * The set's things last, on top, as the set is drawn over the backdrop:
    * the watering can stands on the rug and needs its own tap. Otherwise the
@@ -289,10 +309,10 @@
     {#each paintOrder as { box, copy, index, thing } (`${thing.id}-${copy}`)}
       {@const key = litKey(thing.id, copy)}
       <rect
-        x={box.x - 5}
-        y={box.y - 5}
-        width={box.width + 10}
-        height={box.height + 10}
+        x={box.x - RING_PAD}
+        y={box.y - RING_PAD}
+        width={box.width + RING_PAD * 2}
+        height={box.height + RING_PAD * 2}
         rx="8"
         fill="transparent"
         class="pointer-events-auto cursor-pointer outline-none"
@@ -315,11 +335,14 @@
             onpick(key);
             return;
           }
+          const row = ARROW_ROWS[event.key];
           const step = ARROW_STEPS[event.key];
-          if (step === undefined) return;
+          if (step === undefined && row === undefined) return;
           event.preventDefault();
           const count = hitOrder.length;
-          const next = Number.isFinite(step)
+          const next = row
+            ? verticalNeighbour(hitOrder, index, row)
+            : Number.isFinite(step)
             ? (index + step + count) % count
             : step > 0
               ? count - 1
@@ -352,10 +375,10 @@
   {@const done = found.includes(thing.id)}
   {@const key = litKey(thing.id, copy)}
   <rect
-    x={box.x - 5}
-    y={box.y - 5}
-    width={box.width + 10}
-    height={box.height + 10}
+    x={box.x - RING_PAD}
+    y={box.y - RING_PAD}
+    width={box.width + RING_PAD * 2}
+    height={box.height + RING_PAD * 2}
     rx="8"
     class={cx(
       // Drawn over a thing, a white wash greyed it out.

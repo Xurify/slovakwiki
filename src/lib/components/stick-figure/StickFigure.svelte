@@ -583,6 +583,7 @@
           {round}
           sway={hairSway}
           headphones={dress.headwear === "headphones"}
+          grin={dress.grin}
         />
 
         {#if dress.headwear === "headset"}

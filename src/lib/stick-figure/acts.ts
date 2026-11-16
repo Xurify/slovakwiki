@@ -72,6 +72,7 @@ export const VERBS = [
   "shrug",
   "nod",
   "laugh",
+  "grin",
   // The stage.
   "knock",
   "camera",
@@ -119,6 +120,12 @@ export interface Cue {
   run?: boolean;
   /** For `show`: what the phone's screen shows, drawn in a bubble over it (a family photo). */
   picture?: StickPictureId;
+  /** `show`: held out past the line, until the shower's next cue (the next show, or the phone put away). */
+  keep?: boolean;
+  /** `grin`: poppy seeds stuck on the teeth. */
+  seeds?: boolean;
+  /** `grin`: the grin drops. */
+  off?: boolean;
 }
 
 /** Where an object is. */
@@ -244,6 +251,8 @@ export interface World {
   out?: LessonCharacterId[];
   /** Who sits, on the chair their spot names. */
   seated?: LessonCharacterId[];
+  /** Who grins wide, teeth showing, from a `grin` cue until one with `off`: `seeds` with poppy seeds on them. */
+  grins?: Partial<Record<LessonCharacterId, "teeth" | "seeds">>;
   /** Pieces switched on: a stove's burner. */
   lit?: string[];
   /** Minutes the story has skipped forward: the clock shows them. */
@@ -488,6 +497,13 @@ export function applyCue(
     case "count":
     case "pat":
       return world;
+    case "grin": {
+      const { [who]: _, ...rest } = world.grins ?? {};
+      return {
+        ...world,
+        grins: cue.off ? rest : { ...rest, [who]: cue.seeds ? "seeds" : "teeth" },
+      };
+    }
     case "take": {
       if (!what || !object) throw new CueError(`${who} take: what?`);
       if (handHolding(world, who, what)) return world;

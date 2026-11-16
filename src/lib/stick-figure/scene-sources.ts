@@ -21,7 +21,7 @@ import {
   type LessonSceneArtId,
 } from "$lib/lesson-story/story-settings";
 import { RAIN_AND_TRAM, WEATHER_TODAY } from "./dev-scenes";
-import { PLACES, type PlaceSet } from "./places";
+import { PLACES, PROP_THINGS, type PlaceSet } from "./places";
 import { dayTalks } from "./scene-day";
 import { directScene, type DirectedLine } from "./scene-direction";
 import { findAsker, findSayings } from "./scene-find";
@@ -193,9 +193,12 @@ export function episodeStages(episode: ListeningEpisode): {
     }),
   );
   const onStage = new Set(
-    Object.values(scenes).flatMap(({ setting }) =>
-      PLACES[setting].things.map((thing) => thing.word),
-    ),
+    Object.values(scenes).flatMap(({ setting, world }) => [
+      ...PLACES[setting].things.map((thing) => thing.word),
+      ...Object.values(world.objects).flatMap(
+        ({ kind }) => PROP_THINGS[kind]?.word ?? [],
+      ),
+    ]),
   );
   const thingWords = Object.fromEntries(
     Object.entries(sceneThingWords()).filter(([word]) => onStage.has(word)),
@@ -348,7 +351,11 @@ export function sceneGroups(): SceneGroup[] {
 export function sceneThingWords(): Record<string, { href?: string; src?: string }> {
   const found: Record<string, { href?: string; src?: string }> = {};
 
-  for (const thing of Object.values(PLACES).flatMap((place) => place.things)) {
+  const props = Object.values(PROP_THINGS).flatMap((thing) => thing ?? []);
+  for (const thing of [
+    ...Object.values(PLACES).flatMap((place) => place.things),
+    ...props,
+  ]) {
     if (thing.word in found) continue;
 
     const entry = words.find(
