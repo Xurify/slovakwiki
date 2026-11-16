@@ -118,6 +118,32 @@ describe("the world the cues leave", () => {
       applyCue(start, "marek", { do: "slide", what: "bag", to: "corner" }, studio),
     ).toThrow(CueError);
   });
+
+  it("puts headphones on the head of whoever holds them", () => {
+    const studio = PLACES.studio.set;
+    const start = setUp(startWorld(studio.objects), {
+      objects: [
+        {
+          id: "marek-headphones",
+          kind: "headphones",
+          start: { where: { on: "desk", dx: 38 } },
+        },
+      ],
+    });
+    const held = applyCue(
+      start,
+      "marek",
+      { do: "take", what: "marek-headphones" },
+      studio,
+    );
+    const worn = applyCue(
+      held,
+      "marek",
+      { do: "put", what: "marek-headphones", to: "marek" },
+      studio,
+    );
+    expect(worn.objects["marek-headphones"].where).toEqual({ wear: "marek" });
+  });
 });
 
 describe("cooking with the kitchen's set", () => {

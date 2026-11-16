@@ -55,6 +55,8 @@ export const VERBS = [
   // The body alone.
   "burn",
   "compute",
+  "count",
+  "eat",
   "wag",
   "beckon",
   "wipe",
@@ -483,6 +485,7 @@ export function applyCue(
       return { ...world, seated: on(world.seated, who, false) };
     case "kneel":
     case "compute":
+    case "count":
     case "pat":
       return world;
     case "take": {
@@ -512,6 +515,9 @@ export function applyCue(
     case "put": {
       if (!what || !to) throw new CueError(`${who} put: what, and where?`);
       holds(world, who, cue);
+      if (object?.kind === "headphones" && to === who) {
+        return setObject(world, what, { where: { wear: who } });
+      }
       return setObject(world, what, { where: putDown(plan, world, cue), call: false });
     }
     case "slide": {
@@ -554,6 +560,11 @@ export function applyCue(
     case "show":
       holds(world, who, cue);
       return world;
+    case "eat":
+      // A dog's head down in its bowl: it is empty once they look up.
+      if (!object || object.fill !== "kibble")
+        throw new CueError(`${who} eat: from a bowl of kibble?`);
+      return setObject(world, what!, { fill: undefined });
     case "peel":
       if (!object || object.kind !== "carrot")
         throw new CueError(`${who} peel: a carrot?`);

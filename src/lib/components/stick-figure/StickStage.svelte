@@ -786,7 +786,7 @@
   }
 
   function chairOut(chair: number | undefined): number {
-    return chair === undefined || frame.desk ? 0 : (chairsOut[chair]?.current ?? 0);
+    return chair === undefined || frame.desk || frame.seats[chair]?.fixed ? 0 : (chairsOut[chair]?.current ?? 0);
   }
 
   /** Each chair in or out as `seated` has it, at once. */
@@ -1258,9 +1258,14 @@
     );
   }
 
-  /** What `id` wears: a host whose headphones are off is bareheaded. */
+  /** What `id` wears: a host whose headphones are off is bareheaded, and anyone who put a pair on wears them. */
   function dressOf(id: LessonCharacterId): Dress {
-    const off = Object.values(world?.objects ?? {}).some(
+    const objects = Object.values(world?.objects ?? {});
+    const on = objects.some(
+      ({ kind, where }) => kind === "headphones" && "wear" in where && where.wear === id,
+    );
+    if (on) return { ...dress, headwear: "headphones" };
+    const off = objects.some(
       ({ kind, of, where }) =>
         kind === "headphones" && of === id && !("wear" in where && where.wear === id),
     );

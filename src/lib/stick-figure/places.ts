@@ -295,6 +295,13 @@ const CAFE_SET: PlaceSet = {
   spots: {
     back: { piece: "back", dx: -18, facing: 1 },
     waiter: { x: 767, facing: -1 },
+    // A guest at the counter, across from the waiter, at the elbow room people keep at a counter (about 50 rig units from waiter).
+    counter: { x: 674, facing: 1 },
+    // The next guest, a step back from the one being served.
+    queue: { x: 590, facing: 1 },
+    // The window table's chairs (stage-frame.ts seats them), for "Sadnite si."
+    "chair-l": { chair: 0 },
+    "chair-r": { chair: 1 },
   },
 };
 

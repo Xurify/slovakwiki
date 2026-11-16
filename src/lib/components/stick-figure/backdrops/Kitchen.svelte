@@ -1,11 +1,16 @@
 <script lang="ts">
   import { PARTS } from "$lib/stick-figure/backdrop-parts";
   import { DOORS, HANDLE, doorPoint } from "$lib/stick-figure/door";
+  import { isDark, type SceneMood } from "$lib/stick-figure/scene-mood";
   import Room from "./Room.svelte";
   import WallClock from "./WallClock.svelte";
 
   /** `open`: how far the door has swung in, from 0 shut to 1 wide open against the wall. */
-  let { hour, open = 0 }: { hour: number; open?: number } = $props();
+  let { hour, mood, open = 0 }: { hour: number; mood?: SceneMood; open?: number } =
+    $props();
+
+  const dark = $derived(mood ? isDark(mood.time) : false);
+  const night = $derived(mood?.time === "night");
 
   const door = DOORS.kitchen!;
 
@@ -153,8 +158,17 @@
 </g>
 <path d="M438 192v34" class="stroke-portrait-bib" stroke-width="3" />
 <rect x="352" y="54" width="104" height="80" class="fill-portrait-bib" />
-<rect x="360" y="62" width="88" height="64" class="fill-scene-sky" />
-<path d="M360 126V108Q380 96 404 104Q426 94 448 104V126Z" class="fill-scene-sage" />
+<rect
+  x="360"
+  y="62"
+  width="88"
+  height="64"
+  class={dark ? (night ? "fill-portrait-suit" : "fill-scene-blue/40") : "fill-scene-sky"}
+/>
+<path
+  d="M360 126V108Q380 96 404 104Q426 94 448 104V126Z"
+  class={dark ? "fill-scene-line/70" : "fill-scene-sage"}
+/>
 <path d="M402 62h4v64h-4Z" class="fill-portrait-bib" />
 <path d="M366 120l18-40h6l-18 40ZM414 120l18-40h4l-18 40Z" class="fill-white/25" />
 <path

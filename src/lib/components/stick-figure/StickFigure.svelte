@@ -682,7 +682,8 @@
   {#if picture}
     {@const over =
       pictureAt === "hand"
-        ? { x: rig.leadArm.end.x * side, y: rig.leadArm.end.y - 22 }
+        ? // Above the head and out toward whoever it is shown to: over the hand it covered the face, and the studio's mics drew over it.
+          { x: (rig.head.x + HEAD_RADIUS + 14) * side, y: rig.head.y - HEAD_RADIUS - 20 }
         : { x: rig.head.x * side, y: rig.head.y - HEAD_RADIUS - 23 }}
     <g transform="translate({n(over.x)} {n(over.y)})">
       <g class="animate-rise">

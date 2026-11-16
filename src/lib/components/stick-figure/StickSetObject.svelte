@@ -78,8 +78,8 @@
   /** Degrees a thirsty stem sags at the soil, bends at its knee, and its leaf hangs on past that. */
   const DROOP = { sag: 10, bend: 95, leaf: 40 };
   /** Watered, the plant lifts over this long, each stem a beat after the one before. */
-  const LIFT_MS = 1500;
-  const STAGGER_MS = 140;
+  const LIFT_MS = 4000;
+  const STAGGER_MS = 200;
   const GREEN = { leaf: ["#6f9e80", "#84ab92"], rib: "#4f7a60", stem: "#5f8c6a" };
   const THIRSTY = { leaf: ["#c9b45e", "#d8c06c"], rib: "#97803f", stem: "#8f9a58" };
 

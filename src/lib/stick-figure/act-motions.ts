@@ -326,6 +326,7 @@ export function motionFor(
       const where = { landing: true } as const;
       const sink = heavy && plan ? sinkAt(plan, putDown(plan, world, cue)) : undefined;
       if (sink) return { motion: intoSinkMotion(sink) };
+      if (object?.kind === "headphones" && to === who) return { motion: onHeadMotion() };
       if (object?.kind === "headphones") {
         // Down by both cups, the way they came off, and let go.
         return {
@@ -1252,6 +1253,24 @@ export function motionFor(
         },
       };
     }
+    case "eat": {
+      // Head down in the bowl, small dips as it crunches, then up licking its chops.
+      const keys: MotionKey[] = [{ at: 0 }];
+      for (let dip = 0; dip < 6; dip += 1) {
+        const at = 400 + dip * 320;
+        keys.push({ at, body: { nod: 9, tilt: dip % 2 ? 30 : 24, lean: 6, look: 1 } });
+      }
+      keys.push({ at: 2400, body: { nod: 9, tilt: 26, lean: 6, look: 1 } }, { at: 2900 });
+      return {
+        motion: {
+          ms: 2900,
+          face: cue.what,
+          takes: 2400,
+          sounds: [600, 1240, 1880].map((at) => ({ at, id: "rattle" as const })),
+          keys,
+        },
+      };
+    }
     case "sniff":
       return {
         motion: {
@@ -1350,6 +1369,29 @@ export function motionFor(
         },
       };
     case "pat": {
+      if (to && to !== who) {
+        // A hand on the other's shoulder, two soft pats, then it rests there a moment.
+        const hand = freeHand(world, who) ?? "lead";
+        const on = { to, dy: -6 };
+        const lifted = { to, dy: -9 };
+        const warm = { brow: 0.4, look: 0.6, tilt: 3 };
+        return {
+          motion: {
+            ms: 1700,
+            face: to,
+            keys: [
+              { at: 0 },
+              { at: 450, ...hands(hand, on), body: warm },
+              { at: 620, ...hands(hand, lifted), body: warm },
+              { at: 780, ...hands(hand, on), body: warm },
+              { at: 940, ...hands(hand, lifted), body: warm },
+              { at: 1100, ...hands(hand, on), body: warm },
+              { at: 1400, ...hands(hand, on), body: warm },
+              { at: 1700 },
+            ],
+          },
+        };
+      }
       // Checking for something, as for a passport: the free hand pats the inside pocket twice, head dipped to look.
       const hand = freeHand(world, who) ?? "lead";
       const pocket = { up: { x: 4, y: 16 } };
@@ -1376,8 +1418,8 @@ export function motionFor(
         motion: {
           ms: 2800,
           face: target,
-          // Standing again by 2800, his gaze stays down: he is still talking to the dog, not an adult at eye level.
-          hold: "line",
+          // Down until their next cue: up again after a few seconds, they rose mid-sentence while still talking to the dog.
+          hold: true,
           keys: [
             { at: 0 },
             {
@@ -1386,11 +1428,10 @@ export function motionFor(
               lead: { to: target, as: "top", dy: -2 },
             },
             {
-              at: 2200,
+              at: 2800,
               body: { bob: 22, lean: 14, tilt: 6, brow: 0.2, look: 1 },
               lead: { to: target, as: "top", dy: -2 },
             },
-            { at: 2800, body: { tilt: 10, nod: 1.5, brow: 0.2, look: 1 } },
           ],
         },
       };
@@ -1414,6 +1455,25 @@ export function motionFor(
           ],
         },
       };
+    }
+    case "count": {
+      // One hand up open at the chest, the other's finger tapping a finger of it per count, eyes on them.
+      const open = {
+        lead: { up: { x: 15, y: 12 } },
+        sign: { lead: "open", rear: "finger" } as const,
+        body: { look: 0.6, nod: 3 },
+      };
+      const keys: MotionKey[] = [{ at: 0 }];
+      for (let tap = 0; tap < 4; tap += 1) {
+        const at = 350 + tap * 380;
+        const finger = { x: 11 + tap * 1.5, y: 9 - tap * 1.6 };
+        keys.push(
+          { at, ...open, rear: { up: { x: finger.x - 2, y: finger.y + 4 } } },
+          { at: at + 180, ...open, rear: { up: finger } },
+        );
+      }
+      keys.push({ at: 2050, ...open }, { at: 2400 });
+      return { motion: { ms: 2400, keys } };
     }
     case "laugh": {
       // Mouth open, head tipped back, the shoulders shaking, a hand to the belly: a still smile did not read as a laugh.
@@ -1732,6 +1792,13 @@ const HEADPHONES_HELD = { lead: { mouth: true, dx: 9, dy: 20 }, both: PAIR } as 
  * the face and down, held by both cups. Set from the lips, so it fits a
  * head on a chair as one standing.
  */
+/** offHeadMotion run backwards: up past the face by both cups, over the head, and settled on the ears. */
+function onHeadMotion(): Motion {
+  const off = offHeadMotion();
+  const keys = off.keys.map((key) => ({ ...key, at: off.ms - key.at })).reverse();
+  return { ms: off.ms, takes: off.ms - (off.takes ?? 0), keys };
+}
+
 function offHeadMotion(): Motion {
   const cups = (lift: number): Pick<MotionKey, Hand> => ({
     lead: { mouth: true, dx: 8.3, dy: -9.4 - lift },
