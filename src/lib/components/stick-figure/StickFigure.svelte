@@ -519,6 +519,7 @@
       <StickDog
         {characterId}
         {pose}
+        {sit}
         ball={held?.id === "ball" || hands.lead?.kind === "ball"}
       />
     {:else}

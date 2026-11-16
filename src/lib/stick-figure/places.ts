@@ -256,8 +256,8 @@ const HOME_SET: PlaceSet = {
     "kneel-by-dog": { x: 355, facing: -1 },
     // At the window, looking out: the dog under the sill, the one waiting with it beside.
     window: { x: 235, facing: -1 },
-    // On his bed under the sill, facing the left pane: from there a look at the window reads as looking out, not at whoever stands at the window spot.
-    "dog-bed": { x: 132, facing: -1 },
+    // On his bed under the sill, turned up toward the glass.
+    "dog-bed": { x: 166, facing: 1 },
     "window-dog": { x: 118, facing: -1 },
     "by-sofa": { piece: "by-sofa", dx: 0, facing: -1 },
     // The dog eating: just right of the bowl, facing it, so its head is down in it.

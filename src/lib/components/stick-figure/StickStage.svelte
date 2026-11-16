@@ -2355,7 +2355,9 @@
                   held={acted ? undefined : heldBy(characterId)}
                   doing={acts[characterId]}
                   hands={handsOf(characterId)}
-                  seated={seated[characterId] !== undefined}
+                  seated={seated[characterId] !== undefined ||
+                    (Boolean(LOOKS[characterId].dog) &&
+                      (world?.seated?.includes(characterId) ?? false))}
                   arrived={revealed}
                   out={chairOut(perched[characterId])}
                   atTable={perched[characterId] !== undefined}

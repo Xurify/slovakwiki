@@ -568,9 +568,10 @@ const waiting: ListeningChapter = {
   id: `${PREFIX}window`,
   stage: "home",
   // Back from the square: the lead on its peg again, and his dinner in the bowl.
-  // Bobík has been on his bed under the window all evening, watching the street.
+  // Bobík has sat on his bed under the window all evening, watching the street.
   setup: {
     spots: { bobik: "dog-bed" },
+    seated: ["bobik"],
     state: {
       lead: { where: { on: "pegs", dx: 0 }, clipped: false },
       bowl: { fill: "soup" },
@@ -600,7 +601,7 @@ const waiting: ListeningChapter = {
       ["Bobík? ", PAUSE, "Tento haf je iný. Je tichý."],
       "Bobík? This woof is different. It's quiet.",
       {
-        act: [{ do: "go", to: "window", on: "before" }],
+        act: [{ do: "go", to: "rug-left", on: "before" }],
         to: "Bobík",
       },
     ),
@@ -682,7 +683,10 @@ const waiting: ListeningChapter = {
       { to: "Bobík" },
     ),
     line("bobik-woof-glad", "Bobík", [HAPPY, "Haf! Haf!"], "Woof! Woof!", {
-      act: [{ do: "wag", on: "start" }],
+      act: [
+        { do: "stand", on: "before" },
+        { do: "wag", on: "start" },
+      ],
     }),
   ],
   checks: [
@@ -744,8 +748,8 @@ const waiting: ListeningChapter = {
 const home: ListeningChapter = {
   id: `${PREFIX}home`,
   stage: "home",
-  // Where the last scene left them: Bobík still at the window, Robo beside him.
-  setup: { spots: { bobik: "dog-bed", robo: "window" } },
+  // Told Marek is coming, Bobík has got off his bed to wait by the door.
+  setup: { spots: { bobik: "dog-spot", robo: "rug-mid-right" } },
   titleSk: "Stojeden",
   title: "A hundred and one",
   lines: [
