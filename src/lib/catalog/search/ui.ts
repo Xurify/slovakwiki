@@ -30,7 +30,7 @@ export const searchKindLabels: Record<SearchDocKind, string> = {
   pronunciation: "Pronunciation",
   case: "Case",
   lesson: "Lesson",
-  listening: "Listening",
+  listening: "Episode",
   practice: "Practice",
 };
 

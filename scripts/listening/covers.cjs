@@ -1,7 +1,7 @@
 // @ts-nocheck: Playwright is not a dependency of this repo (see scripts/stage-review/README.md),
 // and most of this runs inside the page.
 // Usage (dev server running, Playwright on NODE_PATH; docs/listening-authoring.md §5):
-//   node scripts/listening/covers.cjs [--only <slug>]           every cover, to static/listening/covers/
+//   node scripts/listening/covers.cjs [--only <slug>]           every cover, to static/episodes/covers/
 //   … --only <slug> --every 1500 --out <dir> [--segment <titleSk>] [--x 0.6]
 //                                     a labelled contact sheet of the segment, one frame every 1.5 s
 //   … --only <slug> --at <ms> --out <dir> [--x 0.6]             one trial still, at full size
@@ -20,9 +20,7 @@ for (let i = 2; i < process.argv.length; i++) {
 if ((args.at || args.every) && !(args.only && args.out)) {
   throw new Error("--at and --every try moments out: give --only <slug> and --out <dir>");
 }
-const OUT = args.out
-  ? path.resolve(args.out)
-  : path.join(ROOT, "static/listening/covers");
+const OUT = args.out ? path.resolve(args.out) : path.join(ROOT, "static/episodes/covers");
 
 const episodes = JSON.parse(
   execFileSync(

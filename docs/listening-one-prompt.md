@@ -138,8 +138,8 @@ What went wrong, why, and where the fix lives now. The left column is what to lo
 4. `bun scripts/audio/upload.ts -- --lessons-only`. Commit `content/audio/manifest.json`, `mouth.json`, `runtime-index.json`.
 5. Update the stage snapshot (`bunx vitest run src/lib/stick-figure/scenes.snapshot.test.ts -u`) once the clips exist, since their timings are in it. Read the diff for the new segments: who points, who walks, what comes out.
 6. `bun run format`, `bun run lint`, `bun run typecheck`, `bunx vitest run`, `bun run index:search`.
-7. Play every segment on `/listening/<slug>`, the page learners use, at 390px and desktop, light and dark: mouths on the words, one mouth per line, props only when meant, faces to the right person, transitions said. Not on `/dev/scenes`: that is a different player, without the episode's segment cues, Pause at questions or transcript, so a segment can pass there and fail on the page.
-8. Open the PR. QA links to `/listening/<slug>` on the preview and says, per segment by its number and title, what to watch, plus a **Listen back, a person's call** list: every directed line (sigh, chuckle, unsure, remembering), any new voice, any clip kept without a passing verify, and each lip-sync score far under 80% with why it stands.
+7. Play every segment on `/episodes/<slug>`, the page learners use, at 390px and desktop, light and dark: mouths on the words, one mouth per line, props only when meant, faces to the right person, transitions said. Not on `/dev/scenes`: that is a different player, without the episode's segment cues, Pause at questions or transcript, so a segment can pass there and fail on the page.
+8. Open the PR. QA links to `/episodes/<slug>` on the preview and says, per segment by its number and title, what to watch, plus a **Listen back, a person's call** list: every directed line (sigh, chuckle, unsure, remembering), any new voice, any clip kept without a passing verify, and each lip-sync score far under 80% with why it stands.
 
 ## 5. Critics: someone else reads it first
 

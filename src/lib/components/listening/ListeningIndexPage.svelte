@@ -14,7 +14,7 @@
 <main class="py-12 pb-20 max-[600px]:py-8">
   <PageShell class="max-w-[1040px]">
     <header class="max-w-xl">
-      <h1 class="text-balance">Listening</h1>
+      <h1 class="text-balance">Episodes</h1>
 
       <Lead class="text-pretty">
         Short stories in simple Slovak, acted out on a small stage. Listen first, answer

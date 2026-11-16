@@ -20,7 +20,7 @@
 <main class="py-10 pb-20 max-[600px]:py-8">
   <PageShell class="max-w-[720px]">
     <nav class="mb-4 flex flex-wrap gap-2 text-xs text-slate-500" aria-label="Breadcrumb">
-      <TextLink href="/listening">Listening</TextLink>
+      <TextLink href="/episodes">Episodes</TextLink>
       <span aria-hidden="true">/</span>
       <span>Episode {episode.number}</span>
     </nav>

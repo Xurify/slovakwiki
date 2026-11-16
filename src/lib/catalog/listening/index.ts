@@ -31,12 +31,12 @@ export const episodeBySlug = new Map(
 );
 
 export function episodePath(episode: Pick<ListeningEpisode, "slug">): string {
-  return `/listening/${episode.slug}`;
+  return `/episodes/${episode.slug}`;
 }
 
 /** A still of the episode's own stage, from `scripts/listening/covers.cjs`. */
 export function episodeCoverSrc(episode: Pick<ListeningEpisode, "slug">): string {
-  return `/listening/covers/${episode.slug}.webp`;
+  return `/episodes/covers/${episode.slug}.webp`;
 }
 
 export function episodeLines(episode: ListeningEpisode): DialogueTurn[] {

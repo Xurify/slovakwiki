@@ -51,7 +51,7 @@ describe("listening episodes", () => {
       if (episode.practiceSetId) {
         expect(practiceSetById.has(episode.practiceSetId)).toBe(true);
       }
-      expect(episodePath(episode)).toBe(`/listening/${episode.slug}`);
+      expect(episodePath(episode)).toBe(`/episodes/${episode.slug}`);
     }
   });
 
