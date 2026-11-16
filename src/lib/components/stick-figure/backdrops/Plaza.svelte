@@ -60,6 +60,14 @@
   /** The café's terrace under its awning: a table with a chair either side. */
   const TABLES = [606, 646];
   const BOLLARDS = [258, 308];
+  /** How deep the pavement runs from the houses: past the bin's and the tables' feet, short of the fountain's. */
+  const KERB = 18;
+  /** The pavement's slabs: two rows, the far one shallower, their joints half a slab apart. */
+  const SLAB = { row: 226 + 8, width: 22 };
+  const slabJoints = Array.from({ length: 46 }, (_, index) => {
+    const x = -10 + index * SLAB.width;
+    return `M${x} 226V${SLAB.row}M${x + SLAB.width / 2} ${SLAB.row}V${226 + KERB}`;
+  }).join("");
   /**
    * The gate's clock face: a short thick hour hand and a long thin minute
    * hand, so half past eleven does not read as one straight stroke.
@@ -134,44 +142,21 @@
 <path d="M{clock.x} {clock.y}L{hands.hour.x} {hands.hour.y}" class="stroke-scene-line" stroke-width="2.6" stroke-linecap="round" />
 <circle cx={clock.x} cy={clock.y} r="1.6" class="fill-scene-line" />
 
-<!-- The square: authentic Bratislava Old Town sidewalk slabs along the burgher houses, solid granite curb, then granite cobblestones. -->
-<!-- 1. Sidewalk: large rectangular granite slabs from y=226 to y=247 -->
-<rect x="-10" y="226" width="980" height="21" class="fill-[#d9e1e6]" />
-<g class="fill-[#e4ebf0]">
-  {#each [115, 195, 275, 355, 435, 515, 595, 675, 755, 835, 915] as x (x)}
-    <rect {x} y="226" width="40" height="10.5" />
-  {/each}
-  {#each [95, 175, 255, 335, 415, 495, 575, 655, 735, 815, 895] as x (x)}
-    <rect {x} y="236.5" width="40" height="10.5" />
-  {/each}
-</g>
-<path d="M-10 236.5H970" class="stroke-scene-line/30" stroke-width="0.8" />
+<!--
+  The square: grey granite, a smooth pavement along the houses that the street
+  furniture stands on, a kerb's drop, then setts laid in fans. The fountain,
+  the bench and the tree stand on the setts, just past the kerb.
+-->
+<rect x="-10" y="226" width="980" height="84" class="fill-scene-steel-light" />
+<rect x="-10" y="226" width="980" height={KERB} class="fill-scene-cool" />
 <path
-  d={Array.from({ length: 25 }, (_, i) => `M${-10 + i * 40} 226v10.5`).join('')}
-  class="stroke-scene-line/25"
-  stroke-width="0.8"
+  d="M-10 {SLAB.row}H970{slabJoints}"
+  class="stroke-scene-line/12"
+  fill="none"
+  stroke-width="1"
 />
-<path
-  d={Array.from({ length: 25 }, (_, i) => `M${10 + i * 40} 236.5v10.5`).join('')}
-  class="stroke-scene-line/25"
-  stroke-width="0.8"
-/>
-
-<!-- 2. Solid Granite Curb (Obrubník) at y=247 -->
-<rect x="-10" y="247" width="980" height="2" class="fill-white/80" />
-<rect x="-10" y="247" width="980" height="0.8" class="fill-white" />
-<rect x="-10" y="249" width="980" height="2.5" class="fill-scene-steel-dark/50" />
-<path
-  d={Array.from({ length: 33 }, (_, i) => `M${-10 + i * 30} 247v4.5`).join('')}
-  class="stroke-scene-line/75"
-  stroke-width="1.0"
-/>
-<!-- Curb cast shadow onto cobbles -->
-<rect x="-10" y="251.5" width="980" height="1.8" class="fill-scene-line/30" />
-
-<!-- 3. Cobblestone Plaza Roadway Base -->
-<rect x="-10" y="251.5" width="980" height="58.5" class="fill-[#c7d1d6]" />
-<Cobbles from={251} to={310} />
+<rect x="-10" y={226 + KERB} width="980" height="2.5" class="fill-scene-line/25" />
+<Cobbles from={226 + KERB + 2.5} />
 <FloorShade />
 
 <StreetLamp lamp={PARTS.plaza.lamp} />
