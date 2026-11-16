@@ -795,8 +795,10 @@ export function motionFor(
       const tilt = board ? 22 : kind === "can" ? 40 : 70;
       // The spout just over the near side of the opening, so the jug itself stays outside the pot, at the chest rather than the face.
       // A board stays in both hands, the other one under it tipping with it.
+      // A can's spout reaches in over the middle of a plant's soil; a jug's lip stays at the near side of the opening.
+      const over = kind === "can" ? 1 : -2;
       const spout = (turn: number, dy: number) => ({
-        ...hands(hand, { to, as: "top", ...aim(kind, turn, -2, dy) }),
+        ...hands(hand, { to, as: "top", ...aim(kind, turn, over, dy) }),
         turn: { [hand]: turn },
         ...(board
           ? {
@@ -807,7 +809,8 @@ export function motionFor(
             }
           : {}),
       });
-      const high = board ? -2 : -4;
+      // A can is raised to the chest so the arm reaches out over a low plant pot instead of tipping it at the hip.
+      const high = board ? -2 : kind === "can" ? -9 : -4;
       // Over the rim, not over the pot: a board held out leans the cook less than a jug does.
       const lean = board ? 2 : 6;
       // Off a board, long enough to see the pieces slide along it and drop in.

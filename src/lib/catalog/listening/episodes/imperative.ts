@@ -297,6 +297,7 @@ const KITCHEN_ACTS: Record<string, Cue[]> = {
   // Called out as she opens the door, so the room is not silent while she comes in. Mária wipes her hands and nods.
   "anna-good-evening": [
     { do: "enter", to: "inside", on: "start" },
+    { who: "maria", do: "look", to: "anna", on: "start" },
     { who: "maria", do: "wipe", on: "start" },
     { who: "maria", do: "nod", on: "večer" },
   ],
@@ -372,6 +373,8 @@ const KITCHEN_ACTS: Record<string, Cue[]> = {
   // read as a handshake, blade first.
   "maria-smaller-pieces": [
     { do: "wag", on: "nie" },
+    // Marek, out of the way by the sink, watches the lesson too.
+    { who: "marek", do: "look", to: "carrot", on: "kúsky" },
     { do: "go", to: "board-across" },
     { who: "anna", do: "go", to: "board-back", on: "kúsky" },
     { do: "take", what: "knife" },
@@ -552,8 +555,8 @@ const kitchen: ListeningChapter = {
       line(
         "maria-fill-pot",
         "Mária",
-        ["Hej, ten. ", mark("Nalej"), " do neho vodu a ", mark("daj"), " ho na sporák."],
-        "Yes, that one. Pour water into it and put it on the stove.",
+        ["Hej, ten. ", mark("Napusti"), " doň vodu a ", mark("daj"), " ho na sporák."],
+        "Yes, that one. Fill it with water and put it on the stove.",
         { to: "Marek" },
       ),
       line(
@@ -777,6 +780,8 @@ const TABLE_ACTS: Record<string, Cue[]> = {
   "marek-shes-coming": [
     { do: "hangup", what: "phone", on: "čau" },
     { do: "put", what: "phone", to: "phone", on: "príde" },
+    { who: "anna", do: "look", to: "marek", on: "príde" },
+    { who: "maria", do: "look", to: "marek", on: "príde" },
   ],
   "anna-we-will-wait": [{ do: "put", what: "spoon-l", to: "bowl-l", on: "start" }],
   "maria-then-wait": [
@@ -991,9 +996,9 @@ const help: ListeningChapter = {
         PAUSE,
         "No nič. ",
         PAUSE,
-        "Marek, pamätáš si, čo ti včera všetko hovorila Mária?",
+        "Marek, pamätáš si, čo nám včera hovorila Mária?",
       ],
-      "As always. Anyway. Marek, do you remember everything Mária told you yesterday?",
+      "As always. Anyway. Marek, do you remember what Mária told us yesterday?",
       { to: "Marek" },
     ),
     line(
@@ -1416,8 +1421,17 @@ const help: ListeningChapter = {
       line(
         "marek-hungry-again",
         "Marek",
-        [HAPPY, "Mňam. ", PAUSE, "Už som zase hladný."],
-        "Yum. I'm hungry again already.",
+        [
+          HAPPY,
+          "Pokojne ",
+          mark("jedzte"),
+          STOP,
+          PAUSE,
+          "Mňam. ",
+          PAUSE,
+          "Už som zase hladný.",
+        ],
+        "Go ahead and eat… Yum. Now I'm hungry again.",
       ),
       { ask: ASK_NECAKAJTE, picks: ["necakajte", NO_PICK] },
     ),
@@ -1536,9 +1550,9 @@ const help: ListeningChapter = {
         "Marek",
         [
           mark("Hoď"),
-          ", ",
+          " mrkvu, ",
           mark("sadnite"),
-          ", ",
+          " si, ",
           mark("nečakajte"),
           STOP,
           PAUSE,
@@ -1546,7 +1560,7 @@ const help: ListeningChapter = {
           PAUSE,
           "Skoro.",
         ],
-        "Hoď, sadnite, nečakajte… Got it! Almost.",
+        "Throw the carrots, sit down, don't wait… Got it! Almost.",
       ],
     ),
     ...ending(
@@ -1677,6 +1691,9 @@ const OUTRO_ACTS: Record<string, Cue[]> = {
   // Back to his chair while she turns to the listeners.
   "anna-water-yours-listeners": [
     { who: "marek", do: "sit", to: "desk-right", on: "start" },
+    // The headphones back on before the sign-off, as every other studio scene ends.
+    { who: "marek", do: "take", what: "headphones" },
+    { who: "marek", do: "put", what: "headphones", to: "marek" },
   ],
   // They wave together once; then the yawn from the start of the show, and Anna laughs at it.
   "marek-bye": [
