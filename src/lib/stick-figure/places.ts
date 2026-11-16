@@ -248,6 +248,8 @@ const HOME_SET: PlaceSet = {
   spots: {
     // Beside the rail, facing it, to take the lead down: a step short, so the reach goes up and out to it.
     pegs: { piece: "pegs", dx: -26, facing: 1 },
+    // The same reach from the room side, for someone coming from the rug while the dog waits under the rail.
+    "pegs-right": { piece: "pegs", dx: 26, facing: -1 },
     // Past each edge of what the widest stage shows, to walk on from.
     "off-left": { x: -80, facing: 1 },
     "off-right": { x: 820, facing: -1 },
@@ -274,7 +276,8 @@ const HOME_SET: PlaceSet = {
     "by-sofa": { piece: "by-sofa", dx: 16, facing: -1 },
     // The dog eating: just left of the bowl, facing it, so its head is down in it and its tail inside a phone's stage.
     "bowl-dog": { piece: "by-sofa", dx: -16, facing: 1 },
-    "bowl-mat-dog": { piece: "bowl-mat", dx: -16, facing: 1 },
+    // Further back at the mat's bowl, so the nose is over it and the front paws stop short of it.
+    "bowl-mat-dog": { piece: "bowl-mat", dx: -25, facing: 1 },
     // Beside the bag by the window, to reach down into it.
     "window-bag": { piece: "window-bag", dx: 30, facing: -1 },
     // By the right curtain, facing the glass: someone looking out from here leaves the couple outside in view.
@@ -402,9 +405,10 @@ const PLAZA_SET: PlaceSet = {
   objects: [],
   spots: {
     // The one holding the lead, the dog a lead's length ahead, and whoever greets the dog facing it.
-    walker: { x: 400, facing: 1 },
-    "walked-dog": { x: 480, facing: 1 },
-    greeter: { x: 538, facing: -1 },
+    // The walker stands right of the pharmacy's lettering (x 365 to 417), so his head never hides it.
+    walker: { x: 440, facing: 1 },
+    "walked-dog": { x: 520, facing: 1 },
+    greeter: { x: 578, facing: -1 },
     // The edges, past what the widest stage shows, to walk on from.
     "off-left": { x: 40, facing: 1 },
     "off-right": { x: 1000, facing: -1 },
@@ -721,8 +725,8 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
         [590, 222, 32, 18],
         [630, 222, 32, 18],
       ),
-      onSet(WORDS.pes, ["dog"], [440, 200, 60, 40]),
-      onSet(WORDS.robot, ["robot"], [380, 120, 40, 110]),
+      onSet(WORDS.pes, ["dog"], [480, 200, 60, 40]),
+      onSet(WORDS.robot, ["robot"], [420, 120, 40, 110]),
     ],
     sounds: ["murmur", "birds", "tram"],
     set: PLAZA_SET,
