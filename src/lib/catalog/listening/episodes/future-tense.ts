@@ -730,7 +730,7 @@ const six: ListeningChapter = {
   title: "At six",
   setup: {
     // At six Dunčo is already at the window, looking out: the clue Domo has to read.
-    spots: { dog: "window-dog", robot: "rug-mid" },
+    spots: { dog: "dunco-window", robot: "rug-mid" },
     // Back from the park: the lead on its peg again.
     state: { lead: { where: { on: "pegs", dx: 0 }, clipped: false } },
   },
@@ -767,7 +767,7 @@ const six: ListeningChapter = {
       ),
     ],
     {
-      "dunco-whines-at-six": [{ do: "face", to: "off-left", on: "before" }],
+      "dunco-whines-at-six": [{ do: "look", to: "okno", on: "before" }],
       "domo-ill-give-dinner": [{ do: "go", to: "window", on: "dunčo" }],
       "domo-not-even-the-ball": [
         { do: "offer", what: "ball", to: "dog", on: "loptičku" },
@@ -968,7 +968,7 @@ const atWindow: ListeningChapter = {
       ),
     ],
     {
-      "dunco-whines-yes": [{ do: "face", to: "off-left", on: "before" }],
+      "dunco-whines-yes": [{ do: "look", to: "okno", on: "before" }],
       // Off to his bowl, still where Domo put it this morning, and his head goes down into it.
       "dunco-eats-bark": [
         { do: "go", to: "rug-left", on: "end" },
@@ -1157,16 +1157,14 @@ const monday: ListeningChapter = {
     {
       "domo-six-lets-go-window": [
         { do: "go", to: "window", on: "oknu" },
-        { who: "dog", do: "go", to: "window-dog", on: "oknu" },
+        { who: "dog", do: "go", to: "dunco-window", on: "oknu" },
       ],
       "marek-good-evening-home": [
         { do: "enter", to: "inside", on: "before" },
         { do: "go", to: "rug-right" },
         { do: "wave", on: "ahojte" },
       ],
-      "domo-today-he-will-come": [
-        { who: "dog", do: "face", to: "off-left", on: "start" },
-      ],
+      "domo-today-he-will-come": [{ who: "dog", do: "look", to: "okno", on: "start" }],
       // The case goes down so both hands are free, and he gets down to the dog's height as it arrives.
       "marek-missed-you-too": [
         { do: "put", what: "suitcase", to: "by-sofa", on: "dunčo" },

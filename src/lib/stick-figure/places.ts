@@ -255,6 +255,8 @@ const HOME_SET: PlaceSet = {
     // At the window, looking out: the dog under the sill, the one waiting with it beside.
     window: { x: 235, facing: -1 },
     "window-dog": { x: 118, facing: -1 },
+    // Dunčo by his bed under the window, in frame on a phone, looking up at the glass.
+    "dunco-window": { x: 128, facing: 1 },
     "by-sofa": { piece: "by-sofa", dx: 0, facing: -1 },
     // Beside the bag by the window, to reach down into it.
     "window-bag": { piece: "window-bag", dx: 30, facing: -1 },
