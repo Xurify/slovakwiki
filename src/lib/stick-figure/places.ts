@@ -189,7 +189,7 @@ const KITCHEN_SET: PlaceSet = {
     // Short of the counter's end, to set something on it: further left, a resting hand is at the end chair's back; further right, a head at the sink's.
     "counter-end": { piece: "counter", dx: -67, facing: 1 },
     // At the stove's left, facing the towel on the oven door.
-    "by-towel": { piece: "stove", dx: -24, facing: 1 },
+    "by-towel": { piece: "stove", dx: -29, facing: 1 },
     sink: { piece: "counter", dx: -34, facing: 1 },
     // Where the pot comes out of the cupboard under the sink.
     cupboard: { piece: "counter", dx: -36, facing: 1 },
@@ -203,9 +203,9 @@ const KITCHEN_SET: PlaceSet = {
     // At the stove from the counter's side, far enough back that a jug or shaker held over the pot is in front of the chest, not the face.
     "pot-left": { piece: "stove", dx: -30, facing: 1 },
     // Close in at the stove's left, to set the big pot on the hob by both handles.
-    "hob-near": { piece: "stove", dx: -16, facing: 1 },
+    "hob-near": { piece: "stove", dx: -26, facing: 1 },
     // In front of the pot on the hob, just right of its middle, to hand something to whoever is at pot-left: from her place the two arms met across the pot at head height.
-    "at-stove": { piece: "stove", dx: 5, facing: -1 },
+    "at-stove": { piece: "stove", dx: 10, facing: -1 },
     // Mária's place, at the side counter by the stove, facing the room.
     cook: { piece: "side", dx: -10, facing: -1 },
     "seat-l": { chair: 0 },
@@ -804,7 +804,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
         of: ["studio-mug-0", "studio-mug-1", "studio-mug-2"],
         ofKind: "cup",
       },
-      onSet(WORDS.krhla, ["can"], [704, 222, 40, 24]),
+      onSet(WORDS.krhla, ["can"], [698, 222, 40, 24]),
       // A scene's own plate on the desk, there only while one is.
       onSet(WORDS.tanier, ["plate"], [600, 204, 30, 6]),
       onSet(WORDS.diktafon, ["recorder"], [500, 196, 8, 6]),
@@ -844,12 +844,12 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
         {
           id: "can",
           kind: "can",
-          start: { where: { on: "corner", dx: 15 }, fill: "water" },
+          start: { where: { on: "corner", dx: 12 }, fill: "water" },
         },
         { id: "plant", kind: "plant", start: { where: { on: "corner", dx: 0 } } },
       ],
       spots: {
-        plant: { piece: "corner", dx: -21, facing: 1 },
+        plant: { piece: "corner", dx: 36, facing: -1 },
         "desk-left": { chair: 0 },
         "desk-right": { chair: 1 },
         // The same door as the kitchen's: in on its latch side, then past it to push it to.
