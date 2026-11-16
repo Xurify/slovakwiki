@@ -1,70 +1,104 @@
 <script lang="ts">
+  import { onMount } from "svelte";
+
   import LessonDoneScreen from "$lib/components/lessons/LessonDoneScreen.svelte";
   import LessonFeedbackBar from "$lib/components/lessons/LessonFeedbackBar.svelte";
   import LessonInteraction from "$lib/components/lessons/LessonInteraction.svelte";
+  import LessonPlayerFooter from "$lib/components/lessons/LessonPlayerFooter.svelte";
+  import LessonStage from "$lib/components/lessons/LessonStage.svelte";
+  import LessonStepTeach from "$lib/components/lessons/LessonStepTeach.svelte";
   import LessonStorySettings from "$lib/components/lessons/LessonStorySettings.svelte";
   import SessionChrome from "$lib/components/learning/SessionChrome.svelte";
-  import LessonPlayerFooter from "$lib/components/lessons/LessonPlayerFooter.svelte";
-  import LessonStepTeach from "$lib/components/lessons/LessonStepTeach.svelte";
-  import { lessonSteps } from "$lib/learning/lesson-steps";
-  import { onMount } from "svelte";
+  import { eyebrowMutedClass } from "$lib/components/ui/system-ui";
+  import { splitEmphasis } from "$lib/components/practice/practice-feedback-ui";
   import {
     emptyPracticeState,
     markLessonComplete,
     readPracticeState,
     writePracticeState,
   } from "$lib/components/practice/practice-state";
-  import type { Lesson } from "$lib/learning/types";
   import type { LessonGradeResult } from "$lib/components/lessons/lesson-review";
   import { lessonTracks, lessonsForTrack } from "$lib/catalog/lessons";
   import { practiceSetForLesson } from "$lib/catalog/practice";
-  import { unlockSfx } from "$lib/audio/sfx";
+  import { playAnswerSfx, unlockSfx } from "$lib/audio/sfx";
   import {
-    hasPendingStoryAudio,
-    primeStoryAudio,
-    unlockStoryAudio,
-  } from "$lib/lesson-story/story-audio";
+    ChoiceOptions,
+    choiceIndexFromKeyboardEvent,
+    isSayChoiceCorrect,
+  } from "$lib/learning/exercises";
+  import { lessonChapters, lessonSteps } from "$lib/learning/lesson-steps";
+  import type { DialogueTurn, Lesson } from "$lib/learning/types";
+  import {
+    STORY_PREFS_CHANGE_EVENT,
+    getStoryShowEnglish,
+  } from "$lib/lesson-story/prefs";
+  import { hasPendingStoryAudio, primeStoryAudio } from "$lib/lesson-story/story-audio";
+  import type { Scene } from "$lib/stick-figure/scene-line";
 
   let {
     lesson,
     keyPhraseAudioSrcs = {},
     exerciseOptionAudioSrcs = {},
     sceneAudioSrcs = {},
+    stage,
+    thingWords = {},
   }: {
     lesson: Lesson;
     keyPhraseAudioSrcs?: Record<string, string>;
     exerciseOptionAudioSrcs?: Record<string, string>;
     sceneAudioSrcs?: Record<string, string>;
+    /** The lesson's dialogue on the stick-figure stage, when it has one. */
+    stage?: Scene;
+    thingWords?: Record<string, { href?: string; src?: string }>;
   } = $props();
+
+  /** At Alex's line: what the learner picks from, and how the line goes on once they have. */
+  interface Turn {
+    go: () => void;
+    line: DialogueTurn;
+    missed: string | null;
+    picked: string | null;
+  }
 
   let phase = $state<"play" | "done">("play");
   /** Furthest step reached; `reviewIndex` is set while looking at an earlier one. */
   let stepIndex = $state(0);
   let reviewIndex = $state<number | null>(null);
   let answers = $state<Record<string, LessonGradeResult>>({});
-  let frontierTeachPlayed = $state(false);
   let canSubmit = $state(false);
   let submitNonce = $state(0);
-  let lastStepId = "";
   let practiceState = $state(emptyPracticeState());
   let hydrated = $state(false);
   let playerRoot: HTMLDivElement | undefined = $state();
-  let teachStoryComplete = $state(false);
-  let teachChoiceOpen = $state(false);
-  let teachAdvanceSignal = $state(0);
+  let sceneStage = $state<ReturnType<typeof LessonStage>>();
+  /** The learner has touched the page, so a chapter's lines may start on their own. */
+  let activated = $state(false);
+  /** The scene step on screen has started and played to its end. */
+  let sceneStarted = $state(false);
+  let sceneDone = $state(false);
+  let turn = $state<Turn | null>(null);
+  let showEnglish = $state(false);
 
-  const steps = $derived(lessonSteps(lesson));
+  const steps = $derived(lessonSteps(lesson, Boolean(stage)));
+  const chapters = $derived(lessonChapters(lesson, steps));
   const step = $derived(steps[stepIndex]);
   const gradeResult = $derived(step ? (answers[step.id] ?? null) : null);
   const reviewing = $derived(reviewIndex !== null);
   const viewIndex = $derived(reviewIndex ?? stepIndex);
   const viewStep = $derived(steps[viewIndex]);
   const viewResult = $derived(viewStep ? (answers[viewStep.id] ?? null) : null);
+  const chapterTitle = $derived(
+    chapters.find(
+      (chapter) => viewIndex >= chapter.start && viewIndex < chapter.start + chapter.length,
+    )?.title,
+  );
   const practiceSet = $derived(practiceSetForLesson(lesson.id));
   const backHref = $derived(`/lessons/${lesson.track}`);
   const trackTitle = $derived(
     lessonTracks.find((track) => track.id === lesson.track)?.title ?? lesson.track,
   );
+  const played = $derived(viewStep?.kind === "scene" || viewStep?.kind === "finale");
+  const missParts = $derived(turn?.missed ? splitEmphasis(turn.missed) : []);
 
   const nextLesson = $derived.by((): Lesson | null => {
     const siblings = lessonsForTrack(lesson.track);
@@ -89,6 +123,7 @@
 
   onMount(() => {
     practiceState = readPracticeState(localStorage);
+    showEnglish = getStoryShowEnglish() === "on";
     hydrated = true;
 
     // Controls play or replace a blocked line themselves (Next, Listen, say-choice).
@@ -97,6 +132,7 @@
 
     function onGesture(event: Event): void {
       unlockSfx();
+      activated = true;
 
       const target = event.target;
       const onControl = target instanceof Element && target.closest(controls);
@@ -105,14 +141,20 @@
       primeStoryAudio();
     }
 
+    function onPrefsChange(): void {
+      showEnglish = getStoryShowEnglish() === "on";
+    }
+
     for (const type of gestures) {
       window.addEventListener(type, onGesture, { passive: true });
     }
+    window.addEventListener(STORY_PREFS_CHANGE_EVENT, onPrefsChange);
 
     return () => {
       for (const type of gestures) {
         window.removeEventListener(type, onGesture);
       }
+      window.removeEventListener(STORY_PREFS_CHANGE_EVENT, onPrefsChange);
     };
   });
 
@@ -148,47 +190,89 @@
     persist(markLessonComplete(readPracticeState(localStorage), lesson.id));
   }
 
-  function resetStepUi(): void {
-    canSubmit = false;
-    frontierTeachPlayed = false;
-    teachChoiceOpen = false;
-    teachAdvanceSignal = 0;
+  /** Line ids of the lesson's dialogue as indexes into the stage's lines. */
+  function stageIndexes(lines: readonly DialogueTurn[]): number[] {
+    return lines.flatMap((line) => {
+      const index = lesson.scene.findIndex((turn) => turn.id === line.id);
+      return index < 0 ? [] : [index];
+    });
   }
 
-  $effect(() => {
-    const stepId = step?.id ?? "";
+  /** Play the scene step on screen: the chapter's lines, or the whole scene at the end. */
+  function playScene(): void {
+    const current = viewStep;
+    if (!current || (current.kind !== "scene" && current.kind !== "finale")) return;
 
-    if (step?.kind === "teach") {
-      if (lastStepId === stepId) return;
-      lastStepId = stepId;
-      teachStoryComplete = step.scene.length === 0;
-      teachAdvanceSignal = 0;
+    const lines = current.kind === "scene" ? current.lines : lesson.scene;
+    sceneStarted = true;
+    sceneDone = false;
+    turn = null;
+    sceneStage?.run(stageIndexes(lines), {
+      // A replay looks back: the learner's lines are said without stopping for them.
+      holds: (index) => !reviewing && Boolean(lesson.scene[index]?.sayChoices),
+      onturn: (index, go) => {
+        const line = lesson.scene[index];
+        if (!line) return go();
+        turn = { go, line, missed: null, picked: null };
+      },
+      ondone: () => {
+        sceneDone = true;
+      },
+    });
+  }
+
+  function pickLine(id: string | null): void {
+    if (!turn?.line.sayChoices || !id) return;
+
+    turn.picked = id;
+    if (isSayChoiceCorrect(id, turn.line.sayChoices)) {
+      const { go } = turn;
+      turn = null;
+      playAnswerSfx("correct");
+      sceneStage?.react("nod");
+      go();
       return;
     }
 
-    lastStepId = stepId;
-    teachStoryComplete = true;
-    teachChoiceOpen = false;
-  });
+    const choice = turn.line.sayChoices.choices.find((option) => option.id === id);
+    playAnswerSfx("incorrect");
+    if (choice?.label) sceneStage?.slip(choice.label);
+    turn.missed =
+      choice?.whyWrong?.trim() || "Not that line: pick the reply that matches what you mean.";
+  }
+
+  /** Into step `index`: a scene starts on its own once the learner has touched the page. */
+  function enter(): void {
+    sceneStage?.stop();
+    canSubmit = false;
+    sceneStarted = false;
+    sceneDone = false;
+    turn = null;
+    if (activated && played && !reviewing) queueMicrotask(playScene);
+  }
 
   function advance(): void {
+    const from = steps[stepIndex];
     if (stepIndex >= steps.length - 1) {
+      sceneStage?.stop();
       persistLessonComplete();
       phase = "done";
       return;
     }
 
     stepIndex += 1;
-    resetStepUi();
+    reviewIndex = null;
+    const to = steps[stepIndex];
+    if (from?.kind === "check" && to && to.chapter !== from.chapter) sceneStage?.cheer();
+    enter();
   }
 
   function restart(): void {
     answers = {};
     reviewIndex = null;
     stepIndex = 0;
-    lastStepId = "";
-    resetStepUi();
     phase = "play";
+    enter();
   }
 
   function reopenStep(index: number): void {
@@ -197,10 +281,8 @@
   }
 
   function showStep(index: number): void {
-    if (!reviewing && step?.kind === "teach" && teachStoryComplete) {
-      frontierTeachPlayed = true;
-    }
     reviewIndex = index >= stepIndex ? null : Math.max(index, 0);
+    enter();
   }
 
   function goBack(): void {
@@ -214,21 +296,17 @@
   function onFooterPrimary(): void {
     if (!step) return;
 
-    if (step.kind === "teach") {
-      if (!teachStoryComplete) {
-        const replayBlockedClip = hasPendingStoryAudio();
-        unlockStoryAudio();
-        if (replayBlockedClip) return;
-
-        teachAdvanceSignal += 1;
+    if (step.kind === "scene" || step.kind === "finale") {
+      if (!sceneStarted) {
+        activated = true;
+        playScene();
         return;
       }
-
       advance();
       return;
     }
 
-    if (gradeResult) {
+    if (step.kind === "teach" || gradeResult) {
       advance();
       return;
     }
@@ -239,13 +317,16 @@
   function onGraded(result: LessonGradeResult): void {
     if (step) answers[step.id] = result;
     canSubmit = false;
+    sceneStage?.react(result.correct ? "nod" : "think");
   }
 
   const footerLabel = $derived.by(() => {
     if (!step) return "Continue";
-    if (step.kind === "teach") {
-      return teachStoryComplete ? "Continue" : "Next";
+    if (step.kind === "scene" || step.kind === "finale") {
+      if (!sceneStarted) return "Play";
+      return step.kind === "finale" ? "Finish" : "Continue";
     }
+    if (step.kind === "teach") return "Continue";
     if (step.exercise.type === "personal") return "I said it";
     if (gradeResult) return "Continue";
     return "Check";
@@ -253,7 +334,9 @@
 
   const footerEnabled = $derived.by(() => {
     if (!step) return false;
-    if (step.kind === "teach") return !teachChoiceOpen;
+    if (step.kind === "finale") return !sceneStarted || sceneDone;
+    if (step.kind === "scene") return !turn;
+    if (step.kind === "teach") return true;
     if (gradeResult) return true;
     if (step.exercise.type === "personal") return true;
     return canSubmit;
@@ -268,7 +351,19 @@
   }
 
   function onWindowKeydown(event: KeyboardEvent): void {
-    if (phase !== "play" || event.key !== "Enter") return;
+    if (phase !== "play") return;
+
+    if (turn) {
+      const index = choiceIndexFromKeyboardEvent(event);
+      const choice = index === null ? undefined : turn.line.sayChoices?.choices[index];
+      if (choice) {
+        event.preventDefault();
+        pickLine(choice.id);
+      }
+      return;
+    }
+
+    if (event.key !== "Enter") return;
     if (event.shiftKey || event.metaKey || event.ctrlKey || event.altKey) return;
     if (event.repeat || event.isComposing || isNativeEnterTarget(event.target)) return;
 
@@ -306,10 +401,12 @@
         class="mb-3"
         activeIndex={stepIndex}
         {backHref}
+        chapters={stage ? chapters : undefined}
         closeLabel="Close lesson"
+        complete={phase === "done"}
         onselect={phase === "done" ? reopenStep : showStep}
         progressLabel="Lesson steps"
-        subtitle={trackTitle}
+        subtitle={stage && phase === "play" ? chapterTitle : trackTitle}
         title={lesson.title}
         titleTag="h1"
         total={steps.length}
@@ -338,28 +435,87 @@
     <div
       class="min-h-0 flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-400 scrollbar-track-transparent"
     >
+      {#if stage}
+        <div class="mx-auto w-full max-w-[640px] px-4 pt-5 sm:px-8 sm:pt-6">
+          <LessonStage
+            bind:this={sceneStage}
+            captions={played}
+            compact={!played}
+            scene={stage}
+            {showEnglish}
+            {thingWords}
+          />
+        </div>
+      {/if}
+
       {#if viewStep}
         {#key viewStep.id}
-          {#if viewStep.kind === "teach" && reviewing}
-            <LessonStepTeach
-              review
-              title={viewStep.beat.title}
-              teach={viewStep.beat.teach}
-              scene={viewStep.scene}
-              audioSrcs={teachAudioSrcs}
-              lessonId={lesson.id}
-            />
+          {#if viewStep.kind === "scene" || viewStep.kind === "finale"}
+            <div class="mx-auto w-full max-w-[640px] px-4 pt-2 pb-8 sm:px-8">
+              {#if turn?.line.sayChoices}
+                <div class="animate-rise">
+                  <p class={eyebrowMutedClass}>Your turn: what does Alex say?</p>
+
+                  <ChoiceOptions
+                    choices={turn.line.sayChoices.choices}
+                    bind:selectedId={() => turn?.picked ?? null, pickLine}
+                    submitted={false}
+                    wrongChoiceId={turn.missed ? turn.picked : null}
+                    variant="cards"
+                  />
+
+                  {#if missParts.length}
+                    <p
+                      class="m-0 mt-3 text-sm leading-relaxed text-pretty text-rose-800"
+                      role="status"
+                    >
+                      {#each missParts as part, index (`${part.type}-${index}-${part.value}`)}
+                        {#if part.type === "em"}
+                          <strong class="font-semibold">{part.value}</strong>
+                        {:else if part.type === "i"}
+                          <em>{part.value}</em>
+                        {:else}
+                          {part.value}
+                        {/if}
+                      {/each}
+                    </p>
+                  {/if}
+                </div>
+              {:else if !sceneStarted && reviewing}
+                <button
+                  class="mt-2 cursor-pointer border-0 bg-transparent p-0 text-sm font-semibold text-blue-700 underline underline-offset-4 hover:text-blue-900"
+                  type="button"
+                  onclick={playScene}
+                >
+                  Play it again
+                </button>
+              {:else if !sceneStarted}
+                <p class="m-0 text-slate-600">
+                  {#if viewStep.kind === "finale"}
+                    The whole scene from the start. This time you are Alex: it stops at
+                    each of your lines.
+                  {:else if viewIndex === 0}
+                    Watch what happens. When it is Alex's turn, you choose Alex's words.
+                  {:else}
+                    The scene goes on.
+                  {/if}
+                </p>
+              {:else if sceneDone}
+                <button
+                  class="mt-2 cursor-pointer border-0 bg-transparent p-0 text-sm font-semibold text-blue-700 underline underline-offset-4 hover:text-blue-900"
+                  type="button"
+                  onclick={playScene}
+                >
+                  Play it again
+                </button>
+              {/if}
+            </div>
           {:else if viewStep.kind === "teach"}
             <LessonStepTeach
-              review={frontierTeachPlayed}
               title={viewStep.beat.title}
               teach={viewStep.beat.teach}
               scene={viewStep.scene}
               audioSrcs={teachAudioSrcs}
-              lessonId={lesson.id}
-              advanceSignal={teachAdvanceSignal}
-              bind:storyComplete={teachStoryComplete}
-              bind:choiceOpen={teachChoiceOpen}
             />
           {:else}
             <div class="mx-auto w-full max-w-[640px] px-4 py-8 sm:px-8 sm:py-10">

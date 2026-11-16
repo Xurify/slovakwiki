@@ -3,6 +3,7 @@
 
   import SfxMuteToggle from "$lib/audio/SfxMuteToggle.svelte";
   import type { AnswerGrade } from "$lib/components/practice/practice-state";
+  import type { LessonChapter } from "$lib/learning/lesson-steps";
   import { iconButtonClass, iconButtonToneClass } from "$lib/components/ui/system-ui";
 
   /**
@@ -13,6 +14,7 @@
   let {
     activeIndex = 0,
     backHref,
+    chapters,
     backLabel = "Practice",
     closeLabel,
     complete = false,
@@ -30,6 +32,11 @@
     activeIndex?: number;
     backHref?: string;
     backLabel?: string;
+    /**
+     * One piece of the bar per chapter, filling as its steps are done, in
+     * place of one per step: twenty-odd equal dashes read as a long haul.
+     */
+    chapters?: readonly LessonChapter[];
     /** Accessible name of the close link; defaults to "Back to {backLabel}". */
     closeLabel?: string;
     complete?: boolean;
@@ -56,6 +63,11 @@
   const displayIndex = $derived(complete ? total : Math.min(shownIndex + 1, total));
   const correctCount = $derived(
     results.filter((grade) => grade === "correct" || grade === "accents").length,
+  );
+  const chapterAt = $derived(
+    chapters?.findIndex(
+      (chapter) => shownIndex >= chapter.start && shownIndex < chapter.start + chapter.length,
+    ) ?? -1,
   );
   const progressText = $derived(
     complete ? `${correctCount} of ${total} correct` : `${displayIndex} of ${total}`,
@@ -117,7 +129,11 @@
       class="m-0 shrink-0 text-xs font-semibold tabular-nums text-slate-500"
       aria-hidden="true"
     >
-      {displayIndex} / {total}
+      {#if chapters}
+        {complete ? chapters.length : chapterAt + 1} / {chapters.length}
+      {:else}
+        {displayIndex} / {total}
+      {/if}
     </p>
 
     <div class="-mr-1.5 flex shrink-0 items-center gap-0.5">
@@ -129,7 +145,32 @@
     </div>
   </div>
 
-  {#if onselect}
+  {#if chapters}
+    <nav class="flex items-center gap-1.5" aria-label={progressLabel}>
+      {#each chapters as chapter, index (chapter.start)}
+        {@const done = complete
+          ? 1
+          : Math.min(Math.max((activeIndex - chapter.start + 1) / chapter.length, 0), 1)}
+        {@const reached = chapter.start <= activeIndex}
+
+        <button
+          class={segmentButtonClass}
+          type="button"
+          disabled={!reached || !onselect}
+          aria-label="{chapter.title}, part {index + 1} of {chapters.length}"
+          aria-current={index === chapterAt ? "step" : undefined}
+          onclick={() => onselect?.(chapter.start)}
+        >
+          <span class="relative h-1.5 w-full overflow-hidden rounded-full bg-slate-200">
+            <span
+              class="absolute inset-y-0 left-0 rounded-full bg-blue-600 transition-[width] duration-300 ease-out"
+              style:width="{done * 100}%"
+            ></span>
+          </span>
+        </button>
+      {/each}
+    </nav>
+  {:else if onselect}
     <nav class="flex items-center gap-1" aria-label={progressLabel}>
       {#each segments as index (index)}
         {#if index <= activeIndex}

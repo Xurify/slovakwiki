@@ -4,7 +4,7 @@ import { hasAudioClip } from "$lib/catalog/audio/manifest";
 import { resolveDictionaryAudioSrc } from "$lib/catalog/audio/resolve-server";
 import { dictionaryPathForLemmaId } from "$lib/catalog/dictionary/lemma-href";
 import { words } from "$lib/catalog/entries";
-import { lessons } from "$lib/catalog/lessons";
+import { lessonPath, lessons } from "$lib/catalog/lessons";
 import { sceneAudioSrcs, sceneMouthTracks } from "$lib/catalog/lessons/audio";
 import {
   characterIdForSpeaker,
@@ -15,7 +15,7 @@ import {
 import { episodePath, listeningEpisodes } from "$lib/catalog/listening";
 import type { ListeningEpisode } from "$lib/catalog/listening/types";
 import { dialogueSpeakerLabel } from "$lib/components/practice/dialogue-speaker";
-import type { DialogueTurn } from "$lib/learning/types";
+import type { DialogueTurn, Lesson } from "$lib/learning/types";
 import {
   storySettingForLesson,
   type LessonSceneArtId,
@@ -27,6 +27,7 @@ import { directScene, type DirectedLine } from "./scene-direction";
 import { findAsker, findSayings } from "./scene-find";
 import type { FindVoice, Scene, SceneGroup, SceneLine, StagedScene } from "./scene-line";
 import { stageName } from "./stage-name";
+import type { StageSetting } from "./stage-setting";
 import { walkTalk, type Said, type Talk, type TalkNode } from "./talk";
 
 /**
@@ -77,19 +78,38 @@ const LESSON_SETTINGS: Record<string, LessonSceneArtId> = {
   "grammar/byt-present": "registration",
 };
 
+/** The lesson's dialogue on the stage, when someone in it is on stage to say it. */
+export function lessonScene(lesson: Lesson): Scene | undefined {
+  if (!lesson.scene.some((line) => dialogueSpeakerLabel(line.speaker))) return undefined;
+  const { place, placeSk } = storySettingForLesson(lesson.id);
+  return {
+    english: lesson.title,
+    id: lesson.id,
+    ...(placeSk ? { intro: { english: place, slovak: placeSk } } : {}),
+    lines: sceneLines(lesson.scene),
+    name: lesson.scene[0]?.slovak ?? lesson.title,
+    setting: LESSON_SETTINGS[lesson.id] ?? storySettingForLesson(lesson.id).art,
+  };
+}
+
 /** Every lesson whose dialogue has someone on stage. */
 export function lessonScenes(): Scene[] {
-  return lessons
-    .filter((lesson) => lesson.scene.some((line) => dialogueSpeakerLabel(line.speaker)))
-    .map((lesson) => ({
-      english: lesson.title,
-      href: `/lessons/${lesson.id}`,
-      hrefLabel: "Open the lesson",
-      id: lesson.id,
-      lines: sceneLines(lesson.scene),
-      name: lesson.scene[0]?.slovak ?? lesson.title,
-      setting: LESSON_SETTINGS[lesson.id] ?? storySettingForLesson(lesson.id).art,
-    }));
+  return lessons.flatMap((lesson) => {
+    const scene = lessonScene(lesson);
+    return scene
+      ? [{ ...scene, href: lessonPath(lesson), hrefLabel: "Open the lesson" }]
+      : [];
+  });
+}
+
+/** Dictionary link and clip for each thing in the scene's place that has a word. */
+export function placeThingWords(
+  setting: StageSetting,
+): Record<string, { href?: string; src?: string }> {
+  const onStage = new Set(PLACES[setting].things.map((thing) => thing.word));
+  return Object.fromEntries(
+    Object.entries(sceneThingWords()).filter(([word]) => onStage.has(word)),
+  );
 }
 
 /** Each podcast episode's segments, its hosts in the same places throughout. */
