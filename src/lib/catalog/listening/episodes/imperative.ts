@@ -353,19 +353,22 @@ const KITCHEN_ACTS: Record<string, Cue[]> = {
     { do: "take", what: "pot", on: "no" },
     { who: "anna", do: "chop", what: "carrot", on: "start" },
   ],
-  // The pot stands in the sink to fill, so the water is seen going in. Mária lights her burner once the pot is on it, and Marek steps back out of the cooks' way.
+  // The pot stands in the sink to fill, so the water is seen going in.
   "maria-fill-pot": [
     { do: "nod", on: "hej" },
     { who: "marek", do: "put", what: "pot", to: "basin", on: "nalej" },
     { who: "marek", do: "fill", what: "pot" },
-    { who: "marek", do: "take", what: "pot" },
-    { who: "marek", do: "go", to: "hob-near" },
+  ],
+  "marek-full-pot": [{ do: "take", what: "pot", on: "start" }],
+  // Said as he sets off with it. Mária lights her burner once the pot is on it.
+  "maria-dont-spill": [
+    { who: "marek", do: "go", to: "hob-near", on: "start" },
     { who: "marek", do: "put", what: "pot", to: "hob" },
     { do: "switch", what: "stove", to: "on" },
-    { who: "marek", do: "go", to: "aside" },
   ],
-  // She shows the cut, not points at the carrot she stands over.
+  // Marek steps out of the cooks' way while Anna asks; she shows the cut, not points at the carrot she stands over.
   "anna-like-this": [
+    { who: "marek", do: "go", to: "aside", on: "start" },
     { do: "chop", what: "carrot", on: "takto" },
     { who: "maria", do: "look", to: "carrot", on: "takto" },
   ],
@@ -399,13 +402,14 @@ const KITCHEN_ACTS: Record<string, Cue[]> = {
     { do: "go", to: "cook" },
   ],
   "marek-a-little": [{ do: "shake", what: "salt", to: "pot", on: "start" }],
+  // The wag from her own place, clear of him: wagged from the stove beside him, her hand landed on his head. Then she comes for the salt.
   "maria-not-a-little": [
-    { do: "go", to: "at-stove", on: "marek" },
-    { do: "take", what: "salt" },
     { do: "wag", on: "nesyp" },
     { who: "anna", do: "laugh", on: "preboha" },
     { who: "marek", do: "shrug", on: "toľko" },
-    { do: "go", to: "cook", on: "after" },
+    { do: "go", to: "at-stove", on: "toľko" },
+    { do: "take", what: "salt" },
+    { do: "go", to: "cook" },
     { do: "put", what: "salt", to: "salt-place" },
     { who: "marek", do: "go", to: "aside", on: "after" },
   ],
@@ -554,6 +558,19 @@ const kitchen: ListeningChapter = {
         "Yes, that one. Pour water into it and put it on the stove.",
         { to: "Marek" },
       ),
+      line(
+        "marek-full-pot",
+        "Marek",
+        ["Uf", STOP, PAUSE, "s vodou je ešte ťažší!"],
+        "Phew… with the water it's even heavier!",
+      ),
+      line(
+        "maria-dont-spill",
+        "Mária",
+        ["Opatrne, ", mark("nevylej"), " to!"],
+        "Careful, don't spill it!",
+        { to: "Marek" },
+      ),
       line("anna-like-this", "Anna", ["Pani Mária, takto?"], "Mrs. Mária, like this?", {
         to: "Mária",
       }),
@@ -589,7 +606,7 @@ const kitchen: ListeningChapter = {
       line(
         "maria-not-a-little",
         "Mária",
-        [SIGH, "Marek! ", PAUSE, "Preboha, ", mark("nesyp"), " toľko!"],
+        [SURPRISED, "Marek! ", PAUSE, "Preboha, ", mark("nesyp"), " toľko!"],
         "Marek! Good grief, don't pour so much!",
       ),
       line(
@@ -609,7 +626,7 @@ const kitchen: ListeningChapter = {
         "maria-soup-ready",
         "Mária",
         [
-          "Hodinka ubehla. Polievka je hotová. ",
+          "Polievka je hotová. ",
           PAUSE,
           "Marek, ",
           mark("ochutnaj"),
@@ -617,7 +634,7 @@ const kitchen: ListeningChapter = {
           PAUSE,
           "Pozor, je horúca!",
         ],
-        "The hour has gone by. The soup is ready. Marek, taste it. Careful, it's hot!",
+        "The soup is ready. Marek, taste it. Careful, it's hot!",
       ),
       line(
         "marek-burns",
@@ -965,19 +982,20 @@ const help: ListeningChapter = {
       "anna-do-you-remember",
       "Anna",
       [
-        CHUCKLE,
         "Ako vždy. ",
         PAUSE,
-        "No nič. Marek, pamätáš si, čo ti včera všetko hovorila Mária?",
+        "No nič. ",
+        PAUSE,
+        "Marek, pamätáš si, čo ti včera všetko hovorila Mária?",
       ],
       "As always. Anyway. Marek, do you remember everything Mária told you yesterday?",
       { to: "Marek" },
     ),
     line(
-      "marek-lots-of-them",
+      "marek-remember-all",
       "Marek",
-      [SURPRISED, "Ja? ", PAUSE, "Ojoj… ", PAUSE, "bolo toho veľa."],
-      "Me? Uh-oh… there was a lot of it.",
+      ["Jasné, všetko si pamätám! ", PAUSE, "Teda", STOP, PAUSE, "asi."],
+      "Sure, I remember everything! Well… probably.",
     ),
     line(
       "marek-listeners-help-me",
@@ -1005,9 +1023,9 @@ const help: ListeningChapter = {
           PAUSE,
           "Čo mi včera povedala Mária, keď sme robili polievku? ",
           PAUSE,
-          "Hod mrkvu do hrnca, alebo hoď mrkvu do hrnca?",
+          "Hoď mrkvu do hrnca, alebo hoďte mrkvu do hrnca?",
         ],
-        "First: hodiť, to throw. What did Mária tell me yesterday when we were making the soup? Hod mrkvu do hrnca, or hoď mrkvu do hrnca?",
+        "First: hodiť, to throw. What did Mária tell me yesterday when we were making the soup? Hoď mrkvu do hrnca, or hoďte mrkvu do hrnca?",
       ),
       wait: BEAT_MS,
     },
@@ -1023,16 +1041,16 @@ const help: ListeningChapter = {
         choices: [
           {
             id: "hod",
-            label: "Hod mrkvu do hrnca",
-            english: "Throw the carrots in the pot",
-          },
-          {
-            id: "hod-soft",
             label: "Hoď mrkvu do hrnca",
             english: "Throw the carrots in the pot",
           },
+          {
+            id: "hodte",
+            label: "Hoďte mrkvu do hrnca",
+            english: "Throw the carrots in the pot",
+          },
         ],
-        answerId: "hod-soft",
+        answerId: "hod",
         judge: "Anna",
       },
     ),
@@ -1051,17 +1069,16 @@ const help: ListeningChapter = {
         "Hoď, you say? Yes: Anna, throw the carrots in the pot!",
         { to: "Anna" },
       ),
-      { ask: ASK_HOD, picks: ["hod-soft"] },
+      { ask: ASK_HOD, picks: ["hod"] },
     ),
     onPath(
       line(
-        "marek-hod-you-say",
+        "marek-hodte-you-say",
         "Marek",
-        ["Hod, hovoríte? ", PAUSE, "Áno: Anna, hod mrkvu do hrnca!"],
-        "Hod, you say? Yes: Anna, throw the carrots in the pot! (Wrong on purpose.)",
-        { to: "Anna" },
+        ["Hoďte, hovoríte? ", PAUSE, "Dobre: hoďte mrkvu do hrnca!"],
+        "Hoďte, you say? OK: throw the carrots in the pot! (Wrong on purpose: hoďte is for more than one person.)",
       ),
-      { ask: ASK_HOD, picks: ["hod"] },
+      { ask: ASK_HOD, picks: ["hodte"] },
     ),
     {
       ...onPath(
@@ -1080,19 +1097,19 @@ const help: ListeningChapter = {
       line(
         "anna-hod-right",
         "Anna",
-        ["Správne! ", PAUSE, "Hodia, takže ", mark("hoď"), "."],
-        "Right! Hodia (they throw), so hoď.",
+        ["Správne! ", PAUSE, "Mária to povedala len mne, takže ", mark("hoď"), "."],
+        "Right! Mária said it to me alone, so hoď.",
       ),
-      { ask: ASK_HOD, picks: ["hod-soft", NO_PICK] },
+      { ask: ASK_HOD, picks: ["hod", NO_PICK] },
     ),
     onPath(
       line(
         "marek-you-cut-carrots",
         "Marek",
-        ["Ale mrkvu si nakrájala ty."],
-        "But it was you who cut up the carrots.",
+        ["A mrkvu si nakrájala ty, nie?"],
+        "And you were the one who cut up the carrots, right?",
       ),
-      { ask: ASK_HOD, picks: ["hod-soft", NO_PICK] },
+      { ask: ASK_HOD, picks: ["hod", NO_PICK] },
     ),
     onPath(
       line(
@@ -1101,44 +1118,42 @@ const help: ListeningChapter = {
         [CHUCKLE, "Hej. ", PAUSE, "Tie veľké kúsky."],
         "Yeah. Those big pieces.",
       ),
-      { ask: ASK_HOD, picks: ["hod-soft", NO_PICK] },
+      { ask: ASK_HOD, picks: ["hod", NO_PICK] },
     ),
     onPath(
       line(
-        "anna-hod-wrong",
+        "anna-hodte-wrong",
         "Anna",
         [
           "Nesprávne! ",
           PAUSE,
-          "Nie hod, ale ",
-          mark("hoď"),
-          ". ",
+          "Hoďte je pre viacerých. ",
           PAUSE,
-          "Hodia, takže ",
+          "Mária to povedala len mne: ",
           mark("hoď"),
-          ".",
+          " mrkvu do hrnca.",
         ],
-        "Wrong! Not hod, but hoď. Hodia (they throw), so hoď.",
+        "Wrong! Hoďte is for more than one person. Mária said it to me alone: throw the carrots in the pot.",
       ),
-      { ask: ASK_HOD, picks: ["hod"] },
+      { ask: ASK_HOD, picks: ["hodte"] },
     ),
     onPath(
       line(
-        "marek-carrot-throw",
+        "marek-all-three-throw",
         "Marek",
-        [CHUCKLE, "Hod mrkvou", STOP, PAUSE, "To je nejaký nový šport?"],
-        "A carrot throw… Is that some new sport?",
+        ["Škoda. ", PAUSE, "Hádzali by sme mrkvu všetci traja."],
+        "Shame. We'd all three be throwing carrots.",
       ),
-      { ask: ASK_HOD, picks: ["hod"] },
+      { ask: ASK_HOD, picks: ["hodte"] },
     ),
     onPath(
       line(
-        "anna-hod-the-carrots",
+        "anna-thrown-out",
         "Anna",
-        ["Nie, Marek. ", PAUSE, mark("Hoď"), " mrkvu do hrnca."],
-        "No, Marek. Throw the carrots in the pot.",
+        ["A Mária by nás vyhodila z kuchyne."],
+        "And Mária would throw us out of the kitchen.",
       ),
-      { ask: ASK_HOD, picks: ["hod"] },
+      { ask: ASK_HOD, picks: ["hodte"] },
     ),
     {
       ...line(
@@ -1497,7 +1512,7 @@ const help: ListeningChapter = {
       [
         "marek-they-found-me",
         "Marek",
-        [CHUCKLE, "Ja som ich nehľadal. ", PAUSE, "Oni našli mňa!"],
+        ["Ja som ich nehľadal. ", PAUSE, "Oni našli mňa!"],
         "I wasn't looking for them. They found me!",
       ],
       [
@@ -1536,7 +1551,7 @@ const help: ListeningChapter = {
       [
         "anna-enough-salt",
         "Anna",
-        [CHUCKLE, "Soli už bolo dosť."],
+        ["Soli už bolo dosť."],
         "There's been enough salt already.",
       ],
     ),
@@ -1570,12 +1585,12 @@ const help: ListeningChapter = {
       prompt: "Ako to povedala Mária?",
       promptEnglish: "How did Mária say it?",
       choices: [
-        { id: "hod-soft", label: "hoď" },
+        { id: "hod", label: "hoď" },
         {
-          id: "hod",
-          label: "hod",
+          id: "hodte",
+          label: "hoďte",
           whyWrong:
-            "**Hod** is a noun, a throw: that is Marek's new sport. The command has the soft ď: **hodia**, so **hoď**.",
+            "**Hoďte** is for more than one person. Mária said it to Anna alone: **hoď**.",
         },
         {
           id: "hodi",
@@ -1584,10 +1599,10 @@ const help: ListeningChapter = {
             "**Hodí** means she will throw: it says what someone will do, it is not a command.",
         },
       ],
-      answerId: "hod-soft",
+      answerId: "hod",
       feedback: {
         english: "Anna, throw the carrots in the pot.",
-        why: "Anna says **hodia, takže hoď**: drop the ending and keep the soft ď.",
+        why: "Anna says **Mária to povedala len mne, takže hoď**: to one person, no **-te**.",
       },
     },
     {
@@ -1645,8 +1660,11 @@ const OUTRO_ACTS: Record<string, Cue[]> = {
     { do: "laugh", on: "marek" },
     { who: "marek", do: "look", to: "anna", on: "marek" },
     { do: "point", to: "marek", on: "sebe" },
-    { who: "marek", do: "shrug", on: "rastlinke" },
-    { who: "marek", do: "sit", to: "desk-right" },
+  ],
+  "marek-not-asleep": [{ do: "shrug", on: "nespím" }],
+  // Back to his chair while she turns to the listeners.
+  "anna-water-yours-listeners": [
+    { who: "marek", do: "sit", to: "desk-right", on: "start" },
   ],
   // They wave together once; then the yawn from the start of the show, and Anna laughs at it.
   "marek-bye": [
@@ -1728,12 +1746,19 @@ const outro: ListeningChapter = {
       line(
         "anna-water-yours-too",
         "Anna",
+        [CHUCKLE, "Marek, to ", mark("povedz"), " sebe, nie rastlinke!"],
+        "Marek, tell that to yourself, not the plant!",
+      ),
+      line(
+        "marek-not-asleep",
+        "Marek",
+        ["Veď ja už nespím!"],
+        "But I'm not asleep any more!",
+      ),
+      line(
+        "anna-water-yours-listeners",
+        "Anna",
         [
-          CHUCKLE,
-          "Marek, to ",
-          mark("povedz"),
-          " sebe, nie rastlinke! ",
-          PAUSE,
           "A vy, milí poslucháči, ",
           mark("nezabudnite"),
           ": ",
@@ -1743,7 +1768,7 @@ const outro: ListeningChapter = {
           mark("Majte"),
           " sa pekne!",
         ],
-        "Marek, tell that to yourself, not the plant! And you, dear listeners, don't forget: water your plants! Take care!",
+        "And you, dear listeners, don't forget: water your plants! Take care!",
       ),
       line("marek-bye", "Marek", ["Ahojte!"], "Bye!"),
     ],
@@ -1808,7 +1833,7 @@ const outro: ListeningChapter = {
       gap: "A vy, milí poslucháči, nezabudnite: ___ si rastlinky!",
       prompt: "Ktoré slovo povedala Anna poslucháčom?",
       promptEnglish: "Which word did Anna say to the listeners?",
-      replayLineId: `${PREFIX}anna-water-yours-too`,
+      replayLineId: `${PREFIX}anna-water-yours-listeners`,
       choices: [
         { id: "polejte", label: "polejte" },
         {
@@ -1851,7 +1876,7 @@ export const imperativeEpisode: ListeningEpisode = {
     { slovak: "polievka", english: "soup" },
     { slovak: "soľ", english: "salt" },
     { slovak: "hrniec", english: "pot" },
-    { slovak: "Choď!", english: "Go!" },
+    { slovak: "Ochutnaj!", english: "Taste it!" },
     { slovak: "Nezabudnite!", english: "Don't forget!" },
   ],
   chapters: [intro, kitchen, table, help, outro],
