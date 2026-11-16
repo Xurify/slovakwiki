@@ -533,6 +533,8 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
         "back-right": { x: 550, facing: -1 },
         // Halfway after the ball, short of the bench, so he is still in sight as he runs.
         "far-right": { x: 566, facing: 1 },
+        // A step right of the lamp post, turned to park-left, to take something from whoever stands there.
+        "park-take": { x: 400, facing: -1 },
       },
     },
   },
@@ -901,7 +903,8 @@ export function withProps(
   things: readonly SceneThing[],
   objects: Readonly<Record<string, string>>,
 ): SceneThing[] {
-  const ofKind = (kind: string) => Object.keys(objects).filter((id) => objects[id] === kind);
+  const ofKind = (kind: string) =>
+    Object.keys(objects).filter((id) => objects[id] === kind);
   const own = things.map((thing) => {
     const ids = thing.ofKind ? ofKind(thing.ofKind) : [];
     return ids.length ? { ...thing, of: [...(thing.of ?? []), ...ids] } : thing;
