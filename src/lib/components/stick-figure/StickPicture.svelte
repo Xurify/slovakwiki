@@ -58,8 +58,8 @@
       {/if}
     {/each}
   {:else if clock}
-    <!-- A clock on a phone's screen, so the hands show the time said. -->
-    <rect width={W} height={H} class="fill-portrait-ink" />
+    <!-- A clock app's dial, so the hands show the time said; StickFigure draws it large in a bubble of its own. -->
+    <circle cx="13" cy="8.5" r="8.4" class="fill-portrait-ink" />
     <circle cx="13" cy="8.5" r="7.4" class="fill-white" />
     {#each [0, 1, 2, 3] as quarter (quarter)}
       <path

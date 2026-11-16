@@ -1547,7 +1547,8 @@ export function motionFor(
     }
     case "look": {
       // A wall clock hangs over everyone's head: looked at level, the head stayed on whoever stood under it.
-      const up = to === "hodiny" ? { tilt: -12, nod: -2 } : {};
+      // At -12° the head still read as level next to a street clock on its pole.
+      const up = to === "hodiny" ? { tilt: -20, nod: -3 } : {};
       return {
         motion: {
           ms: 1400,
