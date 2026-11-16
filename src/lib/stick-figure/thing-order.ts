@@ -84,9 +84,9 @@ export function clipBox(
  * what stands in front of a bigger thing (the fountain before a house, the
  * TV in the bookcase) gets its tap.
  */
-export function tapOrder<T extends { box: ThingBox; thing: Pick<SceneThing, "of" | "behind"> }>(
-  hits: readonly T[],
-): T[] {
+export function tapOrder<
+  T extends { box: ThingBox; thing: Pick<SceneThing, "of" | "behind"> },
+>(hits: readonly T[]): T[] {
   const layer = ({ thing }: T) => (thing.behind ? 0 : thing.of ? 2 : 1);
   return hits
     .slice()

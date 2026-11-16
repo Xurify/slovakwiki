@@ -116,8 +116,16 @@ describe("tapOrder", () => {
   });
   it("lays the set's things over the backdrop's, and the smaller over the bigger", () => {
     const order = tapOrder([
-      { id: "stolicka", box: { x: 800, y: 220, width: 20, height: 50 }, thing: thing(false, ["stool-1"]) },
-      { id: "pult", box: { x: 782, y: 196, width: 150, height: 82 }, thing: thing(false, ["bar"]) },
+      {
+        id: "stolicka",
+        box: { x: 800, y: 220, width: 20, height: 50 },
+        thing: thing(false, ["stool-1"]),
+      },
+      {
+        id: "pult",
+        box: { x: 782, y: 196, width: 150, height: 82 },
+        thing: thing(false, ["bar"]),
+      },
       { id: "polica", box: { x: 800, y: 28, width: 128, height: 104 }, thing: thing() },
       { id: "kolac", box: { x: 843, y: 62, width: 26, height: 32 }, thing: thing() },
     ]).map(({ id }) => id);

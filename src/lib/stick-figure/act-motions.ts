@@ -1987,7 +1987,8 @@ function dogLooksUp(world: World, to: string, plan?: SetPlan): boolean {
   for (let depth = 0; where && "in" in where && depth < 4; depth += 1)
     where = world.objects[where.in]?.where;
   if (where && "on" in where) {
-    const piece = plan?.pieces.find(({ id }) => id === where.on) as { kind?: string } | undefined;
+    const piece = plan?.pieces.find(({ id }) => id === where.on) as
+      { kind?: string } | undefined;
     return piece?.kind !== "floor" && where.on !== "floor";
   }
   return true;

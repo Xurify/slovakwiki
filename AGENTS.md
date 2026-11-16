@@ -80,6 +80,7 @@ Site search loads `/pagefind/` (generated; gitignored under `static/pagefind/`).
 ## Audio (always generate)
 
 Dictionary / lesson / practice / episode **spoken Slovak** needs ElevenLabs MP3s. Do **not** finish lemma, example, lesson, or episode work without generating clips. Search index is not a substitute.
+
 - **NEVER wait or ask confirmation to generate audio.** Whenever Slovak lines or clips are added or modified, immediately run `bun scripts/audio/generate.ts -- --missing-only` and `bun scripts/audio/upload.ts`. Never stop mid-work or ask the user whether to generate audio.
 - After new or changed lemmas, examples, or lesson/episode lines: `bun scripts/audio/generate.ts -- --missing-only` (scope with `--slugs a,b` when you know the slugs).
 - Needs `ELEVENLABS_API_KEY` in `.env`. Commands: [`scripts/README.md`](scripts/README.md) → **audio/**.

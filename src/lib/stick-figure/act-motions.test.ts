@@ -220,7 +220,10 @@ describe("picking something up off the floor", () => {
         pointOf: (name) => (name === "ball" ? ball : undefined),
         meetWith: () => undefined,
       };
-      const rig = solveRig(sampleMotion(motion, motion.takes!, REST_POSE, around, 0).pose, 0);
+      const rig = solveRig(
+        sampleMotion(motion, motion.takes!, REST_POSE, around, 0).pose,
+        0,
+      );
       // Bent at the hip alone, Anna lay all but flat over the ball (future-tense).
       expect(rig.lean).toBeLessThan(x > 30 ? 42 : 30);
       expect(gap(rig.leadArm.end, ball)).toBeLessThan(2);
@@ -259,7 +262,11 @@ describe("pointing past someone", () => {
     const rig = solveRig(sampleMotion(motion, 1000, REST_POSE, around, 0).pose, 0);
     const hand = rig.leadArm.end;
     const shoulder = rig.leadShoulder;
-    return { hand, shoulder, slope: (shoulder.y - hand.y) / Math.abs(hand.x - shoulder.x) };
+    return {
+      hand,
+      shoulder,
+      slope: (shoulder.y - hand.y) / Math.abs(hand.x - shoulder.x),
+    };
   };
 
   it("goes clearly down at a bag on the floor across the room", () => {
@@ -280,7 +287,9 @@ describe("pointing past someone", () => {
     };
     const { hand, shoulder } = aimOf(around, "jahody");
     // Where the line from the shoulder through the hand passes Marek, it is over his head.
-    const yAt = shoulder.y + ((hand.y - shoulder.y) * (marek.x - shoulder.x)) / (hand.x - shoulder.x);
+    const yAt =
+      shoulder.y +
+      ((hand.y - shoulder.y) * (marek.x - shoulder.x)) / (hand.x - shoulder.x);
     expect(yAt).toBeLessThan(marek.top);
   });
 });
@@ -292,4 +301,3 @@ describe("looking out to the listeners", () => {
     expect(motion.keys.at(-1)?.body?.look).toBe(0);
   });
 });
-
