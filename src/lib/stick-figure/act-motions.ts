@@ -1554,16 +1554,15 @@ export function motionFor(
         : to === "hodiny"
           ? { tilt: -12, nod: -2 }
           : {};
+      // "front" is the listeners: a host asking them for help turns the face out to them, not the body.
+      const front = to === "front";
+      const body = front ? { look: 0, brow: 0.3 } : { look: 1, brow: 0.3, ...up };
       return {
         motion: {
           ms: 1400,
-          face: to,
+          face: front ? undefined : to,
           hold: "line",
-          keys: [
-            { at: 0 },
-            { at: 350, body: { look: 1, brow: 0.3, ...up } },
-            { at: 1400, body: { look: 1, brow: 0.3, ...up } },
-          ],
+          keys: [{ at: 0 }, { at: 350, body }, { at: 1400, body }],
         },
       };
     }

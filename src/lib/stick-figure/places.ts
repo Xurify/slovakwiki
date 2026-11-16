@@ -282,6 +282,8 @@ const HOME_SET: PlaceSet = {
     "window-bag": { piece: "window-bag", dx: 30, facing: -1 },
     // By the right curtain, facing the glass: someone looking out from here leaves the couple outside in view.
     "by-window": { x: 258, facing: -1 },
+    // On the shoe mat left of the bag by the door: far enough from by-window to stand beside whoever looks out there.
+    "by-mat": { x: 320, facing: 1 },
     // The hall door opens into the room on hinges at its left, like the kitchen's: in on its latch
     // side, then past it to push it to; leaving, the same spot to pull it open from.
     door: { x: 412, facing: -1 },
@@ -373,6 +375,8 @@ const MARKET_SET: PlaceSet = {
     "counter-near": { piece: "counter", dx: -26, facing: -1 },
     "counter-far": { piece: "counter", dx: 26, facing: -1 },
     aside: { x: 620, facing: 1 },
+    // A step back from the stall, past whoever waits aside, to let them up to the counter.
+    back: { x: 545, facing: 1 },
   },
 };
 
@@ -664,7 +668,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     things: [
       drawn(WORDS.ovocie, [430, 122, 164, 52]),
       drawn(WORDS.zelenina, [736, 114, 84, 60]),
-      // On the selling counter: tento syr, the smoked wheel by the buyer, and tamten, the small oštiepky at the far end.
+      // On the selling counter: tento syr, the cut wheel by the buyer, and tamten, the small wedges at the far end.
       {
         ...drawn(WORDS.syr, [722, 194, 30, 26], [824, 194, 30, 26]),
         twins: { far: 1, near: 0 },

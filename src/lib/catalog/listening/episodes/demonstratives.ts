@@ -42,33 +42,42 @@ const intro: ListeningChapter = {
   id: `${PREFIX}intro`,
   titleSk: "Úvod",
   title: "Hello from the studio",
-  lines: [
-    line(
-      "anna-this-is-podcast",
-      "Anna",
-      ["Ahojte! ", mark("Toto"), " je podcast Slovak Wiki. Ja som Anna."],
-      "Hi! This is the Slovak Wiki podcast. I'm Anna.",
-    ),
-    line("marek-i-am-marek", "Marek", ["A ja som Marek. Ahojte!"], "And I'm Marek. Hi!"),
-    line(
-      "anna-small-topic",
-      "Anna",
-      ["Dnes máme malú tému: ", mark("ten"), ", ", mark("tá"), ", ", mark("to"), "."],
-      "Today we have a small topic: ten, tá, to.",
-    ),
-    line(
-      "marek-not-small",
-      "Marek",
-      ["Malú? ", PAUSE, mark("To"), " nie je malá téma, Anna!"],
-      "Small? That's not a small topic, Anna!",
-    ),
-    line(
-      "anna-recording-at-market",
-      "Anna",
-      ["Dobre, dobre. ", PAUSE, "Dnes nahrávame na trhu. Poďme!"],
-      "OK, OK. Today we're recording at the market. Let's go!",
-    ),
-  ],
+  lines: staged(
+    PREFIX,
+    [
+      line(
+        "anna-this-is-podcast",
+        "Anna",
+        ["Ahojte! ", mark("Toto"), " je podcast Slovak Wiki. Ja som Anna."],
+        "Hi! This is the Slovak Wiki podcast. I'm Anna.",
+      ),
+      line(
+        "marek-i-am-marek",
+        "Marek",
+        ["A ja som Marek. Ahojte!"],
+        "And I'm Marek. Hi!",
+      ),
+      line(
+        "anna-small-topic",
+        "Anna",
+        ["Dnes máme malú tému: ", mark("ten"), ", ", mark("tá"), ", ", mark("to"), "."],
+        "Today we have a small topic: ten, tá, to.",
+      ),
+      line(
+        "marek-not-small",
+        "Marek",
+        ["Malú? ", PAUSE, mark("To"), " nie je malá téma, Anna!"],
+        "Small? That's not a small topic, Anna!",
+      ),
+      line(
+        "anna-recording-at-market",
+        "Anna",
+        ["Dobre, dobre. ", PAUSE, "Dnes nahrávame na trhu. Poďme!"],
+        "OK, OK. Today we're recording at the market. Let's go!",
+      ),
+    ],
+    { "marek-not-small": [{ do: "look", to: "anna", on: "start" }] },
+  ),
   checks: [
     {
       id: `${PREFIX}check-topic`,
@@ -115,35 +124,51 @@ const MARKET_ACTS: Record<string, Cue[]> = {
     { who: "lucia", do: "give", what: "cheese", to: "marek", on: "start" },
     { do: "point", to: "jahody#near", on: "tieto" },
   ],
+  // Served, Marek steps back past Anna, and only then does she step up to the counter: they never cross mid-walk.
   "lucia-strawberries-from": [
+    { who: "marek", do: "go", to: "back", on: "start" },
+    { who: "anna", do: "go", to: "stall" },
     { do: "point", to: "jahody#near", on: "Tieto" },
     { do: "point", to: "jahody#far", on: "Tamtie" },
   ],
-  // Lucia picks up the basket as Anna names the Slovak ones, not before.
+  // The basket waits at the far end, under the Slovak crate: Lucia fetches it as Anna names them, not before.
   "anna-those-please": [
     { do: "point", to: "jahody#far", on: "tamtie" },
-    { who: "lucia", do: "take", what: "basket", on: "tamtie" },
+    { who: "lucia", do: "go", to: "counter-far", on: "tamtie" },
+    { who: "lucia", do: "take", what: "basket" },
+    { who: "lucia", do: "go", to: "behind-counter" },
   ],
-  // Marek is at the stall, between them: the basket comes to Anna through his hands.
-  "lucia-here-you-are": [{ do: "give", what: "basket", to: "marek", on: "páči" }],
-  "marek-anna-always-slovak": [
-    { do: "give", what: "basket", to: "anna", on: "start" },
-    { do: "point", to: "jahody#far", on: "slovenské" },
+  "lucia-here-you-are": [{ do: "give", what: "basket", to: "anna", on: "páči" }],
+  // The note comes out of her pocket as she hears the price.
+  "lucia-eight-euros": [{ who: "anna", do: "take", what: "money", on: "eur" }],
+  "anna-thanks-goodbye": [
+    { do: "give", what: "money", to: "lucia", on: "páči" },
+    { who: "lucia", do: "pocket", what: "money", on: "Ďakujeme" },
+    { do: "wave", on: "dovidenia" },
+    { who: "marek", do: "wave", on: "dovidenia" },
+  ],
+  "lucia-goodbye": [{ do: "wave", on: "start" }],
+  // Off by the left edge, Marek first as he is nearer it, Anna after him with her strawberries.
+  "marek-to-yours-car": [
+    { who: "marek", do: "leave", to: "left", on: "tebe" },
+    { who: "anna", do: "leave", to: "left", on: "Ráno" },
   ],
 };
 
 const market: ListeningChapter = {
   id: `${PREFIX}market`,
   stage: "market",
-  // Marek buys first, so he stands at the counter, across from Lucia.
+  // Marek buys first, so he stands at the counter, across from Lucia; then he makes room for Anna.
   cast: ["Anna", "Marek", "Lucia"],
   titleSk: "Na trhu",
   title: "At the market: this one or that one?",
   setup: {
     objects: [
-      { id: "basket", kind: "basket", start: { where: { on: "counter", dx: -12 } } },
+      // The Slovak strawberries, at the far end of the counter by the cheaper cheese, under their crate.
+      { id: "basket", kind: "basket", start: { where: { on: "counter", dx: 28.5 } } },
       // The front one of tamten's pile at the counter's far end (StickSet draws the pile).
-      { id: "cheese", kind: "cheese", start: { where: { on: "counter", dx: 38 } } },
+      { id: "cheese", kind: "cheese", start: { where: { on: "counter", dx: 43.5 } } },
+      { id: "money", kind: "money", start: { where: { pocket: "anna" } } },
     ],
     spots: { lucia: "behind-counter", marek: "stall", anna: "aside" },
   },
@@ -226,8 +251,8 @@ const market: ListeningChapter = {
       line(
         "anna-thanks-goodbye",
         "Anna",
-        ["Ďakujeme, dovidenia!"],
-        "Thank you, goodbye!",
+        ["Nech sa páči. Ďakujeme, dovidenia!"],
+        "Here you are. Thank you, goodbye!",
       ),
       line("lucia-goodbye", "Lucia", ["Dovidenia!"], "Goodbye!"),
       // His car and keys wait at Anna's, which is why the key is looked for there.
@@ -325,34 +350,57 @@ const market: ListeningChapter = {
 };
 
 const HOME_ACTS: Record<string, Cue[]> = {
-  // The key is in the bag by the window; Marek takes her to mean the one by them.
+  // Her flat, so she comes in first with her own keys (the door is unlocked with them) and pockets them;
+  // she stops on the shoe mat, he on the rug. The car key stays in the bag until "Aha, mám ho".
+  "anna-now-at-home": [
+    { do: "enter", to: "by-mat", on: "start" },
+    { do: "pocket", what: "anna-keys" },
+  ],
+  "marek-where-is-key": [
+    { do: "enter", to: "rug-mid", on: "before" },
+    { do: "look", to: "pohovka", on: "Nikde" },
+  ],
+  "anna-car-or-flat": [{ who: "marek", do: "look", to: "anna", on: "start" }],
+  // Anna stands on the window side of him, so her points at the bag by the window pass nobody.
   "anna-in-that-bag": [{ do: "point", to: "taska#far", on: "tej" }],
+  // He takes her to mean the one between them, by the door.
   "marek-in-this-one": [{ do: "point", to: "taska#near", on: "tejto" }],
   "anna-in-that-one-window": [
-    // He sets off on her "Nie", so the key is in his hand by the time she has named the window.
+    // He sets off on her "Nie", so he is at the bag by the time she has named the window.
     { who: "marek", do: "go", to: "window-bag", on: "start" },
     { do: "point", to: "taska#far", on: "tamtej" },
     { do: "point", to: "okno", on: "okne" },
   ],
-  // At the bag he finds the key before he says so, then steps aside to the curtain, out of
-  // the way of the couple outside, and looks out at them.
+  // The line starts on the take, so "Aha, mám ho" is his hand coming up with the key, not after a wait.
+  // Then he steps aside to the curtain, out of the way of the couple outside, and looks out at them.
   "marek-got-it-who-is-man": [
-    { do: "take", what: "keys", on: "before" },
+    { do: "take", what: "keys", on: "start" },
     { do: "raise", what: "keys", on: "ho" },
     { who: "marek", do: "go", to: "by-window", on: "A" },
     { do: "look", to: "okno", on: "vonku" },
     { do: "point", to: "muz", on: "muž" },
   ],
-  // She joins him at the window to look out at Mr Novák with him.
+  // Marek stands between her and the glass, so she looks out at Mr Novák rather than pointing through
+  // Marek, then turns to Marek for the reproach.
   "anna-neighbour-you-know-him": [
-    { who: "anna", do: "go", to: "marek", on: "start" },
-    { do: "point", to: "muz", on: "muža" },
+    { do: "look", to: "muz", on: "sused" },
+    { do: "look", to: "marek", on: "Veď" },
   ],
-  "marek-who-is-that-woman": [{ do: "point", to: "zena", on: "žena" }],
-  "anna-dont-lose-this-key": [{ do: "point", to: "keys", on: "kľúč" }],
+  "marek-who-is-that-woman": [
+    { do: "look", to: "muz", on: "start" },
+    { do: "point", to: "zena", on: "žena" },
+  ],
+  "anna-his-sister": [{ who: "marek", do: "look", to: "anna", on: "start" }],
+  "marek-those-people-nice": [{ do: "look", to: "okno", on: "ľudia" }],
+  "anna-dont-lose-this-key": [
+    { who: "marek", do: "look", to: "anna", on: "start" },
+    { do: "point", to: "keys", on: "kľúč" },
+  ],
+  // Anna is nearer the door, so she goes first and Marek follows once she is through: nobody passes anybody.
   "marek-back-to-studio": [
     { do: "pocket", what: "keys", on: "Nebudem" },
-    { who: "marek", do: "go", to: "door", on: "štúdia" },
+    { who: "anna", do: "leave", to: "door", on: "Poďme" },
+    { who: "marek", do: "leave", to: "door" },
   ],
 };
 
@@ -365,9 +413,8 @@ const home: ListeningChapter = {
     objects: [
       { id: "window-bag", kind: "stash", start: { where: { on: "window-bag", dx: 0 } } },
       { id: "keys", kind: "keys", start: { where: { in: "window-bag" } } },
+      { id: "anna-keys", kind: "keys", start: { where: { hand: "anna", side: "lead" } } },
     ],
-    // Marek nearer the bag by the door, so he asks "v tejto?" of the one by him; neither stands in front of it.
-    spots: { anna: "rug-right", marek: "rug-mid" },
   },
   lines: staged(
     PREFIX,
@@ -424,8 +471,8 @@ const home: ListeningChapter = {
       line(
         "marek-who-is-that-woman",
         "Marek",
-        ["Jasné, že ho poznám! ", PAUSE, "A kto je ", mark("tá"), " žena pri ňom?"],
-        "Of course I know him! And who is that woman next to him?",
+        ["Aha, už ho spoznávam! ", PAUSE, "A kto je ", mark("tá"), " žena pri ňom?"],
+        "Oh, now I recognise him! And who's that woman next to him?",
       ),
       line(
         "anna-his-sister",
@@ -567,9 +614,9 @@ const quiz: ListeningChapter = {
       line(
         "marek-never-get-these",
         "Marek",
-        ["Ojoj. ", PAUSE, "Tieto slovíčka mi nikdy nejdú do hlavy."],
-        "Uh-oh. These little words never stick in my head.",
-        { gestures: ["muse", "shrug"] },
+        ["Ojoj. ", PAUSE, "Na trhu mi to išlo, ale na skúške mám vždy trému."],
+        "Uh-oh. It went fine at the market, but tests always make me nervous.",
+        { gestures: ["shrug", "muse"] },
       ),
       line(
         "marek-you-help-me",
@@ -994,7 +1041,13 @@ const quiz: ListeningChapter = {
         ],
       ),
     ],
-    { "anna-now-test-for-you": [{ do: "nod", on: "skúška" }] },
+    {
+      "anna-now-test-for-you": [{ do: "nod", on: "skúška" }],
+      "marek-never-get-these": [{ do: "shrug", on: "Ojoj" }],
+      // He asks the listeners, so he turns his face out to them on "vy".
+      "marek-you-help-me": [{ do: "look", to: "front", on: "vy" }],
+      "anna-you-asked-them": [{ do: "laugh", on: "start" }],
+    },
   ),
   checks: [
     {
@@ -1055,12 +1108,12 @@ const quiz: ListeningChapter = {
 const OUTRO_ACTS: Record<string, Cue[]> = {
   "marek-where-is-that-key": [{ do: "shrug", on: "Kde" }],
   "anna-in-your-pocket": [{ do: "facepalm", on: "Marek" }],
-  // He put it in his pocket at home, on "späť".
-  // The keys are up in his hand while he says "v tomto vrecku", not after it.
+  // He put it in his pocket at home, on "Nebudem". The key comes out as he starts and is up by his face
+  // on "vrecku", the word the joke rests on; Anna looks at it.
   "marek-in-this-pocket": [
-    { do: "pat", on: "start" },
-    { do: "take", what: "keys", on: "Aha", hand: "far" },
-    { do: "raise", what: "keys", on: "tomto" },
+    { do: "take", what: "keys", on: "start", hand: "far" },
+    { do: "raise", what: "keys", on: "vrecku" },
+    { who: "anna", do: "look", to: "keys", on: "tomto" },
   ],
   // Both wave on the goodbye itself, Marek a beat after her, his keys still in his other hand.
   "anna-now-really-bye": [

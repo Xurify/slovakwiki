@@ -402,6 +402,11 @@
         stroke="none"
       />
     {/if}
+  {:else if kind === "money"}
+    <!-- A ten-euro note, red like the real one, a pale window and a value block so it reads as money and not a card. -->
+    <rect x="-5" y="-6" width="10" height="6" rx="0.4" class="fill-scene-red/70" stroke-width="0.5" />
+    <ellipse cx="1.6" cy="-3" rx="1.7" ry="2" class="fill-white/70" stroke="none" />
+    <path d="M-3.6 -4.4h2.4M-3.6 -3h1.8M-3.6 -1.6h2.4" class="stroke-white/80" stroke-width="0.5" />
   {:else if kind === "keys" && flat}
     <circle cx="-1.6" cy="-0.8" r="1.3" fill="none" stroke-width="0.7" />
     <path d="M-0.4 -0.7H3.2M2.2 -0.7V-0.1" class="stroke-scene-honey" stroke-width="1" />
@@ -568,21 +573,14 @@
       <circle cx={x} cy={y} r="0.38" class="fill-scene-line/85" stroke="none" />
     {/each}
   {:else if kind === "cheese"}
-    <!-- One of the small oštiepky on Lucia's counter, at their size: spindle-shaped, smoked, stamped round the middle. -->
+    <!-- One of the small wedges from the far end of Lucia's counter, at their size (StickSet.svelte). -->
     <g transform="scale(1.3)">
-      <path
-        d="M0 -11C2.6 -10.4 3.4 -7.6 3.4 -5.4C3.4 -2.4 2 -0.6 0 0C-2 -0.6 -3.4 -2.4 -3.4 -5.4C-3.4 -7.6 -2.6 -10.4 0 -11Z"
-        class="fill-scene-onion"
-        stroke-width="0.6"
-      />
-      <path d="M1.2 -10.2C3.2 -8 3.2 -2.6 1 -0.6" class="stroke-scene-coffee/30" stroke-width="1" fill="none" />
-      <path
-        d="M-2.6 -7.2l0.9 1.2 0.9 -1.2 0.9 1.2 0.9 -1.2 0.9 1.2 0.9 -1.2M-2.8 -4.4l0.9 1.2 0.9 -1.2 0.9 1.2 0.9 -1.2 0.9 1.2 0.9 -1.2"
-        class="stroke-scene-coffee/50"
-        stroke-width="0.45"
-        fill="none"
-      />
-      <path d="M-1.2 -10.4l1.2 -1.6 1.2 1.6" class="stroke-scene-coffee/70" stroke-width="0.5" fill="none" />
+      <path d="M-4.5 0H4.5V-6Z" class="fill-scene-honey stroke-scene-onion" stroke-width="0.4" />
+      <path d="M-4.5 0H4.5V-6Z" class="fill-white/35" stroke="none" />
+      <path d="M4.5 0V-6" class="stroke-scene-onion" stroke-width="1.1" />
+      <circle cx="1.6" cy="-1.6" r="0.8" class="fill-scene-onion/55" stroke="none" />
+      <circle cx="-1.3" cy="-0.8" r="0.5" class="fill-scene-onion/55" stroke="none" />
+      <circle cx="3" cy="-3.6" r="0.55" class="fill-scene-onion/55" stroke="none" />
     </g>
   {:else if kind === "book"}
     <rect x="-4" y="-11.5" width="9" height="11.5" rx="1" class="fill-scene-honey" />
