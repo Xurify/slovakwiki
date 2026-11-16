@@ -806,6 +806,27 @@ export const THING_WORDS = {
     stems: ["vesiak"],
     word: "vešiak",
   },
+  formular: {
+    english: "form",
+    gender: "masculine-inanimate",
+    id: "formular",
+    stems: ["formular"],
+    word: "formulár",
+  },
+  tanier: {
+    english: "plate",
+    gender: "masculine-inanimate",
+    id: "tanier",
+    stems: ["tanier"],
+    word: "tanier",
+  },
+  vaha: {
+    english: "scale",
+    forms: ["vaha", "vahy", "vahe", "vahu", "vahou"],
+    gender: "feminine",
+    id: "vaha",
+    word: "váha",
+  },
   zrkadlo: {
     english: "mirror",
     gender: "neuter",

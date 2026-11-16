@@ -582,7 +582,7 @@
           />
         {/each}
         <!-- A shop scale, big enough to weigh a cheese on. -->
-        <g transform="translate(-10 {top}) scale(1.35) translate(0 {-top})">
+        <g transform="translate(-10 {top}) scale(1.35) translate(0 {-top})" data-set-id="{piece.id}-scale">
           <path d="M19 {top}h11" class="stroke-scene-line/25" stroke-width="0.8" />
           <rect x="20" y={top - 9} width="9" height="8" rx="1" class="fill-scene-steel-light" />
           <circle cx="24.5" cy={top - 5} r="2.6" class="fill-white" />

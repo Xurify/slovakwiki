@@ -205,8 +205,8 @@
           stroke-width="0.8"
         />
       {:else if cast.id === "maria"}
-        <!-- rose cardigan open over a white blouse -->
-        <path d="M13 64c2-13 9-19 19-19s17 6 19 19Z" class="fill-rose-500" />
+        <!-- plum cardigan open over a white blouse -->
+        <path d="M13 64c2-13 9-19 19-19s17 6 19 19Z" class="fill-scene-plum" />
         <path d="M26.4 45.4 32 55.2 37.6 45.4Z" class="fill-portrait-bib" />
         <path
           d="M26.4 45.4 32 55.2 37.6 45.4"

@@ -38,19 +38,18 @@ function card(id: string, slovak: string, english: string) {
 
 const PLATE_ACTS: Record<string, Cue[]> = {
   "marek-cake-is-gone": [{ do: "point", to: "plate", on: "preč" }],
-  // He lifts the plate to show it is empty, and sets it down again once Anna has seen it.
-  "marek-brought-cake": [
-    { do: "take", what: "plate", on: "teraz" },
-    { do: "raise", what: "plate", on: "tanier" },
+  // He points at it rather than lifting it: held up at the desk, the plate crossed his mic.
+  "marek-brought-cake": [{ do: "point", to: "plate", on: "tanier" }],
+  "anna-empty-plate-who": [{ do: "look", to: "plate", on: "Prázdny" }],
+  // Her mind made up while he answers: headphones off and down on the desk.
+  "marek-no-time-breakfast": [
+    { who: "anna", do: "take", what: "anna-headphones", on: "Raňajky" },
+    { who: "anna", do: "put", what: "anna-headphones", to: "desk", dx: -38 },
   ],
-  "anna-empty-plate-who": [
-    { do: "point", to: "plate", on: "tanier" },
-    { who: "marek", do: "put", what: "plate", to: "desk", dx: 38, on: "Kto" },
-  ],
-  // Off to the school: she gets up and goes to the door, where the segment back in the studio has her come in.
+  // Off to the school: up, and to the door while she says where she is going.
   "anna-detective-to-school": [
-    { do: "stand", on: "najprv" },
-    { do: "go", to: "door", on: "after" },
+    { do: "stand", on: "detektívka" },
+    { do: "go", to: "door", on: "Najprv" },
   ],
 };
 
@@ -60,7 +59,14 @@ const plate: ListeningChapter = {
   title: "An empty plate",
   // All that is left of the cake: the plate on the desk, crumbs on it.
   setup: {
-    objects: [{ id: "plate", kind: "plate", start: { where: { on: "desk", dx: 38 } } }],
+    objects: [
+      { id: "plate", kind: "plate", start: { where: { on: "desk", dx: 38 } } },
+      {
+        id: "anna-headphones",
+        kind: "headphones",
+        start: { where: { wear: "anna" }, of: "anna" },
+      },
+    ],
   },
   lines: staged(
     PREFIX,
@@ -118,9 +124,9 @@ const plate: ListeningChapter = {
           PAUSE,
           "A o jednej ",
           past("prišla"),
-          " Lucia.",
+          " Lucia z trhu.",
         ],
-        "In the morning Mária came from the school. At noon the waiter came from the café. And at one Lucia came.",
+        "In the morning Mária came from the school. At noon the waiter came from the café. And at one Lucia came from the market.",
       ),
       line(
         "marek-and-you-anna",
@@ -262,7 +268,10 @@ const SCHOOL_ACTS: Record<string, Cue[]> = {
   "anna-did-you-see-cake": [
     { who: "maria", do: "put", what: "form", to: "counter", dx: -10, on: "start" },
   ],
-  "maria-goodbye": [{ do: "wave", on: "dovidenia" }],
+  "maria-goodbye": [
+    { do: "wave", on: "dovidenia" },
+    { who: "anna", do: "leave", to: "left", on: "start" },
+  ],
 };
 
 const school: ListeningChapter = {
@@ -357,8 +366,10 @@ const school: ListeningChapter = {
           " v škole. ",
           PAUSE,
           "Celý deň ",
-          past("som pracovala"),
-          " tu.",
+          past("som"),
+          " tu ",
+          past("pracovala"),
+          ".",
         ],
         "Ten minutes. At half past nine I was already at school. I worked here all day.",
       ),
@@ -458,19 +469,20 @@ const school: ListeningChapter = {
   ],
 };
 
-/** Anna comes in off the street to the counter, where the waiter works. */
+/** Anna comes in off the street to the counter, where the waiter works behind the bar. */
 const CAFE_ACTS: Record<string, Cue[]> = {
   "anna-you-were-in-studio": [
     { do: "enter", from: "off-left", to: "counter", on: "before" },
   ],
+  "anna-poppy-cake-you-too": [{ do: "point", to: "kolac", on: "koláč" }],
 };
 
 const cafe: ListeningChapter = {
   id: `${PREFIX}cafe`,
   stage: "cafe",
-  titleSk: "Pozeral na koláč",
+  titleSk: "Pozeral sa na koláč",
   title: "The waiter: he was looking at the cake",
-  setup: { spots: { waiter: "waiter" } },
+  setup: { spots: { waiter: "back" } },
   lines: staged(
     PREFIX,
     [
@@ -515,7 +527,7 @@ const cafe: ListeningChapter = {
           "A Marek ",
           past("sedel"),
           " pri stole a ",
-          past("pozeral"),
+          past("pozeral sa"),
           " na koláč.",
         ],
         "I did. It was on the table, still whole. And Marek was sitting at the table, looking at the cake.",
@@ -523,7 +535,7 @@ const cafe: ListeningChapter = {
       line(
         "anna-looked-at-cake",
         "Anna",
-        [past("Pozeral"), " na koláč?"],
+        [past("Pozeral sa"), " na koláč?"],
         "Looking at the cake?",
       ),
       line(
@@ -548,7 +560,7 @@ const cafe: ListeningChapter = {
           past("som nejedol"),
           ". ",
           PAUSE,
-          "Koláčov mám tu dosť.",
+          "Koláčov tu mám dosť.",
         ],
         "Me? No! I ate nothing. I've got plenty of cakes here.",
       ),
@@ -580,7 +592,7 @@ const cafe: ListeningChapter = {
       promptEnglish: "What was Marek doing at noon?",
       replayLineId: `${PREFIX}waiter-marek-looked-at-cake`,
       choices: [
-        { id: "looked", label: "Sedel pri stole a pozeral na koláč." },
+        { id: "looked", label: "Sedel pri stole a pozeral sa na koláč." },
         {
           id: "ate",
           label: "Jedol koláč.",
@@ -597,7 +609,7 @@ const cafe: ListeningChapter = {
       answerId: "looked",
       feedback: {
         english: "Marek was sitting at the table, looking at the cake.",
-        why: "Third person needs no **som**: **Marek sedel a pozeral**.",
+        why: "Third person needs no **som**: **Marek sedel a pozeral sa**.",
       },
     },
     {
@@ -629,127 +641,158 @@ const cafe: ListeningChapter = {
   ],
 };
 
+/** Lucia has had her umbrella since one, fetched from the studio; it hangs closed from her hand. */
+const MARKET_ACTS: Record<string, Cue[]> = {
+  "lucia-only-half": [{ do: "shrug", on: "polovica" }],
+
+  "lucia-marek-alone-offered": [{ do: "shrug", on: "ponáhľala" }],
+  "anna-not-hungry-back-to-studio": [
+    { do: "wave", on: "Maj" },
+    { who: "lucia", do: "wave", on: "Maj" },
+    { do: "leave", to: "left", on: "Teraz" },
+  ],
+};
+
 const market: ListeningChapter = {
   id: `${PREFIX}market`,
   stage: "market",
   titleSk: "Už len polovica",
   title: "Lucia: only half of it",
-  lines: [
-    card("card-market-half-past-four", "Trh. Pol piatej.", "The market. Half past four."),
-    line(
-      "anna-question-for-lucia",
-      "Anna",
-      ["Ahoj, Lucia. Mám pre teba otázku."],
-      "Hi, Lucia. I have a question for you.",
-      { to: "Lucia" },
-    ),
-    line(
-      "lucia-what-happened",
-      "Lucia",
-      ["Ahoj, Anna! Čo sa ", past("stalo"), "?"],
-      "Hi, Anna! What happened?",
-    ),
-    line(
-      "anna-where-were-you-at-one",
-      "Anna",
-      ["Marekov koláč je preč. ", PAUSE, "Kde ", past("si bola"), " dnes o jednej?"],
-      "Marek's cake is gone. Where were you today at one?",
-    ),
-    line(
-      "lucia-came-for-umbrella",
-      "Lucia",
-      [
-        "O jednej? ",
-        PAUSE,
-        past("Bola som"),
-        " u vás v štúdiu. ",
-        past("Prišla som"),
-        " po svoj dáždnik.",
-      ],
-      "At one? I was at your studio. I came for my umbrella.",
-      { props: [null, null, null] },
-    ),
-    line(
-      "anna-what-did-you-do-there",
-      "Anna",
-      ["A čo ", past("si tam robila"), "?"],
-      "And what did you do there?",
-    ),
-    line(
-      "lucia-took-umbrella-went-home",
-      "Lucia",
-      [
-        "Nič. ",
-        past("Vzala som si"),
-        " dáždnik a ",
-        past("išla som"),
-        " domov. ",
-        PAUSE,
-        past("Bola som"),
-        " tam päť minút.",
-      ],
-      "Nothing. I took my umbrella and went home. I was there five minutes.",
-      { props: [null, null, null] },
-    ),
-    line(
-      "anna-did-you-see-cake-lucia",
-      "Anna",
-      [past("Videla si"), " koláč?"],
-      "Did you see the cake?",
-    ),
-    line(
-      "lucia-only-half",
-      "Lucia",
-      [
-        past("Videla"),
-        ". ",
-        PAUSE,
-        past("Bol"),
-        " na stole. ",
-        PAUSE,
-        "Ale už len polovica.",
-      ],
-      "I did. It was on the table. But only half of it by then.",
-    ),
-    line(
-      "anna-only-half-at-one",
-      "Anna",
-      ["Len polovica? O jednej?"],
-      "Only half? At one?",
-    ),
-    line(
-      "lucia-marek-alone-offered",
-      "Lucia",
-      [
-        "Áno. A Marek ",
-        past("bol"),
-        " sám. ",
-        PAUSE,
-        past("Ponúkol"),
-        " mi kúsok a ",
-        past("povedal"),
-        ", že on už nemá hlad. ",
-        PAUSE,
-        "Ale ja ",
-        past("som sa ponáhľala"),
-        ".",
-      ],
-      "Yes. And Marek was alone. He offered me a piece and said he wasn't hungry any more. But I was in a hurry.",
-    ),
-    line(
-      "anna-not-hungry-back-to-studio",
-      "Anna",
-      [
-        "Už nemá hlad",
-        STOP,
-        PAUSE,
-        "Ďakujem, Lucia. Maj sa! ",
-        PAUSE,
-        "Teraz späť do štúdia.",
-      ],
-      "Not hungry any more… Thanks, Lucia. Take care! Now back to the studio.",
-    ),
-  ],
+  setup: {
+    objects: [
+      {
+        id: "lucia-umbrella",
+        kind: "umbrella",
+        start: { where: { hand: "lucia", side: "rear" }, of: "lucia" },
+      },
+    ],
+    // She sells from behind her counter.
+    spots: { lucia: "behind-counter" },
+  },
+  lines: staged(
+    PREFIX,
+    [
+      card(
+        "card-market-half-past-four",
+        "Trh. Pol piatej.",
+        "The market. Half past four.",
+      ),
+      line(
+        "anna-question-for-lucia",
+        "Anna",
+        ["Ahoj, Lucia. Mám pre teba otázku."],
+        "Hi, Lucia. I have a question for you.",
+        { to: "Lucia" },
+      ),
+      line(
+        "lucia-what-happened",
+        "Lucia",
+        ["Ahoj, Anna! Čo sa ", past("stalo"), "?"],
+        "Hi, Anna! What happened?",
+      ),
+      line(
+        "anna-where-were-you-at-one",
+        "Anna",
+        ["Marekov koláč je preč. ", PAUSE, "Kde ", past("si bola"), " dnes o jednej?"],
+        "Marek's cake is gone. Where were you today at one?",
+      ),
+      line(
+        "lucia-came-for-umbrella",
+        "Lucia",
+        [
+          "O jednej? ",
+          PAUSE,
+          past("Bola som"),
+          " u vás v štúdiu. ",
+          past("Prišla som"),
+          " po svoj dáždnik.",
+        ],
+        "At one? I was at your studio. I came for my umbrella.",
+        { props: [null, null, null] },
+      ),
+      line(
+        "anna-what-did-you-do-there",
+        "Anna",
+        ["A čo ", past("si tam robila"), "?"],
+        "And what did you do there?",
+      ),
+      line(
+        "lucia-took-umbrella-went-home",
+        "Lucia",
+        [
+          "Nič. ",
+          past("Vzala som si"),
+          " dáždnik a ",
+          past("išla som"),
+          " domov. ",
+          PAUSE,
+          past("Bola som"),
+          " tam päť minút.",
+        ],
+        "Nothing. I took my umbrella and went home. I was there five minutes.",
+        { props: [null, null, null] },
+      ),
+      line(
+        "anna-did-you-see-cake-lucia",
+        "Anna",
+        [past("Videla si"), " koláč?"],
+        "Did you see the cake?",
+      ),
+      line(
+        "lucia-only-half",
+        "Lucia",
+        [
+          past("Videla"),
+          ". ",
+          PAUSE,
+          past("Bol"),
+          " na stole. ",
+          PAUSE,
+          "Ale už len polovica.",
+        ],
+        "I did. It was on the table. But only half of it by then.",
+      ),
+      line(
+        "anna-only-half-at-one",
+        "Anna",
+        ["Len polovica? O jednej?"],
+        "Only half? At one?",
+      ),
+      line(
+        "lucia-marek-alone-offered",
+        "Lucia",
+        [
+          "Áno. A Marek ",
+          past("bol"),
+          " sám. ",
+          PAUSE,
+          past("Ponúkol"),
+          " mi kúsok a ",
+          past("povedal"),
+          ", že on už nemá hlad. ",
+          PAUSE,
+          "Ale ja ",
+          past("som sa ponáhľala"),
+          ".",
+        ],
+        "Yes. And Marek was alone. He offered me a piece and said he wasn't hungry any more. But I was in a hurry.",
+      ),
+      line(
+        "anna-not-hungry-back-to-studio",
+        "Anna",
+        [
+          "Už nemá hlad",
+          STOP,
+          PAUSE,
+          "Ďakujem, Lucia. Maj sa! ",
+          PAUSE,
+          "Teraz späť do štúdia.",
+        ],
+        "Not hungry any more… Thanks, Lucia. Take care! Now back to the studio.",
+      ),
+    ],
+    MARKET_ACTS,
+  ),
   checks: [
     {
       id: `${PREFIX}check-how-much-cake-at-one`,
@@ -831,11 +874,13 @@ const market: ListeningChapter = {
   ],
 };
 
-/** Anna back from town, in at the studio door and down at her place at the desk. */
+/** Anna back from town, in at the studio door, down at her place at the desk, and her headphones back on. */
 const WHODUNIT_ACTS: Record<string, Cue[]> = {
   "anna-back-what-we-know": [
     { do: "enter", to: "inside", on: "before" },
     { do: "sit", to: "desk-left", on: "start" },
+    { do: "take", what: "anna-headphones", on: "Tak" },
+    { do: "put", what: "anna-headphones", to: "anna" },
   ],
   "marek-only-looking": [{ do: "shrug", on: "pozeral" }],
   // A finger for each of the three who came by.
@@ -846,6 +891,16 @@ const whodunit: ListeningChapter = {
   id: `${PREFIX}whodunit`,
   titleSk: "Kto to bol?",
   title: "Who was it? The clues, and your turn",
+  setup: {
+    objects: [
+      { id: "plate", kind: "plate", start: { where: { on: "desk", dx: 38 } } },
+      {
+        id: "anna-headphones",
+        kind: "headphones",
+        start: { where: { on: "desk", dx: -38 }, of: "anna" },
+      },
+    ],
+  },
   lines: staged(
     PREFIX,
     [
@@ -873,7 +928,7 @@ const whodunit: ListeningChapter = {
           "A že ty ",
           past("si sedel"),
           " a ",
-          past("pozeral"),
+          past("pozeral sa"),
           " na koláč.",
         ],
         "And then at noon: the waiter says the cake was whole. And that you were sitting there, looking at the cake.",
@@ -917,18 +972,8 @@ const whodunit: ListeningChapter = {
       line(
         "anna-so-who-guess",
         "Anna",
-        [
-          "Tak kto ",
-          past("bol"),
-          " v štúdiu celý deň? ",
-          PAUSE,
-          "Kto ",
-          past("bol"),
-          " ráno hladný a o jednej už nie? ",
-          PAUSE,
-          "Hádajte s nami!",
-        ],
-        "So who was in the studio all day? Who was hungry in the morning and not any more at one? Guess along with us!",
+        ["Tak kto ", past("bol"), " v štúdiu celý deň? ", PAUSE, "Hádajte s nami!"],
+        "So who was in the studio all day? Guess along with us!",
       ),
       line(
         "marek-hm-dont-know",
@@ -1000,8 +1045,10 @@ const whodunit: ListeningChapter = {
 const ASK_WHO = `${PREFIX}anna-i-know-and-you`;
 
 const CLOSED_ACTS: Record<string, Cue[]> = {
-  // She leans in to look at his teeth.
-  "anna-smile-poppy-seeds": [{ do: "lean", to: "marek", on: "mak" }],
+  // The cut of the card: the clock runs on to five past five.
+  "card-five-minutes-later": [{ who: "anna", do: "skip", minutes: 5, on: "start" }],
+  // She turns to look at his teeth; a lean at the desk took her head into her own mic.
+  "anna-smile-poppy-seeds": [{ do: "look", to: "marek", on: "usmej" }],
   "marek-did-i-eat-it": [{ do: "shrug", on: "žeby" }],
 };
 
@@ -1009,6 +1056,9 @@ const closed: ListeningChapter = {
   id: `${PREFIX}closed`,
   titleSk: "Prípad uzavretý",
   title: "Case closed",
+  setup: {
+    objects: [{ id: "plate", kind: "plate", start: { where: { on: "desk", dx: 38 } } }],
+  },
   lines: staged(
     PREFIX,
     [
@@ -1030,9 +1080,10 @@ const closed: ListeningChapter = {
         {
           prompt: "Kto zjedol koláč?",
           choices: [
-            { id: "marek", label: "Marek", english: "Marek" },
-            { id: "lucia", label: "Lucia", english: "Lucia" },
-            { id: "maria", label: "Mária", english: "Mária" },
+            // A name glossed with itself only repeats it.
+            { id: "marek", label: "Marek", english: "" },
+            { id: "lucia", label: "Lucia", english: "" },
+            { id: "maria", label: "Mária", english: "" },
             { id: "waiter", label: "Čašník", english: "The waiter" },
           ],
           answerId: "marek",
@@ -1047,6 +1098,15 @@ const closed: ListeningChapter = {
           "You know already? I don't yet.",
         ),
         { ask: ASK_WHO, picks: ["marek", "lucia", "maria", "waiter"] },
+      ),
+      onPath(
+        line(
+          "anna-nobody-ill-tell-you",
+          "Anna",
+          ["Nikto? ", PAUSE, "Dobre, tak vám to poviem."],
+          "Nobody? All right, then I'll tell you.",
+        ),
+        { ask: ASK_WHO, picks: [NO_PICK] },
       ),
       onPath(
         line(
@@ -1177,21 +1237,19 @@ const closed: ListeningChapter = {
         wait: 1000,
       },
       line(
-        "marek-didnt-even-notice",
+        "marek-sorry-so-good",
         "Marek",
         [
           "Celý koláč. ",
           PAUSE,
           "Prepáč, Anna. ",
           PAUSE,
-          "Ja ",
-          past("som si"),
-          " to ani ",
-          past("nevšimol"),
-          ".",
+          past("Bol"),
+          " taký dobrý",
+          STOP,
         ],
-        "The whole cake. Sorry, Anna. I didn't even notice.",
-        { gestures: ["muse", "apologize", "shrug"] },
+        "The whole cake. Sorry, Anna. It was so good…",
+        { gestures: ["muse", "apologize", "muse"] },
       ),
       line(
         "anna-case-closed",
@@ -1199,15 +1257,15 @@ const closed: ListeningChapter = {
         [
           "Prípad uzavretý. ",
           PAUSE,
-          "Dnes ",
-          past("sme"),
-          " koláč ",
-          past("nemali"),
+          "Ja ",
+          past("som"),
+          " dnes koláč ",
+          past("nemala"),
           ". ",
           PAUSE,
           "Zajtra koláč kupujem ja. A schovám ho.",
         ],
-        "Case closed. Today we didn't get any cake. Tomorrow I'm buying the cake. And I'm hiding it.",
+        "Case closed. I didn't get any cake today. Tomorrow I'm buying the cake. And I'm hiding it.",
       ),
       line("marek-where", "Marek", ["Kam?"], "Where?"),
       line(
@@ -1263,29 +1321,29 @@ const closed: ListeningChapter = {
       },
     },
     {
-      id: `${PREFIX}check-nevsimol-form`,
-      gap: "Ja som si to ani ___.",
-      prompt: "Ktoré slovo povedal Marek?",
-      promptEnglish: "Which word did Marek say?",
-      replayLineId: `${PREFIX}marek-didnt-even-notice`,
+      id: `${PREFIX}check-nemala-form`,
+      gap: "Ja som dnes koláč ___.",
+      prompt: "Ktoré slovo povedala Anna?",
+      promptEnglish: "Which word did Anna say?",
+      replayLineId: `${PREFIX}anna-case-closed`,
       choices: [
-        { id: "nevsimol", label: "nevšimol" },
+        { id: "nemala", label: "nemala" },
         {
-          id: "nevsimla",
-          label: "nevšimla",
-          whyWrong: "**Nevšimla** is what a woman says. Marek is a man: **nevšimol**.",
+          id: "nemal",
+          label: "nemal",
+          whyWrong: "**Nemal** is what a man says. Anna is a woman: **nemala**.",
         },
         {
-          id: "nie-vsimol",
-          label: "nie všimol",
+          id: "nie-mala",
+          label: "nie mala",
           whyWrong:
-            "**Ne-** joins the **-l** form: **nevšimol**. Only present **byť** keeps **nie** apart.",
+            "**Ne-** joins the **-l** form: **nemala**. Only present **byť** keeps **nie** apart.",
         },
       ],
-      answerId: "nevsimol",
+      answerId: "nemala",
       feedback: {
-        english: "I didn't even notice.",
-        why: "**Všimnúť si** keeps its **si**, and the **-l** form for a man is **všimol**: **nevšimol som si**.",
+        english: "I didn't get any cake today.",
+        why: "A woman says **mala**, and **ne-** joins it: **ja som dnes koláč nemala**.",
       },
     },
   ],
@@ -1293,7 +1351,7 @@ const closed: ListeningChapter = {
 
 export const pastTenseEpisode: ListeningEpisode = {
   id: "listening/past-tense",
-  cover: { segment: "Pozeral na koláč", atMs: 28500, x: 0.62 },
+  cover: { segment: "Pozeral sa na koláč", atMs: 28500, x: 0.62 },
   slug: "past-tense",
   number: 4,
   level: "A1–A2",
