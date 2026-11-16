@@ -39,6 +39,7 @@ describe("sceneMood", () => {
   it("hears no rain in an umbrella, and no cloud in a skyscraper", () => {
     expect(sceneMood(["Ja hľadám svoj dáždnik."]).weather).toBe("clear");
     expect(sceneMood(["Prišla som po svoj dáždnik."]).weather).toBe("clear");
+    expect(sceneMood(["Ty si hľadala svoj dáždnik."]).weather).toBe("clear");
     expect(sceneMood(["Máš dáždnik?", "Nie, dáždnikom nemávam."]).weather).toBe("clear");
     expect(sceneMood(["Bývam v mrakodrape."]).weather).toBe("clear");
     expect(sceneMood(["Sú tam mraky."]).weather).toBe("cloudy");
