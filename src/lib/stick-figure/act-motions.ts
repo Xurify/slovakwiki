@@ -525,9 +525,14 @@ export function motionFor(
     case "raise": {
       // Halfway to the mouth, and held there: about to eat, until something stops it. A recorder is held up to be seen, straight up beside the head, where the arm clears a desk mic too.
       // A phone shows its screen at chest height, under a desk mic: at the mouth the mic hid it, and up by the head it went behind the head.
+      // Keys shown from a desk chair go up by the ear on the side away from the mic: at the mouth they were lost behind the boom.
+      const deskKeys = object?.kind === "keys" && world.seated?.includes(who);
       const up =
-        object?.kind === "mic"
-          ? { ...hands(hand, { up: { x: 7, y: -26 } }), body: { lean: -1, brow: 0.4 } }
+        object?.kind === "mic" || deskKeys
+          ? {
+              ...hands(hand, { up: { x: deskKeys ? -14 : 7, y: deskKeys ? -22 : -26 } }),
+              body: { lean: -1, brow: 0.4 },
+            }
           : object?.kind === "phone"
             ? { ...hands(hand, { mouth: true, dx: 15, dy: 17 }), body: { brow: 0.3 } }
             : {

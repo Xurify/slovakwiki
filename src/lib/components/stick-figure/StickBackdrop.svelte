@@ -297,7 +297,9 @@
     <Drawing {board} hour={hour.current} open={door} {tram} {mood} />
 
     <MoodLayer {mood} {setting} />
-    <StageLight />
+    {#if PLACES[setting].glow !== false}
+      <StageLight />
+    {/if}
   </g>
 
   {#each boxes.filter(({ thing }) => !thing.of) as ring (`${ring.thing.id}-${ring.copy}`)}

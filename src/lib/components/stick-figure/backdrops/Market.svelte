@@ -7,7 +7,7 @@
   import { PARTS } from "$lib/stick-figure/backdrop-parts";
   import StreetLamp from "./StreetLamp.svelte";
 
-  /** The square behind the market, washed back by distance so the stalls stay in front. */
+  /** The square behind the market, faded back by distance so the stalls stay in front. */
   const houses: Facade[] = [
     { x: -10, width: 130, top: 100, gable: true, door: false, paint: "fill-scene-clay" },
     { x: 120, width: 110, top: 118, gable: false, door: false, paint: "fill-scene-sage" },
@@ -87,10 +87,11 @@
       width: 300,
       beam: 84,
       pole: 642,
-      // Tieto jahody and tamtie jahody, with the vegetables between them.
-      crates: ["strawberries", "vegetables", "strawberries"],
+      // Tieto jahody up on the back row at the buyer's end, where his head hid them on the counter's top
+      // row; tamtie on the counter at the far end, past Lucia.
+      crates: ["potatoes", "vegetables", "strawberries"],
       // Lucia's cheeses are on her selling counter, a set piece at the cast's scale (StickSet.svelte).
-      back: ["potatoes", "onions", "potatoes"],
+      back: ["strawberries", "onions", "potatoes"],
     },
   ];
 
@@ -105,11 +106,10 @@
 
 <Cloud x={150} y={52} size={0.8} />
 <Cloud x={820} y={50} />
-<!-- The houses stand across the square, their fronts 14 back from where the stalls stand. -->
-<g transform="translate(0 -14)">
+<!-- The houses stand across the square, their fronts 14 back from where the stalls stand, faded into the sky by distance. A haze rect over the whole strip fogged the sky too. -->
+<g transform="translate(0 -14)" opacity="0.5">
   <Facades {houses} />
 </g>
-<rect x="-10" y="40" width="980" height="172" class="fill-scene-cool/55" />
 <rect x="-10" y="212" width="980" height="98" class="fill-scene-sand" />
 <rect x="-10" y="212" width="980" height="14" class="fill-scene-cool/30" />
 <!-- Cobbles, faint, smaller toward the back. -->
@@ -168,14 +168,14 @@
     {@const top = stall.x + 8 + (index * (stall.width - 16)) / stripes}
     <path
       d="M{top} {stall.beam - 22}H{top + (stall.width - 16) / stripes}L{bottom + stripe} {stall.beam}H{bottom}Z"
-      class={index % 2 === 0 ? "fill-scene-red/70" : "fill-white/95"}
+      class={index % 2 === 0 ? "fill-scene-red/85" : "fill-white/95"}
     />
   {/each}
   <rect x={stall.x - 4} y={stall.beam - 2} width={stall.width + 8} height="4" rx="1.5" class="fill-scene-wood" />
   {#each Array.from({ length: stripes }, (_, index) => stall.x - 4 + index * stripe) as x, index (x)}
     <path
       d="M{x} {stall.beam + 2}H{x + stripe}V{stall.beam + 7}A{stripe / 2} 6 0 0 1 {x} {stall.beam + 7}Z"
-      class={index % 2 === 0 ? "fill-scene-red/70" : "fill-white/95"}
+      class={index % 2 === 0 ? "fill-scene-red/85" : "fill-white/95"}
     />
   {/each}
 
@@ -208,10 +208,10 @@
   <rect x={stall.x + 2} y="170" width={stall.width - 4} height="5" rx="1.5" class="fill-scene-wood" />
   <rect x={stall.x + 4} y="175" width={stall.width - 8} height="29" class="fill-scene-warm" />
   {#each Array.from({ length: Math.floor((stall.width - 8) / 12) }, (_, index) => stall.x + 4 + index * 12 + 3) as x (x)}
-    <rect {x} y="175" width="6" height="29" class="fill-scene-red/25" />
+    <rect {x} y="175" width="6" height="29" class="fill-scene-red/30" />
   {/each}
   {#each [178, 190] as y (y)}
-    <rect x={stall.x + 4} {y} width={stall.width - 8} height="6" class="fill-scene-red/25" />
+    <rect x={stall.x + 4} {y} width={stall.width - 8} height="6" class="fill-scene-red/30" />
   {/each}
   <path
     d="M{stall.x + 4} 204H{stall.x + stall.width - 4}"

@@ -130,7 +130,9 @@ export function withDrawn(
     if (!thing.of?.some((id) => id in drawnAt)) return [thing];
     const [box, ...more] = thing.of.flatMap((id) => drawnAt[id] ?? []);
     if (!box) return [];
-    const kept = [...more, ...(thing.more ?? [])];
+    // Each id in `of` stands for one drawn box, in order: only the drawn boxes past them are kept,
+    // or the cheese's far box showed twice, measured and drawn.
+    const kept = [...more, ...(thing.more ?? []).slice(Math.max(0, thing.of.length - 1))];
     return [{ ...thing, box, more: kept.length ? kept : undefined }];
   });
   return placed.filter((thing) => {
@@ -756,6 +758,13 @@ export const THING_WORDS = {
     gender: "masculine-inanimate",
     id: "mixpult",
     word: "mixážny pult",
+  },
+  cenovka: {
+    english: "price tag",
+    gender: "feminine",
+    id: "cenovka",
+    stems: ["cenov"],
+    word: "cenovka",
   },
   napis: {
     english: "sign",

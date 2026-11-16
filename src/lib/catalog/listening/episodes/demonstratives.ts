@@ -104,11 +104,12 @@ const MARKET_ACTS: Record<string, Cue[]> = {
   "marek-and-that-cheese": [{ do: "point", to: "syr#far", on: "tamten" }],
   "lucia-that-one-cheaper": [{ do: "point", to: "syr#far", on: "Tamten" }],
   // Lucia fetches one from the far end of her counter and brings it to his end to hand over.
+  // Back to the middle of her counter, not its near end: there she stood head to head with Marek.
   "marek-ill-take-that-one": [
     { who: "lucia", do: "go", to: "counter-far", on: "start" },
     { do: "point", to: "syr#far", on: "tamten" },
     { who: "lucia", do: "take", what: "cheese", on: "tamten" },
-    { who: "lucia", do: "go", to: "counter-near", on: "end" },
+    { who: "lucia", do: "go", to: "behind-counter", on: "end" },
   ],
   "anna-want-these-strawberries": [
     { who: "lucia", do: "give", what: "cheese", to: "marek", on: "start" },
@@ -118,12 +119,13 @@ const MARKET_ACTS: Record<string, Cue[]> = {
     { do: "point", to: "jahody#near", on: "Tieto" },
     { do: "point", to: "jahody#far", on: "Tamtie" },
   ],
-  "anna-those-please": [{ do: "point", to: "jahody#far", on: "tamtie" }],
-  // Marek is at the stall, between them: the basket comes to Anna through his hands.
-  "lucia-here-you-are": [
-    { do: "take", what: "basket", on: "before" },
-    { do: "give", what: "basket", to: "marek", on: "páči" },
+  // Lucia picks up the basket as Anna names the Slovak ones, not before.
+  "anna-those-please": [
+    { do: "point", to: "jahody#far", on: "tamtie" },
+    { who: "lucia", do: "take", what: "basket", on: "tamtie" },
   ],
+  // Marek is at the stall, between them: the basket comes to Anna through his hands.
+  "lucia-here-you-are": [{ do: "give", what: "basket", to: "marek", on: "páči" }],
   "marek-anna-always-slovak": [
     { do: "give", what: "basket", to: "anna", on: "start" },
     { do: "point", to: "jahody#far", on: "slovenské" },
@@ -151,8 +153,8 @@ const market: ListeningChapter = {
       line(
         "anna-now-at-market",
         "Anna",
-        ["Teraz sme na trhu. Marek, čo kupuješ?"],
-        "Now we're at the market. Marek, what are you buying?",
+        ["Tak, Marek, čo kupuješ?"],
+        "So, Marek, what are you buying?",
       ),
       line(
         "marek-how-much-this-cheese",
@@ -165,8 +167,8 @@ const market: ListeningChapter = {
       line(
         "lucia-this-cheese-five",
         "Lucia",
-        [mark("Tento"), " syr stojí päť eur."],
-        "This cheese costs five euros.",
+        [mark("Tento"), "? ", PAUSE, "Päť eur."],
+        "This one? Five euros.",
       ),
       line(
         "marek-and-that-cheese",
@@ -228,13 +230,14 @@ const market: ListeningChapter = {
         "Thank you, goodbye!",
       ),
       line("lucia-goodbye", "Lucia", ["Dovidenia!"], "Goodbye!"),
-      // His car waits at Anna's, which is why his key is wanted there.
+      // His car and keys wait at Anna's, which is why the key is looked for there.
       line(
         "marek-to-yours-car",
         "Marek",
-        ["Tak poďme k tebe. ", PAUSE, "Moje auto stojí pred tvojím domom."],
-        "Let's go to yours, then. My car is parked in front of your building.",
-        { to: "Anna" },
+        ["Tak poďme k tebe. ", PAUSE, "Ráno som tam nechal auto aj kľúče."],
+        "Let's go to yours, then. I left my car there this morning, and my keys.",
+        // The keys he names are at Anna's, not in his hand.
+        { to: "Anna", props: [null, null] },
       ),
     ],
     MARKET_ACTS,
@@ -326,15 +329,18 @@ const HOME_ACTS: Record<string, Cue[]> = {
   "anna-in-that-bag": [{ do: "point", to: "taska#far", on: "tej" }],
   "marek-in-this-one": [{ do: "point", to: "taska#near", on: "tejto" }],
   "anna-in-that-one-window": [
-    // He sets off on tamtej, so the key is in his hand by the time she has named the window.
-    { who: "marek", do: "go", to: "window-bag", on: "tamtej" },
+    // He sets off on her "Nie", so the key is in his hand by the time she has named the window.
+    { who: "marek", do: "go", to: "window-bag", on: "start" },
     { do: "point", to: "taska#far", on: "tamtej" },
     { do: "point", to: "okno", on: "okne" },
   ],
-  // At the bag by the window he finds the key before he says so; from there he sees the man outside.
+  // At the bag he finds the key before he says so, then steps aside to the curtain, out of
+  // the way of the couple outside, and looks out at them.
   "marek-got-it-who-is-man": [
     { do: "take", what: "keys", on: "before" },
     { do: "raise", what: "keys", on: "ho" },
+    { who: "marek", do: "go", to: "by-window", on: "A" },
+    { do: "look", to: "okno", on: "vonku" },
     { do: "point", to: "muz", on: "muž" },
   ],
   // She joins him at the window to look out at Mr Novák with him.
@@ -344,7 +350,10 @@ const HOME_ACTS: Record<string, Cue[]> = {
   ],
   "marek-who-is-that-woman": [{ do: "point", to: "zena", on: "žena" }],
   "anna-dont-lose-this-key": [{ do: "point", to: "keys", on: "kľúč" }],
-  "marek-back-to-studio": [{ do: "pocket", what: "keys", on: "späť" }],
+  "marek-back-to-studio": [
+    { do: "pocket", what: "keys", on: "Nebudem" },
+    { who: "marek", do: "go", to: "door", on: "štúdia" },
+  ],
 };
 
 const home: ListeningChapter = {
@@ -378,14 +387,14 @@ const home: ListeningChapter = {
       line(
         "anna-car-or-flat",
         "Anna",
-        ["Ktorý? ", mark("Ten"), " od auta alebo ", mark("ten"), " od bytu?"],
-        "Which one? The one for the car or the one for the apartment?",
+        ["Ktorý? ", mark("Ten"), " od auta, alebo ", mark("ten"), " od tvojho bytu?"],
+        "Which one? The car one, or the one for your flat?",
       ),
       line(
         "marek-the-car-one",
         "Marek",
-        [mark("Ten"), " od auta."],
-        "The one for the car.",
+        [mark("Ten"), " od auta, predsa!"],
+        "The car one, of course!",
       ),
       line(
         "anna-in-that-bag",
@@ -415,8 +424,8 @@ const home: ListeningChapter = {
       line(
         "marek-who-is-that-woman",
         "Marek",
-        ["Jasné, pán Novák! ", PAUSE, "A kto je ", mark("tá"), " žena pri ňom?"],
-        "Of course, Mr Novák! And who is that woman next to him?",
+        ["Jasné, že ho poznám! ", PAUSE, "A kto je ", mark("tá"), " žena pri ňom?"],
+        "Of course I know him! And who is that woman next to him?",
       ),
       line(
         "anna-his-sister",
@@ -531,6 +540,8 @@ const home: ListeningChapter = {
 
 const quiz: ListeningChapter = {
   id: `${PREFIX}quiz`,
+  // Back from the market and Anna's flat: the studio clock has moved on.
+  clock: "13:30",
   titleSk: "Pomôžte Marekovi",
   title: "Your game: help Marek pick the word",
   lines: staged(
@@ -558,6 +569,7 @@ const quiz: ListeningChapter = {
         "Marek",
         ["Ojoj. ", PAUSE, "Tieto slovíčka mi nikdy nejdú do hlavy."],
         "Uh-oh. These little words never stick in my head.",
+        { gestures: ["muse", "shrug"] },
       ),
       line(
         "marek-you-help-me",
@@ -568,8 +580,8 @@ const quiz: ListeningChapter = {
       line(
         "anna-you-choose",
         "Anna",
-        [CHUCKLE, "Dobre. ", PAUSE, "Vy vyberiete, Marek povie."],
-        "OK. You choose, Marek says it.",
+        [CHUCKLE, "Dobre. ", PAUSE, "Vy vyberiete a Marek to povie."],
+        "OK. You choose, and Marek says it.",
       ),
       line(
         "anna-first-word",
@@ -765,7 +777,7 @@ const quiz: ListeningChapter = {
             " deti. ",
             PAUSE,
             mark("Tí"),
-            " patrí k slovám muži, chlapci, ľudia.",
+            " patrí k slovám ako muži, chlapci, ľudia.",
           ],
           "Right! Tie deti. Tí belongs to words like muži, chlapci, ľudia.",
         ),
@@ -783,7 +795,7 @@ const quiz: ListeningChapter = {
             "Nesprávne! ",
             PAUSE,
             mark("Tí"),
-            " patrí k slovám muži, chlapci, ľudia. ",
+            " patrí k slovám ako muži, chlapci, ľudia. ",
             PAUSE,
             "Ale ",
             mark("tie"),
@@ -1047,13 +1059,19 @@ const OUTRO_ACTS: Record<string, Cue[]> = {
   // The keys are up in his hand while he says "v tomto vrecku", not after it.
   "marek-in-this-pocket": [
     { do: "pat", on: "start" },
-    { do: "take", what: "keys", on: "Aha" },
+    { do: "take", what: "keys", on: "Aha", hand: "far" },
     { do: "raise", what: "keys", on: "tomto" },
+  ],
+  // Both wave on the goodbye itself, Marek a beat after her, his keys still in his other hand.
+  "anna-now-really-bye": [
+    { who: "anna", do: "wave", on: "ahojte" },
+    { who: "marek", do: "wave", on: "ahojte" },
   ],
 };
 
 const outro: ListeningChapter = {
   id: `${PREFIX}outro`,
+  clock: "13:40",
   titleSk: "Záver",
   title: "That's all for today",
   setup: {
@@ -1100,8 +1118,8 @@ const outro: ListeningChapter = {
       line(
         "anna-now-really-bye",
         "Anna",
-        [CHUCKLE, "Tak. ", PAUSE, "A teraz už naozaj ahojte!"],
-        "Right. And now really, bye!",
+        [CHUCKLE, "A teraz už naozaj ahojte!"],
+        "And now really, bye!",
       ),
     ],
     OUTRO_ACTS,

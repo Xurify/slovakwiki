@@ -54,12 +54,14 @@
       ? ask.choices.find((choice) => choice.id === picked)?.whyWrong
       : undefined,
   );
+  /** A label written as a sentence keeps its own stop: "Čaká na Mareka." took a second one. */
+  const sentence = (text: string) => (/[.!?…]$/.test(text.trim()) ? text.trim() : `${text.trim()}.`);
   const status = $derived.by(() => {
     if (!picked) return "";
     if (!revealed) return `${answerer} is answering…`;
     return right
       ? "Right."
-      : `Not quite. The answer is ${answer?.label}.${whyWrong ? ` ${whyWrong}` : ""}`;
+      : `Not quite. The answer is ${sentence(answer?.label ?? "")}${whyWrong ? ` ${whyWrong}` : ""}`;
   });
 
   $effect(() => {
@@ -146,8 +148,8 @@
   </div>
 
   {#if !picked}
-    <!-- Under the choices, its text in line with the card's: pulled out by its own padding. Pushed to the far right it sat alone, hundreds of px from the question. -->
-    <ListenControl class="mt-1 -ml-2.5 min-h-11" onclick={onskip}>
+    <!-- Under the choices, its box on the card's left edge like the choice buttons: pulled out by its padding, the hover fill stuck out 10px past the prompt. Pushed to the far right it sat alone, hundreds of px from the question. -->
+    <ListenControl class="mt-1 min-h-11" onclick={onskip}>
       Let {answerer} answer
     </ListenControl>
   {/if}

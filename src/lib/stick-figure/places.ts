@@ -51,6 +51,8 @@ export interface Place {
   label: string;
   /** Under the sky: weather falls on everything, the sun and stars show, the cast dresses for it. */
   outdoors: boolean;
+  /** False drops the stage's pool of light: on the market's pale stalls and crates it read as fog. */
+  glow?: false;
   /** Which part of the drawing a narrow stage keeps: 0 the left end, 1 the right, the middle unless set. */
   align?: number;
   /**
@@ -271,6 +273,8 @@ const HOME_SET: PlaceSet = {
     "bowl-dog": { piece: "by-sofa", dx: -16, facing: 1 },
     // Beside the bag by the window, to reach down into it.
     "window-bag": { piece: "window-bag", dx: 30, facing: -1 },
+    // By the right curtain, facing the glass: someone looking out from here leaves the couple outside in view.
+    "by-window": { x: 258, facing: -1 },
     // The hall door opens into the room on hinges at its left, like the kitchen's: in on its latch
     // side, then past it to push it to; leaving, the same spot to pull it open from.
     door: { x: 412, facing: -1 },
@@ -618,6 +622,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     ground: "stone",
     label: "At the market",
     outdoors: true,
+    glow: false,
     // The stall Lucia sells cheese and strawberries from.
     align: 1,
     sun: { day: { x: 738, y: 30 }, morning: { x: 738, y: 32 } },
@@ -630,8 +635,15 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
         twins: { far: 1, near: 0 },
         of: ["counter-near-cheese", "counter-far-cheese"],
       },
-      twins(WORDS.jahody, [648, 134, 76, 24], [824, 134, 76, 24]),
+      // Tieto up on the back row at the buyer's end, over the heads of whoever stands there; tamtie on the counter at the far end.
+      twins(WORDS.jahody, [648, 112, 76, 20], [824, 134, 76, 24]),
       { ...drawn(WORDS.vaha, [796, 190, 22, 26]), of: ["counter-scale"] },
+      // The prices pinned to the cloth under each cheese, and each stall's name board on its beam.
+      {
+        ...drawn(WORDS.cenovka, [721, 212, 30, 16], [823, 212, 30, 16]),
+        of: ["counter-price-near", "counter-price-far"],
+      },
+      drawn(WORDS.napis, [468, 80, 84, 16], [738, 64, 84, 16]),
       { ...drawn(WORDS.kosik, [758, 194, 24, 22]), of: ["basket"] },
       drawn({ ...WORDS.lampa, english: "street lamp" }, lampBox(PARTS.market.lamp)),
       drawn(WORDS.stanok, [626, 60, 308, 166], [408, 76, 204, 150]),
