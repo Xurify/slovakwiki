@@ -1,10 +1,10 @@
 <script lang="ts">
   import {
     episodeCoverSrc,
-    episodeMinutes,
     episodePath,
     listeningEpisodes,
   } from "$lib/catalog/listening";
+  import { episodeRunMinutes } from "$lib/catalog/listening/audio";
   import Lead from "$lib/components/ui/Lead.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import { panelClass, panelHoverClass, tagClass } from "$lib/components/ui/system-ui";
@@ -75,7 +75,7 @@
                 {/if}
 
                 <span class="ml-auto text-sm text-slate-500 tabular-nums">
-                  {episodeMinutes(episode)} min
+                  {episodeRunMinutes(episode)} min
                 </span>
               </span>
             </span>

@@ -31,6 +31,13 @@
     tip?: string | false;
     tipSide?: "bottom" | "top";
   } = $props();
+
+  /**
+   * Put away after a press until the pointer leaves: the pointer still
+   * rests on a button just tapped, and its tip stayed over the speakers'
+   * portraits after the English or transcript toggle.
+   */
+  let pressedOn = $state(false);
 </script>
 
 <button
@@ -47,6 +54,14 @@
   aria-label={label}
   aria-pressed={pressed}
   {...rest}
+  onpointerdown={(event) => {
+    pressedOn = true;
+    rest.onpointerdown?.(event);
+  }}
+  onpointerleave={(event) => {
+    pressedOn = false;
+    rest.onpointerleave?.(event);
+  }}
 >
   {#if icon}
     <SceneIcon class="size-5" name={icon} />
@@ -69,7 +84,8 @@
       class={cx(
         "pointer-events-none absolute left-1/2 z-30 w-max -translate-x-1/2 rounded-(--control-radius) bg-surface px-2 py-1",
         "font-sans text-xs font-semibold text-slate-800 opacity-0 shadow-(--shadow-float)",
-        "transition-opacity duration-150 ease-out group-hover:opacity-100 group-focus-visible:opacity-100",
+        "transition-opacity duration-150 ease-out",
+        !pressedOn && "group-hover:opacity-100 group-focus-visible:opacity-100",
         tipSide === "top" ? "bottom-[calc(100%+0.25rem)]" : "top-[calc(100%+0.25rem)]",
       )}
       aria-hidden="true"

@@ -1547,7 +1547,13 @@ export function motionFor(
     }
     case "look": {
       // A wall clock hangs over everyone's head: looked at level, the head stayed on whoever stood under it.
-      const up = to === "hodiny" ? { tilt: -12, nod: -2 } : {};
+      const up = LOOKS[who].dog
+        ? dogLooksUp(world, to, plan)
+          ? DOG_LOOK_UP
+          : {}
+        : to === "hodiny"
+          ? { tilt: -12, nod: -2 }
+          : {};
       return {
         motion: {
           ms: 1400,
@@ -1966,6 +1972,26 @@ const JUMP_MS = 560;
 const JUMP_TOP: Partial<StickPose> = { bob: -16, lean: -12, nod: -2 };
 /** A dog's head and tail hung low (StickDog: a nod and tilt dip the head, lowered arms drop the tail). */
 const DROOP: Partial<StickPose> = { nod: 7, tilt: 20, leadRaise: -60, rearRaise: -60 };
+/**
+ * A dog's head lifted to whatever it looks at above it, a person's face or
+ * the lead on its peg: StickDog turns the head by 0.8 of the tilt, so about
+ * 32°. Turned only a little, Bobík's nose pointed at Robo's chest.
+ */
+const DOG_LOOK_UP: Partial<StickPose> = { tilt: -40, nod: -2 };
+
+/** Whether a dog looks up to `to`: anything but another dog or what lies on the floor. */
+function dogLooksUp(world: World, to: string, plan?: SetPlan): boolean {
+  if (LOOKS[to as LessonCharacterId]?.dog) return false;
+  let where = world.objects[to]?.where;
+  // In a bowl or a bag, it is as low as what holds it.
+  for (let depth = 0; where && "in" in where && depth < 4; depth += 1)
+    where = world.objects[where.in]?.where;
+  if (where && "on" in where) {
+    const piece = plan?.pieces.find(({ id }) => id === where.on) as { kind?: string } | undefined;
+    return piece?.kind !== "floor" && where.on !== "floor";
+  }
+  return true;
+}
 /** A dog's head down and forward, the front lowered, the tail held out stiff and still. */
 const GROWL: Partial<StickPose> = {
   nod: 5,
@@ -2067,6 +2093,12 @@ export interface Surroundings {
    * do not count: the arm is drawn over them whatever it does.
    */
   inTheWay?(hand: Point, shoulder: Point, target: string): boolean;
+  /**
+   * Whoever stands between this figure and `target`, in its rig units: each
+   * one's middle across, the top of the head and the hip. A point goes over
+   * their heads rather than through them.
+   */
+  between?(target: string): readonly { x: number; top: number; hip: number }[];
 }
 
 export interface MotionFrame {
@@ -2129,6 +2161,17 @@ export function targetPoint(
     const across1 = Math.max(1, Math.abs(at.x - shoulder.x));
     const side = at.x < shoulder.x ? -1 : 1;
     let angle = Math.atan2(shoulder.y - at.y, across1);
+    // Down at something on the floor across the room (a bag by the window), the true line is only a little
+    // below level and read as a point at the chest of whoever stood beyond: it goes down clearly.
+    if (sit <= 0.5 && aim.y > rig.hip.y) angle = Math.min(angle, -LOW_POINT);
+    // Past someone at something no lower than their hip (the far crate behind Marek), the arm rises until
+    // the line clears their head: level, it ended on them and read as a point at them.
+    for (const body of sit <= 0.5 ? (around.between?.(target.toward) ?? []) : []) {
+      const off = Math.abs(body.x - shoulder.x);
+      if (aim.y > body.hip || off < 1) continue;
+      const over = Math.atan2(shoulder.y - (body.top - HEAD_CLEAR), off);
+      if (over > angle) angle = Math.min(over, Math.atan(POINT_STEEPEST));
+    }
     const out = () => ({
       x: shoulder.x + side * Math.cos(angle) * POINT_REACH,
       y: shoulder.y - Math.sin(angle) * POINT_REACH,
@@ -2221,6 +2264,10 @@ const STANDING_POINT_DROP = 1.7;
 export const PHOTO_HOLD: Point = { x: 24, y: -16 };
 /** A pointing arm, nearly straight, from the shoulder to the hand. */
 const POINT_REACH = 28;
+/** The least a standing point at something below the hip goes down, in radians: 35°. */
+const LOW_POINT = 0.61;
+/** How far over a head a point passes, in rig units. */
+const HEAD_CLEAR = 4;
 /** How far a point is raised at a time to clear what is in the way, in radians: about 5°. */
 const POINT_LIFT = 0.09;
 /** The steepest a point rises, as a slope: about 55° above level. */
@@ -2232,6 +2279,8 @@ const UNDER_MIC_POINT: Point = { x: 13, y: 3 };
 const ARM_REACH = 28.5;
 /** The most a figure leans in, in degrees, to reach what is in front of it. */
 const MOST_LEAN = 14;
+/** Crouched down at the floor, the most further it leans in over the knees: the back stays well short of flat. */
+const FLOOR_LEAN = 22;
 
 /** The deepest a robot squats, as its kneel by a dog does: its hips still well off the floor. */
 const SQUAT_MOST = 22;
@@ -2245,6 +2294,7 @@ function leanToReach(
   sit: number,
   squats = false,
   maxBob = DEEPEST_BOB,
+  most = MOST_LEAN,
 ): number {
   // Low down, the knees bend with the lean, as they do lifting something off a low shelf.
   const low = Object.values(points).some((point) => point && point.y > STOOP_Y);
@@ -2268,7 +2318,7 @@ function leanToReach(
   };
   if (shortfall(0) <= 0) return 0;
   let best = 0;
-  for (let lean = 1; lean <= MOST_LEAN; lean += 1) {
+  for (let lean = 1; lean <= most; lean += 1) {
     if (shortfall(lean) < shortfall(best)) best = lean;
     if (shortfall(lean) <= 0) return lean;
   }
@@ -2389,8 +2439,11 @@ export function frameBetween(
   if (lowest > STOOP_Y && sit === 0) {
     // Past the floor nothing is reached by folding further: unbounded, a point far below folded the figure flat.
     const depth = Math.min(lowest - STOOP_Y, STOOP_MOST);
-    body.lean += depth * (around.squats ? 0.6 : 1.6);
-    body.bob += depth * (around.squats ? 1.6 : 0.9);
+    // Down at the floor a person crouches too, knees bent and back up: bent at the hip alone, Anna lay
+    // nearly flat over a ball. A stoop to a low shelf or a dog's back still bends at the hip.
+    const crouch = around.squats || lowest >= FLOOR_REACH_Y;
+    body.lean += depth * (crouch ? 0.6 : 1.6);
+    body.bob += depth * (crouch ? 1.6 : 0.9);
   }
   // Squatting further after a dog's collar out of reach, a robot's hips went through the floor and its legs
   // folded flat behind it: the whole casing read as tipped over. No deeper than its kneel, the arm falls short.
@@ -2402,7 +2455,16 @@ export function frameBetween(
   if (sit === 0) body.bob = Math.min(body.bob, maxBob);
 
   // Still out of reach, the figure leans in to it, as far as it must.
-  const leaned = leanToReach(body, points, sit, around.squats, maxBob);
+  // Crouched at the floor, a thing a step off is reached by leaning on over the knees.
+  const floorCrouch = !around.squats && sit === 0 && lowest >= FLOOR_REACH_Y;
+  const leaned = leanToReach(
+    body,
+    points,
+    sit,
+    around.squats,
+    maxBob,
+    floorCrouch ? FLOOR_LEAN : MOST_LEAN,
+  );
   const low = Object.values(points).some((point) => point && point.y > STOOP_Y);
   body.lean += leaned;
   if (low && sit === 0) body.bob += leaned * (around.squats ? 1.4 : 0.5);

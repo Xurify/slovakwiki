@@ -1,19 +1,31 @@
-import type { ThingBox } from "./thing-words";
+import type { SceneThing, ThingBox } from "./thing-words";
 
-/** Centres closer than this across, in backdrop units, count as one above the other. */
+/** Boxes starting closer than this across, in backdrop units, count as one above the other. */
 const SAME_X = 1;
 
 const centreX = (box: ThingBox) => box.x + box.width / 2;
 const centreY = (box: ThingBox) => box.y + box.height / 2;
 
 /**
- * The order Left and Right walk the things in: by the centre of each box
- * across the screen, so a step right never lands further left. Boxes that
- * stand one above the other go top first.
+ * Where the wall stops and the room's floor and furniture begin, in
+ * backdrop units down: half way down the 300 of the drawing.
+ */
+const ROW_SPLIT = 150;
+
+/**
+ * The order Left and Right walk the things in: the things up on the wall
+ * and in the sky first, then the ones down at the cast's height, each row
+ * from left to right by where each box starts. By centres alone the keys
+ * went up and down the room (robot, hrnček, vankúš, obraz at home), and
+ * from the café's lamp back left to the window it hangs in front of.
+ * Boxes that start at the same x go top first.
  */
 export function arrowOrder<T extends { box: ThingBox }>(hits: readonly T[]): T[] {
+  const row = (box: ThingBox) => (centreY(box) < ROW_SPLIT ? 0 : 1);
   return hits.slice().sort((a, b) => {
-    const across = centreX(a.box) - centreX(b.box);
+    const rows = row(a.box) - row(b.box);
+    if (rows) return rows;
+    const across = a.box.x - b.box.x;
     return Math.abs(across) >= SAME_X ? across : centreY(a.box) - centreY(b.box);
   });
 }
@@ -62,4 +74,24 @@ export function clipBox(
     width: Math.max(0, right - left),
     height: Math.max(0, bottom - top),
   };
+}
+
+/**
+ * The order the tap targets are laid one over another, bottom first, so a
+ * tap where two overlap goes to the one in front: scenery at the back
+ * (`behind`) under everything, the set's things (`of`) over the backdrop's,
+ * as the set is drawn over it, and otherwise the smaller box on top, so
+ * what stands in front of a bigger thing (the fountain before a house, the
+ * TV in the bookcase) gets its tap.
+ */
+export function tapOrder<T extends { box: ThingBox; thing: Pick<SceneThing, "of" | "behind"> }>(
+  hits: readonly T[],
+): T[] {
+  const layer = ({ thing }: T) => (thing.behind ? 0 : thing.of ? 2 : 1);
+  return hits
+    .slice()
+    .sort(
+      (a, b) =>
+        layer(a) - layer(b) || b.box.width * b.box.height - a.box.width * a.box.height,
+    );
 }

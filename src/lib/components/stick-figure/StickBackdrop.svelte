@@ -10,7 +10,7 @@
     backdropScale,
     boxInView,
   } from "$lib/stick-figure/backdrop-geometry";
-  import { PLACES, PROP_THINGS, backdropAlign, thingsIn } from "$lib/stick-figure/places";
+  import { PLACES, backdropAlign, thingsIn, withProps } from "$lib/stick-figure/places";
   import type { StageSetting } from "$lib/stick-figure/stage-setting";
   import {
     litKey,
@@ -18,7 +18,7 @@
     withDrawn,
     type ThingBox,
   } from "$lib/stick-figure/thing-words";
-  import { arrowOrder, clipBox, verticalNeighbour } from "$lib/stick-figure/thing-order";
+  import { arrowOrder, clipBox, tapOrder, verticalNeighbour } from "$lib/stick-figure/thing-order";
   import { cx } from "$lib/ui/classes";
   import Cafe from "./backdrops/Cafe.svelte";
   import Classroom from "./backdrops/Classroom.svelte";
@@ -139,26 +139,7 @@
   });
 
   const Drawing = $derived(DRAWINGS[setting]);
-  const ofKind = (kind: string) => Object.keys(objects).filter((id) => objects[id] === kind);
-  /**
-   * The place's things, each with the set's objects of its kind among its
-   * drawn copies, and the props on the set (an umbrella, a phone) that the
-   * place does not name itself.
-   */
-  const placeThings = $derived.by(() => {
-    const own = PLACES[setting].things.map((thing) => {
-      const ids = thing.ofKind ? ofKind(thing.ofKind) : [];
-      return ids.length ? { ...thing, of: [...(thing.of ?? []), ...ids] } : thing;
-    });
-    // An object the place already names keeps that word: the school's form is a formulár, not a papier.
-    const named = new Set(own.flatMap((thing) => thing.of ?? []));
-    const props = Object.entries(PROP_THINGS).flatMap(([kind, thing]) => {
-      const ids = ofKind(kind).filter((id) => !named.has(id));
-      if (!thing || !ids.length || own.some(({ id }) => id === thing.id)) return [];
-      return [{ ...thing, of: ids }];
-    });
-    return [...own, ...props];
-  });
+  const placeThings = $derived(withProps(PLACES[setting].things, objects));
   const things = $derived(withDrawn(thingsIn(placeThings, setting, mood, tram), drawnAt));
 
   // The clocks start at the scene's told hour; skipping ahead spins them forward.
@@ -236,6 +217,8 @@
   const ARROW_ROWS: Record<string, 1 | -1> = { ArrowDown: 1, ArrowUp: -1 };
   /** How far a ring stands out from its thing's box. */
   const RING_PAD = 5;
+  /** The smallest a target is, ring and all, in screen px: a held lead was 16×19 to hit. */
+  const MIN_TARGET = 24;
 
   /** The drawing's part the stage shows, in backdrop units. */
   const shown = $derived.by(() => {
@@ -251,7 +234,7 @@
   const boxes = $derived(
     things.flatMap((thing) =>
       thingBoxes(thing).flatMap((whole, copy) => {
-        const box = clipBox(whole, shown, RING_PAD);
+        const box = clipBox(atLeast(whole), shown, RING_PAD);
         return boxInView(whole, setting, width, height) && box.width > 0
           ? [{ box, copy, thing }]
           : [];
@@ -259,23 +242,27 @@
     ),
   );
 
+  /** A box grown about its middle until its ring is MIN_TARGET px each way. */
+  function atLeast(box: ThingBox): ThingBox {
+    if (!width) return box;
+    const least = (MIN_TARGET * shown.width) / width - RING_PAD * 2;
+    const grow = (size: number) => Math.max(0, least - size) / 2;
+    const across = grow(box.width);
+    const down = grow(box.height);
+    if (!across && !down) return box;
+    return {
+      ...box,
+      x: box.x - across,
+      y: box.y - down,
+      width: box.width + across * 2,
+      height: box.height + down * 2,
+    };
+  }
+
   /** The order the arrow keys visit things in: Left and Right across the screen, Up and Down to the nearest above or below. */
   const hitOrder = $derived(arrowOrder(boxes));
-  /**
-   * The set's things last, on top, as the set is drawn over the backdrop:
-   * the watering can stands on the rug and needs its own tap. Otherwise the
-   * smaller of two boxes is on top, so what stands in front of a bigger
-   * thing (the fountain before a house, the TV in the bookcase) gets its tap.
-   */
-  const paintOrder = $derived(
-    hitOrder
-      .map((hit, index) => ({ ...hit, index }))
-      .sort(
-        (a, b) =>
-          Number(!!a.thing.of) - Number(!!b.thing.of) ||
-          b.box.width * b.box.height - a.box.width * a.box.height,
-      ),
-  );
+  /** Bottom first: a tap where two overlap goes to the one in front. */
+  const paintOrder = $derived(tapOrder(hitOrder.map((hit, index) => ({ ...hit, index }))));
 </script>
 
 <svg

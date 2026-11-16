@@ -207,3 +207,80 @@ describe("a dog jumping up in greeting", () => {
     expect(motion.face).toBe("marek");
   });
 });
+
+describe("picking something up off the floor", () => {
+  it("crouches on bent knees with the back nearly upright, the hand on it", () => {
+    const world = setUp(startWorld(HOME.objects), {
+      objects: [{ id: "ball", kind: "ball", start: { where: { on: "floor", dx: 0 } } }],
+    });
+    const { motion } = motionFor({ do: "take", what: "ball" }, "anna", world);
+    for (const x of [10, 22, 28, 34]) {
+      const ball = { x, y: 125 };
+      const around: Surroundings = {
+        pointOf: (name) => (name === "ball" ? ball : undefined),
+        meetWith: () => undefined,
+      };
+      const rig = solveRig(sampleMotion(motion, motion.takes!, REST_POSE, around, 0).pose, 0);
+      // Bent at the hip alone, Anna lay all but flat over the ball (future-tense).
+      expect(rig.lean).toBeLessThan(x > 30 ? 42 : 30);
+      expect(gap(rig.leadArm.end, ball)).toBeLessThan(2);
+      expect(rig.hip.y).toBeLessThanOrEqual(GROUND_Y - 8);
+    }
+  });
+});
+
+describe("a dog looking at something", () => {
+  const world = setUp(startWorld(HOME.objects), {
+    objects: [
+      { id: "ball", kind: "ball", start: { where: { on: "by-dog", dx: 0 } } },
+      { id: "lead", kind: "lead", start: { where: { on: "pegs", dx: 0 } } },
+    ],
+  });
+  const headAt = (to: string) => {
+    const { motion } = motionFor({ who: "bobik", do: "look", to }, "bobik", world, HOME);
+    // StickDog turns the head by 0.8 of the tilt.
+    return sampleMotion(motion, 1000, REST_POSE, besideDog(30), 0).pose.tilt * 0.8;
+  };
+
+  it("lifts its head at least 30° to the lead on its peg or a person's face", () => {
+    expect(headAt("lead")).toBeLessThanOrEqual(-30);
+    expect(headAt("robo")).toBeLessThanOrEqual(-30);
+  });
+
+  it("keeps it level for a ball on the floor", () => {
+    expect(headAt("ball")).toBeGreaterThan(-5);
+  });
+});
+
+describe("pointing past someone", () => {
+  const world = startWorld(HOME.objects);
+  const aimOf = (around: Surroundings, to: string) => {
+    const { motion } = motionFor({ do: "point", to }, "anna", world);
+    const rig = solveRig(sampleMotion(motion, 1000, REST_POSE, around, 0).pose, 0);
+    const hand = rig.leadArm.end;
+    const shoulder = rig.leadShoulder;
+    return { hand, shoulder, slope: (shoulder.y - hand.y) / Math.abs(hand.x - shoulder.x) };
+  };
+
+  it("goes clearly down at a bag on the floor across the room", () => {
+    // The bag by the window in demonstratives: its true line was barely below level, at Marek's chest.
+    const around: Surroundings = {
+      pointOf: (name) => (name === "taska" ? { x: 180, y: 140 } : undefined),
+      meetWith: () => undefined,
+    };
+    expect(aimOf(around, "taska").slope).toBeLessThan(-0.68);
+  });
+
+  it("rises over the head of whoever stands between, at something no lower than their hip", () => {
+    const marek = { x: 60, top: 34, hip: 92 };
+    const around: Surroundings = {
+      pointOf: (name) => (name === "jahody" ? { x: 160, y: 70 } : undefined),
+      meetWith: () => undefined,
+      between: () => [marek],
+    };
+    const { hand, shoulder } = aimOf(around, "jahody");
+    // Where the line from the shoulder through the hand passes Marek, it is over his head.
+    const yAt = shoulder.y + ((hand.y - shoulder.y) * (marek.x - shoulder.x)) / (hand.x - shoulder.x);
+    expect(yAt).toBeLessThan(marek.top);
+  });
+});

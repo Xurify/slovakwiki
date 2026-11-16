@@ -270,7 +270,8 @@ const HOME_SET: PlaceSet = {
     "window-dog": { x: 118, facing: -1 },
     // Dunčo by his bed under the window, in frame on a phone, looking up at the glass.
     "dunco-window": { x: 128, facing: 1 },
-    "by-sofa": { piece: "by-sofa", dx: 0, facing: -1 },
+    // A step right of the mat, so what lies on it is in front to crouch down to: standing over it, the reach went straight down.
+    "by-sofa": { piece: "by-sofa", dx: 16, facing: -1 },
     // The dog eating: just left of the bowl, facing it, so its head is down in it and its tail inside a phone's stage.
     "bowl-dog": { piece: "by-sofa", dx: -16, facing: 1 },
     "bowl-mat-dog": { piece: "bowl-mat", dx: -16, facing: 1 },
@@ -498,8 +499,12 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       drawn(WORDS.dom, [0, 132, 628, 42]),
       drawn(WORDS.kos, [590, 228, 20, 38]),
       drawn(WORDS.kvety, [380, 234, 48, 14], [854, 234, 60, 14]),
+      // The rail along the top of the embankment wall (Park.svelte).
+      drawn(WORDS.zabradlie, [0, 202, 960, 24]),
       onSet(WORDS.lopticka, ["ball"], [452, 196, 10, 10]),
       onSet(WORDS.voditko, ["park-lead"], [300, 200, 30, 40]),
+      // Whichever dog the scene brings, measured where it is drawn, as at home.
+      onSet(WORDS.pes, ["dog"], [440, 200, 60, 40]),
     ],
     sounds: ["birds", "wind", "water"],
     // Nothing of its own, so other scenes here stay as they were: a scene brings what it acts with (setup).
@@ -876,6 +881,32 @@ export const PROP_THINGS: Readonly<Partial<Record<string, SceneThing>>> = {
   umbrella: { ...WORDS.dazdnik, box: { x: 0, y: 0, width: 0, height: 0 }, quiet: true },
   clipboard: { ...WORDS.papier, box: { x: 0, y: 0, width: 0, height: 0 }, quiet: true },
 };
+
+/**
+ * A place's things with the set's objects among their drawn copies (a thing
+ * with `ofKind`), and the props on the set (an umbrella, a phone) that the
+ * place does not name itself. The backdrop rings and the stage's word card
+ * both go by this list: built only in the backdrop, a tap on a held umbrella
+ * lit its ring and opened no card.
+ */
+export function withProps(
+  things: readonly SceneThing[],
+  objects: Readonly<Record<string, string>>,
+): SceneThing[] {
+  const ofKind = (kind: string) => Object.keys(objects).filter((id) => objects[id] === kind);
+  const own = things.map((thing) => {
+    const ids = thing.ofKind ? ofKind(thing.ofKind) : [];
+    return ids.length ? { ...thing, of: [...(thing.of ?? []), ...ids] } : thing;
+  });
+  // An object the place already names keeps that word: the school's form is a formulár, not a papier.
+  const named = new Set(own.flatMap((thing) => thing.of ?? []));
+  const props = Object.entries(PROP_THINGS).flatMap(([kind, thing]) => {
+    const ids = ofKind(kind).filter((id) => !named.has(id));
+    if (!thing || !ids.length || own.some(({ id }) => id === thing.id)) return [];
+    return [{ ...thing, of: ids }];
+  });
+  return [...own, ...props];
+}
 
 export function backdropAlign(setting: StageSetting): number {
   return PLACES[setting].align ?? 0.5;
