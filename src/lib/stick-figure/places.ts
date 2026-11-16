@@ -331,6 +331,21 @@ const TRAM_BOX: Rect = [280, 28, 680, 232];
 /** The park's afternoon sun, which a line can point at and Find it can ask for. */
 const PARK_SUN = { x: 562, y: 36 };
 
+/**
+ * The tram stop: where two wait right of the street clock's post, clear
+ * of it, and where they step up to the tram's door to get on.
+ */
+const STREET_SET: PlaceSet = {
+  pieces: [],
+  objects: [],
+  spots: {
+    "wait-l": { x: 540, facing: 1 },
+    "wait-r": { x: 625, facing: -1 },
+    door: { x: 680, facing: 1 },
+    "door-back": { x: 600, facing: 1 },
+  },
+};
+
 /** A place with no pieces of its own: a scene brings what it acts with in its setup. */
 const EMPTY_SET: PlaceSet = {
   pieces: [],
@@ -641,6 +656,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
         [860, 50, 100, 176],
       ),
       drawn(WORDS.strom, treeBox(PARTS.street.tree)),
+      drawn(WORDS.hodiny, clockBox(PARTS.street.clock)),
       drawn({ ...WORDS.lampa, english: "street lamp" }, lampBox(PARTS.street.lamp)),
       drawn(WORDS.zastavka, [200, 54, 160, 234], [384, 8, 54, 280]),
       drawn(WORDS.lavicka, benchBox(PARTS.street.bench)),
@@ -652,7 +668,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       drawn(WORDS.kos, [359, 250, 16, 36]),
     ],
     sounds: ["murmur"],
-    set: EMPTY_SET,
+    set: STREET_SET,
   },
   studio: {
     ground: "carpet",

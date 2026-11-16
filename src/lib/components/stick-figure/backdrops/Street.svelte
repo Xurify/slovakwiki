@@ -7,8 +7,9 @@
   import FloorShade from "./FloorShade.svelte";
   import StreetLamp from "./StreetLamp.svelte";
   import Tree from "./Tree.svelte";
+  import WallClock from "./WallClock.svelte";
 
-  let { tram }: { tram: TramState } = $props();
+  let { hour, tram }: { hour: number; tram: TramState } = $props();
 
   /** Town houses along the far side of the street; neighbours never share a paint. */
   const houses: Facade[] = [
@@ -51,6 +52,8 @@
   const SIDE_WINDOWS = [[D - 92, 28], [D + 30, 38], [D + 72, 38], [D + 114, 38], [D + 200, 38], [D + 242, 38], [D + 284, 38]];
   /** Bogies as [middle, half the wheelbase]; the short one under the cab keeps its wheels behind the nose and clear of the bin. */
   const BOGIES = [[D - 160, 8], [D - 100, 13], [D + 60, 13], [D + 230, 13]];
+
+  const clock = PARTS.street.clock;
 
   const shift = $derived(tram === "away" ? TRAM.away : 0);
   const id = $props.id();
@@ -273,5 +276,14 @@
 <text x="414" y="43.4" text-anchor="middle" font-size="6" font-weight="700" class="fill-white font-sans"
   >Kamenné nám.</text
 >
+
+<!-- The street clock on its post by the stop: a round face under a little cap, the post down to a foot on the paving. -->
+<ellipse cx={clock.x} cy={PAVING + 8} rx="7" ry="2" class="fill-scene-line/15" />
+<rect x={clock.x - 5} y={PAVING + 2} width="10" height="6" rx="1.5" class="fill-scene-steel-dark" />
+<rect x={clock.x - 2} y={clock.y + clock.r - 2} width="4" height={PAVING + 4 - clock.y - clock.r} class="fill-scene-steel-dark" />
+<rect x={clock.x - 4} y={clock.y + clock.r - 1} width="8" height="4" rx="1" class="fill-scene-steel-dark" />
+<path d="M{clock.x - 6} {clock.y - clock.r + 1}L{clock.x} {clock.y - clock.r - 6}L{clock.x + 6} {clock.y - clock.r + 1}Z" class="fill-scene-steel-dark" />
+<circle cx={clock.x} cy={clock.y} r={clock.r + 1.5} class="fill-scene-steel-dark" />
+<WallClock {clock} {hour} />
 
 <StreetLamp lamp={PARTS.street.lamp} />

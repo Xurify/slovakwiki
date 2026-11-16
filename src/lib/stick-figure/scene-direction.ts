@@ -132,8 +132,9 @@ function intoPhone(lines: readonly StageLine[]): boolean[] {
 }
 
 function actedStaging(staging: LineStaging): LineStaging {
-  const { addressee, audience, facing, reactions } = staging;
-  return { addressee, audience, facing, reactions };
+  const { addressee, arrives, audience, boards, facing, reactions } = staging;
+  // The tram is the street's, not a cue's: it still pulls in when a line says so.
+  return { addressee, arrives, audience, boards, facing, reactions };
 }
 
 export function directScene(

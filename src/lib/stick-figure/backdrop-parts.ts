@@ -112,12 +112,14 @@ export const PARTS = {
     // The bench in the shelter beside its map, and the lamp at the back of the platform just past the
     // tram's first door; the tree is past what a 1280-wide stage shows.
     bench: { ground: 284, width: 68, x: 270 },
+    // On its own post by the stop, high enough to read over the cast's heads.
+    clock: { hand: 13, numerals: true, r: 19, x: 474, y: 34 },
     lamp: { ground: 292, x: 740 },
     tree: { ground: 284, x: 58 },
   },
 
   studio: {
-    clock: { hand: 9, r: 16, ticks: true, x: 308, y: 76 },
+    clock: { hand: 13, numerals: true, r: 22, x: 310, y: 76 },
     plant: { x: 690, y: 246 },
   },
 } as const satisfies Partial<

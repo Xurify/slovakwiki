@@ -148,7 +148,9 @@ function report(t, what, evidence) {
   let back = null;
   const order = [];
   const gone = new Map();
-  const handled = new Set();
+  // A held card is a question still open: answer it, whatever its labels. Keyed on the labels, two asks
+  // with the same choices hung the walk on the second.
+  let pickedAt = -Infinity;
   let asks = 0;
   let idle = 0;
   while (t < 20 * 60 * 1000) {
@@ -190,8 +192,7 @@ function report(t, what, evidence) {
       }
       last = id;
     }
-    if (now?.held && !handled.has(id)) {
-      handled.add(id);
+    if (now?.held && t - pickedAt > 1000) {
       const g = await geometry();
       await page.mouse.move(0, 0);
       await shoot(`ask-${asks + 1}.png`);
@@ -236,6 +237,7 @@ function report(t, what, evidence) {
           .nth(+plan - 1)
           .click();
       }
+      pickedAt = t;
       console.error(`ask ${asks}: ${id} -> ${plan}`);
     }
     await page.clock.runFor(STEP);
