@@ -520,6 +520,8 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
         "back-right": { x: 550, facing: -1 },
         // Halfway after the ball, short of the bench, so he is still in sight as he runs.
         "far-right": { x: 566, facing: 1 },
+        // A step right of the lamp post, turned to park-left, to take something from whoever stands there.
+        "park-take": { x: 400, facing: -1 },
       },
     },
   },

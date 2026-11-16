@@ -247,6 +247,7 @@ const friday: ListeningChapter = {
       "anna-all-packed": [{ do: "wave", on: "ahoj" }],
       "domo-good-evening-here": [
         { do: "enter", from: "off-right", to: "rug-right", on: "before" },
+        { who: "anna", do: "look", to: "robot", on: "tu" },
       ],
       "marek-suitcase-passport": [
         { do: "look", to: "suitcase", on: "kufor" },
@@ -256,7 +257,7 @@ const friday: ListeningChapter = {
       "marek-this-is-dunco": [{ do: "point", to: "dog", on: "dunčo" }],
       // A look, not a point: from beside the pegs his arm toward the window landed on the coat hanging there.
       "marek-monday-evening": [{ do: "look", to: "okno", on: "čaká" }],
-      "dunco-growls-at-domo": [{ do: "face", to: "robot", on: "before" }],
+      "dunco-growls-at-domo": [{ do: "growl", to: "robot", on: "start" }],
       "anna-ill-come-tomorrow": [{ do: "face", to: "robot", on: "start" }],
       "domo-six-window-save": [{ do: "compute", on: "uložím" }],
       // The case goes down first, so his hands are free for the dog.
@@ -264,11 +265,12 @@ const friday: ListeningChapter = {
         { do: "go", to: "kneel-by-dog", on: "before" },
         { do: "put", what: "suitcase", to: "by-dog", on: "before" },
         { who: "dog", do: "face", to: "marek", on: "before" },
+        { who: "dog", do: "sit", on: "before" },
         { do: "kneel", to: "dog", on: "dunčo" },
       ],
+      // The case stays down: he flies in the morning.
       "anna-both-will-be-fine": [
-        { who: "marek", do: "take", what: "suitcase", on: "start" },
-        { who: "dog", do: "stand", on: "start" },
+        { who: "dog", do: "look", to: "anna", on: "šťastnú" },
         { do: "wave", on: "šťastnú" },
         { do: "leave", to: "door", on: "after" },
       ],
@@ -340,14 +342,15 @@ const morning: ListeningChapter = {
   setup: {
     // Dunčo starts at rug-left, off the spot Domo comes to, so the bowl is set down in front of him, not behind.
     spots: { dog: "rug-left" },
-    // Domo has filled the bowl from Friday; the lead is still on its peg.
+    // Domo has filled the bowl from Friday; the lead is still on its peg, and Marek's case went with him.
     state: {
       bowl: { where: { hand: "robot", side: "lead" }, fill: "kibble" },
       lead: { where: { on: "pegs", dx: 0 }, clipped: false },
+      suitcase: { where: { hand: "marek", side: "rear" } },
     },
     objects: [
-      // His ball on the mat by the sofa.
-      { id: "ball", kind: "ball", start: { where: { on: "by-sofa", dx: 0 } } },
+      // His ball by his bed, so Anna fetches it without passing Domo on the rug.
+      { id: "ball", kind: "ball", start: { where: { on: "by-bed", dx: 0 } } },
     ],
   },
   lines: staged(
@@ -434,19 +437,27 @@ const morning: ListeningChapter = {
       dog("dunco-park-bark", [EXCITED, "Haf! Haf!"], "Woof! Woof!", "Anna"),
     ],
     {
+      // Up from where he sat for Friday's goodbye.
+      "card-saturday-seven": [{ who: "dog", do: "stand", on: "start" }],
       "domo-good-morning-food": [
         { do: "enter", from: "off-right", to: "rug-mid", on: "before" },
-        { do: "put", what: "bowl", to: "by-dog", dx: -6, on: "granule" },
+        { do: "put", what: "bowl", to: "by-dog", dx: -6, on: "tu" },
       ],
-      // Dunčo walks off to the window as Domo asks, and Domo steps after him off the door's swing, so
-      // Anna's hello comes as the door opens, not after a silent walk-in.
+      "dunco-growls-morning": [{ do: "growl", to: "robot", on: "start" }],
+      // Dunčo walks off to the window as Domo asks and sulks there lying down, watching him; Domo steps
+      // off the door's swing, so Anna's hello comes as the door opens, not after a silent walk-in.
       "domo-still-dont-know-me": [
-        { who: "dog", do: "go", to: "window-dog", on: "ešte" },
+        { who: "dog", do: "go", to: "dunco-window", on: "ešte" },
         { do: "go", to: "rug-mid-right", on: "start" },
+        { who: "dog", do: "face", to: "robot", on: "after" },
+        { who: "dog", do: "lie", on: "after" },
       ],
-      "anna-good-morning-how-are-you": [{ do: "enter", to: "rug-mid", on: "start" }],
+      "anna-good-morning-how-are-you": [
+        { do: "enter", to: "rug-mid", on: "start" },
+        { who: "dog", do: "look", to: "anna", on: "start" },
+      ],
       "anna-it-will-pass": [
-        { do: "go", to: "by-sofa", on: "vieš" },
+        { do: "go", to: "window", on: "vieš" },
         { do: "take", what: "ball" },
       ],
       "anna-heres-his-ball": [
@@ -462,7 +473,8 @@ const morning: ListeningChapter = {
       "anna-lets-go-park": [
         { do: "go", to: "kneel-by-dog", on: "tak" },
         { who: "robot", do: "go", to: "rug-right", on: "poďme" },
-        { who: "dog", do: "go", to: "dog-spot", on: "tak", run: true },
+        { who: "dog", do: "stand", on: "tak" },
+        { who: "dog", do: "go", to: "dog-spot", run: true },
         { do: "kneel", to: "dog", on: "dunčo" },
         { do: "leash", what: "lead", to: "dog" },
       ],
@@ -673,22 +685,20 @@ const park: ListeningChapter = {
       "domo-i-will-throw-now": [
         { do: "face", to: "off-right", on: "hodím" },
         { do: "throw", what: "ball", to: "dog", on: "teraz" },
-        { who: "dog", do: "go", to: "far-right", on: "teraz", run: true },
+        { who: "dog", do: "go", to: "off-right", on: "teraz", run: true },
       ],
-      // Still in sight as she points him out, then on off the edge after the ball.
-      "anna-look-he-runs": [
-        { do: "point", to: "dog", on: "pozri" },
-        { who: "dog", do: "go", to: "off-right", on: "beží", run: true },
-      ],
+      "anna-look-he-runs": [{ do: "point", to: "dog", on: "pozri" }],
       // He comes back at a run while Domo still counts, so the stage is never empty for long.
       "domo-twenty-thirty-metres": [
         { who: "dog", do: "take", what: "ball", on: "tridsať" },
         { who: "dog", do: "go", to: "back-right", run: true },
       ],
-      // Right up to Domo's feet with it; he keeps it in his mouth, as a robot standing can't reach down that far.
       "dunco-brings-ball": [{ do: "go", to: "robot", on: "start" }],
       "domo-to-me": [{ do: "look", to: "dog", on: "mne" }],
-      "anna-he-likes-you": [{ who: "dog", do: "wag", on: "rád" }],
+      "anna-he-likes-you": [
+        { who: "dog", do: "give", what: "ball", to: "robot", on: "tebe" },
+        { who: "dog", do: "wag", on: "rád" },
+      ],
       // Back on the lead before she goes, and Domo takes him home on it.
       // Dunčo comes to heel as she gets ready to go; she hands Domo the lead to take him home.
       "anna-i-have-to-go": [
@@ -696,8 +706,10 @@ const park: ListeningChapter = {
         { do: "take", what: "park-lead", on: "musím" },
         { do: "leash", what: "park-lead", to: "dog", on: "večer" },
       ],
+      // They meet right of the lamp post, so neither stands in front of it.
       "domo-thank-you-anna": [
-        { do: "go", to: "anna", on: "start" },
+        { do: "go", to: "park-take", on: "start" },
+        { who: "anna", do: "go", to: "robot", on: "dobre" },
         { who: "anna", do: "give", what: "park-lead", to: "robot", on: "ďakujem" },
       ],
       "dunco-bye-anna": [{ do: "face", to: "off-left", on: "before" }],
@@ -705,7 +717,12 @@ const park: ListeningChapter = {
         { do: "wave", on: "ahoj" },
         { do: "go", to: "off-left", on: "after" },
       ],
-      "domo-haf-means-hi": [{ do: "compute", on: "uložím" }],
+      // Once she is gone he comes back to Domo's side, off the stretched lead.
+      "domo-haf-means-hi": [
+        { who: "dog", do: "go", to: "robot", on: "start" },
+        { do: "look", to: "dog", on: "haf" },
+        { do: "compute", on: "uložím" },
+      ],
       "anna-ill-take-a-photo": [
         { do: "take", what: "phone", on: "počkaj" },
         { do: "photo", what: "phone", to: "robot", on: "odfotím" },
@@ -776,8 +793,8 @@ const six: ListeningChapter = {
   titleSk: "O šiestej",
   title: "At six",
   setup: {
-    // At six Dunčo is already at the window, turned to the glass: the clue Domo has to read.
-    spots: { dog: "window", robot: "rug-mid" },
+    // At six Dunčo is already by his bed under the window, looking up at the glass: the clue Domo has to read.
+    spots: { dog: "dunco-window", robot: "rug-mid" },
     // Back from the park: the lead on its peg again.
     state: { lead: { where: { on: "pegs", dx: 0 }, clipped: false } },
   },
@@ -814,10 +831,13 @@ const six: ListeningChapter = {
       ),
     ],
     {
-      "dunco-whines-at-six": [{ do: "face", to: "okno", on: "before" }],
-      "domo-ill-give-dinner": [{ do: "go", to: "dog-spot", on: "dunčo" }],
+      "dunco-whines-at-six": [{ do: "droop", on: "start" }],
+      "domo-ill-give-dinner": [{ do: "go", to: "window", on: "dunčo" }],
+      "dunco-whines-again": [{ do: "droop", on: "start" }],
+      // He turns from the ball and lies down where he waits.
       "domo-not-even-the-ball": [
         { do: "offer", what: "ball", to: "dog", on: "loptičku" },
+        { who: "dog", do: "lie", on: "end" },
         { do: "pocket", what: "ball", on: "after" },
       ],
     },
@@ -907,11 +927,6 @@ const atWindow: ListeningChapter = {
           prompt: "Prečo je Dunčo smutný?",
           choices: [
             {
-              id: "misses-marek",
-              label: "Čaká na Mareka.",
-              english: "He's waiting for Marek.",
-            },
-            {
               id: "paw",
               label: "Bolí ho labka.",
               english: "His paw hurts.",
@@ -924,6 +939,11 @@ const atWindow: ListeningChapter = {
               english: "He misses Anna.",
               whyWrong:
                 "Chýba mu Anna means he misses Anna. But Anna was here this morning. It is six now, when Marek comes home from work.",
+            },
+            {
+              id: "misses-marek",
+              label: "Čaká na Mareka.",
+              english: "He's waiting for Marek.",
             },
             {
               id: "out",
@@ -1044,20 +1064,25 @@ const atWindow: ListeningChapter = {
         { do: "compute", on: "viem" },
       ],
       "domo-you-wait-for-marek": [{ do: "face", to: "dog", on: "start" }],
-      "dunco-whines-yes": [{ do: "face", to: "okno", on: "before" }],
+      "dunco-whines-yes": [{ do: "droop", on: "start" }],
       // He turns with Dunčo to the glass, and shows him where they will wait.
       "domo-i-will-wait-with-you": [
         { do: "face", to: "okno", on: "tak" },
         { do: "point", to: "okno", on: "okne" },
       ],
+      "dunco-soft-bark-window": [{ do: "droop", on: "start" }],
       "domo-anna-writes": [{ do: "compute", on: "správa" }],
+      // Up on "spolu": the first time he is glad to be with Domo.
+      "domo-we-will-wait-together": [
+        { who: "dog", do: "stand", on: "spolu" },
+        { who: "dog", do: "wag" },
+      ],
       // A step back past the bowl, still where Domo put it this morning, so the dog has room at it.
       "domo-now-youll-eat": [{ do: "go", to: "rug-mid-right", on: "teraz" }],
-      "dunco-eats-bark": [
-        { do: "go", to: "rug-left", on: "end" },
-        { do: "eat", what: "bowl" },
-      ],
+      // Domo says it while the dog eats, not after.
+      "dunco-eats-bark": [{ do: "go", to: "rug-left", on: "end" }],
       "domo-hes-hungry": [
+        { who: "dog", do: "eat", what: "bowl", on: "before" },
         { do: "look", to: "dog", on: "start" },
         { do: "compute", on: "uložím" },
       ],
@@ -1127,10 +1152,10 @@ const monday: ListeningChapter = {
   titleSk: "Som doma",
   title: "I'm home",
   // Monday: the bowl back by his bed, where it is kept between meals.
-  // Domo starts nearer the window than Dunčo, so going over to it neither passes the other, and at
-  // the window Domo is on the far side, leaving Dunčo between him and the door, where Marek kneels to him.
+  // Dunčo starts nearer the window than Domo, so going over to it neither passes the other; at the
+  // window Domo stands between him and the door, so "Poď sem!" calls him across the room.
   setup: {
-    spots: { robot: "rug-mid", dog: "rug-mid-right" },
+    spots: { robot: "rug-mid", dog: "dog-spot" },
     state: { bowl: { where: { on: "by-bed", dx: 0 }, fill: undefined } },
   },
   lines: staged(
@@ -1252,25 +1277,28 @@ const monday: ListeningChapter = {
     {
       "domo-six-lets-go-window": [
         { do: "go", to: "window", on: "oknu" },
-        { who: "dog", do: "go", to: "dog-spot", on: "oknu" },
-        { who: "dog", do: "face", to: "okno" },
+        { who: "dog", do: "go", to: "dunco-window", on: "oknu" },
       ],
-      // The door opens on "Uvidíš", and Dunčo turns from the window to it.
+      "dunco-whines-monday": [{ do: "droop", on: "start" }],
+      // The keys turn while Domo still promises, so Marek is in as the line ends, and Dunčo turns to the door.
       "domo-today-he-will-come": [
-        { who: "marek", do: "enter", to: "inside", on: "uvidíš" },
+        { who: "marek", do: "enter", to: "inside", on: "ale" },
         { who: "dog", do: "face", to: "marek", on: "uvidíš" },
       ],
-      // One step in, the case down by the door as he calls out, and his hand up to the dog.
+      // The case down just inside the door as he calls out, and his hand up to the dog.
       "marek-good-evening-home": [
-        { do: "put", what: "suitcase", to: "by-dog", dx: 18, on: "start" },
+        { do: "put", what: "suitcase", to: "by-dog", dx: 22, on: "start" },
         { do: "wave" },
         { who: "robot", do: "look", to: "marek", on: "ahojte" },
       ],
-      "dunco-overjoyed": [{ do: "wag", on: "start" }],
-      // A step to meet him, and down to his height.
+      "dunco-overjoyed": [
+        { do: "jump", to: "marek", on: "start" },
+        { do: "wag" },
+      ],
+      // Called, he runs across to Marek, who gets down to him.
       "marek-missed-you-too": [
-        { do: "go", to: "kneel-by-dog", on: "dunčo" },
-        { do: "kneel", to: "dog" },
+        { who: "dog", do: "go", to: "marek", on: "poď", run: true },
+        { do: "kneel", to: "dog", on: "chýbal" },
       ],
       "marek-how-were-you": [{ who: "robot", do: "face", to: "marek", on: "domo" }],
       // Up from the dog, which sits down at his feet, and a nod across it to Domo for the thanks.
@@ -1279,7 +1307,15 @@ const monday: ListeningChapter = {
         { do: "nod", on: "ďakujem" },
         { who: "dog", do: "sit", on: "ďakujem" },
       ],
+      "dunco-thanks-bark": [
+        { do: "face", to: "robot", on: "before" },
+        { do: "wag", on: "start" },
+      ],
       "domo-hi-or-thanks": [{ do: "compute", on: "uložím" }],
+      "dunco-last-bark": [
+        { do: "face", to: "robot", on: "before" },
+        { do: "wag", on: "start" },
+      ],
       // Down to the dog for his try at its word, and Marek's grin at the two of them.
       "domo-tries-haf": [{ do: "lean", to: "dog", on: "start" }],
       "marek-you-understand-each-other": [{ do: "grin", on: "start" }],
@@ -1303,7 +1339,7 @@ const monday: ListeningChapter = {
           id: "ball",
           label: "Domo kúpil novú loptičku.",
           whyWrong:
-            "**Kúpil loptičku** means he bought a ball. The ball is the old one from the park.",
+            "**Kúpil loptičku** means he bought a ball. Nobody bought a ball: it is Dunčo's own ball from home.",
         },
       ],
       answerId: "waited",
