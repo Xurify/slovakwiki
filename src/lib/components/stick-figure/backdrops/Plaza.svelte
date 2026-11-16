@@ -167,7 +167,8 @@
 <path d="M193 224h14l-1.5 17h-11Z" class="fill-scene-line/55" />
 <rect x="192" y="222" width="16" height="3" rx="1" class="fill-scene-line/70" />
 <g class="stroke-scene-line/85" fill="none" stroke-width="1.8">
-  <path d="M148 240V228a6 6 0 0 1 12 0V240" />
+  <!-- The stand's hoop is taller and squarer than a wheel: drawn round and wheel-sized, it read as a third wheel. -->
+  <path d="M146 240V226q0-3 3-3h10q3 0 3 3V240" class="stroke-scene-line/45" stroke-width="1.6" />
   {#each [140] as x (x)}
     <circle cx={x} cy="234" r="6" />
     <circle cx={x + 18} cy="234" r="6" />
