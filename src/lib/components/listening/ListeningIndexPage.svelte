@@ -17,8 +17,8 @@
       <h1 class="text-balance">Episodes</h1>
 
       <Lead class="text-pretty">
-        Short stories in simple Slovak, acted out on a small stage. Listen first, answer
-        a few questions, then read along.
+        Anna and Marek lose keys, find umbrellas nobody owns and work out who ate the
+        cake. Watch it happen in easy Slovak, and help them out when they get stuck.
       </Lead>
     </header>
 
