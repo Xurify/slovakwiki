@@ -1017,7 +1017,13 @@ const help: ListeningChapter = {
           prompt: "Čo má Marek povedať?",
           choices: [
             { id: "su", label: "Sú tri hodiny", english: "It's three o'clock" },
-            { id: "je", label: "Je tri hodiny", english: "It's three o'clock" },
+            {
+              id: "je",
+              label: "Je tri hodiny",
+              english: "It's three o'clock",
+              whyWrong:
+                "**Je** goes with one o'clock and with five or more. Two, three and four take **sú**: **sú tri hodiny**.",
+            },
           ],
           answerId: "su",
           judge: "Anna",
@@ -1160,6 +1166,8 @@ const help: ListeningChapter = {
               id: "dvanastej",
               label: "O pol dvanástej",
               english: "When they left the café",
+              whyWrong:
+                "**Pol dvanástej** is halfway to twelve: 11:30. Twelve thirty is halfway to one, **o pol jednej**.",
             },
           ],
           answerId: "jednej",
@@ -1283,7 +1291,13 @@ const help: ListeningChapter = {
           prompt: "Čo má Marek povedať?",
           choices: [
             { id: "desiatej", label: "O desiatej", english: "When the tram went" },
-            { id: "desat", label: "O desať hodín", english: "When the tram went" },
+            {
+              id: "desat",
+              label: "O desať hodín",
+              english: "When the tram went",
+              whyWrong:
+                "**O desať hodín** means in ten hours, how long from now. A time on the clock is **o desiatej**.",
+            },
           ],
           answerId: "desiatej",
           judge: "Anna",
