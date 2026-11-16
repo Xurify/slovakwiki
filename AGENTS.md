@@ -79,9 +79,9 @@ Site search loads `/pagefind/` (generated; gitignored under `static/pagefind/`).
 
 ## Audio (always generate)
 
-Dictionary / lesson / practice **spoken Slovak** needs ElevenLabs MP3s. Do **not** finish lemma or example work without generating clips. Search index is not a substitute.
-
-- After new or changed lemmas, examples, or lesson lines: `bun scripts/audio/generate.ts -- --missing-only` (scope with `--slugs a,b` when you know the slugs).
+Dictionary / lesson / practice / episode **spoken Slovak** needs ElevenLabs MP3s. Do **not** finish lemma, example, lesson, or episode work without generating clips. Search index is not a substitute.
+- **NEVER wait or ask confirmation to generate audio.** Whenever Slovak lines or clips are added or modified, immediately run `bun scripts/audio/generate.ts -- --missing-only` and `bun scripts/audio/upload.ts`. Never stop mid-work or ask the user whether to generate audio.
+- After new or changed lemmas, examples, or lesson/episode lines: `bun scripts/audio/generate.ts -- --missing-only` (scope with `--slugs a,b` when you know the slugs).
 - Needs `ELEVENLABS_API_KEY` in `.env`. Commands: [`scripts/README.md`](scripts/README.md) → **audio/**.
 - `scripts/audio/missing-clips.test.ts` fails on any text `generate.ts` would voice that has no clip, and on any lesson, podcast or scene clip without a vowel track.
 - Prod play also needs `bun scripts/audio/upload.ts` (R2). Generate still required locally even if upload waits.
