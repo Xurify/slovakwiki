@@ -120,6 +120,8 @@ export interface Cue {
   run?: boolean;
   /** For `show`: what the phone's screen shows, drawn in a bubble over it (a family photo). */
   picture?: StickPictureId;
+  /** `take`: in the hand away from the way they face, so a seated host lifts it clear of the desk mic; a `raise` after lifts that hand. */
+  hand?: "far";
   /** `show`: held out past the line, until the shower's next cue (the next show, or the phone put away). */
   keep?: boolean;
   /** `grin`: poppy seeds stuck on the teeth. */
@@ -337,13 +339,15 @@ export function freeHand(
   world: World,
   who: LessonCharacterId,
   what?: string,
+  /** The hand away from the way they face, where a seated host's desk mic is not: `hand: "far"` on a take. */
+  far = false,
 ): Hand | undefined {
   const held = heldBy(world, who);
   const kind = what ? world.objects[what]?.kind : undefined;
   if (kind && TWO_HANDED.includes(kind))
     return held.lead || held.rear ? undefined : "lead";
   const order: Hand[] =
-    kind && OFF_HAND.includes(kind) ? ["rear", "lead"] : ["lead", "rear"];
+    far || (kind && OFF_HAND.includes(kind)) ? ["rear", "lead"] : ["lead", "rear"];
   return order.find((hand) => !held[hand]);
 }
 
@@ -512,7 +516,7 @@ export function applyCue(
           `${who} take ${what}: it is in ${object.where.pocket}'s pocket`,
         );
       }
-      const hand = freeHand(world, who, what);
+      const hand = freeHand(world, who, what, cue.hand === "far");
       if (!hand) throw new CueError(`${who} take ${what}: hands are full`);
       const both = TWO_HANDED.includes(object.kind);
       return setObject(world, what, {

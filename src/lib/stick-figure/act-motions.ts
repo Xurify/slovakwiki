@@ -227,13 +227,17 @@ export function motionFor(
         const giver = where.hand;
         return {
           motion: {
-            ...handOverMotion(freeHand(world, who, what) ?? "lead", giver, object?.kind),
+            ...handOverMotion(
+              freeHand(world, who, what, cue.hand === "far") ?? "lead",
+              giver,
+              object?.kind,
+            ),
           },
           partner: { who: giver, motion: handOverMotion(where.side, who, object?.kind) },
         };
       }
       if (where && "pocket" in where) {
-        const hand = freeHand(world, who, what) ?? "lead";
+        const hand = freeHand(world, who, what, cue.hand === "far") ?? "lead";
         return {
           motion:
             object?.kind === "phone"
@@ -242,7 +246,7 @@ export function motionFor(
         };
       }
       if (where && "wear" in where) return { motion: offHeadMotion() };
-      const into = freeHand(world, who, what) ?? "lead";
+      const into = freeHand(world, who, what, cue.hand === "far") ?? "lead";
       if (heavy) return { motion: liftMotion(what, sinkAt(plan, where)) };
       if (object?.kind === "board") {
         // Both hands on it, then up level to the waist.
