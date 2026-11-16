@@ -22,7 +22,7 @@
   } from "$lib/stick-figure/pose";
   import type { Dress } from "$lib/stick-figure/dress";
   import type { Held } from "$lib/stick-figure/props";
-  import { alive } from "$lib/stick-figure/idle";
+  import { alive, dogIdle } from "$lib/stick-figure/idle";
   import { restOnTable } from "$lib/stick-figure/reach";
   import { PlayTween } from "$lib/stick-figure/play-motion.svelte";
   import { gallopPose, sitMs, stepMs, walkPose } from "$lib/stick-figure/walk";
@@ -64,6 +64,7 @@
     held,
     dress,
     seated = false,
+    lying = false,
     arrived = true,
     out = 0,
     atTable = false,
@@ -95,6 +96,8 @@
     arrived?: boolean;
     /** On a chair: they sit once any walk there is over, and get up before walking on. */
     seated?: boolean;
+    /** A dog lying down. */
+    lying?: boolean;
     /** Rig units their chair is drawn back from its place, while they get on or off it. */
     out?: number;
     /** At their chair, about to sit or just up. */
@@ -152,6 +155,7 @@
   let rawPose: StickPose = REST_POSE;
   // Linear: the rig shapes the hips' path and the bow along it.
   const sitting = new PlayTween(0);
+  const lyingDown = new PlayTween(0, { easing: cubicInOut });
   const calling = new PlayTween(0, { easing: cubicInOut });
 
   let picture = $state<StickPictureId>();
@@ -232,6 +236,17 @@
         delay: down && !still ? walkLeft : 0,
         duration: still ? 0 : sitMs(characterId, !down),
       });
+    });
+  });
+
+  $effect(() => {
+    const down = lying;
+    untrack(() => {
+      const still =
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+        !arrived ||
+        playClockNow() - placedAt < 250;
+      void lyingDown.set(down ? 1 : 0, { duration: still ? 0 : sitMs(characterId, !down) });
     });
   });
 
@@ -346,9 +361,13 @@
       ? easeInOut(Math.min(1, (now - released.at) / RELEASE_MS))
       : 1;
     const still = released ? lerpPose(released.pose, stepping, easing) : stepping;
-    const living = reducedMotion
+    const breathing = reducedMotion
       ? (acted?.pose ?? still)
       : alive(acted?.pose ?? still, now, characterId, !acted && !released);
+    const living =
+      LOOKS[characterId].dog && !reducedMotion && !acted && !released && !walking && !talking
+        ? dogIdle(breathing, now, characterId)
+        : breathing;
     // A sad or sorry line keeps the brows knit through it, not only for the sigh at its start.
     const felt =
       plan?.glum && talking && !plan.silent
@@ -388,6 +407,7 @@
   {held}
   {dress}
   sit={sitting.current}
+  lie={lyingDown.current}
   sitPath={{ out, rising: !seated }}
   call={calling.current}
   {relaying}

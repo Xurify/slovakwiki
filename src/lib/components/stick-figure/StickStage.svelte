@@ -64,6 +64,7 @@
   import {
     FLOOR,
     beside,
+    BESIDE_GAP,
     markOf,
     offStage,
     onSeat,
@@ -77,7 +78,7 @@
   import { restFacing, type CastFacing, type Facing } from "$lib/stick-figure/staging";
   import { playSteps, playTramCue, stopCues } from "$lib/stick-figure/ambience";
   import { PlayTween } from "$lib/stick-figure/play-motion.svelte";
-  import type { TramState } from "$lib/stick-figure/street";
+  import { TRAM, tramShift, type TramState } from "$lib/stick-figure/street";
   import {
     CHAIR_OUT,
     SCOOT_MS,
@@ -308,6 +309,16 @@
   let bubbleTimer: (() => void) | undefined;
   let bubbleHeight = $state(0);
   let tram = $state<TramState>("away");
+  /** Above this, in cast units, a thing is over a standing person's shoulders. */
+  const OVERHEAD_Y = 66;
+  /** How far in from the stage's right edge, in cast units, a point at a tram still off it aims. */
+  const TRAM_EDGE = 8;
+  /** The middle of the tram's cab, backdrop px in from its nose (Street.svelte). */
+  const TRAM_CAB = 50;
+  /** How often someone looking at a tram pulling in checks which way it now is. */
+  const TRAM_FOLLOW_MS = 400;
+  /** Play time the tram started to pull in. */
+  let tramSince = 0;
   /** Everyone has got on the tram, out of the weather. */
   let aboard = $state(false);
   let stageWidth = $state(0);
@@ -562,6 +573,7 @@
       geometry,
       castX,
       middleOf: (name) => (isCast(name) ? castMiddle(name) : undefined),
+      facingOf: (name) => (isCast(name) ? facingOf(name) : undefined),
       seatX: (chair) => {
         const seat = frame.seats[chair];
         return seat && seat.x / unit;
@@ -595,6 +607,11 @@
     const box = pointed && thingBoxes(pointed.thing)[pointed.copy ?? 0];
     if (!box) return undefined;
     const centre = boxCenter(box);
+    // A tram pulling in is its cab, where it has got to, so a look or a point follows it in; past the stage's edge, the edge it comes in at.
+    if (pointed.thing.id === "elektricka" && tram === "coming") {
+      const x = castX(box.x + TRAM_CAB + tramShift(playClockNow() - tramSince));
+      return { x: Math.min(x, castView.x + castView.width - TRAM_EDGE), y: castY(centre.y) };
+    }
     return { x: castX(centre.x), y: castY(centre.y) };
   }
 
@@ -685,9 +702,10 @@
     }
     if (!isCast(to)) return undefined;
     const toward: Facing = castMiddle(to) >= castMiddle(id) ? 1 : -1;
-    // A dog is a body length long: stopping as close as to a person stands on it.
-    const gap = LOOKS[to].dog ? 1 : 0.62;
-    return { offset: beside(frame, id, to, toward, offsets, gap), facing: toward };
+    return {
+      offset: beside(frame, id, to, toward, offsets, BESIDE_GAP),
+      facing: toward,
+    };
   }
 
   /** How long `id` turns before doing what faces `face`: none if they face it already or sit. */
@@ -756,12 +774,14 @@
     target: string | undefined,
   ): Facing | undefined {
     if (!target) return undefined;
-    const x = castPoint(target, "base", facingOf(id))?.x;
-    if (x === undefined) return undefined;
+    const at = castPoint(target, "base", facingOf(id));
+    if (at === undefined) return undefined;
     const middle = castMiddle(id);
-    // Right by their feet (the towel at the counter's end), nobody turns round for it.
-    if (Math.abs(x - middle) < 6) return undefined;
-    return x > middle ? 1 : -1;
+    // Right by their feet (the towel at the counter's end), nobody turns round for it. Something up over
+    // their head is another matter: facing away, a point at it went out on the wrong side.
+    const near = at.y < OVERHEAD_Y ? 1 : 6;
+    if (Math.abs(at.x - middle) < near) return undefined;
+    return at.x > middle ? 1 : -1;
   }
 
   /** Run `then` in `ms` of play time, unless the stage stops or jumps first. */
@@ -983,6 +1003,7 @@
       return 0;
     }
     const face = faceToward(who, motion.face ?? cue.what);
+    if ((cue.do === "look" || cue.do === "point") && cue.to === "elektricka") followTram(who);
     // A hand-over is timed with the other hand: neither waits for a turn.
     const lead = item.partner || cue.do === "give" ? 0 : setOffFor(who, face);
     switch (cue.do) {
@@ -1085,6 +1106,17 @@
       later(lead + contact.until + margin, () => sink(who, contact.hand, undefined));
     }
     return lead;
+  }
+
+  /** Turn `who` after the tram as it pulls in past them, until it stops. */
+  function followTram(who: LessonCharacterId): void {
+    if (tram !== "coming") return;
+    for (let at = TRAM_FOLLOW_MS; at <= TRAM.ms - (playClockNow() - tramSince); at += TRAM_FOLLOW_MS) {
+      later(at, () => {
+        const face = faceToward(who, "elektricka");
+        if (face && face !== facingOf(who) && seated[who] === undefined) turnTo(who, face);
+      });
+    }
   }
 
   /**
@@ -1718,6 +1750,7 @@
     facings = next.facings;
     seated = next.seated;
     settleChairs();
+    if (next.tram === "coming" && tram !== "coming") tramSince = playClockNow();
     tram = next.tram;
     aboard = next.aboard;
     for (const id of direction.cast) {
@@ -1901,6 +1934,14 @@
       }
 
       offsets = nextOffsets;
+      // Turned to what an earlier line's cue turned them to, not the way their spot faces.
+      for (const [id, target] of Object.entries(world?.faces ?? {}) as Array<
+        [LessonCharacterId, string]
+      >) {
+        if (nextSeated[id] !== undefined || world?.out?.includes(id)) continue;
+        const face = faceToward(id, target);
+        if (face) nextFacings[id] = face;
+      }
       facings = nextFacings;
       seated = nextSeated;
       settleChairs();
@@ -2259,7 +2300,10 @@
     if (!acted && staging) {
       block(startLine(blocking(), staging, speaker, frame), staging.returns?.characterId);
     }
-    if (acted && staging?.arrives) tram = "coming";
+    if (acted && staging?.arrives) {
+      tram = "coming";
+      tramSince = playClockNow();
+    }
     // A speaker walking somewhere faces the way they go, not where they point. A walk led in before the line
     // has not moved them yet while they turn to set off, so it shows as busy, not as a new place.
     if (
@@ -2505,6 +2549,8 @@
                   seated={seated[characterId] !== undefined ||
                     (Boolean(LOOKS[characterId].dog) &&
                       (world?.seated?.includes(characterId) ?? false))}
+                  lying={Boolean(LOOKS[characterId].dog) &&
+                    (world?.lying?.includes(characterId) ?? false)}
                   arrived={revealed}
                   out={chairOut(perched[characterId])}
                   atTable={perched[characterId] !== undefined}
@@ -2618,7 +2664,9 @@
     <div
       data-word-card
       role="dialog"
-      aria-label={pickedThing.word}
+      aria-label={[pickedThing.word, ...(pickedThing.lying ?? []).map(({ word }) => word)].join(
+        " · ",
+      )}
       class={cx(
         "absolute z-10 animate-rise rounded-(--control-radius) bg-surface text-left",
         "shadow-(--shadow-float) ring-1 ring-slate-200",
@@ -2663,6 +2711,27 @@
           <p class="m-0 text-sm text-slate-600">{pickedThing.english}</p>
         </div>
       </div>
+
+      <!-- What lies on it is tapped as part of it, so its words are here too: the carrot on the board was out of reach. -->
+      {#each pickedThing.lying ?? [] as other (other.id)}
+        {@const otherWord = thingWords[other.word]}
+        <div class="flex items-center gap-3 border-t border-slate-100 px-3 py-2">
+          {#if otherWord?.src}
+            <AudioButton
+              label="Listen: {other.word}"
+              size="sm"
+              src={otherWord.src}
+              text={other.word}
+            />
+          {/if}
+          <p class="m-0 min-w-0 text-sm text-slate-600">
+            <span class="font-serif text-base font-semibold text-slate-900" lang="sk"
+              >{other.word}</span
+            >
+            <span aria-hidden="true"> · </span>{other.english}
+          </p>
+        </div>
+      {/each}
 
       <!-- Gender as Slovak shows it: by the word for "this" in front. On its own over the noun, "ten" read as part of its name. -->
       <p class="m-0 border-t border-slate-100 px-3 py-2 text-xs text-slate-500">

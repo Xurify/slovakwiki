@@ -152,6 +152,14 @@ export function standing(mark: Mark, offset = 0): Mark {
   return { ...mark, left: mark.left + offset * mark.width };
 }
 
+/**
+ * Figure widths from someone's middle to whoever walks over to stand beside
+ * them, a dog too: clear of its nose or its tail either way, and its collar
+ * in reach from a crouch. A whole figure width off, a hand only got to the
+ * lead's clip with the body tipped flat.
+ */
+export const BESIDE_GAP = 0.62;
+
 /** Figure widths from a figure's mark to where it stands beside `to`, wherever `to` stands in `at`. */
 export function beside(
   frame: StageFrame,

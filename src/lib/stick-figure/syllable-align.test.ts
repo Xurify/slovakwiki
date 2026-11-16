@@ -98,4 +98,34 @@ describe("alignSyllables", () => {
     expect(second.shut![0]).toBeGreaterThanOrEqual(360);
     expect(second.shut![0]).toBeLessThan(440);
   });
+
+  it("keeps a short clip's syllables on time when its voice trails off after the last word", () => {
+    // "Soli už bolo dosť." said quickly, then the -sť hissed out quietly for half a second:
+    // stretched over that tail, už and the second o of bolo landed a word late.
+    const samples = clip(
+      [
+        [150, 250],
+        [300, 400],
+        [470, 570],
+        [670, 760],
+        [790, 880],
+        [1000, 1150],
+        [1150, 1700, 0.02],
+      ],
+      1900,
+    );
+    const placed = alignSyllables("Soli už bolo dosť.", samples, RATE);
+    const spans = [
+      [150, 250],
+      [300, 400],
+      [470, 570],
+      [670, 760],
+      [790, 880],
+      [1000, 1150],
+    ];
+    placed.forEach(({ at }, index) => {
+      expect(at).toBeGreaterThanOrEqual(spans[index][0] - 40);
+      expect(at).toBeLessThanOrEqual(spans[index][1] + 40);
+    });
+  });
 });

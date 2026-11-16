@@ -75,6 +75,9 @@ function arm(
   return { joint, end };
 }
 
+/** How far above the floor a knee down on it is drawn, px: half the leg's stroke. */
+const KNEE_CLEAR = 1.5;
+
 /** Two-bone IK with the knee bending toward the facing side. */
 function leg(hip: Point, foot: Point): StickLimb {
   const dx = foot.x - hip.x;
@@ -86,8 +89,12 @@ function leg(hip: Point, foot: Point): StickLimb {
   const toKnee = (THIGH * THIGH - SHIN * SHIN + span * span) / (2 * span);
   const out = Math.sqrt(Math.max(0, THIGH * THIGH - toKnee * toKnee));
 
+  // Down in a deep crouch the knee comes to rest on the floor, never through it.
   return {
-    joint: { x: hip.x + ux * toKnee + uy * out, y: hip.y + uy * toKnee - ux * out },
+    joint: {
+      x: hip.x + ux * toKnee + uy * out,
+      y: Math.min(GROUND_Y - KNEE_CLEAR, hip.y + uy * toKnee - ux * out),
+    },
     end: foot,
   };
 }

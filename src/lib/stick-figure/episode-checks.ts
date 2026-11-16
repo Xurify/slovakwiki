@@ -4,6 +4,7 @@ import { directScene } from "$lib/stick-figure/scene-direction";
 import { episodeStages } from "$lib/stick-figure/scene-sources";
 import { blockingBefore, startLine } from "$lib/stick-figure/stage-blocking";
 import {
+  BESIDE_GAP,
   stageFrame,
   stageX,
   walkOns,
@@ -439,6 +440,15 @@ const ELBOW_ROOM = 30;
 const CHAIR = { back: 13.5, front: 11 };
 /** Half a standing figure's width, its hands resting at its sides. */
 const BODY = 9;
+/** A dog's body from its middle, rig units: the rump behind, the chest and neck ahead (StickDog). */
+const DOG_BACK = 16;
+const DOG_FRONT = 20;
+/** A standing person's feet and shins either side of their middle. */
+const LEGS = 9;
+/** Farthest, in rig units, a dog hands over what it carries: where a walk over to someone stops, and a little. */
+const DOG_GIVES = BESIDE_GAP * STICK_BOX.width + 8;
+/** Across a counter, closer than this in rig units, seller and buyer stand face to face, pressed together. */
+const ACROSS = 45;
 /** Two heads with their hair, in rig units: centres closer than this touch. */
 const HEADS = 30;
 /** From the hip to the middle of the head, which a lean swings forward. */
@@ -481,9 +491,15 @@ export function checkCues(
   );
   const geometry: SetGeometry = { pieces: set.pieces, pieceX: (id) => placed.get(id) };
 
-  /** Where `who` stands: their spot, their chair, their seat at the desk, or their mark. */
+  /** Where each person who went to stand beside someone stopped, and beside whom. */
+  const besideAt = new Map<LessonCharacterId, { to: string; x: number }>();
+  /** Where `who` stands: their spot, their chair, their seat at the desk, beside someone, or their mark. */
   const standsAt = (world: World, who: LessonCharacterId): number | undefined => {
     const spot = world.spots[who];
+    if (spot && spot in LOOKS) {
+      const beside = besideAt.get(who);
+      return beside?.to === spot ? beside.x : undefined;
+    }
     if (spot) {
       const at = set.spots?.[spot];
       if (at && "chair" in at) return seats[at.chair] && seats[at.chair].x / unit;
@@ -626,7 +642,28 @@ export function checkCues(
         ? standsAt(world, name as LessonCharacterId)
         : undefined,
     seatX: (chair) => seats[chair] && seats[chair].x / unit,
+    facingOf: (name) =>
+      frame.cast.includes(name as LessonCharacterId) &&
+      LOOKS[name as LessonCharacterId].dog
+        ? dogFacing(world, name as LessonCharacterId)
+        : undefined,
   });
+  /** A dog faces what it last turned to, else whoever it went over to, else the way its spot does. */
+  let turningDog = false;
+  const dogFacing = (world: World, dog: LessonCharacterId): Facing => {
+    if (turningDog) return facingFor(world, dog);
+    turningDog = true;
+    try {
+      const spot = world.spots[dog];
+      return facingFor(
+        world,
+        dog,
+        world.faces?.[dog] ?? (spot && spot in LOOKS ? spot : undefined),
+      );
+    } finally {
+      turningDog = false;
+    }
+  };
 
   /** What a cue's motion for `mover` reaches toward, in their rig space as they face for it. */
   const surroundings = (
@@ -841,6 +878,67 @@ export function checkCues(
       });
     }
   }
+  /**
+   * Who stands in whom as the world has them: a dog under a standing
+   * person's legs, or a seller pressed against a buyer across a counter.
+   * Keyed by pair, so one that lasts is reported where it starts.
+   */
+  const crowding = (
+    world: World,
+  ): Map<string, Omit<Finding, "chapter" | "line" | "slovak">> => {
+    const found = new Map<string, Omit<Finding, "chapter" | "line" | "slovak">>();
+    const present = frame.cast.filter((id) => !world.out?.includes(id));
+    const behindCounter = (id: LessonCharacterId) => {
+      const spot = world.spots[id];
+      const at = spot ? set.spots?.[spot] : undefined;
+      if (!at || !("piece" in at)) return undefined;
+      return set.pieces.find((piece) => piece.id === at.piece && piece.front)?.id;
+    };
+    for (const dog of present.filter((id) => LOOKS[id].dog)) {
+      const x = standsAt(world, dog);
+      if (x === undefined) continue;
+      const facing = dogFacing(world, dog);
+      for (const other of present) {
+        if (other === dog || LOOKS[other].dog || world.seated?.includes(other)) continue;
+        const there = standsAt(world, other);
+        if (there === undefined) continue;
+        const ahead = (there - x) * facing;
+        if (ahead <= -(DOG_BACK + LEGS) || ahead >= DOG_FRONT + LEGS) continue;
+        found.set(`${dog} ${other}`, {
+          rule: "space/crowded",
+          level: "error",
+          message: `${dog} stands ${Math.round(Math.abs(there - x))} rig units from ${other} (${world.spots[other] ?? "their mark"}), under ${other}'s legs. Give the dog a body length of room: another spot, or "go" beside them.`,
+        });
+      }
+    }
+    for (const [index, one] of present.entries()) {
+      for (const other of present.slice(index + 1)) {
+        if (LOOKS[one].dog || LOOKS[other].dog) continue;
+        const counters = [behindCounter(one), behindCounter(other)];
+        if (Boolean(counters[0]) === Boolean(counters[1])) continue;
+        const [a, b] = [standsAt(world, one), standsAt(world, other)];
+        if (a === undefined || b === undefined || Math.abs(a - b) >= ACROSS) continue;
+        const [seller, buyer] = counters[0] ? [one, other] : [other, one];
+        found.set(`${seller} ${buyer} across`, {
+          rule: "space/heads",
+          level: "error",
+          message: `${seller} behind the ${counters[0] ?? counters[1]} and ${buyer} in front of it stand ${Math.round(Math.abs(a - b))} rig units apart, face to face; across a counter they stand at least ${ACROSS} apart.`,
+        });
+      }
+    }
+    return found;
+  };
+  let crowded = crowding(world);
+  for (const finding of crowded.values()) {
+    const turn = chapter.lines[0];
+    findings.push({
+      ...finding,
+      chapter: chapter.id,
+      line: turn?.id ?? "",
+      slovak: turn?.slovak ?? "",
+    });
+  }
+
   lines.forEach((line, index) => {
     const turn = chapter.lines[index];
     const at = { chapter: chapter.id, line: turn.id, slovak: turn.slovak };
@@ -903,6 +1001,24 @@ export function checkCues(
           message: `${who} "${cue.do} ${cue.what ?? cue.to ?? ""}": ${miss}.`,
         });
       }
+      if (cue.do === "give" && LOOKS[who].dog && cue.to && world.spots[who] !== cue.to) {
+        const [dogAt, toAt] = [
+          standsAt(world, who),
+          standsAt(world, cue.to as LessonCharacterId),
+        ];
+        if (
+          dogAt === undefined ||
+          toAt === undefined ||
+          Math.abs(dogAt - toAt) > DOG_GIVES
+        ) {
+          findings.push({
+            rule: "space/out-of-reach",
+            level: "error",
+            ...at,
+            message: `${who} gives the ${cue.what} to ${cue.to} from ${dogAt === undefined || toAt === undefined ? "somewhere else" : `${Math.round(Math.abs(dogAt - toAt))} rig units off`}: a dog brings it over first, { who: "${who}", do: "go", to: "${cue.to}" }.`,
+          });
+        }
+      }
       const target = workedOn(world, after, cue, set, geometry);
       const from = standsAt(world, who);
       if (target !== undefined && from !== undefined && Math.abs(target - from) > ARM) {
@@ -913,6 +1029,19 @@ export function checkCues(
           ...at,
           message: `${who} cues "${cue.do} ${cue.what ?? cue.to ?? ""}" ${Math.round(Math.abs(target - from))} rig units from where they stand (${spot}); a "go" cue must take them closer.`,
         });
+      }
+      const goesTo = after.spots[who];
+      if (MOVES.has(cue.do) && goesTo && goesTo in LOOKS) {
+        const target = standsAt(after, goesTo as LessonCharacterId);
+        if (target !== undefined && from !== undefined) {
+          // As StickStage's spotOf and beside(): stopped short of them, or where they were if that is near enough.
+          const gap = BESIDE_GAP * STICK_BOX.width;
+          const x =
+            Math.abs(target - from) > gap
+              ? target - Math.sign(target - from) * gap
+              : from;
+          besideAt.set(who, { to: goesTo, x });
+        }
       }
       const there =
         MOVES.has(cue.do) && after.spots[who] ? standsAt(after, who) : undefined;
@@ -992,6 +1121,11 @@ export function checkCues(
         });
       }
       world = after;
+      const now = crowding(world);
+      for (const [key, finding] of now) {
+        if (!crowded.has(key)) findings.push({ ...finding, ...at });
+      }
+      crowded = now;
     }
   });
   return findings;

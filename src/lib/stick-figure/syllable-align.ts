@@ -17,6 +17,10 @@ const MIN_GAP_MS = 110;
 /** This far under the loudest frame, for this long, the voice has paused. */
 const SILENCE_DB = 25;
 const MIN_SILENCE_MS = 200;
+/** Where a short clip's voice is still strong at its end, over the tail it trails off in. */
+const TAIL_DB = 20;
+/** Up to this many syllables, with at most one pause, a clip is short. Fitted as above: all syllables stay at 93%. */
+const SHORT_SYLLABLES = 10;
 /** What leaving a text pause unmatched costs, against ms of misfit; a heard silence costs half. */
 const SKIP_MS = 600;
 /** A sound before the first word, which the text gives no time. */
@@ -49,16 +53,17 @@ function loudness(levels: number[]): number[] {
   });
 }
 
-/** First and last frame within 35 dB of the loudest, in ms. */
-function voicedSpan(levels: number[]): [number, number] {
+/** First frame within 35 dB of the loudest, and the last within `endDb` of it, in ms. */
+function voicedSpan(levels: number[], endDb = GATE_DB): [number, number] {
   const gate = Math.max(0, ...levels) * 10 ** (-GATE_DB / 20);
+  const endGate = Math.max(0, ...levels) * 10 ** (-endDb / 20);
   const first = Math.max(
     0,
     levels.findIndex((level) => level > gate),
   );
   const last = Math.max(
     0,
-    levels.findLastIndex((level) => level > gate),
+    levels.findLastIndex((level) => level > endGate),
   );
   return [first * FRAME_MS, last * FRAME_MS];
 }
@@ -176,12 +181,40 @@ export function alignSyllables(
   if (syllables.length === 0 || levels.length === 0) return [];
 
   const loud = loudness(levels);
-  const [start, end] = voicedSpan(levels);
+  // A short clip often trails off after its last word (a drawn-out final vowel, a breath, a
+  // hissed -sť), and stretching the text over that tail put every syllable late, the first ones by
+  // 100-200 ms. Its speech is taken to end where the voice is still strong. A longer clip keeps
+  // the whole voiced span: there the tail is a small share, and its quieter last words still count.
+  const short = syllables.length <= SHORT_SYLLABLES && pauses.length <= 1;
+  const [start, end] = voicedSpan(levels, short ? TAIL_DB : GATE_DB);
   const clipTime = textToClip(text, pauses, speechMs, silences(levels, start, end), [
     start,
     end,
   ]);
   const expected = syllables.map((syllable) => clipTime(syllable.at) / FRAME_MS);
+  const best = placeOn(loud, expected);
+  if (!best) {
+    // Too many syllables for the clip to keep them 110 ms apart: keep the text timing.
+    return syllables.map((syllable, k) => ({
+      at: expected[k] * FRAME_MS,
+      vowel: syllable.vowel,
+    }));
+  }
+  const placed = best;
+
+  const shuts = shutFrames(syllables, placed, levels);
+  return syllables.map((syllable, k) => ({
+    at: placed[k] * FRAME_MS,
+    ...(shuts[k].length > 0 && { shut: shuts[k].map((at) => at * FRAME_MS) }),
+    vowel: syllable.vowel,
+  }));
+}
+
+/**
+ * One 10 ms frame per syllable, in order and at least 110 ms apart, scoring
+ * loudness against distance from `expected` (frames); none if they do not fit.
+ */
+function placeOn(loud: number[], expected: number[]): number[] | undefined {
   const gap = Math.max(1, Math.round(MIN_GAP_MS / FRAME_MS));
   const sigma = PRIOR_SIGMA_MS / FRAME_MS;
 
@@ -189,7 +222,7 @@ export function alignSyllables(
   let previous = new Float64Array(frames).fill(Number.NEGATIVE_INFINITY);
   const choices: Int32Array[] = [];
 
-  syllables.forEach((_, k) => {
+  expected.forEach((_, k) => {
     const score = new Float64Array(frames).fill(Number.NEGATIVE_INFINITY);
     const choice = new Int32Array(frames).fill(-1);
     let bestBefore = Number.NEGATIVE_INFINITY;
@@ -213,27 +246,16 @@ export function alignSyllables(
     previous = score;
   });
 
-  let frame = previous.indexOf(Math.max(...previous));
-  if (!Number.isFinite(previous[frame])) {
-    // Too many syllables for the clip to keep them 110 ms apart: keep the text timing.
-    return syllables.map((syllable, k) => ({
-      at: expected[k] * FRAME_MS,
-      vowel: syllable.vowel,
-    }));
-  }
+  const score = Math.max(...previous);
+  let frame = previous.indexOf(score);
+  if (!Number.isFinite(score)) return undefined;
 
-  const placed = new Array<number>(syllables.length);
-  for (let k = syllables.length - 1; k >= 0; k -= 1) {
+  const placed = new Array<number>(expected.length);
+  for (let k = expected.length - 1; k >= 0; k -= 1) {
     placed[k] = frame;
     frame = choices[k][frame];
   }
-
-  const shuts = shutFrames(syllables, placed, levels);
-  return syllables.map((syllable, k) => ({
-    at: placed[k] * FRAME_MS,
-    ...(shuts[k].length > 0 && { shut: shuts[k].map((at) => at * FRAME_MS) }),
-    vowel: syllable.vowel,
-  }));
+  return placed;
 }
 
 /**

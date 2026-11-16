@@ -13,16 +13,21 @@
    * `nod` and `tilt` move the head, and the arms' raise wags the tail, so a
    * gesture the words pick (a beat on "Haf!") comes out as a wag. A `ball`
    * fetched is carried in the mouth. Sitting, it sits back on its haunches
-   * with the chest and head up, front legs straight.
+   * with the chest and head up, front legs straight. Lying, it is down on
+   * its belly, the hind legs folded under and the front ones out along the
+   * floor, the head laid on the paws.
    */
   let {
     ball = false,
     characterId,
+    lie = 0,
     pose = REST_POSE,
     sit = 0,
   }: {
     ball?: boolean;
     characterId: LessonCharacterId;
+    /** 0 standing, 1 lying down. */
+    lie?: number;
     pose?: StickPose;
     /** 0 standing, 1 sitting on its haunches. */
     sit?: number;
@@ -58,8 +63,14 @@
   const SIT_DROP = 13;
   const REAR_HIP = -12;
   const sitting = $derived(sit > 0.5);
+  /** Lying, the belly comes down to the floor and the head down onto the front paws. */
+  const LIE_DROP = 11;
+  const LIE_HEAD = { x: 5, y: 12 };
+  const lying = $derived(lie > 0.5 && !sitting);
+  /** Where the top of the neck goes with the head laid down; the collar goes half as far. */
+  const neck = $derived({ x: LIE_HEAD.x * lie, y: LIE_HEAD.y * lie });
   const bodyTransform = $derived(
-    `translate(0 ${n(pose.bob * 0.6 - rise + SIT_DROP * sit)}) rotate(${n(SIT_TIP * sit)} ${REAR_HIP} ${HIP_Y}) rotate(${n(pose.lean * 0.4)} 0 ${HIP_Y})`,
+    `translate(0 ${n(pose.bob * 0.6 - rise + SIT_DROP * sit + LIE_DROP * lie)}) rotate(${n(SIT_TIP * sit)} ${REAR_HIP} ${HIP_Y}) rotate(${n(pose.lean * 0.4)} 0 ${HIP_Y})`,
   );
   /** Where the tipped body puts the front hips, so the straight front legs come down from there. */
   const shoulder = $derived.by(() => {
@@ -71,13 +82,16 @@
     };
   });
   const headTransform = $derived(
-    `translate(0 ${n(pose.nod * 0.5)}) rotate(${n(pose.tilt * 0.8)} 15 97)`,
+    `translate(${n(LIE_HEAD.x * lie)} ${n(pose.nod * 0.5 + LIE_HEAD.y * lie)}) rotate(${n(pose.tilt * 0.8)} 15 97)`,
   );
   // Rest is a tail held up at 40°; a raised arm lifts it and wags it higher.
   const tailAngle = $derived(
     Math.max(
       15,
-      Math.min(95, 40 + (pose.leadRaise - 14) * 0.35 + (pose.rearRaise - 14) * 0.15),
+      Math.min(
+        95,
+        40 + (pose.leadRaise - 14) * 0.35 + (pose.rearRaise - 14) * 0.15 - 20 * lie,
+      ),
     ),
   );
   const tailTip = $derived({
@@ -89,7 +103,8 @@
   /** A leg from its hip to a paw on the ground; the pair on a side swings together. */
   function legPath(hipX: number, swing: number, lifted: number, reach = 5): string {
     const footX = hipX + swing * reach;
-    const footY = GROUND_Y - Math.max(0, lifted);
+    // Lying down, the legs fold as the body lowers instead of going through the floor with it.
+    const footY = GROUND_Y - Math.max(0, lifted) - LIE_DROP * lie;
     const kneeX = (hipX + footX) / 2 + 1;
     const kneeY = (HIP_Y + footY) / 2;
     return `M${n(hipX)} ${HIP_Y}Q${n(kneeX)} ${n(kneeY)} ${n(footX)} ${n(footY)}h2.6`;
@@ -139,7 +154,10 @@
   {/if}
   <g transform={bodyTransform}>
     <!-- The far legs first, so the body covers their tops. -->
-    {#if !sitting}
+    {#if lying}
+      <!-- The far front paw out along the floor, a little behind the near one. -->
+      <path d="M10 113Q14 {GROUND_Y - 13} 23 {GROUND_Y - 13}h2.6" class="stroke-portrait-ink" stroke-width="3" />
+    {:else if !sitting}
       {#each farLegs as leg, index (index)}
         <path
           d={legPath(leg.hip, leg.swing, leg.lift, leg.reach)}
@@ -174,7 +192,11 @@
       class={dog.patch}
     />
 
-    {#if !sitting}
+    {#if lying}
+      <!-- The near haunch folded under, its paw forward, and the near front leg out along the floor. -->
+      <path d="M-13 108Q-16 {GROUND_Y - 11} -4 {GROUND_Y - 11}h2.6" class="stroke-portrait-ink" stroke-width="3.2" />
+      <path d="M12 112Q15 {GROUND_Y - 11} 26 {GROUND_Y - 11}h2.6" class="stroke-portrait-ink" stroke-width="3.2" />
+    {:else if !sitting}
       {#each nearLegs as leg, index (index)}
         <path
           d={legPath(leg.hip, leg.swing, leg.lift, leg.reach)}
@@ -185,15 +207,25 @@
     {/if}
 
     <path
-      d="M7.5 104Q8.6 96.4 13.6 92.4L19.8 98.6Q15 101.6 13.6 108Z"
+      d="M7.5 104Q{n(8.6 + neck.x / 2)} {n(96.4 + neck.y / 2)} {n(13.6 + neck.x)} {n(
+        92.4 + neck.y,
+      )}L{n(19.8 + neck.x)} {n(98.6 + neck.y)}Q{n(15 + neck.x / 2)} {n(
+        101.6 + neck.y / 2,
+      )} 13.6 108Z"
       class="{dog.coat} stroke-portrait-ink"
       stroke-width="1.5"
     />
-    <path d="M9.2 100.6Q12.6 103.4 16.4 100.8" class={dog.collar} stroke-width="2.2" />
+    <path
+      d="M{n(9.2 + neck.x / 2)} {n(100.6 + neck.y / 2)}Q{n(12.6 + neck.x / 2)} {n(
+        103.4 + neck.y / 2,
+      )} {n(16.4 + neck.x / 2)} {n(100.8 + neck.y / 2)}"
+      class={dog.collar}
+      stroke-width="2.2"
+    />
     <circle
       data-leash-end="collar"
-      cx="12.7"
-      cy="102.2"
+      cx={n(12.7 + neck.x / 2)}
+      cy={n(102.2 + neck.y / 2)}
       r="0.5"
       fill="none"
       stroke="none"

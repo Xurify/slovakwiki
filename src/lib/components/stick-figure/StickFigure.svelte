@@ -67,6 +67,7 @@
     pose = REST_POSE,
     held,
     sit = 0,
+    lie = 0,
     sitPath,
     call = 0,
     relaying = false,
@@ -90,6 +91,8 @@
     held?: Held;
     /** 0 standing, 1 sitting on a chair. */
     sit?: number;
+    /** A dog: 0 standing, 1 lying down. */
+    lie?: number;
     /** The way onto the chair, or off it. */
     sitPath?: SitPath;
     /** 0 the phone in hand or none, 1 held at the ear. */
@@ -521,6 +524,7 @@
           {characterId}
           {pose}
           {sit}
+          {lie}
           ball={held?.id === "ball" || hands.lead?.kind === "ball"}
         />
       </g>
