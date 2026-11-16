@@ -594,7 +594,15 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       drawn(WORDS.kos, [206, 220, 20, 23]),
     ],
     sounds: ["murmur", "birds", "tram"],
-    set: EMPTY_SET,
+    // Nothing of its own: only the edges, past what the widest stage shows, to walk on from.
+    set: {
+      pieces: [],
+      objects: [],
+      spots: {
+        "off-left": { x: 40, facing: 1 },
+        "off-right": { x: 1000, facing: -1 },
+      },
+    },
   },
   registration: {
     ground: "stone",

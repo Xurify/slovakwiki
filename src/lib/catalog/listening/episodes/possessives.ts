@@ -3,6 +3,7 @@ import {
   CHUCKLE,
   PAUSE,
   SIGH,
+  STOP,
   afterThinking,
   lineWriter,
   rightOrWrong,
@@ -13,6 +14,8 @@ import type { ListeningChapter, ListeningEpisode } from "../types";
 
 const PREFIX = "podcast-possessives-";
 const line = lineWriter(PREFIX);
+/** A beat before a line, where the talk turns. */
+const BEAT_MS = 1200;
 
 /** A possessive, the episode's topic, lit in the transcript. */
 function mark(text: string): Exclude<MarkedPart, string> {
@@ -56,7 +59,7 @@ const intro: ListeningChapter = {
         "anna-topic",
         "Anna",
         [
-          "Dnes máme tému: ",
+          "Dnešná téma je: ",
           mark("môj"),
           ", ",
           mark("tvoj"),
@@ -70,7 +73,7 @@ const intro: ListeningChapter = {
           mark("svoj"),
           ".",
         ],
-        "Today we have a topic: môj, tvoj, jeho, jej. And svoj.",
+        "Today's topic is: môj, tvoj, jeho, jej. And svoj.",
       ),
       line(
         "marek-whose-umbrella",
@@ -126,8 +129,8 @@ const intro: ListeningChapter = {
       ],
       answerId: "possessives",
       feedback: {
-        english: "Today we have a topic: môj, tvoj, jeho, jej. And svoj.",
-        why: "Anna says: **Dnes máme tému: môj, tvoj, jeho, jej.**",
+        english: "Today's topic is: môj, tvoj, jeho, jej. And svoj.",
+        why: "Anna says: **Dnešná téma je: môj, tvoj, jeho, jej.**",
       },
     },
     {
@@ -159,17 +162,31 @@ const intro: ListeningChapter = {
   ],
 };
 
+/**
+ * Holds the screen up to Anna and leans toward her, and she leans in to see
+ * it. Held out across the desk the phone went into his mic and fell short of her.
+ */
+function showPhoto(on: string): Cue[] {
+  return [
+    { do: "raise", what: "phone", on },
+    { do: "lean", to: "anna", on },
+    { who: "anna", do: "lean", to: "marek", on },
+  ];
+}
+
 const PHOTOS_ACTS: Record<string, Cue[]> = {
-  "marek-phone-photos": [
-    { do: "take", what: "phone", on: "telefón" },
-    { do: "raise", what: "phone", on: "fotky" },
+  "marek-photos-in-phone": [
+    { do: "take", what: "phone", on: "mám" },
+    { do: "raise", what: "phone", on: "telefóne" },
   ],
   "anna-show-me": [{ do: "nod", on: "ukáž" }],
-  // He holds each photo up to show it, and puts the phone away only once they are done with them.
-  "marek-first-photo": [{ do: "raise", what: "phone", on: "fotka" }],
-  "marek-house-and-car": [{ do: "raise", what: "phone", on: "fotka" }],
-  "marek-old-but-mine": [{ do: "raise", what: "phone", on: "fotka" }],
-  "marek-five-years": [{ do: "pocket", what: "phone", on: "rokov" }],
+  // He holds each photo out to her, and puts the phone away only once they are done with them.
+  "marek-first-photo": showPhoto("fotka"),
+  "marek-house-and-car": showPhoto("fotka"),
+  "marek-old-but-mine": showPhoto("fotka"),
+  "anna-five-lovely-family": [
+    { who: "marek", do: "pocket", what: "phone", on: "rodina" },
+  ],
 };
 
 const photos: ListeningChapter = {
@@ -185,18 +202,19 @@ const photos: ListeningChapter = {
     PREFIX,
     [
       line(
-        "anna-back-marek-has-game",
+        "anna-back-weekend-photos",
         "Anna",
-        ["Sme späť v štúdiu. ", PAUSE, "Marek má pre nás nejaké fotky."],
-        "We're back in the studio. Marek has some photos for us.",
+        [
+          "Sme späť v štúdiu. ",
+          PAUSE,
+          "Marek, cez víkend si bol u rodičov, však? ",
+          PAUSE,
+          "Máš fotky?",
+        ],
+        "We're back in the studio. Marek, you were at your parents' at the weekend, weren't you? Do you have photos?",
       ),
-      line(
-        "marek-phone-photos",
-        "Marek",
-        ["Anna, mám tu telefón. Na telefóne mám fotky."],
-        "Anna, I have my phone here. I have photos on the phone.",
-      ),
-      line("anna-show-me", "Anna", ["Ukáž! Kto je to?"], "Show me! Who is it?"),
+      line("marek-photos-in-phone", "Marek", ["Mám, v telefóne."], "I do, on my phone."),
+      line("anna-show-me", "Anna", ["Ukáž, ukáž!"], "Show me, show me!"),
       line(
         "marek-first-photo",
         "Marek",
@@ -250,8 +268,8 @@ const photos: ListeningChapter = {
       line(
         "anna-your-house",
         "Anna",
-        ["To je ", mark("tvoj"), " dom?"],
-        "Is that your house?",
+        ["A to je ", mark("tvoj"), " dom?"],
+        "And is that your house?",
       ),
       line(
         "marek-parents-house",
@@ -317,6 +335,12 @@ const photos: ListeningChapter = {
         "Her daughter is sweet. How old is she?",
       ),
       line("marek-five-years", "Marek", ["Má päť rokov."], "She's five."),
+      line(
+        "anna-five-lovely-family",
+        "Anna",
+        ["Päť rokov! ", PAUSE, "Krásna rodina, Marek."],
+        "Five! A lovely family, Marek.",
+      ),
     ],
     PHOTOS_ACTS,
   ),
@@ -402,8 +426,15 @@ const photos: ListeningChapter = {
 };
 
 const SCHOOL_ACTS: Record<string, Cue[]> = {
-  "marek-is-it-yours": [{ do: "raise", what: "umbrella", on: "dáždnik" }],
-  "maria-mine-is-black": [{ do: "point", to: "umbrella", on: "modrý" }],
+  "marek-students-left-umbrella": [
+    { do: "raise", what: "umbrella", on: "dáždnik" },
+    { do: "give", what: "umbrella", to: "maria", on: "náš" },
+  ],
+  // She holds it up to read the name on the handle, and gives it back for them to take to Lucia.
+  "maria-name-lucia": [
+    { do: "raise", what: "umbrella", on: "pozriem" },
+    { do: "give", what: "umbrella", to: "marek", on: "študentka" },
+  ],
 };
 
 const school: ListeningChapter = {
@@ -437,29 +468,18 @@ const school: ListeningChapter = {
         "Good day. How can I help you?",
       ),
       line(
-        "marek-is-it-yours",
+        "marek-students-left-umbrella",
         "Marek",
-        ["Máme tu dáždnik. Nie je ", mark("náš"), ". ", PAUSE, "Je ", mark("váš"), "?"],
-        "We have an umbrella here. It's not ours. Is it yours?",
-      ),
-      line(
-        "maria-mine-is-black",
-        "Mária",
         [
-          "Hm… ",
+          "Včera boli u nás v štúdiu ",
+          mark("vaši"),
+          " študenti. ",
           PAUSE,
-          mark("Môj"),
-          " nie. ",
-          mark("Môj"),
-          " dáždnik je čierny a tento je modrý.",
+          "A niekto tam nechal tento dáždnik. Nie je ",
+          mark("náš"),
+          ".",
         ],
-        "Hmm… not mine. My umbrella is black and this one is blue.",
-      ),
-      line(
-        "anna-your-students",
-        "Anna",
-        ["Možno je to dáždnik ", mark("vašej"), " študentky?"],
-        "Maybe it's the umbrella of one of your students?",
+        "Yesterday your students were at our studio. And someone left this umbrella there. It isn't ours.",
       ),
       line(
         "maria-name-lucia",
@@ -476,10 +496,10 @@ const school: ListeningChapter = {
         "One moment, let me look. Yes! There's a name here: Lucia. Lucia is our student.",
       ),
       line(
-        "marek-where-is-student",
+        "marek-where-find-her",
         "Marek",
-        ["Výborne! A kde je ", mark("vaša"), " študentka?"],
-        "Excellent! And where is your student?",
+        ["Výborne! A kde ju nájdeme?"],
+        "Excellent! And where can we find her?",
       ),
       line(
         "maria-course-tomorrow",
@@ -526,13 +546,12 @@ const school: ListeningChapter = {
         {
           id: "maria",
           label: "Márie.",
-          whyWrong:
-            "**Márie** means Mária's. She says **môj nie**: her umbrella is black.",
+          whyWrong: "**Márie** means Mária's. She only reads the name on it: **Lucia**.",
         },
         {
           id: "marek",
           label: "Marekov.",
-          whyWrong: "**Marekov** means Marek's. He is only holding it: **nie je náš**.",
+          whyWrong: "**Marekov** means Marek's. He says **nie je náš**: it isn't ours.",
         },
       ],
       answerId: "lucia",
@@ -542,30 +561,30 @@ const school: ListeningChapter = {
       },
     },
     {
-      id: `${PREFIX}check-vas-form`,
-      gap: "Je ___?",
+      id: `${PREFIX}check-vasi-form`,
+      gap: "Včera boli u nás v štúdiu ___ študenti.",
       prompt: "Ktoré slovo povedal Marek pani Márii?",
       promptEnglish: "Which word did Marek say to Mária?",
-      replayLineId: `${PREFIX}marek-is-it-yours`,
+      replayLineId: `${PREFIX}marek-students-left-umbrella`,
       choices: [
-        { id: "vas", label: "váš" },
+        { id: "vasi", label: "vaši" },
         {
-          id: "tvoj",
-          label: "tvoj",
+          id: "tvoji",
+          label: "tvoji",
           whyWrong:
-            "**Tvoj** is for someone you call **ty**, a friend. Marek says **dobrý deň** to Mária and keeps to **vy**.",
+            "**Tvoji** is for someone you call **ty**, a friend. Marek says **dobrý deň** to Mária and keeps to **vy**.",
         },
         {
-          id: "nas",
-          label: "náš",
+          id: "nasi",
+          label: "naši",
           whyWrong:
-            "**Náš** means ours. Marek says **nie je náš** first, then asks **je váš?**",
+            "**Naši študenti** would be the studio's own students. They came from Mária's school: **vaši študenti**.",
         },
       ],
-      answerId: "vas",
+      answerId: "vasi",
       feedback: {
-        english: "Is it yours?",
-        why: "Marek speaks to Mária formally, so **váš**, like **vy**.",
+        english: "Yesterday your students were at our studio.",
+        why: "Marek speaks to Mária formally, so **vaši**, like **vy**. **Študenti** are men or a mixed group, so **vaši**, not **vaše**.",
       },
     },
     {
@@ -597,11 +616,17 @@ const school: ListeningChapter = {
 };
 
 const SQUARE_ACTS: Record<string, Cue[]> = {
+  // She is crossing the square when Anna sees her, and comes over to them.
+  "anna-now-on-square": [
+    { do: "point", to: "lucia", on: "lucia" },
+    { who: "lucia", do: "enter", from: "off-right", to: "marek", on: "lucia" },
+  ],
   "marek-blue-umbrella": [{ do: "raise", what: "umbrella", on: "modrý" }],
   "lucia-mine": [
     { who: "marek", do: "give", what: "umbrella", to: "lucia", on: "môj" },
     { do: "nod", on: "ďakujem" },
   ],
+  "marek-you-looked-i-look": [{ do: "pat", on: "kľúče" }],
   "marek-in-my-bag": [
     { do: "take", what: "keys", on: "taške" },
     { do: "raise", what: "keys", on: "sú" },
@@ -609,6 +634,7 @@ const SQUARE_ACTS: Record<string, Cue[]> = {
   "lucia-marek-and-his-keys": [
     { do: "laugh", on: "kľúče" },
     { do: "wave", on: "majte" },
+    { do: "leave", to: "right" },
   ],
   "anna-back-to-studio": [{ do: "wave", on: "maj" }],
 };
@@ -687,23 +713,26 @@ const square: ListeningChapter = {
         "In your studio? Oh, yes. Sorry!",
       ),
       line(
-        "marek-i-look-for-my-keys",
+        "marek-you-looked-i-look",
         "Marek",
         [
           "Nič sa nestalo. ",
           PAUSE,
-          "Lucia hľadá ",
+          "Ty si hľadala ",
           mark("svoj"),
-          " dáždnik a ja hľadám ",
+          " dáždnik",
+          STOP,
+          PAUSE,
+          "a ja teraz hľadám ",
           mark("svoje"),
-          " kľúče.",
+          " kľúče!",
         ],
-        "No harm done. Lucia is looking for her umbrella and I'm looking for my keys.",
+        "No harm done. You were looking for your umbrella… and now I'm looking for my keys!",
       ),
       line(
-        "anna-keys-in-your-bag",
+        "anna-keys-in-bag",
         "Anna",
-        [SIGH, "Zase? ", mark("Tvoje"), " kľúče sú v ", mark("tvojej"), " taške, Marek."],
+        [SIGH, "Zase? ", PAUSE, "Kľúče máš v taške, Marek."],
         "Again? Your keys are in your bag, Marek.",
       ),
       line(
@@ -755,17 +784,17 @@ const square: ListeningChapter = {
     },
     {
       id: `${PREFIX}check-svoj-form`,
-      gap: "Lucia hľadá ___ dáždnik.",
+      gap: "Ty si hľadala ___ dáždnik.",
       prompt: "Ktoré slovo povedal Marek?",
       promptEnglish: "Which word did Marek say?",
-      replayLineId: `${PREFIX}marek-i-look-for-my-keys`,
+      replayLineId: `${PREFIX}marek-you-looked-i-look`,
       choices: [
         { id: "svoj", label: "svoj" },
         {
           id: "jej",
           label: "jej",
           whyWrong:
-            "**Jej dáždnik** would be another woman's umbrella. Lucia looks for her own, so **svoj**.",
+            "**Jej dáždnik** would be another woman's umbrella. Lucia looked for her own, so **svoj**.",
         },
         {
           id: "moj",
@@ -775,22 +804,22 @@ const square: ListeningChapter = {
       ],
       answerId: "svoj",
       feedback: {
-        english: "Lucia is looking for her umbrella.",
-        why: "Lucia is the subject and the owner: **svoj**. Marek says the same about himself: **svoje kľúče**.",
+        english: "You were looking for your umbrella.",
+        why: "Lucia did the looking and owns the umbrella: **svoj**. Marek says the same about himself: **svoje kľúče**.",
       },
     },
     {
       id: `${PREFIX}check-where-keys`,
       prompt: "Kde sú Marekove kľúče?",
       promptEnglish: "Where are Marek's keys?",
-      replayLineId: `${PREFIX}anna-keys-in-your-bag`,
+      replayLineId: `${PREFIX}marek-in-my-bag`,
       choices: [
         { id: "bag", label: "V jeho taške." },
         {
           id: "studio",
           label: "V štúdiu.",
           whyWrong:
-            "**V štúdiu** means in the studio. Anna says **v tvojej taške**, in your bag.",
+            "**V štúdiu** means in the studio. Marek finds them **v mojej taške**, in his bag.",
         },
         {
           id: "lucia",
@@ -801,30 +830,49 @@ const square: ListeningChapter = {
       ],
       answerId: "bag",
       feedback: {
-        english: "Your keys are in your bag, Marek.",
-        why: "Anna says **v tvojej taške**. After **v**, **tvoja** becomes **tvojej**, like **v tej taške**.",
+        english: "In my bag… Yes! Here they are.",
+        why: "Marek says **v mojej taške**. After **v**, **moja** becomes **mojej**, like **v tej taške**.",
       },
     },
   ],
 };
 
 const QUIZ_ACTS: Record<string, Cue[]> = {
-  "anna-photos-now-test": [{ do: "nod", on: "skúška" }],
-  "marek-thats-hard": [{ do: "shrug", on: "ťažké" }],
+  "anna-now-a-test": [{ do: "nod", on: "skúška" }],
+  "marek-students-do-this": [{ do: "shrug", on: "veľa" }],
 };
 
 const quiz: ListeningChapter = {
   id: `${PREFIX}quiz`,
   titleSk: "Správne alebo nesprávne?",
-  title: "Your game: is Marek right or wrong?",
+  title: "Your game: right or wrong?",
   lines: staged(
     PREFIX,
     [
+      {
+        ...line(
+          "anna-now-a-test",
+          "Anna",
+          ["No a teraz malá skúška."],
+          "And now a little test.",
+        ),
+        wait: BEAT_MS,
+      },
+      line("marek-for-me", "Marek", ["Pre mňa?"], "For me?"),
       line(
-        "anna-photos-now-test",
+        "anna-for-listeners-sentences",
         "Anna",
-        ["Pekné fotky, Marek. ", PAUSE, "A teraz malá skúška pre teba."],
-        "Nice photos, Marek. And now a little test for you.",
+        [
+          CHUCKLE,
+          "Nie, pre ",
+          mark("našich"),
+          " poslucháčov. ",
+          PAUSE,
+          "Pani Mária nám v škole dala vety od ",
+          mark("svojich"),
+          " študentov.",
+        ],
+        "No, for our listeners. At the school, Mária gave us sentences from her students.",
       ),
       line(
         "anna-the-rules",
@@ -834,18 +882,19 @@ const quiz: ListeningChapter = {
       ),
       rightOrWrong(
         line(
-          "marek-second-sentence",
+          "marek-sentence-cinema",
           "Marek",
           [
-            "Pre mňa? ",
+            "Tak dobre",
+            STOP,
             PAUSE,
-            "Tak dobre… ",
+            "Prvá veta: ",
             PAUSE,
             "Idem do kina so ",
             mark("svojou"),
             " sestrou.",
           ],
-          "For me? All right then… I'm going to the cinema with my sister.",
+          "All right then… First sentence: I'm going to the cinema with my sister.",
         ),
         "right",
       ),
@@ -856,23 +905,16 @@ const quiz: ListeningChapter = {
           [
             "Správne! ",
             PAUSE,
-            "Ty ideš a sestra je ",
-            mark("tvoja"),
-            ", preto ",
-            mark("svoj"),
-            ": so ",
+            "Idem ja a sestra je ",
+            mark("moja"),
+            ", preto: so ",
             mark("svojou"),
             " sestrou.",
           ],
-          "Right! You're going and the sister is yours, so svoj: so svojou sestrou.",
+          "Right! I'm the one going and the sister is mine, so: so svojou sestrou.",
         ),
       ),
-      line(
-        "marek-i-know-that",
-        "Marek",
-        ["Super! ", PAUSE, "Tak to už viem."],
-        "Great! So I know that one now.",
-      ),
+      line("marek-good-student", "Marek", ["Dobrý študent!"], "Good student!"),
       line(
         "anna-we-will-see",
         "Anna",
@@ -881,10 +923,10 @@ const quiz: ListeningChapter = {
       ),
       rightOrWrong(
         line(
-          "marek-first-sentence",
+          "marek-sentence-moja-brat",
           "Marek",
-          ["Hm… ", PAUSE, mark("Moja"), " brat je učiteľ."],
-          "Hmm… My brother is a teacher. (Said with moja, the wrong form.)",
+          ["Druhá veta: ", PAUSE, "Moja brat je učiteľ."],
+          "Second sentence: My brother is a teacher.",
         ),
         "wrong",
       ),
@@ -897,56 +939,61 @@ const quiz: ListeningChapter = {
         ),
       ),
       line(
-        "marek-should-have-known",
+        "marek-poor-student",
         "Marek",
-        ["Ajaj. ", PAUSE, "To som mal vedieť."],
-        "Oh no. I should have known that.",
+        ["Ajaj, chudák študent."],
+        "Oh dear, poor student.",
       ),
       line(
-        "anna-you-should-have",
+        "anna-still-learning",
         "Anna",
-        [CHUCKLE, "To si mal. ", PAUSE, "Skús ešte jednu."],
-        "You should have. Try one more.",
+        [CHUCKLE, "Nevadí, ešte sa učí."],
+        "Never mind, they're still learning.",
       ),
       rightOrWrong(
         line(
-          "marek-third-sentence",
+          "marek-sentence-svoj-brat",
           "Marek",
-          ["Tak… ", PAUSE, mark("Svoj"), " brat je učiteľ."],
-          "So… My brother is a teacher. (Said with svoj, the wrong form.)",
+          ["Tretia veta: ", PAUSE, "Svoj brat je učiteľ."],
+          "Third sentence: My brother is a teacher.",
         ),
         "wrong",
       ),
       afterThinking(
         line(
-          "anna-svoj-not-subject",
+          "anna-svoj-not-in-subject",
           "Anna",
           [
             "Nesprávne! ",
             PAUSE,
             mark("Svoj"),
-            " sa nehodí k podmetu. ",
+            " nemôže byť v podmete. ",
             PAUSE,
-            "Brat je tu podmet, tak správne je: ",
+            "Správne je: ",
             mark("môj"),
             " brat je učiteľ.",
           ],
-          "Wrong! Svoj doesn't go with the subject. Brat is the subject here, so the right form is: môj brat je učiteľ.",
+          "Wrong! Svoj can't be in the subject. The right one is: môj brat je učiteľ.",
         ),
       ),
-      line("marek-thats-hard", "Marek", [SIGH, "To je ťažké."], "That's hard."),
       line(
-        "anna-last-one",
+        "marek-students-do-this",
+        "Marek",
+        ["Toto robí veľa študentov."],
+        "Lots of students do this.",
+      ),
+      line(
+        "anna-it-is-hard",
         "Anna",
-        ["Je. ", PAUSE, "Ale ešte jedna, posledná."],
-        "It is. But one more, the last one.",
+        ["Áno, je to ťažké. ", PAUSE, "A posledná veta?"],
+        "Yes, it's hard. And the last sentence?",
       ),
       rightOrWrong(
         line(
-          "marek-last-sentence",
+          "marek-sentence-ich-auto",
           "Marek",
-          ["Dobre… ", PAUSE, mark("Ich"), " auto je červené."],
-          "OK… Their car is red.",
+          ["Štvrtá veta: ", PAUSE, mark("Ich"), " auto je červené."],
+          "Fourth sentence: Their car is red.",
         ),
         "right",
       ),
@@ -962,15 +1009,15 @@ const quiz: ListeningChapter = {
             mark("jej"),
             ", ",
             mark("ich"),
-            " sa nikdy nemenia. ",
-            mark("Jeho"),
-            " auto, ",
-            mark("jej"),
-            " auto, ",
+            " sa nemenia: ",
+            mark("ich"),
+            " brat, ",
+            mark("ich"),
+            " sestra, ",
             mark("ich"),
             " auto.",
           ],
-          "Right! Jeho, jej, ich never change. Jeho auto, jej auto, ich auto.",
+          "Right! Jeho, jej, ich don't change: ich brat, ich sestra, ich auto.",
         ),
       ),
       line(
@@ -980,17 +1027,17 @@ const quiz: ListeningChapter = {
         "Jeho, jej, ich. That's easy!",
       ),
       line(
-        "anna-and-you",
+        "anna-for-you-and-you",
         "Anna",
-        [CHUCKLE, "Pred chvíľou to bolo ťažké! ", PAUSE, "A vy? Koľko ste mali správne?"],
-        "A moment ago it was hard! And you? How many did you get right?",
+        [CHUCKLE, "Pre teba áno! ", PAUSE, "A vy? Koľko ste mali správne?"],
+        "For you, yes! And you? How many did you get right?",
       ),
       afterThinking(
         line(
-          "marek-not-counting",
+          "marek-better-than-students",
           "Marek",
-          [CHUCKLE, "Ja radšej nebudem počítať."],
-          "I'd rather not count.",
+          ["Ak všetky štyri, tak ste lepší ako študenti pani Márie!"],
+          "If all four, you're better than Mária's students!",
         ),
       ),
     ],
@@ -1016,8 +1063,8 @@ const quiz: ListeningChapter = {
       ],
       answerId: "svoj-brat",
       feedback: {
-        english: "Svoj doesn't go with the subject. Brat is the subject here.",
-        why: "**Svoj** can't be part of the subject. The brother is the subject, so Marek says **môj brat**.",
+        english: "Svoj can't be in the subject. The right one is: môj brat je učiteľ.",
+        why: "**Svoj** can't be part of the subject. The brother is the subject, so it is **môj brat**.",
       },
     },
     {
@@ -1025,7 +1072,7 @@ const quiz: ListeningChapter = {
       gap: "___ auto je červené.",
       prompt: "Ktoré slovo povedal Marek?",
       promptEnglish: "Which word did Marek say?",
-      replayLineId: `${PREFIX}marek-last-sentence`,
+      replayLineId: `${PREFIX}marek-sentence-ich-auto`,
       choices: [
         { id: "ich", label: "Ich" },
         {
@@ -1055,10 +1102,10 @@ const OUTRO_ACTS: Record<string, Cue[]> = {
     { do: "put", what: "marek-umbrella", to: "desk", dx: 38, on: "máš" },
     { do: "slide", what: "marek-umbrella", to: "desk", dx: -38 },
   ],
-  "anna-yours-is-small": [
-    { do: "take", what: "marek-umbrella", on: "ďakujem" },
-    { do: "raise", what: "marek-umbrella", on: "malý" },
-  ],
+  "anna-raining-umbrella-home": [{ do: "look", to: "dvere", on: "vonku" }],
+  "anna-yours-is-small": [{ do: "take", what: "marek-umbrella", on: "ďakujem" }],
+  "anna-now-mine": [{ do: "raise", what: "marek-umbrella", on: "môj" }],
+  "marek-only-till-tomorrow": [{ do: "point", to: "marek-umbrella", on: "zajtra" }],
 };
 
 const outro: ListeningChapter = {
@@ -1092,22 +1139,16 @@ const outro: ListeningChapter = {
       ),
       line("marek-bye", "Marek", ["Ahojte!"], "Bye!"),
       line(
-        "anna-raining-where-umbrella",
+        "anna-raining-umbrella-home",
         "Anna",
-        ["Marek, vonku prší. ", PAUSE, "Kde je ", mark("môj"), " dáždnik?"],
-        "Marek, it's raining outside. Where is my umbrella?",
+        ["Marek, vonku prší! ", PAUSE, SIGH, "A ", mark("môj"), " dáždnik je doma."],
+        "Marek, it's raining outside! And my umbrella is at home.",
       ),
       line(
-        "marek-yours-is-at-home",
+        "marek-you-said-so",
         "Marek",
-        [mark("Tvoj"), " dáždnik? ", PAUSE, mark("Tvoj"), " dáždnik je doma, Anna."],
-        "Your umbrella? Your umbrella is at home, Anna.",
-      ),
-      line(
-        "anna-yes-at-home",
-        "Anna",
-        [SIGH, "Áno. ", mark("Môj"), " dáždnik je doma."],
-        "Yes. My umbrella is at home.",
+        [CHUCKLE, "Ja viem. ", PAUSE, "Povedala si to na začiatku."],
+        "I know. You said so at the start.",
       ),
       line(
         "marek-here-take-mine",
@@ -1126,6 +1167,21 @@ const outro: ListeningChapter = {
         "Marek",
         ["Malý, ale ", mark("môj"), "!"],
         "Small, but mine!",
+      ),
+      {
+        ...line(
+          "anna-now-mine",
+          "Anna",
+          [CHUCKLE, "Malý, ale teraz ", mark("môj"), "!"],
+          "Small, but mine now!",
+        ),
+        wait: BEAT_MS,
+      },
+      line(
+        "marek-only-till-tomorrow",
+        "Marek",
+        ["Ej! ", PAUSE, "Len do zajtra!"],
+        "Hey! Only till tomorrow!",
       ),
     ],
     OUTRO_ACTS,
@@ -1169,7 +1225,7 @@ export const possessivesEpisode: ListeningEpisode = {
   title: "Whose umbrella is this?",
   topic: "Possessives",
   promise:
-    "Anna and Marek find an umbrella nobody owns, ask at the language school, find Lucia on the square and look at Marek's family photos back in the studio. At the end, you decide whether Marek got it right.",
+    "Anna and Marek find an umbrella nobody owns, ask at the language school, find Lucia on the square and look at Marek's family photos back in the studio. At the end, you decide whether students' sentences are right.",
   grammarSlug: "possessives",
   lessonId: "grammar/possessives",
   practiceSetId: "possessives",
