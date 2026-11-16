@@ -100,6 +100,7 @@
     CARRYING,
     CLOSE_DOOR,
     OPEN_DOOR,
+    motionFor,
     sampleMotion,
     type Effect,
     type Motion,
@@ -114,6 +115,7 @@
     cueEntrances,
     heldBy as heldIn,
     isActed,
+    restingOn,
     startWorld,
     worlds,
     type Cue,
@@ -143,6 +145,7 @@
     SINK,
     handOverY,
     isSink,
+    objectBase,
     objectGrip,
     pieceSize,
     placePieces,
@@ -204,6 +207,9 @@
   const DOG_COLLAR = { x: 12.8, y: 102 };
   /** Where StickDog draws the top of its head, in its rig space, for a hand to rest on. */
   const DOG_HEAD = { x: 15, y: 87.8 };
+  /** How far above a dog's head, in rig units, a look target has to be for it to lift its nose; and how far it lifts. */
+  const DOG_LOOK_ABOVE = 12;
+  const DOG_LOOK_UP = -28;
   const WALKING = new Set<Cue["do"]>(["go", "enter", "leave", "sit"]);
   /** Long enough to read a short line said in a bubble. */
   const BUBBLE_MS = 2800;
@@ -487,6 +493,27 @@
   const geometry = $derived<SetGeometry>({
     pieces: set?.pieces ?? [],
     pieceX: (id) => pieceXs.get(id),
+  });
+
+  /** Each object of the set by id, its kind: the backdrop's things find their copies among them. */
+  const setKinds = $derived(
+    Object.fromEntries(
+      Object.entries(actedWorlds?.[0]?.objects ?? {}).map(([id, { kind }]) => [id, kind]),
+    ),
+  );
+
+  /**
+   * Where the set's cups stood on the studio desk as the scene began, in rig
+   * units across: a cup picked up leaves no desk mug behind in its place.
+   */
+  const deskCups = $derived.by(() => {
+    const first = actedWorlds?.[0];
+    if (!first) return [];
+    return Object.entries(first.objects).flatMap(([id, { kind }]) => {
+      if (kind !== "cup" || restingOn(first, id) !== "desk") return [];
+      const at = objectBase(first, id, geometry);
+      return at ? [at.x] : [];
+    });
   });
 
   function facingOf(id: LessonCharacterId): Facing {
@@ -872,8 +899,11 @@
         facings = { ...facings, [id]: back };
         performHeard(id, CLOSE_DOOR, playClockNow() + TURN_MS * 0.6);
         later(TURN_MS * 0.6 + CLOSE_DOOR.takes!, () => swingDoor(false));
+        // The door shut, they step down off the sill into the room: left on it, a kneel to the dog
+        // was solved from the sill's height and folded them flat over it, legs in the air.
         later(TURN_MS * 0.6 + CLOSE_DOOR.ms, () => {
           facings = { ...facings, [id]: inside.facing };
+          stepDown(id);
         });
       });
     });
@@ -932,6 +962,9 @@
         stepDown(who);
         walkToSpot(who, cue.to, false, cue.run ? RUN_PACE : 1);
         return 0;
+      case "kneel":
+        stepDown(who);
+        break;
       case "sit":
         stepDown(who);
         walkToSpot(who, cue.to, true);
@@ -996,6 +1029,7 @@
       if (!handsFree) played = overShoulder(motion);
     } else if (face && seated[who] !== undefined) turned = { ...turned, [who]: face };
     else if (face) turnTo(who, face);
+    if (cue.do === "look" && LOOKS[who].dog) played = dogLook(who, played);
     perform(who, played, item.start + lead, item);
     for (const { at, id } of motion.sounds ?? []) later(lead + at, () => playFoley(id));
     for (const effect of motion.effects ?? []) {
@@ -1012,6 +1046,22 @@
       later(lead + contact.until + margin, () => sink(who, contact.hand, undefined));
     }
     return lead;
+  }
+
+  /**
+   * A dog looking at something above its head (a lead on a peg) lifts its
+   * nose to it: turned to it level, it seemed to stare at the wall.
+   */
+  function dogLook(who: LessonCharacterId, motion: Motion): Motion {
+    const name = motion.face;
+    const at = name && (castPoint(name, "top", facingOf(who)) ?? castPoint(name, "base", facingOf(who)));
+    if (!at || at.y > DOG_HEAD.y - DOG_LOOK_ABOVE) return motion;
+    return {
+      ...motion,
+      keys: motion.keys.map((key) =>
+        key.body ? { ...key, body: { ...key.body, tilt: DOG_LOOK_UP, nod: -2 } } : key,
+      ),
+    };
   }
 
   /** A one-handed motion done with the rear hand instead, the eyes going back with it. */
@@ -1258,8 +1308,15 @@
     );
   }
 
-  /** What `id` wears: a host whose headphones are off is bareheaded, and anyone who put a pair on wears them. */
+  /** What `id` wears, and the grin a cue left on their face. */
   function dressOf(id: LessonCharacterId): Dress {
+    const grin = world?.grins?.[id];
+    const worn = wornBy(id);
+    return grin ? { ...worn, grin } : worn;
+  }
+
+  /** A host whose headphones are off is bareheaded, and anyone who put a pair on wears them. */
+  function wornBy(id: LessonCharacterId): Dress {
     const objects = Object.values(world?.objects ?? {});
     const on = objects.some(
       ({ kind, where }) => kind === "headphones" && "wear" in where && where.wear === id,
@@ -1358,6 +1415,9 @@
   }
 
   /** When everything the line's cues do is done: the next line waits for it. */
+  /** How long the stage rests on a last line's closing move before the segment ends. */
+  const END_HOLD_MS = 1200;
+
   function actsLeft(): number {
     return Math.max(0, actsEnd - playClockNow());
   }
@@ -1377,6 +1437,36 @@
       const span = at === -1 ? undefined : plan?.words?.[at];
       return span ? speech + span.start / rate : undefined;
     };
+  }
+
+  /**
+   * After a jump to line `index`, whoever was left holding a pose by an
+   * earlier line (down on one knee by the dog, a photo held out) holds it
+   * still: their last cue before the line, if its motion lasts until their next.
+   */
+  function holdOver(index: number): void {
+    const last: Partial<Record<LessonCharacterId, { cue: Cue; at: number }>> = {};
+    lines.slice(0, index).forEach((line, at) => {
+      for (const cue of line.act ?? []) {
+        const who = actorOfCue(cue, line.characterId);
+        if (who && cue.on !== "dark") last[who] = { cue, at };
+      }
+    });
+    for (const [id, held] of Object.entries(last) as Array<
+      [LessonCharacterId, { cue: Cue; at: number }]
+    >) {
+      const before = actedWorlds?.[held.at];
+      if (!before || world?.out?.includes(id)) continue;
+      try {
+        const { motion } = motionFor(held.cue, id, before, set);
+        if (motion.hold !== true) continue;
+        const face = faceToward(id, motion.face ?? held.cue.what);
+        if (face && seated[id] === undefined) facings = { ...facings, [id]: face };
+        perform(id, motion, playClockNow() - motion.ms);
+      } catch {
+        // A cue the checks reject leaves them as they stand.
+      }
+    }
   }
 
   /** Put `ids` (everyone, unless given) where `world` has them: on their spot, on its chair if they sit. */
@@ -1730,7 +1820,11 @@
       const nextFacings: Partial<Record<LessonCharacterId, Facing>> = {};
       const nextSeated: Partial<Record<LessonCharacterId, number>> = {};
 
-      for (const id of direction.cast) {
+      // Whoever stands beside someone is put there once that someone is placed: put first, the dog went
+      // beside where Marek stood before the jump, off the stage's edge.
+      const beside = (id: LessonCharacterId) => Number(isCast(world?.spots[id]));
+      for (const id of [...direction.cast].sort((a, b) => beside(a) - beside(b))) {
+        if (beside(id)) offsets = { ...offsets, ...nextOffsets };
         if (world?.out?.includes(id)) {
           const entry = entrySpot(id);
           nextOffsets[id] = entry.offset;
@@ -1769,6 +1863,7 @@
       seated = nextSeated;
       settleChairs();
       for (const id of direction.cast) if (carrying(id)) carry(id);
+      holdOver(index);
       return;
     }
 
@@ -2182,7 +2277,10 @@
       if (stagings[index + 1]?.arrives) playTramCue();
       release();
       // The next line waits for what this one's cues are still doing, then starts from the world they leave.
-      later(actsLeft(), () => {
+      // After the segment's last line a walk out is let land before the cut: it came the frame she reached the door.
+      const left = actsLeft();
+      const hold = index === lines.length - 1 && left > 0 ? END_HOLD_MS : 0;
+      later(left + hold, () => {
         if (token !== playToken) return;
         if (acted) world = actedWorlds?.[index + 1] ?? world;
         onDone?.();
@@ -2256,6 +2354,7 @@
         door={doorSwing.current}
         bind:drawnAt
         minutes={world?.minutes ?? 0}
+        objects={setKinds}
         skipping={dimmed}
         {found}
         height={stageHeight}
@@ -2390,9 +2489,7 @@
               <StudioDesk
                 height={stageHeight}
                 layer="front"
-                mugs={!Object.values(world?.objects ?? {}).some(
-                  ({ kind }) => kind === "cup",
-                )}
+                cups={deskCups}
                 seats={frame.seats}
                 {unit}
                 width={stageWidth}

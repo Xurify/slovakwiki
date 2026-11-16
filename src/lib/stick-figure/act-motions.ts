@@ -16,7 +16,7 @@ import { LOOKS } from "./looks";
 import type { StickPictureId } from "./pictures";
 import { REST_POSE, easeInOut, type StickPose } from "./pose";
 import { mouthOf, reachFor, type Hand } from "./reach";
-import { HEAD_RADIUS, solveRig, type Point } from "./rig";
+import { GROUND_Y, HEAD_RADIUS, solveRig, type Point } from "./rig";
 import { OBJECT_SIZE, SINK, intoDeskMic, tipFromHand } from "./set-pieces";
 import { SCOOT_MS, sitMs } from "./walk";
 
@@ -227,13 +227,17 @@ export function motionFor(
         const giver = where.hand;
         return {
           motion: {
-            ...handOverMotion(freeHand(world, who, what) ?? "lead", giver, object?.kind),
+            ...handOverMotion(
+              freeHand(world, who, what, cue.hand === "far") ?? "lead",
+              giver,
+              object?.kind,
+            ),
           },
           partner: { who: giver, motion: handOverMotion(where.side, who, object?.kind) },
         };
       }
       if (where && "pocket" in where) {
-        const hand = freeHand(world, who, what) ?? "lead";
+        const hand = freeHand(world, who, what, cue.hand === "far") ?? "lead";
         return {
           motion:
             object?.kind === "phone"
@@ -242,7 +246,7 @@ export function motionFor(
         };
       }
       if (where && "wear" in where) return { motion: offHeadMotion() };
-      const into = freeHand(world, who, what) ?? "lead";
+      const into = freeHand(world, who, what, cue.hand === "far") ?? "lead";
       if (heavy) return { motion: liftMotion(what, sinkAt(plan, where)) };
       if (object?.kind === "board") {
         // Both hands on it, then up level to the waist.
@@ -512,7 +516,7 @@ export function motionFor(
         motion: {
           ms: 700,
           face: cue.to,
-          hold: "line",
+          hold: cue.keep ? true : "line",
           picture: cue.picture,
           keys: [{ at: 0 }, { at: 550, ...out }, { at: 700, ...out }],
         },
@@ -1213,7 +1217,14 @@ export function motionFor(
       };
     }
     case "lean": {
-      const near = { body: { lean: 10, tilt: 6, brow: 0.6, look: 1 } };
+      // To see a phone someone holds out (not one at their ear on a call), over from the hips, the head some 8 rig units nearer: at 10° it read as standing still.
+      // Leaning to a person's face stays small, or heads met.
+      const shown = Object.values(heldBy(world, to as LessonCharacterId)).some(
+        (id) => world.objects[id]?.kind === "phone" && !world.objects[id]?.call,
+      );
+      const near = {
+        body: { lean: shown ? 20 : 10, tilt: shown ? 8 : 6, brow: 0.6, look: 1 },
+      };
       return {
         motion: {
           ms: 700,
@@ -1255,19 +1266,25 @@ export function motionFor(
       };
     }
     case "eat": {
-      // Head down in the bowl, small dips as it crunches, then up licking its chops.
-      const keys: MotionKey[] = [{ at: 0 }];
-      for (let dip = 0; dip < 6; dip += 1) {
-        const at = 400 + dip * 320;
-        keys.push({ at, body: { nod: 9, tilt: dip % 2 ? 30 : 24, lean: 6, look: 1 } });
-      }
-      keys.push({ at: 2400, body: { nod: 9, tilt: 26, lean: 6, look: 1 } }, { at: 2900 });
+      // Head down in the bowl three times, lifted part way to crunch between: six small dips of a few degrees read as no dip at all.
+      const down = { nod: 10, tilt: 34, lean: 6, look: 1 };
+      const crunch = { nod: 4, tilt: 12, lean: 3, look: 1 };
+      const keys: MotionKey[] = [
+        { at: 0 },
+        { at: 420, body: down },
+        { at: 760, body: crunch },
+        { at: 1120, body: down },
+        { at: 1460, body: crunch },
+        { at: 1820, body: down },
+        { at: 2400, body: down },
+        { at: 2900 },
+      ];
       return {
         motion: {
           ms: 2900,
           face: cue.what,
           takes: 2400,
-          sounds: [600, 1240, 1880].map((at) => ({ at, id: "rattle" as const })),
+          sounds: [480, 1180, 1880].map((at) => ({ at, id: "rattle" as const })),
           keys,
         },
       };
@@ -1418,6 +1435,8 @@ export function motionFor(
       return {
         motion: {
           ms: 2800,
+          // Down by then: the next line need not wait out the rest of the hold, which left 3 s of dead air.
+          takes: 700,
           face: target,
           // Down until their next cue: up again after a few seconds, they rose mid-sentence while still talking to the dog.
           hold: true,
@@ -1510,6 +1529,16 @@ export function motionFor(
             { at: 1400, body: { look: 1, brow: 0.3 } },
           ],
         },
+      };
+    case "grin":
+      // The grin itself is the face's (world.grins); the head comes up a touch to show it off.
+      return {
+        motion: cue.off
+          ? still
+          : {
+              ms: 900,
+              keys: [{ at: 0 }, { at: 250, body: { tilt: -4, nod: -0.6 } }, { at: 900 }],
+            },
       };
     case "knock":
       return { motion: { ms: 900, keys: [], sounds: [{ at: 0, id: "knock" }] } };
@@ -2070,6 +2099,8 @@ function leanToReach(
 
 /** Lowest a hand reaches standing straight; below it the figure bends at the hip and knees. */
 const STOOP_Y = 98;
+/** The deepest stoop: a hand down at the floor. */
+const STOOP_MOST = GROUND_Y - STOOP_Y;
 
 /**
  * The figure `ms` into a motion, on top of `base`, the pose its talking
@@ -2170,7 +2201,8 @@ export function frameBetween(
   // A reach below the waist bends the figure down to it, more the lower it goes.
   const lowest = Math.max(0, ...Object.values(points).map((point) => point?.y ?? 0));
   if (lowest > STOOP_Y && sit === 0) {
-    const depth = lowest - STOOP_Y;
+    // Past the floor nothing is reached by folding further: unbounded, a point far below folded the figure flat.
+    const depth = Math.min(lowest - STOOP_Y, STOOP_MOST);
     body.lean += depth * (around.squats ? 0.6 : 1.6);
     body.bob += depth * (around.squats ? 1.6 : 0.9);
   }

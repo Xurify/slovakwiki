@@ -11,15 +11,15 @@
   let {
     height,
     layer,
-    mugs = true,
+    cups = [],
     seats,
     unit,
     width,
   }: {
     height: number;
     layer: "behind" | "front";
-    /** A mug by each host's near hand, unless the set has its own cups on the desk. */
-    mugs?: boolean;
+    /** Where the set's own cups stand on the desk, in rig units: the host nearest each has it in place of the desk's mug. */
+    cups?: readonly number[];
     seats: StageFrame["seats"];
     /** Stage px per rig unit. */
     unit: number;
@@ -38,6 +38,12 @@
     seats.length ? seats[seats.length - 1].x / unit + DESK_REACH : 0,
   );
   const middle = $derived((left + right) / 2);
+  const nearestSeat = (x: number) =>
+    seats.reduce(
+      (best, seat, index) =>
+        Math.abs(seat.x / unit - x) < Math.abs(seats[best].x / unit - x) ? index : best,
+      0,
+    );
   const aim = (Math.atan2(MOUTH.y - MIC.y, MOUTH.x - MIC.x) * 180) / Math.PI;
 </script>
 
@@ -207,8 +213,9 @@
         </g>
       {/if}
 
-      {#each mugs ? seats : [] as seat, index (index)}
+      {#each seats as seat, index (index)}
         {@const x = seat.x / unit + seat.facing * 14}
+        {#if !cups.some((cup) => nearestSeat(cup) === index)}
         {@const mug = index % 2 ? "#f4f1ea" : "#d9675b"}
         <g data-set-id="studio-mug-{index}">
           <path
@@ -235,6 +242,7 @@
           />
           <ellipse cx={x} cy={TOP - 9.9} rx="2.2" ry="0.5" fill="#6b4a33" />
         </g>
+        {/if}
       {/each}
     </g>
     {#each seats as seat, index (index)}

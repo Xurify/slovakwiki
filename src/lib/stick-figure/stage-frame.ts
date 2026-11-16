@@ -84,8 +84,13 @@ export function stageFrame(
     height || undefined,
   );
 
+  // The desk is furniture: it stands where it would with everyone in, or it
+  // sat 52 px off in a segment whose host walks on, and the rug and door did not move with it.
+  const deskMarks = desk
+    ? stageMarks(cast, {}, width, at, height || undefined).marks
+    : marks;
   const seats: Array<StageFrame["seats"][number]> = desk
-    ? [...deskSeats(cast, marks, figureWidth)]
+    ? [...deskSeats(cast, deskMarks, figureWidth)]
     : (PLACES[setting].furniture ?? []).flatMap((piece) =>
         piece.kind === "chair"
           ? [

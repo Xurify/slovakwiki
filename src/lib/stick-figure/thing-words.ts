@@ -48,6 +48,8 @@ export interface SceneThing {
    * drawn now: a fixed box missed the studio's plant and a carried pot.
    */
   of?: readonly string[];
+  /** The set's objects of this kind are drawn copies too, whatever an episode calls them: its own mugs on the studio desk. */
+  ofKind?: string;
   /** Only tapped for its word: the cast handles it by cues, so a line naming it is not pointed at. */
   quiet?: boolean;
 }
@@ -511,6 +513,13 @@ export const THING_WORDS = {
     id: "tabula",
     stems: ["tabul"],
     word: "tabuľa",
+  },
+  telefon: {
+    english: "phone",
+    gender: "masculine-inanimate",
+    id: "telefon",
+    stems: ["telefon"],
+    word: "telefón",
   },
   taska: {
     english: "bag",

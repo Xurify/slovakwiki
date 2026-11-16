@@ -12,6 +12,8 @@ export type Headwear = "headphones" | "headset";
  * folds it.
  */
 export interface Dress {
+  /** A wide grin held from a cue, teeth showing: `seeds` with poppy seeds on them. */
+  grin?: "teeth" | "seeds";
   headwear?: Headwear;
   scarf: boolean;
   umbrellaUp: boolean;

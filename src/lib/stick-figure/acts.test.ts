@@ -119,6 +119,34 @@ describe("the world the cues leave", () => {
     ).toThrow(CueError);
   });
 
+  it("takes into the far hand when asked, away from a desk mic", () => {
+    const studio = PLACES.studio.set;
+    const start = setUp(startWorld(studio.objects), {
+      objects: [{ id: "plate", kind: "plate", start: { where: { on: "desk", dx: 38 } } }],
+    });
+    const far = applyCue(
+      start,
+      "marek",
+      { do: "take", what: "plate", hand: "far" },
+      studio,
+    );
+    expect(far.objects.plate.where).toEqual({ hand: "marek", side: "rear" });
+    const near = applyCue(start, "marek", { do: "take", what: "plate" }, studio);
+    expect(near.objects.plate.where).toEqual({ hand: "marek", side: "lead" });
+  });
+
+  it("keeps a grin on from its cue until one turns it off", () => {
+    const world = startWorld([]);
+    const grinning = applyCue(
+      world,
+      "marek",
+      { do: "grin", seeds: true },
+      PLACES.studio.set,
+    );
+    expect(grinning.grins).toEqual({ marek: "seeds" });
+    expect(applyCue(grinning, "marek", { do: "grin", off: true }).grins).toEqual({});
+  });
+
   it("puts headphones on the head of whoever holds them", () => {
     const studio = PLACES.studio.set;
     const start = setUp(startWorld(studio.objects), {

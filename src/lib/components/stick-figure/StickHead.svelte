@@ -29,6 +29,7 @@
     round = 1,
     sway = STILL,
     headphones = false,
+    grin,
   }: {
     /** On a call: a robot's antenna light blinks while it talks over the line. */
     calling?: boolean;
@@ -43,6 +44,8 @@
     sway?: { x: number; y: number };
     /** Closed-back studio headphones worn over the hair. */
     headphones?: boolean;
+    /** A wide grin, the top teeth showing; `seeds` has poppy seeds stuck on them. */
+    grin?: "teeth" | "seeds";
   } = $props();
 
   const id = $props.id();
@@ -575,7 +578,23 @@
 
   <path d="M{noseX} 31.2v2.6" class="stroke-portrait-ink" stroke-width="1.25" />
 
-  {#if mouthOpen}
+  {#if grin}
+    {@const low = 39.6 + pose.mouth * 2.2}
+    <!-- Flat along the top lip and deep below, the top teeth a white band under it: a curve alone read as a plain smile. -->
+    <path
+      d="M{mouthX - 4.7} 35.3Q{mouthX} 36 {mouthX + 4.7} 35.3Q{mouthX + 3.9} {low} {mouthX} {low}Q{mouthX - 3.9} {low} {mouthX - 4.7} 35.3Z"
+      class="fill-portrait-ink"
+    />
+    <path
+      d="M{mouthX - 3.9} 35.85Q{mouthX} 36.5 {mouthX + 3.9} 35.85L{mouthX + 3.5} 37.5Q{mouthX} 37.95 {mouthX - 3.5} 37.5Z"
+      fill="#fbfaf6"
+    />
+    {#if grin === "seeds"}
+      {#each [-2.4, -0.7, 1.1, 2.5] as dx, index (dx)}
+        <circle cx={mouthX + dx} cy={36.75 + (index % 2) * 0.35} r="0.38" fill="#1c1b29" />
+      {/each}
+    {/if}
+  {:else if mouthOpen}
     <path d={mouthPath(mouthX, 36.2)} class="fill-portrait-ink" />
 
     {#if pose.mouth > 0.5 && pose.round < 0.5}
