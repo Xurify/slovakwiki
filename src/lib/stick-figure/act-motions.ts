@@ -2233,19 +2233,25 @@ const ARM_REACH = 28.5;
 /** The most a figure leans in, in degrees, to reach what is in front of it. */
 const MOST_LEAN = 14;
 
+/** The deepest a robot squats, as its kneel by a dog does: its hips still well off the floor. */
+const SQUAT_MOST = 22;
+/** A hand this low is at the floor, setting something down on it, not at a dog's collar or head. */
+const FLOOR_REACH_Y = 112;
+
 /** How much further to lean so each hand reaches its point in front: none if they already do, or if leaning would not help. */
 function leanToReach(
   body: StickPose,
   points: Partial<Record<Hand, Point>>,
   sit: number,
   squats = false,
+  maxBob = DEEPEST_BOB,
 ): number {
   // Low down, the knees bend with the lean, as they do lifting something off a low shelf.
   const low = Object.values(points).some((point) => point && point.y > STOOP_Y);
   const shortfall = (lean: number) => {
     const bob = low && sit === 0 ? lean * (squats ? 1.4 : 0.5) : 0;
     const rig = solveRig(
-      { ...body, lean: body.lean + lean, bob: Math.min(DEEPEST_BOB, body.bob + bob) },
+      { ...body, lean: body.lean + lean, bob: Math.min(maxBob, body.bob + bob) },
       sit,
     );
     let worst = 0;
@@ -2268,11 +2274,6 @@ function leanToReach(
   }
   return best;
 }
-
-/** The deepest a robot squats, as its kneel by a dog does: its hips still well off the floor. */
-const SQUAT_MOST = 22;
-/** A hand this low is at the floor, setting something down on it, not at a dog's collar or head. */
-const FLOOR_REACH_Y = 112;
 /** Down to a dog's collar on bent knees, the back nearly upright. */
 const CROUCH: Partial<StickPose> = { bob: 22, lean: 6, nod: 3, look: 2 };
 /**
@@ -2391,21 +2392,21 @@ export function frameBetween(
     body.lean += depth * (around.squats ? 0.6 : 1.6);
     body.bob += depth * (around.squats ? 1.6 : 0.9);
   }
-  const deepest = Math.max(DEEPEST_BOB, base.bob);
-  if (sit === 0) body.bob = Math.min(body.bob, deepest);
-
-  // Still out of reach, the figure leans in to it, as far as it must.
-  const leaned = leanToReach(body, points, sit, around.squats);
-  const low = Object.values(points).some((point) => point && point.y > STOOP_Y);
-  body.lean += leaned;
-  if (low && sit === 0) body.bob += leaned * (around.squats ? 1.4 : 0.5);
   // Squatting further after a dog's collar out of reach, a robot's hips went through the floor and its legs
   // folded flat behind it: the whole casing read as tipped over. No deeper than its kneel, the arm falls short.
   // Only setting something on the floor itself takes it lower.
-  if (around.squats && sit === 0 && lowest < FLOOR_REACH_Y) {
-    body.bob = Math.min(body.bob, SQUAT_MOST);
-  }
-  if (sit === 0) body.bob = Math.min(body.bob, deepest);
+  const maxBob =
+    around.squats && sit === 0 && lowest < FLOOR_REACH_Y
+      ? SQUAT_MOST
+      : Math.max(DEEPEST_BOB, base.bob);
+  if (sit === 0) body.bob = Math.min(body.bob, maxBob);
+
+  // Still out of reach, the figure leans in to it, as far as it must.
+  const leaned = leanToReach(body, points, sit, around.squats, maxBob);
+  const low = Object.values(points).some((point) => point && point.y > STOOP_Y);
+  body.lean += leaned;
+  if (low && sit === 0) body.bob += leaned * (around.squats ? 1.4 : 0.5);
+  if (sit === 0) body.bob = Math.min(body.bob, maxBob);
 
   let pose = mic ? headClearOfMic(body, sit, mic.side) : body;
   for (const hand of ["lead", "rear"] as const) {
