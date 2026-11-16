@@ -12,6 +12,7 @@ import {
   lineWriter,
   listenerPicks,
   staged,
+  type Part,
 } from "../dialogue";
 import type { ListeningChapter, ListeningEpisode } from "../types";
 
@@ -36,9 +37,18 @@ function card(id: string, slovak: string, english: string) {
   return line(id, "Scene", [slovak], english);
 }
 
-/** Dunčo's lines are barks, clips of a real dog rather than a voice. */
-function dog(id: string, bark: string, english: string, to?: string, props?: ["ball"]) {
-  return line(id, "Dunčo", [bark], english, {
+/**
+ * Dunčo's lines are barks, clips of a real dog rather than a voice; a leading
+ * direction (`EXCITED`, `HAPPY`, `SIGH`) picks another take.
+ */
+function dog(
+  id: string,
+  bark: string | Part[],
+  english: string,
+  to?: string,
+  props?: ["ball"],
+) {
+  return line(id, "Dunčo", typeof bark === "string" ? [bark] : bark, english, {
     ...(to ? { to } : {}),
     ...(props ? { props } : {}),
   });
@@ -247,7 +257,7 @@ const friday: ListeningChapter = {
       "anna-both-will-be-fine": [
         { who: "marek", do: "take", what: "suitcase", on: "start" },
         { do: "wave", on: "šťastnú" },
-        { do: "go", to: "off-left", on: "after" },
+        { do: "leave", to: "door", on: "after" },
       ],
     },
   ),
@@ -409,7 +419,7 @@ const morning: ListeningChapter = {
         "Let's go, then! Dunčo, we're going to the park!",
         { to: "Dunčo" },
       ),
-      dog("dunco-park-bark", "Haf! Haf!", "Woof! Woof!", "Anna"),
+      dog("dunco-park-bark", [EXCITED, "Haf! Haf!"], "Woof! Woof!", "Anna"),
     ],
     {
       "domo-good-morning-food": [
@@ -417,26 +427,31 @@ const morning: ListeningChapter = {
         { do: "put", what: "bowl", to: "by-dog", on: "granule" },
       ],
       "anna-good-morning-how-are-you": [
-        { do: "enter", from: "off-right", to: "rug-mid-right", on: "before" },
+        // Both step back from the hall door as it opens.
+        { who: "robot", do: "go", to: "rug-mid-right", on: "before" },
+        { who: "dog", do: "go", to: "dog-spot", on: "before" },
+        { do: "enter", to: "inside", on: "before" },
+        { do: "go", to: "rug-mid" },
       ],
       "anna-it-will-pass": [
         { do: "go", to: "by-sofa", on: "vieš" },
         { do: "take", what: "ball" },
       ],
       "anna-heres-his-ball": [
-        { do: "go", to: "rug-mid-right", on: "before" },
+        { do: "go", to: "rug-mid", on: "before" },
         { do: "give", what: "ball", to: "robot", on: "tu" },
       ],
       "anna-lets-go-park": [
+        { who: "dog", do: "go", to: "rug-left", on: "poďme" },
         { do: "go", to: "pegs", on: "poďme" },
         { do: "take", what: "lead" },
       ],
       "dunco-park-bark": [
         { who: "anna", do: "go", to: "dog", on: "start" },
         { who: "anna", do: "leash", what: "lead", to: "dog" },
-        { who: "anna", do: "leave", to: "left", on: "after" },
-        { do: "leave", to: "left", on: "after" },
-        { who: "robot", do: "leave", to: "left", on: "after" },
+        { who: "anna", do: "leave", to: "door", on: "after" },
+        { do: "leave", to: "door", on: "after" },
+        { who: "robot", do: "leave", to: "door", on: "after" },
       ],
     },
   ),
@@ -646,7 +661,7 @@ const park: ListeningChapter = {
       "domo-haf-means-hi": [{ do: "compute", on: "uložím" }],
       "anna-ill-take-a-photo": [
         { do: "take", what: "phone", on: "počkaj" },
-        { do: "raise", what: "phone", on: "odfotím" },
+        { do: "photo", what: "phone", to: "robot", on: "odfotím" },
         { do: "pocket", what: "phone", on: "end" },
       ],
     },
@@ -735,7 +750,7 @@ const six: ListeningChapter = {
         "Dunčo? What's wrong? I'll give you something to eat, OK?",
         { to: "Dunčo" },
       ),
-      dog("dunco-whines-again", "Kňu…", "(whines)"),
+      dog("dunco-whines-again", "Kňu.", "(whines)"),
       line(
         "domo-not-even-the-ball",
         "Domo",
@@ -868,7 +883,7 @@ const atWindow: ListeningChapter = {
         "Dunčo, you're waiting for Mr Marek…",
         { to: "Dunčo" },
       ),
-      dog("dunco-whines-yes", "Kňu…", "(whines)"),
+      dog("dunco-whines-yes", [SIGH, "Kňu…"], "(whines)"),
       line(
         "domo-not-today",
         "Domo",
@@ -944,7 +959,7 @@ const atWindow: ListeningChapter = {
         "And now you'll eat?",
         { to: "Dunčo" },
       ),
-      dog("dunco-eats-bark", "Haf!", "Woof!", "Domo"),
+      dog("dunco-eats-bark", [HAPPY, "Haf!"], "Woof!", "Domo"),
       line(
         "domo-hes-hungry",
         "Domo",
@@ -1045,7 +1060,7 @@ const monday: ListeningChapter = {
         "It's six o'clock, Dunčo. Let's go to the window.",
         { to: "Dunčo" },
       ),
-      dog("dunco-whines-monday", "Kňu…", "(whines)", "Domo"),
+      dog("dunco-whines-monday", "Kňu.", "(whines)", "Domo"),
       line(
         "domo-today-he-will-come",
         "Domo",
@@ -1060,7 +1075,7 @@ const monday: ListeningChapter = {
         "Hi, you two! I'm home!",
         { props: ["suitcase", "suitcase"], to: "Dunčo" },
       ),
-      dog("dunco-overjoyed", "Haf! Haf! Haf!", "Woof! Woof! Woof!", "Marek"),
+      dog("dunco-overjoyed", [EXCITED, "Haf! Haf! Haf!"], "Woof! Woof! Woof!", "Marek"),
       line(
         "marek-missed-you-too",
         "Marek",
@@ -1122,7 +1137,7 @@ const monday: ListeningChapter = {
         "Both are right, Domo.",
         { to: "Domo" },
       ),
-      dog("dunco-last-bark", "Haf!", "Woof!", "Domo"),
+      dog("dunco-last-bark", [HAPPY, "Haf!"], "Woof!", "Domo"),
       line("domo-tries-haf", "Domo", [HAPPY, "Haf."], "Woof.", { to: "Dunčo" }),
       line(
         "marek-you-understand-each-other",
@@ -1145,7 +1160,8 @@ const monday: ListeningChapter = {
         { who: "dog", do: "go", to: "window-dog", on: "oknu" },
       ],
       "marek-good-evening-home": [
-        { do: "enter", from: "off-right", to: "rug-right", on: "before" },
+        { do: "enter", to: "inside", on: "before" },
+        { do: "go", to: "rug-right" },
         { do: "wave", on: "ahojte" },
       ],
       "domo-today-he-will-come": [

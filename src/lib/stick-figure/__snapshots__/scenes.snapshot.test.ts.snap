@@ -5406,16 +5406,16 @@ exports[`every scene, directed > podcast podcast-future-tense-friday 1`] = `
       },
     },
     {
-      "line": "marek: V pondelok večer. O šiestej, ako vždy. Dunčo ma vtedy čaká pri okne.",
+      "line": "marek: V pondelok o šiestej večer. Vtedy chodievam domov z práce. A Dunčo ma vždy čaká pri okne.",
       "plan": {
         "beats": [
           "50 tell",
-          "2050 tell",
-          "4300 tell",
+          "2750 tell",
+          "5050 tell",
         ],
-        "ms": 6200,
-        "sentences": "50-985 2050-3186 4300-6000",
-        "words": "50-50 50-617 617-985 2050-2183 2183-2591 2680-2973 2973-3186 4300-4644 4644-4802 4802-5146 5146-5498 5498-5683 5683-6000",
+        "ms": 7200,
+        "sentences": "50-1553 2750-4250 5050-7050",
+        "words": "50-50 50-614 614-755 755-1187 1187-1553 2750-3071 3071-3574 3574-3896 3896-3896 3896-4250 5050-5205 5205-5610 5610-5796 5796-6045 6045-6459 6459-6677 6677-7050",
       },
       "staging": {
         "addressee": "robot",
@@ -5517,15 +5517,16 @@ exports[`every scene, directed > podcast podcast-future-tense-friday 1`] = `
       },
     },
     {
-      "line": "anna: Neboj sa, Marek. Obaja budú v poriadku.",
+      "line": "anna: Nerob si starosti, Marek. Obaja budú v poriadku. Šťastnú cestu!",
       "plan": {
         "beats": [
-          "0 tell",
-          "2000 tell",
+          "50 tell",
+          "2550 tell",
+          "4500 stress",
         ],
-        "ms": 3450,
-        "sentences": "0-964 2000-3300",
-        "words": "0-355 355-518 609-964 2000-2436 2436-2778 2778-2778 2778-3300",
+        "ms": 5800,
+        "sentences": "50-1505 2550-3758 4500-5450",
+        "words": "50-392 392-550 550-1076 1163-1505 2550-2955 2955-3273 3273-3273 3273-3758 4500-5029 5029-5450",
       },
       "staging": {
         "addressee": "marek",
@@ -5611,14 +5612,14 @@ exports[`every scene, directed > podcast podcast-future-tense-monday 1`] = `
       },
     },
     {
-      "line": "dog: Kňu…",
+      "line": "dog: Kňu.",
       "plan": {
         "beats": [
-          "50 muse",
+          "0 tell",
         ],
-        "ms": 1600,
-        "sentences": "50-1600",
-        "words": "50-1600",
+        "ms": 750,
+        "sentences": "0-750",
+        "words": "0-750",
       },
       "staging": {
         "addressee": "robot",
@@ -5674,12 +5675,11 @@ exports[`every scene, directed > podcast podcast-future-tense-monday 1`] = `
       "line": "dog: Haf! Haf! Haf!",
       "plan": {
         "beats": [
-          "50 stress",
-          "750 stress",
+          "0 stress",
         ],
-        "ms": 1050,
-        "sentences": "50-206 472-628 894-1050",
-        "words": "50-206 472-628 894-1050",
+        "ms": 1000,
+        "sentences": "0-140 380-520 760-900",
+        "words": "0-140 380-520 760-900",
       },
       "staging": {
         "addressee": "marek",
@@ -5740,16 +5740,16 @@ exports[`every scene, directed > podcast podcast-future-tense-monday 1`] = `
       },
     },
     {
-      "line": "robot: Dobre, pán Marek. Každý večer o šiestej sme čakali pri okne. Spolu.",
+      "line": "robot: Dobre, pán Marek. V sobotu aj v nedeľu o šiestej sme čakali pri okne. Spolu.",
       "plan": {
         "beats": [
           "0 nod",
           "2300 tell",
-          "5650 tell",
+          "6200 tell",
         ],
-        "ms": 6400,
-        "sentences": "0-1109 2300-4837 5650-6250",
-        "words": "0-383 481-726 726-1109 2300-2697 2697-3057 3057-3195 3195-3619 3619-3813 3813-4311 4311-4505 4505-4837 5650-6250",
+        "ms": 6900,
+        "sentences": "0-1120 2300-5323 6200-6750",
+        "words": "0-387 486-733 733-1120 2300-2300 3049-3434 3434-3562 3562-3562 3562-3947 3947-4054 4054-4382 4382-4531 4531-4916 4916-5066 5066-5323 6200-6750",
       },
       "staging": {
         "addressee": "marek",
@@ -5870,11 +5870,11 @@ exports[`every scene, directed > podcast podcast-future-tense-monday 1`] = `
       "line": "dog: Haf!",
       "plan": {
         "beats": [
-          "50 stress",
+          "0 stress",
         ],
-        "ms": 350,
-        "sentences": "50-350",
-        "words": "50-350",
+        "ms": 400,
+        "sentences": "0-300",
+        "words": "0-300",
       },
       "staging": {
         "addressee": "robot",
@@ -5905,14 +5905,15 @@ exports[`every scene, directed > podcast podcast-future-tense-monday 1`] = `
       },
     },
     {
-      "line": "marek: Vidím, že sa už rozumiete.",
+      "line": "marek: Vidím, že sa už rozumiete. Ako na tej fotke z parku.",
       "plan": {
         "beats": [
-          "0 chuckle",
+          "50 chuckle",
+          "3400 tell",
         ],
-        "ms": 2900,
-        "sentences": "0-2550",
-        "words": "0-599 739-989 989-1240 1240-1491 1491-2550",
+        "ms": 5000,
+        "sentences": "50-2014 3400-4750",
+        "words": "50-511 619-812 812-1005 1005-1198 1198-2014 3400-3697 3697-3859 3859-4048 4048-4399 4399-4399 4399-4750",
       },
       "staging": {
         "addressee": "robot",
@@ -6220,11 +6221,11 @@ exports[`every scene, directed > podcast podcast-future-tense-morning 1`] = `
       "line": "dog: Haf! Haf!",
       "plan": {
         "beats": [
-          "50 stress",
+          "0 stress",
         ],
         "ms": 700,
-        "sentences": "50-212 488-650",
-        "words": "50-212 488-650",
+        "sentences": "0-162 438-600",
+        "words": "0-162 438-600",
       },
       "staging": {
         "addressee": "anna",
@@ -6711,14 +6712,14 @@ exports[`every scene, directed > podcast podcast-future-tense-six 1`] = `
       },
     },
     {
-      "line": "dog: Kňu…",
+      "line": "dog: Kňu.",
       "plan": {
         "beats": [
-          "50 muse",
+          "0 tell",
         ],
-        "ms": 1600,
-        "sentences": "50-1600",
-        "words": "50-1600",
+        "ms": 750,
+        "sentences": "0-750",
+        "words": "0-750",
       },
       "staging": {
         "addressee": "robot",
@@ -6785,22 +6786,6 @@ exports[`every scene, directed > podcast podcast-future-tense-six 1`] = `
         ],
       },
     },
-    {
-      "line": "-: Prečo je Dunčo smutný? Hádajte s nami!",
-      "plan": {
-        "beats": [
-          "50 ask",
-          "1900 stress",
-        ],
-        "ms": 3050,
-        "questions": "50-1496",
-        "sentences": "50-1496 1900-2850",
-        "words": "50-447 447-630 630-1027 1027-1496 1900-2497 2497-2497 2497-2850",
-      },
-      "staging": {
-        "addressee": null,
-      },
-    },
   ],
   "setting": "home",
   "things": [
@@ -6839,15 +6824,16 @@ exports[`every scene, directed > podcast podcast-future-tense-window 1`] = `
   ],
   "lines": [
     {
-      "line": "-: O chvíľu neskôr. Je večer.",
+      "line": "-: Prečo je Dunčo smutný? Hádajte s nami!",
       "plan": {
         "beats": [
-          "50 tell",
-          "1600 tell",
+          "50 ask",
+          "1900 stress",
         ],
-        "ms": 2500,
-        "sentences": "50-1211 1600-2250",
-        "words": "50-218 218-698 698-1211 1600-1805 1805-2250",
+        "ms": 3050,
+        "questions": "50-1496",
+        "sentences": "50-1496 1900-2850",
+        "words": "50-447 447-630 630-1027 1027-1496 1900-2497 2497-2497 2497-2850",
       },
       "staging": {
         "addressee": null,
@@ -6857,8 +6843,8 @@ exports[`every scene, directed > podcast podcast-future-tense-window 1`] = `
       "line": "robot: Šesť hodín. Okno. Už viem!",
       "plan": {
         "beats": [
-          "56 point → hodiny",
-          "1950 point → okno",
+          "0 tell",
+          "1950 tell",
           "3000 stress",
         ],
         "ms": 3950,
@@ -6895,11 +6881,11 @@ exports[`every scene, directed > podcast podcast-future-tense-window 1`] = `
       "line": "dog: Kňu…",
       "plan": {
         "beats": [
-          "50 muse",
+          "50 sigh",
         ],
-        "ms": 1600,
-        "sentences": "50-1600",
-        "words": "50-1600",
+        "ms": 2250,
+        "sentences": "50-2100",
+        "words": "50-2100",
       },
       "staging": {
         "addressee": "robot",
@@ -6930,15 +6916,16 @@ exports[`every scene, directed > podcast podcast-future-tense-window 1`] = `
       },
     },
     {
-      "line": "robot: Poďme k oknu, Dunčo. Budem čakať s tebou.",
+      "line": "robot: Tak dobre, Dunčo. Budem čakať s tebou. Tu, pri okne.",
       "plan": {
         "beats": [
-          "338 point → okno",
-          "2750 tell",
+          "50 tell",
+          "2600 tell",
+          "4450 point",
         ],
-        "ms": 4200,
-        "sentences": "100-1494 2750-4000",
-        "words": "100-538 538-538 538-943 1055-1494 2750-3163 3163-3576 3576-3576 3576-4000",
+        "ms": 5800,
+        "sentences": "50-1209 2600-3580 4450-5600",
+        "words": "50-273 273-688 794-1209 2600-2924 2924-3248 3248-3248 3248-3580 4450-4694 4829-5113 5113-5600",
       },
       "staging": {
         "addressee": "dog",
@@ -6946,7 +6933,6 @@ exports[`every scene, directed > podcast podcast-future-tense-window 1`] = `
           "dog": 1,
           "robot": -1,
         },
-        "goTo": "okno",
       },
     },
     {
@@ -7066,11 +7052,11 @@ exports[`every scene, directed > podcast podcast-future-tense-window 1`] = `
       "line": "dog: Haf!",
       "plan": {
         "beats": [
-          "50 stress",
+          "0 stress",
         ],
-        "ms": 350,
-        "sentences": "50-350",
-        "words": "50-350",
+        "ms": 400,
+        "sentences": "0-300",
+        "words": "0-300",
       },
       "staging": {
         "addressee": "robot",
@@ -7086,6 +7072,25 @@ exports[`every scene, directed > podcast podcast-future-tense-window 1`] = `
             "sentence": 0,
           },
         ],
+      },
+    },
+    {
+      "line": "robot: Má hlad. Uložím si to.",
+      "plan": {
+        "beats": [
+          "0 tell",
+          "1950 tell",
+        ],
+        "ms": 3000,
+        "sentences": "0-535 1950-2850",
+        "words": "0-256 256-535 1950-2505 2505-2678 2678-2850",
+      },
+      "staging": {
+        "addressee": "dog",
+        "facing": {
+          "dog": 1,
+          "robot": -1,
+        },
       },
     },
   ],
