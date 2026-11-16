@@ -258,18 +258,18 @@
 <circle cx="603.4" cy="181" r="0.9" class="fill-scene-line/50" />
 <circle cx="606.6" cy="181" r="0.9" class="fill-scene-line/50" />
 
-<!-- Her small fridge at the end of the run, past where a phone's stage stops, a radio on top. -->
-<ellipse cx="803" cy="233" rx="21" ry="3" class="fill-scene-line/15" />
-<rect x="784" y="136" width="38" height="94" rx="5" class="fill-white" />
-<rect x="784" y="136" width="38" height="94" rx="5" class="fill-scene-line/5" />
-<path d="M784 164H822" class="stroke-scene-line/30" stroke-width="1.4" />
-<path d="M815 142v14M815 172v26" class="stroke-scene-line/50" stroke-width="2.6" />
-<rect x="792" y="143" width="9" height="7" rx="1.4" class="fill-scene-apple" />
-<circle cx="805" cy="152" r="3" class="fill-scene-honey" />
-<rect x="792" y="168" width="15" height="19" class="fill-white" />
-<path d="M794 174h11M794 178h9M794 182h11" class="stroke-scene-line/30" stroke-width="0.8" />
-<circle cx="799.5" cy="168" r="1.6" class="fill-scene-red" />
-<path d="M786 228h4v3h-4ZM816 228h4v3h-4Z" class="fill-scene-line/40" />
-<rect x="787" y="124" width="32" height="12" rx="2" class="fill-scene-red-mid" />
-<circle cx="795" cy="130" r="3.6" class="fill-scene-line/40" />
-<rect x="803" y="128" width="12" height="3" rx="1" class="fill-white/70" />
+<!-- Her small fridge between the window and the counter run, under the hanging, a radio on top. -->
+<ellipse cx="487" cy="233" rx="21" ry="3" class="fill-scene-line/15" />
+<rect x="468" y="136" width="38" height="94" rx="5" class="fill-white" />
+<rect x="468" y="136" width="38" height="94" rx="5" class="fill-scene-line/5" />
+<path d="M468 164H506" class="stroke-scene-line/30" stroke-width="1.4" />
+<path d="M499 142v14M499 172v26" class="stroke-scene-line/50" stroke-width="2.6" />
+<rect x="476" y="143" width="9" height="7" rx="1.4" class="fill-scene-apple" />
+<circle cx="489" cy="152" r="3" class="fill-scene-honey" />
+<rect x="476" y="168" width="15" height="19" class="fill-white" />
+<path d="M478 174h11M478 178h9M478 182h11" class="stroke-scene-line/30" stroke-width="0.8" />
+<circle cx="483.5" cy="168" r="1.6" class="fill-scene-red" />
+<path d="M470 228h4v3h-4ZM500 228h4v3h-4Z" class="fill-scene-line/40" />
+<rect x="471" y="124" width="32" height="12" rx="2" class="fill-scene-red-mid" />
+<circle cx="479" cy="130" r="3.6" class="fill-scene-line/40" />
+<rect x="487" y="128" width="12" height="3" rx="1" class="fill-white/70" />

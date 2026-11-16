@@ -450,7 +450,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     outdoors: false,
     things: [
       drawn(WORDS.dvere, [190, 40, 72, 186]),
-      drawn(WORDS.chladnicka, [784, 136, 38, 94]),
+      drawn(WORDS.chladnicka, [468, 136, 38, 94]),
       drawn(WORDS.okno, [352, 54, 104, 80]),
       drawn(WORDS.hodiny, clockBox(PARTS.kitchen.clock)),
       // The sink, pot and stove are the set's, at the cast's scale: these boxes fit a cast of three or
