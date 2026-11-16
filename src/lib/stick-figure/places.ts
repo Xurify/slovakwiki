@@ -769,13 +769,12 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
 };
 
 /**
- * Props a learner can tap wherever the set draws one, in any place: an
- * umbrella on the desk or in a hand, a phone out of the pocket. Each has no
+ * Props a learner can tap wherever the set draws one, in any place: a
+ * phone out of the pocket, keys in a hand, a bag set down. Each has no
  * box of its own; it is measured where the set draws it, and is not there
  * to tap while it is out of sight in a pocket or a bag.
  */
 export const PROP_THINGS: Readonly<Partial<Record<string, SceneThing>>> = {
-  umbrella: { ...WORDS.dazdnik, box: { x: 0, y: 0, width: 0, height: 0 }, quiet: true },
   phone: { ...WORDS.telefon, box: { x: 0, y: 0, width: 0, height: 0 }, quiet: true },
   keys: { ...WORDS.kluce, box: { x: 0, y: 0, width: 0, height: 0 }, quiet: true },
   bag: { ...WORDS.taska, box: { x: 0, y: 0, width: 0, height: 0 }, quiet: true },

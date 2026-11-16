@@ -184,13 +184,6 @@ export const THING_WORDS = {
     stems: ["abeced"],
     word: "abeceda",
   },
-  dazdnik: {
-    english: "umbrella",
-    gender: "masculine-inanimate",
-    id: "dazdnik",
-    stems: ["dazdnik"],
-    word: "dáždnik",
-  },
   dom: {
     english: "house",
     forms: ["dom", "domu", "dome", "domom", "domy", "domoch", "domami"],
