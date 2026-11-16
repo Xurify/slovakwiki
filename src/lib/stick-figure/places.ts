@@ -328,8 +328,11 @@ const CAFE_SET: PlaceSet = {
     // The window table's chairs (stage-frame.ts seats them), for "Sadnite si."
     "chair-l": { chair: 0 },
     "chair-r": { chair: 1 },
-    // Where the waiter serves the window table from, past the right chair.
-    "by-table": { piece: "table", dx: 70, facing: -1 },
+    // Where the waiter takes the window table's order: an arm's length past the right chair, so a talking hand stays clear of whoever sits there.
+    "by-table": { piece: "table", dx: 95, facing: -1 },
+    // Where he serves it from, at either end of the table: each cup goes down in front of its guest.
+    "serve-r": { piece: "table", dx: 70, facing: -1 },
+    "serve-l": { piece: "table", dx: -64, facing: 1 },
     // The street door opens into the room on hinges at its left, like the studio's: in on its latch side, then past it to push it to.
     door: { x: 290, facing: -1 },
     inside: { x: 262, facing: 1 },

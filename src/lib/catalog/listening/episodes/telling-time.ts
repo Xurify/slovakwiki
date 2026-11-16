@@ -49,7 +49,7 @@ function ending(
 const INTRO_ACTS: Record<string, Cue[]> = {
   "marek-right-on-time": [
     { do: "enter", to: "inside", on: "start" },
-    { do: "sit", to: "desk-left" },
+    { do: "sit", to: "desk-left", on: "včas" },
     { who: "anna", do: "look", to: "marek", on: "start" },
   ],
   // He puts his headphones on while she asks, so nobody waits in silence for him.
@@ -57,6 +57,7 @@ const INTRO_ACTS: Record<string, Cue[]> = {
     { who: "marek", do: "take", what: "marek-headphones", on: "start" },
     { who: "marek", do: "put", what: "marek-headphones", to: "marek" },
   ],
+  "anna-recording-half-past-eight": [{ do: "point", to: "hodiny", on: "hodinu" }],
   // The recorder she takes is the one she sets on the café table: today's show is recorded out there.
   "anna-yes-for-you-tram": [
     { do: "take", what: "recorder", on: "nahrávame" },
@@ -269,24 +270,29 @@ function showClock(picture: StickPictureId, on: string, who?: "anna"): Cue[] {
   ];
 }
 
+/** Marek reads each time off the phone as he answers. */
+const READS: Cue = { do: "look", to: "anna-phone", on: "start" };
+
 const CLOCK_ACTS: Record<string, Cue[]> = {
   "anna-back-one-oclock": [{ do: "look", to: "hodiny", on: "jedna" }],
   "anna-two-oclock": [
     { do: "take", what: "anna-phone", on: "start" },
     ...showClock("clock-2-00", "sú"),
+    { who: "marek", do: "look", to: "anna-phone", on: "sú" },
   ],
-  "marek-two-zero-zero": showClock("clock-2-00", "start", "anna"),
+  "marek-two-zero-zero": [...showClock("clock-2-00", "start", "anna"), READS],
   "anna-quarter-past-two": showClock("clock-2-15", "štvrť"),
-  "marek-three-fifteen": showClock("clock-2-15", "start", "anna"),
+  "marek-three-fifteen": [...showClock("clock-2-15", "start", "anna"), READS],
   "anna-two-fifteen": showClock("clock-2-15", "start"),
   "marek-half-past-two": [
     ...showClock("clock-2-15", "start", "anna"),
+    READS,
     ...showClock("clock-2-30", "pol", "anna"),
   ],
   "anna-quarter-to-three": showClock("clock-2-45", "trištvrte"),
-  "marek-two-forty-five": showClock("clock-2-45", "start", "anna"),
+  "marek-two-forty-five": [...showClock("clock-2-45", "start", "anna"), READS],
   "anna-five-oclock": showClock("clock-5-00", "päť"),
-  "marek-why-je-and-su": showClock("clock-5-00", "start", "anna"),
+  "marek-why-je-and-su": [...showClock("clock-5-00", "start", "anna"), READS],
   "anna-one-two-five": [{ do: "pocket", what: "anna-phone", on: "start" }],
 };
 
@@ -518,13 +524,23 @@ const clockLesson: ListeningChapter = {
   ],
 };
 
-/** Marek looks up at the street clock to read it; the quarter of an hour they wait passes in the dark. */
+/**
+ * They hurry on from the left as Marek says they made it. He looks up at the
+ * street clock to read it; the quarter of an hour they wait passes in the dark.
+ */
 const TRAM_ACTS: Record<string, Cue[]> = {
+  "marek-now-at-stop": [
+    { do: "enter", from: "off-left", to: "wait-r", on: "start" },
+    { who: "anna", do: "enter", from: "off-left", to: "wait-l", on: "start" },
+  ],
+  "anna-what-time-marek": [{ do: "look", to: "marek", on: "start" }],
   "marek-quarter-to-ten": [{ do: "look", to: "hodiny", on: "start" }],
+  "marek-in-fifteen-minutes": [{ do: "look", to: "anna", on: "start" }],
+  "anna-time-vs-how-long": [{ do: "point", to: "hodiny", on: "hodinách" }],
   "anna-yes-at-eleven": [{ do: "skip", minutes: 15, on: "after" }],
   "marek-tram-coming": [
-    { do: "look", to: "električka", on: "start" },
-    { who: "anna", do: "look", to: "električka", on: "ide" },
+    { do: "point", to: "elektricka", on: "pozri" },
+    { who: "anna", do: "look", to: "elektricka", on: "ide" },
   ],
   // Up to the doors as she says it, Marek first, as he is nearer: set off after the line, she was still on the platform when the segment cut.
   "anna-exactly-ten": [
@@ -539,7 +555,6 @@ const tramStop: ListeningChapter = {
   titleSk: "Na zastávke",
   title: "At the tram stop: at ten, in fifteen minutes",
   setup: {
-    spots: { anna: "wait-l", marek: "wait-r" },
     objects: [
       { id: "recorder", kind: "mic", start: { where: { hand: "anna", side: "lead" } } },
     ],
@@ -711,26 +726,31 @@ const tramStop: ListeningChapter = {
  */
 const CAFE_ACTS: Record<string, Cue[]> = {
   "anna-now-in-cafe": [
-    // In before she speaks, so the line is said on her way to the table, not ahead of a long walk.
-    { do: "enter", to: "inside", on: "before" },
-    { do: "sit", to: "chair-r", on: "start" },
+    // She says it as she comes in, and Marek is through the door a step behind her: held until she sat, the café opened on a long silent walk.
+    { do: "enter", to: "inside", on: "start" },
+    { do: "sit", to: "chair-r" },
     { do: "put", what: "recorder", to: "table", dx: 16 },
-    { who: "marek", do: "enter", to: "inside", on: "start" },
+    { who: "marek", do: "enter", to: "inside", on: "kaviareň" },
     { who: "waiter", do: "go", to: "by-table", on: "sadnime" },
   ],
-  "waiter-what-will-you-have": [{ who: "marek", do: "sit", to: "chair-l", on: "start" }],
-  // He fetches the coffees from the back as he says so, so nobody waits for him to go.
-  "waiter-right-away": [
-    { do: "go", to: "back", on: "start" },
-    { do: "take", what: "marek-cup" },
-    { do: "take", what: "anna-cup" },
+  "waiter-what-will-you-have": [
+    { who: "marek", do: "sit", to: "chair-l", on: "start" },
+    { do: "look", to: "anna", on: "start" },
+    { do: "nod", on: "dobrý" },
   ],
-  "marek-at-three-around-two": [{ who: "waiter", do: "go", to: "by-table", on: "start" }],
-  // Both go into the hands of Anna, beside him: the table's chairs keep him from its top. Marek's she sets down across the table, in front of him.
+  "waiter-right-away": [{ do: "go", to: "back", on: "start" }],
+  "marek-eleven-oh-five": [{ do: "look", to: "hodiny", on: "start" }],
+  // He picks the coffees up while Marek works it out, so Anna's next question never waits on him.
+  "marek-at-three-around-two": [
+    { who: "waiter", do: "take", what: "marek-cup", on: "start" },
+    { who: "waiter", do: "take", what: "anna-cup" },
+    { who: "waiter", do: "go", to: "serve-r" },
+  ],
   "waiter-here-two-coffees": [
     { do: "give", what: "anna-cup", to: "anna", on: "páči" },
-    { do: "give", what: "marek-cup", to: "anna", on: "kávy" },
-    { who: "anna", do: "put", what: "marek-cup", to: "table", dx: 2 },
+    { do: "go", to: "serve-l", on: "kávy" },
+    { do: "put", what: "marek-cup", to: "table", dx: -36 },
+    { do: "go", to: "by-table" },
   ],
   "anna-when-do-you-close": [{ do: "nod", on: "ďakujeme" }],
   // Done serving, he goes back behind the bar.
@@ -738,6 +758,7 @@ const CAFE_ACTS: Record<string, Cue[]> = {
     { who: "marek", do: "look", to: "waiter", on: "start" },
     { do: "go", to: "back", on: "after" },
   ],
+  "anna-back-at-half-past-twelve": [{ do: "take", what: "recorder", on: "ideme" }],
   "marek-seven-hours-i-know": [
     { do: "take", what: "marek-cup", on: "start" },
     { do: "taste", what: "marek-cup", on: "máme" },
@@ -797,8 +818,8 @@ const cafe: ListeningChapter = {
       line(
         "marek-eleven-oh-five",
         "Marek",
-        ["Je ", mark("jedenásť hodín a päť minút"), "."],
-        "It's five past eleven.",
+        ["Je ", mark("jedenásť nula päť"), "."],
+        "It's eleven oh five.",
       ),
       line(
         "anna-guest-at-three",
@@ -990,6 +1011,8 @@ const ASK_O = `${PREFIX}marek-which-o`;
  */
 // A point at his mug, so the stage does not put a cup in his hand for "kávu".
 const HELP_ACTS: Record<string, Cue[]> = {
+  "anna-test-for-you": [{ who: "marek", do: "look", to: "anna", on: "marek" }],
+  "marek-numbers-not-words": [{ do: "shrug", on: "ojoj" }],
   "marek-made-the-coffee": [{ do: "point", to: "marek-mug", on: "kávu" }],
 };
 
@@ -1588,14 +1611,18 @@ const help: ListeningChapter = {
   ],
 };
 
-/** He lifts his empty mug at the thought of one more coffee, Anna wags a hand at him, then they wave goodbye together. */
+/** He lifts his empty mug at the thought of one more coffee and sets it down as Anna wags a hand at him; then they wave goodbye together. */
 const OUTRO_ACTS: Record<string, Cue[]> = {
   "marek-one-more-coffee": [
     { do: "take", what: "marek-mug", on: "stihnem" },
     { do: "raise", what: "marek-mug", on: "kávu" },
-    { do: "put", what: "marek-mug", to: "desk", dx: -30, on: "after" },
   ],
-  "anna-just-one": [{ do: "wag", to: "marek", on: "jednu" }],
+  "anna-quarter-past-one": [{ do: "look", to: "hodiny", on: "start" }],
+  "anna-hour-and-three-quarters": [{ do: "facepalm", on: "marek" }],
+  "anna-just-one": [
+    { do: "wag", to: "marek", on: "jednu" },
+    { who: "marek", do: "put", what: "marek-mug", to: "desk", dx: -30, on: "marek" },
+  ],
   "anna-thanks-bye": [{ do: "wave", on: "ahojte" }],
   "marek-bye": [{ do: "wave", on: "ahojte" }],
 };
@@ -1655,25 +1682,33 @@ const outro: ListeningChapter = {
         "One, Marek. And at three you're here.",
       ),
       line(
-        "marek-at-three-now-i-know",
+        "marek-at-three-on-time",
         "Marek",
-        [
-          CHUCKLE,
-          mark("O tretej"),
-          ". Nie ",
-          mark("o tri hodiny"),
-          ". ",
-          PAUSE,
-          "Už to viem.",
-        ],
-        "At three. Not in three hours. Now I know it.",
+        [HAPPY, mark("O tretej"), ", nie ", mark("o tri hodiny"), ". A budem tu včas!"],
+        "At three, not in three hours. And I'll be here on time!",
+      ),
+      // His "Som tu včas!" from the morning, an hour late.
+      line(
+        "anna-like-this-morning",
+        "Anna",
+        [CHUCKLE, "Ako dnes ráno?"],
+        "Like this morning?",
       ),
       line(
-        "anna-thanks-bye",
-        "Anna",
-        ["Ďakujeme, že počúvate. ", PAUSE, "Ahojte!"],
-        "Thank you for listening. Bye!",
+        "marek-better-than-this-morning",
+        "Marek",
+        [CHUCKLE, "No", STOP, PAUSE, "lepšie ako dnes ráno."],
+        "Well… better than this morning.",
       ),
+      {
+        ...line(
+          "anna-thanks-bye",
+          "Anna",
+          ["Ďakujeme, že počúvate. ", PAUSE, "Ahojte!"],
+          "Thank you for listening. Bye!",
+        ),
+        wait: 1000,
+      },
       line("marek-bye", "Marek", ["Ahojte!"], "Bye!"),
     ],
     OUTRO_ACTS,
@@ -1707,7 +1742,7 @@ const outro: ListeningChapter = {
     },
     {
       id: `${PREFIX}check-guest-in-how-long`,
-      prompt: "O koľko príde hosť?",
+      prompt: "Za ako dlho príde hosť?",
       promptEnglish: "How long until the guest comes?",
       replayLineId: `${PREFIX}anna-hour-and-three-quarters`,
       choices: [

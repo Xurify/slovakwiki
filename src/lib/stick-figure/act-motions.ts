@@ -1547,12 +1547,13 @@ export function motionFor(
     }
     case "look": {
       // A wall clock hangs over everyone's head: looked at level, the head stayed on whoever stood under it.
+      // At -12° the head still read as level next to a street clock on its pole.
       const up = LOOKS[who].dog
         ? dogLooksUp(world, to, plan)
           ? DOG_LOOK_UP
           : {}
         : to === "hodiny"
-          ? { tilt: -12, nod: -2 }
+          ? { tilt: -20, nod: -3 }
           : {};
       // "front" is the listeners: a host asking them for help turns the face out to them, not the body.
       const front = to === "front";

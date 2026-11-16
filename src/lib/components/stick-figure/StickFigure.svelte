@@ -11,7 +11,7 @@
     type Point,
     type StickLimb,
   } from "$lib/stick-figure/rig";
-  import type { StickPictureId } from "$lib/stick-figure/pictures";
+  import { clockHands, type StickPictureId } from "$lib/stick-figure/pictures";
   import { dressFor, type Dress } from "$lib/stick-figure/dress";
   import { limbPath, n, sleevePath } from "$lib/stick-figure/draw";
   import { LOOKS } from "$lib/stick-figure/looks";
@@ -37,6 +37,10 @@
   // The head is drawn in the 64×64 portrait space of StickHead, which the
   // portraits show as it is; 0.82 brings its 15.2 head radius to the rig's.
   const HEAD_SCALE = 0.82;
+  /** A speech bubble's box round its 26×17 picture: half its width, its top and bottom, and the picture's scale. */
+  const BUBBLE = { half: 22, top: -13, bottom: 12, scale: 1 };
+  /** A clock dial drawn twice as large: at a photo's size its hands were a few pixels long on a phone. */
+  const BIG_BUBBLE = { half: 20, top: -19, bottom: 18, scale: 2 };
 
   /**
    * Long hair's give, in the head's 64-unit space. Svelte's spring steps
@@ -236,13 +240,25 @@
   const round = $derived(Math.min(1, Math.abs(turning.current)));
 
   /** The photo bubble's tail, from its bottom edge toward the phone in the lead hand, in the bubble's own units. */
-  function tailTo(over: { x: number; y: number }): { at: number; tip: { x: number; y: number } } {
+  function tailTo(
+    over: { x: number; y: number },
+    bottom: number,
+  ): { at: number; tip: { x: number; y: number } } {
     const phone = { x: rig.leadArm.end.x * side * (0.88 + 0.12 * round) - over.x, y: rig.leadArm.end.y - over.y };
     const at = Math.max(-12, Math.min(12, phone.x * 0.4));
     const dx = phone.x - at;
-    const dy = phone.y - 12;
+    const dy = phone.y - bottom;
     const length = Math.hypot(dx, dy) || 1;
-    return { at, tip: { x: at + (dx / length) * 8, y: 12 + (dy / length) * 8 } };
+    return { at, tip: { x: at + (dx / length) * 8, y: bottom + (dy / length) * 8 } };
+  }
+  /** A rounded bubble with its tail out of the bottom edge. */
+  function bubblePath(
+    box: typeof BUBBLE,
+    tail: { at: number; tip: { x: number; y: number } },
+  ): string {
+    const { half, top, bottom } = box;
+    const edge = bottom - top - 10;
+    return `M${-half + 5} ${top}h${half * 2 - 10}a5 5 0 0 1 5 5v${edge}a5 5 0 0 1-5 5H${n(tail.at + 4)}L${n(tail.tip.x)} ${n(tail.tip.y)}L${n(tail.at - 4)} ${bottom}H${-half + 5}a5 5 0 0 1-5-5v${-edge}a5 5 0 0 1 5-5Z`;
   }
   /**
    * Half of a band over the crown, its top `lift` above the hair: the near
@@ -704,23 +720,31 @@
   </g>
 
   {#if picture}
+    {@const dial = clockHands(picture) !== undefined}
+    {@const box = dial ? BIG_BUBBLE : BUBBLE}
     {@const over =
       pictureAt === "hand" && pictureOver
-        ? // Over the head of the one it is shown to, a little toward the phone: over the one holding it, it read as their thought.
-          { x: (pictureOver - 6) * side, y: rig.head.y - HEAD_RADIUS - 23 }
+        ? dial
+          ? // Between the two at head height: drawn large enough to read on a phone, no room over either head cleared the studio's on-air sign.
+            { x: (pictureOver / 2) * side, y: rig.head.y - 4 }
+          : // Over the head of the one it is shown to, a little toward the phone: over the one holding it, it read as their thought.
+            { x: (pictureOver - 6) * side, y: rig.head.y - HEAD_RADIUS - 23 }
         : pictureAt === "hand"
           ? // Above the head and out toward whoever it is shown to: over the hand it covered the face, and the studio's mics drew over it.
             { x: (rig.head.x + HEAD_RADIUS + 14) * side, y: rig.head.y - HEAD_RADIUS - 20 }
           : { x: rig.head.x * side, y: rig.head.y - HEAD_RADIUS - 23 }}
-    {@const tail = pictureAt === "hand" && pictureOver ? tailTo(over) : { at: 0, tip: { x: 0, y: 17 } }}
+    {@const tail =
+      pictureAt === "hand" && pictureOver
+        ? tailTo(over, box.bottom)
+        : { at: 0, tip: { x: 0, y: box.bottom + 5 } }}
     <g transform="translate({n(over.x)} {n(over.y)})">
       <g class="animate-rise">
         <path
-          d="M-17 -13h34a5 5 0 0 1 5 5v15a5 5 0 0 1-5 5H{n(tail.at + 4)}L{n(tail.tip.x)} {n(tail.tip.y)}L{n(tail.at - 4)} 12H-17a5 5 0 0 1-5-5v-15a5 5 0 0 1 5-5Z"
+          d={bubblePath(box, tail)}
           class="fill-white stroke-portrait-ink"
           stroke-width="1.1"
         />
-        <g transform="translate(0 -0.5)">
+        <g transform="translate(0 -0.5) scale({box.scale})">
           <StickPicture {picture} />
         </g>
       </g>
