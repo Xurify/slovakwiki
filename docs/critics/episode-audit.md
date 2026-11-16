@@ -11,13 +11,14 @@ You audit ONE listening episode of slovak.wiki (Astro + Svelte 5; stick-figure s
 
 ## Read first
 
-`docs/critics/rubric.md` (11 dimensions), `docs/critics/script-critic.md`, `picture-critic.md`, `motion-critic.md`, `set-critic.md`, AGENTS.md (Places and the stage, Audio), and the episode's file `src/lib/catalog/listening/episodes/<slug>.ts`. Dump the script with `scripts/critic/dump-script.test.ts` (see its header).
+`docs/critics/rubric.md` (11 dimensions), `docs/critics/script-critic.md`, `picture-critic.md`, `motion-critic.md`, `set-critic.md`, `cast-critic.md`, AGENTS.md (Places and the stage, Audio), and the episode's file `src/lib/catalog/listening/episodes/<slug>.ts`. Dump the script with `scripts/critic/dump-script.test.ts` (see its header).
 
 ## What to score (each 1–10)
 
 1. Rubric dimensions 1–11 (naturalness, story and arc, pacing, character and voice, natural Slovak, learning value, set and stage, sound, lip sync, motion and contact, player and game).
 2. **Story climax**: does the episode build to a peak and pay it off with a set-up, a pause and a reaction? Is the ending funny or warm, never rushed?
 3. **Set look**, per place: use set-critic.md on frames.
+   **Cast**, per segment: use cast-critic.md on line stills and strips (every person and animal faces and reacts the way that being would).
 4. **Interaction**: tap the scene's objects (the backdrop's things have tap/focus targets, and arrow keys move between them). Do the targets sit on the objects, and are all the obvious objects tappable? Does a tap do the right thing? Check the line player controls, the transcript, replay, the game and quiz paths (game-walk.cjs on every path, at 1280 and 390), and keyboard focus.
 5. **Audio**: listen through the evidence you can get. Run the Scribe verify scores if the tooling allows (`scripts/audio/` has stt.ts and judge.ts; read AGENTS.md → Audio; ELEVENLABS_API_KEY is set). Check the timing between lines (no long dead air, no overlaps), ambience and foley that should be there, and that the loudness feels even. Say what you could not measure.
 6. Anything else a learner or the owner would notice: the transcript, translations, the page layout around the stage, loading, dark mode.
