@@ -103,6 +103,9 @@ export const PARTS = {
   kitchen: {
     clock: { hand: 9, r: 15, ticks: false, x: 491, y: 54 },
   },
+  market: {
+    lamp: { ground: 226, x: 300 },
+  },
   registration: {
     clock: { hand: 11, r: 20, ticks: true, x: 462, y: 54 },
     // A small pot at the binder shelf's end.

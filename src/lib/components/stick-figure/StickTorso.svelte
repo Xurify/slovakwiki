@@ -262,7 +262,7 @@
     stroke-width="0.55"
   />
 {:else if characterId === "maria"}
-  <!-- rose cardigan open over a white blouse, long navy skirt -->
+  <!-- plum cardigan open over a white blouse, long navy skirt: red is Anna's -->
   <path d={longSkirt} class="fill-portrait-suit stroke-portrait-ink" stroke-width="1.1" />
   <path
     d="M-5 -27.8H5L4.6 -1.4H-4.6Z"
@@ -271,12 +271,12 @@
   />
   <path
     d="M-6 -27.8Q-6.4 -30.9 -3 -31.1L-1.4 -31L-1.8 -0.8Q-4 -0.4 -5.6 -1.4Z"
-    class="fill-scene-red stroke-portrait-ink"
+    class="fill-scene-plum stroke-portrait-ink"
     stroke-width="1.1"
   />
   <path
     d="M6 -27.8Q6.4 -30.9 3 -31.1L1.4 -31L1.8 -0.8Q4 -0.4 5.6 -1.4Z"
-    class="fill-scene-red stroke-portrait-ink"
+    class="fill-scene-plum stroke-portrait-ink"
     stroke-width="1.1"
   />
   <circle

@@ -4,6 +4,7 @@
   import Facades, { type Facade } from "./Facades.svelte";
   import FloorShade from "./FloorShade.svelte";
   import Produce, { type Crate } from "./Produce.svelte";
+  import { PARTS } from "$lib/stick-figure/backdrop-parts";
   import StreetLamp from "./StreetLamp.svelte";
 
   /** The square behind the market, washed back by distance so the stalls stay in front. */
@@ -125,7 +126,7 @@
   {/each}
 {/each}
 <FloorShade />
-<StreetLamp lamp={{ x: 300, ground: 226 }} />
+<StreetLamp lamp={PARTS.market.lamp} />
 
 {#each stalls as stall (stall.label)}
   {@const left = stall.x + POST}

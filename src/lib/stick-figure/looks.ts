@@ -125,7 +125,7 @@ export const LOOKS: Readonly<Record<LessonCharacterId, Look>> = {
     grey: true,
     nameClass: "text-rose-700",
     scarfClass: "fill-scene-blue",
-    sleeve: { class: "stroke-scene-red", reach: 1.85 },
+    sleeve: { class: "stroke-scene-plum", reach: 1.85 },
   },
   narrator: {
     crown: 13.8,

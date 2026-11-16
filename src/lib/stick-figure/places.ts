@@ -606,6 +606,8 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       twins(WORDS.syr, [609, 96, 34, 48], [925, 96, 26, 41]),
       twins(WORDS.jahody, [648, 134, 76, 24], [824, 134, 76, 24]),
       drawn(WORDS.stanok, [626, 60, 308, 166], [408, 76, 204, 150]),
+      onSet(WORDS.vaha, ["counter-scale"], [826, 168, 22, 20]),
+      drawn({ ...WORDS.lampa, english: "street lamp" }, lampBox(PARTS.market.lamp)),
     ],
     sounds: ["murmur", "birds"],
     // Lucia sells at the market in the podcast, from the stall on the right.
@@ -657,6 +659,8 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       { ...drawn(WORDS.pult, [570, 188, 144, 90]), of: ["counter"] },
       { ...drawn(WORDS.pocitac, [664, 150, 36, 42]), of: ["counter-computer"] },
       { ...drawn(WORDS.zvoncek, [576, 194, 28, 18]), of: ["counter-bell"] },
+      // A scene's own clipboard on the desk, there only while one is.
+      onSet(WORDS.formular, ["form"], [610, 180, 20, 8]),
       drawn(WORDS.dvere, [192, 74, 64, 152], [866, 70, 80, 156]),
       drawn(WORDS.vesiak, [132, 86, 44, 144]),
       drawn(WORDS.nastenka, [272, 60, 124, 74]),
@@ -723,6 +727,8 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
         of: ["studio-mug-0", "studio-mug-1", "studio-mug-2"],
       },
       onSet(WORDS.krhla, ["can"], [704, 222, 40, 24]),
+      // A scene's own plate on the desk, there only while one is.
+      onSet(WORDS.tanier, ["plate"], [600, 204, 30, 6]),
       // On the shelf, for tapping only: a line about a book means one in someone's hands, not these.
       { ...drawn(WORDS.platna, [650, 30, 72, 54]), quiet: true },
       { ...drawn(WORDS.knihy, [652, 86, 40, 30]), quiet: true },
