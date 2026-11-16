@@ -597,11 +597,11 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     align: 1,
     sun: { day: { x: 738, y: 30 }, morning: { x: 738, y: 32 } },
     things: [
-      drawn(WORDS.ovocie, [390, 122, 164, 52]),
+      drawn(WORDS.ovocie, [430, 122, 164, 52]),
       drawn(WORDS.zelenina, [736, 114, 84, 60]),
       twins(WORDS.syr, [620, 96, 20, 34], [922, 96, 16, 28]),
       twins(WORDS.jahody, [648, 134, 76, 24], [824, 134, 76, 24]),
-      drawn(WORDS.stanok, [626, 60, 308, 166], [368, 76, 204, 150]),
+      drawn(WORDS.stanok, [626, 60, 308, 166], [408, 76, 204, 150]),
     ],
     sounds: ["murmur", "birds"],
     // Lucia sells at the market in the podcast, from the stall on the right.

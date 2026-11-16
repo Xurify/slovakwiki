@@ -554,19 +554,16 @@
     <path d="M-8 -8h16l-2 8.5h-12Z" class="fill-scene-wood" />
     <path d="M-7 -5h14M-6.4 -2h12.8" class="stroke-scene-line/40" stroke-width="0.7" />
   {:else if kind === "plate"}
-    <ellipse cx="0" cy="-1.2" rx="7.5" ry="1.9" class="fill-white" />
-    <ellipse
-      cx="0"
-      cy="-1.5"
-      rx="4.5"
-      ry="0.9"
-      class="stroke-scene-line/30"
-      fill="none"
-      stroke-width="0.5"
-    />
-    <circle cx="-2" cy="-1.5" r="0.45" class="fill-scene-line/60" stroke="none" />
-    <circle cx="1.2" cy="-1.2" r="0.35" class="fill-scene-line/60" stroke="none" />
-    <circle cx="2.6" cy="-1.7" r="0.4" class="fill-scene-line/60" stroke="none" />
+    <!-- Half again as big as a cup's saucer, so it reads at phone size; what the cake left: crumbs and poppy seeds. -->
+    <ellipse cx="0" cy="-1" rx="11.3" ry="2.9" class="fill-white stroke-scene-line/40" stroke-width="0.5" />
+    <ellipse cx="0" cy="-1.4" rx="7" ry="1.5" class="stroke-scene-line/30" fill="none" stroke-width="0.5" />
+    <circle cx="-3.6" cy="-1.5" r="0.75" class="fill-scene-coffee/80" stroke="none" />
+    <circle cx="2" cy="-1.1" r="0.6" class="fill-scene-coffee/80" stroke="none" />
+    <circle cx="4.6" cy="-1.9" r="0.7" class="fill-scene-coffee/80" stroke="none" />
+    <circle cx="-1.2" cy="-2" r="0.5" class="fill-scene-coffee/80" stroke="none" />
+    {#each [[-4.8, -0.9], [-2.4, -1.1], [-0.4, -1.6], [0.9, -0.8], [3.2, -1.5], [5.6, -1.2], [-1.8, -2.1], [1.6, -2.2]] as [x, y] (`${x},${y}`)}
+      <circle cx={x} cy={y} r="0.38" class="fill-scene-line/85" stroke="none" />
+    {/each}
   {:else if kind === "cheese"}
     <!-- A small oštiepok, as the ones hanging over the stall: spindle-shaped, smoked, stamped round the middle, its cord tied on top. -->
     <path
