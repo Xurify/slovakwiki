@@ -537,7 +537,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     outdoors: false,
     things: [
       drawn(WORDS.dvere, [190, 40, 72, 186], [36, 56, 62, 170]),
-      drawn(WORDS.chladnicka, [784, 136, 38, 94]),
+      drawn(WORDS.chladnicka, [468, 136, 38, 94]),
       drawn(WORDS.okno, [352, 54, 104, 80]),
       drawn(WORDS.zaves, [338, 46, 20, 96], [450, 46, 20, 96]),
       drawn(WORDS.lampa, [352, 60, 36, 20]),
