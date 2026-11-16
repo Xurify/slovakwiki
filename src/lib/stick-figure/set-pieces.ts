@@ -1,5 +1,5 @@
 import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
-import type { ObjectKind, SetPlan, World } from "./acts";
+import type { ObjectKind, ObjectState, SetPlan, World } from "./acts";
 import { LOOKS } from "./looks";
 import { GROUND_Y, SEAT_Y, type Point } from "./rig";
 
@@ -389,7 +389,7 @@ export function stagePoint(
   if (world && state) {
     if (as === "grip") return objectGrip(world, name, geometry, facing);
     const base = objectBase(world, name, geometry);
-    if (!base) return undefined;
+    if (!base) return heldAt(context, state.where);
     return as === "top" ? { x: base.x, y: base.y - OBJECT_SIZE[state.kind].top } : base;
   }
   const place = set?.places?.[name];
@@ -411,6 +411,14 @@ export function stagePoint(
   }
   const at = set && spotAt(set, geometry, name, context.castX);
   return at && { x: at.x, y: 84 };
+}
+
+/** A thing in someone's hand or pocket is pointed at on them, at hand height: it goes where they go. */
+function heldAt(context: StageContext, where: ObjectState["where"]): Point | undefined {
+  const holder =
+    "hand" in where ? where.hand : "pocket" in where ? where.pocket : undefined;
+  const middle = holder ? context.middleOf(holder) : undefined;
+  return middle === undefined ? undefined : { x: middle, y: HANDOVER_Y };
 }
 
 /** Chest high, where two people's hands meet to hand something over: six under the shoulders (66). Ten under, by the worktop, it read as handed at the hip. */
