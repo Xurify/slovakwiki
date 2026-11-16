@@ -370,6 +370,13 @@ export const THING_WORDS = {
     stems: ["mikrofon"],
     word: "mikrofón",
   },
+  lopticka: {
+    english: "ball",
+    gender: "feminine",
+    id: "lopticka",
+    stems: ["loptick", "lopticiek"],
+    word: "loptička",
+  },
   miska: {
     english: "bowl",
     gender: "feminine",
@@ -697,6 +704,23 @@ export const THING_WORDS = {
     gender: "masculine-inanimate",
     id: "kos",
     word: "kôš",
+  },
+  kufor: {
+    english: "suitcase",
+    forms: [
+      "kufor",
+      "kufra",
+      "kufru",
+      "kufri",
+      "kufrom",
+      "kufre",
+      "kufrov",
+      "kuframi",
+      "kufroch",
+    ],
+    gender: "masculine-inanimate",
+    id: "kufor",
+    word: "kufor",
   },
   kosik: {
     english: "basket",

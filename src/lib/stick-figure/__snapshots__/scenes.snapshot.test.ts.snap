@@ -699,6 +699,8 @@ exports[`every scene, directed > dev weather-today 1`] = `
     "dom",
     "kos",
     "kvety",
+    "lopticka",
+    "voditko",
   ],
 }
 `;
@@ -1598,6 +1600,8 @@ exports[`every scene, directed > lesson grammar/aspect 1`] = `
     "koberec",
     "voditko",
     "miska",
+    "kufor",
+    "lopticka",
     "rastlina",
     "dvere",
     "knihy",
@@ -2764,6 +2768,8 @@ exports[`every scene, directed > lesson grammar/possessives 1`] = `
     "koberec",
     "voditko",
     "miska",
+    "kufor",
+    "lopticka",
     "rastlina",
     "dvere",
     "knihy",
@@ -3389,6 +3395,8 @@ exports[`every scene, directed > podcast podcast-demonstratives-home 1`] = `
     "koberec",
     "voditko",
     "miska",
+    "kufor",
+    "lopticka",
     "rastlina",
     "dvere",
     "knihy",
@@ -5664,13 +5672,13 @@ exports[`every scene, directed > podcast podcast-future-tense-friday 1`] = `
       "plan": {
         "beats": [
           "50 sigh",
-          "1850 tell",
-          "4700 ask",
+          "1802 tell",
+          "4550 ask",
         ],
-        "ms": 5950,
-        "questions": "4700-5700",
-        "sentences": "50-538 1850-3100 4700-5700",
-        "words": "50-538 1850-2338 2338-2563 2563-3100 4700-5079 5079-5700",
+        "ms": 5700,
+        "questions": "4550-5550",
+        "sentences": "50-525 1802-3019 4550-5550",
+        "words": "50-525 1802-2277 2277-2496 2496-3019 4550-4929 4929-5550",
       },
       "staging": {
         "addressee": "dog",
@@ -5755,6 +5763,8 @@ exports[`every scene, directed > podcast podcast-future-tense-friday 1`] = `
     "koberec",
     "voditko",
     "miska",
+    "kufor",
+    "lopticka",
     "rastlina",
     "dvere",
     "knihy",
@@ -5776,8 +5786,8 @@ exports[`every scene, directed > podcast podcast-future-tense-friday 1`] = `
 exports[`every scene, directed > podcast podcast-future-tense-monday 1`] = `
 {
   "cast": [
-    "dog",
     "robot",
+    "dog",
     "marek",
   ],
   "lines": [
@@ -5810,9 +5820,9 @@ exports[`every scene, directed > podcast podcast-future-tense-monday 1`] = `
       "staging": {
         "addressee": "dog",
         "facing": {
-          "dog": 1,
+          "dog": -1,
           "marek": -1,
-          "robot": -1,
+          "robot": 1,
         },
       },
     },
@@ -5829,9 +5839,9 @@ exports[`every scene, directed > podcast podcast-future-tense-monday 1`] = `
       "staging": {
         "addressee": "robot",
         "facing": {
-          "dog": 1,
+          "dog": -1,
           "marek": -1,
-          "robot": -1,
+          "robot": 1,
         },
       },
     },
@@ -5850,9 +5860,9 @@ exports[`every scene, directed > podcast podcast-future-tense-monday 1`] = `
       "staging": {
         "addressee": "dog",
         "facing": {
-          "dog": 1,
+          "dog": -1,
           "marek": -1,
-          "robot": -1,
+          "robot": 1,
         },
       },
     },
@@ -5891,7 +5901,7 @@ exports[`every scene, directed > podcast podcast-future-tense-monday 1`] = `
         "facing": {
           "dog": 1,
           "marek": -1,
-          "robot": -1,
+          "robot": 1,
         },
       },
     },
@@ -5960,7 +5970,7 @@ exports[`every scene, directed > podcast podcast-future-tense-monday 1`] = `
       "staging": {
         "addressee": "marek",
         "facing": {
-          "dog": 1,
+          "dog": -1,
           "marek": -1,
           "robot": 1,
         },
@@ -6016,9 +6026,9 @@ exports[`every scene, directed > podcast podcast-future-tense-monday 1`] = `
       "staging": {
         "addressee": "robot",
         "facing": {
-          "dog": 1,
+          "dog": -1,
           "marek": -1,
-          "robot": -1,
+          "robot": 1,
         },
       },
     },
@@ -6039,9 +6049,9 @@ exports[`every scene, directed > podcast podcast-future-tense-monday 1`] = `
       "staging": {
         "addressee": "dog",
         "facing": {
-          "dog": 1,
+          "dog": -1,
           "marek": -1,
-          "robot": -1,
+          "robot": 1,
         },
         "reactions": [
           {
@@ -6085,9 +6095,9 @@ exports[`every scene, directed > podcast podcast-future-tense-monday 1`] = `
       "staging": {
         "addressee": "robot",
         "facing": {
-          "dog": 1,
+          "dog": -1,
           "marek": -1,
-          "robot": -1,
+          "robot": 1,
         },
       },
     },
@@ -6104,9 +6114,9 @@ exports[`every scene, directed > podcast podcast-future-tense-monday 1`] = `
       "staging": {
         "addressee": "dog",
         "facing": {
-          "dog": 1,
+          "dog": -1,
           "marek": -1,
-          "robot": -1,
+          "robot": 1,
         },
       },
     },
@@ -6160,6 +6170,8 @@ exports[`every scene, directed > podcast podcast-future-tense-monday 1`] = `
     "koberec",
     "voditko",
     "miska",
+    "kufor",
+    "lopticka",
     "rastlina",
     "dvere",
     "knihy",
@@ -6460,6 +6472,8 @@ exports[`every scene, directed > podcast podcast-future-tense-morning 1`] = `
     "koberec",
     "voditko",
     "miska",
+    "kufor",
+    "lopticka",
     "rastlina",
     "dvere",
     "knihy",
@@ -6850,6 +6864,8 @@ exports[`every scene, directed > podcast podcast-future-tense-park 1`] = `
     "dom",
     "kos",
     "kvety",
+    "lopticka",
+    "voditko",
   ],
 }
 `;
@@ -6895,17 +6911,17 @@ exports[`every scene, directed > podcast podcast-future-tense-six 1`] = `
       },
     },
     {
-      "line": "robot: Dunčo? Čo ti je? Dám ti jesť, dobre?",
+      "line": "robot: Dunčo? Čo ti je? Dám ti čerstvé granule, dobre?",
       "plan": {
         "beats": [
-          "50 ask",
-          "950 ask",
-          "2650 ask",
+          "0 ask",
+          "1000 ask",
+          "2850 ask",
         ],
-        "ms": 4250,
-        "questions": "50-507 950-1561 2650-4150",
-        "sentences": "50-507 950-1561 2650-4150",
-        "words": "50-507 950-1154 1154-1357 1357-1561 2650-2973 2973-3206 3206-3516 3646-4150",
+        "ms": 5000,
+        "questions": "0-438 1000-1448 2850-4850",
+        "sentences": "0-438 1000-1448 2850-4850",
+        "words": "0-438 1000-1149 1149-1299 1299-1448 2850-3103 3103-3284 3284-3779 3779-4355 4456-4850",
       },
       "staging": {
         "addressee": "dog",
@@ -7013,6 +7029,8 @@ exports[`every scene, directed > podcast podcast-future-tense-six 1`] = `
     "koberec",
     "voditko",
     "miska",
+    "kufor",
+    "lopticka",
     "rastlina",
     "dvere",
     "knihy",
@@ -7172,14 +7190,14 @@ exports[`every scene, directed > podcast podcast-future-tense-window 1`] = `
       "line": "robot: Počkaj, Dunčo… správa. Pani Anna píše, že pán Marek videl fotku a smial sa. Zajtra nám zavolá.",
       "plan": {
         "beats": [
-          "50 think",
-          "2200 tell",
-          "3650 tell",
-          "7950 tell",
+          "0 think",
+          "2100 tell",
+          "3600 tell",
+          "8050 tell",
         ],
-        "ms": 9300,
-        "sentences": "50-950 2200-2444 3650-6875 7950-9150",
-        "words": "50-465 564-950 2200-2444 3650-3988 3988-4327 4327-4703 4797-4966 4966-5201 5201-5568 5568-5935 5935-6301 6301-6442 6442-6706 6706-6875 7950-8353 8353-8593 8593-9150",
+        "ms": 9550,
+        "sentences": "0-915 2100-2433 3600-6937 8050-9250",
+        "words": "0-422 523-915 2100-2433 3600-3950 3950-4301 4301-4690 4787-4962 4962-5206 5206-5585 5585-5964 5964-6344 6344-6490 6490-6762 6762-6937 8050-8453 8453-8693 8693-9250",
       },
       "staging": {
         "addressee": "dog",
@@ -7323,6 +7341,8 @@ exports[`every scene, directed > podcast podcast-future-tense-window 1`] = `
     "koberec",
     "voditko",
     "miska",
+    "kufor",
+    "lopticka",
     "rastlina",
     "dvere",
     "knihy",
@@ -17644,6 +17664,8 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-home 1`] = `
     "koberec",
     "voditko",
     "miska",
+    "kufor",
+    "lopticka",
     "rastlina",
     "dvere",
     "knihy",
@@ -17966,6 +17988,8 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-lead 1`] = `
     "koberec",
     "voditko",
     "miska",
+    "kufor",
+    "lopticka",
     "rastlina",
     "dvere",
     "knihy",
@@ -18346,6 +18370,8 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-morning 1`] = `
     "koberec",
     "voditko",
     "miska",
+    "kufor",
+    "lopticka",
     "rastlina",
     "dvere",
     "knihy",
@@ -19102,6 +19128,8 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-window 1`] = `
     "koberec",
     "voditko",
     "miska",
+    "kufor",
+    "lopticka",
     "rastlina",
     "dvere",
     "knihy",
