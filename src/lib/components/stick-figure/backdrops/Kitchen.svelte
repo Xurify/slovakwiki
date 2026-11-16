@@ -86,7 +86,9 @@
       class={index === 1 ? "fill-scene-honey" : "fill-scene-blue/60"}
     />
   {/each}
-  <path d="M146 {y - 13}v-3" class="stroke-scene-line/50" stroke-width="0.8" />
+  <!-- Each hangs by a wire hanger from a nail, the wire's ends gripping the rim. -->
+  <path d="M141 {y - 12}L146 {y - 17}L151 {y - 12}" class="stroke-scene-line/45" stroke-width="0.7" fill="none" />
+  <circle cx="146" cy={y - 17} r="1.1" class="fill-scene-line/70" />
 {/each}
 
 <rect x="190" y="40" width="72" height="186" rx="2" class="fill-portrait-bib" />
@@ -163,8 +165,15 @@
   y="62"
   width="88"
   height="64"
-  class={dark ? (night ? "fill-portrait-suit" : "fill-scene-blue/40") : "fill-scene-sky"}
+  class={dark ? (night ? "fill-portrait-suit" : "fill-scene-blue") : "fill-scene-sky"}
 />
+{#if dark}
+  <!-- At seven in autumn it is already dark out. The stage's pool of light washes the middle of the room, so the glass
+       needs nearly night's paint to read as dusk, not late afternoon. -->
+  <rect x="360" y="62" width="88" height="64" class={night ? "fill-portrait-suit" : "fill-portrait-suit/85"} />
+  <circle cx="429" cy="96" r="1.4" class="fill-white" />
+  <circle cx="381" cy="99" r="0.9" class="fill-white/70" />
+{/if}
 <path
   d="M360 126V108Q380 96 404 104Q426 94 448 104V126Z"
   class={dark ? "fill-scene-line/70" : "fill-scene-sage"}

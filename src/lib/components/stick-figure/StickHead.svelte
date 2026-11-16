@@ -621,6 +621,7 @@
   {/if}
 
   {#if headphones}
+    <g data-set-id="headphones-on-{characterId}">
     <clipPath id="{id}-behind-face">
       <path
         d="M-40 -40H104V104H-40ZM18.8 29a13.2 15.2 0 1 0 26.4 0a13.2 15.2 0 1 0-26.4 0Z"
@@ -649,5 +650,6 @@
       />
       <circle cx={n(side.x)} cy={phones.cy} r="1.3" class="fill-portrait-ink" />
     {/each}
+    </g>
   {/if}
 {/if}
