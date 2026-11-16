@@ -55,8 +55,8 @@
   ];
 
   /** Roland's fountain stands out on the square, its basin's front edge at `ground`. */
-  // Inside what a phone shows (x 180 to 780), right of the café's sign.
-  const FOUNTAIN = { x: 708, ground: 248, size: 0.62 };
+  // Inside what a phone shows (x 180 to 780), and clear of the café's sign: at 708 the knight stood on its end.
+  const FOUNTAIN = { x: 740, ground: 248, size: 0.56 };
   /** The café's terrace under its awning: a table with a chair either side. */
   const TABLES = [606, 646];
   const BOLLARDS = [258, 308];

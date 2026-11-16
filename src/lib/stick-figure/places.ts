@@ -727,7 +727,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       drawn({ ...WORDS.lampa, english: "street lamp" }, lampBox(PARTS.plaza.lamp)),
       drawn(WORDS.strom, treeBox(PARTS.plaza.tree)),
       drawn(WORDS.oblak, [522, 29, 76, 31], [833, 42, 54, 22], [80, 31, 61, 25]),
-      drawn(WORDS.fontana, [670, 164, 76, 88]),
+      drawn(WORDS.fontana, [706, 170, 68, 82]),
       // For tapping only: the scenes here say where they are going, and nobody points there.
       { ...drawn(WORDS.kaviaren, [588, 182, 78, 60]), quiet: true },
       drawn(WORDS.lekaren, [320, 168, 142, 44]),

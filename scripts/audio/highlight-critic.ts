@@ -16,7 +16,7 @@ import path from "node:path";
 
 import { normalizeAudioText } from "../../src/lib/catalog/audio/core";
 import { episodeBySlug, episodeLines } from "../../src/lib/catalog/listening";
-import { planLine, type LineSpan } from "../../src/lib/stick-figure/line-plan";
+import { planLine } from "../../src/lib/stick-figure/line-plan";
 import { readJsonFile, writeFileAtomic } from "../lib/json-file";
 import { ROOT } from "../lib/paths";
 import { AUDIO_DIR, loadManifest } from "./shared";
