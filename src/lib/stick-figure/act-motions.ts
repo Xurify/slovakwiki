@@ -1267,8 +1267,9 @@ export function motionFor(
     }
     case "eat": {
       // Head down in the bowl three times, lifted part way to crunch between: six small dips of a few degrees read as no dip at all.
-      const down = { nod: 10, tilt: 34, lean: 6, look: 1 };
-      const crunch = { nod: 4, tilt: 12, lean: 3, look: 1 };
+      // Below a tilt of about 50 the snout stays level with the dog's back, well over a bowl on the floor.
+      const down = { nod: 16, tilt: 56, lean: 8, look: 1 };
+      const crunch = { nod: 8, tilt: 30, lean: 4, look: 1 };
       const keys: MotionKey[] = [
         { at: 0 },
         { at: 420, body: down },

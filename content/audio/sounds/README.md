@@ -15,5 +15,8 @@ Recordings that stand in for a sound character's prompts (`recordings` in [`conf
 | `dog/haf-haf-haf-excited.mp3` | [excited] Haf! Haf! Haf! | s0612                                                                               | 1.70–1.98 + 14.82–15.08 + 21.04–21.30 s, 60 ms apart, pitch +7 % |
 | `dog/whine-long.mp3`          | [sighs] Kňu…             | s2450                                                                               | 0.12–1.80 s, pitch −6 %, tempo 0.8                               |
 | `dog/whine-short.mp3`         | Kňu.                     | s2450                                                                               | 0.12–0.85 s, faded out                                           |
+| `dog/haf-soft-low.mp3`        | [sighs] Haf.             | s0612, from `haf-soft.mp3`                                                          | pitch −7 %, tempo 0.92, faded out                                |
+| `dog/haf-soft-happy.mp3`      | [happy] Haf.             | s0612, from `haf-happy.mp3`                                                         | −8 dB                                                            |
+| `dog/whine-short-low.mp3`     | [sighs] Kňu.             | s2450, from `whine.mp3`                                                             | 0.80–1.60 s, pitch −5 %, +1.6 dB, faded in and out               |
 
 The clip's hash is the line's, not the file's: after replacing a recording, regenerate that line with `--force --only "<text>"`.

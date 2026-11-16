@@ -1782,8 +1782,10 @@
   /** The robot on a call while the far end speaks: it plays the voice out loud. */
   let relaying = $state<LessonCharacterId>();
 
+  // Once the dog is out of the door the lead goes with it, not left drawn on the floor.
   const leashed = $derived(
     dog !== undefined &&
+      !outside.includes(dog) &&
       (direction.cast.some((id) => holding[id] === "leash") ||
         Object.values(world?.objects ?? {}).some(
           ({ kind, clipped, where }) => kind === "lead" && clipped && "hand" in where,

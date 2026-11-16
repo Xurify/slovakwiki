@@ -235,6 +235,8 @@ const HOME_SET: PlaceSet = {
     { id: "by-sofa", kind: "floor", x: 634, width: 22, mat: true },
     // Floor spot in front of the dog's nose at rug-left, where its bowl stands; a dog there faces right.
     { id: "by-dog", kind: "floor", x: 380, width: 24 },
+    // Beside the dog's bed under the window, where his bowl is kept between meals.
+    { id: "by-bed", kind: "floor", x: 204, width: 22 },
     // The bag set down by the window, so a scene can keep something in it.
     { id: "window-bag", kind: "bag", x: 171 },
   ],
@@ -457,7 +459,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
   },
   default: {
     ground: "soil",
-    label: "In the park by the Danube",
+    label: "By the Danube",
     outdoors: true,
     sun: { day: PARK_SUN, morning: { x: 446, y: 46 } },
     things: [
@@ -494,6 +496,8 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
         "park-left": { x: 300, facing: 1 },
         "park-mid": { x: 440, facing: 1 },
         "park-dog": { x: 540, facing: -1 },
+        // On the lead at heel, on Anna's left, out of the way between her and Domo.
+        "park-heel": { x: 248, facing: 1 },
         // Back from a run off the right, facing whoever threw.
         "back-right": { x: 550, facing: -1 },
       },
