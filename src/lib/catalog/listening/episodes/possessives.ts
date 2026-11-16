@@ -25,11 +25,15 @@ function mark(text: string): Exclude<MarkedPart, string> {
 
 const INTRO_ACTS: Record<string, Cue[]> = {
   "marek-whose-umbrella": [
-    { do: "take", what: "umbrella", on: "mám" },
+    { do: "take", what: "umbrella", hand: "far", on: "mám" },
     { do: "raise", what: "umbrella", on: "dáždnik" },
   ],
   "anna-not-mine": [{ do: "point", to: "umbrella", on: "môj" }],
   "marek-so-whose": [{ do: "put", what: "umbrella", to: "desk", dx: 38, on: "nie" }],
+  "anna-students-yesterday": [
+    { do: "stand", on: "poďme" },
+    { who: "marek", do: "stand", on: "poďme" },
+  ],
 };
 
 const intro: ListeningChapter = {
@@ -188,9 +192,14 @@ function stillShowing(picture: StickPictureId): Cue[] {
 }
 
 const PHOTOS_ACTS: Record<string, Cue[]> = {
+  "anna-back-weekend-photos": [
+    { who: "marek", do: "take", what: "phone", on: "before" },
+    { who: "marek", do: "look", to: "phone", on: "before" },
+    { who: "anna", do: "look", to: "phone", on: "fotky" },
+  ],
   "marek-photos-in-phone": [
-    { do: "take", what: "phone", on: "mám" },
-    { do: "raise", what: "phone", on: "telefóne" },
+    { do: "raise", what: "phone", on: "vidieť" },
+    { who: "anna", do: "lean", to: "marek", on: "chceš" },
   ],
   "anna-show-me": [{ do: "nod", on: "ukáž" }],
   // He holds each photo out to her, and puts the phone away only once they are done with them.
@@ -238,13 +247,16 @@ const photos: ListeningChapter = {
         [
           "Sme späť v štúdiu. ",
           PAUSE,
-          "Marek, cez víkend si bol u rodičov, však? ",
-          PAUSE,
-          "Máš fotky?",
+          "Marek, čo si to tam pozeráš? Fotky od rodičov z víkendu?",
         ],
-        "We're back in the studio. Marek, you were at your parents' at the weekend, weren't you? Do you have photos?",
+        "We're back in the studio. Marek, what are you looking at? Photos from your parents' place at the weekend?",
       ),
-      line("marek-photos-in-phone", "Marek", ["Mám, v telefóne."], "I do, on my phone."),
+      line(
+        "marek-photos-in-phone",
+        "Marek",
+        ["Áno. Chceš ich vidieť?"],
+        "Yes. Want to see them?",
+      ),
       line("anna-show-me", "Anna", ["Ukáž, ukáž!"], "Show me, show me!"),
       line(
         "marek-first-photo",
@@ -545,8 +557,8 @@ const school: ListeningChapter = {
       line(
         "marek-where-find-her",
         "Marek",
-        ["Výborne! A kde ju nájdeme?"],
-        "Excellent! And where can we find her?",
+        ["Aha, Lucia! Tú poznáme. A kde ju nájdeme?"],
+        "Oh, Lucia! We know her. And where can we find her?",
       ),
       line(
         "maria-course-tomorrow",
@@ -936,11 +948,23 @@ const square: ListeningChapter = {
 const QUIZ_ACTS: Record<string, Cue[]> = {
   "anna-now-a-test": [{ do: "nod", on: "skúška" }],
   // He reads each sentence off Mária's sheet, held up over the desk, and lays it down when they are done.
-  "marek-sentence-cinema": [{ do: "raise", what: "sentences", on: "start" }],
-  "marek-sentence-moja-brat": [{ do: "raise", what: "sentences", on: "start" }],
-  "marek-sentence-svoj-brat": [{ do: "raise", what: "sentences", on: "start" }],
+  "marek-sentence-cinema": [
+    { do: "raise", what: "sentences", on: "start" },
+    { do: "look", to: "sentences", on: "start" },
+  ],
+  "marek-sentence-moja-brat": [
+    { do: "raise", what: "sentences", on: "start" },
+    { do: "look", to: "sentences", on: "start" },
+  ],
+  "marek-sentence-svoj-brat": [
+    { do: "raise", what: "sentences", on: "start" },
+    { do: "look", to: "sentences", on: "start" },
+  ],
   "marek-students-do-this": [{ do: "shrug", on: "veľa" }],
-  "marek-sentence-ich-auto": [{ do: "raise", what: "sentences", on: "start" }],
+  "marek-sentence-ich-auto": [
+    { do: "raise", what: "sentences", on: "start" },
+    { do: "look", to: "sentences", on: "start" },
+  ],
   "marek-better-than-students": [
     { do: "put", what: "sentences", to: "desk", dx: 30, on: "študenti" },
   ],
@@ -1011,6 +1035,7 @@ const quiz: ListeningChapter = {
           "All right then… First sentence: I'm going to the cinema with my sister.",
         ),
         "right",
+        "Idem do kina so svojou sestrou.",
       ),
       afterThinking(
         line(
@@ -1043,6 +1068,7 @@ const quiz: ListeningChapter = {
           "Second sentence: My brother is a teacher.",
         ),
         "wrong",
+        "Moja brat je učiteľ.",
       ),
       afterThinking(
         line(
@@ -1072,6 +1098,7 @@ const quiz: ListeningChapter = {
           "Third sentence: My brother is a teacher.",
         ),
         "wrong",
+        "Svoj brat je učiteľ.",
       ),
       afterThinking(
         line(
@@ -1111,6 +1138,7 @@ const quiz: ListeningChapter = {
           "Fourth sentence: Their car is red.",
         ),
         "right",
+        "Ich auto je červené.",
       ),
       afterThinking(
         line(
@@ -1218,10 +1246,17 @@ const OUTRO_ACTS: Record<string, Cue[]> = {
     { do: "put", what: "marek-umbrella", to: "desk", dx: 38, on: "máš" },
     { do: "slide", what: "marek-umbrella", to: "desk", dx: -38 },
   ],
-  "anna-raining-umbrella-home": [{ do: "look", to: "dvere", on: "vonku" }],
+  "anna-raining-umbrella-home": [
+    { do: "look", to: "dvere", on: "vonku" },
+    { do: "point", to: "dvere", on: "prší" },
+  ],
   "anna-yours-is-small": [{ do: "take", what: "marek-umbrella", on: "ďakujem" }],
   "anna-now-mine": [{ do: "raise", what: "marek-umbrella", on: "môj" }],
-  "marek-only-till-tomorrow": [{ do: "point", to: "marek-umbrella", on: "zajtra" }],
+  "marek-only-till-tomorrow": [
+    { do: "point", to: "marek-umbrella", on: "zajtra" },
+    { who: "anna", do: "stand", on: "after" },
+    { who: "anna", do: "leave", to: "door", on: "after" },
+  ],
 };
 
 const outro: ListeningChapter = {

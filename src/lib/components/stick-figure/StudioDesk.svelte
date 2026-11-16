@@ -140,19 +140,19 @@
       {/each}
       <rect
         x={middle - 27}
-        y={TOP + 10}
+        y={TOP + 6.5}
         width="54"
-        height="15"
+        height="14"
         rx="2.5"
         fill="#2a1d15"
         fill-opacity="0.55"
       />
-      {@render logo(middle - 24.5, TOP + 13, 9)}
+      {@render logo(middle - 24.5, TOP + 9.5, 8)}
       <text
         x={middle + 5}
-        y={TOP + 19.9}
+        y={TOP + 15.8}
         text-anchor="middle"
-        font-size="6.4"
+        font-size="6.2"
         font-weight="700"
         fill="#f1d3a3"
         class="font-sans">slovak.wiki</text

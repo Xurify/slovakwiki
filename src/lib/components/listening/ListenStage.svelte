@@ -372,7 +372,7 @@
         answerer={answerer ? episodeSpeakerName(answerer) : "the host"}
         ask={askLine.ask}
         id={askLine.id}
-        judged={askLine.slovak}
+        judged={askLine.ask.judged ?? askLine.slovak}
         onpick={pick}
         onskip={() => player.answered()}
         picked={picks[askLine.id] ?? null}

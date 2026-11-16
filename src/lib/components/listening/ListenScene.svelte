@@ -287,7 +287,12 @@
       transition:slide={{ duration: reducedMotion() ? 0 : 200 }}
     >
       <div
-        class="min-h-[5.4375rem] px-4 py-3 max-[600px]:min-h-[5.125rem] sm:px-5"
+        class={cx(
+          "px-4 py-3 sm:px-5",
+          showEnglish
+            ? "min-h-[9.5rem] max-[600px]:min-h-[8.75rem]"
+            : "min-h-[6.75rem] max-[600px]:min-h-[6.25rem]",
+        )}
         aria-live="polite"
         use:animateResize
       >

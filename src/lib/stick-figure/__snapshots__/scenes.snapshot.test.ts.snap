@@ -12903,17 +12903,17 @@ exports[`every scene, directed > podcast podcast-possessives-photos 1`] = `
   ],
   "lines": [
     {
-      "line": "anna: Sme späť v štúdiu. Marek, cez víkend si bol u rodičov, však? Máš fotky?",
+      "line": "anna: Sme späť v štúdiu. Marek, čo si to tam pozeráš? Fotky od rodičov z víkendu?",
       "plan": {
         "beats": [
           "0 tell",
-          "2400 ask",
-          "5650 ask",
+          "2500 ask",
+          "4900 ask",
         ],
         "ms": 6650,
-        "questions": "2400-4705 5650-6400",
-        "sentences": "0-1033 2400-4705 5650-6400",
-        "words": "0-211 211-451 451-451 451-1033 2400-2744 2833-3018 3018-3424 3424-3583 3583-3769 3769-3901 3901-4404 4493-4705 5650-5943 5943-6400",
+        "questions": "2500-4229 4900-6500",
+        "sentences": "0-1108 2500-4229 4900-6500",
+        "words": "0-226 226-484 484-484 484-1108 2500-2865 2958-3126 3126-3295 3295-3463 3463-3659 3659-4229 4900-5257 5257-5421 5421-5942 5942-5942 5942-6500",
       },
       "staging": {
         "addressee": "marek",
@@ -12932,14 +12932,16 @@ exports[`every scene, directed > podcast podcast-possessives-photos 1`] = `
       },
     },
     {
-      "line": "marek: Mám, v telefóne.",
+      "line": "marek: Áno. Chceš ich vidieť?",
       "plan": {
         "beats": [
-          "50 tell",
+          "50 nod",
+          "750 ask",
         ],
-        "ms": 1600,
-        "sentences": "50-1450",
-        "words": "50-365 365-365 491-1450",
+        "ms": 1800,
+        "questions": "750-1600",
+        "sentences": "50-413 750-1600",
+        "words": "50-413 750-990 990-1170 1170-1600",
       },
       "staging": {
         "addressee": "anna",
@@ -12949,10 +12951,10 @@ exports[`every scene, directed > podcast podcast-possessives-photos 1`] = `
         },
         "reactions": [
           {
-            "at": 1,
+            "at": 0.5,
             "characterId": "anna",
-            "gesture": "nod",
-            "sentence": 0,
+            "gesture": "lean",
+            "sentence": 1,
           },
         ],
       },
@@ -12973,6 +12975,14 @@ exports[`every scene, directed > podcast podcast-possessives-photos 1`] = `
           "anna": 1,
           "marek": -1,
         },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "marek",
+            "gesture": "nod",
+            "sentence": 0,
+          },
+        ],
       },
     },
     {
@@ -14113,16 +14123,17 @@ exports[`every scene, directed > podcast podcast-possessives-school 1`] = `
       },
     },
     {
-      "line": "marek: Výborne! A kde ju nájdeme?",
+      "line": "marek: Aha, Lucia! Tú poznáme. A kde ju nájdeme?",
       "plan": {
         "beats": [
-          "0 cheer",
-          "950 ask",
+          "50 stress",
+          "1600 point",
+          "2700 ask",
         ],
-        "ms": 2350,
-        "questions": "950-2100",
-        "sentences": "0-604 950-2100",
-        "words": "0-604 950-1100 1100-1310 1310-1490 1490-2100",
+        "ms": 3950,
+        "questions": "2700-3750",
+        "sentences": "50-920 1600-2167 2700-3750",
+        "words": "50-396 501-920 1600-1750 1750-2167 2700-2837 2837-3029 3029-3193 3193-3750",
       },
       "staging": {
         "addressee": "maria",
@@ -14136,7 +14147,7 @@ exports[`every scene, directed > podcast podcast-possessives-school 1`] = `
             "at": 0.5,
             "characterId": "maria",
             "gesture": "lean",
-            "sentence": 1,
+            "sentence": 2,
           },
         ],
       },

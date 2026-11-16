@@ -127,13 +127,22 @@
   {:else if picture === "photo-mother-girl"}
     <!-- A photo on a phone: a woman and a small girl, hand in hand. -->
     <rect width={W} height={H} class="fill-scene-warm" />
-    <circle cx="10" cy="4" r="1.9" class="fill-portrait-skin stroke-portrait-ink" stroke-width="0.5" />
-    <path d="M8.1 4.2q0-3 1.9-3t1.9 3v2h-3.8Z" class="fill-portrait-hair" />
-    <path d="M8.2 6.6h3.6l1 6.6h-5.6Z" class="fill-scene-red-mid" />
-    <path d="M9 13.2v2.6M11 13.2v2.6" class="stroke-portrait-ink" stroke-width="0.9" />
-    <circle cx="16.6" cy="8.4" r="1.5" class="fill-portrait-skin stroke-portrait-ink" stroke-width="0.5" />
-    <path d="M15.4 10.2h2.4l0.8 3.8h-4Z" class="fill-scene-honey" />
-    <path d="M16 14v1.8M17.2 14v1.8M12.2 9.4l3.4 1.6" class="stroke-portrait-ink" stroke-width="0.8" />
+    <rect y="13.2" width={W} height="3.8" class="fill-scene-leaf" />
+    <!-- Mother -->
+    <circle cx="9.5" cy="4.0" r="1.9" class="fill-portrait-skin stroke-portrait-ink" stroke-width="0.5" />
+    <path d="M7.6 4.0q0-2.8 1.9-2.8t1.9 2.8v3.0h-3.8Z" class="fill-portrait-hair" />
+    <path d="M9.5 5.9v4.6M9.5 10.5l-1.4 3.7M9.5 10.5l1.4 3.7" class="stroke-portrait-ink" stroke-width="0.9" />
+    <path d="M8.2 6.4h2.6v2.2h-2.6Z" class="fill-scene-red-mid" />
+    <path d="M7.8 8.6h3.4l0.8 2.4h-5.0Z" class="fill-scene-red-mid" />
+    <path d="M9.5 7.2l-2.0 2.6M9.5 7.2l3.5 2.8" class="stroke-portrait-ink" stroke-width="0.9" />
+    <!-- Daughter -->
+    <circle cx="16.5" cy="7.2" r="1.4" class="fill-portrait-skin stroke-portrait-ink" stroke-width="0.5" />
+    <path d="M15.1 7.2q0-2.0 1.4-2.0t1.4 2.0v1.2h-2.8Z" class="fill-scene-coffee" />
+    <circle cx="14.8" cy="6.6" r="0.6" class="fill-scene-coffee" />
+    <circle cx="18.2" cy="6.6" r="0.6" class="fill-scene-coffee" />
+    <path d="M16.5 8.6v2.4M16.5 11.0l-1.0 3.2M16.5 11.0l1.0 3.2" class="stroke-portrait-ink" stroke-width="0.8" />
+    <path d="M15.4 9.0h2.2l0.6 2.0h-3.4Z" class="fill-scene-honey" />
+    <path d="M16.5 9.4l-3.5 0.6M16.5 9.4l1.6 2.0" class="stroke-portrait-ink" stroke-width="0.8" />
   {:else if picture === "flag-ca"}
     <rect width={W} height={H} class="fill-white" />
     <rect width="6.5" height={H} class="fill-flag-red" />

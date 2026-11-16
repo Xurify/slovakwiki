@@ -133,13 +133,16 @@ const RIGHT_OR_WRONG = [
 export function rightOrWrong(
   turn: DialogueTurn,
   answerId: "right" | "wrong",
+  judged?: string,
 ): DialogueTurn {
+  const quote = judged ?? turn.slovak.replace(/^.*?veta:\s*/i, "");
   return {
     ...turn,
     ask: {
       prompt: "Správne alebo nesprávne?",
       choices: RIGHT_OR_WRONG,
       answerId,
+      ...(quote !== turn.slovak ? { judged: quote } : {}),
     },
   };
 }

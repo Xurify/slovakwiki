@@ -33,6 +33,8 @@ export interface ListenerAsk {
   /** Whose line marks the pick right or wrong; the line straight after the ask unless set. */
   judge?: string;
   prompt: string;
+  /** An optional quote of the sentence being judged, when it differs from the line's full text. */
+  judged?: string;
 }
 
 /**

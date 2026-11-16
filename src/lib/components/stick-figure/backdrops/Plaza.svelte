@@ -27,6 +27,7 @@
       shop: "Lekáreň",
       emblem: "cross",
       paint: "fill-scene-warm",
+      fasciaY: 172,
     },
     {
       x: 466,

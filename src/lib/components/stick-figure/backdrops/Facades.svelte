@@ -25,6 +25,8 @@
     arcade?: boolean;
     /** A sign hung out from the wall on a bracket: a pharmacy's green cross or a café's cup. */
     emblem?: "cross" | "cup";
+    /** The shop fascia's top y, 186 unless lifted clear of cast heads. */
+    fasciaY?: number;
   }
 </script>
 
@@ -181,13 +183,14 @@
 
   <!-- The ground floor: a shop's sign, awning and display windows, a door under an arch, or plain windows. -->
   {#if house.shop}
-    <rect x={house.x + 6} y="186" width={house.width - 12} height="10" rx="1" class="fill-scene-board" />
+    {@const fy = house.fasciaY ?? 186}
+    <rect x={house.x + 6} y={fy} width={house.width - 12} height="10" rx="1" class="fill-scene-board" />
     {#each [house.x + 9, house.x + house.width - 9] as fixing (fixing)}
-      <circle cx={fixing} cy="191" r="0.9" class="fill-white/50" />
+      <circle cx={fixing} cy={fy + 5} r="0.9" class="fill-white/50" />
     {/each}
     <text
       x={cx}
-      y="193.8"
+      y={fy + 7.8}
       text-anchor="middle"
       font-size="7.5"
       font-weight="700"

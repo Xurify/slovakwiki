@@ -423,8 +423,8 @@ const PLAZA_SET: PlaceSet = {
     // The edges, past what the widest stage shows, to walk on from.
     "off-left": { x: 40, facing: 1 },
     "off-right": { x: 1000, facing: -1 },
-    // In front of the café's tables, turned to them, for someone sitting out there to come over from.
-    cafe: { x: 680, facing: 1 },
+    // Beside the café's tables, turned to the square, for someone out there to come over from.
+    cafe: { x: 675, facing: -1 },
   },
 };
 
@@ -730,7 +730,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       drawn(WORDS.fontana, [670, 164, 76, 88]),
       // For tapping only: the scenes here say where they are going, and nobody points there.
       { ...drawn(WORDS.kaviaren, [588, 182, 78, 60]), quiet: true },
-      drawn(WORDS.lekaren, [320, 182, 142, 44]),
+      drawn(WORDS.lekaren, [320, 168, 142, 44]),
       drawn(WORDS.bicykel, [132, 220, 34, 22]),
       drawn(WORDS.kos, [190, 220, 20, 23]),
       drawn(
@@ -741,7 +741,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       onSet(WORDS.pes, ["dog"], [480, 200, 60, 40]),
       onSet(WORDS.robot, ["robot"], [420, 120, 40, 110]),
     ],
-    sounds: ["murmur", "birds", "tram"],
+    sounds: ["murmur", "birds", "tram", "water"],
     set: PLAZA_SET,
   },
   registration: {
