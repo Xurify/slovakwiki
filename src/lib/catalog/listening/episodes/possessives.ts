@@ -163,13 +163,13 @@ const intro: ListeningChapter = {
 };
 
 /**
- * Holds the screen up to Anna and leans toward her, and she leans in to see
- * it. Held out across the desk the phone went into his mic and fell short of her.
+ * Holds the screen up, turned to Anna, and she leans in to see it. Held out
+ * across the desk the phone went into his mic and fell short of her, and a
+ * lean of his own took the phone back down behind the desk.
  */
 function showPhoto(on: string): Cue[] {
   return [
     { do: "raise", what: "phone", on },
-    { do: "lean", to: "anna", on },
     { who: "anna", do: "lean", to: "marek", on },
   ];
 }
