@@ -3283,16 +3283,16 @@ exports[`every scene, directed > podcast podcast-demonstratives-home 1`] = `
       },
     },
     {
-      "line": "marek: Jasné, že ho poznám! A kto je tá žena pri ňom?",
+      "line": "marek: Aha, už ho spoznávam! A kto je tá žena pri ňom?",
       "plan": {
         "beats": [
-          "0 nod",
-          "2450 ask",
+          "0 stress",
+          "2950 ask",
         ],
-        "ms": 4600,
-        "questions": "2450-4350",
-        "sentences": "0-1490 2450-4350",
-        "words": "0-475 585-784 784-983 983-1490 2450-2635 2635-2894 2894-3116 3116-3388 3388-3832 3832-4091 4091-4350",
+        "ms": 4650,
+        "questions": "2950-4450",
+        "sentences": "0-1604 2950-4450",
+        "words": "0-363 472-670 670-868 868-1604 2950-3096 3096-3301 3301-3476 3476-3690 3690-4041 4041-4245 4245-4450",
       },
       "staging": {
         "addressee": "anna",
@@ -3907,14 +3907,15 @@ exports[`every scene, directed > podcast podcast-demonstratives-market 1`] = `
       },
     },
     {
-      "line": "anna: Ďakujeme, dovidenia!",
+      "line": "anna: Nech sa páči. Ďakujeme, dovidenia!",
       "plan": {
         "beats": [
-          "0 nod",
+          "50 tell",
+          "1150 nod",
         ],
-        "ms": 1800,
-        "sentences": "0-1650",
-        "words": "0-752 856-1650",
+        "ms": 2800,
+        "sentences": "50-817 1150-2700",
+        "words": "50-254 254-429 429-817 1150-1856 1954-2700",
       },
       "staging": {
         "addressee": "lucia",
@@ -3928,7 +3929,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-market 1`] = `
             "at": 1,
             "characterId": "lucia",
             "gesture": "nod",
-            "sentence": 0,
+            "sentence": 1,
           },
         ],
       },
@@ -4224,15 +4225,16 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
       },
     },
     {
-      "line": "marek: Ojoj. Tieto slovíčka mi nikdy nejdú do hlavy.",
+      "line": "marek: Ojoj. Na trhu mi to išlo, ale na skúške mám vždy trému.",
       "plan": {
         "beats": [
-          "50 muse",
-          "1611 shrug",
+          "50 shrug",
+          "1729 muse",
+          "4329 tell",
         ],
-        "ms": 4650,
-        "sentences": "50-449 1611-4500",
-        "words": "50-449 1611-2054 2054-2762 2762-2961 2961-3393 3393-3869 3869-4068 4068-4500",
+        "ms": 5850,
+        "sentences": "50-479 1729-5600",
+        "words": "50-479 1729-1944 1944-2372 2372-2587 2587-2801 2801-3230 3349-3742 3742-3956 3956-4504 4504-4802 4802-5088 5088-5600",
       },
       "staging": {
         "addressee": "anna",
@@ -8696,9 +8698,9 @@ exports[`every scene, directed > podcast podcast-imperative-help 1`] = `
         "beats": [
           "50 chuckle",
         ],
-        "ms": 2600,
-        "sentences": "50-2250",
-        "words": "50-435 435-765 765-1480 1480-1810 1810-2250",
+        "ms": 2750,
+        "sentences": "50-2400",
+        "words": "50-461 461-814 814-1578 1578-1930 1930-2400",
       },
       "staging": {
         "addressee": "marek",
@@ -8949,11 +8951,11 @@ exports[`every scene, directed > podcast podcast-imperative-intro 1`] = `
       "line": "anna: Tak ju hneď polej, chudinku.",
       "plan": {
         "beats": [
-          "50 tell",
+          "100 tell",
         ],
-        "ms": 2200,
-        "sentences": "50-2000",
-        "words": "50-292 292-500 500-777 777-1227 1342-2000",
+        "ms": 2250,
+        "sentences": "100-2050",
+        "words": "100-342 342-550 550-827 827-1277 1392-2050",
       },
       "staging": {
         "addressee": "marek",
@@ -10128,9 +10130,9 @@ exports[`every scene, directed > podcast podcast-imperative-table 1`] = `
         "beats": [
           "50 tell",
         ],
-        "ms": 1550,
-        "sentences": "50-1350",
-        "words": "50-283 283-950 950-1150 1150-1350",
+        "ms": 1450,
+        "sentences": "50-1300",
+        "words": "50-274 274-915 915-1108 1108-1300",
       },
       "staging": {
         "addressee": "maria",
@@ -10982,15 +10984,15 @@ exports[`every scene, directed > podcast podcast-past-tense-closed 1`] = `
       },
     },
     {
-      "line": "-: Koniec. Ďakujeme, že počúvate.",
+      "line": "-: Koniec. Ďakujeme, že ste počúvali.",
       "plan": {
         "beats": [
           "50 tell",
-          "1150 nod",
+          "1000 nod",
         ],
-        "ms": 2750,
-        "sentences": "50-480 1150-2600",
-        "words": "50-480 1150-1743 1826-1974 1974-2600",
+        "ms": 2900,
+        "sentences": "50-471 1000-2750",
+        "words": "50-471 1000-1640 1728-1888 1888-2075 2075-2750",
       },
       "staging": {
         "addressee": null,
@@ -14871,8 +14873,8 @@ exports[`every scene, directed > podcast podcast-telling-time-cafe 1`] = `
           "0 tell",
         ],
         "ms": 2000,
-        "sentences": "0-1850",
-        "words": "0-240 240-1091 1091-1571 1571-1850",
+        "sentences": "0-1800",
+        "words": "0-233 233-1062 1062-1528 1528-1800",
       },
       "staging": {
         "addressee": "anna",
@@ -15370,11 +15372,11 @@ exports[`every scene, directed > podcast podcast-telling-time-clock-lesson 1`] =
         "beats": [
           "0 shake",
           "850 tell",
-          "3769 tell",
+          "3742 tell",
         ],
-        "ms": 7200,
-        "sentences": "0-262 850-2520 3769-7050",
-        "words": "0-262 850-1143 1143-1338 1338-1566 1566-1761 1761-1989 1989-2520 3769-4672 4672-4886 4886-5564 5683-5897 5897-6408 6408-7050",
+        "ms": 7150,
+        "sentences": "0-260 850-2503 3742-7000",
+        "words": "0-260 850-1140 1140-1333 1333-1558 1558-1751 1751-1977 1977-2503 3742-4639 4639-4852 4852-5524 5642-5855 5855-6363 6363-7000",
       },
       "staging": {
         "addressee": "marek",
@@ -15567,11 +15569,11 @@ exports[`every scene, directed > podcast podcast-telling-time-clock-lesson 1`] =
       "plan": {
         "beats": [
           "50 cheer",
-          "1550 tell",
+          "1650 tell",
         ],
-        "ms": 3800,
-        "sentences": "50-455 1550-3600",
-        "words": "50-455 1550-2306 2409-2596 2596-2782 2782-3341 3341-3600",
+        "ms": 3850,
+        "sentences": "50-466 1650-3700",
+        "words": "50-466 1650-2406 2509-2696 2696-2882 2882-3441 3441-3700",
       },
       "staging": {
         "addressee": "marek",
@@ -15878,11 +15880,11 @@ exports[`every scene, directed > podcast podcast-telling-time-help 1`] = `
       "line": "anna: To si povedal ty.",
       "plan": {
         "beats": [
-          "50 chuckle",
+          "0 chuckle",
         ],
         "ms": 2250,
-        "sentences": "50-1900",
-        "words": "50-350 350-650 650-1600 1600-1900",
+        "sentences": "0-1900",
+        "words": "0-308 308-616 616-1592 1592-1900",
       },
       "staging": {
         "addressee": "marek",
@@ -16106,9 +16108,9 @@ exports[`every scene, directed > podcast podcast-telling-time-help 1`] = `
         "beats": [
           "0 tell",
         ],
-        "ms": 1850,
-        "sentences": "0-1700",
-        "words": "0-413 511-688 688-894 894-1307 1307-1700",
+        "ms": 1950,
+        "sentences": "0-1800",
+        "words": "0-437 541-728 728-947 947-1384 1384-1800",
       },
       "staging": {
         "addressee": "anna",
@@ -16145,7 +16147,7 @@ exports[`every scene, directed > podcast podcast-telling-time-help 1`] = `
           "50 tell",
           "2050 tell",
         ],
-        "ms": 4100,
+        "ms": 4000,
         "sentences": "50-582 2050-3850",
         "words": "50-582 2050-2226 2226-2438 2438-2685 2685-2968 2968-3391 3391-3850",
       },
@@ -16997,11 +16999,11 @@ exports[`every scene, directed > podcast podcast-telling-time-outro 1`] = `
       "plan": {
         "beats": [
           "100 tell",
-          "2250 stress",
+          "2350 stress",
         ],
-        "ms": 3550,
-        "sentences": "100-1884 2250-3200",
-        "words": "100-250 250-668 768-987 987-1137 1137-1346 1346-1884 2250-2398 2398-2784 2784-2963 2963-3200",
+        "ms": 3450,
+        "sentences": "100-1971 2350-3350",
+        "words": "100-257 257-696 800-1030 1030-1187 1187-1406 1406-1971 2350-2506 2506-2913 2913-3100 3100-3350",
       },
       "staging": {
         "addressee": "anna",
@@ -17017,10 +17019,10 @@ exports[`every scene, directed > podcast podcast-telling-time-outro 1`] = `
         "beats": [
           "0 chuckle",
         ],
-        "ms": 2350,
-        "questions": "0-2150",
-        "sentences": "0-2150",
-        "words": "0-731 731-1263 1263-2150",
+        "ms": 2400,
+        "questions": "0-2100",
+        "sentences": "0-2100",
+        "words": "0-714 714-1234 1234-2100",
       },
       "staging": {
         "addressee": "marek",
@@ -17043,11 +17045,11 @@ exports[`every scene, directed > podcast podcast-telling-time-outro 1`] = `
       "plan": {
         "beats": [
           "0 chuckle",
-          "1988 tell",
+          "2050 tell",
         ],
-        "ms": 4600,
-        "sentences": "0-291 1988-4250",
-        "words": "0-291 1988-2683 2683-3216 3216-3604 3604-4250",
+        "ms": 4200,
+        "sentences": "0-263 2050-3850",
+        "words": "0-263 2050-2603 2603-3027 3027-3336 3336-3850",
       },
       "staging": {
         "addressee": "anna",
