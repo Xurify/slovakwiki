@@ -714,6 +714,15 @@
           : setOffFor(id, to > from ? 1 : -1) + walkDuration(stepsFor(to - from), id);
       return walk + DOOR_MS + DOOR_OUT_MS + DOOR_SHUT_MS;
     }
+    if (cue.do === "leave" && steppingIn(cue)) {
+      const from = (was ? spotOf(id, was)?.offset : undefined) ?? offsets[id] ?? 0;
+      const to = spotOf(id, cue.to!)?.offset ?? from;
+      const walk =
+        Math.abs(to - from) < 0.05
+          ? 0
+          : setOffFor(id, to > from ? 1 : -1) + walkDuration(stepsFor(to - from), id);
+      return walk + DOOR_OUT_MS;
+    }
     if (cue.do === "leave") {
       const from = (was ? spotOf(id, was)?.offset : undefined) ?? offsets[id] ?? 0;
       const side = cue.to === "left" ? -1 : 1;
@@ -932,6 +941,35 @@
     });
   }
 
+  /** A `leave` to a spot of the set with no door to swing: the tram's door. */
+  function steppingIn(cue: Cue): boolean {
+    return (
+      cue.do === "leave" &&
+      !set?.door &&
+      cue.to !== "left" &&
+      cue.to !== "right" &&
+      Boolean(cue.to && set?.spots?.[cue.to])
+    );
+  }
+
+  /** Who is on the way up into the tram, its doors open until the last of them is in. */
+  let boarding: LessonCharacterId[] = [];
+
+  /** Walk `id` to spot `to` and up through the doorway there, out of sight. */
+  function stepIn(id: LessonCharacterId, to: string): void {
+    boarding = [...boarding, id];
+    const there = walkToSpot(id, to);
+    // The doors fold open as they come up to them, not once they stand there.
+    later(Math.max(0, there - DOOR_OPEN_MS), () => swingDoor(true));
+    later(there, () => (shaded = [...shaded, id]));
+    later(there + DOOR_OUT_MS, () => {
+      outside = [...new Set([...outside, id])];
+      shaded = shaded.filter((other) => other !== id);
+      boarding = boarding.filter((other) => other !== id);
+      if (!boarding.length) later(DOOR_SHUT_MS / 2, () => swingDoor(false));
+    });
+  }
+
   /** Start `item`'s motion; returns how long its hands wait while the body turns to the thing. */
   function startCue(item: ScheduledCue): number {
     const { cue, who, motion } = item;
@@ -956,6 +994,7 @@
       case "leave":
         stepDown(who);
         if (cue.to === "door" && set?.door) goOut(who);
+        else if (steppingIn(cue)) stepIn(who, cue.to!);
         else walkOff(who, cue.to === "left" ? -1 : 1);
         return 0;
       case "go":
@@ -1218,6 +1257,7 @@
 
   function clearActs(): void {
     actToken += 1;
+    boarding = [];
     for (const cancel of actTimers) cancel();
     actTimers = [];
     busy = {};

@@ -1,5 +1,6 @@
 <script lang="ts">
   import { PARTS } from "$lib/stick-figure/backdrop-parts";
+  import { AJAR } from "$lib/stick-figure/door";
   import { TRAM, type TramState } from "$lib/stick-figure/street";
   import Bench from "./Bench.svelte";
   import Cloud from "./Cloud.svelte";
@@ -9,7 +10,11 @@
   import Tree from "./Tree.svelte";
   import WallClock from "./WallClock.svelte";
 
-  let { hour, tram }: { hour: number; tram: TramState } = $props();
+  /** `open`: how far the tram's doors have folded back for someone getting on, 0 shut to AJAR. */
+  let { hour, open = 0, tram }: { hour: number; open?: number; tram: TramState } = $props();
+
+  /** Each leaf folds back to its own edge, as a Tatra's folding doors do. */
+  const leaf = $derived(19 * (1 - 0.8 * Math.min(1, open / AJAR)));
 
   /** Town houses along the far side of the street; neighbours never share a paint. */
   const houses: Facade[] = [
@@ -154,12 +159,15 @@
     <!-- Doors: two glazed leaves each, their sills low to the platform. -->
     {#each DOORS as door (door)}
       <rect x={door - 22} y="150" width="44" height="91" rx="2" class="fill-portrait-hair" />
-      <rect x={door - 20} y="152" width="19" height="87" rx="1.5" class="fill-scene-steel-dark" />
-      <rect x={door + 1} y="152" width="19" height="87" rx="1.5" class="fill-scene-steel-dark" />
-      <rect x={door - 20} y="152" width="40" height="48" class="fill-scene-sky/30" />
+      <rect x={door - 20} y="152" width={leaf} height="87" rx="1.5" class="fill-scene-steel-dark" />
+      <rect x={door + 20 - leaf} y="152" width={leaf} height="87" rx="1.5" class="fill-scene-steel-dark" />
+      <rect x={door - 20} y="152" width={leaf} height="48" class="fill-scene-sky/30" />
+      <rect x={door + 20 - leaf} y="152" width={leaf} height="48" class="fill-scene-sky/30" />
       <rect x={door - 22} y="239" width="44" height="2" class="fill-scene-steel-light" />
-      <path d="M{door - 12} 170V214M{door + 12} 170V214" class="stroke-scene-steel-light/70" stroke-width="1" />
-      <path d="M{door - 18} 182L{door - 6} 156H{door - 3}L{door - 18} 190Z" class="fill-white/30" />
+      {#if open === 0}
+        <path d="M{door - 12} 170V214M{door + 12} 170V214" class="stroke-scene-steel-light/70" stroke-width="1" />
+        <path d="M{door - 18} 182L{door - 6} 156H{door - 3}L{door - 18} 190Z" class="fill-white/30" />
+      {/if}
       <circle cx={door + 26} cy="214" r="2.5" class="fill-scene-honey" />
     {/each}
 

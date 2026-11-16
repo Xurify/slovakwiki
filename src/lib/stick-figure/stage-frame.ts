@@ -76,9 +76,11 @@ export function stageFrame(
     post === undefined || !width
       ? undefined
       : backdropToStage({ x: post, y: 0 }, width, height, align).x;
+  // The studio desk stays put while a host is still to come in: centred on who is
+  // in, it sat half a seat over from where it stands in every other chapter.
   const { marks, width: figureWidth } = stageMarks(
     cast,
-    entering,
+    desk ? {} : entering,
     width,
     at,
     height || undefined,
