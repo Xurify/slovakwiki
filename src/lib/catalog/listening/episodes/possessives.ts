@@ -10,6 +10,7 @@ import {
   staged,
 } from "../dialogue";
 import type { Cue } from "$lib/stick-figure/acts";
+import type { StickPictureId } from "$lib/stick-figure/pictures";
 import type { ListeningChapter, ListeningEpisode } from "../types";
 
 const PREFIX = "podcast-possessives-";
@@ -162,15 +163,11 @@ const intro: ListeningChapter = {
   ],
 };
 
-/**
- * Holds the screen up, turned to Anna, and she leans in to see it. Held out
- * across the desk the phone went into his mic and fell short of her, and a
- * lean of his own took the phone back down behind the desk.
- */
-function showPhoto(on: string): Cue[] {
+/** Turns the screen to Anna with the photo on it, and she leans in to see it. */
+function showPhoto(picture: StickPictureId): Cue[] {
   return [
-    { do: "raise", what: "phone", on },
-    { who: "anna", do: "lean", to: "marek", on },
+    { do: "show", what: "phone", to: "anna", picture, on: "fotka" },
+    { who: "anna", do: "lean", to: "marek", on: "fotka" },
   ];
 }
 
@@ -181,9 +178,9 @@ const PHOTOS_ACTS: Record<string, Cue[]> = {
   ],
   "anna-show-me": [{ do: "nod", on: "ukáž" }],
   // He holds each photo out to her, and puts the phone away only once they are done with them.
-  "marek-first-photo": showPhoto("fotka"),
-  "marek-house-and-car": showPhoto("fotka"),
-  "marek-old-but-mine": showPhoto("fotka"),
+  "marek-first-photo": showPhoto("photo-man-dog"),
+  "marek-house-and-car": showPhoto("photo-house"),
+  "marek-old-but-mine": showPhoto("photo-mother-girl"),
   "anna-five-lovely-family": [
     { who: "marek", do: "pocket", what: "phone", on: "rodina" },
   ],
