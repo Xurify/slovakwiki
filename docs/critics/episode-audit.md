@@ -28,3 +28,13 @@ You audit ONE listening episode of slovak.wiki (Astro + Svelte 5; stick-figure s
 A table of every dimension with its score. Then, for each dimension under 9, the concrete findings that cost the points, most important first, as JSON lines: `{"dim": "...", "segment": n, "line": n or null, "t_ms": n or null, "what": "...", "fix": "..."}`. Fixes must be concrete enough for another agent to do: which line to rewrite and to what (Slovak + English), which prop to move where. Then at most 5 nits. Put any frames you want the fixer to see in `a folder the person can open` (a network mount: use a trailing slash, never search the whole folder) and list their paths.
 
 Clean up: kill your dev server and `git worktree remove --force <your worktree>`.
+
+## Models per job
+
+The 5-hour usage limit stops every agent at once, so spend the strongest model only where judgment matters:
+
+- **Haiku:** mechanical jobs with a fixed recipe: screenshots and stills, running tests and typecheck, Scribe, loudness and lipsync runs, copying clips, updating the tracker.
+- **Sonnet:** critics that read frames or strips against a brief (set, motion, cast, picture).
+- **The default model:** auditors who score an episode, fixers who rewrite lines and cues, and the decision reviewer.
+
+Machine memory, not model speed, is the usual bottleneck: run one browser per agent at a time and share one dev server among auditors.
