@@ -461,17 +461,19 @@
         {/each}
         <path d="M6.4 {top - 0.6}h3.2l0.4 21-1.6 1.4-1.6-1.4Z" class="fill-scene-red-mid" />
         <path d="M6.6 {top + 17}h3M6.6 {top + 19}h3" class="stroke-white/60" stroke-width="0.7" />
-        <path
-          d="M14.6 {top - 0.4}Q17 {top - 1.4} 19.4 {top - 0.4}L23.6 {top + 4}L24.2 {top +
-            24}H9.8L10.4 {top + 4}Z"
-          class="fill-scene-green-mid"
-        />
-        <path
-          d="M17 {top}V{top + 24}M14 {top + 2}L17 {top + 8}L20 {top + 2}"
-          class="stroke-scene-line/40"
-          stroke-width="0.7"
-        />
-        <path d="M11 {top + 15}h4M19 {top + 15}h4" class="stroke-scene-line/30" stroke-width="0.7" />
+        <g data-set-id="{piece.id}-coat">
+          <path
+            d="M14.6 {top - 0.4}Q17 {top - 1.4} 19.4 {top - 0.4}L23.6 {top + 4}L24.2 {top +
+              24}H9.8L10.4 {top + 4}Z"
+            class="fill-scene-green-mid"
+          />
+          <path
+            d="M17 {top}V{top + 24}M14 {top + 2}L17 {top + 8}L20 {top + 2}"
+            class="stroke-scene-line/40"
+            stroke-width="0.7"
+          />
+          <path d="M11 {top + 15}h4M19 {top + 15}h4" class="stroke-scene-line/30" stroke-width="0.7" />
+        </g>
       {:else if piece.kind === "rail" && width <= 6}
         <path d="M-1.6 {top - 2.4}h3.2" class="stroke-scene-line/80" stroke-width="2" />
         <path

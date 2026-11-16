@@ -571,6 +571,8 @@ export function checkCues(
     "lekaren",
     "mapa",
     "elektricka",
+    // The dog is one of the cast, and moves.
+    "pes",
     // Home's dog bowl goes wherever a scene sets it down; its box here is only a stand-in until measured.
     "miska",
   ]);

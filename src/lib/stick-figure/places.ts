@@ -257,13 +257,13 @@ const HOME_SET: PlaceSet = {
     // At the window, looking out: the dog under the sill, the one waiting with it beside.
     window: { x: 235, facing: -1 },
     // On his bed under the sill, turned up toward the glass.
-    "dog-bed": { x: 166, facing: 1 },
+    "dog-bed": { x: 166, facing: -1 },
     "window-dog": { x: 118, facing: -1 },
     // Dunčo by his bed under the window, in frame on a phone, looking up at the glass.
     "dunco-window": { x: 128, facing: 1 },
     "by-sofa": { piece: "by-sofa", dx: 0, facing: -1 },
-    // The dog eating: just right of the bowl, facing it, so its head is down in it.
-    "bowl-dog": { x: 656, facing: -1 },
+    // The dog eating: just left of the bowl, facing it, so its head is down in it and its tail inside a phone's stage.
+    "bowl-dog": { piece: "by-sofa", dx: -16, facing: 1 },
     // Beside the bag by the window, to reach down into it.
     "window-bag": { piece: "window-bag", dx: 30, facing: -1 },
     // The hall door opens into the room on hinges at its left, like the kitchen's: in on its latch
@@ -381,9 +381,9 @@ const PLAZA_SET: PlaceSet = {
   objects: [],
   spots: {
     // The one holding the lead, the dog a lead's length ahead, and whoever greets the dog facing it.
-    walker: { x: 330, facing: 1 },
-    "walked-dog": { x: 410, facing: 1 },
-    greeter: { x: 468, facing: -1 },
+    walker: { x: 400, facing: 1 },
+    "walked-dog": { x: 480, facing: 1 },
+    greeter: { x: 538, facing: -1 },
     // The edges, past what the widest stage shows, to walk on from.
     "off-left": { x: 40, facing: 1 },
     "off-right": { x: 1000, facing: -1 },
@@ -533,6 +533,9 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       drawn(WORDS.pelech, [106, 228, 64, 20]),
       { ...drawn(WORDS.vesiak, [288, 92, 34, 40]), of: ["pegs"] },
       drawn(WORDS.hodiny, clockBox(PARTS.home.clock)),
+      { ...drawn(WORDS.kabat, [318, 92, 14, 30]), of: ["pegs-coat"] },
+      drawn(WORDS.hrncek, [484, 121, 20, 16], [595, 216, 12, 9]),
+      onSet(WORDS.pes, ["dog"], [280, 200, 60, 40]),
     ],
     sounds: ["hum"],
     // On the rug (480 ± 250), left of the bag on it so nobody stands on that.
@@ -648,7 +651,13 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       { ...drawn(WORDS.kaviaren, [588, 182, 78, 60]), quiet: true },
       drawn(WORDS.lekaren, [320, 182, 142, 44]),
       drawn(WORDS.bicykel, [132, 220, 34, 22]),
-      drawn(WORDS.kos, [206, 220, 20, 23]),
+      drawn(WORDS.kos, [190, 220, 20, 23]),
+      drawn(
+        { ...WORDS.stolik, english: "café table" },
+        [590, 222, 32, 18],
+        [630, 222, 32, 18],
+      ),
+      onSet(WORDS.pes, ["dog"], [440, 200, 60, 40]),
     ],
     sounds: ["murmur", "birds", "tram"],
     set: PLAZA_SET,
@@ -831,7 +840,11 @@ export function thingsIn(
       return sun ? [{ ...thing, box: toBox([sun.x - 22, sun.y - 22, 44, 44]) }] : [];
     }
     if (thing.id === "elektricka") return atStop ? [thing] : [];
-    if (setting === "home" && OUT_IN_DAYLIGHT.has(thing.id) && isDark(mood.time))
+    if (
+      setting === "home" &&
+      OUT_IN_DAYLIGHT.has(thing.id) &&
+      (isDark(mood.time) || mood.time === "morning")
+    )
       return [];
     if (setting !== "street" || thing.id !== "dom" || !atStop) return [thing];
     const [box, ...more] = thingBoxes(thing).flatMap(pastTram);
@@ -839,7 +852,7 @@ export function thingsIn(
   });
 }
 
-/** Home's window shows the couple on the street only by day (Home.svelte). */
+/** Home's window shows the couple on the street only by day, back from the shop, so not first thing (Home.svelte). */
 const OUT_IN_DAYLIGHT = new Set(["muz", "zena"]);
 
 /** The part of a box the stopped tram leaves in view: what lies left of its nose. */

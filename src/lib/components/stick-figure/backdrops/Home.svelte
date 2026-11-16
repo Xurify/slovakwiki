@@ -143,7 +143,7 @@
 <rect x="106" y="140" width="130" height="14" class={dark ? "fill-scene-line/60" : "fill-scene-sand"} />
 <path d="M106 141h130" class="stroke-scene-line/30" stroke-width="1" />
 
-{#if !dark}
+{#if !dark && mood?.time !== "morning"}
   <!-- Pán Novák and his sister on the street outside, back from the shop. -->
   <g class="stroke-scene-line/40" stroke-width="0.6" stroke-linejoin="round">
     <ellipse

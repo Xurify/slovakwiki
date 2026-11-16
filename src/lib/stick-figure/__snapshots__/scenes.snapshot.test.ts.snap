@@ -960,6 +960,8 @@ exports[`every scene, directed > lesson everyday/meet-someone 1`] = `
     "lekaren",
     "bicykel",
     "kos",
+    "stolik",
+    "pes",
   ],
 }
 `;
@@ -1605,6 +1607,9 @@ exports[`every scene, directed > lesson grammar/aspect 1`] = `
     "pelech",
     "vesiak",
     "hodiny",
+    "kabat",
+    "hrncek",
+    "pes",
   ],
 }
 `;
@@ -2764,6 +2769,9 @@ exports[`every scene, directed > lesson grammar/possessives 1`] = `
     "pelech",
     "vesiak",
     "hodiny",
+    "kabat",
+    "hrncek",
+    "pes",
   ],
 }
 `;
@@ -3386,6 +3394,9 @@ exports[`every scene, directed > podcast podcast-demonstratives-home 1`] = `
     "pelech",
     "vesiak",
     "hodiny",
+    "kabat",
+    "hrncek",
+    "pes",
   ],
 }
 `;
@@ -5717,6 +5728,9 @@ exports[`every scene, directed > podcast podcast-future-tense-friday 1`] = `
     "pelech",
     "vesiak",
     "hodiny",
+    "kabat",
+    "hrncek",
+    "pes",
   ],
 }
 `;
@@ -6118,6 +6132,9 @@ exports[`every scene, directed > podcast podcast-future-tense-monday 1`] = `
     "pelech",
     "vesiak",
     "hodiny",
+    "kabat",
+    "hrncek",
+    "pes",
   ],
 }
 `;
@@ -6415,6 +6432,9 @@ exports[`every scene, directed > podcast podcast-future-tense-morning 1`] = `
     "pelech",
     "vesiak",
     "hodiny",
+    "kabat",
+    "hrncek",
+    "pes",
   ],
 }
 `;
@@ -6965,6 +6985,9 @@ exports[`every scene, directed > podcast podcast-future-tense-six 1`] = `
     "pelech",
     "vesiak",
     "hodiny",
+    "kabat",
+    "hrncek",
+    "pes",
   ],
 }
 `;
@@ -7272,6 +7295,9 @@ exports[`every scene, directed > podcast podcast-future-tense-window 1`] = `
     "pelech",
     "vesiak",
     "hodiny",
+    "kabat",
+    "hrncek",
+    "pes",
   ],
 }
 `;
@@ -14486,6 +14512,8 @@ exports[`every scene, directed > podcast podcast-possessives-square 1`] = `
     "lekaren",
     "bicykel",
     "kos",
+    "stolik",
+    "pes",
   ],
 }
 `;
@@ -17455,6 +17483,9 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-home 1`] = `
     "pelech",
     "vesiak",
     "hodiny",
+    "kabat",
+    "hrncek",
+    "pes",
   ],
 }
 `;
@@ -17774,6 +17805,9 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-lead 1`] = `
     "pelech",
     "vesiak",
     "hodiny",
+    "kabat",
+    "hrncek",
+    "pes",
   ],
 }
 `;
@@ -17895,7 +17929,7 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-morning 1`] = `
         "beats": [
           "200 stress",
         ],
-        "ms": 1100,
+        "ms": 950,
         "sentences": "200-375 675-850",
         "words": "200-375 675-850",
       },
@@ -18151,6 +18185,9 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-morning 1`] = `
     "pelech",
     "vesiak",
     "hodiny",
+    "kabat",
+    "hrncek",
+    "pes",
   ],
 }
 `;
@@ -18420,18 +18457,36 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-square 1`] = `
       },
     },
     {
-      "line": "anna: Tak sa psí jazyk musíš naučiť ty. Vieš, Robo… pes nehovorí len haf. Pozri sa na chvost. Keď vrtí chvostom, je šťastný.",
+      "line": "anna: Tak sa psí jazyk musíš naučiť ty.",
       "plan": {
         "beats": [
           "50 tell",
-          "3450 muse",
-          "5400 tell",
-          "7550 point",
-          "8950 tell",
         ],
-        "ms": 11200,
-        "sentences": "50-2294 3450-4105 5400-6616 7550-8746 8950-11000",
-        "words": "50-266 266-451 451-709 709-1110 1110-1553 1553-2108 2108-2294 3450-3681 3773-4105 5400-5584 5584-6248 6248-6432 6432-6616 7550-8007 8007-8218 8218-8430 8430-8746 8950-9185 9185-9633 9633-10137 10249-10451 10451-11000",
+        "ms": 2600,
+        "sentences": "50-2400",
+        "words": "50-276 276-470 470-740 740-1160 1160-1624 1624-2206 2206-2400",
+      },
+      "staging": {
+        "addressee": "robo",
+        "facing": {
+          "anna": -1,
+          "bobik": 1,
+          "robo": 1,
+        },
+      },
+    },
+    {
+      "line": "anna: Vieš, Robo… pes nehovorí len haf. Pozri sa na chvost. Keď vrtí chvostom, je šťastný.",
+      "plan": {
+        "beats": [
+          "0 muse",
+          "2100 tell",
+          "4300 point",
+          "5700 tell",
+        ],
+        "ms": 7950,
+        "sentences": "0-743 2100-3295 4300-5460 5700-7750",
+        "words": "0-261 366-743 2100-2280 2280-2934 2934-3114 3114-3295 4300-4743 4743-4948 4948-5153 5153-5460 5700-5935 5935-6383 6383-6887 6999-7201 7201-7750",
       },
       "staging": {
         "addressee": "robo",
@@ -18567,6 +18622,8 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-square 1`] = `
     "lekaren",
     "bicykel",
     "kos",
+    "stolik",
+    "pes",
   ],
 }
 `;
@@ -18884,6 +18941,9 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-window 1`] = `
     "pelech",
     "vesiak",
     "hodiny",
+    "kabat",
+    "hrncek",
+    "pes",
   ],
 }
 `;
@@ -19106,6 +19166,8 @@ exports[`every scene, directed > talk day-anna {"cinema":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
+    "stolik",
+    "pes",
   ],
 }
 `;
@@ -19324,6 +19386,8 @@ exports[`every scene, directed > talk day-anna {"hello":1} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
+    "stolik",
+    "pes",
   ],
 }
 `;
@@ -19542,6 +19606,8 @@ exports[`every scene, directed > talk day-anna {"hello":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
+    "stolik",
+    "pes",
   ],
 }
 `;
@@ -19760,6 +19826,8 @@ exports[`every scene, directed > talk day-anna {"meet":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
+    "stolik",
+    "pes",
   ],
 }
 `;
@@ -19988,6 +20056,8 @@ exports[`every scene, directed > talk day-anna {"time":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
+    "stolik",
+    "pes",
   ],
 }
 `;
@@ -20206,6 +20276,8 @@ exports[`every scene, directed > talk day-anna {"tomorrow":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
+    "stolik",
+    "pes",
   ],
 }
 `;
@@ -20424,6 +20496,8 @@ exports[`every scene, directed > talk day-anna {} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
+    "stolik",
+    "pes",
   ],
 }
 `;
@@ -20756,6 +20830,8 @@ exports[`every scene, directed > talk day-lucia {"bye":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
+    "stolik",
+    "pes",
   ],
 }
 `;
@@ -21097,6 +21173,8 @@ exports[`every scene, directed > talk day-lucia {"cheese":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
+    "stolik",
+    "pes",
   ],
 }
 `;
@@ -21438,6 +21516,8 @@ exports[`every scene, directed > talk day-lucia {"hello":1} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
+    "stolik",
+    "pes",
   ],
 }
 `;
@@ -21733,6 +21813,8 @@ exports[`every scene, directed > talk day-lucia {"inside":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
+    "stolik",
+    "pes",
   ],
 }
 `;
@@ -22074,6 +22156,8 @@ exports[`every scene, directed > talk day-lucia {"later":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
+    "stolik",
+    "pes",
   ],
 }
 `;
@@ -22402,6 +22486,8 @@ exports[`every scene, directed > talk day-lucia {"pay":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
+    "stolik",
+    "pes",
   ],
 }
 `;
@@ -22613,6 +22699,8 @@ exports[`every scene, directed > talk day-lucia {"shop":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
+    "stolik",
+    "pes",
   ],
 }
 `;
@@ -22954,6 +23042,8 @@ exports[`every scene, directed > talk day-lucia {} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
+    "stolik",
+    "pes",
   ],
 }
 `;
@@ -23232,6 +23322,8 @@ exports[`every scene, directed > talk day-marek {"good":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
+    "stolik",
+    "pes",
   ],
 }
 `;
@@ -23494,6 +23586,8 @@ exports[`every scene, directed > talk day-marek {"hello":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
+    "stolik",
+    "pes",
   ],
 }
 `;
@@ -23756,6 +23850,8 @@ exports[`every scene, directed > talk day-marek {"how":1} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
+    "stolik",
+    "pes",
   ],
 }
 `;
@@ -24044,6 +24140,8 @@ exports[`every scene, directed > talk day-marek {"how":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
+    "stolik",
+    "pes",
   ],
 }
 `;
@@ -24306,6 +24404,8 @@ exports[`every scene, directed > talk day-marek {"study":1} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
+    "stolik",
+    "pes",
   ],
 }
 `;
@@ -24568,6 +24668,8 @@ exports[`every scene, directed > talk day-marek {"study":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
+    "stolik",
+    "pes",
   ],
 }
 `;
@@ -24830,6 +24932,8 @@ exports[`every scene, directed > talk day-marek {"study-bye":1} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
+    "stolik",
+    "pes",
   ],
 }
 `;
@@ -25092,6 +25196,8 @@ exports[`every scene, directed > talk day-marek {"study-bye":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
+    "stolik",
+    "pes",
   ],
 }
 `;
@@ -25354,6 +25460,8 @@ exports[`every scene, directed > talk day-marek {"tired":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
+    "stolik",
+    "pes",
   ],
 }
 `;
@@ -25626,6 +25734,8 @@ exports[`every scene, directed > talk day-marek {"trip":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
+    "stolik",
+    "pes",
   ],
 }
 `;
@@ -25888,6 +25998,8 @@ exports[`every scene, directed > talk day-marek {"trip-bye":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
+    "stolik",
+    "pes",
   ],
 }
 `;
@@ -26150,6 +26262,8 @@ exports[`every scene, directed > talk day-marek {} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
+    "stolik",
+    "pes",
   ],
 }
 `;
@@ -26382,6 +26496,8 @@ exports[`every scene, directed > talk day-maria {"bye":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
+    "stolik",
+    "pes",
   ],
 }
 `;
@@ -26615,6 +26731,8 @@ exports[`every scene, directed > talk day-maria {"done":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
+    "stolik",
+    "pes",
   ],
 }
 `;
@@ -26839,6 +26957,8 @@ exports[`every scene, directed > talk day-maria {"hello":3} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
+    "stolik",
+    "pes",
   ],
 }
 `;
@@ -27033,6 +27153,8 @@ exports[`every scene, directed > talk day-maria {"lesson":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
+    "stolik",
+    "pes",
   ],
 }
 `;
@@ -27257,6 +27379,8 @@ exports[`every scene, directed > talk day-maria {"notyet":2} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
+    "stolik",
+    "pes",
   ],
 }
 `;
@@ -27481,6 +27605,8 @@ exports[`every scene, directed > talk day-maria {} 1`] = `
     "lekaren",
     "bicykel",
     "kos",
+    "stolik",
+    "pes",
   ],
 }
 `;

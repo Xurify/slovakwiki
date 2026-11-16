@@ -516,12 +516,14 @@
 >
   <g transform="scale({n(side * (0.88 + 0.12 * round))} 1)">
     {#if look.dog}
-      <StickDog
-        {characterId}
-        {pose}
-        {sit}
-        ball={held?.id === "ball" || hands.lead?.kind === "ball"}
-      />
+      <g data-set-id="dog">
+        <StickDog
+          {characterId}
+          {pose}
+          {sit}
+          ball={held?.id === "ball" || hands.lead?.kind === "ball"}
+        />
+      </g>
     {:else}
       <ellipse cx="0" cy={GROUND_Y + 0.5} rx="15" ry="2.2" class="fill-portrait-ink/15" />
 
