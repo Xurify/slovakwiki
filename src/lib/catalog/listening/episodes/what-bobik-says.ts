@@ -358,6 +358,7 @@ const square: ListeningChapter = {
   stage: "plaza",
   // Robo walks Bobík on the lead he clipped on at home.
   setup: {
+    spots: { robo: "walker", bobik: "walked-dog", anna: "greeter" },
     objects: [
       {
         id: "lead",
@@ -380,10 +381,7 @@ const square: ListeningChapter = {
       ["Ahoj, Bobík! Ahoj, zlatko!"],
       "Hi, Bobík! Hello, sweetie!",
       {
-        act: [
-          { who: "bobik", do: "go", to: "anna", on: "before" },
-          { do: "kneel", to: "bobik", on: "ahoj" },
-        ],
+        act: [{ do: "kneel", to: "bobik", on: "ahoj" }],
         to: "Bobík",
       },
     ),
@@ -503,8 +501,9 @@ const square: ListeningChapter = {
       "Come on, Bobík. We're going home.",
       {
         act: [
-          { do: "leave", to: "left", on: "after" },
-          { who: "bobik", do: "leave", to: "left", on: "after" },
+          // The dog leads on a walk, and he is already facing that way.
+          { who: "bobik", do: "leave", to: "right", on: "after" },
+          { do: "leave", to: "right", on: "after" },
         ],
         to: "Bobík",
       },

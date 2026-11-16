@@ -261,7 +261,7 @@ const HOME_SET: PlaceSet = {
     "window-dog": { x: 118, facing: -1 },
     "by-sofa": { piece: "by-sofa", dx: 0, facing: -1 },
     // The dog eating: just right of the bowl, facing it, so its head is down in it.
-    "bowl-dog": { x: 668, facing: -1 },
+    "bowl-dog": { x: 656, facing: -1 },
     // Beside the bag by the window, to reach down into it.
     "window-bag": { piece: "window-bag", dx: 30, facing: -1 },
     // The hall door opens into the room on hinges at its left, like the kitchen's: in on its latch
@@ -341,6 +341,18 @@ const PARK_SUN = { x: 562, y: 36 };
 const EMPTY_SET: PlaceSet = {
   pieces: [],
   objects: [],
+};
+
+/** The old town square: open paving, where a walker and a dog on a lead stop to talk to someone. */
+const PLAZA_SET: PlaceSet = {
+  pieces: [],
+  objects: [],
+  spots: {
+    // The one holding the lead, the dog a lead's length ahead, and whoever greets the dog facing it.
+    walker: { x: 330, facing: 1 },
+    "walked-dog": { x: 410, facing: 1 },
+    greeter: { x: 468, facing: -1 },
+  },
 };
 
 export const PLACES: Readonly<Record<StageSetting, Place>> = {
@@ -600,7 +612,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       drawn(WORDS.kos, [206, 220, 20, 23]),
     ],
     sounds: ["murmur", "birds", "tram"],
-    set: EMPTY_SET,
+    set: PLAZA_SET,
   },
   registration: {
     ground: "stone",
