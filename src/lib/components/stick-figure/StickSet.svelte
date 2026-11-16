@@ -587,8 +587,8 @@
           {/each}
         </g>
         <!-- Their prices on cards pinned to the cloth under them, big enough to read on a phone. -->
-        {#each [{ dx: -half + 15, price: "5 €" }, { dx: half - 12, price: "3 €" }] as { dx, price } (price)}
-          <g transform="translate({dx} {top + 4})">
+        {#each [{ dx: -half + 15, price: "5 €", end: "near" }, { dx: half - 12, price: "3 €", end: "far" }] as { dx, price, end } (price)}
+          <g transform="translate({dx} {top + 4})" data-set-id="{piece.id}-price-{end}">
             <rect x="-10.5" y="0" width="21" height="13" rx="1.5" class="fill-white stroke-scene-line/30" stroke-width="0.6" />
             <circle cx="0" cy="1.6" r="0.9" class="fill-scene-red" />
             <text
