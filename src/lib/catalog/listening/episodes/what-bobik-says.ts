@@ -137,11 +137,11 @@ const morning: ListeningChapter = {
       {
         act: [
           { do: "raise", what: "keys", on: "aha" },
-          { do: "leave", to: "left", on: "after" },
+          { do: "leave", to: "door", on: "after" },
         ],
       },
     ),
-    line("bobik-woof-after-marek", "Bobík", ["Haf."], "Woof."),
+    line("bobik-woof-after-marek", "Bobík", [SIGH, "Haf."], "Woof."),
     line(
       "robo-just-us",
       "Robo",
@@ -265,7 +265,7 @@ const lead: ListeningChapter = {
         to: "Bobík",
       },
     ),
-    line("bobik-woof-yes", "Bobík", ["Haf!"], "Woof!"),
+    line("bobik-woof-yes", "Bobík", [HAPPY, "Haf!"], "Woof!"),
     line(
       "robo-change-of-plan",
       "Robo",
@@ -385,7 +385,7 @@ const square: ListeningChapter = {
         to: "Bobík",
       },
     ),
-    line("bobik-woof-for-anna", "Bobík", ["Haf! Haf!"], "Woof! Woof!", {
+    line("bobik-woof-for-anna", "Bobík", [HAPPY, "Haf! Haf!"], "Woof! Woof!", {
       act: [
         { do: "face", to: "anna", on: "before" },
         { do: "wag", on: "start" },
@@ -593,7 +593,7 @@ const waiting: ListeningChapter = {
         act: [{ do: "look", to: "okno", on: "teraz" }],
       },
     ),
-    line("bobik-quiet-woof", "Bobík", ["Haf."], "Woof."),
+    line("bobik-quiet-woof", "Bobík", [SIGH, "Haf."], "Woof."),
     line(
       "robo-this-woof-different",
       "Robo",
@@ -644,7 +644,7 @@ const waiting: ListeningChapter = {
         ],
       },
     ),
-    line("bobik-quiet-yes", "Bobík", ["Haf."], "Woof."),
+    line("bobik-quiet-yes", "Bobík", [SIGH, "Haf."], "Woof."),
     line(
       "robo-calling-marek",
       "Robo",
@@ -681,7 +681,7 @@ const waiting: ListeningChapter = {
       "Bobík. Marek is coming home.",
       { to: "Bobík" },
     ),
-    line("bobik-woof-glad", "Bobík", ["Haf! Haf!"], "Woof! Woof!", {
+    line("bobik-woof-glad", "Bobík", [HAPPY, "Haf! Haf!"], "Woof! Woof!", {
       act: [{ do: "wag", on: "start" }],
     }),
   ],
@@ -760,11 +760,11 @@ const home: ListeningChapter = {
       [EXCITED, "Ahoj, Bobík! Som doma!"],
       "Hi, Bobík! I'm home!",
       {
-        act: [{ do: "enter", from: "off-left", to: "by-pegs", on: "before" }],
+        act: [{ do: "enter", to: "inside", on: "before" }],
         to: "Bobík",
       },
     ),
-    line("bobik-overjoyed", "Bobík", ["Haf! Haf! Haf!"], "Woof! Woof! Woof!", {
+    line("bobik-overjoyed", "Bobík", [EXCITED, "Haf! Haf! Haf!"], "Woof! Woof! Woof!", {
       act: [
         { do: "go", to: "marek", on: "before", run: true },
         { do: "wag", on: "start" },
@@ -803,7 +803,7 @@ const home: ListeningChapter = {
       ],
       "He's right. Change of plan. Tomorrow I'm working from home. And we'll go to the square. All three of us.",
     ),
-    line("bobik-woof-to-plan", "Bobík", ["Haf! Haf!"], "Woof! Woof!", {
+    line("bobik-woof-to-plan", "Bobík", [HAPPY, "Haf! Haf!"], "Woof! Woof!", {
       act: [{ do: "wag", on: "start" }],
     }),
     line(
@@ -857,7 +857,7 @@ const home: ListeningChapter = {
       "Welcome to the family, Robo.",
       { to: "Robo" },
     ),
-    { ...line("bobik-last-woof", "Bobík", ["Haf!"], "Woof!"), wait: 800 },
+    { ...line("bobik-last-woof", "Bobík", [HAPPY, "Haf!"], "Woof!"), wait: 800 },
     line(
       "robo-this-woof-welcome",
       "Robo",

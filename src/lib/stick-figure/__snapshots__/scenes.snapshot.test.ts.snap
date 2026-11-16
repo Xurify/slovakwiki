@@ -16096,9 +16096,9 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-home 1`] = `
         "beats": [
           "200 stress",
         ],
-        "ms": 1450,
-        "sentences": "200-348 601-749 1002-1150",
-        "words": "200-348 601-749 1002-1150",
+        "ms": 1100,
+        "sentences": "200-324 538-662 876-1000",
+        "words": "200-324 538-662 876-1000",
       },
       "staging": {
         "addressee": "marek",
@@ -16197,9 +16197,9 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-home 1`] = `
         "beats": [
           "200 stress",
         ],
-        "ms": 1100,
-        "sentences": "200-375 675-850",
-        "words": "200-375 675-850",
+        "ms": 1000,
+        "sentences": "200-362 638-800",
+        "words": "200-362 638-800",
       },
       "staging": {
         "addressee": "marek",
@@ -16402,9 +16402,9 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-home 1`] = `
         "beats": [
           "200 stress",
         ],
-        "ms": 800,
-        "sentences": "200-550",
-        "words": "200-550",
+        "ms": 700,
+        "sentences": "200-500",
+        "words": "200-500",
       },
       "staging": {
         "addressee": "marek",
@@ -16704,9 +16704,9 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-lead 1`] = `
         "beats": [
           "200 stress",
         ],
-        "ms": 800,
-        "sentences": "200-550",
-        "words": "200-550",
+        "ms": 700,
+        "sentences": "200-500",
+        "words": "200-500",
       },
       "staging": {
         "addressee": "robo",
@@ -17097,11 +17097,11 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-morning 1`] = `
       "line": "bobik: Haf.",
       "plan": {
         "beats": [
-          "200 tell",
+          "200 sigh",
         ],
-        "ms": 800,
-        "sentences": "200-550",
-        "words": "200-550",
+        "ms": 1000,
+        "sentences": "200-600",
+        "words": "200-600",
       },
       "staging": {
         "addressee": "marek",
@@ -17211,9 +17211,9 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-square 1`] = `
         "beats": [
           "200 stress",
         ],
-        "ms": 1100,
-        "sentences": "200-375 675-850",
-        "words": "200-375 675-850",
+        "ms": 1000,
+        "sentences": "200-362 638-800",
+        "words": "200-362 638-800",
       },
       "staging": {
         "addressee": "anna",
@@ -17623,11 +17623,11 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-window 1`] = `
       "line": "bobik: Haf.",
       "plan": {
         "beats": [
-          "200 tell",
+          "200 sigh",
         ],
-        "ms": 800,
-        "sentences": "200-550",
-        "words": "200-550",
+        "ms": 1000,
+        "sentences": "200-600",
+        "words": "200-600",
       },
       "staging": {
         "addressee": "robo",
@@ -17724,11 +17724,11 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-window 1`] = `
       "line": "bobik: Haf.",
       "plan": {
         "beats": [
-          "200 tell",
+          "200 sigh",
         ],
-        "ms": 800,
-        "sentences": "200-550",
-        "words": "200-550",
+        "ms": 1000,
+        "sentences": "200-600",
+        "words": "200-600",
       },
       "staging": {
         "addressee": "robo",
@@ -17853,9 +17853,9 @@ exports[`every scene, directed > podcast podcast-what-bobik-says-window 1`] = `
         "beats": [
           "200 stress",
         ],
-        "ms": 1100,
-        "sentences": "200-375 675-850",
-        "words": "200-375 675-850",
+        "ms": 1000,
+        "sentences": "200-362 638-800",
+        "words": "200-362 638-800",
       },
       "staging": {
         "addressee": "robo",
