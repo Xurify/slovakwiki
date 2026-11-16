@@ -103,9 +103,12 @@ const MARKET_ACTS: Record<string, Cue[]> = {
   "lucia-this-cheese-five": [{ do: "point", to: "syr#near", on: "Tento" }],
   "marek-and-that-cheese": [{ do: "point", to: "syr#far", on: "tamten" }],
   "lucia-that-one-cheaper": [{ do: "point", to: "syr#far", on: "Tamten" }],
+  // Lucia fetches one from the far end of her counter and brings it to his end to hand over.
   "marek-ill-take-that-one": [
+    { who: "lucia", do: "go", to: "counter-far", on: "start" },
     { do: "point", to: "syr#far", on: "tamten" },
     { who: "lucia", do: "take", what: "cheese", on: "tamten" },
+    { who: "lucia", do: "go", to: "counter-near", on: "end" },
   ],
   "anna-want-these-strawberries": [
     { who: "lucia", do: "give", what: "cheese", to: "marek", on: "start" },
@@ -130,16 +133,17 @@ const MARKET_ACTS: Record<string, Cue[]> = {
 const market: ListeningChapter = {
   id: `${PREFIX}market`,
   stage: "market",
-  // Marek buys first, so he stands at the stall beside Lucia.
+  // Marek buys first, so he stands at the counter, across from Lucia.
   cast: ["Anna", "Marek", "Lucia"],
   titleSk: "Na trhu",
   title: "At the market: this one or that one?",
   setup: {
     objects: [
-      { id: "basket", kind: "basket", start: { where: { on: "counter", dx: -2 } } },
-      { id: "cheese", kind: "cheese", start: { where: { on: "counter", dx: -17 } } },
+      { id: "basket", kind: "basket", start: { where: { on: "counter", dx: -12 } } },
+      // The front one of tamten's pile at the counter's far end (StickSet draws the pile).
+      { id: "cheese", kind: "cheese", start: { where: { on: "counter", dx: 38 } } },
     ],
-    spots: { lucia: "behind-counter" },
+    spots: { lucia: "behind-counter", marek: "stall", anna: "aside" },
   },
   lines: staged(
     PREFIX,
@@ -224,12 +228,12 @@ const market: ListeningChapter = {
         "Thank you, goodbye!",
       ),
       line("lucia-goodbye", "Lucia", ["Dovidenia!"], "Goodbye!"),
-      // The car is why the key matters at home.
+      // His car waits at Anna's, which is why his key is wanted there.
       line(
-        "marek-home-then-car",
+        "marek-to-yours-car",
         "Marek",
-        ["Tak poďme domov. ", PAUSE, "Potom pôjdeme autom."],
-        "Let's go home, then. Then we'll take the car.",
+        ["Tak poďme k tebe. ", PAUSE, "Moje auto stojí pred tvojím domom."],
+        "Let's go to yours, then. My car is parked in front of your building.",
         { to: "Anna" },
       ),
     ],
@@ -322,10 +326,10 @@ const HOME_ACTS: Record<string, Cue[]> = {
   "anna-in-that-bag": [{ do: "point", to: "taska#far", on: "tej" }],
   "marek-in-this-one": [{ do: "point", to: "taska#near", on: "tejto" }],
   "anna-in-that-one-window": [
+    // He sets off on tamtej, so the key is in his hand by the time she has named the window.
+    { who: "marek", do: "go", to: "window-bag", on: "tamtej" },
     { do: "point", to: "taska#far", on: "tamtej" },
     { do: "point", to: "okno", on: "okne" },
-    // He sets off as she names the window, so the key is found with no gap before his line.
-    { who: "marek", do: "go", to: "window-bag", on: "okne" },
   ],
   // At the bag by the window he finds the key before he says so; from there he sees the man outside.
   "marek-got-it-who-is-man": [
@@ -333,7 +337,11 @@ const HOME_ACTS: Record<string, Cue[]> = {
     { do: "raise", what: "keys", on: "ho" },
     { do: "point", to: "muz", on: "muž" },
   ],
-  "anna-neighbour-you-know-him": [{ do: "point", to: "muz", on: "muža" }],
+  // She joins him at the window to look out at Mr Novák with him.
+  "anna-neighbour-you-know-him": [
+    { who: "anna", do: "go", to: "marek", on: "start" },
+    { do: "point", to: "muz", on: "muža" },
+  ],
   "marek-who-is-that-woman": [{ do: "point", to: "zena", on: "žena" }],
   "anna-dont-lose-this-key": [{ do: "point", to: "keys", on: "kľúč" }],
   "marek-back-to-studio": [{ do: "pocket", what: "keys", on: "späť" }],
@@ -349,8 +357,8 @@ const home: ListeningChapter = {
       { id: "window-bag", kind: "stash", start: { where: { on: "window-bag", dx: 0 } } },
       { id: "keys", kind: "keys", start: { where: { in: "window-bag" } } },
     ],
-    // A step right of the home's middle, so neither stands in front of the bag on the mat by the door.
-    spots: { anna: "rug-mid", marek: "rug-right" },
+    // Marek nearer the bag by the door, so he asks "v tejto?" of the one by him; neither stands in front of it.
+    spots: { anna: "rug-right", marek: "rug-mid" },
   },
   lines: staged(
     PREFIX,
@@ -401,21 +409,14 @@ const home: ListeningChapter = {
       line(
         "anna-neighbour-you-know-him",
         "Anna",
-        [
-          mark("To"),
-          " je môj sused, pán Novák. ",
-          PAUSE,
-          "Veď ",
-          mark("toho"),
-          " muža poznáš!",
-        ],
+        ["To je môj sused, pán Novák. ", PAUSE, "Veď ", mark("toho"), " muža poznáš!"],
         "That's my neighbour, Mr Novák. Come on, you know that man!",
       ),
       line(
         "marek-who-is-that-woman",
         "Marek",
-        ["Áno! ", PAUSE, "A kto je ", mark("tá"), " žena pri ňom?"],
-        "Yes! And who is that woman next to him?",
+        ["Jasné, pán Novák! ", PAUSE, "A kto je ", mark("tá"), " žena pri ňom?"],
+        "Of course, Mr Novák! And who is that woman next to him?",
       ),
       line(
         "anna-his-sister",
@@ -432,9 +433,9 @@ const home: ListeningChapter = {
           " ženu poznám z obchodu. ",
           PAUSE,
           mark("Tí"),
-          " ľudia sú milí.",
+          " ľudia sú naozaj milí.",
         ],
-        "Oh, I know that woman from the shop. Those people are nice.",
+        "Oh, I know that woman from the shop. Those people are really nice.",
       ),
       line(
         "anna-dont-lose-this-key",
@@ -770,7 +771,7 @@ const quiz: ListeningChapter = {
         ),
         { ask: `${PREFIX}marek-tie-or-ti`, picks: ["tie", NO_PICK] },
       ),
-      onPath(line("marek-yay", "Marek", ["Juchú!"], "Yay!"), {
+      onPath(line("marek-yay", "Marek", ["Juchú!"], "Yay!", { gestures: ["cheer"] }), {
         ask: `${PREFIX}marek-tie-or-ti`,
         picks: ["tie", NO_PICK],
       }),
@@ -797,8 +798,8 @@ const quiz: ListeningChapter = {
         line(
           "anna-dont-listen-to-them",
           "Anna",
-          [CHUCKLE, "Marek, nepočúvaj ich tak veľmi."],
-          "Marek, don't listen to them so much.",
+          [CHUCKLE, "Ale Marek. ", PAUSE, "Nepočúvaj ich tak veľmi."],
+          "Oh, Marek. Don't listen to them so much.",
         ),
         { ask: `${PREFIX}marek-tie-or-ti`, picks: ["ti"] },
       ),
@@ -918,8 +919,8 @@ const quiz: ListeningChapter = {
         line(
           "marek-phew-hard",
           "Marek",
-          ["Uf. ", PAUSE, "To bolo ťažké."],
-          "Phew. That was hard.",
+          ["Uf. ", PAUSE, "To bolo ale ťažké."],
+          "Phew. That really was hard.",
         ),
         { ask: `${PREFIX}marek-so-helpers`, picks: ["toho", NO_PICK] },
       ),
@@ -954,8 +955,8 @@ const quiz: ListeningChapter = {
         ],
         [
           "marek-thanks-anyway",
-          [CHUCKLE, "Aj tak ďakujem, pomocníci."],
-          "Thanks anyway, helpers.",
+          [CHUCKLE, "No nič. ", PAUSE, "Aj tak ďakujem, pomocníci."],
+          "Oh well. Thanks anyway, helpers.",
         ],
       ),
       ...ending(
@@ -1043,10 +1044,11 @@ const OUTRO_ACTS: Record<string, Cue[]> = {
   "marek-where-is-that-key": [{ do: "shrug", on: "Kde" }],
   "anna-in-your-pocket": [{ do: "facepalm", on: "Marek" }],
   // He put it in his pocket at home, on "späť".
+  // The keys are up in his hand while he says "v tomto vrecku", not after it.
   "marek-in-this-pocket": [
-    { do: "pat", on: "Aha" },
-    { do: "take", what: "keys", on: "tomto" },
-    { do: "raise", what: "keys", on: "vrecku" },
+    { do: "pat", on: "start" },
+    { do: "take", what: "keys", on: "Aha" },
+    { do: "raise", what: "keys", on: "tomto" },
   ],
 };
 
@@ -1063,8 +1065,8 @@ const outro: ListeningChapter = {
       line(
         "marek-thats-all",
         "Marek",
-        [mark("To"), " je na dnes všetko."],
-        "That's all for today.",
+        ["Tak, ", mark("to"), " je na dnes všetko."],
+        "So, that's all for today.",
       ),
       line(
         "anna-thanks-for-listening",
@@ -1094,6 +1096,12 @@ const outro: ListeningChapter = {
         "Marek",
         [CHUCKLE, "Aha. ", PAUSE, "V ", mark("tomto"), " vrecku."],
         "Oh. In this pocket.",
+      ),
+      line(
+        "anna-now-really-bye",
+        "Anna",
+        [CHUCKLE, "Tak. ", PAUSE, "A teraz už naozaj ahojte!"],
+        "Right. And now really, bye!",
       ),
     ],
     OUTRO_ACTS,

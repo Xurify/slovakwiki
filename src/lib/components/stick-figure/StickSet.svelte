@@ -150,6 +150,23 @@
   }
 </script>
 
+<!-- An oštiepok standing on its end, its foot at 0: smoked, spindle-shaped, stamped round the middle. -->
+{#snippet ostiepok()}
+  <path
+    d="M0 -11C2.6 -10.4 3.4 -7.6 3.4 -5.4C3.4 -2.4 2 -0.6 0 0C-2 -0.6 -3.4 -2.4 -3.4 -5.4C-3.4 -7.6 -2.6 -10.4 0 -11Z"
+    class="fill-scene-onion stroke-scene-coffee/40"
+    stroke-width="0.4"
+  />
+  <path d="M1.2 -10.2C3.2 -8 3.2 -2.6 1 -0.6" class="stroke-scene-coffee/30" stroke-width="1" fill="none" />
+  <path
+    d="M-2.6 -7.2l0.9 1.2 0.9 -1.2 0.9 1.2 0.9 -1.2 0.9 1.2 0.9 -1.2M-2.8 -4.4l0.9 1.2 0.9 -1.2 0.9 1.2 0.9 -1.2 0.9 1.2 0.9 -1.2"
+    class="stroke-scene-coffee/50"
+    stroke-width="0.45"
+    fill="none"
+  />
+  <path d="M-1.2 -10.4l1.2 -1.6 1.2 1.6" class="stroke-scene-coffee/70" stroke-width="0.5" fill="none" />
+{/snippet}
+
 <svg
   class="pointer-events-none absolute inset-0 size-full overflow-visible"
   viewBox="{n(view.x)} {n(view.y)} {n(view.width)} {n(view.height)}"
@@ -533,62 +550,59 @@
         <path d="M-9 {top - 13}h18l-0.2 1.4h-17.6Z" class="fill-scene-line/15" />
       {:else if piece.kind === "stand"}
         {@const hem = GROUND_Y - 8}
-        <!-- A market table: legs under the hem of a green gingham cloth, so it stands apart from the stall's red one. -->
+        {@const half = width / 2}
+        <!-- The farm stall's selling counter, in the red gingham of the stall's own, over whoever sells behind it. -->
         <path
-          d="M{-width / 2 + 4} {hem}V{GROUND_Y}M{width / 2 - 4} {hem}V{GROUND_Y}"
+          d="M{-half + 5} {hem}V{GROUND_Y}M{half - 5} {hem}V{GROUND_Y}"
           class="stroke-scene-coffee/70"
           stroke-width="2.4"
         />
-        <rect x={-width / 2} y={top} {width} height={hem - top} class="fill-scene-warm" />
-        {#each Array.from({ length: Math.floor(width / 6) }, (_, index) => -width / 2 + index * 6) as x (x)}
-          <rect {x} y={top} width="3" height={hem - top} class="fill-scene-green/15" />
+        <rect x={-half} y={top} {width} height={hem - top} class="fill-scene-warm" />
+        {#each Array.from({ length: Math.floor(width / 6) }, (_, index) => -half + index * 6) as x (x)}
+          <rect {x} y={top} width="3" height={hem - top} class="fill-scene-red/20" />
         {/each}
         {#each Array.from({ length: Math.floor((hem - top) / 6) }, (_, index) => top + 3 + index * 6) as y (y)}
-          <rect x={-width / 2} {y} {width} height="3" class="fill-scene-green/15" />
+          <rect x={-half} {y} {width} height="3" class="fill-scene-red/20" />
         {/each}
-        <path
-          d="M{-width / 2} {hem}H{width / 2}"
-          class="stroke-scene-line/25"
-          stroke-width="0.8"
-        />
-        <rect x={-width / 2 - 1} y={top - 1} width={width + 2} height="3" rx="1" class="fill-scene-wood" />
-        <rect x={-width / 2 - 1} y={top + 1} width={width + 2} height="1" class="fill-scene-coffee/30" />
-        <!-- Her oštiepky stood on end on a board, as they hang over the stall, and a bundle of korbáčiky. -->
-        <rect x="-8" y={top - 2.4} width="22" height="2.4" rx="0.8" class="fill-scene-wood" />
-        <rect x="-8" y={top - 2.4} width="22" height="2.4" rx="0.8" class="fill-scene-coffee/25" />
-        <path d="M-8 {top}h22" class="stroke-scene-line/25" stroke-width="0.8" />
-        {#each [-3, 3, 9] as x (x)}
-          <g transform="translate({x} {top - 2.4})">
-            <path
-              d="M0 -11C2.6 -10.4 3.4 -7.6 3.4 -5.4C3.4 -2.4 2 -0.6 0 0C-2 -0.6 -3.4 -2.4 -3.4 -5.4C-3.4 -7.6 -2.6 -10.4 0 -11Z"
-              class="fill-scene-onion"
-            />
-            <path d="M1.2 -10.2C3.2 -8 3.2 -2.6 1 -0.6" class="stroke-scene-coffee/30" stroke-width="1" fill="none" />
-            <path
-              d="M-2.6 -7.2l0.9 1.2 0.9 -1.2 0.9 1.2 0.9 -1.2 0.9 1.2 0.9 -1.2M-2.8 -4.4l0.9 1.2 0.9 -1.2 0.9 1.2 0.9 -1.2 0.9 1.2 0.9 -1.2"
-              class="stroke-scene-coffee/50"
-              stroke-width="0.45"
-              fill="none"
-            />
-            <path d="M-1.2 -10.4l1.2 -1.6 1.2 1.6" class="stroke-scene-coffee/70" stroke-width="0.5" fill="none" />
+        <path d="M{-half} {hem}H{half}" class="stroke-scene-line/25" stroke-width="0.8" />
+        <rect x={-half - 1} y={top - 1} width={width + 2} height="3" rx="1" class="fill-scene-wood" />
+        <rect x={-half - 1} y={top + 1} width={width + 2} height="1" class="fill-scene-coffee/30" />
+        <!-- Tento syr by the buyer: a big smoked oštiepok stood on end. -->
+        <g transform="translate({-half + 15} {top - 1}) scale(2.2)" data-set-id="{piece.id}-near-cheese">
+          {@render ostiepok()}
+        </g>
+        <!-- Tamten at the far end: small ones on a board, cheaper; Lucia sells one off the front (the cheese object). -->
+        <g transform="translate({half - 12} {top - 1})" data-set-id="{piece.id}-far-cheese">
+          <rect x="-10" y="-2.4" width="20" height="2.4" rx="0.8" class="fill-scene-wood" />
+          <rect x="-10" y="-2.4" width="20" height="2.4" rx="0.8" class="fill-scene-coffee/25" />
+          {#each [-5, 5] as dx (dx)}
+            <g transform="translate({dx} -2.4) scale(1.3)">{@render ostiepok()}</g>
+          {/each}
+        </g>
+        <!-- Their prices on cards pinned to the cloth under them, big enough to read on a phone. -->
+        {#each [{ dx: -half + 15, price: "5 €" }, { dx: half - 12, price: "3 €" }] as { dx, price } (price)}
+          <g transform="translate({dx} {top + 4})">
+            <rect x="-10.5" y="0" width="21" height="13" rx="1.5" class="fill-white stroke-scene-line/30" stroke-width="0.6" />
+            <circle cx="0" cy="1.6" r="0.9" class="fill-scene-red" />
+            <text
+              x="0"
+              y="10.6"
+              text-anchor="middle"
+              font-size="9.5"
+              font-weight="700"
+              class="fill-scene-line"
+              stroke="none">{price}</text
+            >
           </g>
         {/each}
-        {#each [-1.6, 0, 1.6] as dy (dy)}
-          <path
-            d="M-36 {top - 2 + dy}q1 -1.2 2 0t2 0 2 0 2 0 2 0 2 0"
-            class="stroke-scene-honey"
-            stroke-width="1.3"
-            fill="none"
-          />
-        {/each}
         <!-- A shop scale, big enough to weigh a cheese on. -->
-        <g transform="translate(-10 {top}) scale(1.35) translate(0 {-top})">
-          <path d="M19 {top}h11" class="stroke-scene-line/25" stroke-width="0.8" />
-          <rect x="20" y={top - 9} width="9" height="8" rx="1" class="fill-scene-steel-light" />
-          <circle cx="24.5" cy={top - 5} r="2.6" class="fill-white" />
-          <path d="M24.5 {top - 5}l1.2 -1.6" class="stroke-scene-red" stroke-width="0.6" />
-          <path d="M24.5 {top - 9}v-1.6" class="stroke-scene-steel-dark" stroke-width="1.2" />
-          <rect x="19" y={top - 12} width="11" height="1.6" rx="0.8" class="fill-scene-steel" />
+        <g transform="translate(18 {top}) scale(1.35)" data-set-id="{piece.id}-scale">
+          <path d="M-5.5 0h11" class="stroke-scene-line/25" stroke-width="0.8" />
+          <rect x="-4.5" y="-9" width="9" height="8" rx="1" class="fill-scene-steel-light" />
+          <circle cx="0" cy="-5" r="2.6" class="fill-white" />
+          <path d="M0 -5l1.2 -1.6" class="stroke-scene-red" stroke-width="0.6" />
+          <path d="M0 -9v-1.6" class="stroke-scene-steel-dark" stroke-width="1.2" />
+          <rect x="-5.5" y="-12" width="11" height="1.6" rx="0.8" class="fill-scene-steel" />
         </g>
       {:else if piece.kind === "bar"}
         {@const half = width / 2}
