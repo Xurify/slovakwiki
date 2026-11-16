@@ -343,7 +343,11 @@ const REGISTRATION_SET: PlaceSet = {
     "behind-counter": { piece: "counter", dx: 0, facing: -1 },
     // Across the desk from her, clear of its left end.
     guest: { x: 528, facing: 1 },
+    // The Vchod door opens into the room on hinges at its left, like the café's: in on its latch side, then past it to push it to.
+    door: { x: 238, facing: -1 },
+    inside: { x: 206, facing: 1 },
   },
+  door: "door",
 };
 
 /**
