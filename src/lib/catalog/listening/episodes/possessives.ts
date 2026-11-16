@@ -852,7 +852,14 @@ const square: ListeningChapter = {
       line(
         "lucia-marek-and-his-keys",
         "Lucia",
-        ["Marek a ", mark("jeho"), " kľúče! ", PAUSE, "Ďakujem ešte raz. Majte sa!"],
+        [
+          CHUCKLE,
+          "Marek a ",
+          mark("jeho"),
+          " kľúče! ",
+          PAUSE,
+          "Ďakujem ešte raz. Majte sa!",
+        ],
         "Marek and his keys! Thanks again. Take care!",
       ),
       line(

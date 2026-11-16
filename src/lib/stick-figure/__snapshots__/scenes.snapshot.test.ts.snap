@@ -14678,13 +14678,13 @@ exports[`every scene, directed > podcast podcast-possessives-square 1`] = `
       "line": "lucia: Marek a jeho kľúče! Ďakujem ešte raz. Majte sa!",
       "plan": {
         "beats": [
-          "0 stress",
-          "2700 nod",
-          "4050 wave",
+          "50 chuckle",
+          "2911 nod",
+          "4850 wave",
         ],
-        "ms": 4800,
-        "sentences": "0-1390 2700-3678 4050-4650",
-        "words": "0-408 408-564 564-940 940-1390 2700-3189 3189-3498 3498-3678 4050-4461 4461-4650",
+        "ms": 5700,
+        "sentences": "50-1649 2911-4282 4850-5400",
+        "words": "50-519 519-699 699-1132 1132-1649 2911-3597 3597-4029 4029-4282 4850-5226 5226-5400",
       },
       "staging": {
         "addressee": "marek",
