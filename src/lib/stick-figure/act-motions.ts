@@ -1270,9 +1270,11 @@ export function motionFor(
     }
     case "eat": {
       // Head down in the bowl three times, lifted part way to crunch between: six small dips of a few degrees read as no dip at all.
-      // Below a tilt of about 50 the snout stays level with the dog's back, well over a bowl on the floor.
-      const down = { nod: 16, tilt: 56, lean: 8, look: 1 };
-      const crunch = { nod: 8, tilt: 30, lean: 4, look: 1 };
+      // The head turns on the neck and the front of the body tips with it, so the mouth comes down to the rim of a bowl
+      // on the floor, about 18 rig units ahead of the dog's middle (EAT_REACH): turning the head alone stopped the snout
+      // 50 px above the bowl.
+      const down = { nod: 24, tilt: 85, lean: 25, look: 1 };
+      const crunch = { nod: 12, tilt: 50, lean: 12, look: 1 };
       const keys: MotionKey[] = [
         { at: 0 },
         { at: 420, body: down },

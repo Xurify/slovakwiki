@@ -490,6 +490,8 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       drawn(WORDS.dom, [0, 132, 628, 42]),
       drawn(WORDS.kos, [590, 228, 20, 38]),
       drawn(WORDS.kvety, [380, 234, 48, 14], [854, 234, 60, 14]),
+      onSet(WORDS.lopticka, ["ball"], [452, 196, 10, 10]),
+      onSet(WORDS.voditko, ["park-lead"], [300, 200, 30, 40]),
     ],
     sounds: ["birds", "wind", "water"],
     // Nothing of its own, so other scenes here stay as they were: a scene brings what it acts with (setup).
@@ -508,6 +510,8 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
         "park-heel": { x: 248, facing: 1 },
         // Back from a run off the right, facing whoever threw.
         "back-right": { x: 550, facing: -1 },
+        // Halfway after the ball, short of the bench, so he is still in sight as he runs.
+        "far-right": { x: 566, facing: 1 },
       },
     },
   },
@@ -540,6 +544,8 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       drawn(WORDS.koberec, [256, 248, 360, 52]),
       onSet(WORDS.voditko, ["lead"], [282, 92, 44, 66]),
       onSet(WORDS.miska, ["bowl"], [370, 240, 20, 10]),
+      onSet(WORDS.kufor, ["suitcase"], [372, 214, 22, 34]),
+      onSet(WORDS.lopticka, ["ball"], [628, 254, 10, 10]),
       drawn(WORDS.rastlina, plantBox(PARTS.home.plant)),
       drawn(WORDS.dvere, [358, 48, 72, 178]),
       drawn(WORDS.knihy, [454, 74, 36, 66]),

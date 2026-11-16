@@ -447,6 +447,13 @@ const HEAD_ABOVE_HIP = 45.5;
 const PASS_CLEAR = 20;
 /** Two things set down on one surface may touch by this much, in rig units, before one sits in the other. */
 const OVERLAP_SLACK = 2;
+/**
+ * Rig units ahead of a dog's middle where its mouth comes down at the bottom
+ * of `eat` (act-motions.ts, drawn by StickDog), and how far off that a bowl,
+ * 14 across, still has the mouth over its rim.
+ */
+const EAT_REACH = 18;
+const EAT_SLACK = 7;
 /** A hand, about 2 rig units across the knuckles, by the desk mic. */
 const HAND_HALF = 1;
 /** Into the desk mic by this much, about 3 px on a wide stage, nobody sees it. */
@@ -578,6 +585,10 @@ export function checkCues(
     "robot",
     // Home's dog bowl goes wherever a scene sets it down; its box here is only a stand-in until measured.
     "miska",
+    // Carried in a hand or a dog's mouth as often as set down: these boxes too are stand-ins until measured.
+    "kufor",
+    "lopticka",
+    "voditko",
   ]);
 
   /** What floor object a person standing at cast x `x` stands on: a bag, plant, dog bowl, suitcase, etc. */
@@ -895,6 +906,20 @@ export function checkCues(
             level: "error",
             ...at,
             message: `${who} "${cue.do} ${cue.what ?? ""}" leaves the ${id} ${Math.round(overlap)} rig units over the ${other} on the ${where.on} (dx ${where.dx} and ${near.dx}). Put it where the surface is clear.`,
+          });
+        }
+      }
+      if (cue.do === "eat" && cue.what && cue.on !== "dark") {
+        const dog = standsAt(world, who);
+        const facing = facingFor(world, who, cue.what);
+        const bowl = stagePoint(stageContext(world), cue.what, "top", facing);
+        const off = dog !== undefined && bowl ? bowl.x - (dog + facing * EAT_REACH) : 0;
+        if (Math.abs(off) > EAT_SLACK) {
+          findings.push({
+            rule: "contact/miss",
+            level: "error",
+            ...at,
+            message: `${who} "eat ${cue.what}": the mouth comes down ${Math.round(Math.abs(off))} rig units ${off * facing > 0 ? "short of" : "past"} the bowl. Stand the dog with its head over it.`,
           });
         }
       }
