@@ -7390,18 +7390,17 @@ exports[`every scene, directed > podcast podcast-imperative-help 1`] = `
       },
     },
     {
-      "line": "anna: Ako vždy. No nič. Marek, pamätáš si, čo ti včera všetko hovorila Mária?",
+      "line": "anna: Ako vždy. No nič. Marek, pamätáš si, čo nám včera hovorila Mária?",
       "plan": {
         "beats": [
           "50 tell",
-          "1700 tell",
-          "3300 ask",
-          "5900 tell",
+          "1550 tell",
+          "3150 ask",
         ],
-        "ms": 7000,
-        "questions": "3300-6800",
-        "sentences": "50-609 1700-2022 3300-6800",
-        "words": "50-374 374-609 1700-1849 1849-2022 3300-3657 3749-4308 4308-4473 4564-4729 4729-4894 4894-5252 5252-5636 5636-6296 6296-6800",
+        "ms": 6500,
+        "questions": "3150-6300",
+        "sentences": "50-596 1550-1974 3150-6300",
+        "words": "50-366 366-596 1550-1746 1746-1974 3150-3504 3595-4149 4149-4312 4403-4566 4566-4793 4793-5147 5147-5801 5801-6300",
       },
       "staging": {
         "addressee": "marek",
@@ -8202,15 +8201,16 @@ exports[`every scene, directed > podcast podcast-imperative-help 1`] = `
       },
     },
     {
-      "line": "marek: Mňam. Už som zase hladný.",
+      "line": "marek: Pokojne jedzte… Mňam. Už som zase hladný.",
       "plan": {
         "beats": [
-          "100 tell",
-          "1600 tell",
+          "100 muse",
+          "2306 tell",
+          "3550 tell",
         ],
-        "ms": 3600,
-        "sentences": "100-426 1600-3500",
-        "words": "100-426 1600-1883 1883-2212 2212-2778 2778-3500",
+        "ms": 5200,
+        "sentences": "100-1154 2306-2570 3550-5050",
+        "words": "100-726 726-1154 2306-2570 3550-3773 3773-4033 4033-4480 4480-5050",
       },
       "staging": {
         "addressee": "anna",
@@ -8525,16 +8525,16 @@ exports[`every scene, directed > podcast podcast-imperative-help 1`] = `
       },
     },
     {
-      "line": "marek: Hoď, sadnite, nečakajte… Mám to! Skoro.",
+      "line": "marek: Hoď mrkvu, sadnite si, nečakajte… Mám to! Skoro.",
       "plan": {
         "beats": [
           "0 muse",
-          "3400 stress",
-          "4500 tell",
+          "3700 stress",
+          "4750 tell",
         ],
-        "ms": 5450,
-        "sentences": "0-1953 3400-3624 4500-5250",
-        "words": "0-237 350-994 1106-1953 3400-3530 3530-3624 4500-5250",
+        "ms": 5700,
+        "sentences": "0-2445 3700-4019 4750-5550",
+        "words": "0-223 223-638 744-1350 1350-1542 1648-2445 3700-3885 3885-4019 4750-5550",
       },
       "staging": {
         "addressee": "anna",
@@ -8542,6 +8542,9 @@ exports[`every scene, directed > podcast podcast-imperative-help 1`] = `
           "anna": 1,
           "marek": -1,
         },
+        "sit": [
+          "anna",
+        ],
       },
     },
     {
@@ -8600,11 +8603,11 @@ exports[`every scene, directed > podcast podcast-imperative-help 1`] = `
       "line": "anna: Soli už bolo dosť.",
       "plan": {
         "beats": [
-          "50 tell",
+          "0 tell",
         ],
         "ms": 1700,
-        "sentences": "50-1500",
-        "words": "50-508 508-737 737-1195 1195-1500",
+        "sentences": "0-1450",
+        "words": "0-458 458-687 687-1145 1145-1450",
       },
       "staging": {
         "addressee": "marek",
@@ -8675,9 +8678,9 @@ exports[`every scene, directed > podcast podcast-imperative-help 1`] = `
         "beats": [
           "50 chuckle",
         ],
-        "ms": 2600,
-        "sentences": "50-2250",
-        "words": "50-435 435-765 765-1480 1480-1810 1810-2250",
+        "ms": 2750,
+        "sentences": "50-2400",
+        "words": "50-461 461-814 814-1578 1578-1930 1930-2400",
       },
       "staging": {
         "addressee": "marek",
@@ -8933,9 +8936,9 @@ exports[`every scene, directed > podcast podcast-imperative-intro 1`] = `
         "beats": [
           "100 tell",
         ],
-        "ms": 2400,
-        "sentences": "100-2150",
-        "words": "100-355 355-573 573-864 864-1337 1459-2150",
+        "ms": 2250,
+        "sentences": "100-2050",
+        "words": "100-342 342-550 550-827 827-1277 1392-2050",
       },
       "staging": {
         "addressee": "marek",
@@ -9307,15 +9310,15 @@ exports[`every scene, directed > podcast podcast-imperative-kitchen 1`] = `
       },
     },
     {
-      "line": "maria: Hej, ten. Nalej do neho vodu a daj ho na sporák.",
+      "line": "maria: Hej, ten. Napusti doň vodu a daj ho na sporák.",
       "plan": {
         "beats": [
           "50 tell",
-          "1300 tell",
+          "1250 tell",
         ],
-        "ms": 3950,
-        "sentences": "50-624 1300-3750",
-        "words": "50-282 392-624 1300-1687 1687-1865 1865-2222 2222-2580 2580-2728 2728-2937 2937-3115 3115-3294 3294-3750",
+        "ms": 3800,
+        "sentences": "50-611 1250-3500",
+        "words": "50-276 384-611 1250-1803 1803-2006 2006-2356 2356-2501 2501-2705 2705-2879 2879-3054 3054-3500",
       },
       "staging": {
         "addressee": "marek",
