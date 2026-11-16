@@ -34,7 +34,6 @@ Clean up: kill your dev server and `git worktree remove --force <your worktree>`
 The 5-hour usage limit stops every agent at once, so spend the strongest model only where judgment matters:
 
 - **Haiku:** mechanical jobs with a fixed recipe: screenshots and stills, running tests and typecheck, Scribe, loudness and lipsync runs, copying clips, updating the tracker.
-- **Sonnet:** critics that read frames or strips against a brief (set, motion, cast, picture).
-- **The default model:** auditors who score an episode, fixers who rewrite lines and cues, and the decision reviewer.
+- **The default (strongest) model:** everything that judges or decides: critics that read frames (set, motion, cast, picture), auditors, fixers and the decision reviewer. A finding a weaker critic misses costs a whole fix round later, which is far more than the critic's own tokens.
 
 Machine memory, not model speed, is the usual bottleneck: run one browser per agent at a time and share one dev server among auditors.
