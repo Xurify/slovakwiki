@@ -65,7 +65,10 @@
   {#if layer === "behind"}
     {#each seats as seat, index (index)}
       <!-- An office chair: five-star base on casters, a gas lift, a mesh back behind the sitter. -->
-      <g transform="translate({seat.x} {base}) scale({unit}) scale({seat.facing} 1)">
+      <g
+        transform="translate({seat.x} {base}) scale({unit}) scale({seat.facing} 1)"
+        data-set-id="studio-chair-{index}"
+      >
         <path
           d="M-3 {SEAT_Y + 3}V{GROUND_Y - 6}L-16 {GROUND_Y - 2}M-3 {GROUND_Y -
             6}L10 {GROUND_Y - 2}M-3 {GROUND_Y - 6}V{GROUND_Y - 2}"
@@ -240,7 +243,10 @@
     {#each seats as seat, index (index)}
       {@const mix = seats.length > 1 ? (seats[0].x + seats[1].x) / 2 / unit : undefined}
       <!-- A broadcast boom clamped to the desk's back edge: a riser, two spring-loaded arms, the mic on its yoke at the chin behind a pop filter, its lead taped along the arm and run to the mixer. -->
-      <g transform="translate({seat.x} {base}) scale({unit}) scale({seat.facing} 1)">
+      <g
+        transform="translate({seat.x} {base}) scale({unit}) scale({seat.facing} 1)"
+        data-set-id="studio-chair-{index}"
+      >
         {#if mix !== undefined && index < 2}
           {@const to = (mix - seat.x / unit) * seat.facing}
           <path

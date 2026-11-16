@@ -660,6 +660,8 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       drawn(WORDS.dvere, [192, 74, 64, 152], [866, 70, 80, 156]),
       drawn(WORDS.vesiak, [132, 86, 44, 144]),
       drawn(WORDS.nastenka, [272, 60, 124, 74]),
+      drawn(WORDS.priecinky, [404, 88, 36, 44]),
+      drawn(WORDS.vydajnik, [408, 140, 34, 88]),
       drawn(WORDS.plagat, [500, 10, 50, 62]),
       drawn(WORDS.napis, [592, 20, 118, 26]),
       // For tapping only: a line about keys means the ones handed over the desk.
@@ -733,6 +735,10 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
       { ...drawn(WORDS.reproduktor, [700, 90, 18, 26]), quiet: true },
       { ...drawn(WORDS.notebook, [334, 178, 30, 26]), of: ["studio-laptop"] },
       { ...drawn(WORDS.mixpult, [460, 186, 40, 16]), of: ["studio-mixer"] },
+      {
+        ...drawn(WORDS.stolicka, [330, 150, 40, 76]),
+        of: ["studio-chair-0", "studio-chair-1", "studio-chair-2"],
+      },
     ],
     sounds: ["hum"],
     // Podcast hosts sit at their desk mics, headphones on.
