@@ -64,6 +64,7 @@
     front = false,
     picture,
     pictureAt = "head",
+    pictureOver,
     pose = REST_POSE,
     held,
     sit = 0,
@@ -85,6 +86,8 @@
     picture?: StickPictureId;
     /** Over the head (a thought, a flag), or over the lead hand (the photo on a phone held out). */
     pictureAt?: "head" | "hand";
+    /** Shown to someone this far ahead, in rig units: the bubble goes over their head, its tail to the phone. */
+    pictureOver?: number;
     pose?: StickPose;
     /** In the lead hand. */
     held?: Held;
@@ -228,6 +231,16 @@
   const side = $derived(turning.current >= 0 ? 1 : -1);
   /** 1 side-on, 0 facing the front mid-turn. */
   const round = $derived(Math.min(1, Math.abs(turning.current)));
+
+  /** The photo bubble's tail, from its bottom edge toward the phone in the lead hand, in the bubble's own units. */
+  function tailTo(over: { x: number; y: number }): { at: number; tip: { x: number; y: number } } {
+    const phone = { x: rig.leadArm.end.x * side * (0.88 + 0.12 * round) - over.x, y: rig.leadArm.end.y - over.y };
+    const at = Math.max(-12, Math.min(12, phone.x * 0.4));
+    const dx = phone.x - at;
+    const dy = phone.y - 12;
+    const length = Math.hypot(dx, dy) || 1;
+    return { at, tip: { x: at + (dx / length) * 8, y: 12 + (dy / length) * 8 } };
+  }
   /**
    * Half of a band over the crown, its top `lift` above the hair: the near
    * half from the cup up, or the far half from the crown down behind the
@@ -685,14 +698,18 @@
 
   {#if picture}
     {@const over =
-      pictureAt === "hand"
-        ? // Above the head and out toward whoever it is shown to: over the hand it covered the face, and the studio's mics drew over it.
-          { x: (rig.head.x + HEAD_RADIUS + 14) * side, y: rig.head.y - HEAD_RADIUS - 20 }
-        : { x: rig.head.x * side, y: rig.head.y - HEAD_RADIUS - 23 }}
+      pictureAt === "hand" && pictureOver
+        ? // Over the head of the one it is shown to, a little toward the phone: over the one holding it, it read as their thought.
+          { x: (pictureOver - 6) * side, y: rig.head.y - HEAD_RADIUS - 23 }
+        : pictureAt === "hand"
+          ? // Above the head and out toward whoever it is shown to: over the hand it covered the face, and the studio's mics drew over it.
+            { x: (rig.head.x + HEAD_RADIUS + 14) * side, y: rig.head.y - HEAD_RADIUS - 20 }
+          : { x: rig.head.x * side, y: rig.head.y - HEAD_RADIUS - 23 }}
+    {@const tail = pictureAt === "hand" && pictureOver ? tailTo(over) : { at: 0, tip: { x: 0, y: 17 } }}
     <g transform="translate({n(over.x)} {n(over.y)})">
       <g class="animate-rise">
         <path
-          d="M-17 -13h34a5 5 0 0 1 5 5v15a5 5 0 0 1-5 5h-13l-4 5-4-5h-13a5 5 0 0 1-5-5v-15a5 5 0 0 1 5-5Z"
+          d="M-17 -13h34a5 5 0 0 1 5 5v15a5 5 0 0 1-5 5H{n(tail.at + 4)}L{n(tail.tip.x)} {n(tail.tip.y)}L{n(tail.at - 4)} 12H-17a5 5 0 0 1-5-5v-15a5 5 0 0 1 5-5Z"
           class="fill-white stroke-portrait-ink"
           stroke-width="1.1"
         />

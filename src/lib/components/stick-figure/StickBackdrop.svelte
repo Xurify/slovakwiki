@@ -150,8 +150,10 @@
       const ids = thing.ofKind ? ofKind(thing.ofKind) : [];
       return ids.length ? { ...thing, of: [...(thing.of ?? []), ...ids] } : thing;
     });
+    // An object the place already names keeps that word: the school's form is a formulár, not a papier.
+    const named = new Set(own.flatMap((thing) => thing.of ?? []));
     const props = Object.entries(PROP_THINGS).flatMap(([kind, thing]) => {
-      const ids = ofKind(kind);
+      const ids = ofKind(kind).filter((id) => !named.has(id));
       if (!thing || !ids.length || own.some(({ id }) => id === thing.id)) return [];
       return [{ ...thing, of: ids }];
     });

@@ -395,6 +395,8 @@ const PLAZA_SET: PlaceSet = {
     // The edges, past what the widest stage shows, to walk on from.
     "off-left": { x: 40, facing: 1 },
     "off-right": { x: 1000, facing: -1 },
+    // In front of the café's tables, turned to them, for someone sitting out there to come over from.
+    cafe: { x: 680, facing: 1 },
   },
 };
 
@@ -838,6 +840,8 @@ export const PROP_THINGS: Readonly<Partial<Record<string, SceneThing>>> = {
   phone: { ...WORDS.telefon, box: { x: 0, y: 0, width: 0, height: 0 }, quiet: true },
   keys: { ...WORDS.kluce, box: { x: 0, y: 0, width: 0, height: 0 }, quiet: true },
   bag: { ...WORDS.taska, box: { x: 0, y: 0, width: 0, height: 0 }, quiet: true },
+  umbrella: { ...WORDS.dazdnik, box: { x: 0, y: 0, width: 0, height: 0 }, quiet: true },
+  clipboard: { ...WORDS.papier, box: { x: 0, y: 0, width: 0, height: 0 }, quiet: true },
 };
 
 export function backdropAlign(setting: StageSetting): number {

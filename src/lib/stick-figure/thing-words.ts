@@ -871,6 +871,20 @@ export const THING_WORDS = {
     stems: ["vesiak"],
     word: "vešiak",
   },
+  dazdnik: {
+    english: "umbrella",
+    gender: "masculine-inanimate",
+    id: "dazdnik",
+    stems: ["dazdnik"],
+    word: "dáždnik",
+  },
+  papier: {
+    english: "paper",
+    gender: "masculine-inanimate",
+    id: "papier",
+    stems: ["papier"],
+    word: "papier",
+  },
   formular: {
     english: "form",
     gender: "masculine-inanimate",

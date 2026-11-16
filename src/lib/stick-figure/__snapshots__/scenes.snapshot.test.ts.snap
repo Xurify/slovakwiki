@@ -13114,15 +13114,15 @@ exports[`every scene, directed > podcast podcast-possessives-photos 1`] = `
       },
     },
     {
-      "line": "anna: A to je tvoj dom?",
+      "line": "anna: A čí je ten dom?",
       "plan": {
         "beats": [
-          "0 ask",
+          "50 ask",
         ],
         "ms": 1600,
-        "questions": "0-1450",
-        "sentences": "0-1450",
-        "words": "0-227 227-498 498-770 770-1133 1133-1450",
+        "questions": "50-1450",
+        "sentences": "50-1450",
+        "words": "50-266 266-584 584-844 844-1147 1147-1450",
       },
       "staging": {
         "addressee": "marek",
@@ -13141,15 +13141,15 @@ exports[`every scene, directed > podcast podcast-possessives-photos 1`] = `
       },
     },
     {
-      "line": "marek: Nie, to je dom mojich rodičov. Ich dom je pri lese.",
+      "line": "marek: To je dom mojich rodičov. Ich dom je pri lese.",
       "plan": {
         "beats": [
-          "0 shake",
-          "3750 tell",
+          "100 tell",
+          "3100 tell",
         ],
-        "ms": 5200,
-        "sentences": "0-2313 3750-5050",
-        "words": "0-275 400-625 625-850 850-1113 1113-1600 1600-2313 3750-3955 3955-4195 4195-4400 4400-4639 4639-5050",
+        "ms": 4650,
+        "sentences": "100-1910 3100-4500",
+        "words": "100-313 313-526 526-774 774-1235 1235-1910 3100-3321 3321-3579 3579-3800 3800-4058 4058-4500",
       },
       "staging": {
         "addressee": "anna",
@@ -13552,16 +13552,16 @@ exports[`every scene, directed > podcast podcast-possessives-quiz 1`] = `
       },
     },
     {
-      "line": "anna: Správne! Idem ja a sestra je moja, preto: so svojou sestrou.",
+      "line": "anna: Správne! Ja idem a sestra je moja, takže: so svojou sestrou.",
       "plan": {
         "beats": [
           "50 nod",
-          "1900 tell",
-          "4500 muse",
+          "2350 self",
+          "4950 tell",
         ],
-        "ms": 6350,
-        "sentences": "50-666 1900-6150",
-        "words": "50-666 1900-2362 2362-2593 2593-2786 2786-3325 3325-3556 3556-4019 4147-4648 4776-5007 5007-5559 5559-6150",
+        "ms": 7000,
+        "sentences": "50-732 2350-6800",
+        "words": "50-732 2350-2592 2592-3076 3076-3278 3278-3842 3842-4084 4084-4568 4703-5227 5361-5603 5603-6182 6182-6800",
       },
       "staging": {
         "addressee": "marek",
@@ -13717,16 +13717,16 @@ exports[`every scene, directed > podcast podcast-possessives-quiz 1`] = `
       },
     },
     {
-      "line": "anna: Nesprávne! Svoj nemôže byť v podmete. Správne je: môj brat je učiteľ.",
+      "line": "anna: Nesprávne! Brat je tu podmet a svoj nemôže byť v podmete. Správne je: môj brat je učiteľ.",
       "plan": {
         "beats": [
-          "50 shake",
-          "2600 tell",
-          "5550 nod",
+          "0 shake",
+          "1900 tell",
+          "6520 nod",
         ],
-        "ms": 8500,
-        "sentences": "50-920 2600-4363 5550-8300",
-        "words": "50-920 2600-2865 2865-3504 3504-3735 3735-3735 3735-4363 5550-6231 6231-6481 6619-6967 6967-7300 7300-7550 7550-8300",
+        "ms": 9050,
+        "sentences": "0-788 1900-5284 6520-8850",
+        "words": "0-788 1900-2193 2193-2413 2413-2633 2633-3146 3146-3329 3329-3623 3623-4331 4331-4588 4588-4588 4588-5284 6520-7096 7096-7308 7426-7720 7720-8003 8003-8214 8214-8850",
       },
       "staging": {
         "addressee": "marek",
@@ -14120,7 +14120,7 @@ exports[`every scene, directed > podcast podcast-possessives-school 1`] = `
       "plan": {
         "beats": [
           "0 ask",
-          "1650 cheer",
+          "1650 nod",
         ],
         "ms": 3200,
         "questions": "0-833",
@@ -14170,7 +14170,7 @@ exports[`every scene, directed > podcast podcast-possessives-school 1`] = `
       "plan": {
         "beats": [
           "50 ask",
-          "1500 cheer",
+          "1500 chuckle",
           "5050 nod",
         ],
         "ms": 5800,
@@ -14376,15 +14376,15 @@ exports[`every scene, directed > podcast podcast-possessives-square 1`] = `
       },
     },
     {
-      "line": "marek: Modrý dáždnik?",
+      "line": "marek: Tento modrý dáždnik?",
       "plan": {
         "beats": [
-          "0 ask",
+          "50 ask",
         ],
-        "ms": 1300,
-        "questions": "0-1100",
-        "sentences": "0-1100",
-        "words": "0-514 514-1100",
+        "ms": 1800,
+        "questions": "50-1550",
+        "sentences": "50-1550",
+        "words": "50-497 497-989 989-1550",
       },
       "staging": {
         "addressee": "lucia",
@@ -14404,15 +14404,15 @@ exports[`every scene, directed > podcast podcast-possessives-square 1`] = `
       },
     },
     {
-      "line": "lucia: Áno! Modrý.",
+      "line": "lucia: Áno! Je na ňom moje meno.",
       "plan": {
         "beats": [
           "0 nod",
-          "750 tell",
+          "800 tell",
         ],
-        "ms": 1450,
-        "sentences": "0-415 750-1300",
-        "words": "0-415 750-1300",
+        "ms": 2100,
+        "sentences": "0-357 800-1950",
+        "words": "0-357 800-960 960-1121 1121-1308 1308-1629 1629-1950",
       },
       "staging": {
         "addressee": "marek",
@@ -14432,15 +14432,15 @@ exports[`every scene, directed > podcast podcast-possessives-square 1`] = `
       },
     },
     {
-      "line": "marek: Je to tvoj dáždnik?",
+      "line": "marek: Tak je to tvoj dáždnik. Nech sa páči!",
       "plan": {
         "beats": [
-          "50 ask",
+          "50 tell",
+          "2800 stress",
         ],
-        "ms": 1600,
-        "questions": "50-1400",
-        "sentences": "50-1400",
-        "words": "50-273 273-496 496-793 793-1400",
+        "ms": 3700,
+        "sentences": "50-1458 2800-3450",
+        "words": "50-277 277-472 472-667 667-927 927-1458 2800-2973 2973-3121 3121-3450",
       },
       "staging": {
         "addressee": "lucia",
@@ -14451,10 +14451,10 @@ exports[`every scene, directed > podcast podcast-possessives-square 1`] = `
         },
         "reactions": [
           {
-            "at": 0.5,
+            "at": 0.8,
             "characterId": "lucia",
-            "gesture": "lean",
-            "sentence": 0,
+            "gesture": "show",
+            "sentence": 1,
           },
         ],
       },
