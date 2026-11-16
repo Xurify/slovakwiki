@@ -144,19 +144,15 @@
 
 <!--
   The square: grey granite, a smooth pavement along the houses that the street
-  furniture stands on, a kerb's drop, then setts laid in fans. The fountain,
-  the bench and the tree stand on the setts, just past the kerb.
+  furniture stands on, a kerb, then setts. The fountain, the bench and the
+  tree stand on the setts, just past the kerb.
 -->
 <rect x="-10" y="226" width="980" height="84" class="fill-scene-steel-light" />
 <rect x="-10" y="226" width="980" height={KERB} class="fill-scene-cool" />
-<path
-  d="M-10 {SLAB.row}H970{slabJoints}"
-  class="stroke-scene-line/12"
-  fill="none"
-  stroke-width="1"
-/>
-<rect x="-10" y={226 + KERB} width="980" height="2.5" class="fill-scene-line/25" />
-<Cobbles from={226 + KERB + 2.5} />
+<path d="M-10 {SLAB.row}H970{slabJoints}" class="stroke-scene-line/10" fill="none" stroke-width="0.8" />
+<rect x="-10" y={226 + KERB - 1.5} width="980" height="1.5" class="fill-white" />
+<rect x="-10" y={226 + KERB} width="980" height="1.5" class="fill-scene-line/20" />
+<Cobbles from={226 + KERB + 1.5} />
 <FloorShade />
 
 <StreetLamp lamp={PARTS.plaza.lamp} />
