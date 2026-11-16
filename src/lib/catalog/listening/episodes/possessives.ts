@@ -163,11 +163,32 @@ const intro: ListeningChapter = {
   ],
 };
 
+/**
+ * `keep` holds a shown photo up until Marek's next cue. It comes with the engine's `show`
+ * hold (fix/engine-r2); cast, so this file still builds on a branch without it.
+ */
+const KEEP = { keep: true } as unknown as Partial<Cue>;
+
 /** Turns the screen to Anna with the photo on it, and she leans in to see it. */
 function showPhoto(picture: StickPictureId): Cue[] {
   return [
-    { do: "show", what: "phone", to: "anna", picture, on: "fotka" },
+    { do: "show", what: "phone", to: "anna", picture, on: "fotka", ...KEEP },
     { who: "anna", do: "lean", to: "marek", on: "fotka" },
+  ];
+}
+
+/** The same photo again on each line they talk about it, so it stays up where `keep` is not there. */
+function stillShowing(picture: StickPictureId): Cue[] {
+  return [
+    {
+      who: "marek",
+      do: "show",
+      what: "phone",
+      to: "anna",
+      picture,
+      on: "start",
+      ...KEEP,
+    },
   ];
 }
 
@@ -179,8 +200,26 @@ const PHOTOS_ACTS: Record<string, Cue[]> = {
   "anna-show-me": [{ do: "nod", on: "ukáž" }],
   // He holds each photo out to her, and puts the phone away only once they are done with them.
   "marek-first-photo": showPhoto("photo-man-dog"),
+  "anna-your-brother": stillShowing("photo-man-dog"),
+  "marek-my-friend-peter": stillShowing("photo-man-dog"),
+  "anna-his-dog": stillShowing("photo-man-dog"),
+  "marek-dog-called-dunco": stillShowing("photo-man-dog"),
+  "anna-dog-big-second": stillShowing("photo-man-dog"),
   "marek-house-and-car": showPhoto("photo-house"),
-  "marek-old-but-mine": showPhoto("photo-mother-girl"),
+  "anna-your-house": stillShowing("photo-house"),
+  "marek-parents-house": stillShowing("photo-house"),
+  "anna-their-car": stillShowing("photo-house"),
+  "marek-my-car": stillShowing("photo-house"),
+  "anna-your-car-old": stillShowing("photo-house"),
+  // "Staré, ale moje!" is still about the car, so the house stays up until the third photo.
+  "marek-old-but-mine": [
+    ...stillShowing("photo-house"),
+    ...showPhoto("photo-mother-girl"),
+  ],
+  "anna-your-sister": stillShowing("photo-mother-girl"),
+  "marek-sister-zuzana": stillShowing("photo-mother-girl"),
+  "anna-her-daughter-age": stillShowing("photo-mother-girl"),
+  "marek-five-years": stillShowing("photo-mother-girl"),
   "anna-five-lovely-family": [
     { who: "marek", do: "pocket", what: "phone", on: "rodina" },
   ],
@@ -432,6 +471,11 @@ const SCHOOL_ACTS: Record<string, Cue[]> = {
     { do: "raise", what: "umbrella", on: "pozriem" },
     { do: "give", what: "umbrella", to: "marek", on: "študentka" },
   ],
+  // The students' sentences for the quiz, from the desk: Marek reads them out in the studio.
+  "maria-sentences-for-podcast": [
+    { do: "take", what: "sentences", on: "niečo" },
+    { do: "give", what: "sentences", to: "marek", on: "vety" },
+  ],
 };
 
 const school: ListeningChapter = {
@@ -445,6 +489,11 @@ const school: ListeningChapter = {
         id: "umbrella",
         kind: "umbrella",
         start: { where: { hand: "marek", side: "lead" } },
+      },
+      {
+        id: "sentences",
+        kind: "clipboard",
+        start: { where: { on: "counter", dx: -14 } },
       },
     ],
   },
@@ -506,15 +555,43 @@ const school: ListeningChapter = {
           mark("Jej"),
           " kurz je zajtra o deviatej. ",
           PAUSE,
-          "Ale býva blízko, na námestí.",
+          "Ale často sedáva v kaviarni na námestí.",
         ],
-        "She's not here today. Her course is tomorrow at nine. But she lives nearby, on the square.",
+        "She's not here today. Her course is tomorrow at nine. But she often sits in the café on the square.",
       ),
       line(
         "anna-square-thanks",
         "Anna",
         ["Na námestí? ", PAUSE, "Super, ďakujeme!"],
         "On the square? Great, thank you!",
+      ),
+      line(
+        "maria-sentences-for-podcast",
+        "Mária",
+        [
+          "A ešte niečo pre ",
+          mark("váš"),
+          " podcast: ",
+          PAUSE,
+          "vety od ",
+          mark("našich"),
+          " študentov. ",
+          PAUSE,
+          "Sú v nich chyby!",
+        ],
+        "And something else for your podcast: sentences from our students. They have mistakes in them!",
+      ),
+      line(
+        "anna-a-test-for-listeners",
+        "Anna",
+        [
+          "Chyby? ",
+          PAUSE,
+          "Výborne, to bude malá skúška pre ",
+          mark("našich"),
+          " poslucháčov. Ďakujeme!",
+        ],
+        "Mistakes? Great, that'll be a little test for our listeners. Thank you!",
       ),
       line(
         "maria-youre-welcome",
@@ -615,8 +692,10 @@ const school: ListeningChapter = {
 const SQUARE_ACTS: Record<string, Cue[]> = {
   // She is crossing the square when Anna sees her, and comes over to them.
   "anna-now-on-square": [
+    // She sets off as Anna names the place, so she is nearly there when Anna points. The point is
+    // listed first because the checks, replaying in list order, find no one to point at mid-walk.
     { do: "point", to: "lucia", on: "lucia" },
-    { who: "lucia", do: "enter", from: "off-right", to: "marek", on: "lucia" },
+    { who: "lucia", do: "enter", from: "off-right", to: "marek", on: "námestí" },
   ],
   "marek-blue-umbrella": [{ do: "raise", what: "umbrella", on: "modrý" }],
   "lucia-mine": [
@@ -631,9 +710,12 @@ const SQUARE_ACTS: Record<string, Cue[]> = {
   "lucia-marek-and-his-keys": [
     { do: "laugh", on: "kľúče" },
     { do: "wave", on: "majte" },
-    { do: "leave", to: "right" },
   ],
-  "anna-back-to-studio": [{ do: "wave", on: "maj" }],
+  // She turns to go as Anna waves her off.
+  "anna-back-to-studio": [
+    { do: "wave", on: "maj" },
+    { who: "lucia", do: "leave", to: "right", on: "lucia" },
+  ],
 };
 
 const square: ListeningChapter = {
@@ -836,6 +918,11 @@ const square: ListeningChapter = {
 
 const QUIZ_ACTS: Record<string, Cue[]> = {
   "anna-now-a-test": [{ do: "nod", on: "skúška" }],
+  // He reads each sentence off Mária's sheet.
+  "marek-sentence-cinema": [{ do: "raise", what: "sentences", on: "prvá" }],
+  "marek-sentence-moja-brat": [{ do: "raise", what: "sentences", on: "druhá" }],
+  "marek-sentence-svoj-brat": [{ do: "raise", what: "sentences", on: "tretia" }],
+  "marek-sentence-ich-auto": [{ do: "raise", what: "sentences", on: "štvrtá" }],
   "marek-students-do-this": [{ do: "shrug", on: "veľa" }],
 };
 
@@ -843,6 +930,16 @@ const quiz: ListeningChapter = {
   id: `${PREFIX}quiz`,
   titleSk: "Správne alebo nesprávne?",
   title: "Your game: right or wrong?",
+  setup: {
+    // The sheet Mária gave them at the school.
+    objects: [
+      {
+        id: "sentences",
+        kind: "clipboard",
+        start: { where: { hand: "marek", side: "rear" } },
+      },
+    ],
+  },
   lines: staged(
     PREFIX,
     [
@@ -976,8 +1073,8 @@ const quiz: ListeningChapter = {
       line(
         "marek-students-do-this",
         "Marek",
-        ["Toto robí veľa študentov."],
-        "Lots of students do this.",
+        ["Túto chybu robí veľa študentov."],
+        "Lots of students make this mistake.",
       ),
       line(
         "anna-it-is-hard",
@@ -1125,7 +1222,7 @@ const outro: ListeningChapter = {
       line(
         "marek-thats-all",
         "Marek",
-        ["To je všetko na dnes."],
+        ["To je na dnes všetko."],
         "That's all for today.",
       ),
       line(

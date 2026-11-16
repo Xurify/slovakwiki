@@ -1345,6 +1345,8 @@ exports[`every scene, directed > lesson everyday/numbers-and-personal-details 1`
     "dvere",
     "vesiak",
     "nastenka",
+    "priecinky",
+    "vydajnik",
     "plagat",
     "napis",
     "kluce",
@@ -1733,6 +1735,8 @@ exports[`every scene, directed > lesson grammar/byt-present 1`] = `
     "dvere",
     "vesiak",
     "nastenka",
+    "priecinky",
+    "vydajnik",
     "plagat",
     "napis",
     "kluce",
@@ -3520,6 +3524,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-intro 1`] = `
     "reproduktor",
     "notebook",
     "mixpult",
+    "stolicka",
   ],
 }
 `;
@@ -4141,6 +4146,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-outro 1`] = `
     "reproduktor",
     "notebook",
     "mixpult",
+    "stolicka",
   ],
 }
 `;
@@ -5243,6 +5249,7 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
     "reproduktor",
     "notebook",
     "mixpult",
+    "stolicka",
   ],
 }
 `;
@@ -8675,6 +8682,7 @@ exports[`every scene, directed > podcast podcast-imperative-help 1`] = `
     "reproduktor",
     "notebook",
     "mixpult",
+    "stolicka",
   ],
 }
 `;
@@ -9024,6 +9032,7 @@ exports[`every scene, directed > podcast podcast-imperative-intro 1`] = `
     "reproduktor",
     "notebook",
     "mixpult",
+    "stolicka",
   ],
 }
 `;
@@ -9839,6 +9848,7 @@ exports[`every scene, directed > podcast podcast-imperative-outro 1`] = `
     "reproduktor",
     "notebook",
     "mixpult",
+    "stolicka",
   ],
 }
 `;
@@ -10890,6 +10900,7 @@ exports[`every scene, directed > podcast podcast-past-tense-closed 1`] = `
     "reproduktor",
     "notebook",
     "mixpult",
+    "stolicka",
   ],
 }
 `;
@@ -11657,6 +11668,7 @@ exports[`every scene, directed > podcast podcast-past-tense-plate 1`] = `
     "reproduktor",
     "notebook",
     "mixpult",
+    "stolicka",
   ],
 }
 `;
@@ -12037,6 +12049,8 @@ exports[`every scene, directed > podcast podcast-past-tense-school 1`] = `
     "dvere",
     "vesiak",
     "nastenka",
+    "priecinky",
+    "vydajnik",
     "plagat",
     "napis",
     "kluce",
@@ -12259,6 +12273,7 @@ exports[`every scene, directed > podcast podcast-past-tense-whodunit 1`] = `
     "reproduktor",
     "notebook",
     "mixpult",
+    "stolicka",
   ],
 }
 `;
@@ -12464,6 +12479,7 @@ exports[`every scene, directed > podcast podcast-possessives-intro 1`] = `
     "reproduktor",
     "notebook",
     "mixpult",
+    "stolicka",
   ],
 }
 `;
@@ -12476,20 +12492,20 @@ exports[`every scene, directed > podcast podcast-possessives-outro 1`] = `
   ],
   "lines": [
     {
-      "line": "marek: To je všetko na dnes.",
+      "line": "marek: To je na dnes všetko.",
       "plan": {
         "beats": [
-          "50 tell",
+          "100 tell",
         ],
-        "ms": 1550,
-        "sentences": "50-1200",
-        "words": "50-223 223-395 395-798 798-970 970-1200",
+        "ms": 1400,
+        "sentences": "100-1200",
+        "words": "100-265 265-430 430-595 595-815 815-1200",
       },
       "staging": {
         "addressee": "anna",
-        "audience": true,
         "facing": {
           "anna": 1,
+          "marek": -1,
         },
       },
     },
@@ -12695,6 +12711,7 @@ exports[`every scene, directed > podcast podcast-possessives-outro 1`] = `
     "reproduktor",
     "notebook",
     "mixpult",
+    "stolicka",
   ],
 }
 `;
@@ -13266,6 +13283,7 @@ exports[`every scene, directed > podcast podcast-possessives-photos 1`] = `
     "reproduktor",
     "notebook",
     "mixpult",
+    "stolicka",
   ],
 }
 `;
@@ -13592,14 +13610,14 @@ exports[`every scene, directed > podcast podcast-possessives-quiz 1`] = `
       },
     },
     {
-      "line": "marek: Toto robí veľa študentov.",
+      "line": "marek: Túto chybu robí veľa študentov.",
       "plan": {
         "beats": [
-          "50 tell",
+          "50 point",
         ],
-        "ms": 1800,
-        "sentences": "50-1600",
-        "words": "50-369 369-723 723-1042 1042-1600",
+        "ms": 2350,
+        "sentences": "50-2150",
+        "words": "50-441 441-792 792-1183 1183-1535 1535-2150",
       },
       "staging": {
         "addressee": "anna",
@@ -13778,6 +13796,7 @@ exports[`every scene, directed > podcast podcast-possessives-quiz 1`] = `
     "reproduktor",
     "notebook",
     "mixpult",
+    "stolicka",
   ],
 }
 `;
@@ -13938,16 +13957,16 @@ exports[`every scene, directed > podcast podcast-possessives-school 1`] = `
       },
     },
     {
-      "line": "maria: Dnes tu nie je. Jej kurz je zajtra o deviatej. Ale býva blízko, na námestí.",
+      "line": "maria: Dnes tu nie je. Jej kurz je zajtra o deviatej. Ale často sedáva v kaviarni na námestí.",
       "plan": {
         "beats": [
           "0 tell",
           "1350 tell",
-          "4150 tell",
+          "4300 tell",
         ],
-        "ms": 6350,
-        "sentences": "0-812 1350-2961 4150-6100",
-        "words": "0-238 238-416 416-634 634-812 1350-1537 1537-1750 1750-1911 1911-2284 2284-2418 2418-2961 4150-4454 4454-4821 4821-5245 5337-5502 5502-6100",
+        "ms": 6900,
+        "sentences": "0-816 1350-2977 4300-6750",
+        "words": "0-239 239-418 418-637 637-816 1350-1539 1539-1754 1754-1916 1916-2294 2294-2429 2429-2977 4300-4595 4595-4944 4944-5462 5462-5462 5462-6008 6008-6169 6169-6750",
       },
       "staging": {
         "addressee": "marek",
@@ -13977,6 +13996,57 @@ exports[`every scene, directed > podcast podcast-possessives-school 1`] = `
         "questions": "0-833",
         "sentences": "0-833 1650-3100",
         "words": "0-181 181-833 1650-2117 2237-3100",
+      },
+      "staging": {
+        "addressee": "maria",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+          "maria": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "maria",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "maria: A ešte niečo pre váš podcast: vety od našich študentov. Sú v nich chyby!",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "2650 muse",
+          "5306 stress",
+        ],
+        "ms": 6250,
+        "sentences": "50-4317 5306-6050",
+        "words": "50-194 194-541 541-926 926-1129 1129-1370 1370-1803 2814-3161 3161-3334 3334-3710 3710-4317 5306-5513 5513-5513 5513-5711 5711-6050",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": 1,
+          "maria": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Chyby? Výborne, to bude malá skúška pre našich poslucháčov. Ďakujeme!",
+      "plan": {
+        "beats": [
+          "50 ask",
+          "1500 cheer",
+          "5050 nod",
+        ],
+        "ms": 5800,
+        "questions": "50-385",
+        "sentences": "50-385 1500-4645 5050-5650",
+        "words": "50-385 1500-2044 2133-2293 2293-2614 2614-2970 2970-3380 3380-3567 3567-3915 3915-4645 5050-5650",
       },
       "staging": {
         "addressee": "maria",
@@ -14066,6 +14136,8 @@ exports[`every scene, directed > podcast podcast-possessives-school 1`] = `
     "dvere",
     "vesiak",
     "nastenka",
+    "priecinky",
+    "vydajnik",
     "plagat",
     "napis",
     "kluce",
@@ -15344,6 +15416,7 @@ exports[`every scene, directed > podcast podcast-telling-time-clock-lesson 1`] =
     "reproduktor",
     "notebook",
     "mixpult",
+    "stolicka",
   ],
 }
 `;
@@ -16329,6 +16402,7 @@ exports[`every scene, directed > podcast podcast-telling-time-help 1`] = `
     "reproduktor",
     "notebook",
     "mixpult",
+    "stolicka",
   ],
 }
 `;
@@ -16567,6 +16641,7 @@ exports[`every scene, directed > podcast podcast-telling-time-intro 1`] = `
     "reproduktor",
     "notebook",
     "mixpult",
+    "stolicka",
   ],
 }
 `;
@@ -16753,6 +16828,7 @@ exports[`every scene, directed > podcast podcast-telling-time-outro 1`] = `
     "reproduktor",
     "notebook",
     "mixpult",
+    "stolicka",
   ],
 }
 `;

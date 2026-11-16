@@ -850,6 +850,22 @@ export const THING_WORDS = {
     stems: ["tanier"],
     word: "tanier",
   },
+  vydajnik: {
+    english: "water cooler",
+    gender: "masculine-inanimate",
+    id: "vydajnik",
+    stems: ["vydajnik"],
+    word: "výdajník",
+  },
+  priecinky: {
+    english: "pigeonholes",
+    gender: "masculine-inanimate",
+    id: "priecinky",
+    lemma: "priečinok",
+    plural: true,
+    stems: ["priecink", "priecinok"],
+    word: "priečinky",
+  },
   zrkadlo: {
     english: "mirror",
     gender: "neuter",
