@@ -312,10 +312,12 @@ const MARKET_SET: PlaceSet = {
   // Lucia's cheese table beside her, at the hip: the stall's own counter is drawn in the backdrop,
   // whose scale against the cast's changes with the stage, so a surface at its height would float
   // off it on another screen; the table stands on the cast's floor.
-  pieces: [{ id: "counter", kind: "stand", x: 800 }],
+  // Drawn over Lucia, who sells from behind it.
+  pieces: [{ id: "counter", kind: "stand", x: 800, front: true }],
   objects: [],
   spots: {
     stall: { x: 660, facing: 1 },
+    "behind-counter": { piece: "counter", dx: -36, facing: -1 },
     aside: { x: 530, facing: 1 },
   },
 };
@@ -548,7 +550,7 @@ export const PLACES: Readonly<Record<StageSetting, Place>> = {
     things: [
       drawn(WORDS.ovocie, [390, 122, 164, 52]),
       drawn(WORDS.zelenina, [736, 114, 84, 60]),
-      twins(WORDS.syr, [620, 96, 20, 34], [922, 96, 16, 28]),
+      twins(WORDS.syr, [605, 96, 34, 48], [925, 96, 26, 41]),
       twins(WORDS.jahody, [648, 134, 76, 24], [824, 134, 76, 24]),
       drawn(WORDS.stanok, [626, 60, 308, 166], [368, 76, 204, 150]),
     ],

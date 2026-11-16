@@ -105,10 +105,10 @@ const MARKET_ACTS: Record<string, Cue[]> = {
   "lucia-that-one-cheaper": [{ do: "point", to: "syr#far", on: "Tamten" }],
   "marek-ill-take-that-one": [
     { do: "point", to: "syr#far", on: "tamten" },
-    { who: "lucia", do: "take", what: "cheese", on: "end" },
+    { who: "lucia", do: "take", what: "cheese", on: "tamten" },
   ],
   "anna-want-these-strawberries": [
-    { who: "lucia", do: "give", what: "cheese", to: "marek", on: "before" },
+    { who: "lucia", do: "give", what: "cheese", to: "marek", on: "start" },
     { do: "point", to: "jahody#near", on: "tieto" },
   ],
   "lucia-strawberries-from": [
@@ -117,12 +117,14 @@ const MARKET_ACTS: Record<string, Cue[]> = {
   ],
   "anna-those-please": [{ do: "point", to: "jahody#far", on: "tamtie" }],
   // Marek is at the stall, between them: the basket comes to Anna through his hands.
-  "lucia-here-you-are": [{ do: "give", what: "basket", to: "marek", on: "páči" }],
+  "lucia-here-you-are": [
+    { do: "take", what: "basket", on: "before" },
+    { do: "give", what: "basket", to: "marek", on: "páči" },
+  ],
   "marek-anna-always-slovak": [
     { do: "give", what: "basket", to: "anna", on: "start" },
     { do: "point", to: "jahody#far", on: "slovenské" },
   ],
-  "anna-lets-go-home": [{ do: "wave", on: "poďme" }],
 };
 
 const market: ListeningChapter = {
@@ -134,9 +136,10 @@ const market: ListeningChapter = {
   title: "At the market: this one or that one?",
   setup: {
     objects: [
-      { id: "basket", kind: "basket", start: { where: { hand: "lucia", side: "lead" } } },
+      { id: "basket", kind: "basket", start: { where: { on: "counter", dx: -2 } } },
       { id: "cheese", kind: "cheese", start: { where: { on: "counter", dx: -17 } } },
     ],
+    spots: { lucia: "behind-counter" },
   },
   lines: staged(
     PREFIX,
@@ -207,10 +210,27 @@ const market: ListeningChapter = {
         "Anna always buys Slovak strawberries.",
       ),
       line(
-        "anna-lets-go-home",
+        "anna-how-much-altogether",
         "Anna",
-        ["Dobre. Poďme domov na obed!"],
-        "OK. Let's go home for lunch!",
+        ["Koľko to bude spolu?"],
+        "How much is that altogether?",
+        { to: "Lucia" },
+      ),
+      line("lucia-eight-euros", "Lucia", ["Osem eur, prosím."], "Eight euros, please."),
+      line(
+        "anna-thanks-goodbye",
+        "Anna",
+        ["Ďakujeme, dovidenia!"],
+        "Thank you, goodbye!",
+      ),
+      line("lucia-goodbye", "Lucia", ["Dovidenia!"], "Goodbye!"),
+      // The car is why the key matters at home.
+      line(
+        "marek-home-then-car",
+        "Marek",
+        ["Tak poďme domov. ", PAUSE, "Potom pôjdeme autom."],
+        "Let's go home, then. Then we'll take the car.",
+        { to: "Anna" },
       ),
     ],
     MARKET_ACTS,
@@ -304,17 +324,18 @@ const HOME_ACTS: Record<string, Cue[]> = {
   "anna-in-that-one-window": [
     { do: "point", to: "taska#far", on: "tamtej" },
     { do: "point", to: "okno", on: "okne" },
+    // He sets off as she names the window, so the key is found with no gap before his line.
+    { who: "marek", do: "go", to: "window-bag", on: "okne" },
   ],
-  // He goes to the bag by the window and finds the key before he says so; from there he sees the man outside.
+  // At the bag by the window he finds the key before he says so; from there he sees the man outside.
   "marek-got-it-who-is-man": [
-    { do: "go", to: "window-bag", on: "before" },
-    { do: "take", what: "keys" },
+    { do: "take", what: "keys", on: "before" },
     { do: "raise", what: "keys", on: "ho" },
     { do: "point", to: "muz", on: "muž" },
   ],
   "anna-neighbour-you-know-him": [{ do: "point", to: "muz", on: "muža" }],
-  "marek-with-that-woman": [{ do: "point", to: "zena", on: "ženou" }],
-  "anna-dont-lose-these-keys": [{ do: "point", to: "keys", on: "kľúče" }],
+  "marek-who-is-that-woman": [{ do: "point", to: "zena", on: "žena" }],
+  "anna-dont-lose-this-key": [{ do: "point", to: "keys", on: "kľúč" }],
   "marek-back-to-studio": [{ do: "pocket", what: "keys", on: "späť" }],
 };
 
@@ -328,11 +349,18 @@ const home: ListeningChapter = {
       { id: "window-bag", kind: "stash", start: { where: { on: "window-bag", dx: 0 } } },
       { id: "keys", kind: "keys", start: { where: { in: "window-bag" } } },
     ],
+    // A step right of the home's middle, so neither stands in front of the bag on the mat by the door.
+    spots: { anna: "rug-mid", marek: "rug-right" },
   },
   lines: staged(
     PREFIX,
     [
-      line("anna-now-at-home", "Anna", ["A teraz sme doma."], "And now we're at home."),
+      line(
+        "anna-now-at-home",
+        "Anna",
+        ["A teraz sme u mňa doma."],
+        "And now we're at my place.",
+      ),
       line(
         "marek-where-is-key",
         "Marek",
@@ -373,14 +401,21 @@ const home: ListeningChapter = {
       line(
         "anna-neighbour-you-know-him",
         "Anna",
-        [mark("To"), " je náš sused, pán Novák. ", mark("Toho"), " muža poznáš."],
-        "That's our neighbour, Mr Novák. You know that man.",
+        [
+          mark("To"),
+          " je môj sused, pán Novák. ",
+          PAUSE,
+          "Veď ",
+          mark("toho"),
+          " muža poznáš!",
+        ],
+        "That's my neighbour, Mr Novák. Come on, you know that man!",
       ),
       line(
-        "marek-with-that-woman",
+        "marek-who-is-that-woman",
         "Marek",
-        ["Áno! Ide s ", mark("tou"), " ženou z obchodu."],
-        "Yes! He's walking with that woman from the shop.",
+        ["Áno! ", PAUSE, "A kto je ", mark("tá"), " žena pri ňom?"],
+        "Yes! And who is that woman next to him?",
       ),
       line(
         "anna-his-sister",
@@ -391,14 +426,21 @@ const home: ListeningChapter = {
       line(
         "marek-those-people-nice",
         "Marek",
-        [mark("Tí"), " ľudia sú milí."],
-        "Those people are nice.",
+        [
+          "Aha, ",
+          mark("tú"),
+          " ženu poznám z obchodu. ",
+          PAUSE,
+          mark("Tí"),
+          " ľudia sú milí.",
+        ],
+        "Oh, I know that woman from the shop. Those people are nice.",
       ),
       line(
-        "anna-dont-lose-these-keys",
+        "anna-dont-lose-this-key",
         "Anna",
-        ["Áno. A ", mark("tieto"), " kľúče už nestrácaj!"],
-        "Yes. And don't lose these keys again!",
+        ["Áno. A ", mark("tento"), " kľúč už nestrácaj!"],
+        "Yes. And don't lose this key again!",
       ),
       line(
         "marek-back-to-studio",
@@ -438,7 +480,7 @@ const home: ListeningChapter = {
     },
     {
       id: `${PREFIX}check-toho`,
-      gap: "___ muža poznáš.",
+      gap: "Veď ___ muža poznáš!",
       prompt: "Ktorý tvar povedala Anna?",
       promptEnglish: "Which form did Anna say?",
       replayLineId: `${PREFIX}anna-neighbour-you-know-him`,
@@ -454,7 +496,7 @@ const home: ListeningChapter = {
       ],
       answerId: "toho",
       feedback: {
-        english: "You know that man.",
+        english: "Come on, you know that man!",
         why: "**Poznať** takes the accusative, and a man changes: **toho muža**.",
       },
     },
@@ -500,6 +542,7 @@ const quiz: ListeningChapter = {
           "Tak, sme späť v štúdiu. ",
           PAUSE,
           "A teraz malá skúška pre teba, Marek: ",
+          PAUSE,
           mark("ten"),
           ", ",
           mark("tá"),
@@ -823,7 +866,7 @@ const quiz: ListeningChapter = {
           "marek-ten-muz",
           "Marek",
           ["Ten muž, hovoríte? ", PAUSE, "Dobre: poznám ten muž."],
-          "Ten muž, you say? OK: I know that man. (Said wrong on purpose.)",
+          "Ten muž, you say? OK: I know that man. (Wrong form: it should be toho muža.)",
         ),
         { ask: `${PREFIX}marek-so-helpers`, picks: ["ten"] },
       ),
@@ -919,7 +962,7 @@ const quiz: ListeningChapter = {
         { score: [0] },
         [
           "anna-none-of-three",
-          ["Nula z troch! ", PAUSE, CHUCKLE, "Marek, dnes ťa pomocníci nezachránili."],
+          [CHUCKLE, "Nula z troch! ", PAUSE, "Marek, dnes ťa pomocníci nezachránili."],
           "Zero out of three! Marek, the helpers didn't save you today.",
         ],
         ["marek-on-purpose", ["Oni to urobili naschvál!"], "They did it on purpose!"],
@@ -968,50 +1011,59 @@ const quiz: ListeningChapter = {
       },
     },
     {
-      id: `${PREFIX}check-ten-stands`,
-      gap: "___ muž stojí vonku.",
-      prompt: "Ktoré slovo povedala Anna?",
-      promptEnglish: "Which word did Anna say?",
-      replayLineId: `${PREFIX}anna-toho-not-ten`,
+      id: `${PREFIX}check-to-dievca`,
+      gap: "___ dievča",
+      prompt: "Ktoré slovo ide k slovu dievča?",
+      promptEnglish: "Which word goes with dievča?",
+      replayLineId: `${PREFIX}anna-first-word`,
       choices: [
-        { id: "ten", label: "Ten" },
-        {
-          id: "toho",
-          label: "Toho",
-          whyWrong:
-            "**Toho muža** is the man you know or see. Here the man does something himself: **ten muž stojí vonku**.",
-        },
+        { id: "to", label: "to" },
         {
           id: "ta",
-          label: "Tá",
-          whyWrong: "**Tá** is feminine, as in **tá žena**; **muž** is masculine.",
+          label: "tá",
+          whyWrong:
+            "**Tá** is feminine, as in **tá žena**. **Dievča** means a girl, but the word is neuter.",
+        },
+        {
+          id: "ten",
+          label: "ten",
+          whyWrong: "**Ten** is masculine, as in **ten muž**.",
         },
       ],
-      answerId: "ten",
+      answerId: "to",
       feedback: {
-        english: "Ten muž is standing outside.",
-        why: "The man stands, so he is the subject: **ten muž**. Whom you know takes **toho muža**.",
+        english: "That girl.",
+        why: "Anna says **dievča je stredného rodu**: it is neuter, so **to dievča**.",
       },
     },
   ],
 };
 
 const OUTRO_ACTS: Record<string, Cue[]> = {
-  "marek-where-are-those-keys": [{ do: "shrug", on: "kde" }],
-  "anna-marek": [{ do: "facepalm", on: "marek" }],
+  "marek-where-is-that-key": [{ do: "shrug", on: "Kde" }],
+  "anna-in-your-pocket": [{ do: "facepalm", on: "Marek" }],
+  // He put it in his pocket at home, on "späť".
+  "marek-in-this-pocket": [
+    { do: "pat", on: "Aha" },
+    { do: "take", what: "keys", on: "tomto" },
+    { do: "raise", what: "keys", on: "vrecku" },
+  ],
 };
 
 const outro: ListeningChapter = {
   id: `${PREFIX}outro`,
   titleSk: "Záver",
   title: "That's all for today",
+  setup: {
+    objects: [{ id: "keys", kind: "keys", start: { where: { pocket: "marek" } } }],
+  },
   lines: staged(
     PREFIX,
     [
       line(
         "marek-thats-all",
         "Marek",
-        [mark("To"), " je všetko na dnes."],
+        [mark("To"), " je na dnes všetko."],
         "That's all for today.",
       ),
       line(
@@ -1022,13 +1074,27 @@ const outro: ListeningChapter = {
       ),
       line("marek-take-care", "Marek", ["Majte sa pekne!"], "Take care!"),
       line("anna-bye", "Anna", ["Ahojte!"], "Bye!"),
+      {
+        ...line(
+          "marek-where-is-that-key",
+          "Marek",
+          ["Anna? ", PAUSE, "Kde je ", mark("ten"), " kľúč?"],
+          "Anna? Where is that key?",
+        ),
+        wait: 1000,
+      },
       line(
-        "marek-where-are-those-keys",
-        "Marek",
-        ["Anna? ", PAUSE, "Kde sú ", mark("tie"), " kľúče?"],
-        "Anna? Where are those keys?",
+        "anna-in-your-pocket",
+        "Anna",
+        [SIGH, "Marek! ", PAUSE, "Je v tvojom vrecku."],
+        "Marek! It's in your pocket.",
       ),
-      line("anna-marek", "Anna", [SIGH, "Marek!"], "Marek!"),
+      line(
+        "marek-in-this-pocket",
+        "Marek",
+        [CHUCKLE, "Aha. ", PAUSE, "V ", mark("tomto"), " vrecku."],
+        "Oh. In this pocket.",
+      ),
     ],
     OUTRO_ACTS,
   ),
@@ -1058,29 +1124,29 @@ const outro: ListeningChapter = {
       },
     },
     {
-      id: `${PREFIX}check-lost-again`,
-      prompt: "Čo hľadá Marek úplne na konci?",
-      promptEnglish: "What is Marek looking for at the very end?",
-      replayLineId: `${PREFIX}marek-where-are-those-keys`,
+      id: `${PREFIX}check-key-in-pocket`,
+      prompt: "Kde je kľúč úplne na konci?",
+      promptEnglish: "Where is the key at the very end?",
+      replayLineId: `${PREFIX}anna-in-your-pocket`,
       choices: [
-        { id: "keys", label: "Kľúče." },
-        {
-          id: "mic",
-          label: "Mikrofón.",
-          whyWrong:
-            "**Mikrofón** is the microphone, on the desk. Marek asks **kde sú tie kľúče?**",
-        },
+        { id: "pocket", label: "V Marekovom vrecku." },
         {
           id: "bag",
-          label: "Tašku.",
+          label: "V taške pri okne.",
           whyWrong:
-            "**Tašku** is a bag. The keys were in one at home; now Marek asks **kde sú tie kľúče?**",
+            "**V taške pri okne** was at home. Marek put the key in his pocket there, and Anna says **je v tvojom vrecku**.",
+        },
+        {
+          id: "desk",
+          label: "Na stole.",
+          whyWrong:
+            "**Na stole** means on the desk. Anna says **je v tvojom vrecku**, in your pocket.",
         },
       ],
-      answerId: "keys",
+      answerId: "pocket",
       feedback: {
-        english: "Anna? Where are those keys?",
-        why: "**Kľúče** are things, so **tie kľúče**. Only masculine nouns for people take **tí**: **tí muži**.",
+        english: "Marek! It's in your pocket.",
+        why: "Anna says **je v tvojom vrecku**, and Marek finds it: **v tomto vrecku**.",
       },
     },
   ],

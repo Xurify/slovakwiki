@@ -94,8 +94,8 @@
       back: ["potatoes", "onions", "potatoes"],
       // Tento syr for five euros, tamten for three.
       cheeses: [
-        { x: 630, price: "5 €", size: 1.1 },
-        { x: 930, price: "3 €", size: 0.85 },
+        { x: 622, price: "5 €", size: 1.7 },
+        { x: 938, price: "3 €", size: 1.45 },
       ],
     },
   ];
@@ -208,8 +208,8 @@
       />
       <!-- Its price, on a card tied under it. -->
       <path d="M0 26V32" class="stroke-scene-line" stroke-width="1.8" />
-      <rect x="-9" y="31" width="18" height="10" rx="1.5" class="fill-white" />
-      <text x="0" y="38.8" text-anchor="middle" font-size="7.5" font-weight="700" class="fill-scene-line"
+      <rect x="-10" y="31" width="20" height="12" rx="1.5" class="fill-white" />
+      <text x="0" y="40.2" text-anchor="middle" font-size="9" font-weight="700" class="fill-scene-line"
         >{price}</text
       >
     </g>

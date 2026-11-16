@@ -3011,14 +3011,14 @@ exports[`every scene, directed > podcast podcast-demonstratives-home 1`] = `
   ],
   "lines": [
     {
-      "line": "anna: A teraz sme doma.",
+      "line": "anna: A teraz sme u mňa doma.",
       "plan": {
         "beats": [
           "0 tell",
         ],
-        "ms": 1700,
-        "sentences": "0-1400",
-        "words": "0-189 189-681 681-946 946-1400",
+        "ms": 1800,
+        "sentences": "0-1600",
+        "words": "0-163 163-588 588-816 816-980 980-1208 1208-1600",
       },
       "staging": {
         "addressee": "marek",
@@ -3211,15 +3211,15 @@ exports[`every scene, directed > podcast podcast-demonstratives-home 1`] = `
       },
     },
     {
-      "line": "anna: To je náš sused, pán Novák. Toho muža poznáš.",
+      "line": "anna: To je môj sused, pán Novák. Veď toho muža poznáš!",
       "plan": {
         "beats": [
-          "50 tell",
-          "2350 tell",
+          "100 tell",
+          "3050 stress",
         ],
-        "ms": 3650,
-        "sentences": "50-1873 2350-3450",
-        "words": "50-234 234-419 419-675 675-1074 1177-1433 1433-1873 2350-2686 2686-3021 3021-3450",
+        "ms": 4800,
+        "sentences": "100-2019 3050-4650",
+        "words": "100-294 294-488 488-758 758-1178 1286-1556 1556-2019 3050-3292 3292-3706 3706-4121 4121-4650",
       },
       "staging": {
         "addressee": "marek",
@@ -3238,15 +3238,16 @@ exports[`every scene, directed > podcast podcast-demonstratives-home 1`] = `
       },
     },
     {
-      "line": "marek: Áno! Ide s tou ženou z obchodu.",
+      "line": "marek: Áno! A kto je tá žena pri ňom?",
       "plan": {
         "beats": [
           "0 nod",
-          "800 tell",
+          "1600 ask",
         ],
-        "ms": 2350,
-        "sentences": "0-358 800-2150",
-        "words": "0-358 800-1099 1099-1099 1099-1298 1298-1661 1661-1661 1661-2150",
+        "ms": 3450,
+        "questions": "1600-3200",
+        "sentences": "0-400 1600-3200",
+        "words": "0-400 1600-1756 1756-1974 1974-2161 2161-2390 2390-2764 2764-2982 2982-3200",
       },
       "staging": {
         "addressee": "anna",
@@ -3254,6 +3255,14 @@ exports[`every scene, directed > podcast podcast-demonstratives-home 1`] = `
           "anna": 1,
           "marek": -1,
         },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 1,
+          },
+        ],
       },
     },
     {
@@ -3272,17 +3281,26 @@ exports[`every scene, directed > podcast podcast-demonstratives-home 1`] = `
           "anna": 1,
           "marek": -1,
         },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "marek",
+            "gesture": "nod",
+            "sentence": 0,
+          },
+        ],
       },
     },
     {
-      "line": "marek: Tí ľudia sú milí.",
+      "line": "marek: Aha, tú ženu poznám z obchodu. Tí ľudia sú milí.",
       "plan": {
         "beats": [
-          "50 tell",
+          "0 tell",
+          "3850 tell",
         ],
-        "ms": 1500,
-        "sentences": "50-1300",
-        "words": "50-272 272-675 675-897 897-1300",
+        "ms": 5200,
+        "sentences": "0-2337 3850-5000",
+        "words": "0-384 500-756 756-1174 1174-1709 1709-1709 1709-2337 3850-4054 4054-4425 4425-4629 4629-5000",
       },
       "staging": {
         "addressee": "anna",
@@ -3293,15 +3311,15 @@ exports[`every scene, directed > podcast podcast-demonstratives-home 1`] = `
       },
     },
     {
-      "line": "anna: Áno. A tieto kľúče už nestrácaj!",
+      "line": "anna: Áno. A tento kľúč už nestrácaj!",
       "plan": {
         "beats": [
           "0 nod",
-          "800 stress",
+          "750 stress",
         ],
-        "ms": 3000,
-        "sentences": "0-412 800-2850",
-        "words": "0-412 800-968 968-1416 1416-1898 1898-2099 2099-2850",
+        "ms": 2900,
+        "sentences": "0-424 750-2750",
+        "words": "0-424 750-930 930-1397 1397-1732 1732-1948 1948-2750",
       },
       "staging": {
         "addressee": "marek",
@@ -3779,18 +3797,119 @@ exports[`every scene, directed > podcast podcast-demonstratives-market 1`] = `
       },
     },
     {
-      "line": "anna: Dobre. Poďme domov na obed!",
+      "line": "anna: Koľko to bude spolu?",
+      "plan": {
+        "beats": [
+          "50 ask",
+        ],
+        "ms": 1450,
+        "questions": "50-1300",
+        "sentences": "50-1300",
+        "words": "50-419 419-590 590-931 931-1300",
+      },
+      "staging": {
+        "addressee": "lucia",
+        "facing": {
+          "anna": 1,
+          "lucia": -1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "lucia",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "lucia: Osem eur, prosím.",
+      "plan": {
+        "beats": [
+          "0 tell",
+        ],
+        "ms": 1600,
+        "sentences": "0-1400",
+        "words": "0-442 442-712 835-1400",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "lucia": -1,
+          "marek": 1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "anna",
+            "gesture": "nod",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "anna: Ďakujeme, dovidenia!",
       "plan": {
         "beats": [
           "0 nod",
-          "800 stress",
         ],
-        "ms": 2100,
-        "sentences": "0-358 800-1900",
-        "words": "0-358 800-1125 1125-1450 1450-1600 1600-1900",
+        "ms": 1800,
+        "sentences": "0-1800",
+        "words": "0-820 934-1800",
       },
       "staging": {
-        "addressee": "marek",
+        "addressee": "lucia",
+        "facing": {
+          "anna": 1,
+          "lucia": -1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 1,
+            "characterId": "lucia",
+            "gesture": "nod",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
+      "line": "lucia: Dovidenia!",
+      "plan": {
+        "beats": [
+          "0 wave",
+        ],
+        "ms": 1000,
+        "sentences": "0-800",
+        "words": "0-800",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "lucia": -1,
+          "marek": 1,
+        },
+      },
+    },
+    {
+      "line": "marek: Tak poďme domov. Potom pôjdeme autom.",
+      "plan": {
+        "beats": [
+          "50 tell",
+          "2250 tell",
+        ],
+        "ms": 3700,
+        "sentences": "50-1043 2250-3500",
+        "words": "50-261 261-652 652-1043 2250-2598 2598-3143 3143-3500",
+      },
+      "staging": {
+        "addressee": "anna",
         "facing": {
           "anna": 1,
           "lucia": -1,
@@ -3818,20 +3937,20 @@ exports[`every scene, directed > podcast podcast-demonstratives-outro 1`] = `
   ],
   "lines": [
     {
-      "line": "marek: To je všetko na dnes.",
+      "line": "marek: To je na dnes všetko.",
       "plan": {
         "beats": [
-          "50 tell",
+          "100 tell",
         ],
-        "ms": 1550,
-        "sentences": "50-1200",
-        "words": "50-223 223-395 395-798 798-970 970-1200",
+        "ms": 1400,
+        "sentences": "100-1200",
+        "words": "100-265 265-430 430-595 595-815 815-1200",
       },
       "staging": {
         "addressee": "anna",
-        "audience": true,
         "facing": {
           "anna": 1,
+          "marek": -1,
         },
       },
     },
@@ -3898,16 +4017,16 @@ exports[`every scene, directed > podcast podcast-demonstratives-outro 1`] = `
       },
     },
     {
-      "line": "marek: Anna? Kde sú tie kľúče?",
+      "line": "marek: Anna? Kde je ten kľúč?",
       "plan": {
         "beats": [
           "0 ask",
-          "1550 ask",
+          "1700 ask",
         ],
-        "ms": 3000,
-        "questions": "0-405 1550-2800",
-        "sentences": "0-405 1550-2800",
-        "words": "0-405 1550-1793 1793-2048 2048-2302 2302-2800",
+        "ms": 3050,
+        "questions": "0-456 1700-2900",
+        "sentences": "0-456 1700-2900",
+        "words": "0-456 1700-1986 1986-2232 2232-2518 2518-2900",
       },
       "staging": {
         "addressee": "anna",
@@ -3926,14 +4045,15 @@ exports[`every scene, directed > podcast podcast-demonstratives-outro 1`] = `
       },
     },
     {
-      "line": "anna: Marek!",
+      "line": "anna: Marek! Je v tvojom vrecku.",
       "plan": {
         "beats": [
           "100 sigh",
+          "2350 tell",
         ],
-        "ms": 2000,
-        "sentences": "100-1700",
-        "words": "100-1700",
+        "ms": 4200,
+        "sentences": "100-710 2350-3950",
+        "words": "100-710 2350-2632 2632-2632 2632-3291 3291-3950",
       },
       "staging": {
         "addressee": "marek",
@@ -3946,9 +4066,28 @@ exports[`every scene, directed > podcast podcast-demonstratives-outro 1`] = `
             "at": 1,
             "characterId": "marek",
             "gesture": "nod",
-            "sentence": 0,
+            "sentence": 1,
           },
         ],
+      },
+    },
+    {
+      "line": "marek: Aha. V tomto vrecku.",
+      "plan": {
+        "beats": [
+          "50 chuckle",
+          "2318 tell",
+        ],
+        "ms": 3850,
+        "sentences": "50-592 2318-3650",
+        "words": "50-592 2318-2318 3070-3349 3349-3650",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
       },
     },
   ],
@@ -3989,9 +4128,9 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
           "2850 tell",
           "5450 muse",
         ],
-        "ms": 7300,
-        "sentences": "50-1678 2850-7050",
-        "words": "50-305 427-682 682-974 974-974 974-1678 2850-3037 3037-3523 3523-4022 4022-4595 4595-4857 4857-5305 5430-5916 6041-6302 6427-6701 6826-7050",
+        "ms": 7700,
+        "sentences": "50-1516 2850-7500",
+        "words": "50-280 389-619 619-881 881-881 881-1516 2850-3011 3011-3431 3431-3862 3862-4357 4357-4583 4583-4970 5078-5498 6628-6854 6962-7199 7306-7500",
       },
       "staging": {
         "addressee": "marek",
@@ -4824,11 +4963,11 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
       "plan": {
         "beats": [
           "50 tell",
-          "1850 tell",
+          "1800 tell",
         ],
         "ms": 3200,
-        "sentences": "50-291 1850-3000",
-        "words": "50-291 1850-2063 2063-2490 2490-3000",
+        "sentences": "50-287 1800-2950",
+        "words": "50-287 1800-2013 2013-2440 2440-2950",
       },
       "staging": {
         "addressee": "anna",
@@ -4952,11 +5091,11 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
       "line": "marek: Aj tak ďakujem, pomocníci.",
       "plan": {
         "beats": [
-          "50 chuckle",
+          "0 chuckle",
         ],
-        "ms": 3400,
-        "sentences": "50-3150",
-        "words": "50-352 352-704 704-1659 1826-3150",
+        "ms": 3550,
+        "sentences": "0-3150",
+        "words": "0-306 306-664 664-1635 1805-3150",
       },
       "staging": {
         "addressee": "anna",
@@ -4970,12 +5109,13 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
       "line": "anna: Nula z troch! Marek, dnes ťa pomocníci nezachránili.",
       "plan": {
         "beats": [
-          "0 stress",
-          "2500 tell",
+          "50 chuckle",
+          "2342 tell",
+          "4942 muse",
         ],
-        "ms": 6200,
-        "sentences": "0-826 2500-5950",
-        "words": "0-496 496-496 496-826 2500-3004 3133-3443 3443-3676 3676-4697 4697-5950",
+        "ms": 6400,
+        "sentences": "50-883 2342-6050",
+        "words": "50-550 550-550 550-883 2342-2883 3022-3356 3356-3606 3606-4703 4703-6050",
       },
       "staging": {
         "addressee": "marek",
@@ -4989,11 +5129,11 @@ exports[`every scene, directed > podcast podcast-demonstratives-quiz 1`] = `
       "line": "marek: Oni to urobili naschvál!",
       "plan": {
         "beats": [
-          "100 stress",
+          "0 stress",
         ],
-        "ms": 1950,
-        "sentences": "100-1750",
-        "words": "100-422 422-598 598-1272 1272-1750",
+        "ms": 1850,
+        "sentences": "0-1650",
+        "words": "0-322 322-498 498-1172 1172-1650",
       },
       "staging": {
         "addressee": "anna",

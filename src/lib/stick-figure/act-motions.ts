@@ -1269,7 +1269,7 @@ export function motionFor(
     }
     case "shrug": {
       // Elbows in, forearms out, hands up at the sides, and the head sinking between shoulders that cannot rise. Seated, the hands stay above the desk.
-      const drop = world.seated?.includes(who) ? 15 : 22;
+      const drop = world.seated?.includes(who) ? -2 : 22;
       const open = (y: number, lift: number) => ({
         lead: { up: { x: 13, y } },
         rear: { up: { x: -9, y } },
