@@ -1722,7 +1722,7 @@
 
     if (acted) {
       world = actedWorlds?.[Math.min(index, actedWorlds.length - 1)];
-      tram = "away";
+      tram = stagings.slice(0, index).some((staging) => staging?.arrives) ? "here" : "away";
       aboard = false;
       outside = world?.out ?? [];
 
@@ -2122,6 +2122,7 @@
     if (!acted && staging) {
       block(startLine(blocking(), staging, speaker, frame), staging.returns?.characterId);
     }
+    if (acted && staging?.arrives) tram = "coming";
     // A speaker walking somewhere faces the way they go, not where they point. A walk led in before the line
     // has not moved them yet while they turn to set off, so it shows as busy, not as a new place.
     if (
