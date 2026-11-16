@@ -10336,16 +10336,15 @@ exports[`every scene, directed > podcast podcast-past-tense-cafe 1`] = `
       },
     },
     {
-      "line": "waiter: Áno. Dlho. Potom som išiel späť do kaviarne.",
+      "line": "waiter: Áno. Potom som išiel späť do kaviarne.",
       "plan": {
         "beats": [
           "50 nod",
-          "900 tell",
-          "2500 tell",
+          "1900 tell",
         ],
-        "ms": 4500,
-        "sentences": "50-432 900-1174 2500-4350",
-        "words": "50-432 900-1174 2500-2855 2855-3047 3047-3411 3411-3630 3630-3794 3794-4350",
+        "ms": 3850,
+        "sentences": "50-447 1900-3750",
+        "words": "50-447 1900-2255 2255-2447 2447-2811 2811-3030 3030-3194 3194-3750",
       },
       "staging": {
         "addressee": "anna",
@@ -10358,7 +10357,7 @@ exports[`every scene, directed > podcast podcast-past-tense-cafe 1`] = `
             "at": 1,
             "characterId": "anna",
             "gesture": "nod",
-            "sentence": 2,
+            "sentence": 1,
           },
         ],
       },
@@ -10677,17 +10676,16 @@ exports[`every scene, directed > podcast podcast-past-tense-closed 1`] = `
       },
     },
     {
-      "line": "marek: Mak… Počkaj… Žeby som ho zjedol ja?",
+      "line": "marek: Mak… No… Možno som ho zjedol ja.",
       "plan": {
         "beats": [
           "0 muse",
-          "1450 think",
-          "2600 ask",
+          "1300 muse",
+          "2600 think",
         ],
-        "ms": 4200,
-        "questions": "2600-4000",
-        "sentences": "0-206 1450-1647 2600-4000",
-        "words": "0-206 1450-1647 2600-2973 2973-3191 3191-3378 3378-3813 3813-4000",
+        "ms": 4400,
+        "sentences": "0-222 1300-1526 2600-4100",
+        "words": "0-222 1300-1526 2600-3024 3024-3252 3252-3448 3448-3904 3904-4100",
       },
       "staging": {
         "addressee": "anna",
@@ -10695,27 +10693,19 @@ exports[`every scene, directed > podcast podcast-past-tense-closed 1`] = `
           "anna": 1,
           "marek": -1,
         },
-        "reactions": [
-          {
-            "at": 0.5,
-            "characterId": "anna",
-            "gesture": "lean",
-            "sentence": 2,
-          },
-        ],
       },
     },
     {
-      "line": "anna: Ty. Spomínaš si?",
+      "line": "anna: Možno? Spomeň si, Marek.",
       "plan": {
         "beats": [
-          "50 tell",
-          "1300 ask",
+          "50 think",
+          "1650 tell",
         ],
-        "ms": 2400,
-        "questions": "1300-2250",
-        "sentences": "50-243 1300-2250",
-        "words": "50-243 1300-2041 2041-2250",
+        "ms": 3200,
+        "questions": "50-520",
+        "sentences": "50-520 1650-3100",
+        "words": "50-520 1650-2209 2209-2448 2581-3100",
       },
       "staging": {
         "addressee": "marek",
@@ -10728,7 +10718,7 @@ exports[`every scene, directed > podcast podcast-past-tense-closed 1`] = `
             "at": 0.5,
             "characterId": "marek",
             "gesture": "lean",
-            "sentence": 1,
+            "sentence": 0,
           },
         ],
       },
@@ -10755,14 +10745,6 @@ exports[`every scene, directed > podcast podcast-past-tense-closed 1`] = `
           "anna": 1,
           "marek": -1,
         },
-        "reactions": [
-          {
-            "at": 1,
-            "characterId": "anna",
-            "gesture": "nod",
-            "sentence": 6,
-          },
-        ],
       },
     },
     {
@@ -10870,17 +10852,17 @@ exports[`every scene, directed > podcast podcast-past-tense-closed 1`] = `
       },
     },
     {
-      "line": "anna: Prípad uzavretý. Ja som dnes koláč nemala. Zajtra koláč kupujem ja. A schovám ho.",
+      "line": "anna: Prípad uzavretý. A ja som z neho nemala ani kúsok. Zajtra koláč kupujem ja. A schovám ho.",
       "plan": {
         "beats": [
-          "100 tell",
-          "2500 self",
-          "5050 tell",
-          "7050 tell",
+          "50 tell",
+          "2400 tell",
+          "5300 tell",
+          "7200 tell",
         ],
-        "ms": 8000,
-        "sentences": "100-1333 2500-4010 5050-6688 7050-7850",
-        "words": "100-565 565-1333 2500-2670 2670-2868 2868-3095 3095-3501 3501-4010 5050-5480 5480-5920 5920-6504 6504-6688 7050-7202 7202-7668 7668-7850",
+        "ms": 8200,
+        "sentences": "50-1223 2400-4347 5300-6894 7200-8000",
+        "words": "50-492 492-1223 2400-2533 2533-2692 2692-2878 2878-2878 2878-3197 3197-3674 3674-3966 3966-4347 5300-5719 5719-6147 6147-6715 6715-6894 7200-7352 7352-7818 7818-8000",
       },
       "staging": {
         "addressee": "marek",
@@ -10897,9 +10879,9 @@ exports[`every scene, directed > podcast podcast-past-tense-closed 1`] = `
           "50 ask",
         ],
         "ms": 600,
-        "questions": "50-500",
-        "sentences": "50-500",
-        "words": "50-500",
+        "questions": "50-600",
+        "sentences": "50-600",
+        "words": "50-600",
       },
       "staging": {
         "addressee": "anna",
@@ -10968,9 +10950,9 @@ exports[`every scene, directed > podcast podcast-past-tense-closed 1`] = `
         "beats": [
           "50 chuckle",
         ],
-        "ms": 2100,
-        "sentences": "50-1800",
-        "words": "50-396 396-1800",
+        "ms": 2200,
+        "sentences": "50-1850",
+        "words": "50-406 406-1850",
       },
       "staging": {
         "addressee": "marek",
@@ -11393,7 +11375,7 @@ exports[`every scene, directed > podcast podcast-past-tense-plate 1`] = `
           "100 stress",
           "1250 stress",
         ],
-        "ms": 2800,
+        "ms": 2900,
         "sentences": "100-444 1250-2500",
         "words": "100-444 1250-1534 1534-2023 2023-2227 2227-2500",
       },
@@ -11496,11 +11478,11 @@ exports[`every scene, directed > podcast podcast-past-tense-plate 1`] = `
         "beats": [
           "0 self",
           "900 tell",
-          "2200 tell",
+          "2000 tell",
         ],
-        "ms": 3800,
-        "sentences": "0-208 900-833 2200-3550",
-        "words": "0-208 900-833 2200-2356 2356-2730 2730-3135 3135-3550",
+        "ms": 3400,
+        "sentences": "0-185 900-739 2000-3150",
+        "words": "0-185 900-739 2000-2133 2133-2451 2451-2796 2796-3150",
       },
       "staging": {
         "addressee": "anna",
@@ -12198,16 +12180,17 @@ exports[`every scene, directed > podcast podcast-past-tense-whodunit 1`] = `
       },
     },
     {
-      "line": "anna: Som späť, Marek. Tak. Toto vieme.",
+      "line": "anna: Som späť, Marek. Tak. Čo sme sa dnes dozvedeli?",
       "plan": {
         "beats": [
           "0 self",
-          "2650 tell",
-          "3450 tell",
+          "2450 tell",
+          "3150 ask",
         ],
-        "ms": 4250,
-        "sentences": "0-1161 2650-2717 3450-4100",
-        "words": "0-259 259-556 679-1161 2650-2717 3450-3758 3758-4100",
+        "ms": 4900,
+        "questions": "2920-4700",
+        "sentences": "0-1072 2450-2510 2920-4700",
+        "words": "0-240 240-513 627-1072 2450-2510 2920-3126 3126-3365 3365-3571 3571-3844 3844-4700",
       },
       "staging": {
         "addressee": "marek",
@@ -12215,6 +12198,14 @@ exports[`every scene, directed > podcast podcast-past-tense-whodunit 1`] = `
           "anna": 1,
           "marek": -1,
         },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "marek",
+            "gesture": "lean",
+            "sentence": 2,
+          },
+        ],
       },
     },
     {
@@ -12303,6 +12294,34 @@ exports[`every scene, directed > podcast podcast-past-tense-whodunit 1`] = `
       },
     },
     {
+      "line": "marek: Polovica? Hm.",
+      "plan": {
+        "beats": [
+          "50 ask",
+          "1700 think",
+        ],
+        "ms": 2600,
+        "questions": "50-844",
+        "sentences": "50-844 1700-2200",
+        "words": "50-844 1700-2200",
+      },
+      "staging": {
+        "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+        "reactions": [
+          {
+            "at": 0.5,
+            "characterId": "anna",
+            "gesture": "lean",
+            "sentence": 0,
+          },
+        ],
+      },
+    },
+    {
       "line": "anna: Mária, čašník a Lucia boli v štúdiu len chvíľu. A nejedli. A ja som bola celý deň v meste.",
       "plan": {
         "beats": [
@@ -12323,16 +12342,16 @@ exports[`every scene, directed > podcast podcast-past-tense-whodunit 1`] = `
       },
     },
     {
-      "line": "anna: Tak kto bol v štúdiu celý deň? Hádajte s nami!",
+      "line": "anna: Tak kto bol v štúdiu celý deň? Hádajte aj vy!",
       "plan": {
         "beats": [
           "50 ask",
           "3200 stress",
         ],
-        "ms": 4250,
-        "questions": "50-1970",
-        "sentences": "50-1970 3200-4100",
-        "words": "50-271 271-493 493-714 714-714 714-1326 1326-1748 1748-1970 3200-3766 3766-3766 3766-4100",
+        "ms": 4350,
+        "questions": "50-2017",
+        "sentences": "50-2017 3200-4200",
+        "words": "50-277 277-504 504-731 731-731 731-1358 1358-1790 1790-2017 3200-3829 3829-4014 4014-4200",
       },
       "staging": {
         "addressee": "marek",
@@ -12363,6 +12382,25 @@ exports[`every scene, directed > podcast podcast-past-tense-whodunit 1`] = `
       },
       "staging": {
         "addressee": "anna",
+        "facing": {
+          "anna": 1,
+          "marek": -1,
+        },
+      },
+    },
+    {
+      "line": "anna: Porozmýšľaj. Ja si idem uvariť kávu.",
+      "plan": {
+        "beats": [
+          "100 tell",
+          "2300 self",
+        ],
+        "ms": 4000,
+        "sentences": "100-983 2300-3800",
+        "words": "100-983 2300-2463 2463-2625 2625-2951 2951-3439 3439-3800",
+      },
+      "staging": {
+        "addressee": "marek",
         "facing": {
           "anna": 1,
           "marek": -1,

@@ -54,7 +54,7 @@ export interface LineStaging {
   arrives?: "tram";
   /** Everyone walks to the tram's door as this line ends. */
   boards?: boolean;
-  /** Said to the listeners ("Hádajte s nami!"): the speaker faces the front, not a figure. */
+  /** Said to the listeners ("Hádajte aj vy!"): the speaker faces the front, not a figure. */
   audience?: boolean;
   /** Who walks to a free chair and sits down during this line: "Sadnite si." */
   sit?: LessonCharacterId[];
@@ -118,6 +118,7 @@ const LEAVING = [...GOODBYES, "pekny den", "hned to bude", "hned som spat", "mus
  */
 const TO_LISTENERS = [
   "hadajte s nami",
+  "hadajte aj vy",
   "dakujeme ze pocuvate",
   "majte sa pekne",
   "tu je podcast",
