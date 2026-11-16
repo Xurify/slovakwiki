@@ -125,3 +125,85 @@ describe("a deep crouch", () => {
     }
   });
 });
+
+describe("pointing past something in the way", () => {
+  it("goes over the thing in front of what it points at, rather than ending on it", () => {
+    // Marek pointing at the home window up behind him, the coat pegs on the wall between.
+    const world = startWorld(HOME.objects);
+    const { motion } = motionFor({ do: "point", to: "okno" }, "marek", world);
+    const window = { x: -120, y: 10 };
+    const pegs = { x: -30, y: 48, width: 24, height: 14 };
+    const inPegs = (at: Point) =>
+      at.x > pegs.x - 3 &&
+      at.x < pegs.x + pegs.width + 3 &&
+      at.y > pegs.y - 3 &&
+      at.y < pegs.y + pegs.height + 3;
+    const around = (blocked: boolean): Surroundings => ({
+      pointOf: (name) => (name === "okno" ? window : undefined),
+      meetWith: () => undefined,
+      inTheWay: blocked ? (hand) => inPegs(hand) : undefined,
+    });
+    const handAt = (blocked: boolean) =>
+      solveRig(sampleMotion(motion, 1000, REST_POSE, around(blocked), 0).pose, 0).leadArm
+        .end;
+    expect(inPegs(handAt(false))).toBe(true);
+    const over = handAt(true);
+    expect(inPegs(over)).toBe(false);
+    expect(over.x).toBeLessThan(0);
+  });
+});
+
+describe("taking a photo", () => {
+  it("holds the phone at arm's length at eye height", () => {
+    const world = setUp(startWorld(HOME.objects), {
+      objects: [
+        { id: "phone", kind: "phone", start: { where: { hand: "anna", side: "lead" } } },
+      ],
+    });
+    const { motion } = motionFor(
+      { do: "photo", what: "phone", to: "robot" },
+      "anna",
+      world,
+    );
+    const around: Surroundings = { pointOf: () => undefined, meetWith: () => undefined };
+    const rig = solveRig(sampleMotion(motion, 1000, REST_POSE, around, 0).pose, 0);
+    const hand = rig.leadArm.end;
+    expect(Math.abs(hand.y - rig.head.y)).toBeLessThan(5);
+    expect(gap(hand, rig.leadShoulder)).toBeGreaterThan(25);
+  });
+});
+
+describe("pointing past something no arm can get over", () => {
+  it("keeps its aim rather than pointing up at nothing", () => {
+    // Marek right by the coat pegs, the window far behind them: no angle clears them.
+    const world = startWorld(HOME.objects);
+    const { motion } = motionFor({ do: "point", to: "okno" }, "marek", world);
+    const around = (blocked: boolean): Surroundings => ({
+      pointOf: (name) => (name === "okno" ? { x: -120, y: 10 } : undefined),
+      meetWith: () => undefined,
+      inTheWay: blocked
+        ? (hand) => hand.x < -3 && hand.x > -40 && hand.y > 25
+        : undefined,
+    });
+    const handAt = (blocked: boolean) =>
+      solveRig(sampleMotion(motion, 1000, REST_POSE, around(blocked), 0).pose, 0).leadArm
+        .end;
+    expect(gap(handAt(true), handAt(false))).toBeLessThan(0.5);
+  });
+});
+
+describe("a dog jumping up in greeting", () => {
+  it("leaves the floor twice, front first, and lands where it was", () => {
+    const world = startWorld(HOME.objects);
+    const { motion } = motionFor({ do: "jump", to: "marek" }, "dog", world);
+    const around: Surroundings = { pointOf: () => undefined, meetWith: () => undefined };
+    const at = (ms: number) => sampleMotion(motion, ms, REST_POSE, around, 0).pose;
+    const tops = [300, 300 + 560].map(at);
+    for (const top of tops) {
+      expect(top.bob).toBeLessThan(-10);
+      expect(top.lean).toBeLessThan(-8);
+    }
+    expect(at(motion.ms).bob).toBeCloseTo(REST_POSE.bob);
+    expect(motion.face).toBe("marek");
+  });
+});

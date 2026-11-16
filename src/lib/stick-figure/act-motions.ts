@@ -493,7 +493,7 @@ export function motionFor(
     case "photo": {
       // At arm's length at eye height, aimed at whoever is in the picture, the head back a little to see the screen; the shutter on the hold.
       const out = {
-        ...hands(hand, { up: { x: 25, y: -9 } }),
+        ...hands(hand, { up: PHOTO_HOLD }),
         turn: { [hand]: 90 },
         body: { lean: -2, tilt: -2, brow: 0.3, look: 0.8 },
       };
@@ -1561,6 +1561,19 @@ export function motionFor(
           keys: [{ at: 0 }, { at: 900, body: DROOP }],
         },
       };
+    case "jump": {
+      // Up off all four paws twice, front first, the tail going: glad to see someone. Toward them if named.
+      const keys: MotionKey[] = [{ at: 0 }];
+      for (const start of [0, JUMP_MS]) {
+        keys.push(
+          { at: start + 120, body: { bob: 3, lean: 2, leadRaise: 40 } },
+          { at: start + 300, body: { ...JUMP_TOP, leadRaise: 70 } },
+          { at: start + 480, body: { bob: 2, lean: 0, leadRaise: 40 } },
+        );
+      }
+      keys.push({ at: 2 * JUMP_MS + 200 });
+      return { motion: { ms: 2 * JUMP_MS + 200, face: to || undefined, keys } };
+    }
     case "growl":
       // Head down at whoever it is, the front lowered and the tail out stiff, for the line.
       return {
@@ -1920,6 +1933,10 @@ function slideMotion(
   };
 }
 
+/** One of a dog's greeting jumps, crouch to landing. */
+const JUMP_MS = 560;
+/** The top of a dog's jump: the whole dog up off the floor (StickDog lifts the body 0.6 of `-bob`), the front higher. */
+const JUMP_TOP: Partial<StickPose> = { bob: -16, lean: -12, nod: -2 };
 /** A dog's head and tail hung low (StickDog: a nod and tilt dip the head, lowered arms drop the tail). */
 const DROOP: Partial<StickPose> = { nod: 7, tilt: 20, leadRaise: -60, rearRaise: -60 };
 /** A dog's head down and forward, the front lowered, the tail held out stiff and still. */
@@ -2017,6 +2034,12 @@ export interface Surroundings {
    * person, it tipped over whole, as if falling.
    */
   squats?: boolean;
+  /**
+   * Whether a hand at `hand` would end on something drawn other than `target`,
+   * which a point then goes over. Things the shoulder is already in front of
+   * do not count: the arm is drawn over them whatever it does.
+   */
+  inTheWay?(hand: Point, shoulder: Point, target: string): boolean;
 }
 
 export interface MotionFrame {
@@ -2074,11 +2097,29 @@ export function targetPoint(
     const rise = Math.max(1, across) * POINT_STEEPEST;
     if (shoulder.y - at.y > rise) at.y = shoulder.y - rise;
     if (across < 1) at.x = shoulder.x + (aim.x < shoulder.x ? -1 : 1);
-    const length = Math.hypot(at.x - shoulder.x, at.y - shoulder.y) || 1;
-    return {
-      x: shoulder.x + ((at.x - shoulder.x) / length) * 28,
-      y: shoulder.y + ((at.y - shoulder.y) / length) * 28,
-    };
+    const across1 = Math.max(1, Math.abs(at.x - shoulder.x));
+    const side = at.x < shoulder.x ? -1 : 1;
+    let angle = Math.atan2(shoulder.y - at.y, across1);
+    const out = () => ({
+      x: shoulder.x + side * Math.cos(angle) * POINT_REACH,
+      y: shoulder.y - Math.sin(angle) * POINT_REACH,
+    });
+    // Up at something with a thing drawn in front of it (the window past the coat pegs), the hand goes over that
+    // thing rather than ending on it, where it pointed at the pegs. Where no angle clears it, the arm keeps its
+    // aim: steeper and still on the pegs, it pointed at neither.
+    if (
+      around.inTheWay &&
+      aim.y < shoulder.y &&
+      around.inTheWay(out(), shoulder, target.toward)
+    ) {
+      const level = angle;
+      const steepest = Math.atan(POINT_STEEPEST);
+      while (angle < steepest && around.inTheWay(out(), shoulder, target.toward)) {
+        angle = Math.min(steepest, angle + POINT_LIFT);
+      }
+      if (around.inTheWay(out(), shoulder, target.toward)) angle = level;
+    }
+    return out();
   }
   const as = target.as ?? "grip";
   const at =
@@ -2141,6 +2182,16 @@ function clearOfMic(
 const POINT_DROP = 0.1;
 /** Standing, about 60 degrees: steeper, the arm hangs down and reads as resting, not pointing. */
 const STANDING_POINT_DROP = 1.7;
+/**
+ * A phone held up for a photo, from the shoulder: the eyes are about 18 above it (the head's
+ * middle is SHOULDER_DROP + NECK + HEAD_RADIUS up), and 24 out is the arm all but straight
+ * (UPPER_ARM + FOREARM = 29). At y -9 it was held at the shoulder with the elbow bent.
+ */
+export const PHOTO_HOLD: Point = { x: 24, y: -16 };
+/** A pointing arm, nearly straight, from the shoulder to the hand. */
+const POINT_REACH = 28;
+/** How far a point is raised at a time to clear what is in the way, in radians: about 5°. */
+const POINT_LIFT = 0.09;
 /** The steepest a point rises, as a slope: about 55° above level. */
 const POINT_STEEPEST = 1.4;
 /** From a seated host's shoulder: in front of the chest, under the mic's head and short of its boom (StudioDesk). */

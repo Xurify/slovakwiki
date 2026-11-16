@@ -58,10 +58,11 @@ export const VERBS = [
   "compute",
   "count",
   "eat",
-  // A dog's: lying down, head on its paws; head and tail low; head down at someone, growling.
+  // A dog's: lying down, head on its paws; head and tail low; head down at someone, growling; jumping up in greeting.
   "lie",
   "droop",
   "growl",
+  "jump",
   "wag",
   "beckon",
   "wipe",
@@ -460,7 +461,7 @@ export function applyCue(
   return turnedBy(cueApplied(world, who, cue, plan), who, cue);
 }
 
-const TURNS_TO = new Set<Verb>(["face", "look", "point", "growl", "kneel"]);
+const TURNS_TO = new Set<Verb>(["face", "look", "point", "growl", "jump", "kneel"]);
 const WALKS = new Set<Verb>(["go", "enter", "leave", "sit"]);
 
 /** `world` with what `who` faces after `cue`: turned to its target, or free again once they walk. */
@@ -502,7 +503,7 @@ function cueApplied(
   ) {
     throw new CueError(`${who} ${cue.do}: still sitting, a "stand" cue comes first`);
   }
-  if (world.lying?.includes(who) && WALKS.has(cue.do)) {
+  if (world.lying?.includes(who) && (WALKS.has(cue.do) || cue.do === "jump")) {
     throw new CueError(`${who} ${cue.do}: lying down, a "stand" cue comes first`);
   }
 
@@ -546,6 +547,7 @@ function cueApplied(
       return { ...world, lying: on(world.lying, who, true) };
     case "droop":
     case "growl":
+    case "jump":
       if (!LOOKS[who].dog)
         throw new CueError(`${who} ${cue.do}: a dog's, not a person's`);
       return world;

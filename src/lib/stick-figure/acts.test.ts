@@ -412,10 +412,13 @@ describe("a dog's postures and where people turn", () => {
         HOME,
       ),
     ).toThrow(CueError);
+    expect(() =>
+      worlds([{ characterId: "dog", act: [{ do: "lie" }, { do: "jump" }] }], HOME),
+    ).toThrow(CueError);
   });
 
-  it("leaves lying down, drooping and growling to a dog", () => {
-    for (const verb of ["lie", "droop", "growl"] as const) {
+  it("leaves lying down, drooping, growling and jumping to a dog", () => {
+    for (const verb of ["lie", "droop", "growl", "jump"] as const) {
       expect(() => worlds([{ characterId: "marek", act: [{ do: verb }] }], HOME)).toThrow(
         CueError,
       );

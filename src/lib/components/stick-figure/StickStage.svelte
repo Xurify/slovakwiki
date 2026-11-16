@@ -311,6 +311,8 @@
   let tram = $state<TramState>("away");
   /** Above this, in cast units, a thing is over a standing person's shoulders. */
   const OVERHEAD_Y = 66;
+  /** Half a drawn hand and a little: a point whose hand is this near a thing reads as pointing at it. */
+  const HAND_CLEAR = 3;
   /** How far in from the stage's right edge, in cast units, a point at a tram still off it aims. */
   const TRAM_EDGE = 8;
   /** The middle of the tram's cab, backdrop px in from its nose (Street.svelte). */
@@ -540,6 +542,11 @@
     return standing(markOf(frame, id), offsets[id]).left / unit;
   }
 
+  function fromRig(id: LessonCharacterId, point: Point): Point {
+    const y = doorway.includes(id) ? point.y + doorLane : point.y;
+    return { x: point.x * facingOf(id) - STICK_BOX.x + castLeft(id), y };
+  }
+
   function toRig(id: LessonCharacterId, point: Point): Point {
     const y = doorway.includes(id) ? point.y - doorLane : point.y;
     return { x: (point.x - castLeft(id) + STICK_BOX.x) * facingOf(id), y };
@@ -618,6 +625,28 @@
   function surroundings(id: LessonCharacterId, item?: ScheduledCue): Surroundings {
     return {
       squats: Boolean(LOOKS[id].robot),
+      inTheWay: (hand, shoulder, target) => {
+        const [name] = target.split("#");
+        const handAt = fromRig(id, hand);
+        const shoulderAt = fromRig(id, shoulder);
+        return things.some((thing) => {
+          if (thing.id === name || thing.quiet) return false;
+          return thingBoxes(thing).some((box) => {
+            const cast = {
+              x: castX(box.x),
+              y: castY(box.y),
+              right: castX(box.x + box.width),
+              bottom: castY(box.y + box.height),
+            };
+            const inside = (at: Point, margin: number) =>
+              at.x > cast.x - margin &&
+              at.x < cast.right + margin &&
+              at.y > cast.y - margin &&
+              at.y < cast.bottom + margin;
+            return inside(handAt, HAND_CLEAR) && !inside(shoulderAt, 0);
+          });
+        });
+      },
       pointOf: (name, as = "grip") => {
         // What the cue has just taken is where it was taken from, so the hand moves on from there rather than snapping to its side.
         const at =

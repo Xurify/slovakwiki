@@ -4,11 +4,13 @@ import { describe, expect, it } from "vitest";
 import { LESSON_CHARACTER_IDS } from "$lib/catalog/lessons/character-ids";
 import { STICK_PICTURE_IDS } from "$lib/stick-figure/pictures";
 import { STICK_PROP_IDS } from "$lib/stick-figure/props";
+import { DAYTIME } from "$lib/stick-figure/scene-mood";
 import LessonCharacterAvatar from "$lib/components/lessons/LessonCharacterAvatar.svelte";
 import StickFigure from "./StickFigure.svelte";
 import StickHead from "./StickHead.svelte";
 import StickPicture from "./StickPicture.svelte";
 import StickProp from "./StickProp.svelte";
+import SkyLayer from "./backdrops/SkyLayer.svelte";
 
 /** How many shapes a drawing has; an id the component has no branch for draws none. */
 function shapes(body: string): number {
@@ -75,5 +77,16 @@ describe("drawings", () => {
     });
 
     expect(new Set(bodies).size).toBe(bodies.length);
+  });
+
+  it("gives the river its open blue sky by day, and no other place", () => {
+    // By the Danube the shared pale sky, under the sunny day's tint, read as grey beside the warm room at home.
+    const open = (setting: "default" | "street", time = DAYTIME.time) =>
+      /fill="url\(#[^)]*-open\)"/.test(
+        render(SkyLayer, { props: { setting, mood: { ...DAYTIME, time } } }).body,
+      );
+    expect(open("default")).toBe(true);
+    expect(open("default", "night")).toBe(false);
+    expect(open("street")).toBe(false);
   });
 });
