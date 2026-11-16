@@ -28,10 +28,13 @@ export interface DialogueSayChoices {
 /** A question a podcast line puts to the listener: the player holds after the line for their answer. */
 export interface ListenerAsk {
   answerId: string;
-  choices: Array<{ english: string; id: string; label: string }>;
+  /** `whyWrong` is shown under the choices once a wrong pick has been answered. */
+  choices: Array<{ english: string; id: string; label: string; whyWrong?: string }>;
   /** Whose line marks the pick right or wrong; the line straight after the ask unless set. */
   judge?: string;
   prompt: string;
+  /** An optional quote of the sentence being judged, when it differs from the line's full text. */
+  judged?: string;
 }
 
 /**

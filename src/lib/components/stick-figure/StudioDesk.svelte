@@ -11,15 +11,15 @@
   let {
     height,
     layer,
-    mugs = true,
+    cups = [],
     seats,
     unit,
     width,
   }: {
     height: number;
     layer: "behind" | "front";
-    /** A mug by each host's near hand, unless the set has its own cups on the desk. */
-    mugs?: boolean;
+    /** Where the set's own cups stand on the desk, in rig units: the host nearest each has it in place of the desk's mug. */
+    cups?: readonly number[];
     seats: StageFrame["seats"];
     /** Stage px per rig unit. */
     unit: number;
@@ -38,6 +38,12 @@
     seats.length ? seats[seats.length - 1].x / unit + DESK_REACH : 0,
   );
   const middle = $derived((left + right) / 2);
+  const nearestSeat = (x: number) =>
+    seats.reduce(
+      (best, seat, index) =>
+        Math.abs(seat.x / unit - x) < Math.abs(seats[best].x / unit - x) ? index : best,
+      0,
+    );
   const aim = (Math.atan2(MOUTH.y - MIC.y, MOUTH.x - MIC.x) * 180) / Math.PI;
 </script>
 
@@ -65,7 +71,10 @@
   {#if layer === "behind"}
     {#each seats as seat, index (index)}
       <!-- An office chair: five-star base on casters, a gas lift, a mesh back behind the sitter. -->
-      <g transform="translate({seat.x} {base}) scale({unit}) scale({seat.facing} 1)">
+      <g
+        transform="translate({seat.x} {base}) scale({unit}) scale({seat.facing} 1)"
+        data-set-id="studio-chair-{index}"
+      >
         <path
           d="M-3 {SEAT_Y + 3}V{GROUND_Y - 6}L-16 {GROUND_Y - 2}M-3 {GROUND_Y -
             6}L10 {GROUND_Y - 2}M-3 {GROUND_Y - 6}V{GROUND_Y - 2}"
@@ -90,7 +99,7 @@
       </g>
     {/each}
   {:else}
-    <g transform="translate(0 {base}) scale({unit})">
+    <g transform="translate(0 {base}) scale({unit})" data-set-id="studio-desk">
       <ellipse
         cx={middle}
         cy={GROUND_Y + 1.5}
@@ -131,19 +140,19 @@
       {/each}
       <rect
         x={middle - 27}
-        y={TOP + 10}
+        y={TOP + 6.5}
         width="54"
-        height="15"
+        height="14"
         rx="2.5"
         fill="#2a1d15"
         fill-opacity="0.55"
       />
-      {@render logo(middle - 24.5, TOP + 13, 9)}
+      {@render logo(middle - 24.5, TOP + 9.5, 8)}
       <text
         x={middle + 5}
-        y={TOP + 19.9}
+        y={TOP + 15.8}
         text-anchor="middle"
-        font-size="6.4"
+        font-size="6.2"
         font-weight="700"
         fill="#f1d3a3"
         class="font-sans">slovak.wiki</text
@@ -156,6 +165,7 @@
       <!-- At the left end, the laptop running the recording, its screen to the room; a notebook and pen at the other. -->
       {#if seats.length}
         {@const lap = seats[0].x / unit - 31}
+        <g data-set-id="studio-laptop">
         <path d="M{lap - 10} {TOP - 3}L{lap - 8.6} {TOP - 4.4}H{lap + 8.6}L{lap + 10} {TOP - 3}Z" fill="#9aa6b0" stroke="#3a3f47" stroke-width="0.4" />
         <rect x={lap - 8} y={TOP - 16.6} width="16" height="12.2" rx="1" fill="#3a3f47" />
         <rect x={lap - 7} y={TOP - 15.6} width="14" height="9.6" rx="0.4" fill="#1d2a3a" />
@@ -165,6 +175,7 @@
           stroke-width="0.5"
         />
         <circle cx={lap - 5.4} cy={TOP - 14} r="0.8" fill="#e0453c" />
+        </g>
         {@const book = seats[seats.length - 1].x / unit + 32}
         <rect x={book - 8} y={TOP - 5.6} width="15" height="2.6" rx="0.4" fill="#22385c" />
         <rect x={book - 7.4} y={TOP - 7.8} width="13.6" height="2.2" rx="0.4" fill="#c23b35" />
@@ -174,6 +185,7 @@
       <!-- The mixer between the first two hosts: a sloped deck of channel strips, knobs over faders, a level meter. -->
       {#if seats.length > 1}
         {@const mix = (seats[0].x + seats[1].x) / 2 / unit}
+        <g data-set-id="studio-mixer">
         <path
           d="M{mix - 10.5} {TOP - 3}V{TOP - 5.4}L{mix - 9.4} {TOP - 10.6}H{mix +
             9.4}L{mix + 10.5} {TOP - 5.4}V{TOP - 3}Z"
@@ -201,40 +213,48 @@
             fill={row === 3 ? "#e0453c" : row === 2 ? "#ecc77f" : "#5fd3c8"}
           />
         {/each}
+        </g>
       {/if}
 
-      {#each mugs ? seats : [] as seat, index (index)}
+      {#each seats as seat, index (index)}
         {@const x = seat.x / unit + seat.facing * 14}
+        {#if !cups.some((cup) => nearestSeat(cup) === index)}
         {@const mug = index % 2 ? "#f4f1ea" : "#d9675b"}
-        <path
-          d="M{x + seat.facing * 2.8} {TOP - 8.4}q{seat.facing * 2.6} 0 {seat.facing *
-            2.6} 2.2t{-seat.facing * 2.6} 2.2"
-          stroke="#142a38"
-          stroke-width="1.6"
-        />
-        <path
-          d="M{x + seat.facing * 2.8} {TOP - 8.4}q{seat.facing * 2.6} 0 {seat.facing *
-            2.6} 2.2t{-seat.facing * 2.6} 2.2"
-          stroke={mug}
-          stroke-width="0.8"
-        />
-        <rect
-          x={x - 2.8}
-          y={TOP - 10}
-          width="5.6"
-          height="7"
-          rx="1"
-          fill={mug}
-          stroke="#142a38"
-          stroke-width="0.6"
-        />
-        <ellipse cx={x} cy={TOP - 9.9} rx="2.2" ry="0.5" fill="#6b4a33" />
+        <g data-set-id="studio-mug-{index}">
+          <path
+            d="M{x + seat.facing * 2.8} {TOP - 8.4}q{seat.facing * 2.6} 0 {seat.facing *
+              2.6} 2.2t{-seat.facing * 2.6} 2.2"
+            stroke="#142a38"
+            stroke-width="1.6"
+          />
+          <path
+            d="M{x + seat.facing * 2.8} {TOP - 8.4}q{seat.facing * 2.6} 0 {seat.facing *
+              2.6} 2.2t{-seat.facing * 2.6} 2.2"
+            stroke={mug}
+            stroke-width="0.8"
+          />
+          <rect
+            x={x - 2.8}
+            y={TOP - 10}
+            width="5.6"
+            height="7"
+            rx="1"
+            fill={mug}
+            stroke="#142a38"
+            stroke-width="0.6"
+          />
+          <ellipse cx={x} cy={TOP - 9.9} rx="2.2" ry="0.5" fill="#6b4a33" />
+        </g>
+        {/if}
       {/each}
     </g>
     {#each seats as seat, index (index)}
       {@const mix = seats.length > 1 ? (seats[0].x + seats[1].x) / 2 / unit : undefined}
       <!-- A broadcast boom clamped to the desk's back edge: a riser, two spring-loaded arms, the mic on its yoke at the chin behind a pop filter, its lead taped along the arm and run to the mixer. -->
-      <g transform="translate({seat.x} {base}) scale({unit}) scale({seat.facing} 1)">
+      <g
+        transform="translate({seat.x} {base}) scale({unit}) scale({seat.facing} 1)"
+        data-set-id="studio-chair-{index}"
+      >
         {#if mix !== undefined && index < 2}
           {@const to = (mix - seat.x / unit) * seat.facing}
           <path
@@ -262,7 +282,7 @@
           stroke-width="0.6"
         />
         <circle cx={ELBOW.x} cy={ELBOW.y} r="1.9" fill="#2a2f37" />
-        <g transform="translate({MIC.x} {MIC.y}) rotate({aim})">
+        <g transform="translate({MIC.x} {MIC.y}) rotate({aim})" data-set-id="studio-mic-{index}">
           <rect x="-9" y="-3.6" width="16" height="7.2" rx="3.4" fill="#5b636e" />
           <path d="M-6 -3.4V3.4" stroke="#9aa6b0" stroke-width="1.1" />
           <rect x="1.5" y="-4" width="7" height="8" rx="3.8" fill="#14181d" />

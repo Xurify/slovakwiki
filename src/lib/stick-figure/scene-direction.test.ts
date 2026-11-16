@@ -53,7 +53,7 @@ describe("lines to the listeners", () => {
   it("faces the front for a riddle or a hello to everyone, not for a hello with a name in it", () => {
     const direction = directScene(
       [
-        { characterId: "anna", slovak: "Tak kto bol v štúdiu celý deň? Hádajte s nami!" },
+        { characterId: "anna", slovak: "Tak kto bol v štúdiu celý deň? Hádajte aj vy!" },
         { characterId: "marek", slovak: "Ahojte! Prepáč, Anna, meškám." },
         { characterId: "marek", slovak: "A ja som Marek. Ahojte!" },
         { characterId: "marek", slovak: "Ďakujem, Anna. Maj sa! Teraz späť do štúdia." },

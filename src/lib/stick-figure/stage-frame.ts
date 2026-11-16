@@ -1,6 +1,7 @@
 import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
 import { backdropToStage } from "./backdrop-geometry";
 import { PLACES, backdropAlign } from "./places";
+import { pieceSize } from "./set-pieces";
 import { STICK_BOX, type Point } from "./rig";
 import { STAGE_PADDING, stageMarks } from "./stage-layout";
 import type { StageSetting } from "./stage-setting";
@@ -11,6 +12,8 @@ import type { SceneThing } from "./thing-words";
 export const FLOOR = 12;
 /** Centre to centre, in figure widths, when one figure stands beside another to look at something: closer than talking (TALK_STEP), shoulder to shoulder over it. */
 const BESIDE_WIDTHS = 0.55;
+/** From a bistro table's end in to its chairs' seat middles, in cast units, as StickSet.svelte draws them. */
+const BISTRO_SEAT_IN = 11;
 /** Figure widths apart when called in under an umbrella: shoulder to shoulder, both under the canopy. */
 export const SHELTER_WIDTHS = 0.45;
 
@@ -37,7 +40,7 @@ export interface StageFrame {
   /** What a line can take everyone over to. */
   things: readonly SceneThing[];
   /** Chairs to sit on: stage x of each seat's middle, and the way a sitter faces. */
-  seats: ReadonlyArray<{ x: number; facing: Facing }>;
+  seats: ReadonlyArray<{ x: number; facing: Facing; fixed?: boolean }>;
   /** Everyone sits behind one desk from the start, on the seat at their own index (the podcast studio). */
   desk: boolean;
   width: number;
@@ -73,16 +76,23 @@ export function stageFrame(
     post === undefined || !width
       ? undefined
       : backdropToStage({ x: post, y: 0 }, width, height, align).x;
+  // The studio desk stays put while a host is still to come in: centred on who is
+  // in, it sat half a seat over from where it stands in every other chapter.
   const { marks, width: figureWidth } = stageMarks(
     cast,
-    entering,
+    desk ? {} : entering,
     width,
     at,
     height || undefined,
   );
 
-  const seats = desk
-    ? deskSeats(cast, marks, figureWidth)
+  // The desk is furniture: it stands where it would with everyone in, or it
+  // sat 52 px off in a segment whose host walks on, and the rug and door did not move with it.
+  const deskMarks = desk
+    ? stageMarks(cast, {}, width, at, height || undefined).marks
+    : marks;
+  const seats: Array<StageFrame["seats"][number]> = desk
+    ? [...deskSeats(cast, deskMarks, figureWidth)]
     : (PLACES[setting].furniture ?? []).flatMap((piece) =>
         piece.kind === "chair"
           ? [
@@ -93,6 +103,19 @@ export function stageFrame(
             ]
           : [],
       );
+  // A café table's chairs are drawn with it at the cast's scale, so they are sat on there, after the place's own chairs.
+  const unit = figureWidth / STICK_BOX.width;
+  for (const piece of PLACES[setting].set.pieces) {
+    if (piece.kind !== "bistro" || piece.x === undefined || desk) continue;
+    const table = backdropToStage({ x: piece.x, y: 0 }, width, height, align).x;
+    const half = pieceSize(piece).width / 2 - BISTRO_SEAT_IN;
+    for (const side of [-1, 1] as const)
+      seats.push({
+        x: table + side * half * unit,
+        facing: side === -1 ? 1 : -1,
+        fixed: true,
+      });
+  }
 
   return { align, cast, desk, figureWidth, height, marks, seats, things, width };
 }
@@ -128,6 +151,14 @@ export function markOf(frame: StageFrame, id: LessonCharacterId): Mark {
 export function standing(mark: Mark, offset = 0): Mark {
   return { ...mark, left: mark.left + offset * mark.width };
 }
+
+/**
+ * Figure widths from someone's middle to whoever walks over to stand beside
+ * them, a dog too: clear of its nose or its tail either way, and its collar
+ * in reach from a crouch. A whole figure width off, a hand only got to the
+ * lead's clip with the body tipped flat.
+ */
+export const BESIDE_GAP = 0.62;
 
 /** Figure widths from a figure's mark to where it stands beside `to`, wherever `to` stands in `at`. */
 export function beside(

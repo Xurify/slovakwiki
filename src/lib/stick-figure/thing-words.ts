@@ -48,11 +48,29 @@ export interface SceneThing {
    * drawn now: a fixed box missed the studio's plant and a carried pot.
    */
   of?: readonly string[];
+  /** The set's objects of this kind are drawn copies too, whatever an episode calls them: its own mugs on the studio desk. */
+  ofKind?: string;
   /** Only tapped for its word: the cast handles it by cues, so a line naming it is not pointed at. */
   quiet?: boolean;
+  /**
+   * Scenery at the back, the houses across a street: whatever overlaps it
+   * gets the tap there. A house's box is smaller than the tram shelter's
+   * in front of it, and won the shelter's middle.
+   */
+  behind?: boolean;
+  /**
+   * The thing it lies on, by id: while their boxes touch it is tapped as that
+   * thing. A carrot and a knife on the board were three targets in 40×18 px.
+   */
+  onto?: string;
+  /** What lies on it now and is tapped as part of it (`onto`), named on its card too: the carrot on the board. */
+  lying?: readonly SceneThing[];
 }
 
-export type ThingWord = Omit<SceneThing, "box" | "more" | "twins" | "of" | "quiet">;
+export type ThingWord = Omit<
+  SceneThing,
+  "box" | "more" | "twins" | "of" | "quiet" | "onto" | "lying"
+>;
 export type Rect = [x: number, y: number, width: number, height: number];
 
 export function toBox([x, y, width, height]: Rect): ThingBox {
@@ -116,13 +134,35 @@ export function withDrawn(
   things: readonly SceneThing[],
   drawnAt: Readonly<Record<string, ThingBox | null>>,
 ): SceneThing[] {
-  return things.flatMap((thing) => {
+  const placed = things.flatMap((thing) => {
     if (!thing.of?.some((id) => id in drawnAt)) return [thing];
     const [box, ...more] = thing.of.flatMap((id) => drawnAt[id] ?? []);
     if (!box) return [];
-    const kept = [...more, ...(thing.more ?? [])];
+    // Each id in `of` stands for one drawn box, in order: only the drawn boxes past them are kept,
+    // or the cheese's far box showed twice, measured and drawn.
+    const kept = [...more, ...(thing.more ?? []).slice(Math.max(0, thing.of.length - 1))];
     return [{ ...thing, box, more: kept.length ? kept : undefined }];
   });
+  const onTop = (thing: SceneThing) => {
+    const under = thing.onto
+      ? placed.find((other) => other.id === thing.onto)
+      : undefined;
+    return under !== undefined && touching(thing.box, under.box);
+  };
+  return placed.flatMap((thing) => {
+    if (onTop(thing)) return [];
+    const lying = placed.filter((other) => other.onto === thing.id && onTop(other));
+    return [lying.length ? { ...thing, lying } : thing];
+  });
+}
+
+function touching(a: ThingBox, b: ThingBox): boolean {
+  return (
+    a.x <= b.x + b.width + 1 &&
+    b.x <= a.x + a.width + 1 &&
+    a.y <= b.y + b.height + 1 &&
+    b.y <= a.y + a.height + 1
+  );
 }
 
 /** Every box a thing is drawn in, its main one first. */
@@ -183,11 +223,26 @@ export const THING_WORDS = {
     word: "abeceda",
   },
   dom: {
+    behind: true,
     english: "house",
     forms: ["dom", "domu", "dome", "domom", "domy", "domoch", "domami"],
     gender: "masculine-inanimate",
     id: "dom",
     word: "dom",
+  },
+  digestor: {
+    english: "cooker hood",
+    gender: "masculine-inanimate",
+    id: "digestor",
+    stems: ["digestor"],
+    word: "digestor",
+  },
+  diktafon: {
+    english: "voice recorder",
+    gender: "masculine-inanimate",
+    id: "diktafon",
+    stems: ["diktafon"],
+    word: "diktafón",
   },
   doska: {
     english: "chopping board",
@@ -332,6 +387,13 @@ export const THING_WORDS = {
     id: "mikrofon",
     stems: ["mikrofon"],
     word: "mikrofón",
+  },
+  lopticka: {
+    english: "ball",
+    gender: "feminine",
+    id: "lopticka",
+    stems: ["loptick", "lopticiek"],
+    word: "loptička",
   },
   miska: {
     english: "bowl",
@@ -512,6 +574,13 @@ export const THING_WORDS = {
     stems: ["tabul"],
     word: "tabuľa",
   },
+  telefon: {
+    english: "phone",
+    gender: "masculine-inanimate",
+    id: "telefon",
+    stems: ["telefon"],
+    word: "telefón",
+  },
   taska: {
     english: "bag",
     gender: "feminine",
@@ -588,5 +657,351 @@ export const THING_WORDS = {
     id: "zvoncek",
     stems: ["zvonc"],
     word: "zvonček",
+  },
+  bicykel: {
+    english: "bike",
+    gender: "masculine-inanimate",
+    id: "bicykel",
+    stems: ["bicyk"],
+    word: "bicykel",
+  },
+  elektricka: {
+    english: "tram",
+    gender: "feminine",
+    id: "elektricka",
+    stems: ["elektrick", "elektriciek"],
+    word: "električka",
+  },
+  fontana: {
+    english: "fountain",
+    gender: "feminine",
+    id: "fontana",
+    stems: ["fontan"],
+    word: "fontána",
+  },
+  hrncek: {
+    english: "mug",
+    gender: "masculine-inanimate",
+    id: "hrncek",
+    stems: ["hrncek"],
+    word: "hrnček",
+  },
+  robot: {
+    accusative: "robota",
+    english: "robot",
+    forms: [
+      "robot",
+      "robota",
+      "robotovi",
+      "robotom",
+      "roboti",
+      "robotov",
+      "robotmi",
+      "robotoch",
+    ],
+    gender: "masculine-animate",
+    id: "robot",
+    word: "robot",
+  },
+  topanky: {
+    english: "shoes",
+    gender: "feminine",
+    id: "topanky",
+    lemma: "topánka",
+    plural: true,
+    stems: ["topank", "topanok"],
+    word: "topánky",
+  },
+  kabat: {
+    english: "coat",
+    gender: "masculine-inanimate",
+    id: "kabat",
+    stems: ["kabat"],
+    word: "kabát",
+  },
+  kaviaren: {
+    english: "café",
+    gender: "feminine",
+    id: "kaviaren",
+    stems: ["kaviarn", "kaviaren"],
+    word: "kaviareň",
+  },
+  kluce: {
+    english: "keys",
+    forms: ["kluce", "klucov", "klucom", "klucoch", "klucmi", "kluc", "kluca", "klucu"],
+    gender: "masculine-inanimate",
+    id: "kluce",
+    lemma: "kľúč",
+    plural: true,
+    word: "kľúče",
+  },
+  kniznica: {
+    english: "bookcase",
+    gender: "feminine",
+    id: "kniznica",
+    stems: ["kniznic"],
+    word: "knižnica",
+  },
+  kos: {
+    english: "bin",
+    forms: ["kos", "kosa", "kosu", "kosi", "kosom", "kose", "kosov", "kosoch", "kosmi"],
+    gender: "masculine-inanimate",
+    id: "kos",
+    word: "kôš",
+  },
+  kufor: {
+    english: "suitcase",
+    forms: [
+      "kufor",
+      "kufra",
+      "kufru",
+      "kufri",
+      "kufrom",
+      "kufre",
+      "kufrov",
+      "kuframi",
+      "kufroch",
+    ],
+    gender: "masculine-inanimate",
+    id: "kufor",
+    word: "kufor",
+  },
+  kosik: {
+    english: "basket",
+    forms: ["kosik", "kosika", "kosiku", "kosikom", "kosiky", "kosikov", "kosikoch"],
+    gender: "masculine-inanimate",
+    id: "kosik",
+    word: "košík",
+  },
+  kostol: {
+    english: "church",
+    forms: ["kostol", "kostola", "kostole", "kostolom", "kostoly", "kostolov"],
+    gender: "masculine-inanimate",
+    id: "kostol",
+    word: "kostol",
+  },
+  kredenc: {
+    english: "dresser",
+    gender: "masculine-inanimate",
+    id: "kredenc",
+    stems: ["kredenc"],
+    word: "kredenc",
+  },
+  kvety: {
+    english: "flowers",
+    // Whole forms: a stem would catch kvetináč and kvetinárstvo.
+    forms: ["kvety", "kvetov", "kvetom", "kvetoch", "kvetmi", "kvet", "kvetu", "kvete"],
+    gender: "masculine-inanimate",
+    id: "kvety",
+    lemma: "kvet",
+    plural: true,
+    word: "kvety",
+  },
+  lekaren: {
+    english: "pharmacy",
+    gender: "feminine",
+    id: "lekaren",
+    stems: ["lekarn", "lekaren"],
+    word: "lekáreň",
+  },
+  lod: {
+    english: "boat",
+    forms: ["lod", "lode", "lodi", "lodou", "lodiach", "lodami"],
+    gender: "feminine",
+    id: "lod",
+    word: "loď",
+  },
+  mapa: {
+    english: "map",
+    gender: "feminine",
+    id: "mapa",
+    stems: ["map"],
+    word: "mapa",
+  },
+  mixpult: {
+    english: "mixer",
+    forms: ["pult", "pultu", "pulte", "pultom", "pulty", "pultov"],
+    gender: "masculine-inanimate",
+    id: "mixpult",
+    word: "mixážny pult",
+  },
+  cenovka: {
+    english: "price tag",
+    gender: "feminine",
+    id: "cenovka",
+    stems: ["cenov"],
+    word: "cenovka",
+  },
+  napis: {
+    english: "sign",
+    gender: "masculine-inanimate",
+    // Whole forms: a stem would catch napíš and napísal.
+    forms: ["napis", "napisu", "napise", "napisom", "napisy", "napisov"],
+    id: "napis",
+    word: "nápis",
+  },
+  nastenka: {
+    english: "notice board",
+    gender: "feminine",
+    id: "nastenka",
+    stems: ["nastenk", "nastenok"],
+    word: "nástenka",
+  },
+  notebook: {
+    english: "laptop",
+    gender: "masculine-inanimate",
+    id: "notebook",
+    stems: ["notebook"],
+    word: "notebook",
+  },
+  pelech: {
+    english: "dog bed",
+    gender: "masculine-inanimate",
+    id: "pelech",
+    stems: ["pelech"],
+    word: "pelech",
+  },
+  pes: {
+    accusative: "psa",
+    english: "dog",
+    // Not "psi": folded, psí jazyk would be a dog too.
+    forms: ["pes", "psa", "psovi", "psom", "psoch", "psy", "psov", "psami"],
+    gender: "masculine-animate",
+    id: "pes",
+    word: "pes",
+  },
+  plagat: {
+    english: "poster",
+    gender: "masculine-inanimate",
+    id: "plagat",
+    stems: ["plagat"],
+    word: "plagát",
+  },
+  radiator: {
+    english: "radiator",
+    gender: "masculine-inanimate",
+    id: "radiator",
+    stems: ["radiator"],
+    word: "radiátor",
+  },
+  sanony: {
+    english: "binders",
+    forms: [
+      "sanony",
+      "sanonov",
+      "sanonom",
+      "sanonoch",
+      "sanonmi",
+      "sanon",
+      "sanonu",
+      "sanone",
+    ],
+    gender: "masculine-inanimate",
+    id: "sanony",
+    lemma: "šanón",
+    plural: true,
+    word: "šanóny",
+  },
+  salka: {
+    english: "cup",
+    gender: "feminine",
+    id: "salka",
+    stems: ["salk", "salok"],
+    word: "šálka",
+  },
+  skrinky: {
+    english: "cupboards",
+    gender: "feminine",
+    id: "skrinky",
+    lemma: "skrinka",
+    plural: true,
+    stems: ["skrink", "skriniek"],
+    word: "skrinky",
+  },
+  stolik: {
+    english: "coffee table",
+    gender: "masculine-inanimate",
+    id: "stolik",
+    stems: ["stolik"],
+    word: "stolík",
+  },
+  televizor: {
+    english: "TV",
+    gender: "masculine-inanimate",
+    id: "televizor",
+    stems: ["televizor"],
+    word: "televízor",
+  },
+  vaha: {
+    english: "scale",
+    forms: ["vaha", "vahy", "vahe", "vahu", "vahou", "vah", "vaham", "vahach", "vahami"],
+    gender: "feminine",
+    id: "vaha",
+    word: "váha",
+  },
+  vesiak: {
+    english: "coat stand",
+    gender: "masculine-inanimate",
+    id: "vesiak",
+    stems: ["vesiak"],
+    word: "vešiak",
+  },
+  dazdnik: {
+    english: "umbrella",
+    gender: "masculine-inanimate",
+    id: "dazdnik",
+    stems: ["dazdnik"],
+    word: "dáždnik",
+  },
+  papier: {
+    english: "paper",
+    gender: "masculine-inanimate",
+    id: "papier",
+    stems: ["papier"],
+    word: "papier",
+  },
+  formular: {
+    english: "form",
+    gender: "masculine-inanimate",
+    id: "formular",
+    stems: ["formular"],
+    word: "formulár",
+  },
+  tanier: {
+    english: "plate",
+    gender: "masculine-inanimate",
+    id: "tanier",
+    stems: ["tanier"],
+    word: "tanier",
+  },
+  vydajnik: {
+    english: "water cooler",
+    gender: "masculine-inanimate",
+    id: "vydajnik",
+    stems: ["vydajnik"],
+    word: "výdajník",
+  },
+  priecinky: {
+    english: "pigeonholes",
+    gender: "masculine-inanimate",
+    id: "priecinky",
+    lemma: "priečinok",
+    plural: true,
+    stems: ["priecink", "priecinok"],
+    word: "priečinky",
+  },
+  zabradlie: {
+    english: "railing",
+    gender: "neuter",
+    id: "zabradlie",
+    stems: ["zabradl"],
+    word: "zábradlie",
+  },
+  zrkadlo: {
+    english: "mirror",
+    gender: "neuter",
+    id: "zrkadlo",
+    stems: ["zrkadl", "zrkadiel"],
+    word: "zrkadlo",
   },
 } satisfies Record<string, ThingWord>;

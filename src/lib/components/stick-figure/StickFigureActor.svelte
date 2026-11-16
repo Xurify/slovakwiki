@@ -22,7 +22,7 @@
   } from "$lib/stick-figure/pose";
   import type { Dress } from "$lib/stick-figure/dress";
   import type { Held } from "$lib/stick-figure/props";
-  import { alive } from "$lib/stick-figure/idle";
+  import { alive, dogIdle } from "$lib/stick-figure/idle";
   import { restOnTable } from "$lib/stick-figure/reach";
   import { PlayTween } from "$lib/stick-figure/play-motion.svelte";
   import { gallopPose, sitMs, stepMs, walkPose } from "$lib/stick-figure/walk";
@@ -64,6 +64,7 @@
     held,
     dress,
     seated = false,
+    lying = false,
     arrived = true,
     out = 0,
     atTable = false,
@@ -95,6 +96,8 @@
     arrived?: boolean;
     /** On a chair: they sit once any walk there is over, and get up before walking on. */
     seated?: boolean;
+    /** A dog lying down. */
+    lying?: boolean;
     /** Rig units their chair is drawn back from its place, while they get on or off it. */
     out?: number;
     /** At their chair, about to sit or just up. */
@@ -117,6 +120,10 @@
     doing?: {
       /** Wall time it is over; the last pose holds until then if `hold`. */
       until: number;
+      /** A photo on the phone held out, shown over the hand that holds it. */
+      picture?: StickPictureId;
+      /** How far ahead the one it is shown to sits, in rig units: the photo goes over their head. */
+      pictureOver?: number;
       sample(
         now: number,
         base: StickPose,
@@ -150,9 +157,13 @@
   let rawPose: StickPose = REST_POSE;
   // Linear: the rig shapes the hips' path and the bow along it.
   const sitting = new PlayTween(0);
+  const lyingDown = new PlayTween(0, { easing: cubicInOut });
   const calling = new PlayTween(0, { easing: cubicInOut });
 
   let picture = $state<StickPictureId>();
+  let pictureOver = $state<number>();
+  /** The picture is the phone's screen, so it goes over the hand rather than the head. */
+  let onHand = $state(false);
   /** The way a point in flight turns the figure, when its target is behind it. */
   let turned = $state<1 | -1>();
 
@@ -232,6 +243,17 @@
   });
 
   $effect(() => {
+    const down = lying;
+    untrack(() => {
+      const still =
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+        !arrived ||
+        playClockNow() - placedAt < 250;
+      void lyingDown.set(down ? 1 : 0, { duration: still ? 0 : sitMs(characterId, !down) });
+    });
+  });
+
+  $effect(() => {
     const up = onCall;
     untrack(() => {
       const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -289,7 +311,12 @@
     if (next?.started) onbeat?.(next.started);
     if (next) act = next.state;
     if (next?.facing !== turned) turned = next?.facing;
-    if (next?.picture !== picture) picture = next?.picture;
+    const shown = doing && now < doing.until ? doing.picture : undefined;
+    const called = shown ?? next?.picture;
+    if (called !== picture) picture = called;
+    onHand = Boolean(shown);
+    const over = shown ? doing?.pictureOver : undefined;
+    if (over !== pictureOver) pictureOver = over;
 
     const walked = now - walkStartedAt;
     const walking = walked < walkMs && !reducedMotion;
@@ -339,14 +366,21 @@
       ? easeInOut(Math.min(1, (now - released.at) / RELEASE_MS))
       : 1;
     const still = released ? lerpPose(released.pose, stepping, easing) : stepping;
-    const living = reducedMotion
+    const breathing = reducedMotion
       ? (acted?.pose ?? still)
       : alive(acted?.pose ?? still, now, characterId, !acted && !released);
+    const living =
+      LOOKS[characterId].dog && !reducedMotion && !acted && !released && !walking && !talking
+        ? dogIdle(breathing, now, characterId)
+        : breathing;
+    // A sad or sorry line keeps the brows knit through it, not only for the sigh at its start.
+    const felt =
+      plan?.glum && talking && !plan.silent
+        ? { ...living, brow: Math.min(living.brow, -0.8) }
+        : living;
     // A listener leaning in to a question leaned into the mic too.
     pose =
-      mic && sitting.current > 0.5
-        ? headClearOfMic(living, sitting.current, mic)
-        : living;
+      mic && sitting.current > 0.5 ? headClearOfMic(felt, sitting.current, mic) : felt;
     turn =
       acted?.turn ??
       (released
@@ -373,10 +407,13 @@
   facing={turned ?? facing}
   {front}
   {picture}
+  pictureAt={onHand ? "hand" : "head"}
+  {pictureOver}
   {pose}
   {held}
   {dress}
   sit={sitting.current}
+  lie={lyingDown.current}
   sitPath={{ out, rising: !seated }}
   call={calling.current}
   {relaying}

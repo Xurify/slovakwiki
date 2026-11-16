@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { alive, blinkAt, breathAt } from "./idle";
+import { alive, blinkAt, breathAt, dogIdle } from "./idle";
 import { REST_POSE } from "./pose";
 
 /** Start times of the blinks in a minute, sampled every 10 ms. */
@@ -46,5 +46,38 @@ describe("life in a still body", () => {
     const held = alive(REST_POSE, 2000, "anna", false);
     expect(held.leadRaise).toBe(REST_POSE.leadRaise);
     expect(held.rearRaise).toBe(REST_POSE.rearRaise);
+  });
+});
+
+describe("a dog at rest", () => {
+  it("cocks its head, sniffs or wags every few seconds, out of step with another dog", () => {
+    const moves = (id: string) => {
+      const starts: number[] = [];
+      let was = false;
+      for (let now = 0; now < 60_000; now += 20) {
+        const pose = dogIdle(REST_POSE, now, id);
+        const moving =
+          pose.tilt !== REST_POSE.tilt ||
+          pose.nod !== REST_POSE.nod ||
+          pose.rearRaise !== REST_POSE.rearRaise;
+        if (moving && !was) starts.push(now);
+        was = moving;
+      }
+      return starts;
+    };
+    const dog = moves("dog");
+    expect(dog.length).toBeGreaterThanOrEqual(8);
+    expect(
+      Math.max(...dog.slice(1).map((start, index) => start - dog[index])),
+    ).toBeLessThan(12_000);
+    expect(moves("bobik").slice(0, 3)).not.toEqual(dog.slice(0, 3));
+  });
+
+  it("keeps each move small", () => {
+    for (let now = 0; now < 60_000; now += 20) {
+      const pose = dogIdle(REST_POSE, now, "dog");
+      expect(Math.abs(pose.tilt)).toBeLessThanOrEqual(16);
+      expect(Math.abs(pose.rearRaise - REST_POSE.rearRaise)).toBeLessThanOrEqual(24);
+    }
   });
 });

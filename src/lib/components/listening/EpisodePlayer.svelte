@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount, tick } from "svelte";
 
+  import { playClockTimeout } from "$lib/audio/play-clock";
   import { playFinishSfx } from "$lib/audio/sfx";
   import { episodeCheckCount } from "$lib/catalog/listening";
   import type { EpisodeAudioSrcs } from "$lib/catalog/listening/audio";
@@ -66,9 +67,11 @@
   const nextIndex = $derived.by(() => {
     const open = (index: number) => scores[episode.chapters[index]!.id] === undefined;
     const indexes = episode.chapters.map((_, index) => index);
+    // Back round to a skipped segment only while answering the questions: after the last one
+    // played straight through, "Next: Úvod" read as the episode starting over instead of ending.
     return (
       indexes.find((index) => index > active && open(index)) ??
-      indexes.find((index) => open(index)) ??
+      (questions ? indexes.find((index) => open(index)) : undefined) ??
       null
     );
   });
@@ -82,9 +85,17 @@
   }
 
   /** A segment has played to its end: straight on to the next one, unless stopping for questions. */
+  /** After the episode's last line, the stage is left a moment before the end card comes up under it. */
+  const END_HOLD_MS = 1500;
+
   function listened(): void {
-    heard = { ...heard, [chapter.id]: true };
+    const id = chapter.id;
     const following = active + 1;
+    if (!questions && following >= episode.chapters.length) {
+      playClockTimeout(() => (heard = { ...heard, [id]: true }), END_HOLD_MS);
+      return;
+    }
+    heard = { ...heard, [id]: true };
     if (questions || following >= episode.chapters.length) return;
     openChapter(following, true, false);
   }

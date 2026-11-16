@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
 
 import { listeningEpisodes } from "$lib/catalog/listening";
+import { motionFor } from "./act-motions";
 import { DARK_MS, REACT_MS, scheduleCues, type LineTimes } from "./act-schedule";
 import {
   CueError,
@@ -117,6 +118,68 @@ describe("the world the cues leave", () => {
     expect(() =>
       applyCue(start, "marek", { do: "slide", what: "bag", to: "corner" }, studio),
     ).toThrow(CueError);
+  });
+
+  it("takes into the far hand when asked, away from a desk mic", () => {
+    const studio = PLACES.studio.set;
+    const start = setUp(startWorld(studio.objects), {
+      objects: [{ id: "plate", kind: "plate", start: { where: { on: "desk", dx: 38 } } }],
+    });
+    const far = applyCue(
+      start,
+      "marek",
+      { do: "take", what: "plate", hand: "far" },
+      studio,
+    );
+    expect(far.objects.plate.where).toEqual({ hand: "marek", side: "rear" });
+    const near = applyCue(start, "marek", { do: "take", what: "plate" }, studio);
+    expect(near.objects.plate.where).toEqual({ hand: "marek", side: "lead" });
+  });
+
+  it("lifts the head to look at a wall clock, and keeps it level for a person", () => {
+    const world = startWorld([]);
+    const held = (to: string) =>
+      motionFor({ do: "look", to }, "marek", world).motion.keys[1]?.body?.tilt ?? 0;
+    expect(held("hodiny")).toBeLessThan(0);
+    expect(held("anna")).toBe(0);
+  });
+
+  it("keeps a grin on from its cue until one turns it off", () => {
+    const world = startWorld([]);
+    const grinning = applyCue(
+      world,
+      "marek",
+      { do: "grin", seeds: true },
+      PLACES.studio.set,
+    );
+    expect(grinning.grins).toEqual({ marek: "seeds" });
+    expect(applyCue(grinning, "marek", { do: "grin", off: true }).grins).toEqual({});
+  });
+
+  it("puts headphones on the head of whoever holds them", () => {
+    const studio = PLACES.studio.set;
+    const start = setUp(startWorld(studio.objects), {
+      objects: [
+        {
+          id: "marek-headphones",
+          kind: "headphones",
+          start: { where: { on: "desk", dx: 38 } },
+        },
+      ],
+    });
+    const held = applyCue(
+      start,
+      "marek",
+      { do: "take", what: "marek-headphones" },
+      studio,
+    );
+    const worn = applyCue(
+      held,
+      "marek",
+      { do: "put", what: "marek-headphones", to: "marek" },
+      studio,
+    );
+    expect(worn.objects["marek-headphones"].where).toEqual({ wear: "marek" });
   });
 });
 
@@ -336,6 +399,61 @@ describe("a ball for the dog", () => {
         start,
       ),
     ).toThrow(CueError);
+  });
+});
+
+describe("a dog's postures and where people turn", () => {
+  const HOME = PLACES.home.set!;
+
+  it("lays a dog down until it stands, and does not walk it off lying", () => {
+    const [, down, up] = worlds(
+      [
+        { characterId: "dog", act: [{ do: "lie" }] },
+        { characterId: "dog", act: [{ do: "stand" }, { do: "go", to: "rug-left" }] },
+      ],
+      HOME,
+    );
+    expect(down.lying).toEqual(["dog"]);
+    expect(up.lying).toEqual([]);
+    expect(() =>
+      worlds(
+        [{ characterId: "dog", act: [{ do: "lie" }, { do: "go", to: "rug-left" }] }],
+        HOME,
+      ),
+    ).toThrow(CueError);
+    expect(() =>
+      worlds([{ characterId: "dog", act: [{ do: "lie" }, { do: "jump" }] }], HOME),
+    ).toThrow(CueError);
+  });
+
+  it("leaves lying down, drooping, growling and jumping to a dog", () => {
+    for (const verb of ["lie", "droop", "growl", "jump"] as const) {
+      expect(() => worlds([{ characterId: "marek", act: [{ do: verb }] }], HOME)).toThrow(
+        CueError,
+      );
+      expect(() =>
+        worlds([{ characterId: "bobik", act: [{ do: verb }] }], HOME),
+      ).not.toThrow();
+    }
+  });
+
+  it("remembers what someone turned to until they walk, so a jump to a later line turns them back to it", () => {
+    const [, looked, still, walked] = worlds(
+      [
+        { characterId: "dog", act: [{ do: "look", to: "okno" }] },
+        { characterId: "robot", act: [{ do: "nod" }] },
+        { characterId: "dog", act: [{ do: "go", to: "rug-left" }] },
+      ],
+      HOME,
+    );
+    expect(looked.faces).toEqual({ dog: "okno" });
+    expect(still.faces).toEqual({ dog: "okno" });
+    expect(walked.faces).toEqual({});
+    const [, growled] = worlds(
+      [{ characterId: "dog", act: [{ do: "growl", to: "robot" }] }],
+      HOME,
+    );
+    expect(growled.faces).toEqual({ dog: "robot" });
   });
 });
 

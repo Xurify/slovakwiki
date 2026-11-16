@@ -54,11 +54,15 @@
 <Castle x={680} y={112} />
 <path
   d="M520 192V170Q600 96 680 88Q760 84 880 120Q930 142 970 156V192Z"
-  class="fill-scene-sage"
+  class="fill-portrait-ground-sage"
+/>
+<path
+  d="M520 192V170Q600 96 680 88Q760 84 880 120Q930 142 970 156V192Z"
+  class="fill-scene-leaf/25"
 />
 <!-- Trees along the foot of the hill. -->
 {#each Array.from({ length: 33 }, (_, index) => 526 + index * 14) as x, index (x)}
-  <circle cx={x} cy={178 - (index % 3) * 2} r={9 + (index % 2) * 2} class="fill-scene-leaf/70" />
+  <circle cx={x} cy={178 - (index % 3) * 2} r={9 + (index % 2) * 2} class="fill-scene-leaf/90" />
 {/each}
 
 <!-- St Martin's Cathedral: its spire with the gilded crown, above the roofs of the old town. -->
@@ -86,10 +90,11 @@
 </g>
 
 <!-- Distance pales the far bank. -->
-<rect x="-10" y="40" width="980" height="138" class="fill-scene-cool/20" />
+<rect x="-10" y="40" width="980" height="138" class="fill-scene-cool/10" />
 
 <!-- The Danube, a river boat on it, and the light on the water. -->
 <rect x="-10" y="177" width="980" height="47" class="fill-portrait-ground" />
+<rect x="-10" y="177" width="980" height="47" class="fill-scene-water/30" />
 <rect x="-10" y="177" width="980" height="3" class="fill-scene-line/12" />
 <g transform="translate(616 188) scale(0.8)">
   <path d="M-46 0H46L40 9H-40Z" class="fill-white" />

@@ -17,6 +17,7 @@ import path from "node:path";
 import { ROOT } from "../lib/paths";
 import { barkClip, isRecordedVoice } from "./barks";
 import { judgeClip, judgeModeFromSttProvider } from "./judge";
+import { normalizedClip } from "./loudness-norm";
 import { formatMouthTrackReport, updateMouthTracks } from "./mouth-tracks";
 import {
   AUDIO_DIR,
@@ -345,11 +346,18 @@ async function main(): Promise<void> {
         return;
       }
 
+      // Voices to one loudness; a sound keeps the level its cut or prompt gave it.
+      let lufs: number | undefined;
+      if (target.kind === "lesson" && !sound && !isRecordedVoice(voiceConfig)) {
+        ({ audio, lufs } = await normalizedClip(filePath));
+      }
+
       // No `uploadedAt`: R2 still holds the previous take until upload.ts sends this one.
       const entry: ManifestEntry = {
         text: target.text,
         kind: target.kind,
         bytes: audio.byteLength,
+        lufs,
         generatedAt: new Date().toISOString(),
         characterId: target.characterId,
         voiceId: voiceConfig.voiceId,

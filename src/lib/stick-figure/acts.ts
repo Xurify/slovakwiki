@@ -2,6 +2,8 @@ import {
   LESSON_CHARACTER_IDS,
   type LessonCharacterId,
 } from "$lib/catalog/lessons/character-ids";
+import { LOOKS } from "./looks";
+import type { StickPictureId } from "./pictures";
 import type { Hand } from "./reach";
 
 /**
@@ -33,6 +35,8 @@ export const VERBS = [
   "pocket",
   "offer",
   "raise",
+  "photo",
+  "show",
   "dip",
   "taste",
   "blow",
@@ -52,6 +56,13 @@ export const VERBS = [
   // The body alone.
   "burn",
   "compute",
+  "count",
+  "eat",
+  // A dog's: lying down, head on its paws; head and tail low; head down at someone, growling; jumping up in greeting.
+  "lie",
+  "droop",
+  "growl",
+  "jump",
   "wag",
   "beckon",
   "wipe",
@@ -67,6 +78,7 @@ export const VERBS = [
   "shrug",
   "nod",
   "laugh",
+  "grin",
   // The stage.
   "knock",
   "camera",
@@ -94,13 +106,14 @@ export interface Cue {
   /**
    * Where to, or to whom: a spot of the set ("sink"), a place on a piece
    * ("place-l"), a piece ("counter"), an object ("pot"), a person, a thing
-   * of the backdrop to look at ("clock"), or for the camera "wide". For
+   * of the backdrop to look at ("clock"), or for the camera "wide"; for
+   * `photo` and `show`, whom the phone is aimed or turned at. For
    * `switch`, "on" or "off"; for `chop`, "small" for fine pieces; for
-   * `leave`, the edge walked off by, "left" or "right"; for `leash`, the dog;
+   * `leave`, the edge walked off by, "left" or "right", "door" where the set has one, or a spot they step in at (the tram's door); for `leash`, the dog;
    * for `slide`, the piece it is pushed along, to `dx`.
    */
   to?: LessonCharacterId | (string & {});
-  /** What it comes out of: the pot a ladle is filled from; for `enter` where there is no door, the edge spot they walk on from. */
+  /** What it comes out of: the pot a ladle is filled from; for `enter`, the edge spot they walk on from instead of the door. */
   from?: string;
   on?: CueAnchor;
   /** Rig units along a piece, for `put` straight onto one or `slide` along it. */
@@ -111,6 +124,16 @@ export interface Cue {
   minutes?: number;
   /** With `go` by a dog: a gallop over the same ground, in less time. */
   run?: boolean;
+  /** For `show`: what the phone's screen shows, drawn in a bubble over it (a family photo). */
+  picture?: StickPictureId;
+  /** `take`: in the hand away from the way they face, so a seated host lifts it clear of the desk mic; a `raise` after lifts that hand. */
+  hand?: "far";
+  /** `show`: held out past the line, until the shower's next cue (the next show, or the phone put away). */
+  keep?: boolean;
+  /** `grin`: poppy seeds stuck on the teeth. */
+  seeds?: boolean;
+  /** `grin`: the grin drops. */
+  off?: boolean;
 }
 
 /** Where an object is. */
@@ -158,6 +181,8 @@ export type ObjectKind =
   | "umbrella"
   | "cheese"
   | "plate"
+  /** A banknote, paid over a market counter. */
+  | "money"
   /** A bag the backdrop draws, standing in for it on the set so what is in it can be taken out. */
   | "stash";
 
@@ -184,6 +209,8 @@ export interface ObjectState {
   clipped?: boolean;
   /** Whose it is: the headphones one host wears, bareheaded once they are off. */
   of?: LessonCharacterId;
+  /** Another of its kind: a small folding umbrella, a loose sheet rather than a clipboard. */
+  look?: "small" | "sheet";
   /** Drawn mirrored, the way someone facing left holds it: a mug's handle on their far side, so it does not flip as they take or put it. */
   turned?: boolean;
 }
@@ -236,6 +263,16 @@ export interface World {
   out?: LessonCharacterId[];
   /** Who sits, on the chair their spot names. */
   seated?: LessonCharacterId[];
+  /** Dogs lying down, from a `lie` cue until `stand`. */
+  lying?: LessonCharacterId[];
+  /**
+   * What someone last turned to with a `face`, `look`, `point`, `growl` or
+   * `kneel`, until they walk: a jump to a later line turns them to it
+   * again, where their spot alone faced the dog away from the window.
+   */
+  faces?: Partial<Record<LessonCharacterId, string>>;
+  /** Who grins wide, teeth showing, from a `grin` cue until one with `off`: `seeds` with poppy seeds on them. */
+  grins?: Partial<Record<LessonCharacterId, "teeth" | "seeds">>;
   /** Pieces switched on: a stove's burner. */
   lit?: string[];
   /** Minutes the story has skipped forward: the clock shows them. */
@@ -320,13 +357,15 @@ export function freeHand(
   world: World,
   who: LessonCharacterId,
   what?: string,
+  /** The hand away from the way they face, where a seated host's desk mic is not: `hand: "far"` on a take. */
+  far = false,
 ): Hand | undefined {
   const held = heldBy(world, who);
   const kind = what ? world.objects[what]?.kind : undefined;
   if (kind && TWO_HANDED.includes(kind))
     return held.lead || held.rear ? undefined : "lead";
   const order: Hand[] =
-    kind && OFF_HAND.includes(kind) ? ["rear", "lead"] : ["lead", "rear"];
+    far || (kind && OFF_HAND.includes(kind)) ? ["rear", "lead"] : ["lead", "rear"];
   return order.find((hand) => !held[hand]);
 }
 
@@ -423,6 +462,28 @@ export function applyCue(
   cue: Cue,
   plan?: SetPlan,
 ): World {
+  return turnedBy(cueApplied(world, who, cue, plan), who, cue);
+}
+
+const TURNS_TO = new Set<Verb>(["face", "look", "point", "growl", "jump", "kneel"]);
+const WALKS = new Set<Verb>(["go", "enter", "leave", "sit"]);
+
+/** `world` with what `who` faces after `cue`: turned to its target, or free again once they walk. */
+function turnedBy(world: World, who: LessonCharacterId, cue: Cue): World {
+  if (TURNS_TO.has(cue.do) && cue.to) {
+    return { ...world, faces: { ...world.faces, [who]: cue.to } };
+  }
+  if (!WALKS.has(cue.do) || world.faces?.[who] === undefined) return world;
+  const { [who]: _, ...faces } = world.faces;
+  return { ...world, faces };
+}
+
+function cueApplied(
+  world: World,
+  who: LessonCharacterId,
+  cue: Cue,
+  plan?: SetPlan,
+): World {
   const { what, to } = cue;
   const object = what ? world.objects[what] : undefined;
   // A switch is a piece's (the stove's), not an object's.
@@ -446,6 +507,9 @@ export function applyCue(
   ) {
     throw new CueError(`${who} ${cue.do}: still sitting, a "stand" cue comes first`);
   }
+  if (world.lying?.includes(who) && (WALKS.has(cue.do) || cue.do === "jump")) {
+    throw new CueError(`${who} ${cue.do}: lying down, a "stand" cue comes first`);
+  }
 
   switch (cue.do) {
     case "enter":
@@ -458,8 +522,13 @@ export function applyCue(
     case "go":
       return { ...world, spots: { ...world.spots, [who]: to ?? "" } };
     case "leave": {
-      if (to !== "left" && to !== "right") {
-        throw new CueError(`${who} leave: by the "left" or the "right" edge?`);
+      const byDoor = to === "door" && Boolean(plan?.door);
+      // A spot with no door to swing, like the tram's: they walk to it and step in, out of sight.
+      const bySpot = !plan?.door && Boolean(to && plan?.spots?.[to]);
+      if (to !== "left" && to !== "right" && !byDoor && !bySpot) {
+        throw new CueError(
+          `${who} leave: by the "left" or the "right" edge${plan?.door ? ', or the "door"' : ""}, or a spot to step in at?`,
+        );
       }
       const { [who]: _, ...spots } = world.spots;
       return { ...world, out: on(world.out, who, true), spots };
@@ -471,11 +540,33 @@ export function applyCue(
         seated: on(world.seated, who, true),
       };
     case "stand":
-      return { ...world, seated: on(world.seated, who, false) };
+      return {
+        ...world,
+        seated: on(world.seated, who, false),
+        ...(world.lying ? { lying: on(world.lying, who, false) } : {}),
+      };
+    case "lie":
+      if (!LOOKS[who].dog)
+        throw new CueError(`${who} lie: only a dog lies down on stage`);
+      return { ...world, lying: on(world.lying, who, true) };
+    case "droop":
+    case "growl":
+    case "jump":
+      if (!LOOKS[who].dog)
+        throw new CueError(`${who} ${cue.do}: a dog's, not a person's`);
+      return world;
     case "kneel":
     case "compute":
+    case "count":
     case "pat":
       return world;
+    case "grin": {
+      const { [who]: _, ...rest } = world.grins ?? {};
+      return {
+        ...world,
+        grins: cue.off ? rest : { ...rest, [who]: cue.seeds ? "seeds" : "teeth" },
+      };
+    }
     case "take": {
       if (!what || !object) throw new CueError(`${who} take: what?`);
       if (handHolding(world, who, what)) return world;
@@ -484,7 +575,7 @@ export function applyCue(
           `${who} take ${what}: it is in ${object.where.pocket}'s pocket`,
         );
       }
-      const hand = freeHand(world, who, what);
+      const hand = freeHand(world, who, what, cue.hand === "far");
       if (!hand) throw new CueError(`${who} take ${what}: hands are full`);
       const both = TWO_HANDED.includes(object.kind);
       return setObject(world, what, {
@@ -503,6 +594,9 @@ export function applyCue(
     case "put": {
       if (!what || !to) throw new CueError(`${who} put: what, and where?`);
       holds(world, who, cue);
+      if (object?.kind === "headphones" && to === who) {
+        return setObject(world, what, { where: { wear: who } });
+      }
       return setObject(world, what, { where: putDown(plan, world, cue), call: false });
     }
     case "slide": {
@@ -541,8 +635,15 @@ export function applyCue(
       return setObject(world, what!, { heat: Math.max(0, (object?.heat ?? 0) - 0.5) });
     case "offer":
     case "raise":
+    case "photo":
+    case "show":
       holds(world, who, cue);
       return world;
+    case "eat":
+      // A dog's head down in its bowl: it is empty once they look up.
+      if (!object || object.fill !== "kibble")
+        throw new CueError(`${who} eat: from a bowl of kibble?`);
+      return setObject(world, what!, { fill: undefined });
     case "peel":
       if (!object || object.kind !== "carrot")
         throw new CueError(`${who} peel: a carrot?`);

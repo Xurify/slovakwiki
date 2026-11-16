@@ -18,6 +18,7 @@
   } from "$lib/learning/exercises";
   import type { DialogueTurn } from "$lib/learning/types";
   import type { SceneLine } from "$lib/stick-figure/scene-line";
+  import { checkChoiceOrder } from "$lib/listening/check-order";
   import { focusUnlessTyping } from "$lib/listening/focus";
 
   import EpisodeReplayButton from "./EpisodeReplayButton.svelte";
@@ -55,6 +56,7 @@
   let submitted = $state(false);
   let feedbackPanel: HTMLElement | null = $state(null);
 
+  const choices = $derived(checkChoiceOrder(check.id, check.choices));
   const correct = $derived(submitted && selectedId === check.answerId);
   const last = $derived(questionNumber === total);
   const why = $derived(
@@ -64,7 +66,7 @@
   );
   const otherChoices = $derived(
     submitted
-      ? otherChoiceNotes(check.choices, new Set(selectedId ? [selectedId] : []), why)
+      ? otherChoiceNotes(choices, new Set(selectedId ? [selectedId] : []), why)
       : [],
   );
 
@@ -107,7 +109,7 @@
 
     if (submitted) return;
     const choiceIndex = choiceIndexFromKeyboardEvent(event);
-    const choice = choiceIndex === null ? undefined : check.choices[choiceIndex];
+    const choice = choiceIndex === null ? undefined : choices[choiceIndex];
     if (!choice) return;
     event.preventDefault();
     selectedId = choice.id;
@@ -152,7 +154,7 @@
   <p class="m-0 mt-1 text-base text-slate-600">{check.promptEnglish}</p>
 
   <ChoiceOptions
-    choices={check.choices}
+    {choices}
     bind:selectedId
     {submitted}
     correctIds={submitted ? [check.answerId] : null}

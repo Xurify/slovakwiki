@@ -4,9 +4,10 @@
   import Facades, { type Facade } from "./Facades.svelte";
   import FloorShade from "./FloorShade.svelte";
   import Produce, { type Crate } from "./Produce.svelte";
+  import { PARTS } from "$lib/stick-figure/backdrop-parts";
   import StreetLamp from "./StreetLamp.svelte";
 
-  /** The square behind the market, washed back by distance so the stalls stay in front. */
+  /** The square behind the market, faded back by distance so the stalls stay in front. */
   const houses: Facade[] = [
     { x: -10, width: 130, top: 100, gable: true, door: false, paint: "fill-scene-clay" },
     { x: 120, width: 110, top: 118, gable: false, door: false, paint: "fill-scene-sage" },
@@ -24,7 +25,7 @@
    * Bunting from the fruit stall's pole to the farm stall's, sagging over the
    * fruit stall's lower roof: its flags clear the roof by about ten.
    */
-  const STRING = { from: { x: 384, y: 32 }, sag: { x: 513, y: 70 }, to: { x: 642, y: 32 } };
+  const STRING = { from: { x: 424, y: 32 }, sag: { x: 533, y: 70 }, to: { x: 642, y: 32 } };
   const FLAG = { count: 7, half: 7, drop: 14 };
 
   function along(t: number): { x: number; y: number } {
@@ -67,21 +68,18 @@
     crates: Crate[];
     /** A second row on a step behind, to show the stall well stocked. */
     back: Crate[];
-    /** Oštiepky hanging from the eaves outside the posts, clear of the goods, each with its price tied under it. */
-    cheeses: Array<{ x: number; price: string; size: number }>;
   }
 
   // Both stalls fit inside what a phone's stage shows of the market (x 360 to 960), with a margin, so neither is cut off.
   const stalls: Stall[] = [
     {
       label: "Ovocie",
-      x: 372,
+      x: 412,
       width: 196,
       beam: 100,
-      pole: 384,
+      pole: 424,
       crates: ["apples", "plums"],
       back: ["pears", "pears"],
-      cheeses: [],
     },
     {
       label: "Z farmy",
@@ -89,14 +87,11 @@
       width: 300,
       beam: 84,
       pole: 642,
-      // Tieto jahody and tamtie jahody, with the vegetables between them.
-      crates: ["strawberries", "vegetables", "strawberries"],
-      back: ["potatoes", "onions", "potatoes"],
-      // Tento syr for five euros, tamten for three.
-      cheeses: [
-        { x: 630, price: "5 €", size: 1.1 },
-        { x: 930, price: "3 €", size: 0.85 },
-      ],
+      // Tieto jahody up on the back row at the buyer's end, where his head hid them on the counter's top
+      // row; tamtie on the counter at the far end, past Lucia.
+      crates: ["potatoes", "vegetables", "strawberries"],
+      // Lucia's cheeses are on her selling counter, a set piece at the cast's scale (StickSet.svelte).
+      back: ["strawberries", "onions", "potatoes"],
     },
   ];
 
@@ -111,11 +106,10 @@
 
 <Cloud x={150} y={52} size={0.8} />
 <Cloud x={820} y={50} />
-<!-- The houses stand across the square, their fronts 14 back from where the stalls stand. -->
-<g transform="translate(0 -14)">
+<!-- The houses stand across the square, their fronts 14 back from where the stalls stand, faded into the sky by distance. A haze rect over the whole strip fogged the sky too. -->
+<g transform="translate(0 -14)" opacity="0.5">
   <Facades {houses} />
 </g>
-<rect x="-10" y="40" width="980" height="172" class="fill-scene-cool/55" />
 <rect x="-10" y="212" width="980" height="98" class="fill-scene-sand" />
 <rect x="-10" y="212" width="980" height="14" class="fill-scene-cool/30" />
 <!-- Cobbles, faint, smaller toward the back. -->
@@ -125,7 +119,7 @@
   {/each}
 {/each}
 <FloorShade />
-<StreetLamp lamp={{ x: 300, ground: 226 }} />
+<StreetLamp lamp={PARTS.market.lamp} />
 
 {#each stalls as stall (stall.label)}
   {@const left = stall.x + POST}
@@ -147,7 +141,7 @@
     y={stall.beam}
     width={right - left}
     height={170 - stall.beam}
-    class="fill-scene-line/12"
+    class="fill-scene-line/8"
   />
 
   <!-- Posts, and the pole on up to the bunting. -->
@@ -174,14 +168,14 @@
     {@const top = stall.x + 8 + (index * (stall.width - 16)) / stripes}
     <path
       d="M{top} {stall.beam - 22}H{top + (stall.width - 16) / stripes}L{bottom + stripe} {stall.beam}H{bottom}Z"
-      class={index % 2 === 0 ? "fill-scene-clay" : "fill-white/95"}
+      class={index % 2 === 0 ? "fill-scene-red/85" : "fill-white/95"}
     />
   {/each}
   <rect x={stall.x - 4} y={stall.beam - 2} width={stall.width + 8} height="4" rx="1.5" class="fill-scene-wood" />
   {#each Array.from({ length: stripes }, (_, index) => stall.x - 4 + index * stripe) as x, index (x)}
     <path
       d="M{x} {stall.beam + 2}H{x + stripe}V{stall.beam + 7}A{stripe / 2} 6 0 0 1 {x} {stall.beam + 7}Z"
-      class={index % 2 === 0 ? "fill-scene-clay" : "fill-white/95"}
+      class={index % 2 === 0 ? "fill-scene-red/85" : "fill-white/95"}
     />
   {/each}
 
@@ -189,31 +183,6 @@
   <Chalkboard x={stall.x + stall.width / 2 - 42} y={stall.beam - 20} width={84} height={16}>
     <text x="42" y="13" text-anchor="middle" font-size="13">{stall.label}</text>
   </Chalkboard>
-
-  {#each stall.cheeses as { x, price, size } (x)}
-    <path d="M{x} {stall.beam + 2}V97" class="stroke-scene-coffee/70" stroke-width="1.2" />
-    <!-- An oštiepok: smoked, spindle-shaped, the stamped pattern round its middle, hung by its cord. -->
-    <g transform="translate({x} 97) scale({size})">
-      <path d="M-3 2l3-3 3 3" class="stroke-scene-coffee/70" stroke-width="1.2" fill="none" />
-      <path
-        d="M0 0C7 2 9 9 9 14C9 20 6 24 0 27C-6 24 -9 20 -9 14C-9 9 -7 2 0 0Z"
-        class="fill-scene-onion"
-      />
-      <path d="M3 2C8 7 9 20 3 25C8 20 10 10 3 2Z" class="fill-scene-coffee/25" />
-      <path
-        d="M-7 9l2.5 3 2.5-3 2.5 3 2.5-3 2.5 3 2.5-3M-8 16l2.5 3 2.5-3 2.5 3 2.5-3 2.5 3 2.5-3 2 2"
-        class="stroke-scene-coffee/45"
-        stroke-width="0.9"
-        fill="none"
-      />
-      <!-- Its price, on a card tied under it. -->
-      <path d="M0 26V32" class="stroke-scene-line" stroke-width="1.8" />
-      <rect x="-9" y="31" width="18" height="10" rx="1.5" class="fill-white" />
-      <text x="0" y="38.8" text-anchor="middle" font-size="7.5" font-weight="700" class="fill-scene-line"
-        >{price}</text
-      >
-    </g>
-  {/each}
 
   <!-- The counter: crates on its top, a gingham cloth over its front, its legs under the hem. -->
   {#each stall.crates as crate, index (index)}
@@ -239,10 +208,10 @@
   <rect x={stall.x + 2} y="170" width={stall.width - 4} height="5" rx="1.5" class="fill-scene-wood" />
   <rect x={stall.x + 4} y="175" width={stall.width - 8} height="29" class="fill-scene-warm" />
   {#each Array.from({ length: Math.floor((stall.width - 8) / 12) }, (_, index) => stall.x + 4 + index * 12 + 3) as x (x)}
-    <rect {x} y="175" width="6" height="29" class="fill-scene-red/15" />
+    <rect {x} y="175" width="6" height="29" class="fill-scene-red/30" />
   {/each}
   {#each [178, 190] as y (y)}
-    <rect x={stall.x + 4} {y} width={stall.width - 8} height="6" class="fill-scene-red/15" />
+    <rect x={stall.x + 4} {y} width={stall.width - 8} height="6" class="fill-scene-red/30" />
   {/each}
   <path
     d="M{stall.x + 4} 204H{stall.x + stall.width - 4}"

@@ -218,19 +218,21 @@
   />
 {:else if characterId === "anna"}
   <!-- Rose knit sweater, slightly nipped at the waist, with a cream roll neck, honey belt and ribbed hem. -->
+  <!-- Neck column so tilting or nodding never leaves an empty gap under the chin -->
+  <rect x="-2.6" y="-35.5" width="5.2" height="6.5" class="fill-portrait-skin" />
   <path
     d="M-4.8 -28Q-5 -30.8 -2.2 -31L3.2 -31Q5.6 -30.8 5.2 -28Q6 -20 5.2 -14.4Q5 -12.8 5.3 -11Q6 -6 5.6 -2.4L-5 -2.4Q-5.4 -6 -4.7 -11Q-4.5 -13 -4.7 -14.4Q-5.4 -20 -4.8 -28Z"
     class="fill-scene-red stroke-portrait-ink"
     stroke-width="1.1"
   />
   <path
-    d="M-3.6 -31.6Q0 -33.4 3.8 -31.6L4.2 -28.6Q0 -26.8 -4 -28.6Z"
+    d="M-3.6 -34.8Q0 -36.6 3.8 -34.8L4.2 -28.6Q0 -26.8 -4 -28.6Z"
     class="fill-portrait-bib stroke-portrait-ink"
     stroke-width="0.8"
   />
   <path
-    d="M-3.8 -29.8Q0 -28.2 4 -29.8"
-    class="stroke-portrait-ink"
+    d="M-3.7 -32.8Q0 -31.2 3.9 -32.8M-3.8 -30.4Q0 -28.8 4 -30.4"
+    class="stroke-portrait-ink/60"
     stroke-width="0.5"
   />
   <path
@@ -262,7 +264,7 @@
     stroke-width="0.55"
   />
 {:else if characterId === "maria"}
-  <!-- rose cardigan open over a white blouse, long navy skirt -->
+  <!-- plum cardigan open over a white blouse, long navy skirt: red is Anna's -->
   <path d={longSkirt} class="fill-portrait-suit stroke-portrait-ink" stroke-width="1.1" />
   <path
     d="M-5 -27.8H5L4.6 -1.4H-4.6Z"
@@ -271,12 +273,12 @@
   />
   <path
     d="M-6 -27.8Q-6.4 -30.9 -3 -31.1L-1.4 -31L-1.8 -0.8Q-4 -0.4 -5.6 -1.4Z"
-    class="fill-scene-red stroke-portrait-ink"
+    class="fill-scene-plum stroke-portrait-ink"
     stroke-width="1.1"
   />
   <path
     d="M6 -27.8Q6.4 -30.9 3 -31.1L1.4 -31L1.8 -0.8Q4 -0.4 5.6 -1.4Z"
-    class="fill-scene-red stroke-portrait-ink"
+    class="fill-scene-plum stroke-portrait-ink"
     stroke-width="1.1"
   />
   <circle
@@ -288,6 +290,7 @@
   />
 {:else if characterId === "marek"}
   <!-- charcoal sweater over a collared shirt, side-facing profile -->
+  <rect x="-2.4" y="-35" width="4.8" height="5" class="fill-portrait-skin" />
   <path
     d="M-5.0 -27.8Q-5.4 -30.9 -2.6 -31.1L3.2 -31.1Q5.8 -30.9 5.4 -27.8Q6.0 -18 5.6 -10L5.2 -1.6L-4.8 -1.6Z"
     class="fill-portrait-vest stroke-portrait-ink"

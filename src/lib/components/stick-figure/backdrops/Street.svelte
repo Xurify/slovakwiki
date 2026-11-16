@@ -1,5 +1,6 @@
 <script lang="ts">
   import { PARTS } from "$lib/stick-figure/backdrop-parts";
+  import { AJAR } from "$lib/stick-figure/door";
   import { TRAM, type TramState } from "$lib/stick-figure/street";
   import Bench from "./Bench.svelte";
   import Cloud from "./Cloud.svelte";
@@ -7,8 +8,13 @@
   import FloorShade from "./FloorShade.svelte";
   import StreetLamp from "./StreetLamp.svelte";
   import Tree from "./Tree.svelte";
+  import WallClock from "./WallClock.svelte";
 
-  let { tram }: { tram: TramState } = $props();
+  /** `open`: how far the tram's doors have folded back for someone getting on, 0 shut to AJAR. */
+  let { hour, open = 0, tram }: { hour: number; open?: number; tram: TramState } = $props();
+
+  /** Each leaf folds back to its own edge, as a Tatra's folding doors do. */
+  const leaf = $derived(19 * (1 - 0.8 * Math.min(1, open / AJAR)));
 
   /** Town houses along the far side of the street; neighbours never share a paint. */
   const houses: Facade[] = [
@@ -51,6 +57,8 @@
   const SIDE_WINDOWS = [[D - 92, 28], [D + 30, 38], [D + 72, 38], [D + 114, 38], [D + 200, 38], [D + 242, 38], [D + 284, 38]];
   /** Bogies as [middle, half the wheelbase]; the short one under the cab keeps its wheels behind the nose and clear of the bin. */
   const BOGIES = [[D - 160, 8], [D - 100, 13], [D + 60, 13], [D + 230, 13]];
+
+  const clock = PARTS.street.clock;
 
   const shift = $derived(tram === "away" ? TRAM.away : 0);
   const id = $props.id();
@@ -151,12 +159,15 @@
     <!-- Doors: two glazed leaves each, their sills low to the platform. -->
     {#each DOORS as door (door)}
       <rect x={door - 22} y="150" width="44" height="91" rx="2" class="fill-portrait-hair" />
-      <rect x={door - 20} y="152" width="19" height="87" rx="1.5" class="fill-scene-steel-dark" />
-      <rect x={door + 1} y="152" width="19" height="87" rx="1.5" class="fill-scene-steel-dark" />
-      <rect x={door - 20} y="152" width="40" height="48" class="fill-scene-sky/30" />
+      <rect x={door - 20} y="152" width={leaf} height="87" rx="1.5" class="fill-scene-steel-dark" />
+      <rect x={door + 20 - leaf} y="152" width={leaf} height="87" rx="1.5" class="fill-scene-steel-dark" />
+      <rect x={door - 20} y="152" width={leaf} height="48" class="fill-scene-sky/30" />
+      <rect x={door + 20 - leaf} y="152" width={leaf} height="48" class="fill-scene-sky/30" />
       <rect x={door - 22} y="239" width="44" height="2" class="fill-scene-steel-light" />
-      <path d="M{door - 12} 170V214M{door + 12} 170V214" class="stroke-scene-steel-light/70" stroke-width="1" />
-      <path d="M{door - 18} 182L{door - 6} 156H{door - 3}L{door - 18} 190Z" class="fill-white/30" />
+      {#if open === 0}
+        <path d="M{door - 12} 170V214M{door + 12} 170V214" class="stroke-scene-steel-light/70" stroke-width="1" />
+        <path d="M{door - 18} 182L{door - 6} 156H{door - 3}L{door - 18} 190Z" class="fill-white/30" />
+      {/if}
       <circle cx={door + 26} cy="214" r="2.5" class="fill-scene-honey" />
     {/each}
 
@@ -273,5 +284,14 @@
 <text x="414" y="43.4" text-anchor="middle" font-size="6" font-weight="700" class="fill-white font-sans"
   >Kamenné nám.</text
 >
+
+<!-- The street clock on its post by the stop: a round face under a little cap, the post down to a foot on the paving. -->
+<ellipse cx={clock.x} cy={PAVING + 8} rx="7" ry="2" class="fill-scene-line/15" />
+<rect x={clock.x - 5} y={PAVING + 2} width="10" height="6" rx="1.5" class="fill-scene-steel-dark" />
+<rect x={clock.x - 2} y={clock.y + clock.r - 2} width="4" height={PAVING + 4 - clock.y - clock.r} class="fill-scene-steel-dark" />
+<rect x={clock.x - 4} y={clock.y + clock.r - 1} width="8" height="4" rx="1" class="fill-scene-steel-dark" />
+<path d="M{clock.x - 6} {clock.y - clock.r + 1}L{clock.x} {clock.y - clock.r - 6}L{clock.x + 6} {clock.y - clock.r + 1}Z" class="fill-scene-steel-dark" />
+<circle cx={clock.x} cy={clock.y} r={clock.r + 1.5} class="fill-scene-steel-dark" />
+<WallClock {clock} {hour} />
 
 <StreetLamp lamp={PARTS.street.lamp} />

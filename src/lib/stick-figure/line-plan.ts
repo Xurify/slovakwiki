@@ -65,6 +65,8 @@ export interface LinePlan {
   track?: number[];
   /** Where each word is spoken, in clip time, for captions that follow the voice. */
   words?: LineSpan[];
+  /** Said sadly or sorry (a sigh, `smutný`, `prepáč`): the face stays concerned for the whole line. */
+  glum?: boolean;
 }
 
 // Speech timing fitted on 120 lesson clips (eleven_v4, speed 0.88): sentence
@@ -80,6 +82,19 @@ const PAUSE_MS = 1050;
 /** An audio tag in clip text: `[pause]` is said as silence, a direction such as `[slowly]` not at all. */
 const TAG = /^\[[^\]]*\]$/;
 const PAUSE_TAG = /^\[pause\]/i;
+const VOCALIZATION_TAG = /^\[(chuckles|sighs|yawns|laughs|gasp)\]/i;
+const VOCALIZATION_MS: Record<string, number> = {
+  chuckles: 950,
+  sighs: 800,
+  yawns: 1200,
+  laughs: 950,
+  gasp: 500,
+};
+
+function directedVocalizationMs(sentence: string): number {
+  const match = VOCALIZATION_TAG.exec(sentence.trim());
+  return match ? (VOCALIZATION_MS[match[1].toLowerCase()] ?? 800) : 0;
+}
 const LEAD_MS = 40;
 const TAIL_MS = 180;
 
@@ -103,6 +118,24 @@ const DIRECTED: Record<string, StickGestureId> = {
   sighs: "sigh",
   yawns: "yawn",
 };
+
+/** Folded word starts that make a line sad or sorry, whoever says it. */
+const GLUM_WORDS =
+  /(^| )(smutn|prepac|skoda|bohuzial|chyba mi|chybat|nanestastie|je mi lut)/;
+
+/**
+ * A sighed line, or one that says it is sad or sorry: a smile held through
+ * "Asi je smutný" or "Prepáč, Anna" read as not meaning it.
+ */
+export function isGlum(slovak: string, said?: string): boolean {
+  if (/^\s*\[sighs\]/i.test(said ?? "")) return true;
+  const folded = slovak
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/\p{M}/gu, "")
+    .replace(/[^\p{L} ]+/gu, " ");
+  return GLUM_WORDS.test(folded);
+}
 
 function directedGesture(sentence: string): StickGestureId | undefined {
   const tag = /^\[([^\]]+)\]/.exec(sentence.trim())?.[1]?.toLowerCase();
@@ -158,6 +191,9 @@ export function textTimeline(text: string): {
   for (const token of text.match(/\[[^\]]*\]|\p{L}+|[,;:–—]|[.!?…]+/gu) ?? []) {
     if (TAG.test(token)) {
       if (PAUSE_TAG.test(token)) pendingPause = Math.max(pendingPause, PAUSE_MS);
+      const voc = VOCALIZATION_TAG.exec(token)?.[1]?.toLowerCase();
+      if (voc && VOCALIZATION_MS[voc])
+        pendingPause = Math.max(pendingPause, VOCALIZATION_MS[voc]);
       continue;
     }
     if (!/\p{L}/u.test(token)) {
@@ -170,7 +206,7 @@ export function textTimeline(text: string): {
 
     let start: number | undefined;
     for (const syllable of slovakSyllables(token)) {
-      if (syllables.length > 0 && pendingPause > 0) {
+      if (pendingPause > 0) {
         pauses.push({ start: ms, end: ms + pendingPause });
         ms += pendingPause;
       }
@@ -218,6 +254,11 @@ export interface LineClip {
   said?: string;
   /** Loudness per frame (0–1). */
   track?: number[];
+  /**
+   * Pre-aligned exact word spans in clip time. When provided, these override
+   * heuristic estimation with 100% acoustic accuracy.
+   */
+  words?: LineSpan[];
 }
 
 /**
@@ -228,16 +269,20 @@ export interface LineClip {
  */
 export function planLine(
   slovak: string,
-  { gestures, lips, phone, points = [], said, track }: LineClip = {},
+  { gestures, lips, phone, points = [], said, track, words: clipWords }: LineClip = {},
 ): LinePlan {
   const sentences = lineSentences(slovak);
   const saidSentences = said ? lineSentences(said) : [];
   const timed = saidSentences.length === sentences.length ? saidSentences : sentences;
   const gaps = timed.map((sentence, index) =>
-    index === 0 ? 0 : PAUSE_TAG.test(sentence) ? PAUSE_MS : SENTENCE_GAP_MS,
+    index === 0
+      ? directedVocalizationMs(sentence)
+      : PAUSE_TAG.test(sentence)
+        ? PAUSE_MS
+        : SENTENCE_GAP_MS,
   );
   const lengths = timed.map((sentence) =>
-    estimateSpeechMs(sentence.replace(PAUSE_TAG, "")),
+    estimateSpeechMs(sentence.replace(PAUSE_TAG, "").replace(VOCALIZATION_TAG, "")),
   );
   const speechMs = [...lengths, ...gaps].reduce((sum, ms) => sum + ms, 0);
 
@@ -285,7 +330,10 @@ export function planLine(
   });
 
   const sentenceOf = wordSentences(slovak);
-  const words = fitWords(textTimeline(said ?? slovak).words, sentenceOf, spans);
+  const words =
+    clipWords && clipWords.length === (slovak.match(/\p{L}+/gu) ?? []).length
+      ? clipWords
+      : fitWords(textTimeline(said ?? slovak).words, sentenceOf, spans);
   for (const { reach, target, word } of points) {
     const said = words[word];
     const sentence = spans[sentenceOf[word] ?? -1];
@@ -320,6 +368,7 @@ export function planLine(
     sentences: spans,
     track,
     words,
+    ...(isGlum(slovak, said) ? { glum: true } : {}),
   };
 }
 

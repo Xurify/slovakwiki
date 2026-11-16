@@ -88,16 +88,23 @@ export const PARTS = {
     bench: { ground: 266, width: 104, x: 616 },
     lamp: { ground: 262, x: 370 },
   },
-  home: { plant: { x: 738, y: 234 } },
+  home: {
+    // On the wall between the mirror and the door frame, clear of both.
+    clock: { hand: 12, r: 17, ticks: true, x: 360, y: 26 },
+    plant: { x: 738, y: 234 },
+  },
   plaza: {
     // Bench and tree stand past what a 1280-wide stage shows (x 120 to 840), whole on a wider one.
     bench: { ground: 250, width: 104, x: 4 },
     clock: { hand: 12, r: 17, x: 283, y: 128 },
-    lamp: { ground: 238, x: 240 },
+    lamp: { ground: 238, x: 228 },
     tree: { ground: 250, planter: true, x: 902 },
   },
   kitchen: {
     clock: { hand: 9, r: 15, ticks: false, x: 491, y: 54 },
+  },
+  market: {
+    lamp: { ground: 226, x: 300 },
   },
   registration: {
     clock: { hand: 11, r: 20, ticks: true, x: 462, y: 54 },
@@ -108,12 +115,14 @@ export const PARTS = {
     // The bench in the shelter beside its map, and the lamp at the back of the platform just past the
     // tram's first door; the tree is past what a 1280-wide stage shows.
     bench: { ground: 284, width: 68, x: 270 },
+    // On its own post by the stop, high enough to read over the cast's heads.
+    clock: { hand: 13, numerals: true, r: 19, x: 474, y: 34 },
     lamp: { ground: 292, x: 740 },
     tree: { ground: 284, x: 58 },
   },
 
   studio: {
-    clock: { hand: 9, r: 16, ticks: true, x: 308, y: 76 },
+    clock: { hand: 16, numerals: true, r: 26, x: 311, y: 76 },
     plant: { x: 690, y: 246 },
   },
 } as const satisfies Partial<

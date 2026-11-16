@@ -1,26 +1,32 @@
 <script lang="ts">
+  import { n } from "$lib/stick-figure/draw";
+
   /**
-   * Setts laid in rows from y `from` down to `to`, each row
-   * deeper and its stones wider than the one behind, so the paving reads as
-   * running back across the square. Only the joints are drawn.
+   * Setts in rows from y `from` down to `to`, each row deeper and its stones
+   * wider than the one behind, so the paving runs back across the square.
+   * Only faint joints are drawn: fans, rings and dashed stones all read as a
+   * pattern louder than the cast standing on it.
    */
-  let { from = 236, to = 310 }: { from?: number; to?: number } = $props();
+  let { from = 246, to = 310 }: { from?: number; to?: number } = $props();
+
+  const FIRST_DEPTH = 4.5;
+  const GROWTH = 1.17;
+  /** A sett seen from low down: about twice as wide as it looks deep. */
+  const WIDTH = 2.1;
 
   const joints = $derived.by(() => {
-    const rows: string[] = [];
-    let y = from;
-    let depth = 5;
-    for (let row = 0; y < to; row++) {
-      const width = depth * 2.2;
-      rows.push(`M-10 ${y}H970`);
-      for (let x = -10 + (row % 2) * (width / 2); x < 970; x += width) {
-        rows.push(`M${x.toFixed(1)} ${y}v${Math.min(depth, to - y).toFixed(1)}`);
-      }
+    let d = "";
+    let depth = FIRST_DEPTH;
+    for (let y = from, row = 0; y < to; row++) {
+      const width = depth * WIDTH;
+      const height = Math.min(depth, to - y);
+      d += `M-10 ${n(y)}H970`;
+      for (let x = -10 + (row % 2) * (width / 2); x < 970; x += width) d += `M${n(x)} ${n(y)}v${n(height)}`;
       y += depth;
-      depth *= 1.16;
+      depth *= GROWTH;
     }
-    return rows.join("");
+    return d;
   });
 </script>
 
-<path d={joints} class="stroke-scene-line/10" stroke-width="1" fill="none" />
+<path d={joints} class="stroke-scene-line/10" stroke-width="0.8" fill="none" />

@@ -1,7 +1,7 @@
 import { backdropAlign, type Glass } from "./places";
 import { STICK_BOX, type Point } from "./rig";
 import type { StageSetting } from "./stage-setting";
-import { thingBoxes, type SceneThing } from "./thing-words";
+import { thingBoxes, type SceneThing, type ThingBox } from "./thing-words";
 
 /** The backdrops' drawing space (StickBackdrop.svelte). */
 export const BACKDROP_WIDTH = 960;
@@ -41,20 +41,23 @@ export function thingsInView(
   height: number,
 ): SceneThing[] {
   if (!width || !height) return [...things];
-
-  const align = backdropAlign(setting);
   return things.filter((thing) =>
-    thingBoxes(thing).some((box) => {
-      const left = backdropToStage({ x: box.x, y: 0 }, width, height, align).x;
-      const right = backdropToStage(
-        { x: box.x + box.width, y: 0 },
-        width,
-        height,
-        align,
-      ).x;
-      return Math.min(right, width) - Math.max(left, 0) >= (right - left) * IN_VIEW_SHARE;
-    }),
+    thingBoxes(thing).some((box) => boxInView(box, setting, width, height)),
   );
+}
+
+/** Whether a stage `width` × `height` px shows enough of one box to tap it. */
+export function boxInView(
+  box: ThingBox,
+  setting: StageSetting,
+  width: number,
+  height: number,
+): boolean {
+  if (!width || !height) return true;
+  const align = backdropAlign(setting);
+  const left = backdropToStage({ x: box.x, y: 0 }, width, height, align).x;
+  const right = backdropToStage({ x: box.x + box.width, y: 0 }, width, height, align).x;
+  return Math.min(right, width) - Math.max(left, 0) >= (right - left) * IN_VIEW_SHARE;
 }
 
 /** Where a point of the rig lands for a figure drawn `width` px wide at `left`, `top`. */

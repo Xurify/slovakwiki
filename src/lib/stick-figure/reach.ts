@@ -87,8 +87,8 @@ const ON_TABLE: Record<Hand, Point> = { lead: { x: 10, y: 9 }, rear: { x: 6, y: 
  * dy 19, the hands were completely buried under the opaque desk rail.
  */
 const ON_DESK: Record<Hand, Point> = {
-  lead: { x: 13, y: 15.2 },
-  rear: { x: 10, y: 15.7 },
+  lead: { x: 15, y: 16.5 },
+  rear: { x: 11, y: 16.5 },
 };
 /** A talking hand this far out from rest, degrees, has left the table for the beat; overTable has already drawn a beat in to 40% of its swing. */
 const OFF_TABLE = 8;

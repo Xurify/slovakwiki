@@ -18,11 +18,16 @@ export interface Door {
   edge: number;
   top: number;
   height: number;
+  /** A flat's front door: whoever comes home unlocks it first, so their keys are heard before the latch. */
+  keys?: boolean;
 }
 
 /** The places whose door swings open on stage. */
 export const DOORS: Partial<Record<StageSetting, Door>> = {
+  cafe: { hinge: 254, edge: 302, top: 74, height: 152 },
+  home: { hinge: 364, edge: 424, top: 54, height: 172, keys: true },
   kitchen: { hinge: 196, edge: 256, top: 46, height: 180 },
+  registration: { hinge: 198, edge: 250, top: 80, height: 146 },
   studio: { hinge: 212, edge: 272, top: 46, height: 180 },
 };
 

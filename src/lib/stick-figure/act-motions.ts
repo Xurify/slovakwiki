@@ -12,9 +12,11 @@ import {
   type World,
 } from "./acts";
 import { DOOR_OPEN_MS, DOOR_SHUT_MS } from "./door";
+import { LOOKS } from "./looks";
+import type { StickPictureId } from "./pictures";
 import { REST_POSE, easeInOut, type StickPose } from "./pose";
 import { mouthOf, reachFor, type Hand } from "./reach";
-import { HEAD_RADIUS, solveRig, type Point } from "./rig";
+import { GROUND_Y, HEAD_RADIUS, solveRig, type Point } from "./rig";
 import { OBJECT_SIZE, SINK, intoDeskMic, tipFromHand } from "./set-pieces";
 import { SCOOT_MS, sitMs } from "./walk";
 
@@ -52,7 +54,7 @@ export type Target =
   /** Where the hand lets go of what it puts down: the object's grip once it is there. */
   | { landing: true; dx?: number; dy?: number }
   /** Toward a named point, the arm straight out: pointing at it. */
-  | { toward: string };
+  | { toward: string; as?: "grip" | "top" | "base"; dx?: number };
 
 export interface MotionKey {
   at: number;
@@ -103,6 +105,8 @@ export type FoleyId =
   | "thud"
   | "sniff"
   | "rattle"
+  | "bounce"
+  | "shutter"
   | "ring"
   | "compute";
 
@@ -151,6 +155,8 @@ export interface Motion {
   /** Which way the figure faces while it moves: toward what it reaches for. */
   face?: string;
   contacts?: Contact[];
+  /** Shown in a bubble over the lead hand while the motion runs: the photo on a phone held out. */
+  picture?: StickPictureId;
 }
 
 const REACHED = 420;
@@ -221,13 +227,17 @@ export function motionFor(
         const giver = where.hand;
         return {
           motion: {
-            ...handOverMotion(freeHand(world, who, what) ?? "lead", giver, object?.kind),
+            ...handOverMotion(
+              freeHand(world, who, what, cue.hand === "far") ?? "lead",
+              giver,
+              object?.kind,
+            ),
           },
           partner: { who: giver, motion: handOverMotion(where.side, who, object?.kind) },
         };
       }
       if (where && "pocket" in where) {
-        const hand = freeHand(world, who, what) ?? "lead";
+        const hand = freeHand(world, who, what, cue.hand === "far") ?? "lead";
         return {
           motion:
             object?.kind === "phone"
@@ -236,7 +246,7 @@ export function motionFor(
         };
       }
       if (where && "wear" in where) return { motion: offHeadMotion() };
-      const into = freeHand(world, who, what) ?? "lead";
+      const into = freeHand(world, who, what, cue.hand === "far") ?? "lead";
       if (heavy) return { motion: liftMotion(what, sinkAt(plan, where)) };
       if (object?.kind === "board") {
         // Both hands on it, then up level to the waist.
@@ -294,6 +304,8 @@ export function motionFor(
       };
     }
     case "give":
+      if (LOOKS[who].dog)
+        return dogGiveMotions(who, to as LessonCharacterId, world, what);
       return {
         motion: handOverMotion(hand, to as LessonCharacterId, object?.kind),
         partner: {
@@ -321,6 +333,7 @@ export function motionFor(
       const where = { landing: true } as const;
       const sink = heavy && plan ? sinkAt(plan, putDown(plan, world, cue)) : undefined;
       if (sink) return { motion: intoSinkMotion(sink) };
+      if (object?.kind === "headphones" && to === who) return { motion: onHeadMotion() };
       if (object?.kind === "headphones") {
         // Down by both cups, the way they came off, and let go.
         return {
@@ -384,7 +397,15 @@ export function motionFor(
           face: to,
           takes: REACHED + 80,
           sounds: [
-            { at: REACHED + 60, id: what === "lid" ? "lid" : soundOf(object?.kind) },
+            {
+              at: REACHED + 60,
+              id:
+                what === "lid"
+                  ? "lid"
+                  : object?.fill === "kibble"
+                    ? "rattle"
+                    : soundOf(object?.kind),
+            },
           ],
           keys: [
             { at: 0 },
@@ -469,18 +490,64 @@ export function motionFor(
         },
       };
     }
+    case "photo": {
+      // At arm's length at eye height, aimed at whoever is in the picture, the head back a little to see the screen; the shutter on the hold.
+      const out = {
+        ...hands(hand, { up: PHOTO_HOLD }),
+        turn: { [hand]: 90 },
+        body: { lean: -2, tilt: -2, brow: 0.3, look: 0.8 },
+      };
+      return {
+        motion: {
+          ms: 1900,
+          face: cue.to,
+          takes: 1000,
+          sounds: [{ at: 1000, id: "shutter" }],
+          keys: [{ at: 0 }, { at: 550, ...out }, { at: 1350, ...out }, { at: 1900 }],
+        },
+      };
+    }
+    case "show": {
+      // The phone held out at chest height, turned to whoever it is shown to, the photo up over it until the line is over.
+      const out = {
+        ...hands(hand, { up: { x: 24, y: 6 } }),
+        turn: { [hand]: 70 },
+        body: { lean: 4, brow: 0.3, look: 0.6 },
+      };
+      return {
+        motion: {
+          ms: 700,
+          face: cue.to,
+          hold: cue.keep ? true : "line",
+          picture: cue.picture,
+          keys: [{ at: 0 }, { at: 550, ...out }, { at: 700, ...out }],
+        },
+      };
+    }
     case "raise": {
       // Halfway to the mouth, and held there: about to eat, until something stops it. A recorder is held up to be seen, straight up beside the head, where the arm clears a desk mic too.
       // A phone shows its screen at chest height, under a desk mic: at the mouth the mic hid it, and up by the head it went behind the head.
+      // Keys shown from a desk chair go up by the ear on the side away from the mic: at the mouth they were lost behind the boom.
+      const deskKeys = object?.kind === "keys" && world.seated?.includes(who);
       const up =
-        object?.kind === "mic"
-          ? { ...hands(hand, { up: { x: 7, y: -26 } }), body: { lean: -1, brow: 0.4 } }
+        object?.kind === "mic" || deskKeys
+          ? {
+              ...hands(hand, { up: { x: deskKeys ? -14 : 7, y: deskKeys ? -22 : -26 } }),
+              body: { lean: -1, brow: 0.4 },
+            }
           : object?.kind === "phone"
             ? { ...hands(hand, { mouth: true, dx: 15, dy: 17 }), body: { brow: 0.3 } }
-            : {
-                ...hands(hand, { mouth: true, dx: 18, dy: 10.5 }),
-                turn: { [hand]: -20 },
-              };
+            : object?.kind === "umbrella" && !world.seated?.includes(who)
+              ? // Standing, held up by the shaft with the crook at eye height, where a name on the handle is read.
+                {
+                  ...hands(hand, { mouth: true, dx: 15, dy: -6 }),
+                  turn: { [hand]: -10 },
+                  body: { brow: 0.3 },
+                }
+              : {
+                  ...hands(hand, { mouth: true, dx: 18, dy: 10.5 }),
+                  turn: { [hand]: -20 },
+                };
       return {
         motion: {
           ms: 800,
@@ -742,8 +809,10 @@ export function motionFor(
       const tilt = board ? 22 : kind === "can" ? 40 : 70;
       // The spout just over the near side of the opening, so the jug itself stays outside the pot, at the chest rather than the face.
       // A board stays in both hands, the other one under it tipping with it.
+      // A can's spout reaches in over the middle of a plant's soil; a jug's lip stays at the near side of the opening.
+      const over = kind === "can" ? 1 : -2;
       const spout = (turn: number, dy: number) => ({
-        ...hands(hand, { to, as: "top", ...aim(kind, turn, -2, dy) }),
+        ...hands(hand, { to, as: "top", ...aim(kind, turn, over, dy) }),
         turn: { [hand]: turn },
         ...(board
           ? {
@@ -754,7 +823,8 @@ export function motionFor(
             }
           : {}),
       });
-      const high = board ? -2 : -4;
+      // A can is raised to the chest so the arm reaches out over a low plant pot instead of tipping it at the hip.
+      const high = board ? -2 : kind === "can" ? -9 : -4;
       // Over the rim, not over the pot: a board held out leans the cook less than a jug does.
       const lean = board ? 2 : 6;
       // Off a board, long enough to see the pieces slide along it and drop in.
@@ -952,6 +1022,7 @@ export function motionFor(
       };
     }
     case "leash": {
+      // Down on bent knees with the back upright, like a kneel: bent at the hip to the collar, a robot tipped over like a plank.
       // Bent down to the collar with the clip end, then up with the handle: the lead runs from the hand to the dog from then on.
       const collar = hands(hand, { to, as: "grip" });
       return {
@@ -962,8 +1033,8 @@ export function motionFor(
           sounds: [{ at: 780, id: "clink" }],
           keys: [
             { at: 0 },
-            { at: 550, ...collar, body: { bob: 22, lean: 14, nod: 3, look: 2 } },
-            { at: 850, ...collar, body: { bob: 22, lean: 14, nod: 3, look: 2 } },
+            { at: 550, ...collar, body: CROUCH },
+            { at: 850, ...collar, body: CROUCH },
             { at: 1500 },
           ],
         },
@@ -1164,7 +1235,14 @@ export function motionFor(
       };
     }
     case "lean": {
-      const near = { body: { lean: 10, tilt: 6, brow: 0.6, look: 1 } };
+      // To see a phone someone holds out (not one at their ear on a call), over from the hips, the head some 8 rig units nearer: at 10° it read as standing still.
+      // Leaning to a person's face stays small, or heads met.
+      const shown = Object.values(heldBy(world, to as LessonCharacterId)).some(
+        (id) => world.objects[id]?.kind === "phone" && !world.objects[id]?.call,
+      );
+      const near = {
+        body: { lean: shown ? 20 : 10, tilt: shown ? 8 : 6, brow: 0.6, look: 1 },
+      };
       return {
         motion: {
           ms: 700,
@@ -1202,6 +1280,33 @@ export function motionFor(
             },
             { at: 1700 },
           ],
+        },
+      };
+    }
+    case "eat": {
+      // Head down in the bowl three times, lifted part way to crunch between: six small dips of a few degrees read as no dip at all.
+      // The head turns on the neck and the front of the body tips with it, so the mouth comes down to the rim of a bowl
+      // on the floor, about 18 rig units ahead of the dog's middle (EAT_REACH): turning the head alone stopped the snout
+      // 50 px above the bowl.
+      const down = { nod: 24, tilt: 85, lean: 25, look: 1 };
+      const crunch = { nod: 12, tilt: 50, lean: 12, look: 1 };
+      const keys: MotionKey[] = [
+        { at: 0 },
+        { at: 420, body: down },
+        { at: 760, body: crunch },
+        { at: 1120, body: down },
+        { at: 1460, body: crunch },
+        { at: 1820, body: down },
+        { at: 2400, body: down },
+        { at: 2900 },
+      ];
+      return {
+        motion: {
+          ms: 2900,
+          face: cue.what,
+          takes: 2400,
+          sounds: [480, 1180, 1880].map((at) => ({ at, id: "rattle" as const })),
+          keys,
         },
       };
     }
@@ -1246,6 +1351,13 @@ export function motionFor(
     }
     case "point": {
       // The arm comes up as the figure turns round to what it points at (TURN_MS), and stays long enough to follow.
+      // At a dog, down at its back past the middle, with a stoop: from beside its head, aimed at the head, the
+      // point went out level over it (a point no steeper than STANDING_POINT_DROP of the way across).
+      const dog = Boolean(LOOKS[to as LessonCharacterId]?.dog);
+      const pointing = dog
+        ? { toward: to, as: "grip" as const, dx: DOG_BACK }
+        : { toward: to };
+      const stoop = dog ? { lean: 8, bob: 4 } : {};
       return {
         motion: {
           ms: 1900,
@@ -1254,13 +1366,13 @@ export function motionFor(
             { at: 0 },
             {
               at: 450,
-              ...hands(free, { toward: to }),
-              body: { look: 1, brow: 0.3 },
+              ...hands(free, pointing),
+              body: { look: 1, brow: 0.3, ...stoop },
             },
             {
               at: 1500,
-              ...hands(free, { toward: to }),
-              body: { look: 1, brow: 0.3 },
+              ...hands(free, pointing),
+              body: { look: 1, brow: 0.3, ...stoop },
             },
             { at: 1900 },
           ],
@@ -1269,7 +1381,7 @@ export function motionFor(
     }
     case "shrug": {
       // Elbows in, forearms out, hands up at the sides, and the head sinking between shoulders that cannot rise. Seated, the hands stay above the desk.
-      const drop = world.seated?.includes(who) ? 15 : 22;
+      const drop = world.seated?.includes(who) ? -2 : 22;
       const open = (y: number, lift: number) => ({
         lead: { up: { x: 13, y } },
         rear: { up: { x: -9, y } },
@@ -1303,6 +1415,29 @@ export function motionFor(
         },
       };
     case "pat": {
+      if (to && to !== who) {
+        // A hand on the other's shoulder, two soft pats, then it rests there a moment.
+        const hand = freeHand(world, who) ?? "lead";
+        const on = { to, dy: -6 };
+        const lifted = { to, dy: -9 };
+        const warm = { brow: 0.4, look: 0.6, tilt: 3 };
+        return {
+          motion: {
+            ms: 1700,
+            face: to,
+            keys: [
+              { at: 0 },
+              { at: 450, ...hands(hand, on), body: warm },
+              { at: 620, ...hands(hand, lifted), body: warm },
+              { at: 780, ...hands(hand, on), body: warm },
+              { at: 940, ...hands(hand, lifted), body: warm },
+              { at: 1100, ...hands(hand, on), body: warm },
+              { at: 1400, ...hands(hand, on), body: warm },
+              { at: 1700 },
+            ],
+          },
+        };
+      }
       // Checking for something, as for a passport: the free hand pats the inside pocket twice, head dipped to look.
       const hand = freeHand(world, who) ?? "lead";
       const pocket = { up: { x: 4, y: 16 } };
@@ -1328,9 +1463,11 @@ export function motionFor(
       return {
         motion: {
           ms: 2800,
+          // Down by then: the next line need not wait out the rest of the hold, which left 3 s of dead air.
+          takes: 700,
           face: target,
-          // Standing again by 2800, his gaze stays down: he is still talking to the dog, not an adult at eye level.
-          hold: "line",
+          // Down until their next cue: up again after a few seconds, they rose mid-sentence while still talking to the dog.
+          hold: true,
           keys: [
             { at: 0 },
             {
@@ -1339,11 +1476,10 @@ export function motionFor(
               lead: { to: target, as: "top", dy: -2 },
             },
             {
-              at: 2200,
+              at: 2800,
               body: { bob: 22, lean: 14, tilt: 6, brow: 0.2, look: 1 },
               lead: { to: target, as: "top", dy: -2 },
             },
-            { at: 2800, body: { tilt: 10, nod: 1.5, brow: 0.2, look: 1 } },
           ],
         },
       };
@@ -1368,6 +1504,25 @@ export function motionFor(
         },
       };
     }
+    case "count": {
+      // One hand up open at the chest, the other's finger tapping a finger of it per count, eyes on them.
+      const open = {
+        lead: { up: { x: 15, y: 12 } },
+        sign: { lead: "open", rear: "finger" } as const,
+        body: { look: 0.6, nod: 3 },
+      };
+      const keys: MotionKey[] = [{ at: 0 }];
+      for (let tap = 0; tap < 4; tap += 1) {
+        const at = 350 + tap * 380;
+        const finger = { x: 11 + tap * 1.5, y: 9 - tap * 1.6 };
+        keys.push(
+          { at, ...open, rear: { up: { x: finger.x - 2, y: finger.y + 4 } } },
+          { at: at + 180, ...open, rear: { up: finger } },
+        );
+      }
+      keys.push({ at: 2050, ...open }, { at: 2400 });
+      return { motion: { ms: 2400, keys } };
+    }
     case "laugh": {
       // Mouth open, head tipped back, the shoulders shaking, a hand to the belly: a still smile did not read as a laugh.
       const belly = hands(free, { up: { x: 7, y: 25 } });
@@ -1390,31 +1545,86 @@ export function motionFor(
       keys.push({ at: 1650 });
       return { motion: { ms: 1650, keys } };
     }
-    case "look":
+    case "look": {
+      // A wall clock hangs over everyone's head: looked at level, the head stayed on whoever stood under it.
+      // At -12° the head still read as level next to a street clock on its pole.
+      const up = LOOKS[who].dog
+        ? dogLooksUp(world, to, plan)
+          ? DOG_LOOK_UP
+          : {}
+        : to === "hodiny"
+          ? { tilt: -20, nod: -3 }
+          : {};
+      // "front" is the listeners: a host asking them for help turns the face out to them, not the body.
+      const front = to === "front";
+      const body = front ? { look: 0, brow: 0.3 } : { look: 1, brow: 0.3, ...up };
       return {
         motion: {
           ms: 1400,
-          face: to,
+          face: front ? undefined : to,
           hold: "line",
-          keys: [
-            { at: 0 },
-            { at: 350, body: { look: 1, brow: 0.3 } },
-            { at: 1400, body: { look: 1, brow: 0.3 } },
-          ],
+          keys: [{ at: 0 }, { at: 350, body }, { at: 1400, body }],
         },
+      };
+    }
+    case "grin":
+      // The grin itself is the face's (world.grins); the head comes up a touch to show it off.
+      return {
+        motion: cue.off
+          ? still
+          : {
+              ms: 900,
+              keys: [{ at: 0 }, { at: 250, body: { tilt: -4, nod: -0.6 } }, { at: 900 }],
+            },
       };
     case "knock":
       return { motion: { ms: 900, keys: [], sounds: [{ at: 0, id: "knock" }] } };
     case "skip":
       // The lights dip and the clock runs on: SKIP_MS in StickStage.
       return { motion: { ms: 2600, keys: [], takes: 1300 } };
+    case "lie":
+      // Down at once: StickDog folds the legs and lays the head on the paws over the dog's sitting time.
+      return { motion: { ms: sitMs(who), keys: [], takes: 0 } };
+    case "droop":
+      // Head and tail down until the dog's next cue: waiting, or sad.
+      return {
+        motion: {
+          ms: 900,
+          hold: true,
+          keys: [{ at: 0 }, { at: 900, body: DROOP }],
+        },
+      };
+    case "jump": {
+      // Up off all four paws twice, front first, the tail going: glad to see someone. Toward them if named.
+      const keys: MotionKey[] = [{ at: 0 }];
+      for (const start of [0, JUMP_MS]) {
+        keys.push(
+          { at: start + 120, body: { bob: 3, lean: 2, leadRaise: 40 } },
+          { at: start + 300, body: { ...JUMP_TOP, leadRaise: 70 } },
+          { at: start + 480, body: { bob: 2, lean: 0, leadRaise: 40 } },
+        );
+      }
+      keys.push({ at: 2 * JUMP_MS + 200 });
+      return { motion: { ms: 2 * JUMP_MS + 200, face: to || undefined, keys } };
+    }
+    case "growl":
+      // Head down at whoever it is, the front lowered and the tail out stiff, for the line.
+      return {
+        motion: {
+          ms: 600,
+          face: to || undefined,
+          hold: "line",
+          keys: [{ at: 0 }, { at: 600, body: GROWL }],
+        },
+      };
     case "stand":
       // The chair pushed back from the table, then up off it, before anything else they do.
       return {
         motion: {
           ms: SCOOT_MS + sitMs(who, true),
           keys: [],
-          sounds: [{ at: 100, id: "chair" }],
+          // A dog gets up off its haunches, with no chair to scrape.
+          sounds: LOOKS[who].dog ? [] : [{ at: 100, id: "chair" }],
         },
       };
     case "go":
@@ -1685,6 +1895,13 @@ const HEADPHONES_HELD = { lead: { mouth: true, dx: 9, dy: 20 }, both: PAIR } as 
  * the face and down, held by both cups. Set from the lips, so it fits a
  * head on a chair as one standing.
  */
+/** offHeadMotion run backwards: up past the face by both cups, over the head, and settled on the ears. */
+function onHeadMotion(): Motion {
+  const off = offHeadMotion();
+  const keys = off.keys.map((key) => ({ ...key, at: off.ms - key.at })).reverse();
+  return { ms: off.ms, takes: off.ms - (off.takes ?? 0), keys };
+}
+
 function offHeadMotion(): Motion {
   const cups = (lift: number): Pick<MotionKey, Hand> => ({
     lead: { mouth: true, dx: 8.3, dy: -9.4 - lift },
@@ -1749,6 +1966,85 @@ function slideMotion(
   };
 }
 
+/** One of a dog's greeting jumps, crouch to landing. */
+const JUMP_MS = 560;
+/** The top of a dog's jump: the whole dog up off the floor (StickDog lifts the body 0.6 of `-bob`), the front higher. */
+const JUMP_TOP: Partial<StickPose> = { bob: -16, lean: -12, nod: -2 };
+/** A dog's head and tail hung low (StickDog: a nod and tilt dip the head, lowered arms drop the tail). */
+const DROOP: Partial<StickPose> = { nod: 7, tilt: 20, leadRaise: -60, rearRaise: -60 };
+/**
+ * A dog's head lifted to whatever it looks at above it, a person's face or
+ * the lead on its peg: StickDog turns the head by 0.8 of the tilt, so about
+ * 32°. Turned only a little, Bobík's nose pointed at Robo's chest.
+ */
+const DOG_LOOK_UP: Partial<StickPose> = { tilt: -40, nod: -2 };
+
+/** Whether a dog looks up to `to`: anything but another dog or what lies on the floor. */
+function dogLooksUp(world: World, to: string, plan?: SetPlan): boolean {
+  if (LOOKS[to as LessonCharacterId]?.dog) return false;
+  let where = world.objects[to]?.where;
+  // In a bowl or a bag, it is as low as what holds it.
+  for (let depth = 0; where && "in" in where && depth < 4; depth += 1)
+    where = world.objects[where.in]?.where;
+  if (where && "on" in where) {
+    const piece = plan?.pieces.find(({ id }) => id === where.on) as
+      { kind?: string } | undefined;
+    return piece?.kind !== "floor" && where.on !== "floor";
+  }
+  return true;
+}
+/** A dog's head down and forward, the front lowered, the tail held out stiff and still. */
+const GROWL: Partial<StickPose> = {
+  nod: 5,
+  tilt: 14,
+  lean: 10,
+  bob: 3,
+  leadRaise: -30,
+  rearRaise: 0,
+};
+/** A dog's mouth from the top of its head (StickDog), toward the one it faces: where a ball it carries is taken. */
+const DOG_MOUTH = { ahead: 12, below: 11 };
+
+/**
+ * A dog gives what it carries by lifting it up to the one it brings it to,
+ * who comes down to it with an open hand at its mouth: a standing hand-over
+ * at chest height was out of the dog's reach.
+ */
+function dogGiveMotions(
+  dog: LessonCharacterId,
+  to: LessonCharacterId,
+  world: World,
+  what: string,
+): { motion: Motion; partner: { who: LessonCharacterId; motion: Motion } } {
+  const hand = freeHand(world, to, what) ?? "lead";
+  // In the receiver's space the dog faces them, so its mouth is nearer them than the top of its head.
+  const mouth: Target = { to: dog, as: "top", dx: -DOG_MOUTH.ahead, dy: DOG_MOUTH.below };
+  const up = { tilt: -14, nod: -1 };
+  const down = { bob: 18, lean: 8, look: 1, brow: 0.3 };
+  return {
+    motion: {
+      ms: 1400,
+      takes: 800,
+      face: to,
+      keys: [{ at: 0 }, { at: 400, body: up }, { at: 900, body: up }, { at: 1400 }],
+    },
+    partner: {
+      who: to,
+      motion: {
+        ms: 1400,
+        takes: 800,
+        face: dog,
+        keys: [
+          { at: 0 },
+          { at: 550, ...hands(hand, mouth), body: down },
+          { at: 900, ...hands(hand, mouth), body: down },
+          { at: 1400 },
+        ],
+      },
+    },
+  };
+}
+
 /** One half of a hand-over: out to where the two hands meet, a beat there, and back. */
 function handOverMotion(hand: Hand, to: LessonCharacterId, kind?: ObjectKind): Motion {
   // A knife goes across blade down, the way it is handed safely: held out level, the blade hid behind the two fists and it read as a handshake.
@@ -1786,6 +2082,24 @@ export interface Surroundings {
    * head go round it.
    */
   mic?: { side: 1 | -1; held: Partial<Record<Hand, ObjectKind>> };
+  /**
+   * A robot's body is one stiff casing: down to something low it bends at
+   * the knees and only a little at the waist. Folded at the hip like a
+   * person, it tipped over whole, as if falling.
+   */
+  squats?: boolean;
+  /**
+   * Whether a hand at `hand` would end on something drawn other than `target`,
+   * which a point then goes over. Things the shoulder is already in front of
+   * do not count: the arm is drawn over them whatever it does.
+   */
+  inTheWay?(hand: Point, shoulder: Point, target: string): boolean;
+  /**
+   * Whoever stands between this figure and `target`, in its rig units: each
+   * one's middle across, the top of the head and the hip. A point goes over
+   * their heads rather than through them.
+   */
+  between?(target: string): readonly { x: number; top: number; hip: number }[];
 }
 
 export interface MotionFrame {
@@ -1827,8 +2141,10 @@ export function targetPoint(
   }
   if ("toward" in target) {
     const shoulder = hand === "lead" ? rig.leadShoulder : rig.rearShoulder;
-    const aim = around.pointOf(target.toward, "top") ?? around.pointOf(target.toward);
-    if (!aim) return rest;
+    const found =
+      around.pointOf(target.toward, target.as ?? "top") ?? around.pointOf(target.toward);
+    if (!found) return rest;
+    const aim = { x: found.x + (target.dx ?? 0), y: found.y };
     // Seated behind a desk mic, the hand stays in under it and the finger shows the way: held out level, the arm went behind the mic's boom and read as gripping it; raised over the mic, it crossed the boom.
     if (sit > 0.5 && around.mic?.side === 1 && aim.x > shoulder.x) {
       return { x: shoulder.x + UNDER_MIC_POINT.x, y: shoulder.y + UNDER_MIC_POINT.y };
@@ -1838,11 +2154,45 @@ export function targetPoint(
     const across = Math.abs(aim.x - shoulder.x);
     const drop = sit > 0.5 ? POINT_DROP : STANDING_POINT_DROP;
     const at = { x: aim.x, y: Math.min(aim.y, shoulder.y + Math.max(across, 1) * drop) };
-    const length = Math.hypot(at.x - shoulder.x, at.y - shoulder.y) || 1;
-    return {
-      x: shoulder.x + ((at.x - shoulder.x) / length) * 28,
-      y: shoulder.y + ((at.y - shoulder.y) / length) * 28,
-    };
+    // Up at something nearly overhead (the woman in the window behind him), the arm still goes out to its side:
+    // straight up beside the head it read as a hand to the face, not a point.
+    const rise = Math.max(1, across) * POINT_STEEPEST;
+    if (shoulder.y - at.y > rise) at.y = shoulder.y - rise;
+    if (across < 1) at.x = shoulder.x + (aim.x < shoulder.x ? -1 : 1);
+    const across1 = Math.max(1, Math.abs(at.x - shoulder.x));
+    const side = at.x < shoulder.x ? -1 : 1;
+    let angle = Math.atan2(shoulder.y - at.y, across1);
+    // Down at something on the floor across the room (a bag by the window), the true line is only a little
+    // below level and read as a point at the chest of whoever stood beyond: it goes down clearly.
+    if (sit <= 0.5 && aim.y > rig.hip.y) angle = Math.min(angle, -LOW_POINT);
+    // Past someone at something no lower than their hip (the far crate behind Marek), the arm rises until
+    // the line clears their head: level, it ended on them and read as a point at them.
+    for (const body of sit <= 0.5 ? (around.between?.(target.toward) ?? []) : []) {
+      const off = Math.abs(body.x - shoulder.x);
+      if (aim.y > body.hip || off < 1) continue;
+      const over = Math.atan2(shoulder.y - (body.top - HEAD_CLEAR), off);
+      if (over > angle) angle = Math.min(over, Math.atan(POINT_STEEPEST));
+    }
+    const out = () => ({
+      x: shoulder.x + side * Math.cos(angle) * POINT_REACH,
+      y: shoulder.y - Math.sin(angle) * POINT_REACH,
+    });
+    // Up at something with a thing drawn in front of it (the window past the coat pegs), the hand goes over that
+    // thing rather than ending on it, where it pointed at the pegs. Where no angle clears it, the arm keeps its
+    // aim: steeper and still on the pegs, it pointed at neither.
+    if (
+      around.inTheWay &&
+      aim.y < shoulder.y &&
+      around.inTheWay(out(), shoulder, target.toward)
+    ) {
+      const level = angle;
+      const steepest = Math.atan(POINT_STEEPEST);
+      while (angle < steepest && around.inTheWay(out(), shoulder, target.toward)) {
+        angle = Math.min(steepest, angle + POINT_LIFT);
+      }
+      if (around.inTheWay(out(), shoulder, target.toward)) angle = level;
+    }
+    return out();
   }
   const as = target.as ?? "grip";
   const at =
@@ -1901,10 +2251,28 @@ function clearOfMic(
   return point;
 }
 
+/** Rig units past a dog's middle, away from whoever points: along its back toward the tail. */
+const DOG_BACK = 14;
 /** The steepest a point goes below level, as a slope: about 6 degrees. */
 const POINT_DROP = 0.1;
 /** Standing, about 60 degrees: steeper, the arm hangs down and reads as resting, not pointing. */
 const STANDING_POINT_DROP = 1.7;
+/**
+ * A phone held up for a photo, from the shoulder: the eyes are about 18 above it (the head's
+ * middle is SHOULDER_DROP + NECK + HEAD_RADIUS up), and 24 out is the arm all but straight
+ * (UPPER_ARM + FOREARM = 29). At y -9 it was held at the shoulder with the elbow bent.
+ */
+export const PHOTO_HOLD: Point = { x: 24, y: -16 };
+/** A pointing arm, nearly straight, from the shoulder to the hand. */
+const POINT_REACH = 28;
+/** The least a standing point at something below the hip goes down, in radians: 35°. */
+const LOW_POINT = 0.61;
+/** How far over a head a point passes, in rig units. */
+const HEAD_CLEAR = 4;
+/** How far a point is raised at a time to clear what is in the way, in radians: about 5°. */
+const POINT_LIFT = 0.09;
+/** The steepest a point rises, as a slope: about 55° above level. */
+const POINT_STEEPEST = 1.4;
 /** From a seated host's shoulder: in front of the chest, under the mic's head and short of its boom (StudioDesk). */
 const UNDER_MIC_POINT: Point = { x: 13, y: 3 };
 
@@ -1912,18 +2280,31 @@ const UNDER_MIC_POINT: Point = { x: 13, y: 3 };
 const ARM_REACH = 28.5;
 /** The most a figure leans in, in degrees, to reach what is in front of it. */
 const MOST_LEAN = 14;
+/** Crouched down at the floor, the most further it leans in over the knees: the back stays well short of flat. */
+const FLOOR_LEAN = 22;
+
+/** The deepest a robot squats, as its kneel by a dog does: its hips still well off the floor. */
+const SQUAT_MOST = 22;
+/** A hand this low is at the floor, setting something down on it, not at a dog's collar or head. */
+const FLOOR_REACH_Y = 112;
 
 /** How much further to lean so each hand reaches its point in front: none if they already do, or if leaning would not help. */
 function leanToReach(
   body: StickPose,
   points: Partial<Record<Hand, Point>>,
   sit: number,
+  squats = false,
+  maxBob = DEEPEST_BOB,
+  most = MOST_LEAN,
 ): number {
   // Low down, the knees bend with the lean, as they do lifting something off a low shelf.
   const low = Object.values(points).some((point) => point && point.y > STOOP_Y);
   const shortfall = (lean: number) => {
-    const bob = low && sit === 0 ? lean * 0.5 : 0;
-    const rig = solveRig({ ...body, lean: body.lean + lean, bob: body.bob + bob }, sit);
+    const bob = low && sit === 0 ? lean * (squats ? 1.4 : 0.5) : 0;
+    const rig = solveRig(
+      { ...body, lean: body.lean + lean, bob: Math.min(maxBob, body.bob + bob) },
+      sit,
+    );
     let worst = 0;
     for (const hand of ["lead", "rear"] as const) {
       const point = points[hand];
@@ -1938,15 +2319,25 @@ function leanToReach(
   };
   if (shortfall(0) <= 0) return 0;
   let best = 0;
-  for (let lean = 1; lean <= MOST_LEAN; lean += 1) {
+  for (let lean = 1; lean <= most; lean += 1) {
     if (shortfall(lean) < shortfall(best)) best = lean;
     if (shortfall(lean) <= 0) return lean;
   }
   return best;
 }
+/** Down to a dog's collar on bent knees, the back nearly upright. */
+const CROUCH: Partial<StickPose> = { bob: 22, lean: 6, nod: 3, look: 2 };
+/**
+ * The deepest the hips go, in px: a crouch with the knees folded. A reach to
+ * the floor added to a crouch took the hips below the feet, and the figure
+ * fell forward stiff from there, legs off the ground.
+ */
+const DEEPEST_BOB = 30;
 
 /** Lowest a hand reaches standing straight; below it the figure bends at the hip and knees. */
 const STOOP_Y = 98;
+/** The deepest stoop: a hand down at the floor. */
+const STOOP_MOST = GROUND_Y - STOOP_Y;
 
 /**
  * The figure `ms` into a motion, on top of `base`, the pose its talking
@@ -2047,16 +2438,38 @@ export function frameBetween(
   // A reach below the waist bends the figure down to it, more the lower it goes.
   const lowest = Math.max(0, ...Object.values(points).map((point) => point?.y ?? 0));
   if (lowest > STOOP_Y && sit === 0) {
-    const depth = lowest - STOOP_Y;
-    body.lean += depth * 1.6;
-    body.bob += depth * 0.9;
+    // Past the floor nothing is reached by folding further: unbounded, a point far below folded the figure flat.
+    const depth = Math.min(lowest - STOOP_Y, STOOP_MOST);
+    // Down at the floor a person crouches too, knees bent and back up: bent at the hip alone, Anna lay
+    // nearly flat over a ball. A stoop to a low shelf or a dog's back still bends at the hip.
+    const crouch = around.squats || lowest >= FLOOR_REACH_Y;
+    body.lean += depth * (crouch ? 0.6 : 1.6);
+    body.bob += depth * (crouch ? 1.6 : 0.9);
   }
+  // Squatting further after a dog's collar out of reach, a robot's hips went through the floor and its legs
+  // folded flat behind it: the whole casing read as tipped over. No deeper than its kneel, the arm falls short.
+  // Only setting something on the floor itself takes it lower.
+  const maxBob =
+    around.squats && sit === 0 && lowest < FLOOR_REACH_Y
+      ? SQUAT_MOST
+      : Math.max(DEEPEST_BOB, base.bob);
+  if (sit === 0) body.bob = Math.min(body.bob, maxBob);
 
   // Still out of reach, the figure leans in to it, as far as it must.
-  const leaned = leanToReach(body, points, sit);
+  // Crouched at the floor, a thing a step off is reached by leaning on over the knees.
+  const floorCrouch = !around.squats && sit === 0 && lowest >= FLOOR_REACH_Y;
+  const leaned = leanToReach(
+    body,
+    points,
+    sit,
+    around.squats,
+    maxBob,
+    floorCrouch ? FLOOR_LEAN : MOST_LEAN,
+  );
   const low = Object.values(points).some((point) => point && point.y > STOOP_Y);
   body.lean += leaned;
-  if (low && sit === 0) body.bob += leaned * 0.5;
+  if (low && sit === 0) body.bob += leaned * (around.squats ? 1.4 : 0.5);
+  if (sit === 0) body.bob = Math.min(body.bob, maxBob);
 
   let pose = mic ? headClearOfMic(body, sit, mic.side) : body;
   for (const hand of ["lead", "rear"] as const) {

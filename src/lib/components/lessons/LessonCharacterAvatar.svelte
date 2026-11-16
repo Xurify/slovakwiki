@@ -20,6 +20,11 @@
     characterId ? storyCastForId(characterId) : storyCastForSpeaker(speaker),
   );
   const robot = $derived(LOOKS[cast.id].robot);
+  // A line read by the narrator is nobody on stage: a white robot beside a line read as a
+  // second Robo or Domo, so it gets a glyph. The roster still shows the host robot by id.
+  const glyph = $derived(
+    !characterId && cast.id === "narrator" ? (speaker === "Scene" ? "scene" : "voice") : null,
+  );
   const dog = $derived(LOOKS[cast.id].dog);
   const dim = $derived(
     size === "xl"
@@ -57,6 +62,39 @@
   >
     <circle cx="32" cy="32" r="32" class={ground} />
 
+    {#if glyph === "scene"}
+      <!-- a clapperboard: the scene card that sets the place and time -->
+      <rect
+        x="16"
+        y="28"
+        width="32"
+        height="20"
+        rx="2"
+        class="fill-portrait-ink stroke-portrait-ink"
+        stroke-width="1.4"
+      />
+      <path d="M21 36h22M21 41h14" class="stroke-portrait-bib" stroke-width="1.6" />
+      <g transform="rotate(-14 17 25)">
+        <rect
+          x="16"
+          y="19"
+          width="32"
+          height="7"
+          rx="1.2"
+          class="fill-portrait-bib stroke-portrait-ink"
+          stroke-width="1.4"
+        />
+        <path d="M22 19l-4 7M30 19l-4 7M38 19l-4 7M46 19l-4 7" class="stroke-portrait-ink" stroke-width="2.4" />
+      </g>
+    {:else if glyph === "voice"}
+      <!-- a loudspeaker: a notice or a sentence read aloud -->
+      <path
+        d="M17 27h7l9-8v26l-9-8h-7Z"
+        class="fill-portrait-ink stroke-portrait-ink"
+        stroke-width="1.4"
+      />
+      <path d="M39 26q4 6 0 12M43.5 22q7.5 10 0 20" class="stroke-portrait-ink" stroke-width="2.2" />
+    {:else}
     <StickHead characterId={cast.id} part="back" turn={0} />
 
     {#if dog}
@@ -167,8 +205,8 @@
           stroke-width="0.8"
         />
       {:else if cast.id === "maria"}
-        <!-- rose cardigan open over a white blouse -->
-        <path d="M13 64c2-13 9-19 19-19s17 6 19 19Z" class="fill-rose-500" />
+        <!-- plum cardigan open over a white blouse -->
+        <path d="M13 64c2-13 9-19 19-19s17 6 19 19Z" class="fill-scene-plum" />
         <path d="M26.4 45.4 32 55.2 37.6 45.4Z" class="fill-portrait-bib" />
         <path
           d="M26.4 45.4 32 55.2 37.6 45.4"
@@ -224,5 +262,6 @@
     {/if}
 
     <StickHead characterId={cast.id} turn={0} />
+    {/if}
   </svg>
 </span>
