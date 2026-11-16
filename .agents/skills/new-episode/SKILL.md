@@ -113,7 +113,7 @@ Done when every segment has played through on the episode page with no figure do
 - Every new clip passes three gates: Scribe hears the line as written (`--verify`), the pauses fall where the script puts them (`ffmpeg -af silencedetect`), and the mouth follows the voice (`bun scripts/audio/lipsync.ts`). Lip sync is 80% or better over the episode, as the shipped episodes score; retake a single clip only when it is far under, about 60%. Digits and letters said as names score low because Scribe hears them as other words; list them rather than re-take them.
 - Upload with `bun scripts/audio/upload.ts -- --lessons-only` from this branch, in a session not linked to the person's computer (a linked cloud session cannot reach R2). `static/audio/` keeps other branches' clips, so check the manifest diff: an entry with empty text means a mouth measured from no words, and no other branch's entry may go. Pruning R2 is a separate job from the episode, since open branches still need their clips.
 
-Done when every line and scene word has a clip and a mouth track, each clip passes its gates or is listed with its score, and `content/audio/manifest.json`, `runtime-index.json` and `mouth.json` are committed.
+Never leave a changed line without its clip, even for a moment: generate, verify and upload it in the step that changes the line, and run the missing-clips and uploaded tests before every commit, WIP ones included. Clips never need the person's confirmation. Done when every line and scene word has a clip and a mouth track, each clip passes its gates or is listed with its score, and `content/audio/manifest.json`, `runtime-index.json` and `mouth.json` are committed.
 
 ## 6. Wire and verify
 
