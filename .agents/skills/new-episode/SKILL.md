@@ -56,7 +56,11 @@ Write the lines with the doc's §2 and §3. Then read each segment as a **scene*
 - Does a game or quiz rest on a rule nobody says? Say it in a line (the imperative comes from the oni form).
 - Is every event heard? A message pings, a call rings (`ring` on the line); the far end of a call is `overPhone`.
 - Does it sound spoken? Bridge a change of topic with a filler (`No nič…`, `Tak…`), and make each delivery fit the line: a plain list of chores must not sound lost.
-- Does the ending have a set-up, a pause and a reaction? A good last joke cut short reads as abrupt.
+- Does the ending have a set-up, a pause and a reaction? A good last joke cut short reads as abrupt. Give the punchline a `wait` of about a second, then a reaction and a tag line (`Malý, ale teraz môj!` / `Ej! Len do zajtra!`); never end on a flat correction, and never fold the reaction, the call to the listeners and the goodbye into one long line.
+- Does the picture do what every line says? Read each verb against the frame: `sedíš pri okne` needs the dog sitting at the window, `musím ísť` needs the person to leave, `Nastúpme!` needs the boarding, `sadni si` cannot be said to someone already seated, `pozri na misku` needs the look and then the eating. People come and go through the drawn door on cue, not from the frame's edge.
+- Is the everyday frame there? A shop visit has the price, the payment and the goodbye; a trip has a reason (`Potom pôjdeme autom.`); a fact someone states has a source in the story (`Marek mi ráno povedal…`).
+- In a mystery, tabulate every witness against the clock and check each clue against each statement; one slip (noon vs one o'clock) breaks the solve.
+- Who makes the mistakes in a right-or-wrong game? Never a native host saying a beginner's error as his own; take the sentences from a plausible source (a teacher's students) and let the host react as a reader.
 - In the listener's game, walk every path out loud: each pick at each ask, `NO_PICK`, and each score ending. Every branch line must make sense on every path that reaches it (`Zase nič?` was wrong when the listener had picked before), every branch gets a reaction, right ones too, and every verdict is one teasing sentence, not a list of forms.
 
 For the opening and the ending, write **three versions blind** (each in a fresh agent that has not seen the others) and keep the one the critic likes best: these are where first drafts are weakest.
@@ -135,6 +139,20 @@ Speed: start renders and long generate runs with `run_in_background` and carry o
 
 Done when a reviewer can check each segment and each judged line from one click.
 
-## 8. Learn from the review
+## 8. The 9+ audit
+
+Xurify's bar is 9/10 or better on every dimension (`docs/critics/rubric.md` plus story climax, set look, interaction, audio and the page). Before calling an episode done, have a fresh agent audit it with `docs/critics/episode-audit.md`: scores per dimension and findings as JSON lines with concrete fixes (the Slovak and English of a rewritten line, the spot or cue to change). Fix the shared engine findings in one branch and the episode findings in another, then audit again with new agents until every dimension is 9 or more, and post before/after stills to the person at each step. Classes the first audit (2026-11-15) found in every episode, now rules here and in `AGENTS.md`:
+
+- The picture contradicted the line (see **3. Write for the ear**).
+- Uneven loudness (−24 to −12 LUFS between lines of one scene): every clip is normalised to −18 LUFS (`scripts/audio/loudness.ts`).
+- The right answer listed first in every check: choices are shuffled per check id.
+- A weather or time cue fired from a word stem (`dáždnik` made it rain): cues match whole forms, with a test per false friend.
+- The listener was asked to guess, but playback ran on into the answer: a guess is an `ask` line so the game holds.
+- One bark clip for every mood: animals get a take per mood, and do what the lines say (sit, wag, eat).
+- A place where time matters had no clock, or the clock showed a quiz sentence's hour.
+- Signs crammed at the bottom: lettering on a board has even padding on all four sides and an even line pitch; check every sign at 3× zoom.
+- Drawn objects nobody could tap, or a tap box beside its drawing: every visible thing is a `thing` measured with `of`, and focus skips what the phone's window cuts off.
+
+## 9. Learn from the review
 
 Every point the person raises is a class, not an instance. File it in the same commit as its fix, never batched for later, since other threads start from these files: put it under a failure class in the guide and in **Slips we shipped**, add a CI check with a regression test where a rule can see it (`episode-checks.ts`), the rule under **Acting from cues** in `AGENTS.md` when it is about the stage, turn it into a question in the critic briefs, add the reviewed version and the point to the calibration set, and check every other episode for the same class before fixing this one. Re-run the calibration after changing a brief: it must still find the person's past points.
