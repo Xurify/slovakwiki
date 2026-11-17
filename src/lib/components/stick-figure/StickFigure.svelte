@@ -26,6 +26,7 @@
   import StickHeld from "./StickHeld.svelte";
   import StickHeadphones from "./StickHeadphones.svelte";
   import StickPicture from "./StickPicture.svelte";
+  import StickShownPhone from "./StickShownPhone.svelte";
   import StickProp from "./StickProp.svelte";
   import StickTorso from "./StickTorso.svelte";
   import { cubicInOut, sineInOut } from "svelte/easing";
@@ -37,10 +38,10 @@
   // The head is drawn in the 64×64 portrait space of StickHead, which the
   // portraits show as it is; 0.82 brings its 15.2 head radius to the rig's.
   const HEAD_SCALE = 0.82;
-  /** A speech bubble's box round its 26×17 picture: half its width, its top and bottom, and the picture's scale. */
-  const BUBBLE = { half: 22, top: -13, bottom: 12, scale: 1 };
   /** A clock dial drawn twice as large: at a photo's size its hands were a few pixels long on a phone. */
   const BIG_BUBBLE = { half: 20, top: -19, bottom: 18, scale: 2 };
+  /** A speech bubble's box round its 26×17 picture (half its width, its top and bottom, the picture's scale): a photo or flag as large as the dial, so the viewer can match it to the word: at half the size nobody could tell who was in a photo. */
+  const PHOTO_BUBBLE = { half: 28, top: -19, bottom: 18, scale: 2 };
 
   /**
    * Long hair's give, in the head's 64-unit space. Svelte's spring steps
@@ -239,12 +240,19 @@
   /** 1 side-on, 0 facing the front mid-turn. */
   const round = $derived(Math.min(1, Math.abs(turning.current)));
 
+  /** The phone in the lead hand, in the bubble's own units. */
+  function phoneFrom(over: { x: number; y: number }): { x: number; y: number } {
+    return {
+      x: rig.leadArm.end.x * side * (0.88 + 0.12 * round) - over.x,
+      y: rig.leadArm.end.y - over.y,
+    };
+  }
   /** The photo bubble's tail, from its bottom edge toward the phone in the lead hand, in the bubble's own units. */
   function tailTo(
     over: { x: number; y: number },
     bottom: number,
   ): { at: number; tip: { x: number; y: number } } {
-    const phone = { x: rig.leadArm.end.x * side * (0.88 + 0.12 * round) - over.x, y: rig.leadArm.end.y - over.y };
+    const phone = phoneFrom(over);
     const at = Math.max(-12, Math.min(12, phone.x * 0.4));
     const dx = phone.x - at;
     const dy = phone.y - bottom;
@@ -253,7 +261,7 @@
   }
   /** A rounded bubble with its tail out of the bottom edge. */
   function bubblePath(
-    box: typeof BUBBLE,
+    box: typeof PHOTO_BUBBLE,
     tail: { at: number; tip: { x: number; y: number } },
   ): string {
     const { half, top, bottom } = box;
@@ -720,15 +728,31 @@
   </g>
 
   {#if picture}
-    {@const dial = clockHands(picture) !== undefined}
-    {@const box = dial ? BIG_BUBBLE : BUBBLE}
+    {@const dial = clockHands(picture) !== null}
+    {@const shown = pictureAt === "hand" && Boolean(pictureOver)}
+    {@const box = dial ? BIG_BUBBLE : PHOTO_BUBBLE}
+    {@const between = dial || Math.abs(pictureOver ?? 0) >= 2 * box.half + HEAD_RADIUS}
+    {@const phoneScreen =
+      shown && picture.startsWith("photo-")
+        ? // Between two at a desk it fits the room there; above two standing close it can be larger.
+          { zoom: between ? 1.7 : 2.2 }
+        : undefined}
     {@const over =
-      pictureAt === "hand" && pictureOver
-        ? dial
+      phoneScreen
+        ? {
+            x: ((pictureOver ?? 0) / 2) * side,
+            // Between two at a desk, up between their heads, clear of the mic arms that rise to their mouths;
+            // above two standing close, clear of both heads.
+            y: between
+              ? rig.head.y - HEAD_RADIUS - 16
+              : rig.head.y - HEAD_RADIUS - 8.5 * phoneScreen.zoom - 8,
+          }
+        : shown && pictureOver
+        ? between
           ? // Between the two at head height: drawn large enough to read on a phone, no room over either head cleared the studio's on-air sign.
             { x: (pictureOver / 2) * side, y: rig.head.y - 4 }
-          : // Over the head of the one it is shown to, a little toward the phone: over the one holding it, it read as their thought.
-            { x: (pictureOver - 6) * side, y: rig.head.y - HEAD_RADIUS - 23 }
+          : // Standing close, there is no room between them: above both heads, midway.
+            { x: (pictureOver / 2) * side, y: rig.head.y - HEAD_RADIUS - box.bottom - 6 }
         : pictureAt === "hand"
           ? // Above the head and out toward whoever it is shown to: over the hand it covered the face, and the studio's mics drew over it.
             { x: (rig.head.x + HEAD_RADIUS + 14) * side, y: rig.head.y - HEAD_RADIUS - 20 }
@@ -738,16 +762,22 @@
         ? tailTo(over, box.bottom)
         : { at: 0, tip: { x: 0, y: box.bottom + 5 } }}
     <g transform="translate({n(over.x)} {n(over.y)})">
-      <g class="animate-rise">
-        <path
-          d={bubblePath(box, tail)}
-          class="fill-white stroke-portrait-ink"
-          stroke-width="1.1"
-        />
-        <g transform="translate(0 -0.5) scale({box.scale})">
-          <StickPicture {picture} />
+      {#if phoneScreen}
+        <g class="animate-rise">
+          <StickShownPhone {picture} zoom={phoneScreen.zoom} />
         </g>
-      </g>
+      {:else}
+        <g class="animate-rise">
+          <path
+            d={bubblePath(box, tail)}
+            class="fill-white stroke-portrait-ink"
+            stroke-width="1.1"
+          />
+          <g transform="translate(0 -0.5) scale({box.scale})">
+            <StickPicture {picture} />
+          </g>
+        </g>
+      {/if}
     </g>
   {/if}
 </svg>

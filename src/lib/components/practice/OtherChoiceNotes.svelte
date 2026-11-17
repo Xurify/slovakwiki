@@ -15,7 +15,7 @@
   const panelId = $props.id();
 
   const toggleClass =
-    "inline-flex items-center gap-1.5 text-sm font-semibold text-blue-800 transition-colors duration-150 ease-out hover:text-blue-900";
+    "inline-flex items-center gap-1.5 whitespace-nowrap text-sm font-semibold text-blue-800 transition-colors duration-150 ease-out hover:text-blue-900";
 
   const panelClass =
     "m-0 mt-2 grid max-h-[40vh] animate-rise list-none overflow-y-auto rounded-(--control-radius) bg-surface p-0 ring-1 ring-slate-200 ring-inset";

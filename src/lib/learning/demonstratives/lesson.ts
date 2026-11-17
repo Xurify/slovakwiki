@@ -1,5 +1,6 @@
 import { markedText } from "$lib/learning/marked-text";
-import type { Lesson, LessonExercise } from "$lib/learning/types";
+import type { DialogueTurn, Lesson, LessonExercise } from "$lib/learning/types";
+import type { Cue } from "$lib/stick-figure/acts";
 import {
   demonstrativesBeatShells,
   withDemonstrativesExercises,
@@ -130,8 +131,7 @@ export const demonstrativesGradedExercises: LessonExercise[] = [
       {
         id: "feminine",
         label: "Kto je tá dievča?",
-        whyWrong:
-          "**Tá** goes with feminine nouns. **Dievča** means a girl, but the noun is neuter.",
+        whyWrong: "**Tá** goes with feminine nouns like **žena** or **taška**.",
       },
       {
         id: "masculine",
@@ -560,6 +560,51 @@ export const demonstrativesPersonalExercise: LessonExercise = {
   example: "Tento stôl je starý. Tá žena je moja kolegyňa. Tieto knihy sú moje.",
 };
 
+/** Anna holds her phone out to Alex with the photo on it, so the people he asks about are on screen. */
+function showsPhoto(on: string): Cue[] {
+  return [
+    {
+      who: "anna",
+      do: "show",
+      what: "phone",
+      to: "alex",
+      picture: "photo-summer",
+      on,
+      keep: true,
+    },
+    { who: "alex", do: "lean", to: "anna", on },
+  ];
+}
+
+const SCENE_ACTS: Partial<Record<string, Cue[]>> = {
+  [demonstrativesLineIds.annaSummerPhotos]: [
+    { do: "take", what: "phone", on: "before" },
+    ...showsPhoto("fotky"),
+    // In close on the two of them, so the people in the photo can be told apart on a phone too.
+    { do: "camera", to: "anna", zoom: 1.25, on: "fotky" },
+  ],
+  [demonstrativesLineIds.youWhoIsThatMan]: showsPhoto("start"),
+  [demonstrativesLineIds.annaMyBrother]: showsPhoto("start"),
+  [demonstrativesLineIds.youWhoIsThatWoman]: showsPhoto("start"),
+  [demonstrativesLineIds.annaHisWifeEva]: showsPhoto("start"),
+  [demonstrativesLineIds.youWhoAreThoseMen]: showsPhoto("start"),
+  [demonstrativesLineIds.annaHisColleagues]: showsPhoto("start"),
+  [demonstrativesLineIds.youKnowThatMan]: showsPhoto("start"),
+  [demonstrativesLineIds.annaThatsMarek]: showsPhoto("start"),
+  [demonstrativesLineIds.annaManHelpsUs]: showsPhoto("start"),
+  [demonstrativesLineIds.annaCinemaWithColleagues]: [
+    ...showsPhoto("start"),
+    { do: "pocket", what: "phone", on: "after" },
+    { do: "camera", to: "wide", on: "after" },
+  ],
+  [demonstrativesLineIds.waiterTakesOrder]: [
+    { do: "enter", from: "off-right", to: "waiter", on: "before" },
+  ],
+  [demonstrativesLineIds.youHowMuchCake]: [{ do: "point", to: "kolac", on: "tento" }],
+  [demonstrativesLineIds.youThisCake]: [{ do: "point", to: "kolac", on: "tento" }],
+  [demonstrativesLineIds.annaThatCake]: [{ do: "point", to: "torta", on: "tamtú" }],
+};
+
 export const demonstrativesLesson: Lesson = {
   id: demonstrativesLessonId,
   track: "grammar",
@@ -567,251 +612,259 @@ export const demonstrativesLesson: Lesson = {
   title: "Demonstratives: ten, tento, tamten",
   promise:
     "Point at people and things — and make ten, tento, and tamten fit the noun and its case.",
-  scene: [
-    {
-      id: demonstrativesLineIds.annaSummerPhotos,
-      speaker: "Anna",
-      slovak: photosLine.text,
-      marks: photosLine.marks,
-      english: "Look, these are photos from the summer.",
-      audio: { transcript: photosLine.text },
-    },
-    {
-      id: demonstrativesLineIds.youWhoIsThatMan,
-      speaker: "You",
-      slovak: manLine.text,
-      marks: manLine.marks,
-      english: "Who is that man?",
-      audio: { transcript: manLine.text },
-      sayChoices: {
-        answerId: "masculine",
-        choices: [
-          { id: "masculine", label: "Kto je ten muž?" },
-          {
-            id: "feminine",
-            label: "Kto je tá muž?",
-            whyWrong:
-              "**Tá** goes with feminine nouns like **žena**. **Muž** is masculine: **ten muž**.",
-          },
-          {
-            id: "neuter",
-            label: "Kto je to muž?",
-            whyWrong:
-              "Before a noun, **to** is for neuter nouns like **dievča**. **Muž** is masculine: **ten muž**.",
-          },
-        ],
+  scene: (
+    [
+      {
+        id: demonstrativesLineIds.annaSummerPhotos,
+        speaker: "Anna",
+        slovak: photosLine.text,
+        marks: photosLine.marks,
+        english: "Look, these are photos from the summer.",
+        audio: { transcript: photosLine.text },
       },
-    },
-    {
-      id: demonstrativesLineIds.annaMyBrother,
-      speaker: "Anna",
-      slovak: brotherLine.text,
-      marks: brotherLine.marks,
-      english: "That's my brother Tom.",
-      audio: { transcript: brotherLine.text },
-    },
-    {
-      id: demonstrativesLineIds.youWhoIsThatWoman,
-      speaker: "You",
-      slovak: womanLine.text,
-      marks: womanLine.marks,
-      english: "And who is that woman?",
-      audio: { transcript: womanLine.text },
-      sayChoices: {
-        answerId: "feminine",
-        choices: [
-          { id: "feminine", label: "A kto je tá žena?" },
-          {
-            id: "masculine",
-            label: "A kto je ten žena?",
-            whyWrong:
-              "**Ten** goes with masculine nouns like **muž**. **Žena** is feminine: **tá žena**.",
-          },
-          {
-            id: "accusative",
-            label: "A kto je tú žena?",
-            whyWrong:
-              "**Tú** is the accusative, as in **Poznám tú ženu**. After **je**, use the basic form: **tá žena**.",
-          },
-        ],
+      {
+        id: demonstrativesLineIds.youWhoIsThatMan,
+        speaker: "You",
+        slovak: manLine.text,
+        marks: manLine.marks,
+        english: "Who is that man?",
+        audio: { transcript: manLine.text },
+        sayChoices: {
+          answerId: "masculine",
+          choices: [
+            { id: "masculine", label: "Kto je ten muž?" },
+            {
+              id: "feminine",
+              label: "Kto je tá muž?",
+              whyWrong:
+                "**Tá** goes with feminine nouns like **žena**. **Muž** is masculine: **ten muž**.",
+            },
+            {
+              id: "neuter",
+              label: "Kto je to muž?",
+              whyWrong:
+                "Before a noun, **to** is for neuter nouns like **dievča**. **Muž** is masculine: **ten muž**.",
+            },
+          ],
+        },
       },
-    },
-    {
-      id: demonstrativesLineIds.annaHisWifeEva,
-      speaker: "Anna",
-      slovak: wifeLine.text,
-      marks: wifeLine.marks,
-      english: "That's his wife Eva. And those children are theirs.",
-      audio: { transcript: wifeLine.text },
-    },
-    {
-      id: demonstrativesLineIds.youWhoAreThoseMen,
-      speaker: "You",
-      slovak: menLine.text,
-      marks: menLine.marks,
-      english: "And who are those men at the back?",
-      audio: { transcript: menLine.text },
-      sayChoices: {
-        answerId: "personal",
-        choices: [
-          { id: "personal", label: "A kto sú tí muži vzadu?" },
-          {
-            id: "other-plural",
-            label: "A kto sú tie muži vzadu?",
-            whyWrong:
-              "**Tie** is for every other plural, like **tie deti**. **Muži** is a masculine noun for people: **tí muži**.",
-          },
-          {
-            id: "singular",
-            label: "A kto je ten muži vzadu?",
-            whyWrong:
-              "**Ten** and **je** are singular. **Muži** is plural: **tí muži**, **sú**.",
-          },
-        ],
+      {
+        id: demonstrativesLineIds.annaMyBrother,
+        speaker: "Anna",
+        slovak: brotherLine.text,
+        marks: brotherLine.marks,
+        english: "That's my brother Tom.",
+        audio: { transcript: brotherLine.text },
       },
-    },
-    {
-      id: demonstrativesLineIds.annaHisColleagues,
-      speaker: "Anna",
-      slovak: colleaguesLine.text,
-      marks: colleaguesLine.marks,
-      english: "Those are his colleagues from work.",
-      audio: { transcript: colleaguesLine.text },
-    },
-    {
-      id: demonstrativesLineIds.youKnowThatMan,
-      speaker: "You",
-      slovak: knowLine.text,
-      marks: knowLine.marks,
-      english: "And I know that man! Is that Marek?",
-      audio: { transcript: knowLine.text },
-      sayChoices: {
-        answerId: "accusative",
-        choices: [
-          { id: "accusative", label: "A toho muža poznám! Je to Marek?" },
-          {
-            id: "nominative",
-            label: "A ten muž poznám! Je to Marek?",
-            whyWrong:
-              "**Ten muž** is the subject form. **Poznať** takes the accusative, and masculine nouns for people and animals change: **toho muža**.",
-          },
-          {
-            id: "half",
-            label: "A ten muža poznám! Je to Marek?",
-            whyWrong:
-              "**Muža** is accusative, so **ten** has to change with it: **toho muža**.",
-          },
-        ],
+      {
+        id: demonstrativesLineIds.youWhoIsThatWoman,
+        speaker: "You",
+        slovak: womanLine.text,
+        marks: womanLine.marks,
+        english: "And who is that woman?",
+        audio: { transcript: womanLine.text },
+        sayChoices: {
+          answerId: "feminine",
+          choices: [
+            { id: "feminine", label: "A kto je tá žena?" },
+            {
+              id: "masculine",
+              label: "A kto je ten žena?",
+              whyWrong:
+                "**Ten** goes with masculine nouns like **muž**. **Žena** is feminine: **tá žena**.",
+            },
+            {
+              id: "accusative",
+              label: "A kto je tú žena?",
+              whyWrong:
+                "**Tú** is the accusative, as in **Poznám tú ženu**. After **je**, use the basic form: **tá žena**.",
+            },
+          ],
+        },
       },
-    },
-    {
-      id: demonstrativesLineIds.annaThatsMarek,
-      speaker: "Anna",
-      slovak: marekLine.text,
-      marks: marekLine.marks,
-      english: "Yes, that's Marek. He lives in that house next to us.",
-      audio: { transcript: marekLine.text },
-    },
-    {
-      id: demonstrativesLineIds.annaManHelpsUs,
-      speaker: "Anna",
-      slovak: helpsLine.text,
-      marks: helpsLine.marks,
-      english: "That man often helps us.",
-      audio: { transcript: helpsLine.text },
-    },
-    {
-      id: demonstrativesLineIds.annaCinemaWithColleagues,
-      speaker: "Anna",
-      slovak: cinemaLine.text,
-      marks: cinemaLine.marks,
-      english: "Tonight he's going to the cinema with those colleagues.",
-      audio: { transcript: cinemaLine.text },
-    },
-    {
-      id: demonstrativesLineIds.waiterTakesOrder,
-      speaker: "Waiter",
-      slovak: "Dobrý deň. Čo si dáte?",
-      english: "Hello. What would you like?",
-      audio: { transcript: "Dobrý deň. Čo si dáte?" },
-    },
-    {
-      id: demonstrativesLineIds.youHowMuchCake,
-      speaker: "You",
-      slovak: priceLine.text,
-      marks: priceLine.marks,
-      english: "How much is this cake?",
-      audio: { transcript: priceLine.text },
-      sayChoices: {
-        answerId: "masculine",
-        choices: [
-          { id: "masculine", label: "Koľko stojí tento koláč?" },
-          {
-            id: "feminine",
-            label: "Koľko stojí táto koláč?",
-            whyWrong:
-              "**Táto** goes with feminine nouns like **torta**. **Koláč** is masculine: **tento koláč**.",
-          },
-          {
-            id: "neuter",
-            label: "Koľko stojí toto koláč?",
-            whyWrong:
-              "**Toto** goes with neuter nouns like **dievča**. **Koláč** is masculine: **tento koláč**.",
-          },
-        ],
+      {
+        id: demonstrativesLineIds.annaHisWifeEva,
+        speaker: "Anna",
+        slovak: wifeLine.text,
+        marks: wifeLine.marks,
+        english: "That's his wife Eva. And those children are theirs.",
+        audio: { transcript: wifeLine.text },
       },
-    },
-    {
-      id: demonstrativesLineIds.waiterThreeEuros,
-      speaker: "Waiter",
-      slovak: "Tri eurá.",
-      english: "Three euros.",
-      audio: { transcript: "Tri eurá." },
-    },
-    {
-      id: demonstrativesLineIds.youThisCake,
-      speaker: "You",
-      slovak: cakeLine.text,
-      marks: cakeLine.marks,
-      english: "OK, I'll have this cake.",
-      audio: { transcript: cakeLine.text },
-      sayChoices: {
-        answerId: "masculine",
-        choices: [
-          { id: "masculine", label: "Dobre, dám si tento koláč." },
-          {
-            id: "feminine",
-            label: "Dobre, dám si túto koláč.",
-            whyWrong:
-              "**Túto** goes with feminine nouns, like **tortu**. **Koláč** is masculine: **tento koláč**.",
-          },
-          {
-            id: "person",
-            label: "Dobre, dám si tohto koláč.",
-            whyWrong:
-              "**Tohto** is the accusative for people and animals (**tohto muža**, **tohto psa**). A thing keeps the basic form: **tento koláč**.",
-          },
-        ],
+      {
+        id: demonstrativesLineIds.youWhoAreThoseMen,
+        speaker: "You",
+        slovak: menLine.text,
+        marks: menLine.marks,
+        english: "And who are those men at the back?",
+        audio: { transcript: menLine.text },
+        sayChoices: {
+          answerId: "personal",
+          choices: [
+            { id: "personal", label: "A kto sú tí muži vzadu?" },
+            {
+              id: "other-plural",
+              label: "A kto sú tie muži vzadu?",
+              whyWrong:
+                "**Tie** is for every other plural, like **tie deti**. **Muži** is a masculine noun for people: **tí muži**.",
+            },
+            {
+              id: "singular",
+              label: "A kto je ten muži vzadu?",
+              whyWrong:
+                "**Ten** and **je** are singular. **Muži** is plural: **tí muži**, **sú**.",
+            },
+          ],
+        },
       },
-    },
-    {
-      id: demonstrativesLineIds.annaThatCake,
-      speaker: "Anna",
-      to: "Waiter",
-      slovak: tortaLine.text,
-      marks: tortaLine.marks,
-      english: "And I'll have that layer cake over there.",
-      audio: { transcript: tortaLine.text },
-    },
-    {
-      id: demonstrativesLineIds.waiterConfirmsOrder,
-      speaker: "Waiter",
-      slovak: confirmLine.text,
-      marks: confirmLine.marks,
-      english: "So, this cake and that layer cake. Coming right up.",
-      audio: { transcript: confirmLine.text },
-    },
-  ],
+      {
+        id: demonstrativesLineIds.annaHisColleagues,
+        speaker: "Anna",
+        slovak: colleaguesLine.text,
+        marks: colleaguesLine.marks,
+        english: "Those are his colleagues from work.",
+        audio: { transcript: colleaguesLine.text },
+      },
+      {
+        id: demonstrativesLineIds.youKnowThatMan,
+        speaker: "You",
+        slovak: knowLine.text,
+        marks: knowLine.marks,
+        english: "And I know that man! Is that Marek?",
+        audio: { transcript: knowLine.text },
+        sayChoices: {
+          answerId: "accusative",
+          choices: [
+            { id: "accusative", label: "A toho muža poznám! Je to Marek?" },
+            {
+              id: "nominative",
+              label: "A ten muž poznám! Je to Marek?",
+              whyWrong:
+                "**Ten muž** is the subject form. **Poznať** takes the accusative, and masculine nouns for people and animals change: **toho muža**.",
+            },
+            {
+              id: "half",
+              label: "A ten muža poznám! Je to Marek?",
+              whyWrong:
+                "**Muža** is accusative, so **ten** has to change with it: **toho muža**.",
+            },
+          ],
+        },
+      },
+      {
+        id: demonstrativesLineIds.annaThatsMarek,
+        speaker: "Anna",
+        slovak: marekLine.text,
+        marks: marekLine.marks,
+        english: "Yes, that's Marek. He lives in that house next to us.",
+        audio: { transcript: marekLine.text },
+      },
+      {
+        id: demonstrativesLineIds.annaManHelpsUs,
+        speaker: "Anna",
+        slovak: helpsLine.text,
+        marks: helpsLine.marks,
+        english: "That man often helps us.",
+        audio: { transcript: helpsLine.text },
+      },
+      {
+        id: demonstrativesLineIds.annaCinemaWithColleagues,
+        speaker: "Anna",
+        slovak: cinemaLine.text,
+        marks: cinemaLine.marks,
+        english: "Tonight he's going to the cinema with those colleagues.",
+        audio: { transcript: cinemaLine.text },
+      },
+      {
+        id: demonstrativesLineIds.waiterTakesOrder,
+        speaker: "Waiter",
+        slovak: "Dobrý deň. Čo si dáte?",
+        english: "Hello. What would you like?",
+        audio: { transcript: "Dobrý deň. Čo si dáte?" },
+      },
+      {
+        id: demonstrativesLineIds.youHowMuchCake,
+        speaker: "You",
+        slovak: priceLine.text,
+        marks: priceLine.marks,
+        english: "How much is this cake?",
+        audio: { transcript: priceLine.text },
+        sayChoices: {
+          answerId: "masculine",
+          choices: [
+            { id: "masculine", label: "Koľko stojí tento koláč?" },
+            {
+              id: "feminine",
+              label: "Koľko stojí táto koláč?",
+              whyWrong:
+                "**Táto** goes with feminine nouns like **torta**. **Koláč** is masculine: **tento koláč**.",
+            },
+            {
+              id: "neuter",
+              label: "Koľko stojí toto koláč?",
+              whyWrong:
+                "**Toto** goes with neuter nouns like **dievča**. **Koláč** is masculine: **tento koláč**.",
+            },
+          ],
+        },
+      },
+      {
+        id: demonstrativesLineIds.waiterThreeEuros,
+        speaker: "Waiter",
+        slovak: "Tri eurá.",
+        english: "Three euros.",
+        audio: { transcript: "Tri eurá." },
+      },
+      {
+        id: demonstrativesLineIds.youThisCake,
+        speaker: "You",
+        slovak: cakeLine.text,
+        marks: cakeLine.marks,
+        english: "OK, I'll have this cake.",
+        audio: { transcript: cakeLine.text },
+        sayChoices: {
+          answerId: "masculine",
+          choices: [
+            { id: "masculine", label: "Dobre, dám si tento koláč." },
+            {
+              id: "feminine",
+              label: "Dobre, dám si túto koláč.",
+              whyWrong:
+                "**Túto** goes with feminine nouns, like **tortu**. **Koláč** is masculine: **tento koláč**.",
+            },
+            {
+              id: "person",
+              label: "Dobre, dám si tohto koláč.",
+              whyWrong:
+                "**Tohto** is the accusative for people and animals (**tohto muža**, **tohto psa**). A thing keeps the basic form: **tento koláč**.",
+            },
+          ],
+        },
+      },
+      {
+        id: demonstrativesLineIds.annaThatCake,
+        speaker: "Anna",
+        to: "Waiter",
+        slovak: tortaLine.text,
+        marks: tortaLine.marks,
+        english: "And I'll have that layer cake over there.",
+        audio: { transcript: tortaLine.text },
+      },
+      {
+        id: demonstrativesLineIds.waiterConfirmsOrder,
+        speaker: "Waiter",
+        slovak: confirmLine.text,
+        marks: confirmLine.marks,
+        english: "So, this cake and that layer cake. Coming right up.",
+        audio: { transcript: confirmLine.text },
+      },
+    ] as DialogueTurn[]
+  ).map((turn) => {
+    const act = SCENE_ACTS[turn.id];
+    return act ? { ...turn, act } : turn;
+  }),
+  setup: {
+    objects: [{ id: "phone", kind: "phone", start: { where: { pocket: "anna" } } }],
+  },
   keyPhrases: demonstrativesBeatShells.flatMap((beat) => beat.teach.phrases ?? []),
   pattern: {
     title: "This, that, the",

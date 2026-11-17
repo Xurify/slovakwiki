@@ -626,6 +626,8 @@ export const possessivesLesson: Lesson = {
       marks: momLine.marks,
       english: "No one. But I call my mom every week.",
       audio: { transcript: momLine.text },
+      // Calling every week is a habit, not a call now: a phone out here read as shown to Anna.
+      props: [null, null],
       sayChoices: {
         answerId: "own",
         answerIds: ["own", "mine"],

@@ -5,12 +5,24 @@ import LessonPage from "$lib/components/lessons/LessonPage.svelte";
 import { lessonAudioSrcs } from "$lib/catalog/lessons/audio";
 import { contentCacheKey } from "$lib/build/cache-key";
 import { lessons } from "$lib/catalog/lessons";
+import { episodePath, listeningEpisodes } from "$lib/catalog/listening";
+import { lessonScene, placeThingWords } from "$lib/stick-figure/scene-sources";
 
 export function getStaticPaths() {
   return lessons.map((lesson) => {
     // Audio URLs belong in the cache key: regenerating clips changes them without
     // touching lesson text, and incrementalBuild would otherwise keep stale HTML.
-    const props = { lesson, audio: lessonAudioSrcs(lesson) };
+    const stage = lessonScene(lesson);
+    const sameTopic = listeningEpisodes.find((episode) => episode.lessonId === lesson.id);
+    const props = {
+      lesson,
+      audio: lessonAudioSrcs(lesson),
+      stage,
+      thingWords: stage ? placeThingWords(stage.setting) : {},
+      episode: sameTopic
+        ? { href: episodePath(sameTopic), title: sameTopic.titleSk }
+        : undefined,
+    };
 
     return {
       params: { lesson: lesson.slug, track: lesson.track },
@@ -20,7 +32,7 @@ export function getStaticPaths() {
   });
 }
 
-const { lesson, audio } = Astro.props;
+const { lesson, audio, stage, thingWords, episode } = Astro.props;
 ---
 
 <SiteLayout
@@ -36,6 +48,24 @@ const { lesson, audio } = Astro.props;
       keyPhraseAudioSrcs={audio.keyPhrases}
       exerciseOptionAudioSrcs={audio.options}
       sceneAudioSrcs={audio.scene}
+      {episode}
+      {stage}
+      {thingWords}
     />
   </LessonPage>
+
+  <script is:inline>
+    // Play pressed while the player is still loading would do nothing; keep the press for it.
+    document.addEventListener(
+      "click",
+      (event) => {
+        const play =
+          event.target instanceof Element && event.target.closest("[data-lesson-play]");
+        if (play && !play.closest("[data-hydrated]")) {
+          document.documentElement.setAttribute("data-lesson-play-queued", "");
+        }
+      },
+      { capture: true },
+    );
+  </script>
 </SiteLayout>

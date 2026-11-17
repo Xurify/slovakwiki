@@ -285,6 +285,12 @@
       ongraded({
         answer: answerSnapshot(),
         attempt: attemptForDisplay(),
+        attemptLabel:
+          graded.type === "choice" || graded.type === "selectAll"
+            ? "You picked"
+            : graded.type === "build"
+              ? "You built"
+              : "You wrote",
         correct: isCorrect,
         correction: feedbackCorrection,
         english: feedbackEnglish,
@@ -480,6 +486,11 @@
         promptClock={exercise.clock}
         bind:selectedId={() => selectedId, selectChoice}
         {submitted}
+        correctIds={submitted
+          ? exercise.choiceMode === "pickTrap"
+            ? exercise.choices.filter((choice) => choice.fits !== true).map(({ id }) => id)
+            : [exercise.answerId]
+          : null}
         variant={player ? "cards" : "default"}
       />
 

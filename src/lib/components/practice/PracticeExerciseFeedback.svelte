@@ -197,7 +197,13 @@
         </div>
       {/if}
 
-      <div class="grid gap-2 empty:hidden">
+      <!-- Indented to the text in the rows above, so the why reads as theirs. -->
+      <div
+        class={[
+          "grid gap-2 empty:hidden",
+          (attempt || (showCorrection && correction)) && "pl-3.5",
+        ]}
+      >
         {@render whyLine()}
 
         {#if closeSuggestion}

@@ -15,44 +15,41 @@
 </script>
 
 <main class="py-12 pb-20 max-[600px]:py-8" data-lessons-track={data.track.id}>
-  <PageShell class="max-w-[720px]">
+  <PageShell class="max-w-[1080px]">
     <nav class="mb-6 flex gap-2 text-xs text-slate-500" aria-label="Breadcrumb">
       <TextLink href="/lessons">Lessons</TextLink>
       <span aria-hidden="true">/</span>
       <span>{data.track.title}</span>
     </nav>
 
-    <header>
+    <header class="max-w-2xl">
       <h1 class="text-balance">{data.track.title}</h1>
       <Lead class="text-pretty">{data.track.description}</Lead>
     </header>
 
-    <div class="mt-8" data-lessons-hydrate>
-      <p class="m-0 text-xs tabular-nums text-slate-500">
-        <span data-track-progress-pct>0</span>% complete
-      </p>
-
-      <span class="mt-2 block h-1 overflow-hidden rounded-full bg-slate-200">
-        <span
-          class="block h-full rounded-full bg-blue-600"
-          data-track-progress-bar={data.track.id}
-          style:width="0%"
-        ></span>
-      </span>
-
+    <div class="mt-8 flex max-w-2xl items-center gap-5 max-[600px]:flex-col max-[600px]:items-stretch" data-lessons-hydrate>
       {#if focusLesson}
-        <div class="mt-5">
-          <Button
-            href={lessonPath(focusLesson)}
-            variant="accent"
-            class="px-6 max-[600px]:w-full"
-            data-track-continue-cta
-          >
-            <span data-track-continue-cta-label>Continue learning</span>
-            <ArrowRight />
-          </Button>
-        </div>
+        <Button
+          href={lessonPath(focusLesson)}
+          variant="accent"
+          class="px-6"
+          data-track-continue-cta
+        >
+          <span data-track-continue-cta-label>Continue learning</span>
+          <ArrowRight />
+        </Button>
       {/if}
+
+      <span class="flex flex-1 items-center gap-3 text-xs tabular-nums text-slate-500">
+        <span class="block h-1 flex-1 overflow-hidden rounded-full bg-slate-200">
+          <span
+            class="block h-full rounded-full bg-blue-600"
+            data-track-progress-bar={data.track.id}
+            style:width="0%"
+          ></span>
+        </span>
+        <span><span data-track-progress-pct>0</span>% done</span>
+      </span>
     </div>
 
     <div class="mt-10 space-y-10" data-lessons-hydrate>

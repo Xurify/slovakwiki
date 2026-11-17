@@ -2,7 +2,6 @@
   import type { Snippet } from "svelte";
 
   import { eyebrowMutedClass } from "$lib/components/ui/system-ui";
-  import CountBadge from "$lib/components/ui/CountBadge.svelte";
 
   let {
     id,
@@ -12,7 +11,7 @@
   }: {
     id: string;
     title: string;
-    /** Rose badge after the title, e.g. how many checks to review. */
+    /** After the title, e.g. how many checks to review. */
     count?: number;
     children: Snippet;
   } = $props();
@@ -23,7 +22,7 @@
     {title}
 
     {#if count !== undefined}
-      <CountBadge {count} tone="rose" />
+      <span class="font-normal text-slate-500">· {count}</span>
     {/if}
   </h3>
 

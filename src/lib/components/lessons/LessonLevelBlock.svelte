@@ -2,7 +2,7 @@
   import { eyebrowMutedClass } from "$lib/components/ui/system-ui";
   import type { Lesson } from "$lib/learning/types";
   import type { LessonLevel, LessonStatus } from "$lib/lesson-progress/progress";
-  import LessonPathCard from "$lib/components/lessons/LessonPathCard.svelte";
+  import LessonCoverCard from "$lib/components/lessons/LessonCoverCard.svelte";
 
   let {
     level,
@@ -32,23 +32,14 @@
       </span>
     </div>
 
-    <span class="mt-3 mb-4 block h-1 overflow-hidden rounded-full bg-slate-200">
-      <span
-        class="block h-full rounded-full bg-blue-600"
-        data-level-progress-bar={level.key}
-        style:width="0%"
-      ></span>
-    </span>
   {/if}
 
-  <ul
-    class="m-0 list-none divide-y divide-slate-200/70 overflow-hidden rounded-(--frame-radius) bg-surface p-0 shadow-(--shadow-border)"
-  >
+  <ul class="m-0 mt-4 grid list-none gap-5 p-0 sm:grid-cols-2 lg:grid-cols-3">
     {#each level.lessons as lesson, index (lesson.id)}
-      <LessonPathCard
+      <LessonCoverCard
+        eager={number === 1 && index < 3}
         index={startIndex + index}
         {lesson}
-        leading="motif"
         status={statusFor(lesson, index)}
       />
     {/each}

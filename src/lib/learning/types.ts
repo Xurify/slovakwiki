@@ -1,4 +1,4 @@
-import type { Cue } from "$lib/stick-figure/acts";
+import type { Cue, SetSetup } from "$lib/stick-figure/acts";
 import type { TextMark } from "$lib/learning/marked-text";
 import type { StickGestureId } from "$lib/stick-figure/gestures";
 import type { StickPropId } from "$lib/stick-figure/props";
@@ -298,6 +298,8 @@ export interface Lesson {
   promise: string;
   referenceLinks: LessonReferenceLink[];
   scene: DialogueTurn[];
+  /** What an acted scene adds to its place before the first line: the phone in Anna's pocket. */
+  setup?: SetSetup;
   slug: string;
   title: string;
   track: LessonTrackId;

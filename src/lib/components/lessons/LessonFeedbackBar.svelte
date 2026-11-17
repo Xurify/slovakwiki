@@ -13,6 +13,7 @@
 
   let {
     attempt,
+    attemptLabel,
     autofocus = true,
     correction,
     english,
@@ -25,8 +26,10 @@
     revealed = false,
     showCorrection: showCorrectionProp,
     why,
+    wide = false,
   }: {
     attempt?: string;
+    attemptLabel?: string;
     autofocus?: boolean;
     correction?: string;
     english?: string;
@@ -39,6 +42,8 @@
     revealed?: boolean;
     showCorrection?: boolean;
     why?: string;
+    /** As wide as a lesson with its stage beside the steps. */
+    wide?: boolean;
   } = $props();
 
   let rootEl: HTMLDivElement | undefined = $state();
@@ -63,17 +68,20 @@
 
 <div
   bind:this={rootEl}
-  class="shrink-0 border-t border-slate-200 bg-paper px-4 py-4 sm:px-8 sm:py-5"
+  class="shrink-0 border-t border-slate-200 bg-paper py-4 sm:py-5"
   role="status"
   aria-live="polite"
 >
   <div
-    class="mx-auto flex max-w-[640px] animate-rise flex-wrap justify-between gap-4 {rowAlignClass}"
+    class="mx-auto flex animate-rise flex-wrap justify-between gap-4 px-4 sm:px-8 {rowAlignClass} {wide
+      ? 'max-w-[1120px]'
+      : 'max-w-[640px]'}"
   >
     <div class="min-w-0 flex-1">
       {#if isMiss}
         <PracticeExerciseFeedback
           {attempt}
+          {attemptLabel}
           {correction}
           {english}
           {why}

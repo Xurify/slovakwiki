@@ -48,7 +48,7 @@ export const meetSomeoneBeats: LessonBeat[] = [
   },
   {
     id: "meet-someone-your-turn",
-    title: "Your turn",
+    title: "Still learning",
     teach: {
       sceneLineIds: [
         meetSomeoneLineIds.annaAsksSlovak,

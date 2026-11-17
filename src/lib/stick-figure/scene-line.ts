@@ -59,6 +59,8 @@ export interface Scene {
   talk?: SceneTalk;
   /** The hour, when the lines do not say it with a greeting. */
   time?: TimeOfDay;
+  /** An acted scene's set before its first line, with what its setup adds. */
+  world?: World;
 }
 
 /** What the stage needs to act a scene out: its lines, the place, and who stands where. */

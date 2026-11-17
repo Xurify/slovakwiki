@@ -1,8 +1,7 @@
 <script lang="ts">
   import { onMount, tick } from "svelte";
 
-  import { eyebrowClass, eyebrowMutedClass } from "$lib/components/ui/system-ui";
-  import { dataPanelClass } from "$lib/components/ui/data-list-ui";
+  import { eyebrowMutedClass } from "$lib/components/ui/system-ui";
   import TextLink from "$lib/components/ui/TextLink.svelte";
   import LessonBackButton from "$lib/components/lessons/LessonBackButton.svelte";
   import LessonDoneAction from "$lib/components/lessons/LessonDoneAction.svelte";
@@ -20,20 +19,26 @@
     answers,
     backHref,
     lesson,
+    episode,
     nextLesson,
     onback,
     onRestart,
     practiceSet,
     steps,
     trackTitle,
+    wide = false,
   }: {
     answers: Record<string, LessonGradeResult>;
     backHref: string;
     lesson: Lesson;
+    /** The podcast episode on the same topic. */
+    episode?: { href: string; title: string };
     nextLesson: Lesson | null;
     onback: () => void;
     onRestart: () => void;
     practiceSet: PracticeSet | null;
+    /** A lesson with its stage: the screen keeps the player's 1120px edges. */
+    wide?: boolean;
     steps: LessonStep[];
     trackTitle: string;
   } = $props();
@@ -93,8 +98,8 @@
 
   const headline = $derived.by(() => {
     if (checkCount === 0) return "Lesson complete";
-    if (perfect) return `All ${checkCount} correct`;
-    return `${correctCount} of ${checkCount} correct`;
+    if (perfect) return `Lesson complete: all ${checkCount} correct`;
+    return `Lesson complete: ${correctCount} of ${checkCount} correct`;
   });
 
   const subline = $derived.by(() => {
@@ -137,7 +142,7 @@
   {@const revealed = row.result.revealed === true}
   {@const promptLang = row.exercise.promptLang}
 
-  <li class="grid gap-3 border-b border-slate-200/70 px-4 py-4 last:border-b-0 sm:px-5">
+  <li class="grid gap-3 border-b border-slate-200/70 py-4 last:border-b-0">
     <div class="flex items-baseline gap-2.5">
       <span class="w-4 shrink-0 text-xs font-semibold tabular-nums text-slate-400">
         {row.number}
@@ -158,6 +163,7 @@
     <div class="sm:pl-6.5">
       <PracticeExerciseFeedback
         attempt={row.result.attempt && !revealed ? row.result.attempt : undefined}
+        attemptLabel={row.result.attemptLabel}
         correction={row.result.correction}
         english={answerGloss(row.result.english, row.exercise.prompt, promptLang)}
         why={row.result.why}
@@ -176,7 +182,7 @@
   {@const missed = beat.total > 0 && beat.correct < beat.total}
 
   <li
-    class="flex items-baseline gap-3 border-b border-slate-200/70 px-4 py-3 last:border-b-0 sm:px-5"
+    class="flex items-baseline gap-3 border-b border-slate-200/70 py-3 last:border-b-0"
   >
     <span
       class={[
@@ -220,28 +226,19 @@
 <div
   class="min-h-0 flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-400 scrollbar-track-transparent"
 >
-  <div class="mx-auto w-full max-w-[640px] px-4 py-8 sm:px-8 sm:py-10">
+  <div
+    class="mx-auto w-full px-4 py-8 sm:px-8 sm:py-10 {wide
+      ? 'max-w-[1120px]'
+      : 'max-w-[640px]'}"
+  >
     <header class="animate-rise">
-      <p class="{eyebrowClass} inline-flex items-center gap-1.5 text-emerald-700">
-        <svg class="size-3.5" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-          <path
-            d="M3.5 8.5 6.5 11.5 12.5 4.5"
-            stroke="currentColor"
-            stroke-width="2.25"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-        Lesson complete
-      </p>
-
       <h2
-        class="m-0 mt-2 font-serif text-xl tracking-tight text-pretty text-slate-900 sm:text-2xl"
+        class="m-0 font-serif text-xl tracking-tight text-pretty text-slate-900 sm:text-2xl"
       >
         {headline}
       </h2>
 
-      <p class="m-0 mt-2 max-w-[56ch] text-sm leading-relaxed text-pretty text-slate-600">
+      <p class="m-0 mt-2 text-sm leading-relaxed text-pretty text-slate-600">
         {subline}
       </p>
     </header>
@@ -253,7 +250,7 @@
           title="To review"
           count={misses.length}
         >
-          <ol class="{dataPanelClass} m-0 list-none p-0">
+          <ol class="m-0 list-none border-y border-slate-200 p-0">
             {#each misses as row (row.exercise.id)}
               {@render missRow(row)}
             {/each}
@@ -276,14 +273,14 @@
       {/if}
 
       <LessonDoneSection id="lesson-covered-heading" title="What you covered">
-        <ul class="{dataPanelClass} m-0 list-none p-0">
+        <ul class="m-0 list-none border-y border-slate-200 p-0">
           {#each beats as beat (beat.id)}
             {@render beatRow(beat)}
           {/each}
         </ul>
       </LessonDoneSection>
 
-      {#if lesson.referenceLinks.length > 0}
+      {#if lesson.referenceLinks.length > 0 || episode}
         <section
           class="grid grid-cols-[7.5rem_1fr] items-baseline gap-x-4 max-[560px]:grid-cols-1 max-[560px]:gap-y-1.5"
           aria-labelledby="lesson-deeper-heading"
@@ -296,6 +293,14 @@
                 <TextLink href={link.href}>{link.label}</TextLink>
               </li>
             {/each}
+
+            {#if episode}
+              <li>
+                <TextLink href={episode.href}>
+                  The episode: <span lang="sk">{episode.title}</span>
+                </TextLink>
+              </li>
+            {/if}
           </ul>
         </section>
       {/if}
@@ -303,7 +308,7 @@
       <div
         class={[
           "flex flex-wrap items-baseline gap-x-5 gap-y-2 border-t border-slate-200/80 pt-5",
-          lesson.referenceLinks.length > 0 && "min-[561px]:pl-34",
+          (lesson.referenceLinks.length > 0 || episode) && "min-[561px]:pl-34",
         ]}
       >
         <TextLink onclick={onRestart}>Replay lesson</TextLink>
@@ -320,9 +325,13 @@
 
 <div
   bind:this={footerEl}
-  class="shrink-0 border-t border-slate-200 bg-paper px-4 py-4 sm:px-8 sm:py-5"
+  class="shrink-0 border-t border-slate-200 bg-paper py-4 sm:py-5"
 >
-  <div class="mx-auto flex max-w-[640px] items-center justify-end gap-2">
+  <div
+    class="mx-auto flex items-center justify-end gap-2 px-4 sm:px-8 {wide
+      ? 'max-w-[1120px]'
+      : 'max-w-[640px]'}"
+  >
     <LessonBackButton onclick={onback} />
 
     {#if practiceFirst && practiceHref}

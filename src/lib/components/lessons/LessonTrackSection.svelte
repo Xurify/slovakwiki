@@ -1,16 +1,17 @@
 <script lang="ts">
   import type { Lesson, LessonTrack } from "$lib/learning/types";
   import type { LessonStatus } from "$lib/lesson-progress/progress";
-  import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
   import SectionHead from "$lib/components/ui/SectionHead.svelte";
-  import LessonPathCard from "$lib/components/lessons/LessonPathCard.svelte";
-  import { moreLinkClass } from "$lib/components/ui/system-ui";
+  import LessonCoverCard from "$lib/components/lessons/LessonCoverCard.svelte";
 
   let {
+    eager = false,
     track,
     lessons,
     statusFor,
   }: {
+    /** The first track's covers are above the fold. */
+    eager?: boolean;
     track: LessonTrack;
     lessons: Lesson[];
     statusFor: (lesson: Lesson, index: number) => LessonStatus;
@@ -25,40 +26,20 @@
     description={track.description}
   >
     {#snippet aside()}
-      <span data-level-done-pct={track.id}>0</span>%
+      {lessons.length}
+      {lessons.length === 1 ? "lesson" : "lessons"} ·
+      <span data-level-done-pct={track.id}>0</span>% done
     {/snippet}
   </SectionHead>
 
-  <p class="m-0 mt-2 text-xs tabular-nums text-slate-500">
-    {lessons.length}
-    {lessons.length === 1 ? "lesson" : "lessons"}
-  </p>
-
-  <span class="mt-4 mb-4 block h-1 overflow-hidden rounded-full bg-slate-200">
-    <span
-      class="block h-full rounded-full bg-blue-600"
-      data-level-progress-bar={track.id}
-      style:width="0%"
-    ></span>
-  </span>
-
-  <ul
-    class="m-0 list-none divide-y divide-slate-200/70 overflow-hidden rounded-(--frame-radius) bg-surface p-0 shadow-(--shadow-border)"
-  >
+  <ul class="m-0 mt-5 grid list-none gap-5 p-0 sm:grid-cols-2 lg:grid-cols-3">
     {#each lessons as lesson, index (lesson.id)}
-      <LessonPathCard
+      <LessonCoverCard
+        eager={eager && index < 3}
         {index}
         {lesson}
-        leading="motif"
         status={statusFor(lesson, index)}
       />
     {/each}
   </ul>
-
-  <p class="m-0 mt-4">
-    <a class={moreLinkClass} href="/lessons/{track.id}">
-      View track
-      <ArrowRight />
-    </a>
-  </p>
 </section>
