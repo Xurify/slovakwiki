@@ -2,6 +2,9 @@ import type { Lesson } from "$lib/learning/types";
 import { daysDatesTimeLesson } from "$lib/learning/time/lesson";
 import {
   withMeetSomeoneExercises,
+  meetSomeoneGreetPhrases,
+  meetSomeoneLearningPhrase,
+  meetSomeoneOriginPhrases,
   withNegationExercises,
   withNumbersExercises,
   meetSomeoneLineIds,
@@ -114,30 +117,9 @@ export const everydayLessons: Lesson[] = [
       },
     ],
     keyPhrases: [
-      {
-        slovak: "Dobrý deň.",
-        english: "Hello; good day.",
-        note: "A safe polite greeting for a new or public interaction.",
-        audio: { transcript: "Dobrý deň." },
-      },
-      {
-        slovak: "Volám sa …",
-        english: "My name is …",
-        note: "Use volám sa + your name. Avoid the word-for-word calque Moje meno je …",
-        audio: { transcript: "Volám sa." },
-      },
-      {
-        slovak: "Som z …",
-        english: "I am from …",
-        note: "z takes genitive: Kanada → Kanady. Odkiaľ ste? is the polite ask.",
-        audio: { transcript: "Som z." },
-      },
-      {
-        slovak: "Ešte sa učím.",
-        english: "I am still learning.",
-        note: "A soft way to say your Slovak is still early — pairs well after Trochu.",
-        audio: { transcript: "Ešte sa učím." },
-      },
+      ...meetSomeoneGreetPhrases,
+      ...meetSomeoneOriginPhrases,
+      meetSomeoneLearningPhrase,
     ],
     pattern: {
       title: "Polite first contact",

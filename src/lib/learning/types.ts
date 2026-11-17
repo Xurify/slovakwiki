@@ -113,6 +113,8 @@ export interface LessonReferenceLink {
 export interface KeyPhrase {
   audio?: AudioCue;
   english: string;
+  /** On a teach step, phrases with the same group are listed together under it, in order of first use. */
+  group?: string;
   note?: string;
   slovak: string;
 }
