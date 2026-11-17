@@ -27,39 +27,33 @@
 
 <main class="py-12 pb-20 max-[600px]:py-8">
   <PageShell class="max-w-[1080px]">
-    <div
-      class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_17.5rem] lg:items-start lg:gap-12"
-    >
-      <div class="order-2 min-w-0 lg:order-1">
-        <header class="max-w-xl">
-          <h1 class="text-balance">Lessons</h1>
-          <Lead class="text-pretty">
-            Short interactive lessons you can finish in one sitting. Progress stays in
-            this browser — pick any track and continue where you left off.
-          </Lead>
-        </header>
+    <header class="max-w-2xl">
+      <h1 class="text-balance">Lessons</h1>
+      <Lead class="text-pretty">
+        Watch a short scene in Slovak, learn the pattern behind it, then try it yourself.
+        Your progress stays in this browser.
+      </Lead>
+    </header>
 
-        <div class="mt-12 space-y-12" data-lessons-hydrate>
-          {#each trackGroups as group (group.track.id)}
-            <LessonTrackSection
-              track={group.track}
-              lessons={group.lessons}
-              statusFor={(lesson) =>
-                focusLesson?.id === lesson.id ? "active" : "upcoming"}
-            />
-          {/each}
-        </div>
-      </div>
+    <div class="mt-10">
+      <LessonsContinueCard
+        {focusLesson}
+        {lessonNumber}
+        {lessons}
+        track={focusGroup?.track ?? null}
+        trackLessonCount={focusGroup?.lessons.length ?? 0}
+      />
+    </div>
 
-      <aside class="order-1 lg:order-2 lg:sticky lg:top-24 lg:self-start">
-        <LessonsContinueCard
-          {focusLesson}
-          {lessonNumber}
-          {lessons}
-          track={focusGroup?.track ?? null}
-          trackLessonCount={focusGroup?.lessons.length ?? 0}
+    <div class="mt-16 space-y-16" data-lessons-hydrate>
+      {#each trackGroups as group, groupIndex (group.track.id)}
+        <LessonTrackSection
+          eager={groupIndex === 0}
+          track={group.track}
+          lessons={group.lessons}
+          statusFor={(lesson) => (focusLesson?.id === lesson.id ? "active" : "upcoming")}
         />
-      </aside>
+      {/each}
     </div>
   </PageShell>
 </main>

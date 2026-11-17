@@ -1,11 +1,10 @@
 <script lang="ts">
-  import { eyebrowMutedClass, moreLinkClass } from "$lib/components/ui/system-ui";
   import type { Lesson, LessonTrack } from "$lib/learning/types";
   import ArrowRight from "$lib/components/ui/ArrowRight.svelte";
   import Button from "$lib/components/ui/Button.svelte";
-  import MotifBanner from "$lib/components/lessons/MotifBanner.svelte";
-  import { lessonPath } from "$lib/catalog/lessons";
-  import { lessonMotifId } from "$lib/lesson-story/lesson-motifs";
+  import { panelClass } from "$lib/components/ui/system-ui";
+  import { lessonCoverSrc, lessonPath } from "$lib/catalog/lessons";
+  import { cx } from "$lib/ui/classes";
 
   let {
     focusLesson,
@@ -18,7 +17,7 @@
     lessonNumber: number;
     trackLessonCount: number;
     track: LessonTrack | null;
-    /** All lessons — pre-render motifs so boot can reveal the focus one without FOUC. */
+    /** Every lesson's cover is in the page, so the progress boot shows the right one before first paint. */
     lessons: Lesson[];
   } = $props();
 
@@ -27,102 +26,96 @@
 
 {#if focusLesson && track}
   <section
-    class="overflow-hidden rounded-(--frame-radius) bg-surface shadow-(--shadow-border)"
+    class={cx(
+      panelClass,
+      "grid overflow-hidden md:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]",
+    )}
     aria-labelledby="continue-heading"
     data-lessons-hydrate
   >
-    <div class="relative h-36 overflow-hidden border-b border-slate-200/70">
+    <a
+      class="relative block aspect-[2/1] border-slate-900/10 bg-subtle max-md:border-b md:aspect-auto md:min-h-72 md:border-r"
+      href={lessonPath(focusLesson)}
+      tabindex="-1"
+      aria-hidden="true"
+      data-continue-cta
+    >
       {#each lessons as lesson (lesson.id)}
-        <span
-          class="absolute inset-0 {lesson.id === focusLesson.id ? '' : 'hidden'}"
+        <img
+          src={lessonCoverSrc(lesson)}
+          alt=""
+          width="960"
+          height="480"
+          loading={lesson.id === focusLesson.id ? "eager" : "lazy"}
+          decoding="async"
+          class="absolute inset-0 size-full object-cover {lesson.id === focusLesson.id
+            ? ''
+            : 'hidden'}"
           data-continue-motif={lesson.id}
-        >
-          <MotifBanner motif={lessonMotifId(lesson.id)} />
-        </span>
+        />
       {/each}
-    </div>
+    </a>
 
-    <div class="border-b border-slate-200/70 px-5 pt-5 pb-4">
-      <div class="flex flex-col items-center gap-3">
-        <div class="min-w-0 text-center">
-          <p
-            class="m-0 min-h-[1.4rem] font-serif text-lg leading-snug font-semibold tracking-tight text-balance text-slate-900"
-            lang="sk"
-            data-continue-phrase-sk
-          >
-            {phrase?.slovak ?? ""}
-          </p>
-
-          <p
-            class="m-0 mt-1 min-h-[1.2rem] text-sm leading-snug text-pretty text-slate-600"
-            data-continue-phrase-en
-          >
-            {phrase?.english ?? ""}
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <div class="flex flex-col px-5 pt-5 pb-5">
-      <p class="m-0">
-        <a
-          class="{eyebrowMutedClass} no-underline hover:text-blue-800 hover:underline"
-          href="/lessons/{track.id}"
-          data-continue-track-link
-        >
-          <span data-continue-track-title>{track.title}</span>
-        </a>
-      </p>
+    <div class="flex flex-col p-5 sm:p-7">
+      <a
+        class="self-start text-sm text-slate-500 no-underline hover:text-blue-800 hover:underline"
+        href="/lessons/{track.id}"
+        data-continue-track-link
+      >
+        <span data-continue-track-title>{track.title}</span>
+        · Lesson <span data-continue-lesson-number>{lessonNumber}</span>
+        of <span data-continue-lesson-total>{trackLessonCount}</span>
+      </a>
 
       <h2
         id="continue-heading"
-        class="m-0 mt-2 min-h-[1.75rem] font-serif text-xl leading-snug tracking-tight text-balance text-slate-900"
+        class="m-0 mt-2 font-serif text-2xl leading-tight tracking-tight text-balance text-slate-900 sm:text-[1.75rem]"
         data-continue-lesson-title
       >
         {focusLesson.title}
       </h2>
 
       <p
-        class="m-0 mt-2 min-h-[2.5rem] text-sm leading-relaxed text-pretty text-slate-600"
+        class="m-0 mt-2.5 text-[0.9375rem] leading-relaxed text-pretty text-slate-600"
         data-continue-promise
       >
         {focusLesson.promise}
       </p>
 
-      <div class="mt-4">
-        <p class="m-0 text-xs tabular-nums text-slate-500">
-          Lesson <span data-continue-lesson-number>{lessonNumber}</span>
-          of <span data-continue-lesson-total>{trackLessonCount}</span>
-        </p>
-
-        <span class="mt-2 block h-1 overflow-hidden rounded-full bg-slate-200">
-          <span
-            class="block h-full rounded-full bg-blue-600"
-            data-continue-progress-bar
-            style:width="0%"
-          ></span>
+      <p class="m-0 mt-5 border-l-2 border-slate-300 pl-3.5">
+        <span
+          class="block font-serif text-lg leading-snug text-slate-900"
+          lang="sk"
+          data-continue-phrase-sk
+        >
+          {phrase?.slovak ?? ""}
         </span>
-      </div>
+        <span class="block text-sm text-slate-500" data-continue-phrase-en>
+          {phrase?.english ?? ""}
+        </span>
+      </p>
 
-      <div class="mt-5 flex flex-col gap-3">
+      <div class="mt-auto flex items-center gap-4 pt-7">
         <Button
           href={lessonPath(focusLesson)}
           variant="accent"
-          class="w-full px-4"
+          class="px-5 max-sm:flex-1"
           data-continue-cta
         >
           <span data-continue-cta-label>Start lesson</span>
           <ArrowRight />
         </Button>
 
-        <a
-          class="{moreLinkClass} justify-center"
-          href="/lessons/{track.id}"
-          data-continue-track-link
+        <span
+          class="block h-1 min-w-12 flex-1 overflow-hidden rounded-full bg-slate-200 max-sm:hidden"
+          aria-hidden="true"
         >
-          View track
-          <ArrowRight />
-        </a>
+          <span
+            class="block h-full rounded-full bg-blue-600"
+            data-continue-progress-bar
+            style:width="0%"
+          ></span>
+        </span>
       </div>
     </div>
   </section>

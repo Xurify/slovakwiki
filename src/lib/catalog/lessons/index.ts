@@ -20,6 +20,11 @@ export function lessonPath(lesson: Pick<Lesson, "slug" | "track">): string {
   return `/lessons/${lesson.track}/${lesson.slug}`;
 }
 
+/** A still of the lesson's own scene, from `scripts/lessons/covers.cjs`. */
+export function lessonCoverSrc(lesson: Pick<Lesson, "slug" | "track">): string {
+  return `/lesson-covers/${lesson.track}-${lesson.slug}.webp`;
+}
+
 export function lessonsForTrack(track: LessonTrackId): Lesson[] {
   return lessons.filter((lesson) => lesson.track === track);
 }

@@ -16,7 +16,7 @@
 {#if status === "complete"}
   {#if completeOnRight}
     <span
-      class="inline-flex size-7 items-center justify-center rounded-full bg-emerald-100 text-emerald-700"
+      class="inline-flex size-7 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 shadow-(--shadow-float)"
       data-lesson-done={lessonId}
     >
       <svg class="size-3.5" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -34,7 +34,13 @@
     <span class="sr-only" data-lesson-done={lessonId}>Completed</span>
   {/if}
 {:else if status === "active"}
-  <span class="text-xs font-semibold text-blue-800">Up next</span>
+  <span
+    class={completeOnRight
+      ? "rounded-full bg-surface px-2.5 py-1 text-xs font-semibold text-blue-800 shadow-(--shadow-float)"
+      : "text-xs font-semibold text-blue-800"}
+  >
+    Up next
+  </span>
 {:else}
   <span class="sr-only">Not started</span>
 {/if}

@@ -25,7 +25,7 @@ const CHECK_ICON =
 const CHECK_LEFT = `<span class="inline-flex size-7 items-center justify-center rounded-full bg-emerald-100 text-emerald-700" aria-hidden="true">${CHECK_ICON}</span>`;
 
 const CHECK_RIGHT = (lessonId: string) =>
-  `<span class="inline-flex size-7 items-center justify-center rounded-full bg-emerald-100 text-emerald-700" data-lesson-done="${lessonId}">${CHECK_ICON}<span class="sr-only">Completed</span></span>`;
+  `<span class="inline-flex size-7 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 shadow-(--shadow-float)" data-lesson-done="${lessonId}">${CHECK_ICON}<span class="sr-only">Completed</span></span>`;
 
 function indexMarkup(status: LessonStatus, numberLabel: string): string {
   if (status === "complete") return CHECK_LEFT;
@@ -43,7 +43,9 @@ function statusMarkup(
   }
 
   if (status === "active") {
-    return `<span class="text-xs font-semibold text-blue-800">Up next</span>`;
+    return completeOnRight
+      ? `<span class="rounded-full bg-surface px-2.5 py-1 text-xs font-semibold text-blue-800 shadow-(--shadow-float)">Up next</span>`
+      : `<span class="text-xs font-semibold text-blue-800">Up next</span>`;
   }
 
   return `<span class="sr-only">Not started</span>`;

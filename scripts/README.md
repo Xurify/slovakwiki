@@ -163,6 +163,14 @@ Prod env: `PUBLIC_IMAGE_BASE_URL` (R2 public base, e.g. `https://cdn.slovak.wiki
 
 The card stills on `/episodes`, one per episode, from its `cover` (segment, ms, crop) to `static/episodes/covers/<slug>.webp`. `--only <slug>` for one; `--every <ms> --out <dir>` for a labelled contact sheet to pick from; `--at <ms> --out <dir>` for one trial still. How to choose the moment: [`docs/listening-authoring.md`](../docs/listening-authoring.md) §5.
 
+## `lessons/`
+
+| File         | Run                                                  |
+| ------------ | ---------------------------------------------------- |
+| `covers.cjs` | `bun run lessons:covers` (dev server and Playwright) |
+
+The card stills on `/lessons`, one per lesson, from its first chapter played to `AT_MS` (or the lesson's entry in `MOMENTS`) to `static/lesson-covers/<track>-<slug>.webp`. `--only <lesson id>` for one; `--at <ms> --out <dir>` for one trial still. Pick a moment where the cast is in and someone is mid-gesture.
+
 ## `search/`
 
 | File                    | Run                                                               |
