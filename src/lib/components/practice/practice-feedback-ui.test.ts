@@ -48,10 +48,10 @@ describe("isMissFeedback", () => {
 });
 
 describe("missCompareClass", () => {
-  it("frames the compare panel with inset tint rows", () => {
-    expect(missCompareClass).not.toContain("border border-slate-200");
-    expect(missCompareClass).toContain("shadow-(--shadow-border)");
-    expect(missCompareClass).toContain("p-1");
-    expect(missCompareClass).not.toContain("ring-inset");
+  // The tinted rows are the frame: a box around them read as a box in a box.
+  it("sets the compare rows without a frame of its own", () => {
+    expect(missCompareClass).not.toContain("border");
+    expect(missCompareClass).not.toContain("shadow");
+    expect(missCompareClass).not.toContain("ring");
   });
 });
