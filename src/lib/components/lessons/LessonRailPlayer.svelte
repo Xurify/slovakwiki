@@ -1,3 +1,8 @@
+<script module lang="ts">
+  /** Clips fetched ahead for the first chapter, kept so they are not dropped before they load. */
+  const preloaded: HTMLAudioElement[] = [];
+</script>
+
 <script lang="ts">
   import { onMount, tick } from "svelte";
 
@@ -90,21 +95,31 @@
   let sceneStarted = $state(false);
   let sceneDone = $state(false);
   let turn = $state<Turn | null>(null);
-  /** Lines said so far in the scene step on screen, in the order said. */
-  let said = $state<number[]>([]);
+  /** A chapter's lines start on their own after the cheer: Play would start them twice. */
+  let starting = $state(false);
+  /** A wrong pick's bubble is still over Alex: another pick waits for it to clear. */
+  let slipUntil = 0;
   /** Auto-advance is off and the scene waits between lines: this plays the next one. */
   let waiting = $state<(() => void) | null>(null);
   let showEnglish = $state(false);
 
   const steps = $derived(lessonSteps(lesson, Boolean(stage)));
   const setting = $derived(storySettingForLesson(lesson.id));
-  const sceneHint = $derived.by(() => {
+  /** What a chapter's opening says before its lines play: its title, and what to do. */
+  const sceneHint = $derived.by((): { text?: string; title: string } | undefined => {
     if (viewStep?.kind === "finale") {
-      return "The whole scene from the start. This time you are Alex: it stops at each of your lines.";
+      return {
+        title: FINALE_TITLE,
+        text: "From the start, with you as Alex: it stops at each of Alex's lines.",
+      };
     }
+    if (viewStep?.kind !== "scene") return undefined;
     return viewIndex === 0
-      ? `${setting.place}. Watch what happens; at the end you play Alex.`
-      : "The scene goes on.";
+      ? {
+          title: viewStep.beat.title,
+          text: `${setting.place}. Watch what happens; at the end you play Alex.`,
+        }
+      : { title: viewStep.beat.title };
   });
   const chapters = $derived(lessonChapters(lesson, steps));
   const step = $derived(steps[stepIndex]);
@@ -124,6 +139,18 @@
     lessonTracks.find((track) => track.id === lesson.track)?.title ?? lesson.track,
   );
   const played = $derived(viewStep?.kind === "scene" || viewStep?.kind === "finale");
+  /**
+   * The stage while lines play, and what sits under it: as wide as the window's
+   * height allows, and narrower at the end, where Alex's choices need room below it.
+   */
+  const stageColumn = $derived(
+    cx(
+      "mx-auto w-full",
+      viewStep?.kind === "finale"
+        ? "lg:w-[min(960px,calc((100dvh-34rem)*2))]"
+        : "lg:w-[min(960px,calc((100dvh-20rem)*2))]",
+    ),
+  );
   const missParts = $derived(turn?.missed ? splitEmphasis(turn.missed) : []);
 
   const nextLesson = $derived.by((): Lesson | null => {
@@ -160,15 +187,15 @@
     }
 
     preloadFirstLines();
+    showEnglish = getStoryShowEnglish() === "on";
+    hydrated = true;
 
     const root = document.documentElement;
     if (root.hasAttribute("data-lesson-play-queued")) {
       root.removeAttribute("data-lesson-play-queued");
       activated = true;
-      playScene();
+      if (footerEnabled) onFooterPrimary();
     }
-    showEnglish = getStoryShowEnglish() === "on";
-    hydrated = true;
 
     // Controls play or replace a blocked line themselves (Next, Listen, say-choice).
     const controls = "a, button, input, label, select, textarea";
@@ -235,14 +262,18 @@
     persist(markLessonComplete(readPracticeState(localStorage), lesson.id));
   }
 
-  /** The first lines' clips fetched ahead, so the first Play is heard at once. */
+  /** The first chapter's clips fetched ahead, so the first Play is heard at once. */
   function preloadFirstLines(): void {
-    for (const line of lesson.scene.slice(0, 3)) {
+    const first = steps.find((entry) => entry.kind === "scene");
+    if (!first || first.kind !== "scene") return;
+    for (const line of first.lines) {
       const src = stage?.lines.find((staged) => staged.id === line.id)?.src;
       if (!src) continue;
       const audio = new Audio();
       audio.preload = "auto";
       audio.src = src;
+      // Held, or the browser may drop an element nothing refers to before it loads.
+      preloaded.push(audio);
     }
   }
 
@@ -261,18 +292,15 @@
 
     const lines = current.kind === "scene" ? current.lines : lesson.scene;
     window.clearTimeout(startTimer);
+    starting = false;
     sceneStarted = true;
     sceneDone = false;
     turn = null;
     waiting = null;
-    said = [];
     sceneStage?.run(stageIndexes(lines), {
       waits: () => getStoryAutoAdvance() === "off",
       onwait: (goOn) => {
         waiting = goOn;
-      },
-      onsay: (index) => {
-        said = [...said.filter((line) => line !== index), index];
       },
       // Only the whole scene at the end stops for the learner: a chapter's lines come
       // before what they teach, so a pick there would be a guess. A replay looks back.
@@ -291,7 +319,7 @@
   }
 
   function pickLine(id: string | null): void {
-    if (!turn?.line.sayChoices || !id) return;
+    if (!turn?.line.sayChoices || !id || Date.now() < slipUntil) return;
 
     turn.picked = id;
     if (isSayChoiceCorrect(id, turn.line.sayChoices)) {
@@ -309,6 +337,7 @@
     const choice = turn.line.sayChoices.choices.find((option) => option.id === id);
     playAnswerSfx("incorrect");
     if (choice?.label) sceneStage?.slip(choice.label);
+    slipUntil = Date.now() + SLIP_MS;
     turn.missed =
       choice?.whyWrong?.trim() || "Not that line: pick the reply that matches what you mean.";
   }
@@ -329,6 +358,9 @@
   /** How long the one Alex talks with nods at a right pick before Alex says it. */
   const NOD_MS = 650;
 
+  /** About as long as the bubble of a wrong pick stays up. */
+  const SLIP_MS = 1200;
+
   /** Long enough for the cast's cheer at a chapter's end to be seen before the next lines. */
   const CHEER_MS = 1300;
 
@@ -343,9 +375,10 @@
     sceneDone = false;
     turn = null;
     waiting = null;
-    said = [];
+    starting = false;
     if (cheer) sceneStage?.cheer();
     if (activated && played && !reviewing) {
+      starting = true;
       startTimer = window.setTimeout(playScene, cheer ? CHEER_MS : 0);
     }
   }
@@ -441,6 +474,7 @@
   const footerLabel = $derived.by(() => {
     if (!step) return "Continue";
     if (step.kind === "scene" || step.kind === "finale") {
+      if (starting) return "Starting…";
       if (!sceneStarted) return "Play";
       if (waiting && !sceneDone) return "Next line";
       if (step.kind === "finale") return "Finish";
@@ -454,6 +488,7 @@
 
   const footerEnabled = $derived.by(() => {
     if (!step) return false;
+    if (starting) return false;
     if (step.kind === "finale") return !sceneStarted || sceneDone || Boolean(waiting);
     if (step.kind === "scene") return !turn;
     if (step.kind === "teach") return true;
@@ -472,6 +507,8 @@
 
   function onWindowKeydown(event: KeyboardEvent): void {
     if (phase !== "play") return;
+    // Keys typed into the settings popover are not answers.
+    if (event.target instanceof Element && event.target.closest("[popover]")) return;
 
     if (turn) {
       const index = choiceIndexFromKeyboardEvent(event);
@@ -573,9 +610,8 @@
         <div
           class={cx(
             "pt-5 sm:pt-6",
-            played
-              ? "mx-auto w-full lg:w-[min(960px,calc((100dvh-20rem)*2))] lg:pt-8"
-              : "lg:sticky lg:top-0 lg:pt-10 lg:pb-10",
+            played ? stageColumn : "lg:sticky lg:top-0 lg:pt-10 lg:pb-10",
+            played && "max-sm:-mx-4 lg:pt-8",
           )}
         >
           <LessonStage
@@ -583,6 +619,7 @@
             captions={played}
             compact={!played}
             hint={played && !sceneStarted && !reviewing ? sceneHint : undefined}
+            onplay={played && !sceneStarted && !starting ? onFooterPrimary : undefined}
             scene={stage}
             {showEnglish}
             {thingWords}
@@ -593,7 +630,7 @@
       {#if viewStep}
         {#key viewStep.id}
           {#if viewStep.kind === "scene" || viewStep.kind === "finale"}
-            <div class="mx-auto w-full max-w-[640px] pt-2 pb-8">
+            <div class={cx(stageColumn, "pt-2 pb-8")}>
               {#if turn?.line.sayChoices}
                 <div class="animate-rise" data-turn>
                   <p class={eyebrowMutedClass} role="status">Your turn: what does Alex say?</p>
@@ -623,15 +660,7 @@
                     </p>
                   {/if}
                 </div>
-              {:else if !sceneStarted && reviewing}
-                <button
-                  class="mt-2 cursor-pointer border-0 bg-transparent p-0 text-sm font-semibold text-blue-700 underline underline-offset-4 hover:text-blue-900"
-                  type="button"
-                  onclick={playScene}
-                >
-                  Play it again
-                </button>
-              {:else if sceneDone}
+              {:else if (!sceneStarted && reviewing) || sceneDone}
                 <button
                   class="mt-2 cursor-pointer border-0 bg-transparent p-0 text-sm font-semibold text-blue-700 underline underline-offset-4 hover:text-blue-900"
                   type="button"
@@ -707,7 +736,8 @@
         label={footerLabel}
         onback={viewIndex > 0 ? goBack : undefined}
         onclick={onFooterPrimary}
-        queues={played && !sceneStarted}
+        queues
+        quiet={footerLabel === "Skip"}
         wide={Boolean(stage)}
       />
     {/if}

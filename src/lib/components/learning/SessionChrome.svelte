@@ -150,7 +150,7 @@
       {#each chapters as chapter, index (chapter.start)}
         {@const done = complete
           ? 1
-          : Math.min(Math.max((activeIndex - chapter.start + 1) / chapter.length, 0), 1)}
+          : Math.min(Math.max((activeIndex - chapter.start) / chapter.length, 0), 1)}
         {@const reached = chapter.start <= activeIndex}
 
         <button
@@ -159,7 +159,12 @@
           disabled={!reached || !onselect}
           aria-label="{chapter.title}, part {index + 1} of {chapters.length}"
           aria-current={index === chapterAt ? "step" : undefined}
-          onclick={() => onselect?.(chapter.start)}
+          onclick={() =>
+            onselect?.(
+              activeIndex >= chapter.start && activeIndex < chapter.start + chapter.length
+                ? activeIndex
+                : chapter.start,
+            )}
         >
           <span class="relative h-1.5 w-full overflow-hidden rounded-full bg-slate-200">
             <span

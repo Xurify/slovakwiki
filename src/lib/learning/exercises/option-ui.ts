@@ -64,4 +64,4 @@ export function optionGradedClass(
 
 /** Small keycap: the number that selects this option from the keyboard. */
 export const optionKeyClass =
-  "inline-grid min-w-5 shrink-0 place-items-center rounded-[4px] border border-slate-300 bg-surface px-1 py-px font-sans text-[0.68rem] font-semibold leading-4 text-slate-500 shadow-[0_1px_0_0_var(--line-strong)]";
+  "pointer-coarse:hidden inline-grid min-w-5 shrink-0 place-items-center rounded-[4px] border border-slate-300 bg-surface px-1 py-px font-sans text-[0.68rem] font-semibold leading-4 text-slate-500 shadow-[0_1px_0_0_var(--line-strong)]";

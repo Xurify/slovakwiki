@@ -8,6 +8,7 @@
     onback,
     onclick,
     queues = false,
+    quiet = false,
     wide = false,
   }: {
     disabled?: boolean;
@@ -16,6 +17,8 @@
     onclick: () => void;
     /** A press before the page is ready is kept and acted on once it is (see the lesson page's inline script). */
     queues?: boolean;
+    /** Not the way on but a way past (Skip): a plain button, not the filled one. */
+    quiet?: boolean;
     /** As wide as a lesson with its stage beside the steps. */
     wide?: boolean;
   } = $props();
@@ -32,7 +35,7 @@
     {/if}
 
     <Button
-      variant="accent"
+      variant={quiet ? "secondary" : "accent"}
       class="min-w-36 px-8"
       type="button"
       data-lesson-play={queues ? "" : undefined}

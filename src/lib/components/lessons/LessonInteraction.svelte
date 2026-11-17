@@ -480,6 +480,11 @@
         promptClock={exercise.clock}
         bind:selectedId={() => selectedId, selectChoice}
         {submitted}
+        correctIds={submitted
+          ? exercise.choiceMode === "pickTrap"
+            ? exercise.choices.filter((choice) => choice.fits !== true).map(({ id }) => id)
+            : [exercise.answerId]
+          : null}
         variant={player ? "cards" : "default"}
       />
 

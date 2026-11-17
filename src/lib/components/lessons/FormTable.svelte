@@ -28,6 +28,48 @@
   {/if}
 {/snippet}
 
+{#if table.columns.length === 1 && table.sections.every((section) => !section.heading)}
+  <!-- One column of forms reads better as lines than as a table with an empty corner. -->
+  <figure class="m-0">
+    <figcaption class="pb-2">
+      <h3 class="m-0 font-sans text-sm font-semibold tracking-normal text-slate-900">
+        <MarkedNote text={table.title} />
+      </h3>
+    </figcaption>
+
+    <ul class="m-0 list-none border-y border-slate-200 p-0">
+      {#each table.sections.flatMap((section) => section.rows) as row (row.heading.english)}
+        <li
+          class="flex items-baseline gap-4 border-b border-slate-200/70 py-2.5 last:border-b-0"
+        >
+          <span class="w-16 shrink-0 font-serif text-lg text-slate-900" lang="sk">
+            <MarkedNote text={row.cells[0] ?? ""} />
+          </span>
+
+          <span class="min-w-0 text-sm leading-snug">
+            <span class="font-semibold text-slate-800">{row.heading.english}</span>
+
+            {#if row.heading.slovak}
+              <span class="text-slate-500" lang="sk"> · {row.heading.slovak}</span>
+            {/if}
+
+            {#if row.heading.example}
+              <span class="font-serif text-slate-500 italic" lang="sk">
+                · {row.heading.example}</span
+              >
+            {/if}
+          </span>
+        </li>
+      {/each}
+    </ul>
+
+    {#if table.note}
+      <p class="m-0 pt-3 text-sm leading-relaxed text-pretty text-slate-600">
+        <MarkedNote text={table.note} />
+      </p>
+    {/if}
+  </figure>
+{:else}
 <figure class="m-0">
   <figcaption class="pb-2">
     <h3 class="m-0 font-sans text-sm font-semibold tracking-normal text-slate-900">
@@ -111,3 +153,4 @@
     </p>
   {/if}
 </figure>
+{/if}

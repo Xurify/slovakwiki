@@ -21,6 +21,7 @@
     captions = true,
     compact = false,
     hint,
+    onplay,
     scene,
     showEnglish = false,
     thingWords = {},
@@ -29,8 +30,10 @@
     captions?: boolean;
     /** Smaller while the learner reads or answers below it. */
     compact?: boolean;
-    /** In the caption's place before any line is said. */
-    hint?: string;
+    /** In the caption's place before any line is said: the chapter's title and what to do. */
+    hint?: { text?: string; title: string };
+    /** A play button over the stage, as on a video, while the lines have not started. */
+    onplay?: () => void;
     scene: Scene;
     showEnglish?: boolean;
     thingWords?: Record<string, { href?: string; src?: string }>;
@@ -181,10 +184,16 @@
 <div
   class={cx(
     "mx-auto w-full transition-[max-width] duration-300 ease-out",
-    compact ? "max-w-[220px] sm:max-w-[300px] lg:max-w-none" : "max-w-[960px]",
+    compact ? "max-w-[280px] sm:max-w-[300px] lg:max-w-none" : "max-w-[960px]",
   )}
 >
-  <div class="overflow-hidden rounded-(--frame-radius) ring-1 ring-slate-200">
+  <div
+    class={cx(
+      "relative overflow-hidden rounded-(--frame-radius) ring-1 ring-slate-200",
+      // On a phone the playing stage runs edge to edge.
+      !compact && "max-sm:rounded-none max-sm:ring-0",
+    )}
+  >
     <StickStage
       bind:this={stage}
       {direction}
@@ -194,10 +203,32 @@
       tall={!compact}
       {thingWords}
     />
+
+    {#if onplay}
+      <button
+        class={cx(
+          "absolute inset-0 m-auto grid size-18 cursor-pointer place-items-center rounded-full border-0",
+          "bg-slate-900/70 text-white shadow-(--shadow-float) transition-colors duration-150 ease-out hover:bg-slate-900/85",
+        )}
+        type="button"
+        aria-label="Play the scene"
+        data-lesson-play
+        onclick={onplay}
+      >
+        <svg class="ml-1 size-8 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M8 5.5v13l11-6.5z" />
+        </svg>
+      </button>
+    {/if}
   </div>
 
   {#if captions && !compact}
-    <div class="min-h-[4.5rem] px-1 pt-3" aria-live="polite">
+    <!-- The caption's words are buttons, so a screen reader hears the line from a plain copy. -->
+    <p class="sr-only" aria-live="polite">
+      {#if caption}{caption.speaker}: {caption.slovak}{/if}
+    </p>
+
+    <div class="min-h-[4.5rem] px-1 pt-3 max-sm:px-4">
       {#if caption}
         <div>
         {#key shown}
@@ -226,7 +257,13 @@
         {/key}
         </div>
       {:else if hint}
-        <p class="m-0 text-slate-600">{hint}</p>
+        <h2 class="m-0 font-serif text-xl tracking-tight text-pretty text-slate-900 sm:text-2xl">
+          {hint.title}
+        </h2>
+
+        {#if hint.text}
+          <p class="m-0 mt-1 text-slate-600">{hint.text}</p>
+        {/if}
       {/if}
     </div>
   {/if}
