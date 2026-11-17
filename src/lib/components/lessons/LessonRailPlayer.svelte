@@ -177,6 +177,7 @@
         window.removeEventListener(type, onGesture);
       }
       window.removeEventListener(STORY_PREFS_CHANGE_EVENT, onPrefsChange);
+      window.clearTimeout(startTimer);
     };
   });
 
@@ -269,15 +270,24 @@
       choice?.whyWrong?.trim() || "Not that line: pick the reply that matches what you mean.";
   }
 
-  /** Into step `index`: a scene starts on its own once the learner has touched the page. */
-  function enter(): void {
+  /** Long enough for the cast's cheer at a chapter's end to be seen before the next lines. */
+  const CHEER_MS = 1300;
+
+  let startTimer = 0;
+
+  /** Into the step on screen: a scene starts on its own once the learner has touched the page. */
+  function enter(cheer = false): void {
+    window.clearTimeout(startTimer);
     sceneStage?.stop();
     canSubmit = false;
     sceneStarted = false;
     sceneDone = false;
     turn = null;
     said = [];
-    if (activated && played && !reviewing) queueMicrotask(playScene);
+    if (cheer) sceneStage?.cheer();
+    if (activated && played && !reviewing) {
+      startTimer = window.setTimeout(playScene, cheer ? CHEER_MS : 0);
+    }
   }
 
   function advance(): void {
@@ -294,8 +304,7 @@
     saveResume();
     reviewIndex = null;
     const to = steps[stepIndex];
-    if (from?.kind === "check" && to && to.chapter !== from.chapter) sceneStage?.cheer();
-    enter();
+    enter(from?.kind === "check" && to !== undefined && to.chapter !== from.chapter);
   }
 
   /** Coming back to the lesson opens it here. */
@@ -367,7 +376,8 @@
     if (!step) return "Continue";
     if (step.kind === "scene" || step.kind === "finale") {
       if (!sceneStarted) return "Play";
-      return step.kind === "finale" ? "Finish" : "Continue";
+      if (step.kind === "finale") return "Finish";
+      return sceneDone ? "Continue" : "Skip";
     }
     if (step.kind === "teach") return "Continue";
     if (step.exercise.type === "personal") return "I said it";

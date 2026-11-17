@@ -105,6 +105,7 @@
         if (mine !== epoch) return;
         onsay?.(index);
         say(index, () => {
+          if (mine !== epoch) return;
           last = index;
           timer = window.setTimeout(next, LINE_GAP_MS);
         });
@@ -159,7 +160,9 @@
 <div
   class={cx(
     "mx-auto w-full transition-[max-width] duration-300 ease-out",
-    compact ? "max-w-[300px] lg:max-w-none" : "max-w-[640px] lg:max-w-none",
+    compact
+      ? "max-w-[220px] sm:max-w-[300px] lg:max-w-none"
+      : "max-w-[640px] lg:max-w-none",
   )}
 >
   <div class="overflow-hidden rounded-(--frame-radius) ring-1 ring-slate-200">
