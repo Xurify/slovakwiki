@@ -615,8 +615,8 @@
       -->
       <div
         class={cx(
-          stage && "mx-auto grid w-full max-w-[1120px] gap-x-12 px-4 sm:px-8",
-          stage && !played && "lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] lg:items-start",
+          stage && "mx-auto grid w-full max-w-[1120px] grid-cols-[minmax(0,1fr)] gap-x-12 px-4 sm:px-8",
+          stage && !played && "lg:grid-cols-[340px_minmax(0,1fr)] lg:items-start",
         )}
       >
       {#if stage}

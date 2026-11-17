@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { eyebrowMutedClass, panelClass } from "$lib/components/ui/system-ui";
+  import { eyebrowMutedClass } from "$lib/components/ui/system-ui";
   import { onMount } from "svelte";
   import AudioButton from "$lib/audio/AudioButton.svelte";
   import FormTable from "$lib/components/lessons/FormTable.svelte";
@@ -98,17 +98,19 @@
 
   {#if takeaways.length}
     <ul
-      class="m-0 mt-5 grid list-none grid-cols-[auto_minmax(0,1fr)] border-y border-slate-200 p-0 sm:grid-cols-[auto_auto_minmax(0,1fr)]"
+      class="m-0 mt-5 list-none border-y border-slate-200 p-0"
       aria-label={takeaways.length === 1 ? "Key term" : "Key terms"}
     >
       {#each takeaways as phrase (phrase.slovak)}
         {@const src = audioSrcs[phrase.slovak] ?? phrase.audio?.src}
 
+        <!-- Play, then the phrase with its English, and its note under them: a third column squeezed a long note to a word a line. -->
         <li
-          class="col-span-full grid grid-cols-subgrid items-center gap-x-3 border-b border-slate-200/70 py-2 last:border-b-0"
+          class="grid grid-cols-[1.75rem_minmax(0,1fr)] gap-x-3 border-b border-slate-200/70 py-2.5 last:border-b-0"
         >
           {#if src}
             <AudioButton
+              class="self-start"
               size="xs"
               {src}
               text={phrase.audio?.transcript ?? phrase.slovak}
@@ -118,20 +120,20 @@
             <span aria-hidden="true"></span>
           {/if}
 
-          <p class="m-0 min-w-0 leading-snug">
-            <span class="font-serif text-base font-semibold text-slate-900" lang="sk">
-              {phrase.slovak}
-            </span>
-            <span class="ml-1.5 text-sm text-slate-600">{phrase.english}</span>
-          </p>
-
-          {#if phrase.note}
-            <p
-              class="col-start-2 m-0 text-xs leading-snug text-slate-500 sm:col-start-3 sm:pl-3"
-            >
-              <MarkedNote text={phrase.note} />
+          <div class="min-w-0">
+            <p class="m-0 leading-snug text-pretty">
+              <span class="font-serif text-base font-semibold text-slate-900" lang="sk">
+                {phrase.slovak}
+              </span>
+              <span class="ml-1.5 text-sm text-slate-600">{phrase.english}</span>
             </p>
-          {/if}
+
+            {#if phrase.note}
+              <p class="m-0 mt-0.5 text-xs leading-snug text-pretty text-slate-500">
+                <MarkedNote text={phrase.note} />
+              </p>
+            {/if}
+          </div>
         </li>
       {/each}
     </ul>
@@ -144,11 +146,11 @@
           <summary
             class="cursor-pointer text-sm font-semibold text-blue-700 underline-offset-4 hover:underline"
           >
-            {visual.title}
+            <MarkedNote text={visual.title} />
           </summary>
 
           <div class="mt-4">
-            {@render visualBody(visual)}
+            {@render visualBody(visual, false)}
           </div>
         </details>
       {:else}
@@ -158,7 +160,7 @@
   {/each}
 </div>
 
-{#snippet visualBody(visual: LessonVisual)}
+{#snippet visualBody(visual: LessonVisual, titled = true)}
   {#if visual.type === "clock-grid"}
     <h3 class={visualHeadingClass}>
       {visual.title}
@@ -168,7 +170,7 @@
       class="m-0 grid list-none grid-cols-[repeat(auto-fit,minmax(8.5rem,1fr))] gap-4 p-0"
     >
       {#each visual.items as item (`${item.slovak}-${item.time.hour}-${item.time.minute}`)}
-        <li class="{panelClass} grid justify-items-center gap-1.5 px-3 py-4">
+        <li class="grid justify-items-center gap-1.5 py-2">
           <ClockIllustration hour={item.time.hour} minute={item.time.minute} size={84} />
 
           <strong class="text-center font-serif text-sm text-slate-900" lang="sk">
@@ -180,6 +182,6 @@
       {/each}
     </ul>
   {:else}
-    <FormTable table={visual} />
+    <FormTable table={visual} {titled} />
   {/if}
 {/snippet}

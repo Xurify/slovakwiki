@@ -2,7 +2,14 @@
   import type { FormTableHeading, FormTableVisual } from "$lib/learning/types";
   import MarkedNote from "./MarkedNote.svelte";
 
-  let { table }: { table: FormTableVisual } = $props();
+  let {
+    table,
+    titled = true,
+  }: {
+    table: FormTableVisual;
+    /** False where the title is already shown, as on the toggle that opens the table. */
+    titled?: boolean;
+  } = $props();
 
   const edgeCellClass = "pr-2 pl-0 sm:pr-3";
   const cellPaddingClass = "px-2 sm:px-3";
@@ -31,11 +38,13 @@
 {#if table.columns.length === 1 && table.sections.every((section) => !section.heading)}
   <!-- One column of forms reads better as lines than as a table with an empty corner. -->
   <figure class="m-0">
+    {#if titled}
     <figcaption class="pb-2">
       <h3 class="m-0 font-sans text-sm font-semibold tracking-normal text-slate-900">
         <MarkedNote text={table.title} />
       </h3>
     </figcaption>
+    {/if}
 
     {#if table.columns[0]}
       <p class="m-0 pb-2 text-sm text-slate-600">
@@ -79,24 +88,27 @@
   </figure>
 {:else}
 <figure class="m-0">
+  {#if titled}
   <figcaption class="pb-2">
     <h3 class="m-0 font-sans text-sm font-semibold tracking-normal text-slate-900">
       <MarkedNote text={table.title} />
     </h3>
   </figcaption>
+  {/if}
 
   <div class="overflow-x-auto">
     <table class="w-full border-collapse text-left text-sm">
       <thead>
         <tr class="border-b border-slate-200">
-          <td class="{edgeCellClass} w-[1%]"></td>
+          <td class="{edgeCellClass} w-[1%] max-sm:hidden"></td>
 
-          {#each table.columns as column (column.english)}
+          {#each table.columns as column, columnIndex (column.english)}
             <th
               scope="col"
               class={[
                 cellPaddingClass,
-                "pb-2.5 align-bottom text-xs leading-snug font-semibold whitespace-nowrap text-slate-700",
+                columnIndex === 0 && "max-sm:pl-0",
+                "min-w-20 pb-2.5 align-bottom text-xs leading-snug font-semibold text-balance text-slate-700",
               ]}
             >
               {@render heading(column)}
@@ -126,10 +138,29 @@
           {/if}
 
           {#each section.rows as row (row.heading.english)}
+            <!-- On a phone the row's label goes above its forms, so the forms get the width and the label is not squeezed to a word a line. -->
+            <tr class="sm:hidden">
+              <th
+                scope="row"
+                colspan={table.columns.length}
+                class="pt-3 text-xs leading-snug font-semibold text-slate-700"
+              >
+                {row.heading.english}
+                {#if row.heading.slovak}
+                  <span class="font-normal text-slate-500" lang="sk">· {row.heading.slovak}</span>
+                {/if}
+                {#if row.heading.example}
+                  <span class="font-serif font-normal text-slate-500 italic" lang="sk"
+                    >· {row.heading.example}</span
+                  >
+                {/if}
+              </th>
+            </tr>
+
             <tr class="border-b border-slate-200/70 last:border-b-0">
               <th
                 scope="row"
-                class="{edgeCellClass} w-[1%] max-w-60 min-w-36 py-2.5 text-xs leading-snug font-semibold text-slate-700 sm:min-w-44"
+                class="{edgeCellClass} w-[1%] max-w-60 py-2.5 text-xs leading-snug font-semibold text-slate-700 max-sm:hidden sm:min-w-44"
               >
                 {@render heading(row.heading)}
               </th>
@@ -138,7 +169,7 @@
                 <td
                   class={[
                     cellPaddingClass,
-                    "py-2.5 font-serif text-base whitespace-nowrap text-slate-900",
+                    "py-2.5 font-serif text-base whitespace-nowrap text-slate-900 max-sm:pt-1 max-sm:first-of-type:pl-0",
                     cellIndex === row.cells.length - 1 && "pr-0",
                   ]}
                   lang="sk"
