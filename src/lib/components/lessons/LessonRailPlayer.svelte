@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount } from "svelte";
+  import { onMount, tick } from "svelte";
 
   import LessonDoneScreen from "$lib/components/lessons/LessonDoneScreen.svelte";
   import LessonFeedbackBar from "$lib/components/lessons/LessonFeedbackBar.svelte";
@@ -33,6 +33,7 @@
   import type { DialogueTurn, Lesson } from "$lib/learning/types";
   import {
     STORY_PREFS_CHANGE_EVENT,
+    getStoryAutoAdvance,
     getStoryShowEnglish,
   } from "$lib/lesson-story/prefs";
   import { hasPendingStoryAudio, primeStoryAudio } from "$lib/lesson-story/story-audio";
@@ -90,6 +91,8 @@
   let turn = $state<Turn | null>(null);
   /** Lines said so far in the scene step on screen, in the order said. */
   let said = $state<number[]>([]);
+  /** Auto-advance is off and the scene waits between lines: this plays the next one. */
+  let waiting = $state<(() => void) | null>(null);
   let showEnglish = $state(false);
 
   const steps = $derived(lessonSteps(lesson, Boolean(stage)));
@@ -227,11 +230,17 @@
     if (!current || (current.kind !== "scene" && current.kind !== "finale")) return;
 
     const lines = current.kind === "scene" ? current.lines : lesson.scene;
+    window.clearTimeout(startTimer);
     sceneStarted = true;
     sceneDone = false;
     turn = null;
+    waiting = null;
     said = [];
     sceneStage?.run(stageIndexes(lines), {
+      waits: () => getStoryAutoAdvance() === "off",
+      onwait: (goOn) => {
+        waiting = goOn;
+      },
       onsay: (index) => {
         said = [...said.filter((line) => line !== index), index];
       },
@@ -243,6 +252,7 @@
         const line = lesson.scene[index];
         if (!line) return go();
         turn = { go, line, missed: null, picked: null };
+        void revealTurn();
       },
       ondone: () => {
         sceneDone = true;
@@ -259,7 +269,10 @@
       turn = null;
       playAnswerSfx("correct");
       sceneStage?.react("nod");
-      go();
+      // The nod is seen before Alex says the line, which would end it.
+      window.clearTimeout(startTimer);
+      startTimer = window.setTimeout(go, NOD_MS);
+      playerRoot?.focus({ preventScroll: true });
       return;
     }
 
@@ -269,6 +282,22 @@
     turn.missed =
       choice?.whyWrong?.trim() || "Not that line: pick the reply that matches what you mean.";
   }
+
+  /** The choices for Alex's line in view and in focus, so a keyboard or screen reader finds them. */
+  async function revealTurn(): Promise<void> {
+    await tick();
+    const panel = playerRoot?.querySelector<HTMLElement>("[data-turn]");
+    panel?.scrollIntoView({
+      block: "nearest",
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth",
+    });
+    panel?.querySelector<HTMLElement>("[data-answer-option]")?.focus({ preventScroll: true });
+  }
+
+  /** How long the one Alex talks with nods at a right pick before Alex says it. */
+  const NOD_MS = 650;
 
   /** Long enough for the cast's cheer at a chapter's end to be seen before the next lines. */
   const CHEER_MS = 1300;
@@ -283,6 +312,7 @@
     sceneStarted = false;
     sceneDone = false;
     turn = null;
+    waiting = null;
     said = [];
     if (cheer) sceneStage?.cheer();
     if (activated && played && !reviewing) {
@@ -353,6 +383,12 @@
         playScene();
         return;
       }
+      if (waiting && !sceneDone) {
+        const goOn = waiting;
+        waiting = null;
+        goOn();
+        return;
+      }
       advance();
       return;
     }
@@ -376,6 +412,7 @@
     if (!step) return "Continue";
     if (step.kind === "scene" || step.kind === "finale") {
       if (!sceneStarted) return "Play";
+      if (waiting && !sceneDone) return "Next line";
       if (step.kind === "finale") return "Finish";
       return sceneDone ? "Continue" : "Skip";
     }
@@ -387,7 +424,7 @@
 
   const footerEnabled = $derived.by(() => {
     if (!step) return false;
-    if (step.kind === "finale") return !sceneStarted || sceneDone;
+    if (step.kind === "finale") return !sceneStarted || sceneDone || Boolean(waiting);
     if (step.kind === "scene") return !turn;
     if (step.kind === "teach") return true;
     if (gradeResult) return true;
@@ -553,8 +590,8 @@
               {/if}
 
               {#if turn?.line.sayChoices}
-                <div class="animate-rise">
-                  <p class={eyebrowMutedClass}>Your turn: what does Alex say?</p>
+                <div class="animate-rise" data-turn>
+                  <p class={eyebrowMutedClass} role="status">Your turn: what does Alex say?</p>
 
                   <ChoiceOptions
                     choices={turn.line.sayChoices.choices}

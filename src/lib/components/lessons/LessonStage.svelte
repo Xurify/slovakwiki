@@ -79,12 +79,18 @@
       ondone,
       onsay,
       onturn,
+      onwait,
+      waits,
     }: {
       holds?: (index: number) => boolean;
       ondone?: () => void;
       /** A line starts to be said. */
       onsay?: (index: number) => void;
       onturn?: (index: number, go: () => void) => void;
+      /** Between lines, when `waits` says so: `goOn` plays the next one. */
+      onwait?: (goOn: () => void) => void;
+      /** Stop after each line for the learner to go on (Auto-advance off). */
+      waits?: () => boolean;
     } = {},
   ): void {
     stop();
@@ -107,6 +113,12 @@
         say(index, () => {
           if (mine !== epoch) return;
           last = index;
+          if (k < indices.length && waits?.() && onwait) {
+            onwait(() => {
+              if (mine === epoch) next();
+            });
+            return;
+          }
           timer = window.setTimeout(next, LINE_GAP_MS);
         });
       };
