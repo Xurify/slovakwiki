@@ -143,7 +143,6 @@
    * The stage while lines play, and what sits under it: as wide as the window's
    * height allows, and narrower at the end, where Alex's choices need room below it.
    */
-  const stageColumn = "mx-auto w-full lg:max-w-[min(100%,calc((100dvh-34rem)*2))]";
   const missParts = $derived(turn?.missed ? splitEmphasis(turn.missed) : []);
 
   const nextLesson = $derived.by((): Lesson | null => {
@@ -615,7 +614,11 @@
         <div
           class={cx(
             "pt-5 sm:pt-6",
-            played ? stageColumn : "lg:sticky lg:top-0 lg:pt-10 lg:pb-10",
+            played ? "mx-auto w-full" : "lg:sticky lg:top-0 lg:pt-10 lg:pb-10",
+            played &&
+              (viewStep?.kind === "finale"
+                ? "lg:max-w-[min(100%,calc((100dvh-34rem)*2))]"
+                : "lg:max-w-[min(100%,calc((100dvh-22rem)*2))]"),
             played && "max-sm:-mx-4 max-sm:w-auto max-sm:pt-[8svh] lg:pt-8",
           )}
         >
@@ -624,9 +627,7 @@
             captions={played}
             compact={!played}
             hint={played && !sceneStarted && !reviewing ? sceneHint : undefined}
-            onplay={played && !reviewing && ((!sceneStarted && !starting) || (waiting && !sceneDone))
-              ? onFooterPrimary
-              : undefined}
+            onplay={played && !reviewing && waiting && !sceneDone ? onFooterPrimary : undefined}
             playLabel={waiting ? "Next line" : "Play the scene"}
             onpause={played && sceneStarted && !sceneDone && !waiting && !turn && !pausing
               ? () => {
@@ -643,7 +644,14 @@
       {#if viewStep}
         {#key viewStep.id}
           {#if viewStep.kind === "scene" || viewStep.kind === "finale"}
-            <div class={cx(stageColumn, "pt-2 pb-10")}>
+            <div
+              class={cx(
+                "mx-auto w-full pt-2 pb-10",
+                viewStep.kind === "finale"
+                  ? "lg:max-w-[min(100%,calc((100dvh-34rem)*2))]"
+                  : "lg:max-w-[min(100%,calc((100dvh-22rem)*2))]",
+              )}
+            >
               {#if turn?.line.sayChoices}
                 <div class="animate-rise" data-turn>
                   <p

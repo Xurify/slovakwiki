@@ -3,9 +3,12 @@
   import MarkedNote from "./MarkedNote.svelte";
 
   let {
+    slots = 0,
     table,
     titled = true,
   }: {
+    /** Form columns the widest table on the step has; this one takes its share of them. */
+    slots?: number;
     table: FormTableVisual;
     /** False where the title is already shown, as on the toggle that opens the table. */
     titled?: boolean;
@@ -98,7 +101,7 @@
     {/if}
   </figure>
 {:else}
-<figure class={["m-0", table.columns.length <= 2 && "max-w-xl"]}>
+<figure class="m-0">
   {#if titled}
   <figcaption class="pb-2">
     <h3 class="m-0 font-sans text-sm font-semibold tracking-normal text-slate-900">
@@ -109,7 +112,10 @@
 
   <div class="overflow-x-auto">
     <!-- Fixed columns, so stacked tables on one step line their forms up. -->
-    <table class="w-full table-fixed border-collapse text-left text-sm">
+    <table
+      class="w-full table-fixed border-collapse text-left text-sm sm:w-(--table-width)"
+      style:--table-width="calc(14rem + (100% - 14rem) * {table.columns.length} / {Math.max(slots, table.columns.length)})"
+    >
       <thead>
         <tr class="border-b border-slate-200">
           <td class="{edgeCellClass} w-56 max-sm:hidden"></td>

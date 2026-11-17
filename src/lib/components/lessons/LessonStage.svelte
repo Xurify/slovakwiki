@@ -235,7 +235,7 @@
       <button
         class={cx(
           "absolute bottom-3 left-4 grid size-11 cursor-pointer place-items-center rounded-full border-0",
-          "bg-black/45 text-white transition-colors duration-150 ease-out hover:bg-black/65",
+          "bg-black/70 text-white shadow-(--shadow-float) transition-colors duration-150 ease-out hover:bg-black/85",
         )}
         type="button"
         aria-label="Pause after this line"

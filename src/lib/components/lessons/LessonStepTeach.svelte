@@ -60,6 +60,13 @@
   const visualHeadingClass = `${eyebrowMutedClass} mb-4`;
 
   const visuals = $derived(teach.visual ? [teach.visual].flat() : []);
+  /** The most form columns of any table on the step, at least three, so no lone table stretches. */
+  const slots = $derived(
+    Math.max(
+      3,
+      ...visuals.map((visual) => (visual.type === "form-table" ? visual.columns.length : 0)),
+    ),
+  );
 
   onMount(() => {
     showEnglishOn = getStoryShowEnglish() === "on";
@@ -175,21 +182,21 @@
     {/if}
 
     <ul
-      class="m-0 grid list-none grid-cols-[repeat(auto-fit,minmax(8.5rem,1fr))] gap-4 p-0"
+      class="m-0 grid list-none grid-cols-[repeat(auto-fill,minmax(8.5rem,1fr))] gap-x-6 gap-y-4 p-0"
     >
       {#each visual.items as item (`${item.slovak}-${item.time.hour}-${item.time.minute}`)}
-        <li class="grid justify-items-center gap-1.5 py-2">
+        <li class="grid justify-items-start gap-1.5 py-2">
           <ClockIllustration hour={item.time.hour} minute={item.time.minute} size={84} />
 
-          <strong class="text-center font-serif text-sm text-slate-900" lang="sk">
+          <strong class="font-serif text-sm text-slate-900" lang="sk">
             {item.slovak}
           </strong>
 
-          <span class="text-center text-xs text-slate-500">{item.english}</span>
+          <span class="text-xs text-slate-500">{item.english}</span>
         </li>
       {/each}
     </ul>
   {:else}
-    <FormTable table={visual} {titled} />
+    <FormTable table={visual} {slots} {titled} />
   {/if}
 {/snippet}
