@@ -24,9 +24,9 @@
   } = $props();
 </script>
 
-<div class="shrink-0 border-t border-slate-200 bg-paper px-4 py-4 sm:px-8 sm:py-5">
+<div class="shrink-0 border-t border-slate-200 bg-paper py-4 sm:py-5">
   <div
-    class="mx-auto flex items-center justify-end gap-2 {wide
+    class="mx-auto flex items-center justify-end gap-2 px-4 sm:px-8 {wide
       ? 'max-w-[1120px]'
       : 'max-w-[640px]'}"
   >

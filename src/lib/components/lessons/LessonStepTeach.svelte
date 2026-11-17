@@ -38,7 +38,7 @@
 
   const takeaways = $derived.by((): KeyPhrase[] => {
     const all = teach.phrases ?? [];
-    if (!all.length) return [];
+    if (!all.length || !scene.length) return all;
 
     const spoken = scene.map((line) => line.slovak.toLowerCase()).join(" · ");
 
@@ -143,10 +143,19 @@
     <div class="mt-8">
       {#if index > 0}
         <details class="group">
+          <!-- Set like the title of the table above it, so an open and a closed table read as one kind. -->
           <summary
-            class="cursor-pointer text-sm font-semibold text-blue-700 underline-offset-4 hover:underline"
+            class="flex cursor-pointer list-none items-center gap-1.5 text-sm font-semibold text-slate-900 [&::-webkit-details-marker]:hidden"
           >
             <MarkedNote text={visual.title} />
+
+            <svg
+              class="size-4 shrink-0 fill-none stroke-current stroke-2 text-slate-500 transition-transform duration-150 ease-out group-open:rotate-180"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
           </summary>
 
           <div class="mt-4">

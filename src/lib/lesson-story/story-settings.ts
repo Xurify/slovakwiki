@@ -40,8 +40,8 @@ const byLessonId: Record<string, LessonStorySetting> = {
   },
   "everyday/negation-in-conversation": {
     art: "home",
-    place: "Catching up at home",
-    placeSk: "Doma",
+    place: "Catching up at a café",
+    placeSk: "V kaviarni",
   },
   "grammar/present-tense-i": {
     art: "cafe",

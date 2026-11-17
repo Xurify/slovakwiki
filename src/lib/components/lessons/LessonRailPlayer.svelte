@@ -146,14 +146,7 @@
    * The stage while lines play, and what sits under it: as wide as the window's
    * height allows, and narrower at the end, where Alex's choices need room below it.
    */
-  const stageColumn = $derived(
-    cx(
-      "mx-auto w-full",
-      viewStep?.kind === "finale"
-        ? "lg:w-[min(960px,calc((100dvh-34rem)*2))]"
-        : "lg:w-[min(960px,calc((100dvh-20rem)*2))]",
-    ),
-  );
+  const stageColumn = "mx-auto w-full lg:max-w-[min(100%,calc((100dvh-34rem)*2))]";
   const missParts = $derived(turn?.missed ? splitEmphasis(turn.missed) : []);
 
   const nextLesson = $derived.by((): Lesson | null => {
@@ -643,7 +636,7 @@
       {#if viewStep}
         {#key viewStep.id}
           {#if viewStep.kind === "scene" || viewStep.kind === "finale"}
-            <div class={cx(stageColumn, "pt-2 pb-8")}>
+            <div class={cx(stageColumn, "pt-2 pb-10")}>
               {#if turn?.line.sayChoices}
                 <div class="animate-rise" data-turn>
                   <p
@@ -757,7 +750,7 @@
         onback={viewIndex > 0 ? goBack : undefined}
         onclick={onFooterPrimary}
         queues
-        quiet={footerLabel === "Skip" || footerLabel === "Play now"}
+        quiet={footerLabel === "Skip"}
         wide={Boolean(stage)}
       />
     {/if}

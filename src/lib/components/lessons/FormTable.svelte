@@ -160,7 +160,7 @@
             <tr class="border-b border-slate-200/70 last:border-b-0">
               <th
                 scope="row"
-                class="{edgeCellClass} w-[1%] max-w-60 py-2.5 text-xs leading-snug font-semibold text-slate-700 max-sm:hidden sm:min-w-44"
+                class="{edgeCellClass} w-[1%] max-w-60 py-2.5 text-xs leading-snug font-semibold text-slate-700 max-sm:hidden sm:min-w-56"
               >
                 {@render heading(row.heading)}
               </th>

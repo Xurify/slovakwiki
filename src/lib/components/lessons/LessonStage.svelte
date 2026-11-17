@@ -205,20 +205,26 @@
     />
 
     {#if onplay}
+      <!-- A shaded band along the foot of the stage, as on a paused video: on its own the button sat on whatever was drawn there, a chair leg or a face. -->
       <button
         class={cx(
-          // Low on the left, on the floor, so it never covers a face; black, not a slate tint that turns pale in dark mode.
-          "absolute bottom-4 left-4 grid size-14 cursor-pointer place-items-center rounded-full border-0",
-          "bg-black/65 text-white shadow-(--shadow-float) transition-colors duration-150 ease-out hover:bg-black/80",
+          "group absolute inset-x-0 bottom-0 flex cursor-pointer items-center gap-3 border-0 px-4 pt-12 pb-3 text-left",
+          "bg-linear-to-t from-black/60 to-transparent text-white",
         )}
         type="button"
-        aria-label="Play the scene"
         data-lesson-play
         onclick={onplay}
       >
-        <svg class="ml-0.5 size-7 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M8 5.5v13l11-6.5z" />
-        </svg>
+        <span
+          class="grid size-11 shrink-0 place-items-center rounded-full bg-white text-black transition-colors duration-150 ease-out group-hover:bg-white/85"
+          aria-hidden="true"
+        >
+          <svg class="ml-0.5 size-5 fill-current" viewBox="0 0 24 24">
+            <path d="M8 5.5v13l11-6.5z" />
+          </svg>
+        </span>
+
+        <span class="text-sm font-semibold">Play the scene</span>
       </button>
     {/if}
   </div>
@@ -229,7 +235,7 @@
       {#if caption}{caption.speaker}: {caption.slovak}{/if}
     </p>
 
-    <div class="min-h-[4.5rem] px-1 pt-3 max-sm:px-4">
+    <div class="min-h-[4.5rem] pt-3 max-sm:px-4">
       {#if caption}
         {#key shown}
           <p

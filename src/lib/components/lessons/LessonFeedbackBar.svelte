@@ -66,12 +66,12 @@
 
 <div
   bind:this={rootEl}
-  class="shrink-0 border-t border-slate-200 bg-paper px-4 py-4 sm:px-8 sm:py-5"
+  class="shrink-0 border-t border-slate-200 bg-paper py-4 sm:py-5"
   role="status"
   aria-live="polite"
 >
   <div
-    class="mx-auto flex animate-rise flex-wrap justify-between gap-4 {rowAlignClass} {wide
+    class="mx-auto flex animate-rise flex-wrap justify-between gap-4 px-4 sm:px-8 {rowAlignClass} {wide
       ? 'max-w-[1120px]'
       : 'max-w-[640px]'}"
   >
