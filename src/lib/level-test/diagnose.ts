@@ -1020,17 +1020,17 @@ export const NEXT_STEPS: Record<CefrLevel, StudyLink[]> = {
     { label: "Aspect: robiť or urobiť", href: "/grammar/aspect" },
     { label: "Word order", href: "/grammar/word-order" },
     { label: "Instrumental case", href: "/grammar/cases/instrumental" },
-    { label: "Listening episodes", href: "/listening" },
+    { label: "Episodes", href: "/episodes" },
   ],
   B2: [
     { label: "Aspect: robiť or urobiť", href: "/grammar/aspect" },
     { label: "Word order", href: "/grammar/word-order" },
-    { label: "Listening episodes", href: "/listening" },
+    { label: "Episodes", href: "/episodes" },
     { label: "The most common adjectives", href: "/dictionary/common/adjective" },
   ],
   C1: [
     { label: "Word order", href: "/grammar/word-order" },
-    { label: "Listening episodes", href: "/listening" },
+    { label: "Episodes", href: "/episodes" },
   ],
-  C2: [{ label: "Listening episodes", href: "/listening" }],
+  C2: [{ label: "Episodes", href: "/episodes" }],
 };

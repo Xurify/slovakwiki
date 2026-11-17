@@ -15,8 +15,8 @@ mkdirSync(out, { recursive: true });
 
 const surfaces = [
   {
-    path: "/listening/future-tense",
-    label: "Listening settings",
+    path: "/episodes/future-tense",
+    label: "Episode settings",
     bar: ["Subtitles", "Show English", "Slower", "Transcript"],
     groups: [],
     switches: ["Background sound", "Speaker faces", "Pause at questions"],

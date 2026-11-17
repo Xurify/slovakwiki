@@ -85,7 +85,7 @@ const esc = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
         page.on("pageerror", (e) => console.error(name, w, "page error:", e.message));
         await page.clock.install();
         await page.goto(
-          `${process.env.BASE || "http://localhost:4321"}/listening/${slug}`,
+          `${process.env.BASE || "http://localhost:4321"}/episodes/${slug}`,
           { waitUntil: "networkidle", timeout: 120000 },
         );
         await page.clock.pauseAt((await page.evaluate(() => Date.now())) + 100);

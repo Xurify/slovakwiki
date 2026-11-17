@@ -531,7 +531,7 @@
           onclick={() => (textOpen = !textOpen)}
         />
 
-        <SceneSettings label="Listening settings" {settings} side="top" />
+        <SceneSettings label="Episode settings" {settings} side="top" />
       </div>
     </div>
   </div>

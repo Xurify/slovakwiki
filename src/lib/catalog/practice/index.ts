@@ -1,4 +1,5 @@
 import type { PracticeItem } from "$lib/learning/types";
+import { mixPracticeAnswers } from "$lib/learning/answer-order";
 import { demonstrativesPracticeItems } from "$lib/learning/demonstratives/session";
 import { possessivesPracticeItems } from "$lib/learning/possessives/session";
 import { aspectPracticeItems } from "$lib/learning/aspect/practice";
@@ -19,7 +20,7 @@ export const practiceItems: PracticeItem[] = [
   ...possessivesPracticeItems,
   ...demonstrativesPracticeItems,
   ...aspectPracticeItems,
-];
+].map(mixPracticeAnswers);
 
 export const practiceItemById = new Map(practiceItems.map((item) => [item.id, item]));
 

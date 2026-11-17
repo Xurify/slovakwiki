@@ -9,7 +9,7 @@ const [slug, out, wait = "2500"] = process.argv.slice(2);
   fs.mkdirSync(out, { recursive: true });
   const b = await chromium.launch();
   const p = await b.newPage({ viewport: { width: 1280, height: 1000 } });
-  await p.goto(`http://localhost:4321/listening/${slug}`, { waitUntil: "networkidle" });
+  await p.goto(`http://localhost:4321/episodes/${slug}`, { waitUntil: "networkidle" });
   const segs = await p.$$eval(
     "button",
     (bs) => bs.filter((b) => /^\d+\s/.test(b.textContent.trim())).length,

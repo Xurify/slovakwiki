@@ -1,3 +1,4 @@
+import { seededShuffle } from "$lib/learning/answer-order";
 import { sanitizeMarks, type TextMark, type TextRole } from "$lib/learning/marked-text";
 
 /** A stretch of a caption: inside one word (or between words), under one mark. */
@@ -48,18 +49,7 @@ export function lineTiles(slovak: string): string[] {
  * every time the line comes up, so a retry is not a new puzzle.
  */
 export function shuffledTiles(tiles: readonly string[], seed: string): string[] {
-  let state = [...seed].reduce((hash, char) => (hash * 31 + char.charCodeAt(0)) >>> 0, 7);
-  const random = () => {
-    state = (state * 1664525 + 1013904223) >>> 0;
-    return state / 2 ** 32;
-  };
-
-  const shuffled = [...tiles];
-  for (let index = shuffled.length - 1; index > 0; index -= 1) {
-    const swap = Math.floor(random() * (index + 1));
-    [shuffled[index], shuffled[swap]] = [shuffled[swap], shuffled[index]];
-  }
-
+  const shuffled = seededShuffle(tiles, seed);
   const same = shuffled.every((tile, index) => tile === tiles[index]);
   return same && shuffled.length > 1 ? [...shuffled.slice(1), shuffled[0]] : shuffled;
 }

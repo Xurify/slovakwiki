@@ -42,7 +42,7 @@ export const referenceGroups: ReferenceGroup[] = [
   {
     id: "sounds",
     title: "Sounds",
-    summary: "Recordings heard in listening episodes that no voice can say.",
+    summary: "Recordings heard in episodes that no voice can say.",
   },
 ];
 

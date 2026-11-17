@@ -42,9 +42,9 @@ const { episode, audio, next, stages } = Astro.props;
 ---
 
 <SiteLayout
-  title={`${episode.titleSk}${episode.topic ? ` (${episode.topic})` : ""} | Slovak Wiki Listening`}
+  title={`${episode.titleSk}${episode.topic ? ` (${episode.topic})` : ""} | Slovak Wiki Episodes`}
   description={episode.promise}
-  canonicalPath={`/listening/${episode.slug}`}
+  canonicalPath={`/episodes/${episode.slug}`}
   stage
 >
   <ListenPrefsBoot slot="head" />

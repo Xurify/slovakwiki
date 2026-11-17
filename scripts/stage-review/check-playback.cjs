@@ -1,5 +1,5 @@
 // @ts-nocheck: Like render-frames.cjs, this uses the review environment's Playwright.
-// node scripts/stage-review/check-playback.cjs [--base http://localhost:4321] [--path /listening/future-tense]
+// node scripts/stage-review/check-playback.cjs [--base http://localhost:4321] [--path /episodes/future-tense]
 // Optional CHROME_PATH selects an installed Chromium executable.
 const { chromium } = require("playwright");
 const assert = require("node:assert/strict");
@@ -9,7 +9,7 @@ const arg = (name, fallback) => {
   return index < 0 ? fallback : process.argv[index + 1];
 };
 const base = arg("--base", "http://localhost:4321");
-const episodePath = arg("--path", "/listening/future-tense");
+const episodePath = arg("--path", "/episodes/future-tense");
 
 async function instrument(page) {
   await page.addInitScript(() => {

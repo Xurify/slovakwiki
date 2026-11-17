@@ -10,7 +10,7 @@ export interface NavigationGroup {
 
 export const primaryNavigation: NavigationItem[] = [
   { href: "/lessons", label: "Lessons" },
-  { href: "/listening", label: "Listening" },
+  { href: "/episodes", label: "Episodes" },
   { href: "/practice", label: "Practice" },
 ];
 
