@@ -197,7 +197,13 @@
         </div>
       {/if}
 
-      <div class="grid gap-2 empty:hidden">
+      <!-- Indented to the text in the rows above (the card's 4px and the row's 14px), so the why reads as theirs. -->
+      <div
+        class={[
+          "grid gap-2 empty:hidden",
+          (attempt || (showCorrection && correction)) && "pl-[1.125rem]",
+        ]}
+      >
         {@render whyLine()}
 
         {#if closeSuggestion}

@@ -15,10 +15,21 @@
   const cellPaddingClass = "px-2 sm:px-3";
 </script>
 
-{#snippet heading(label: FormTableHeading)}
+{#snippet heading(label: FormTableHeading, stacked = false)}
   <span class="block">{label.english}</span>
 
-  {#if label.slovak || label.example}
+  {#if stacked}
+    <!-- A narrow column heading: the term and its example each on a line, not broken mid-phrase. -->
+    {#if label.slovak}
+      <span class="block font-normal text-slate-500" lang="sk">{label.slovak}</span>
+    {/if}
+
+    {#if label.example}
+      <span class="block font-serif font-normal text-slate-500 italic" lang="sk">
+        {label.example}
+      </span>
+    {/if}
+  {:else if label.slovak || label.example}
     <span class="block font-normal text-slate-500">
       {#if label.slovak}
         <span lang="sk">{label.slovak}</span>
@@ -111,7 +122,7 @@
                 "min-w-20 pb-2.5 align-bottom text-xs leading-snug font-semibold text-balance text-slate-700",
               ]}
             >
-              {@render heading(column)}
+              {@render heading(column, true)}
             </th>
           {/each}
         </tr>

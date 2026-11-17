@@ -551,7 +551,7 @@
 
 <div
   bind:this={playerRoot}
-  class="fixed inset-0 z-[90] flex flex-col bg-paper"
+  class="fixed inset-0 z-[90] flex flex-col bg-paper outline-none"
   role="dialog"
   data-hydrated={hydrated ? "" : undefined}
   aria-modal="true"
