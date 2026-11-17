@@ -490,6 +490,11 @@ export const daysDatesTimeLesson: Lesson = {
       audio: { transcript: "O štvrť na tri." },
     },
     {
+      slovak: "O trištvrte na tri.",
+      english: "2:45 — quarter to three.",
+      audio: { transcript: "O trištvrte na tri." },
+    },
+    {
       slovak: "Film začína o ôsmej.",
       english: "The film starts at eight o'clock.",
       audio: { transcript: "Film začína o ôsmej." },
