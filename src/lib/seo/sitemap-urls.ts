@@ -34,7 +34,7 @@ export function buildSitemapGroups(): SitemapGroup[] {
     "/dictionary",
     "/grammar",
     "/lessons",
-    "/listening",
+    "/episodes",
     "/practice",
     "/pronunciation",
     "/glossary",

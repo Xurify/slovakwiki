@@ -99,7 +99,7 @@ const tap = () => {
   const opened = Date.now();
   const page = await ctx.newPage();
   page.on("pageerror", (e) => console.error("page error:", e.message));
-  await page.goto(`${args.base}/listening/${args.episode}`, { waitUntil: "networkidle" });
+  await page.goto(`${args.base}/episodes/${args.episode}`, { waitUntil: "networkidle" });
   await page
     .getByRole("button", { name: new RegExp(args.segment) })
     .first()

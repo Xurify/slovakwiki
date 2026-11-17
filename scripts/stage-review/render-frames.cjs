@@ -71,7 +71,7 @@ async function open(browser) {
   const page = await ctx.newPage();
   page.on("pageerror", (e) => console.error("page error:", e.message));
   await page.clock.install();
-  await page.goto(`${args.base}/listening/${args.episode}`, { waitUntil: "networkidle" });
+  await page.goto(`${args.base}/episodes/${args.episode}`, { waitUntil: "networkidle" });
   // An installed clock still flows with real time; pause it, or a busy machine shifts every line.
   await page.clock.pauseAt((await page.evaluate(() => Date.now())) + 100);
   await page.clock.runFor(1500);

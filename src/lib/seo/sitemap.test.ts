@@ -25,7 +25,7 @@ describe("sitemap", () => {
     expect(byName.lessons?.length).toBe(14);
     expect(byName.practice?.length).toBe(13);
     expect(byName.listening?.length).toBe(7);
-    expect(byName.pages).toContain(`${SITE_ORIGIN}/listening`);
+    expect(byName.pages).toContain(`${SITE_ORIGIN}/episodes`);
     expect(byName.pronunciation?.length).toBe(5);
 
     const all = groups.flatMap((group) => group.urls);

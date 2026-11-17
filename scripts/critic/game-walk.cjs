@@ -62,7 +62,7 @@ function report(t, what, evidence) {
   const page = await ctx.newPage();
   page.on("pageerror", (e) => console.error("page error:", e.message));
   await page.clock.install();
-  await page.goto(`${args.base}/listening/${args.episode}`, { waitUntil: "networkidle" });
+  await page.goto(`${args.base}/episodes/${args.episode}`, { waitUntil: "networkidle" });
   await page.clock.pauseAt((await page.evaluate(() => Date.now())) + 100);
   await page.clock.runFor(1500);
   const segment = page.getByRole("button", { name: new RegExp(args.segment) }).first();
