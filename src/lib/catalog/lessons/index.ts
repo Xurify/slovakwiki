@@ -1,4 +1,5 @@
 import type { Lesson, LessonTrackId } from "$lib/learning/types";
+import { mixLessonAnswers } from "$lib/learning/answer-order";
 import { lessonExercises } from "$lib/learning/beats";
 import { lineSentences } from "$lib/stick-figure/slovak-text";
 import { everydayLessons } from "./everyday";
@@ -11,7 +12,7 @@ export const lessons: Lesson[] = [
   ...everydayLessons,
   ...grammarLessons,
   ...pronunciationLessons,
-];
+].map(mixLessonAnswers);
 
 export const lessonById = new Map(lessons.map((lesson) => [lesson.id, lesson]));
 
