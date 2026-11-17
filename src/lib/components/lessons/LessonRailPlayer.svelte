@@ -624,7 +624,7 @@
           class={cx(
             "pt-5 sm:pt-6",
             played ? stageColumn : "lg:sticky lg:top-0 lg:pt-10 lg:pb-10",
-            played && "max-sm:-mx-4 max-sm:pt-[8svh] lg:pt-8",
+            played && "max-sm:-mx-4 max-sm:w-auto max-sm:pt-[8svh] lg:pt-8",
           )}
         >
           <LessonStage
