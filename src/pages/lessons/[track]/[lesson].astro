@@ -6,6 +6,7 @@ import { lessonAudioSrcs } from "$lib/catalog/lessons/audio";
 import { contentCacheKey } from "$lib/build/cache-key";
 import { lessons } from "$lib/catalog/lessons";
 import { episodePath, listeningEpisodes } from "$lib/catalog/listening";
+import { lessonSteps } from "$lib/learning/lesson-steps";
 import { lessonScene, placeThingWords } from "$lib/stick-figure/scene-sources";
 
 export function getStaticPaths() {
@@ -33,9 +34,11 @@ export function getStaticPaths() {
 }
 
 const { lesson, audio, stage, thingWords, episode } = Astro.props;
+const resumeStepIds = lessonSteps(lesson, Boolean(stage)).map(({ id }) => id);
 ---
 
 <SiteLayout
+  bodyClass="overflow-hidden"
   title={`${lesson.title} | Slovak Wiki Lessons`}
   description={lesson.promise}
   canonicalPath={`/lessons/${lesson.track}/${lesson.slug}`}
@@ -54,7 +57,37 @@ const { lesson, audio, stage, thingWords, episode } = Astro.props;
     />
   </LessonPage>
 
-  <script is:inline>
+  <script
+    is:inline
+    slot="head"
+    data-lesson-id={lesson.id}
+    data-lesson-step-ids={JSON.stringify(resumeStepIds)}
+  >
+    const bootScript = document.currentScript;
+    const bootData =
+      bootScript instanceof HTMLScriptElement ? bootScript.dataset : undefined;
+    const resumeLessonId = bootData?.lessonId ?? "";
+    /** @type {string[]} */
+    const resumeStepIds = JSON.parse(bootData?.lessonStepIds ?? "[]");
+
+    try {
+      const stored = JSON.parse(
+        localStorage.getItem("slovak.wiki.lesson-resume.v1") ?? "{}",
+      )?.[resumeLessonId];
+      const storedStepIds = Array.isArray(stored?.stepIds) ? stored.stepIds : null;
+      if (
+        storedStepIds &&
+        JSON.stringify(storedStepIds) === JSON.stringify(resumeStepIds) &&
+        Number.isInteger(stored.at) &&
+        stored.at > 0 &&
+        stored.at < resumeStepIds.length
+      ) {
+        document.documentElement.setAttribute("data-lesson-resume-pending", "");
+      }
+    } catch {
+      // Ignore private-mode / malformed storage; the lesson can still start fresh.
+    }
+
     // Play pressed while the player is still loading would do nothing; keep the press for it.
     document.addEventListener(
       "click",

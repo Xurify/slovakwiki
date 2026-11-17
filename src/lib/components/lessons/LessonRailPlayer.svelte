@@ -188,6 +188,10 @@
     hydrated = true;
 
     const root = document.documentElement;
+    void tick().then(() => {
+      root.removeAttribute("data-lesson-resume-pending");
+    });
+
     if (root.hasAttribute("data-lesson-play-queued")) {
       root.removeAttribute("data-lesson-play-queued");
       activated = true;
@@ -572,14 +576,16 @@
 
 <div
   bind:this={playerRoot}
-  class="fixed inset-0 z-[90] flex flex-col bg-paper outline-none"
+  class="fixed inset-0 z-[90] flex flex-col bg-paper outline-none [html[data-lesson-resume-pending]_&]:invisible"
   role="dialog"
   data-hydrated={hydrated ? "" : undefined}
   aria-modal="true"
   aria-label={lesson.title}
   tabindex="-1"
 >
-  <div class="relative z-30 shrink-0 border-b border-slate-200 bg-paper">
+  <div
+    class="relative z-30 shrink-0 border-b border-slate-200 bg-paper [html[data-lesson-resume-pending]_&]:visible"
+  >
     <div
       class="mx-auto w-full px-4 pt-3 sm:px-8 {stage ? 'max-w-[1120px]' : 'max-w-[640px]'}"
     >
