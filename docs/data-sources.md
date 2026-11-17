@@ -83,7 +83,7 @@ License: CC BY 2.0 FR (attribute Tatoeba)
 
 ## Sounds
 
-Recordings heard in listening episodes that no voice can say.
+Recordings heard in episodes that no voice can say.
 
 ### Dog barking, by Dr. Nono YesMaybe (Wikimedia Commons)
 
