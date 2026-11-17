@@ -1,10 +1,18 @@
+<script module lang="ts">
+  /** Where a run of lines is, as a video player shows it. */
+  export type StageStatus = "idle" | "playing" | "paused" | "waiting" | "turn" | "done";
+</script>
+
 <script lang="ts">
   import { untrack } from "svelte";
 
+  import { freezePlayClock, playClockTimeout, thawPlayClock } from "$lib/audio/play-clock";
   import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
   import SceneCaption from "$lib/components/stick-figure/SceneCaption.svelte";
   import StickStage from "$lib/components/stick-figure/StickStage.svelte";
   import { LINE_GAP_MS } from "$lib/listening/line-player.svelte";
+  import { setStoryShowEnglish } from "$lib/lesson-story/prefs";
+  import { pauseStoryLineAudio, resumeStoryLineAudio } from "$lib/lesson-story/story-audio";
   import type { StickGestureId } from "$lib/stick-figure/gestures";
   import { LOOKS } from "$lib/stick-figure/looks";
   import { directScene } from "$lib/stick-figure/scene-direction";
@@ -13,46 +21,58 @@
   import { cx } from "$lib/ui/classes";
 
   /**
-   * The lesson's scene on the stick-figure stage, there for the whole lesson:
-   * it plays a chapter's lines, waits at Alex's turns, and the cast reacts to
-   * the learner's answers in between.
+   * The lesson's scene on the stick-figure stage, there for the whole lesson.
+   * While a chapter's lines play it works like a video: play and pause (the
+   * voice, the mouths and the moves all hold), a line again, a jump to any
+   * line, English under the line, and a slower speed. Between chapters it is
+   * small and the cast reacts to the learner's answers.
    */
   let {
-    captions = true,
     compact = false,
     hint,
-    onpause,
-    onplay,
-    playLabel = "Play the scene",
+    onstart,
     scene,
     showEnglish = false,
+    status = $bindable("idle"),
     thingWords = {},
   }: {
-    /** The line being said, under the stage. */
-    captions?: boolean;
-    /** Smaller while the learner reads or answers below it. */
+    /** Smaller while the learner reads or answers beside or under it. */
     compact?: boolean;
     /** In the caption's place before any line is said: the chapter's title and what to do. */
     hint?: { text?: string; title: string };
-    /** Stop after the line being said, as on a video. */
-    onpause?: () => void;
-    /** A play button over the stage, as on a video, while the lines have not started or wait. */
-    onplay?: () => void;
-    playLabel?: string;
+    /** The play button before the first line: the parent starts the chapter's run. */
+    onstart?: () => void;
     scene: Scene;
     showEnglish?: boolean;
+    status?: StageStatus;
     thingWords?: Record<string, { href?: string; src?: string }>;
   } = $props();
+
+  interface RunOptions {
+    holds?: (index: number) => boolean;
+    ondone?: () => void;
+    onturn?: (index: number, go: () => void) => void;
+    /** Stop after each line until the learner goes on (Auto-advance off). */
+    waits?: () => boolean;
+  }
 
   let stage = $state<ReturnType<typeof StickStage>>();
   /** The line in the caption. */
   let shown = $state(-1);
   let speaking = $state(false);
   let cue = $state(0);
+  /** Lines of the run on screen, and the one it is at. */
+  let lines = $state<readonly number[]>([]);
+  let at = $state(-1);
+  let rate = $state(1);
+  let options: RunOptions = {};
   /** The line last played to its end, so the next one in order needs no jump. */
   let last = -1;
-  let timer = 0;
-  /** Bumped by every run and stop, so a stale run's callbacks do nothing. */
+  /** Cancels the wait before the next line or for a walk to end; it runs on play time, so a pause holds it. */
+  let cancel: (() => void) | undefined;
+  /** What goes on when a wait between lines ends (Auto-advance off). */
+  let goOn: (() => void) | undefined;
+  /** Bumped by every run, jump and stop, so a stale callback does nothing. */
   let epoch = 0;
 
   const direction = $derived(directScene(scene.lines, scene.setting, scene.order));
@@ -70,11 +90,12 @@
     direction.cast.find((id) => id !== learnerId) ?? direction.cast[0],
   );
   const caption = $derived(shown >= 0 ? scene.lines[shown] : undefined);
+  const controls = $derived(!compact && status !== "idle");
 
   $effect(
     () => () =>
       untrack(() => {
-        window.clearTimeout(timer);
+        halt();
         stage?.stop();
       }),
   );
@@ -83,78 +104,41 @@
    * Play `indices` in order. Before a line `holds` is true for, stop and hand
    * it to `onturn` with a `go` that says it and goes on.
    */
-  export function run(
-    indices: readonly number[],
-    {
-      holds,
-      ondone,
-      onsay,
-      onturn,
-      onwait,
-      waits,
-    }: {
-      holds?: (index: number) => boolean;
-      ondone?: () => void;
-      /** A line starts to be said. */
-      onsay?: (index: number) => void;
-      onturn?: (index: number, go: () => void) => void;
-      /** Between lines, when `waits` says so: `goOn` plays the next one. */
-      onwait?: (goOn: () => void) => void;
-      /** Stop after each line for the learner to go on (Auto-advance off). */
-      waits?: () => boolean;
-    } = {},
-  ): void {
+  export function run(indices: readonly number[], runOptions: RunOptions = {}): void {
     stop();
-    const mine = epoch;
-    let k = 0;
+    lines = indices;
+    options = runOptions;
+    playFrom(0);
+  }
 
-    const next = (): void => {
-      if (mine !== epoch) return;
-      const index = indices[k];
-      k += 1;
-      if (index === undefined) {
-        ondone?.();
-        return;
-      }
+  /** Play or pause, as the space bar does on a video. */
+  export function toggle(): void {
+    if (status === "playing") pause();
+    else if (status === "paused") resume();
+    else if (status === "waiting") goOnNow();
+    else if (status === "done") playFrom(0);
+  }
 
-      if (index !== last + 1) stage?.place(index);
-      const go = (): void => {
-        if (mine !== epoch) return;
-        onsay?.(index);
-        say(index, () => {
-          if (mine !== epoch) return;
-          last = index;
-          if (k < indices.length && waits?.() && onwait) {
-            onwait(() => {
-              if (mine === epoch) next();
-            });
-            return;
-          }
-          timer = window.setTimeout(next, LINE_GAP_MS);
-        });
-      };
-      const start = (): void => {
-        if (mine !== epoch) return;
-        if (holds?.(index) && onturn) onturn(index, go);
-        else go();
-      };
-      const walking = stage?.ready(index) ?? 0;
-      if (walking > 0) timer = window.setTimeout(start, walking);
-      else start();
-    };
-
+  /** The next line, when the scene waits for the learner between lines. */
+  export function goOnNow(): void {
+    if (status !== "waiting" || !goOn) return;
+    const next = goOn;
+    goOn = undefined;
+    status = "playing";
     next();
   }
 
-  /** A new chapter: no line from the last one left in the caption. */
+  /** A new chapter: nothing playing, no line from the last one in the caption. */
   export function clear(): void {
     stop();
+    lines = [];
+    at = -1;
     shown = -1;
+    status = "idle";
   }
 
   export function stop(): void {
-    epoch += 1;
-    window.clearTimeout(timer);
+    halt();
     stage?.stop();
     speaking = false;
   }
@@ -175,14 +159,96 @@
     for (const id of direction.cast) stage?.gesture(id as LessonCharacterId, "cheer");
   }
 
+  function halt(): void {
+    epoch += 1;
+    cancel?.();
+    cancel = undefined;
+    goOn = undefined;
+    if (status === "paused") thaw();
+  }
+
+  function pause(): void {
+    if (status !== "playing") return;
+    status = "paused";
+    freezePlayClock();
+    pauseStoryLineAudio();
+    stage?.freeze();
+  }
+
+  function resume(): void {
+    if (status !== "paused") return;
+    status = "playing";
+    thaw();
+  }
+
+  function thaw(): void {
+    thawPlayClock();
+    resumeStoryLineAudio();
+    stage?.thaw();
+  }
+
+  /** From line `k` of the run on, everyone put where that line finds them. */
+  function playFrom(k: number): void {
+    stop();
+    status = "playing";
+    step(k, epoch);
+  }
+
+  function step(k: number, mine: number): void {
+    if (mine !== epoch) return;
+    const index = lines[k];
+    at = k;
+    if (index === undefined) {
+      status = "done";
+      options.ondone?.();
+      return;
+    }
+
+    if (index !== last + 1) stage?.place(index);
+    const go = (): void => {
+      if (mine !== epoch) return;
+      status = "playing";
+      say(index, () => {
+        if (mine !== epoch) return;
+        last = index;
+        if (k + 1 < lines.length && options.waits?.()) {
+          status = "waiting";
+          goOn = () => step(k + 1, mine);
+          return;
+        }
+        cancel = playClockTimeout(() => step(k + 1, mine), LINE_GAP_MS / rate);
+      });
+    };
+    const start = (): void => {
+      if (mine !== epoch) return;
+      if (options.holds?.(index) && options.onturn) {
+        status = "turn";
+        options.onturn(index, go);
+      } else {
+        go();
+      }
+    };
+    const walking = stage?.ready(index) ?? 0;
+    if (walking > 0) cancel = playClockTimeout(start, walking);
+    else start();
+  }
+
   function say(index: number, done: () => void): void {
     shown = index;
     speaking = true;
     cue += 1;
-    stage?.play(index, () => {
-      speaking = false;
-      done();
-    });
+    stage?.play(
+      index,
+      () => {
+        speaking = false;
+        done();
+      },
+      rate,
+    );
+  }
+
+  function toggleEnglish(): void {
+    setStoryShowEnglish(showEnglish ? "off" : "on");
   }
 </script>
 
@@ -192,12 +258,18 @@
     compact && "max-w-[280px] sm:max-w-[300px] lg:max-w-none",
   )}
 >
+  <!--
+    Small, the stage is a picture of the scene beside the step: its things are not tappable there,
+    since their word cards were clipped by the small frame.
+  -->
   <div
     class={cx(
-      "relative overflow-hidden rounded-(--frame-radius) ring-1 ring-slate-200",
+      "group/stage relative overflow-hidden rounded-(--frame-radius) ring-1 ring-slate-200",
+      compact && "pointer-events-none",
       // On a phone the playing stage runs edge to edge.
       !compact && "max-sm:rounded-none max-sm:ring-0",
     )}
+    inert={compact || undefined}
   >
     <StickStage
       bind:this={stage}
@@ -209,46 +281,139 @@
       {thingWords}
     />
 
-    {#if onplay}
-      <!-- A shaded band along the foot of the stage, as on a paused video: on its own the button sat on whatever was drawn there, a chair leg or a face. -->
+    {#if !compact && status === "idle" && onstart}
+      <!-- A paused video's poster: the scene dimmed a little, one large play in the middle. -->
       <button
-        class={cx(
-          "group absolute inset-x-0 bottom-0 flex cursor-pointer items-center gap-3 border-0 px-4 pt-12 pb-3 text-left",
-          "bg-linear-to-t from-black/60 to-transparent text-white",
-        )}
+        class="group absolute inset-0 grid cursor-pointer place-items-center border-0 bg-black/15 transition-colors duration-150 ease-out hover:bg-black/25"
         type="button"
+        aria-label="Play the scene"
         data-lesson-play
-        onclick={onplay}
+        onclick={onstart}
       >
         <span
-          class="grid size-11 shrink-0 place-items-center rounded-full bg-white text-black transition-colors duration-150 ease-out group-hover:bg-white/85"
+          class="grid size-16 place-items-center rounded-full bg-white/95 text-black shadow-(--shadow-float) transition-transform duration-150 ease-out group-hover:bg-white sm:size-20"
           aria-hidden="true"
         >
-          <svg class="ml-0.5 size-5 fill-current" viewBox="0 0 24 24">
+          <svg class="ml-1 size-7 fill-current sm:size-8" viewBox="0 0 24 24">
             <path d="M8 5.5v13l11-6.5z" />
           </svg>
         </span>
+      </button>
+    {/if}
 
-        <span class="text-sm font-semibold">{playLabel}</span>
-      </button>
-    {:else if onpause}
-      <button
+    {#if controls}
+      <!--
+        The player's bar, over the foot of the stage. While the scene plays it fades out until the
+        pointer comes over the stage; paused, waiting or done it stays. On a touch screen it stays.
+      -->
+      <div
         class={cx(
-          "absolute bottom-3 left-4 grid size-11 cursor-pointer place-items-center rounded-full border-0",
-          "bg-black/70 text-white shadow-(--shadow-float) transition-colors duration-150 ease-out hover:bg-black/85",
+          "absolute inset-x-0 bottom-0 flex items-center gap-1 bg-linear-to-t from-black/70 via-black/35 to-transparent px-2 pt-10 pb-2 text-white sm:gap-2 sm:px-3",
+          "transition-opacity duration-200 ease-out",
+          status === "playing" &&
+            "opacity-0 group-hover/stage:opacity-100 focus-within:opacity-100 pointer-coarse:opacity-100",
         )}
-        type="button"
-        aria-label="Pause after this line"
-        onclick={onpause}
       >
-        <svg class="size-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M6 5h4v14H6zM14 5h4v14h-4z" />
-        </svg>
-      </button>
+        <button
+          class="grid size-10 shrink-0 cursor-pointer place-items-center rounded-full border-0 bg-transparent text-white hover:bg-white/15"
+          type="button"
+          disabled={status === "turn"}
+          aria-label={status === "playing"
+            ? "Pause"
+            : status === "waiting"
+              ? "Next line"
+              : status === "done"
+                ? "Play the lines again"
+                : "Play"}
+          onclick={toggle}
+        >
+          {#if status === "playing"}
+            <svg class="size-5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6 5h4v14H6zM14 5h4v14h-4z" />
+            </svg>
+          {:else if status === "done"}
+            <svg
+              class="size-5 fill-none stroke-current stroke-2"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4h4" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          {:else}
+            <svg class="ml-0.5 size-5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M8 5.5v13l11-6.5z" />
+            </svg>
+          {/if}
+        </button>
+
+        <button
+          class="grid size-10 shrink-0 cursor-pointer place-items-center rounded-full border-0 bg-transparent text-white hover:bg-white/15 disabled:opacity-40"
+          type="button"
+          aria-label="This line again"
+          disabled={at < 0 || status === "turn" || status === "done"}
+          onclick={() => playFrom(Math.max(at, 0))}
+        >
+          <svg class="size-5 fill-none stroke-current stroke-2" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M9 14 4 9l5-5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M4 9h11a5 5 0 0 1 0 10h-3" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+
+        <!-- One mark per line of the chapter: the ones said are filled, and each jumps to its line. -->
+        <ol class="m-0 flex min-w-0 flex-1 list-none items-center gap-1 p-0 px-1" aria-label="Lines">
+          {#each lines as index, k (index)}
+            <li class="flex min-w-0 flex-1">
+              <button
+                class="group/mark flex h-8 w-full cursor-pointer items-center border-0 bg-transparent p-0 disabled:cursor-default"
+                type="button"
+                aria-label="Line {k + 1} of {lines.length}"
+                aria-current={k === at ? "step" : undefined}
+                disabled={status === "turn"}
+                onclick={() => playFrom(k)}
+              >
+                <span
+                  class={cx(
+                    "h-1 w-full rounded-full transition-colors duration-150 ease-out group-hover/mark:h-1.5",
+                    k < at || status === "done"
+                      ? "bg-white"
+                      : k === at
+                        ? "bg-white/80"
+                        : "bg-white/30",
+                  )}
+                ></span>
+              </button>
+            </li>
+          {/each}
+        </ol>
+
+        <button
+          class={cx(
+            "h-8 shrink-0 cursor-pointer rounded-(--control-radius) border-0 px-2 text-xs font-bold text-white hover:bg-white/15",
+            showEnglish ? "bg-white/20" : "bg-transparent",
+          )}
+          type="button"
+          aria-pressed={showEnglish}
+          aria-label="English under the line"
+          onclick={toggleEnglish}
+        >
+          EN
+        </button>
+
+        <button
+          class="h-8 w-12 shrink-0 cursor-pointer rounded-(--control-radius) border-0 bg-transparent px-1 text-xs font-bold text-white tabular-nums hover:bg-white/15"
+          type="button"
+          aria-label={rate === 1 ? "Slower" : "Normal speed"}
+          onclick={() => {
+            rate = rate === 1 ? 0.75 : 1;
+          }}
+        >
+          {rate === 1 ? "1×" : "0.75×"}
+        </button>
+      </div>
     {/if}
   </div>
 
-  {#if captions && !compact}
+  {#if !compact}
     <!-- The caption's words are buttons, so a screen reader hears the line from a plain copy. -->
     <p class="sr-only" aria-live="polite">
       {#if caption}{caption.speaker}: {caption.slovak}{/if}

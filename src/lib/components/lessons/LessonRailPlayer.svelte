@@ -48,6 +48,7 @@
     writeLessonResume,
   } from "$lib/lesson-progress/resume";
   import type { Scene } from "$lib/stick-figure/scene-line";
+  import type { StageStatus } from "$lib/components/lessons/LessonStage.svelte";
   import { storySettingForLesson } from "$lib/lesson-story/story-settings";
 
   let {
@@ -91,21 +92,16 @@
   let sceneStage = $state<ReturnType<typeof LessonStage>>();
   /** The learner has touched the page, so a chapter's lines may start on their own. */
   let activated = $state(false);
-  /** The scene step on screen has started and played to its end. */
-  let sceneStarted = $state(false);
-  let sceneDone = $state(false);
+  /** Where the stage's run of lines is: idle, playing, paused, waiting, at a turn, done. */
+  let stageStatus = $state<StageStatus>("idle");
   let turn = $state<Turn | null>(null);
   /** A chapter's lines start on their own after the cheer: Play would start them twice. */
   let starting = $state(false);
   /** A wrong pick's bubble is still over Alex: the same pick again waits for it to clear. */
   let slipUntil = 0;
   let slipped: string | null = null;
-  /** Scene steps whose lines have played through, so coming back to one does not ask for Play again. */
-  const playedSteps = new Set<string>();
-  /** The scene waits between lines (Auto-advance off, or paused): this plays the next one. */
-  let waiting = $state<(() => void) | null>(null);
-  /** The learner asked to pause: the scene stops after the line being said. */
-  let pausing = $state(false);
+  /** Scene steps whose lines have played through: from then on the way on is Continue, even mid-replay. */
+  let playedSteps = $state<string[]>([]);
   let showEnglish = $state(false);
 
   const steps = $derived(lessonSteps(lesson, Boolean(stage)));
@@ -139,6 +135,10 @@
     lessonTracks.find((track) => track.id === lesson.track)?.title ?? lesson.track,
   );
   const played = $derived(viewStep?.kind === "scene" || viewStep?.kind === "finale");
+  const sceneStarted = $derived(stageStatus !== "idle");
+  const sceneDone = $derived(stageStatus === "done");
+  /** The scene step on screen has been heard to its end once. */
+  const heard = $derived(Boolean(viewStep && playedSteps.includes(viewStep.id)));
   /**
    * The stage while lines play, and what sits under it: as wide as the window's
    * height allows, and narrower at the end, where Alex's choices need room below it.
@@ -278,6 +278,11 @@
     });
   }
 
+  function startScene(): void {
+    activated = true;
+    playScene();
+  }
+
   /** Play the scene step on screen: the chapter's lines, or the whole scene at the end. */
   function playScene(): void {
     const current = viewStep;
@@ -286,16 +291,9 @@
     const lines = current.kind === "scene" ? current.lines : lesson.scene;
     window.clearTimeout(startTimer);
     starting = false;
-    sceneStarted = true;
-    sceneDone = false;
     turn = null;
-    waiting = null;
     sceneStage?.run(stageIndexes(lines), {
-      waits: () => pausing || getStoryAutoAdvance() === "off",
-      onwait: (goOn) => {
-        waiting = goOn;
-        pausing = false;
-      },
+      waits: () => getStoryAutoAdvance() === "off",
       // Only the whole scene at the end stops for the learner: a chapter's lines come
       // before what they teach, so a pick there would be a guess. A replay looks back.
       holds: (index) =>
@@ -307,8 +305,7 @@
         void revealTurn();
       },
       ondone: () => {
-        sceneDone = true;
-        playedSteps.add(current.id);
+        if (!playedSteps.includes(current.id)) playedSteps = [...playedSteps, current.id];
       },
     });
   }
@@ -368,18 +365,11 @@
     window.clearTimeout(startTimer);
     sceneStage?.clear();
     canSubmit = false;
-    sceneStarted = false;
-    sceneDone = false;
     turn = null;
-    waiting = null;
-    pausing = false;
     starting = false;
     if (cheer) sceneStage?.cheer();
-    if (viewStep && playedSteps.has(viewStep.id)) {
-      sceneStarted = true;
-      sceneDone = true;
-      return;
-    }
+    // A chapter heard before waits for Play; one not yet heard starts on its own.
+    if (heard) return;
     if (activated && played && !reviewing) {
       starting = true;
       startTimer = window.setTimeout(playScene, cheer ? CHEER_MS : 0);
@@ -444,15 +434,13 @@
     if (!step) return;
 
     if (step.kind === "scene" || step.kind === "finale") {
-      if (!sceneStarted || starting) {
+      if (starting || (!sceneStarted && !heard)) {
         activated = true;
         playScene();
         return;
       }
-      if (waiting && !sceneDone) {
-        const goOn = waiting;
-        waiting = null;
-        goOn();
+      if (stageStatus === "waiting") {
+        sceneStage?.goOnNow();
         return;
       }
       advance();
@@ -477,11 +465,11 @@
   const footerLabel = $derived.by(() => {
     if (!step) return "Continue";
     if (step.kind === "scene" || step.kind === "finale") {
-      if (starting) return "Play";
-      if (!sceneStarted) return "Play";
-      if (waiting && !sceneDone) return "Next line";
-      if (step.kind === "finale") return "Finish";
-      return sceneDone ? "Continue" : "Skip";
+      const onward = step.kind === "finale" ? "Finish" : "Continue";
+      if (starting || (!sceneStarted && !heard)) return "Play";
+      if (stageStatus === "waiting") return "Next line";
+      if (heard || sceneDone) return onward;
+      return step.kind === "finale" ? onward : "Skip";
     }
     if (step.kind === "teach") return "Continue";
     if (step.exercise.type === "personal") return "I said it";
@@ -492,7 +480,9 @@
   const footerEnabled = $derived.by(() => {
     if (!step) return false;
     if (starting) return true;
-    if (step.kind === "finale") return !sceneStarted || sceneDone || Boolean(waiting);
+    if (step.kind === "finale") {
+      return heard || !sceneStarted || sceneDone || stageStatus === "waiting";
+    }
     if (step.kind === "scene") return !turn;
     if (step.kind === "teach") return true;
     if (gradeResult) return true;
@@ -520,6 +510,13 @@
         event.preventDefault();
         pickLine(choice.id);
       }
+      return;
+    }
+
+    if (event.key === " " && played && !isNativeEnterTarget(event.target)) {
+      event.preventDefault();
+      if (!sceneStarted) startScene();
+      else sceneStage?.toggle();
       return;
     }
 
@@ -630,16 +627,10 @@
         >
           <LessonStage
             bind:this={sceneStage}
-            captions={played}
+            bind:status={stageStatus}
             compact={!played}
             hint={played && !sceneStarted && !starting && !reviewing ? sceneHint : undefined}
-            onplay={played && !reviewing && waiting && !sceneDone ? onFooterPrimary : undefined}
-            playLabel={waiting ? "Next line" : "Play the scene"}
-            onpause={played && sceneStarted && !sceneDone && !waiting && !turn && !pausing
-              ? () => {
-                  pausing = true;
-                }
-              : undefined}
+            onstart={played && !starting ? startScene : undefined}
             scene={stage}
             {showEnglish}
             {thingWords}
@@ -694,14 +685,6 @@
                     </p>
                   {/if}
                 </div>
-              {:else if (!sceneStarted && reviewing) || sceneDone}
-                <button
-                  class="mt-2 cursor-pointer border-0 bg-transparent p-0 text-sm font-semibold text-blue-700 underline underline-offset-4 hover:text-blue-900"
-                  type="button"
-                  onclick={playScene}
-                >
-                  Play it again
-                </button>
               {/if}
             </div>
           {:else if viewStep.kind === "teach"}

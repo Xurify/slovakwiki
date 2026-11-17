@@ -110,7 +110,7 @@
 
   {#if takeaways.length}
     <ul
-      class="m-0 mt-5 list-none border-y border-slate-200 p-0"
+      class="m-0 mt-5 list-none border-t border-slate-200 p-0"
       aria-label={takeaways.length === 1 ? "Key term" : "Key terms"}
     >
       {#each takeaways as phrase (phrase.slovak)}
