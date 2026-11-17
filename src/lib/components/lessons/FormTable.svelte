@@ -113,7 +113,7 @@
   <div class="overflow-x-auto">
     <!-- Fixed columns, so stacked tables on one step line their forms up. -->
     <table
-      class="w-full table-fixed border-collapse text-left text-sm sm:w-(--table-width)"
+      class="w-full border-collapse text-left text-sm sm:w-(--table-width) sm:table-fixed"
       style:--table-width="calc(14rem + (100% - 14rem) * {table.columns.length} / {Math.max(slots, table.columns.length)})"
     >
       <thead>
