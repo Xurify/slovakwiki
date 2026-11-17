@@ -1,5 +1,8 @@
 export {
   meetSomeoneBeats,
+  meetSomeoneGreetPhrases,
+  meetSomeoneLearningPhrase,
+  meetSomeoneOriginPhrases,
   withMeetSomeoneExercises,
   meetSomeoneLineIds,
 } from "./meet-someone";

@@ -1,4 +1,4 @@
-import type { LessonBeat, LessonExercise } from "$lib/learning/types";
+import type { KeyPhrase, LessonBeat, LessonExercise } from "$lib/learning/types";
 
 export const meetSomeoneLineIds = {
   annaGreets: "meet-someone-anna-greets",
@@ -9,21 +9,113 @@ export const meetSomeoneLineIds = {
   youStillLearning: "meet-someone-you-still-learning",
 } as const;
 
+const hello = "Saying hello";
+const who = "Saying who you are";
+
+/** Taught in the first beat and voiced as key phrases. */
+export const meetSomeoneGreetPhrases: KeyPhrase[] = [
+  {
+    slovak: "Dobrý deň.",
+    english: "Hello; good day.",
+    group: hello,
+    note: "Polite, at any time of day. The safe choice with someone new.",
+    audio: { transcript: "Dobrý deň." },
+  },
+  {
+    slovak: "Dobré ráno.",
+    english: "Good morning.",
+    group: hello,
+    note: "Polite, early in the morning.",
+    audio: { transcript: "Dobré ráno." },
+  },
+  {
+    slovak: "Dobrý večer.",
+    english: "Good evening.",
+    group: hello,
+    note: "Polite, in the evening.",
+    audio: { transcript: "Dobrý večer." },
+  },
+  {
+    slovak: "Ahoj. / Ahojte.",
+    english: "Hi; bye.",
+    group: hello,
+    note: "Informal: friends, family, children, classmates. **Ahojte** when there are two or more of them.",
+    audio: { transcript: "Ahoj. [pause] Ahojte." },
+  },
+  {
+    slovak: "Čau. / Čaute.",
+    english: "Hi; bye.",
+    group: hello,
+    note: "Like **Ahoj**, a little more casual. **Čaute** to a group.",
+    audio: { transcript: "Čau. [pause] Čaute." },
+  },
+  {
+    slovak: "Volám sa …",
+    english: "My name is …",
+    group: who,
+    note: "**Volám sa** + your name. **Moje meno je …** is a stiff word-for-word calque.",
+    audio: { transcript: "Volám sa." },
+  },
+  {
+    slovak: "Som Alex.",
+    english: "I'm Alex.",
+    group: who,
+    note: "Shorter and just as common: **Som** + your name.",
+    audio: { transcript: "Som Alex." },
+  },
+  {
+    slovak: "Ako sa voláte?",
+    english: "What is your name?",
+    group: who,
+    note: "Polite. To a friend or a child: **Ako sa voláš?**",
+    audio: { transcript: "Ako sa voláte?" },
+  },
+  {
+    slovak: "A vy?",
+    english: "And you?",
+    group: who,
+    note: "Hands the question back after your own name. To a friend: **A ty?**",
+    audio: { transcript: "A vy?" },
+  },
+];
+
+/** Taught in the second beat and voiced as key phrases. */
+export const meetSomeoneOriginPhrases: KeyPhrase[] = [
+  {
+    slovak: "Teší ma.",
+    english: "Nice to meet you.",
+    note: "Said once you know each other's names. The reply is **Aj mňa.** (Me too.)",
+    audio: { transcript: "Teší ma." },
+  },
+  {
+    slovak: "Odkiaľ ste?",
+    english: "Where are you from?",
+    note: "Polite. To a friend: **Odkiaľ si?**",
+    audio: { transcript: "Odkiaľ ste?" },
+  },
+  {
+    slovak: "Som z …",
+    english: "I am from …",
+    note: "**z** takes the genitive: **Kanada** → **Kanady**.",
+    audio: { transcript: "Som z." },
+  },
+];
+
+export const meetSomeoneLearningPhrase: KeyPhrase = {
+  slovak: "Ešte sa učím.",
+  english: "I am still learning.",
+  note: "A soft way to say your Slovak is still early — pairs well after Trochu.",
+  audio: { transcript: "Ešte sa učím." },
+};
+
 export const meetSomeoneBeats: LessonBeat[] = [
   {
     id: "meet-someone-greet-and-introduce",
     title: "Greet and introduce",
     teach: {
       sceneLineIds: [meetSomeoneLineIds.annaGreets, meetSomeoneLineIds.youIntroduce],
-      phrases: [
-        {
-          slovak: "Volám sa …",
-          english: "My name is …",
-          note: "Use volám sa + your name. Avoid the word-for-word calque Moje meno je …",
-          audio: { transcript: "Volám sa." },
-        },
-      ],
-      note: "Start with Dobrý deň when you do not know the person. Ahoj is for friends and informal settings.",
+      phrases: meetSomeoneGreetPhrases,
+      note: "Say **Dobrý deň** in formal situations: in a shop, at the doctor's, to a teacher, a neighbour or anyone older you don't know well. **Ahoj** is for friends, family and children. Greeting a group of friends, add **-te**: **Ahojte**, **Čaute**.",
     },
     exercises: [] as LessonExercise[],
   },
@@ -35,14 +127,7 @@ export const meetSomeoneBeats: LessonBeat[] = [
         meetSomeoneLineIds.annaNiceToMeetYou,
         meetSomeoneLineIds.youFromCanada,
       ],
-      phrases: [
-        {
-          slovak: "Som z …",
-          english: "I am from …",
-          note: "z takes genitive: Kanada → Kanady. Odkiaľ ste? is the polite ask.",
-          audio: { transcript: "Som z." },
-        },
-      ],
+      phrases: meetSomeoneOriginPhrases,
     },
     exercises: [] as LessonExercise[],
   },
@@ -54,19 +139,11 @@ export const meetSomeoneBeats: LessonBeat[] = [
         meetSomeoneLineIds.annaAsksSlovak,
         meetSomeoneLineIds.youStillLearning,
       ],
-      phrases: [
-        {
-          slovak: "Ešte sa učím.",
-          english: "I am still learning.",
-          note: "A soft way to say your Slovak is still early — pairs well after Trochu.",
-          audio: { transcript: "Ešte sa učím." },
-        },
-      ],
+      phrases: [meetSomeoneLearningPhrase],
     },
     exercises: [] as LessonExercise[],
   },
 ];
-
 export function withMeetSomeoneExercises(
   greeting: LessonExercise,
   name: LessonExercise,
