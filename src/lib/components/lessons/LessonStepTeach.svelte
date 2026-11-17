@@ -22,11 +22,13 @@
    */
   let {
     audioSrcs = {},
+    class: className = "mx-auto w-full max-w-[640px] px-4 pt-5 pb-10 sm:px-8 sm:pt-6",
     scene = [],
     teach,
     title,
   }: {
     audioSrcs?: Record<string, string>;
+    class?: string;
     scene?: DialogueTurn[];
     teach: LessonBeatTeach;
     title: string;
@@ -71,7 +73,7 @@
   });
 </script>
 
-<div class="mx-auto w-full max-w-[640px] px-4 pt-5 pb-10 sm:px-8 sm:pt-6">
+<div class={className}>
   <h2 class="m-0 font-serif text-xl tracking-tight text-pretty text-slate-900 sm:text-2xl">
     {title}
   </h2>
@@ -96,36 +98,37 @@
 
   {#if takeaways.length}
     <ul
-      class="m-0 mt-5 grid list-none grid-cols-[repeat(auto-fill,minmax(10.5rem,1fr))] gap-2 p-0"
+      class="m-0 mt-5 grid list-none grid-cols-[auto_minmax(0,1fr)] overflow-hidden rounded-(--frame-radius) bg-surface p-0 ring-1 ring-slate-200 sm:grid-cols-[auto_auto_minmax(0,1fr)]"
       aria-label={takeaways.length === 1 ? "Key term" : "Key terms"}
     >
       {#each takeaways as phrase (phrase.slovak)}
         {@const src = audioSrcs[phrase.slovak] ?? phrase.audio?.src}
 
-        <li class="rounded-(--control-radius) bg-surface px-3.5 py-3 ring-1 ring-slate-200">
-          <div class="flex items-start justify-between gap-2">
-            <p
-              class="m-0 font-serif text-lg font-semibold leading-snug text-slate-900"
-              lang="sk"
-            >
+        <li
+          class="col-span-full grid grid-cols-subgrid items-center gap-x-3 border-b border-slate-200/70 py-2 pr-4 pl-2 last:border-b-0"
+        >
+          {#if src}
+            <AudioButton
+              size="xs"
+              {src}
+              text={phrase.audio?.transcript ?? phrase.slovak}
+              label={`Listen: ${phrase.slovak}`}
+            />
+          {:else}
+            <span aria-hidden="true"></span>
+          {/if}
+
+          <p class="m-0 min-w-0 leading-snug">
+            <span class="font-serif text-base font-semibold text-slate-900" lang="sk">
               {phrase.slovak}
-            </p>
-
-            {#if src}
-              <AudioButton
-                class="-mt-0.5 -mr-1.5 shrink-0"
-                size="xs"
-                {src}
-                text={phrase.audio?.transcript ?? phrase.slovak}
-                label={`Listen: ${phrase.slovak}`}
-              />
-            {/if}
-          </div>
-
-          <p class="m-0 text-sm text-slate-600">{phrase.english}</p>
+            </span>
+            <span class="ml-1.5 text-sm text-slate-600">{phrase.english}</span>
+          </p>
 
           {#if phrase.note}
-            <p class="m-0 mt-1.5 text-xs leading-relaxed text-slate-500">
+            <p
+              class="col-start-2 m-0 text-xs leading-snug text-slate-500 sm:col-start-3 sm:pl-3"
+            >
               <MarkedNote text={phrase.note} />
             </p>
           {/if}

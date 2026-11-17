@@ -77,10 +77,13 @@
     {
       holds,
       ondone,
+      onsay,
       onturn,
     }: {
       holds?: (index: number) => boolean;
       ondone?: () => void;
+      /** A line starts to be said. */
+      onsay?: (index: number) => void;
       onturn?: (index: number, go: () => void) => void;
     } = {},
   ): void {
@@ -100,6 +103,7 @@
       if (index !== last + 1) stage?.place(index);
       const go = (): void => {
         if (mine !== epoch) return;
+        onsay?.(index);
         say(index, () => {
           last = index;
           timer = window.setTimeout(next, LINE_GAP_MS);
@@ -155,7 +159,7 @@
 <div
   class={cx(
     "mx-auto w-full transition-[max-width] duration-300 ease-out",
-    compact ? "max-w-[300px]" : "max-w-[640px]",
+    compact ? "max-w-[300px] lg:max-w-none" : "max-w-[640px] lg:max-w-none",
   )}
 >
   <div class="overflow-hidden rounded-(--frame-radius) ring-1 ring-slate-200">
@@ -172,6 +176,8 @@
   {#if captions && !compact}
     <div class="min-h-[4.5rem] px-1 pt-3" aria-live="polite">
       {#if caption}
+        <!-- A wide screen lists the lines beside the stage instead. -->
+        <div class="lg:hidden">
         {#key shown}
           <p
             class={cx(
@@ -196,6 +202,7 @@
             things={direction.things}
           />
         {/key}
+        </div>
       {:else if scene.intro}
         <p class="m-0 font-serif text-lg text-slate-900" lang="sk">{scene.intro.slovak}</p>
         <p class="m-0 mt-0.5 text-sm text-slate-600">{scene.intro.english}</p>

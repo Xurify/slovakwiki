@@ -25,6 +25,7 @@
     revealed = false,
     showCorrection: showCorrectionProp,
     why,
+    wide = false,
   }: {
     attempt?: string;
     autofocus?: boolean;
@@ -39,6 +40,8 @@
     revealed?: boolean;
     showCorrection?: boolean;
     why?: string;
+    /** As wide as a lesson with its stage beside the steps. */
+    wide?: boolean;
   } = $props();
 
   let rootEl: HTMLDivElement | undefined = $state();
@@ -68,7 +71,9 @@
   aria-live="polite"
 >
   <div
-    class="mx-auto flex max-w-[640px] animate-rise flex-wrap justify-between gap-4 {rowAlignClass}"
+    class="mx-auto flex animate-rise flex-wrap justify-between gap-4 {rowAlignClass} {wide
+      ? 'max-w-[1120px]'
+      : 'max-w-[640px]'}"
   >
     <div class="min-w-0 flex-1">
       {#if isMiss}

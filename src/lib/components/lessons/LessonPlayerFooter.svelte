@@ -7,16 +7,23 @@
     label,
     onback,
     onclick,
+    wide = false,
   }: {
     disabled?: boolean;
     label: string;
     onback?: () => void;
     onclick: () => void;
+    /** As wide as a lesson with its stage beside the steps. */
+    wide?: boolean;
   } = $props();
 </script>
 
 <div class="shrink-0 border-t border-slate-200 bg-paper px-4 py-4 sm:px-8 sm:py-5">
-  <div class="mx-auto flex max-w-[640px] items-center justify-end gap-2">
+  <div
+    class="mx-auto flex items-center justify-end gap-2 {wide
+      ? 'max-w-[1120px]'
+      : 'max-w-[640px]'}"
+  >
     {#if onback}
       <LessonBackButton onclick={onback} />
     {/if}

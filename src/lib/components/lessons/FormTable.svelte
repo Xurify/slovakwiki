@@ -12,16 +12,19 @@
 {#snippet heading(label: FormTableHeading)}
   <span class="block">{label.english}</span>
 
-  {#if label.slovak}
-    <span class="block font-normal text-slate-500" lang="sk">{label.slovak}</span>
-  {/if}
+  {#if label.slovak || label.example}
+    <span class="block font-normal text-slate-500">
+      {#if label.slovak}
+        <span lang="sk">{label.slovak}</span>
+      {/if}
 
-  {#if label.example}
-    <span
-      class="mt-0.5 block font-serif text-sm font-normal text-slate-500 italic"
-      lang="sk"
-    >
-      {label.example}
+      {#if label.slovak && label.example}
+        <span aria-hidden="true">·</span>
+      {/if}
+
+      {#if label.example}
+        <span class="font-serif italic" lang="sk">{label.example}</span>
+      {/if}
     </span>
   {/if}
 {/snippet}
@@ -39,13 +42,7 @@
     <table class="w-full border-collapse text-left text-sm">
       <thead>
         <tr class="border-b border-slate-200">
-          <td
-            class={[
-              edgeCellClass,
-              table.columns.length === 2 && "sm:w-[30%]",
-              table.columns.length === 3 && "sm:w-[28%]",
-            ]}
-          ></td>
+          <td class="{edgeCellClass} w-[1%]"></td>
 
           {#each table.columns as column (column.english)}
             <th
@@ -53,8 +50,6 @@
               class={[
                 cellPaddingClass,
                 "pb-2.5 align-bottom text-xs leading-snug font-semibold whitespace-nowrap text-slate-700",
-                table.columns.length === 2 && "sm:w-[35%]",
-                table.columns.length === 3 && "sm:w-[24%]",
               ]}
             >
               {@render heading(column)}
@@ -87,7 +82,7 @@
             <tr class="border-b border-slate-200/70 last:border-b-0">
               <th
                 scope="row"
-                class="{edgeCellClass} max-w-56 py-2.5 text-xs leading-snug font-semibold text-slate-700 sm:min-w-36"
+                class="{edgeCellClass} w-[1%] max-w-60 min-w-36 py-2.5 text-xs leading-snug font-semibold text-slate-700 sm:min-w-44"
               >
                 {@render heading(row.heading)}
               </th>

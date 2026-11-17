@@ -26,7 +26,10 @@
     choiceIndexFromKeyboardEvent,
     isSayChoiceCorrect,
   } from "$lib/learning/exercises";
-  import { lessonChapters, lessonSteps } from "$lib/learning/lesson-steps";
+  import { FINALE_TITLE, lessonChapters, lessonSteps } from "$lib/learning/lesson-steps";
+  import LessonCharacterAvatar from "$lib/components/lessons/LessonCharacterAvatar.svelte";
+  import MarkedText from "$lib/components/learning/MarkedText.svelte";
+  import { cx } from "$lib/ui/classes";
   import type { DialogueTurn, Lesson } from "$lib/learning/types";
   import {
     STORY_PREFS_CHANGE_EVENT,
@@ -85,6 +88,8 @@
   let sceneStarted = $state(false);
   let sceneDone = $state(false);
   let turn = $state<Turn | null>(null);
+  /** Lines said so far in the scene step on screen, in the order said. */
+  let said = $state<number[]>([]);
   let showEnglish = $state(false);
 
   const steps = $derived(lessonSteps(lesson, Boolean(stage)));
@@ -224,7 +229,11 @@
     sceneStarted = true;
     sceneDone = false;
     turn = null;
+    said = [];
     sceneStage?.run(stageIndexes(lines), {
+      onsay: (index) => {
+        said = [...said.filter((line) => line !== index), index];
+      },
       // Only the whole scene at the end stops for the learner: a chapter's lines come
       // before what they teach, so a pick there would be a guess. A replay looks back.
       holds: (index) =>
@@ -267,6 +276,7 @@
     sceneStarted = false;
     sceneDone = false;
     turn = null;
+    said = [];
     if (activated && played && !reviewing) queueMicrotask(playScene);
   }
 
@@ -429,7 +439,9 @@
   tabindex="-1"
 >
   <div class="relative z-30 shrink-0 border-b border-slate-200 bg-paper">
-    <div class="mx-auto w-full max-w-[640px] px-4 pt-3 sm:px-8">
+    <div
+      class="mx-auto w-full px-4 pt-3 sm:px-8 {stage ? 'max-w-[1120px]' : 'max-w-[640px]'}"
+    >
       <SessionChrome
         class="mb-3"
         activeIndex={stepIndex}
@@ -469,8 +481,14 @@
     <div
       class="min-h-0 flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-400 scrollbar-track-transparent"
     >
+      <!-- On a wide screen the stage stands beside the steps, so the cast stays in view. -->
+      <div
+        class={stage
+          ? "mx-auto grid w-full max-w-[1120px] gap-x-12 px-4 sm:px-8 lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] lg:items-start"
+          : ""}
+      >
       {#if stage}
-        <div class="mx-auto w-full max-w-[640px] px-4 pt-5 sm:px-8 sm:pt-6">
+        <div class="pt-5 sm:pt-6 lg:sticky lg:top-0 lg:pt-10 lg:pb-10">
           <LessonStage
             bind:this={sceneStage}
             captions={played}
@@ -485,7 +503,45 @@
       {#if viewStep}
         {#key viewStep.id}
           {#if viewStep.kind === "scene" || viewStep.kind === "finale"}
-            <div class="mx-auto w-full max-w-[640px] px-4 pt-2 pb-8 sm:px-8">
+            <div class="pt-2 pb-8 lg:pt-10">
+              <h2
+                class="m-0 mb-3 hidden font-serif text-2xl tracking-tight text-pretty text-slate-900 lg:block"
+              >
+                {viewStep.kind === "finale" ? FINALE_TITLE : viewStep.beat.title}
+              </h2>
+
+              {#if said.length}
+                <ol class="m-0 mb-6 hidden list-none gap-4 p-0 lg:grid" aria-label="Said so far">
+                  {#each said as index, order (index)}
+                    {@const line = lesson.scene[index]}
+                    {#if line}
+                      <li
+                        class={cx(
+                          "flex animate-rise gap-3 transition-opacity duration-150",
+                          order < said.length - 1 && "opacity-55",
+                        )}
+                      >
+                        <LessonCharacterAvatar speaker={line.speaker} size="sm" class="mt-0.5" />
+
+                        <div class="min-w-0">
+                          <p class="m-0 text-xs font-semibold text-slate-500">
+                            {line.speaker === "You" ? "Alex" : line.speaker}
+                          </p>
+
+                          <p class="m-0 font-serif text-lg leading-snug text-slate-900" lang="sk">
+                            <MarkedText text={line.slovak} marks={line.marks} />
+                          </p>
+
+                          {#if showEnglish}
+                            <p class="m-0 mt-0.5 text-sm text-slate-600">{line.english}</p>
+                          {/if}
+                        </div>
+                      </li>
+                    {/if}
+                  {/each}
+                </ol>
+              {/if}
+
               {#if turn?.line.sayChoices}
                 <div class="animate-rise">
                   <p class={eyebrowMutedClass}>Your turn: what does Alex say?</p>
@@ -546,13 +602,20 @@
             </div>
           {:else if viewStep.kind === "teach"}
             <LessonStepTeach
+              class={stage
+                ? "pt-5 pb-10 lg:pt-10"
+                : "mx-auto w-full max-w-[640px] px-4 pt-5 pb-10 sm:px-8 sm:pt-6"}
               title={viewStep.beat.title}
               teach={viewStep.beat.teach}
               scene={viewStep.scene}
               audioSrcs={teachAudioSrcs}
             />
           {:else}
-            <div class="mx-auto w-full max-w-[640px] px-4 py-8 sm:px-8 sm:py-10">
+            <div
+              class={stage
+                ? "pt-6 pb-10 lg:pt-10"
+                : "mx-auto w-full max-w-[640px] px-4 py-8 sm:px-8 sm:py-10"}
+            >
               <LessonInteraction
                 chrome="player"
                 exercise={viewStep.exercise}
@@ -568,6 +631,7 @@
           {/if}
         {/key}
       {/if}
+      </div>
     </div>
 
     {#if viewResult}
@@ -586,6 +650,7 @@
           otherChoices={viewResult.otherChoices}
           onback={viewIndex > 0 ? goBack : undefined}
           oncontinue={reviewing ? goForward : advance}
+          wide={Boolean(stage)}
         />
       {/key}
     {:else if reviewing}
@@ -593,6 +658,7 @@
         label="Continue"
         onback={viewIndex > 0 ? goBack : undefined}
         onclick={goForward}
+        wide={Boolean(stage)}
       />
     {:else}
       <LessonPlayerFooter
@@ -600,6 +666,7 @@
         label={footerLabel}
         onback={viewIndex > 0 ? goBack : undefined}
         onclick={onFooterPrimary}
+        wide={Boolean(stage)}
       />
     {/if}
   {/if}
