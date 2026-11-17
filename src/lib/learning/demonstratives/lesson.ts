@@ -580,6 +580,8 @@ const SCENE_ACTS: Partial<Record<string, Cue[]>> = {
   [demonstrativesLineIds.annaSummerPhotos]: [
     { do: "take", what: "phone", on: "before" },
     ...showsPhoto("fotky"),
+    // In close on the two of them, so the people in the photo can be told apart on a phone too.
+    { do: "camera", to: "anna", zoom: 1.25, on: "fotky" },
   ],
   [demonstrativesLineIds.youWhoIsThatMan]: showsPhoto("start"),
   [demonstrativesLineIds.annaMyBrother]: showsPhoto("start"),
@@ -593,6 +595,7 @@ const SCENE_ACTS: Partial<Record<string, Cue[]>> = {
   [demonstrativesLineIds.annaCinemaWithColleagues]: [
     ...showsPhoto("start"),
     { do: "pocket", what: "phone", on: "after" },
+    { do: "camera", to: "wide", on: "after" },
   ],
   [demonstrativesLineIds.waiterTakesOrder]: [
     { do: "enter", from: "off-right", to: "waiter", on: "before" },

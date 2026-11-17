@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { MAREK_CURL_LINES, MAREK_CURLS } from "$lib/stick-figure/marek-hair";
   import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
   import { n } from "$lib/stick-figure/draw";
   import { LOOKS } from "$lib/stick-figure/looks";
@@ -440,16 +441,8 @@
       stroke-width="1.15"
     />
   {:else if characterId === "marek"}
-    <path
-      d="M17.8 24A2.8 2.8 0 0 1 17.3 19A2.9 2.9 0 0 1 19.3 14.3A3.1 3.1 0 0 1 23.4 10.6A3.3 3.3 0 0 1 29 8.7A3.4 3.4 0 0 1 35 8.7A3.3 3.3 0 0 1 40.6 10.6A3.1 3.1 0 0 1 44.7 14.3A2.9 2.9 0 0 1 46.7 19A2.8 2.8 0 0 1 46.2 24L44.2 25.6A3.4 3.4 0 0 1 42.4 20.2A3 3 0 0 1 37.6 18.6A3.2 3.2 0 0 1 32.2 18.2A3.3 3.3 0 0 1 26.8 18.8A3 3 0 0 1 22.2 20.6A3.3 3.3 0 0 1 19.8 25.6Z"
-      class="{hair} stroke-portrait-ink"
-      stroke-width="1.6"
-    />
-    <path
-      d="M23.6 16.6a2.6 2.6 0 0 1 4.6-1.4M30 13.4a2.6 2.6 0 0 1 4.8-.2M36.4 15a2.6 2.6 0 0 1 4.6 1"
-      class="stroke-portrait-ink"
-      stroke-width="1"
-    />
+    <path d={MAREK_CURLS} class="{hair} stroke-portrait-ink" stroke-width="1.6" />
+    <path d={MAREK_CURL_LINES} class="stroke-portrait-ink" stroke-width="1" />
   {:else if characterId === "anna"}
     <path d={annaTop} class="{hair} stroke-portrait-ink" stroke-width="1.7" />
     <path d={annaStrands} class="stroke-portrait-ink" stroke-width="1.05" />
