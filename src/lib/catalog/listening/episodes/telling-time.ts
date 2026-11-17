@@ -1,15 +1,22 @@
 import type { MarkedPart } from "$lib/learning/marked-text";
 import {
   CHUCKLE,
+  EXCITED,
+  HAPPY,
+  NO_PICK,
   PAUSE,
   SIGH,
   STOP,
-  afterThinking,
+  SURPRISED,
   lineWriter,
-  rightOrWrong,
+  listenerPicks,
+  onPath,
   staged,
+  type Part,
 } from "../dialogue";
+import type { DialogueTurn, ListenerPath } from "$lib/learning/types";
 import type { Cue } from "$lib/stick-figure/acts";
+import type { StickPictureId } from "$lib/stick-figure/pictures";
 import type { ListeningChapter, ListeningEpisode } from "../types";
 
 const PREFIX = "podcast-telling-time-";
@@ -20,11 +27,42 @@ function mark(text: string): Exclude<MarkedPart, string> {
   return { role: "time", text };
 }
 
-/** Marek comes in late through the studio door, takes his place and sits down. */
+/** A breath before the next ask or the score, so the joke before it can land. */
+const BEAT_MS = 1200;
+
+/** One ending of the listener's game, on one path through their picks: a breath, then its lines. */
+function ending(
+  when: ListenerPath,
+  ...lines: [id: string, speaker: string, parts: Part[], english: string][]
+): DialogueTurn[] {
+  return lines.map(([id, speaker, parts, english], i) => {
+    const turn = onPath(line(id, speaker, parts, english), when);
+    return i === 0 ? { ...turn, wait: BEAT_MS } : turn;
+  });
+}
+
+/**
+ * Marek comes in late through the studio door, his hello as it opens, and
+ * takes the seat by the door: in this episode Anna sits at the far end, so
+ * he never squeezes past behind her chair and through her mic.
+ */
 const INTRO_ACTS: Record<string, Cue[]> = {
   "marek-right-on-time": [
-    { do: "enter", to: "inside", on: "before" },
-    { do: "sit", to: "desk-right", on: "start" },
+    { do: "enter", to: "inside", on: "start" },
+    { do: "sit", to: "desk-left", on: "včas" },
+    { who: "anna", do: "look", to: "marek", on: "start" },
+  ],
+  // He puts his headphones on while she asks, so nobody waits in silence for him.
+  "anna-what-time": [
+    { who: "marek", do: "take", what: "marek-headphones", on: "start" },
+    { who: "marek", do: "put", what: "marek-headphones", to: "marek" },
+  ],
+  "anna-recording-half-past-eight": [{ do: "point", to: "hodiny", on: "hodinu" }],
+  // The recorder she takes is the one she sets on the café table: today's show is recorded out there.
+  "anna-yes-for-you-tram": [
+    { do: "take", what: "recorder", on: "nahrávame" },
+    { do: "stand", on: "poďme" },
+    { who: "marek", do: "stand", on: "poďme" },
   ],
 };
 
@@ -34,12 +72,14 @@ const intro: ListeningChapter = {
   title: "Marek is late",
   // His headphones wait on the desk at his place until he comes in.
   setup: {
+    spots: { anna: "desk-right" },
     objects: [
       {
         id: "marek-headphones",
         kind: "headphones",
-        start: { where: { on: "desk", dx: 38 }, of: "marek" },
+        start: { where: { on: "desk", dx: -38 }, of: "marek" },
       },
+      { id: "recorder", kind: "mic", start: { where: { on: "desk", dx: 38 } } },
     ],
   },
   lines: staged(
@@ -58,7 +98,7 @@ const intro: ListeningChapter = {
         ],
         "Hi! This is the Slovak Wiki podcast. I'm Anna. And Marek… isn't here.",
       ),
-      // He thinks pol deviatej is nine thirty, so he believes he is on time.
+      // He heard pol desiatej for the start, so he believes he is on time.
       line(
         "marek-right-on-time",
         "Marek",
@@ -94,24 +134,27 @@ const intro: ListeningChapter = {
         "Yes, it's nine thirty, half past nine. And our recording is at half past eight! You're a whole hour late.",
       ),
       line(
-        "marek-thought-nine-thirty",
+        "marek-heard-half-past-nine",
         "Marek",
-        [mark("Pol deviatej"), STOP, PAUSE, "Ja som myslel, že to je deväť tridsať."],
-        "Half past eight… I thought that was nine thirty.",
+        [mark("Pol deviatej"), "? ", PAUSE, "Ja som počul ", mark("pol desiatej"), "!"],
+        "Half past eight? I heard half past nine!",
       ),
       line(
-        "anna-eight-thirty-topic",
+        "anna-half-past-nine-is-now",
         "Anna",
         [
           "Nie, Marek. ",
           mark("Pol deviatej"),
           " je osem tridsať. ",
           PAUSE,
+          mark("Pol desiatej"),
+          " je teraz. ",
+          PAUSE,
           "A to je dnešná téma: ",
           mark("koľko je hodín"),
           ".",
         ],
-        "No, Marek. Half past eight is eight thirty. And that's today's topic: what time it is.",
+        "No, Marek. Half past eight is eight thirty. Half past nine is now. And that's today's topic: what time it is.",
       ),
       line(
         "marek-good-topic-for-me",
@@ -212,156 +255,219 @@ const intro: ListeningChapter = {
   ],
 };
 
+/** Anna holds out a clock on her phone, set to each time she says: 2:15 and 2:45 are not on the wall, which shows one o'clock. */
+function showClock(picture: StickPictureId, on: string, who?: "anna"): Cue[] {
+  return [
+    {
+      ...(who ? { who } : {}),
+      do: "show",
+      what: "anna-phone",
+      to: "marek",
+      picture,
+      on,
+      keep: true,
+    },
+  ];
+}
+
+/** Marek reads each time off the phone as he answers. */
+const READS: Cue = { do: "look", to: "anna-phone", on: "start" };
+
+const CLOCK_ACTS: Record<string, Cue[]> = {
+  "anna-back-one-oclock": [{ do: "look", to: "hodiny", on: "jedna" }],
+  "anna-two-oclock": [
+    { do: "take", what: "anna-phone", on: "start" },
+    ...showClock("clock-2-00", "sú"),
+    { who: "marek", do: "look", to: "anna-phone", on: "sú" },
+  ],
+  "marek-two-zero-zero": [...showClock("clock-2-00", "start", "anna"), READS],
+  "anna-quarter-past-two": showClock("clock-2-15", "štvrť"),
+  "marek-three-fifteen": [...showClock("clock-2-15", "start", "anna"), READS],
+  "anna-two-fifteen": showClock("clock-2-15", "start"),
+  "marek-half-past-two": [
+    ...showClock("clock-2-15", "start", "anna"),
+    READS,
+    ...showClock("clock-2-30", "pol", "anna"),
+  ],
+  "anna-quarter-to-three": showClock("clock-2-45", "trištvrte"),
+  "marek-two-forty-five": [...showClock("clock-2-45", "start", "anna"), READS],
+  "anna-five-oclock": showClock("clock-5-00", "päť"),
+  "marek-why-je-and-su": [...showClock("clock-5-00", "start", "anna"), READS],
+  "anna-one-two-five": [{ do: "pocket", what: "anna-phone", on: "start" }],
+};
+
 const clockLesson: ListeningChapter = {
   id: `${PREFIX}clock-lesson`,
   titleSk: "Hodiny pre Mareka",
   title: "The clock, once more for Marek",
-  lines: [
-    line(
-      "anna-back-one-oclock",
-      "Anna",
-      [
-        "Sme späť v štúdiu a ",
-        mark("je jedna hodina"),
-        ". ",
-        PAUSE,
-        "Marek, ešte raz si prejdeme hodiny.",
-      ],
-      "We're back in the studio and it's one o'clock. Marek, let's go over the clock once more.",
-    ),
-    line(
-      "marek-why-me",
-      "Marek",
-      ["Znova hodiny? ", PAUSE, "Prečo práve ja?"],
-      "The clock again? Why me of all people?",
-    ),
-    line("anna-thats-why", "Anna", [CHUCKLE, "Práve preto."], "That's exactly why."),
-    line(
-      "anna-game-rules",
-      "Anna",
-      ["Ja poviem čas slovami a ty povieš čísla."],
-      "I'll say the time in words and you'll say the numbers.",
-    ),
-    line("marek-ok", "Marek", ["Dobre."], "OK."),
-    line(
-      "anna-two-oclock",
-      "Anna",
-      ["Prvý čas: ", mark("sú dve hodiny"), "."],
-      "First time: it's two o'clock.",
-    ),
-    line(
-      "marek-two-zero-zero",
-      "Marek",
-      ["Ľahké. Dve nula nula."],
-      "Easy. Two zero zero.",
-    ),
-    line(
-      "anna-quarter-past-two",
-      "Anna",
-      ["Správne. Druhý čas: ", mark("je štvrť na tri"), "."],
-      "Right. Second time: it's quarter past two.",
-    ),
-    line(
-      "marek-three-fifteen",
-      "Marek",
-      [mark("Štvrť na tri"), STOP, PAUSE, "tri pätnásť?"],
-      "Quarter past two… three fifteen? (Wrong on purpose.)",
-    ),
-    line(
-      "anna-two-fifteen",
-      "Anna",
-      [
-        "Nie! ",
-        mark("Štvrť na tri"),
-        " je dve pätnásť. ",
-        PAUSE,
-        "Slovenčina sa pozerá dopredu, na tretiu hodinu.",
-      ],
-      "No! Quarter past two is two fifteen. Slovak looks ahead, to the third hour.",
-    ),
-    line(
-      "marek-half-past-two",
-      "Marek",
-      [
-        "Aha. ",
-        mark("Štvrť na tri"),
-        ", dve pätnásť. ",
-        PAUSE,
-        "A ",
-        mark("pol tretej"),
-        " je dve tridsať!",
-      ],
-      "I see. Quarter past two, two fifteen. And half past two is two thirty!",
-    ),
-    line(
-      "anna-quarter-to-three",
-      "Anna",
-      ["Presne tak! A ", mark("trištvrte na tri"), "?"],
-      "Exactly! And quarter to three?",
-    ),
-    line(
-      "marek-two-forty-five",
-      "Marek",
-      ["Hm… ", PAUSE, "dve štyridsaťpäť!"],
-      "Hmm… two forty-five!",
-    ),
-    line(
-      "anna-five-oclock",
-      "Anna",
-      ["Výborne! Tretí čas: ", mark("je päť hodín"), "."],
-      "Excellent! Third time: it's five o'clock.",
-    ),
-    line(
-      "marek-why-je-and-su",
-      "Marek",
-      [
-        "Päť nula nula. ",
-        PAUSE,
-        "Prečo ",
-        mark("je päť hodín"),
-        ", ale ",
-        mark("sú dve hodiny"),
-        "?",
-      ],
-      "Five zero zero. Why is it je päť hodín, but sú dve hodiny?",
-    ),
-    line(
-      "anna-one-two-five",
-      "Anna",
-      [
-        mark("Jedna hodina"),
-        ", ",
-        mark("dve hodiny"),
-        ", ",
-        mark("päť hodín"),
-        ". ",
-        PAUSE,
-        "Je jedna, sú dve, tri, štyri, a je päť.",
-      ],
-      "One hour, two hours, five hours. Je for one, sú for two, three, four, and je again for five.",
-    ),
-    line(
-      "marek-now-i-know",
-      "Marek",
-      [
-        mark("Je jedna hodina"),
-        ". ",
-        mark("Sú dve hodiny"),
-        ". ",
-        mark("Je päť hodín"),
-        ". ",
-        PAUSE,
-        "Už viem.",
-      ],
-      "Je jedna hodina. Sú dve hodiny. Je päť hodín. Now I know.",
-    ),
-    line(
-      "anna-now-for-listeners",
-      "Anna",
-      ["Super. ", PAUSE, "A teraz vy, milí poslucháči."],
-      "Great. And now you, dear listeners.",
-    ),
-  ],
+  // Back from town, they have their headphones on, and a mug each from the kitchen at their places.
+  setup: {
+    objects: [
+      {
+        id: "anna-mug",
+        kind: "cup",
+        start: { where: { on: "desk", dx: 29 }, turned: true },
+      },
+      {
+        id: "marek-mug",
+        kind: "cup",
+        start: { where: { on: "desk", dx: -30 } },
+      },
+      { id: "anna-phone", kind: "phone", start: { where: { pocket: "anna" } } },
+    ],
+    spots: { anna: "desk-right", marek: "desk-left" },
+    state: { "marek-headphones": { where: { wear: "marek" } } },
+  },
+  lines: staged(
+    PREFIX,
+    [
+      line(
+        "anna-back-one-oclock",
+        "Anna",
+        [
+          "Sme späť v štúdiu a ",
+          mark("je jedna hodina"),
+          ". ",
+          PAUSE,
+          "Marek, ešte raz si prejdeme hodiny.",
+        ],
+        "We're back in the studio and it's one o'clock. Marek, let's go over the clock once more.",
+      ),
+      line(
+        "marek-why-me",
+        "Marek",
+        ["Znova hodiny? ", PAUSE, "Prečo práve ja?"],
+        "The clock again? Why me of all people?",
+      ),
+      line("anna-thats-why", "Anna", [CHUCKLE, "Práve preto."], "That's exactly why."),
+      line(
+        "anna-game-rules",
+        "Anna",
+        ["Ja poviem čas slovami a ty povieš čísla."],
+        "I'll say the time in words and you'll say the numbers.",
+      ),
+      line("marek-ok", "Marek", ["Dobre."], "OK."),
+      line(
+        "anna-two-oclock",
+        "Anna",
+        ["Najprv: ", mark("sú dve hodiny"), "."],
+        "First: it's two o'clock.",
+      ),
+      line(
+        "marek-two-zero-zero",
+        "Marek",
+        ["Ľahké. Štrnásť nula nula."],
+        "Easy. Fourteen hundred.",
+      ),
+      line(
+        "anna-quarter-past-two",
+        "Anna",
+        ["Správne. Ďalej: ", mark("je štvrť na tri"), "."],
+        "Right. Next: it's quarter past two.",
+      ),
+      line(
+        "marek-three-fifteen",
+        "Marek",
+        [mark("Štvrť na tri"), STOP, PAUSE, "tri pätnásť?"],
+        "Quarter past two… three fifteen? (Wrong on purpose.)",
+      ),
+      line(
+        "anna-two-fifteen",
+        "Anna",
+        [
+          "Nie! ",
+          mark("Štvrť na tri"),
+          " je dve pätnásť. ",
+          PAUSE,
+          "Pozeráme sa dopredu, na tretiu hodinu.",
+        ],
+        "No! Quarter past two is two fifteen. We look ahead, to the third hour.",
+      ),
+      line(
+        "marek-half-past-two",
+        "Marek",
+        [
+          "Aha. ",
+          mark("Štvrť na tri"),
+          ", dve pätnásť. ",
+          PAUSE,
+          "A ",
+          mark("pol tretej"),
+          " je dve tridsať!",
+        ],
+        "I see. Quarter past two, two fifteen. And half past two is two thirty!",
+      ),
+      line(
+        "anna-quarter-to-three",
+        "Anna",
+        ["Presne tak! A ", mark("trištvrte na tri"), "?"],
+        "Exactly! And quarter to three?",
+      ),
+      line(
+        "marek-two-forty-five",
+        "Marek",
+        ["Hm… ", PAUSE, "dve štyridsaťpäť!"],
+        "Hmm… two forty-five!",
+      ),
+      line(
+        "anna-five-oclock",
+        "Anna",
+        ["Výborne! A posledná: ", mark("je päť hodín"), "."],
+        "Excellent! And the last one: it's five o'clock.",
+      ),
+      line(
+        "marek-why-je-and-su",
+        "Marek",
+        [
+          "Sedemnásť nula nula. ",
+          PAUSE,
+          "Prečo ",
+          mark("je päť hodín"),
+          ", ale ",
+          mark("sú dve hodiny"),
+          "?",
+        ],
+        "Seventeen hundred. Why is it je päť hodín, but sú dve hodiny?",
+      ),
+      line(
+        "anna-one-two-five",
+        "Anna",
+        [
+          mark("Jedna hodina"),
+          ", ",
+          mark("dve hodiny"),
+          ", ",
+          mark("päť hodín"),
+          ". ",
+          PAUSE,
+          "Je jedna, sú dve, tri, štyri, a je päť.",
+        ],
+        "One hour, two hours, five hours. Je for one, sú for two, three, four, and je again for five.",
+      ),
+      line(
+        "marek-now-i-know",
+        "Marek",
+        [
+          mark("Je jedna hodina"),
+          ". ",
+          mark("Sú dve hodiny"),
+          ". ",
+          mark("Je päť hodín"),
+          ". ",
+          PAUSE,
+          "Už viem.",
+        ],
+        "Je jedna hodina. Sú dve hodiny. Je päť hodín. Now I know.",
+      ),
+      line(
+        "anna-we-will-see",
+        "Anna",
+        ["Super. ", PAUSE, "Uvidíme, či to naozaj vieš."],
+        "Great. We'll see if you really know it.",
+      ),
+    ],
+    CLOCK_ACTS,
+  ),
   checks: [
     {
       id: `${PREFIX}check-quarter-past-two`,
@@ -418,86 +524,120 @@ const clockLesson: ListeningChapter = {
   ],
 };
 
+/**
+ * They hurry on from the left as Marek says they made it. He looks up at the
+ * street clock to read it; the quarter of an hour they wait passes in the dark.
+ */
+const TRAM_ACTS: Record<string, Cue[]> = {
+  "marek-now-at-stop": [
+    { do: "enter", from: "off-left", to: "wait-r", on: "start" },
+    { who: "anna", do: "enter", from: "off-left", to: "wait-l", on: "start" },
+  ],
+  "anna-what-time-marek": [{ do: "look", to: "marek", on: "start" }],
+  "marek-quarter-to-ten": [{ do: "look", to: "hodiny", on: "start" }],
+  "marek-in-fifteen-minutes": [{ do: "look", to: "anna", on: "start" }],
+  "anna-time-vs-how-long": [{ do: "point", to: "hodiny", on: "hodinách" }],
+  "anna-yes-at-eleven": [{ do: "skip", minutes: 15, on: "after" }],
+  "marek-tram-coming": [
+    { do: "point", to: "elektricka", on: "pozri" },
+    { who: "anna", do: "look", to: "elektricka", on: "ide" },
+  ],
+  // Up to the doors as she says it, Marek first, as he is nearer: set off after the line, she was still on the platform when the segment cut.
+  "anna-exactly-ten": [
+    { who: "marek", do: "leave", to: "door", on: "nastúpme" },
+    { do: "leave", to: "door-back", on: "nastúpme" },
+  ],
+};
+
 const tramStop: ListeningChapter = {
   id: `${PREFIX}tram-stop`,
   stage: "street",
   titleSk: "Na zastávke",
   title: "At the tram stop: at ten, in fifteen minutes",
-  lines: [
-    line(
-      "marek-now-at-stop",
-      "Marek",
-      ["Teraz sme na ulici, na zastávke."],
-      "Now we're on the street, at the tram stop.",
-    ),
-    line(
-      "anna-what-time-marek",
-      "Anna",
-      [mark("Koľko je hodín"), ", Marek?"],
-      "What time is it, Marek?",
-    ),
-    line(
-      "marek-quarter-to-ten",
-      "Marek",
-      ["Je ", mark("trištvrte na desať"), "."],
-      "It's quarter to ten.",
-    ),
-    line(
-      "anna-wait-fifteen",
-      "Anna",
-      [
-        "Dobre. Električka ide ",
-        mark("o desiatej"),
-        ". ",
-        PAUSE,
-        "Čakáme pätnásť minút.",
-      ],
-      "OK. The tram goes at ten. We wait fifteen minutes.",
-    ),
-    line(
-      "marek-in-fifteen-minutes",
-      "Marek",
-      ["Takže električka príde ", mark("o pätnásť minút"), "."],
-      "So the tram comes in fifteen minutes.",
-    ),
-    line(
-      "anna-time-vs-how-long",
-      "Anna",
-      [
-        "Áno. ",
-        mark("O desiatej"),
-        ", to je čas na hodinách. ",
-        PAUSE,
-        mark("O pätnásť minút"),
-        ", to je, ako dlho čakáme.",
-      ],
-      "Yes. At ten, that's the time on the clock. In fifteen minutes, that's how long we wait.",
-    ),
-    line(
-      "marek-table-at-eleven",
-      "Marek",
-      ["Aha. ", PAUSE, "A stôl v kaviarni máme ", mark("o jedenástej"), ", áno?"],
-      "I see. And we have the table at the café at eleven, right?",
-    ),
-    line(
-      "anna-yes-at-eleven",
-      "Anna",
-      ["Áno, ", mark("o jedenástej"), "."],
-      "Yes, at eleven.",
-    ),
-    line(
-      "marek-tram-coming",
-      "Marek",
-      ["Pozri, už ide električka!"],
-      "Look, the tram is coming!",
-    ),
-    line(
-      "anna-exactly-ten",
-      "Anna",
-      ["Je presne ", mark("desať hodín"), ". ", PAUSE, "Nastúpme!"],
-      "It's exactly ten o'clock. Let's get on!",
-    ),
-  ],
+  setup: {
+    objects: [
+      { id: "recorder", kind: "mic", start: { where: { hand: "anna", side: "lead" } } },
+    ],
+  },
+  lines: staged(
+    PREFIX,
+    [
+      line(
+        "marek-now-at-stop",
+        "Marek",
+        ["Uf, stihli sme to. ", PAUSE, "Sme na zastávke."],
+        "Phew, we made it. We're at the stop.",
+      ),
+      line(
+        "anna-what-time-marek",
+        "Anna",
+        [mark("Koľko je hodín"), ", Marek?"],
+        "What time is it, Marek?",
+      ),
+      line(
+        "marek-quarter-to-ten",
+        "Marek",
+        ["Je ", mark("trištvrte na desať"), "."],
+        "It's quarter to ten.",
+      ),
+      line(
+        "anna-wait-fifteen",
+        "Anna",
+        [
+          "Dobre. Električka ide ",
+          mark("o desiatej"),
+          ". ",
+          PAUSE,
+          "Čakáme pätnásť minút.",
+        ],
+        "OK. The tram goes at ten. We wait fifteen minutes.",
+      ),
+      line(
+        "marek-in-fifteen-minutes",
+        "Marek",
+        ["Takže električka príde ", mark("o pätnásť minút"), "."],
+        "So the tram will come in fifteen minutes.",
+      ),
+      line(
+        "anna-time-vs-how-long",
+        "Anna",
+        [
+          "Áno. ",
+          mark("O desiatej"),
+          ", to je čas na hodinách. ",
+          PAUSE,
+          mark("O pätnásť minút"),
+          ", to je, ako dlho čakáme.",
+        ],
+        "Yes. At ten, that's the time on the clock. In fifteen minutes, that's how long we wait.",
+      ),
+      line(
+        "marek-cafe-at-eleven",
+        "Marek",
+        ["Aha. ", PAUSE, "A v kaviarni máme byť ", mark("o jedenástej"), ", však?"],
+        "I see. And we're due at the café at eleven, right?",
+      ),
+      line(
+        "anna-yes-at-eleven",
+        "Anna",
+        ["Áno, ", mark("o jedenástej"), "."],
+        "Yes, at eleven.",
+      ),
+      line(
+        "marek-tram-coming",
+        "Marek",
+        ["Pozri, už ide električka!"],
+        "Look, the tram is coming!",
+      ),
+      line(
+        "anna-exactly-ten",
+        "Anna",
+        ["Je presne ", mark("desať hodín"), ". ", PAUSE, "Nastúpme!"],
+        "It's exactly ten o'clock. Let's get on!",
+      ),
+    ],
+    TRAM_ACTS,
+  ),
   checks: [
     {
       id: `${PREFIX}check-how-long-wait`,
@@ -552,16 +692,15 @@ const tramStop: ListeningChapter = {
     },
     {
       id: `${PREFIX}check-cafe-table`,
-      prompt: "Kedy majú stôl v kaviarni?",
-      promptEnglish: "When do they have the table at the café?",
-      replayLineId: `${PREFIX}marek-table-at-eleven`,
+      prompt: "Kedy majú byť v kaviarni?",
+      promptEnglish: "When are they due at the café?",
+      replayLineId: `${PREFIX}marek-cafe-at-eleven`,
       choices: [
         { id: "eleven", label: "O jedenástej." },
         {
           id: "ten",
           label: "O desiatej.",
-          whyWrong:
-            "**O desiatej** is when the tram goes. The table is **o jedenástej**.",
+          whyWrong: "**O desiatej** is when the tram goes. The café is **o jedenástej**.",
         },
         {
           id: "twelve",
@@ -572,29 +711,57 @@ const tramStop: ListeningChapter = {
       ],
       answerId: "eleven",
       feedback: {
-        english: "And we have the table at the café at eleven, right?",
+        english: "And we're due at the café at eleven, right?",
         why: "**O jedenástej**: **o** + the hour's ordinal form, as in **o tretej**, **o desiatej**.",
       },
     },
   ],
 };
 
+/**
+ * They come in off the street, Anna first, and sit at the window table: she
+ * goes on round to the far chair and he takes the near one, so nobody walks
+ * behind someone seated. The waiter sees them from the bar and comes over as
+ * they sit down.
+ */
 const CAFE_ACTS: Record<string, Cue[]> = {
-  // He fetches the coffees from the back, past the stage's edge, while they talk.
-  "waiter-right-away": [
-    { do: "go", to: "back", on: "end" },
-    { do: "take", what: "anna-cup" },
-    { do: "take", what: "marek-cup" },
+  "anna-now-in-cafe": [
+    // She says it as she comes in, and Marek is through the door a step behind her: held until she sat, the café opened on a long silent walk.
+    { do: "enter", to: "inside", on: "start" },
+    { do: "sit", to: "chair-r" },
+    { do: "put", what: "recorder", to: "table", dx: 16 },
+    { who: "marek", do: "enter", to: "inside", on: "kaviareň" },
+    { who: "waiter", do: "go", to: "by-table", on: "sadnime" },
   ],
-  "marek-at-three-around-two": [{ who: "waiter", do: "go", to: "waiter", on: "start" }],
-  // Both to Marek, beside him: Anna is past Marek, out of his reach.
+  "waiter-what-will-you-have": [
+    { who: "marek", do: "sit", to: "chair-l", on: "start" },
+    { do: "look", to: "anna", on: "start" },
+    { do: "nod", on: "dobrý" },
+  ],
+  "waiter-right-away": [{ do: "go", to: "back", on: "start" }],
+  "marek-eleven-oh-five": [{ do: "look", to: "hodiny", on: "start" }],
+  // He picks the coffees up while Marek works it out, so Anna's next question never waits on him.
+  "marek-at-three-around-two": [
+    { who: "waiter", do: "take", what: "marek-cup", on: "start" },
+    { who: "waiter", do: "take", what: "anna-cup" },
+    { who: "waiter", do: "go", to: "serve-r" },
+  ],
   "waiter-here-two-coffees": [
-    { do: "give", what: "marek-cup", to: "marek", on: "páči" },
-    { do: "give", what: "anna-cup", to: "marek", on: "kávy" },
+    { do: "give", what: "anna-cup", to: "anna", on: "páči" },
+    { do: "go", to: "serve-l", on: "kávy" },
+    { do: "put", what: "marek-cup", to: "table", dx: -36 },
+    { do: "go", to: "by-table" },
   ],
-  "anna-when-do-you-close": [
-    { who: "marek", do: "give", what: "anna-cup", to: "anna", on: "start" },
-    { do: "nod", on: "ďakujeme" },
+  "anna-when-do-you-close": [{ do: "nod", on: "ďakujeme" }],
+  // Done serving, he goes back behind the bar.
+  "waiter-close-at-six": [
+    { who: "marek", do: "look", to: "waiter", on: "start" },
+    { do: "go", to: "back", on: "after" },
+  ],
+  "anna-back-at-half-past-twelve": [{ do: "take", what: "recorder", on: "ideme" }],
+  "marek-seven-hours-i-know": [
+    { do: "take", what: "marek-cup", on: "start" },
+    { do: "taste", what: "marek-cup", on: "máme" },
   ],
 };
 
@@ -604,7 +771,9 @@ const cafe: ListeningChapter = {
   titleSk: "V kaviarni",
   title: "At the café: at three, or in three hours?",
   setup: {
+    spots: { waiter: "back" },
     objects: [
+      { id: "recorder", kind: "mic", start: { where: { hand: "anna", side: "lead" } } },
       {
         id: "anna-cup",
         kind: "cup",
@@ -623,8 +792,8 @@ const cafe: ListeningChapter = {
       line(
         "anna-now-in-cafe",
         "Anna",
-        ["Teraz sme v kaviarni."],
-        "Now we're at the café.",
+        ["Tu je naša kaviareň. ", PAUSE, "Sadnime si."],
+        "Here's our café. Let's sit down.",
       ),
       line(
         "waiter-what-will-you-have",
@@ -649,8 +818,8 @@ const cafe: ListeningChapter = {
       line(
         "marek-eleven-oh-five",
         "Marek",
-        ["Je ", mark("jedenásť hodín a päť minút"), "."],
-        "It's five past eleven.",
+        ["Je ", mark("jedenásť nula päť"), "."],
+        "It's eleven oh five.",
       ),
       line(
         "anna-guest-at-three",
@@ -662,7 +831,7 @@ const cafe: ListeningChapter = {
         "marek-so-in-three-hours",
         "Marek",
         [mark("O tretej"), "? ", PAUSE, "Tak to je ", mark("o tri hodiny"), ", nie?"],
-        "At three? So that's in three hours, right? (He mixes them up, on purpose.)",
+        "At three? So that's in three hours, right? (Wrong on purpose.)",
       ),
       line(
         "anna-not-in-three-hours",
@@ -675,9 +844,9 @@ const cafe: ListeningChapter = {
           ". ",
           PAUSE,
           mark("O tretej"),
-          " je čas na hodinách: tri nula nula.",
+          " je čas na hodinách: pätnásť nula nula.",
         ],
-        "No, Marek. Not in three hours. At three. At three is a time on the clock: three zero zero.",
+        "No, Marek. Not in three hours. At three. At three is a time on the clock: fifteen hundred.",
       ),
       line(
         "marek-at-three-around-two",
@@ -685,13 +854,15 @@ const cafe: ListeningChapter = {
         [
           "Aha! ",
           mark("O tretej"),
-          ", tri hodiny. ",
+          " je čas. ",
           PAUSE,
           "A ",
           mark("o tri hodiny"),
-          " je okolo druhej.",
+          " je, ako dlho: ",
+          PAUSE,
+          "to je okolo druhej.",
         ],
-        "Oh! At three, three o'clock. And in three hours is around two.",
+        "Oh! At three is a time. And in three hours is how long: that's around two.",
       ),
       line(
         "waiter-here-two-coffees",
@@ -702,8 +873,8 @@ const cafe: ListeningChapter = {
       line(
         "anna-when-do-you-close",
         "Anna",
-        ["Ďakujeme. ", PAUSE, "Kedy zatvárate?"],
-        "Thank you. When do you close?",
+        ["Ďakujeme. ", PAUSE, "Je tu príjemne. Kedy zatvárate?"],
+        "Thank you. It's nice here. When do you close?",
         { to: "Waiter" },
       ),
       line(
@@ -713,10 +884,19 @@ const cafe: ListeningChapter = {
         "Today we close at six in the evening.",
       ),
       line(
-        "marek-seven-hours-time",
+        "marek-seven-hours-i-know",
         "Marek",
-        [mark("O šiestej"), STOP, PAUSE, "to je ", mark("o sedem hodín"), ". Máme čas!"],
-        "At six… that's in seven hours. We have time!",
+        [
+          mark("O šiestej"),
+          STOP,
+          PAUSE,
+          "to je ",
+          mark("o sedem hodín"),
+          ". ",
+          PAUSE,
+          "Vidíš, toto viem! Máme čas.",
+        ],
+        "At six… that's in seven hours. See, this I know! We have time.",
       ),
       line(
         "anna-back-at-half-past-twelve",
@@ -745,7 +925,7 @@ const cafe: ListeningChapter = {
       promptEnglish: "When do they have a guest in the studio?",
       replayLineId: `${PREFIX}anna-not-in-three-hours`,
       choices: [
-        { id: "at-three", label: "O tretej, tri nula nula." },
+        { id: "at-three", label: "O tretej, pätnásť nula nula." },
         {
           id: "in-three-hours",
           label: "O tri hodiny.",
@@ -761,7 +941,7 @@ const cafe: ListeningChapter = {
       ],
       answerId: "at-three",
       feedback: {
-        english: "At three is a time on the clock: three zero zero.",
+        english: "At three is a time on the clock: fifteen hundred.",
         why: "**O tretej** is a point on the clock; **o tri hodiny** is a span from now.",
       },
     },
@@ -820,299 +1000,758 @@ const cafe: ListeningChapter = {
   ],
 };
 
-const quiz: ListeningChapter = {
-  id: `${PREFIX}quiz`,
-  titleSk: "Správne alebo nesprávne?",
-  title: "Your game: is Marek right or wrong?",
-  lines: [
-    line(
-      "anna-the-rules",
-      "Anna",
-      ["Marek povie vetu a vy hádajte: je správna, alebo nesprávna?"],
-      "Marek says a sentence and you guess: is it right, or wrong?",
-    ),
-    rightOrWrong(
+const ASK_SU = `${PREFIX}marek-which-su`;
+const ASK_POL = `${PREFIX}marek-which-pol`;
+const ASK_O = `${PREFIX}marek-which-o`;
+
+/**
+ * Back in the studio, Anna sets Marek a test on the day's times and the
+ * listeners pick the words for him. Every choice of an ask has the same
+ * English, so the card does not answer for the listener.
+ */
+// A point at his mug, so the stage does not put a cup in his hand for "kávu".
+const HELP_ACTS: Record<string, Cue[]> = {
+  "anna-test-for-you": [{ who: "marek", do: "look", to: "anna", on: "marek" }],
+  "marek-numbers-not-words": [{ do: "shrug", on: "ojoj" }],
+  "marek-made-the-coffee": [{ do: "point", to: "marek-mug", on: "kávu" }],
+};
+
+const help: ListeningChapter = {
+  id: `${PREFIX}help`,
+  titleSk: "Pomôžte Marekovi",
+  title: "Your game: help Marek say the time",
+  lines: staged(
+    PREFIX,
+    [
       line(
-        "marek-third-sentence",
-        "Marek",
-        ["Dobre… ", PAUSE, "Stretneme sa ", mark("o tretej"), "."],
-        "OK… We'll meet at three.",
-      ),
-      "right",
-    ),
-    afterThinking(
-      line(
-        "anna-o-tretej-right",
+        "anna-test-for-you",
         "Anna",
-        [
-          "Správne! ",
-          PAUSE,
-          mark("O tretej"),
-          ", ",
-          mark("o štvrtej"),
-          ", ",
-          mark("o piatej"),
-          ": čas na hodinách.",
-        ],
-        "Right! At three, at four, at five: a time on the clock.",
+        ["Ešte máme chvíľu čas. ", PAUSE, "Marek, malá skúška pre teba."],
+        "We still have a little time. Marek, a little test for you.",
       ),
-    ),
-    line(
-      "marek-see-i-know",
-      "Marek",
-      ["Hurá! ", PAUSE, "Vidíš, viem to."],
-      "Hooray! See, I know it.",
-    ),
-    line(
-      "anna-so-next",
-      "Anna",
-      ["Dobre. ", PAUSE, "Tak ďalšia."],
-      "OK. So, the next one.",
-    ),
-    rightOrWrong(
       line(
-        "marek-first-sentence",
+        "marek-numbers-not-words",
         "Marek",
-        ["Hm… ", PAUSE, mark("Sú päť hodín"), "."],
-        "Hmm… Sú päť hodín.",
+        [
+          SURPRISED,
+          "Skúška? ",
+          PAUSE,
+          "Ojoj",
+          STOP,
+          PAUSE,
+          "čísla mi idú, ale slová nie.",
+        ],
+        "A test? Uh-oh… numbers I can do, but not the words.",
       ),
-      "wrong",
-    ),
-    afterThinking(
       line(
-        "anna-je-pat-hodin",
+        "anna-listeners-pick",
         "Anna",
-        [
-          "Nesprávne! ",
-          PAUSE,
-          "Päť a viac: ",
-          mark("je päť hodín"),
-          ", ",
-          mark("je desať hodín"),
-          ".",
-        ],
-        "Wrong! Five and more: je päť hodín, je desať hodín.",
+        ["Ja viem. ", PAUSE, "Preto ti pomôžu poslucháči: oni vyberú a ty to povieš."],
+        "I know. That's why the listeners will help you: they pick and you say it.",
       ),
-    ),
-    line(
-      "marek-of-course-five",
-      "Marek",
-      ["No jasné, ", mark("je päť hodín"), "."],
-      "Of course, je päť hodín.",
-    ),
-    line(
-      "anna-try-again",
-      "Anna",
-      ["Nič sa nestalo. ", PAUSE, "Skús ešte."],
-      "No harm done. Try again.",
-    ),
-    rightOrWrong(
       line(
-        "marek-second-sentence",
+        "marek-help-me",
         "Marek",
-        ["Tak… ", PAUSE, mark("Pol tretej"), " je tri tridsať."],
-        "So… Pol tretej is three thirty.",
+        [EXCITED, "Milí poslucháči, pomôžte mi!"],
+        "Dear listeners, help me!",
       ),
-      "wrong",
-    ),
-    afterThinking(
-      line(
-        "anna-pol-tretej-two-thirty",
-        "Anna",
+      // The forms in the question stay unlit, or the transcript would give the answer away.
+      {
+        ...line(
+          "anna-first-guest",
+          "Anna",
+          [
+            "Prvá otázka: ",
+            PAUSE,
+            "hosť príde o tretej. Čo mu povieš, keď vojde? ",
+            PAUSE,
+            "Sú tri hodiny, alebo je tri hodiny?",
+          ],
+          "First question: the guest comes at three. What will you say to him when he comes in? Sú tri hodiny, or je tri hodiny?",
+        ),
+        wait: BEAT_MS,
+      },
+      listenerPicks(
+        line(
+          "marek-which-su",
+          "Marek",
+          [
+            "Pätnásť nula nula, to viem. ",
+            PAUSE,
+            "Ale slovami? ",
+            PAUSE,
+            "Pomocníci, čo poviete?",
+          ],
+          "Fifteen hundred, that I know. But in words? Helpers, what do you say?",
+        ),
+        {
+          prompt: "Čo má Marek povedať?",
+          choices: [
+            { id: "su", label: "Sú tri hodiny", english: "It's three o'clock" },
+            {
+              id: "je",
+              label: "Je tri hodiny",
+              english: "It's three o'clock",
+              whyWrong:
+                "**Je** goes with one o'clock and with five or more. Two, three and four take **sú**: **sú tri hodiny**.",
+            },
+          ],
+          answerId: "su",
+          judge: "Anna",
+        },
+      ),
+      onPath(
+        line(
+          "marek-su-you-say",
+          "Marek",
+          [
+            mark("Sú tri hodiny"),
+            ", hovoríte? ",
+            PAUSE,
+            "Dobre: ",
+            mark("sú tri hodiny"),
+            ", ste tu presne včas!",
+          ],
+          "Sú tri hodiny, you say? OK: it's three o'clock, you're right on time!",
+        ),
+        { ask: ASK_SU, picks: ["su"] },
+      ),
+      onPath(
+        line(
+          "marek-je-you-say",
+          "Marek",
+          [
+            "Je tri hodiny, hovoríte? ",
+            PAUSE,
+            "Dobre: je tri hodiny, ste tu presne včas!",
+          ],
+          "Je tri hodiny, you say? OK: it's three o'clock, you're right on time! (Wrong on purpose.)",
+        ),
+        { ask: ASK_SU, picks: ["je"] },
+      ),
+      {
+        ...onPath(
+          line(
+            "marek-su-myself",
+            "Marek",
+            [
+              "Tak si vyberiem sám: ",
+              PAUSE,
+              mark("sú tri hodiny"),
+              ", ste tu presne včas!",
+            ],
+            "Then I'll pick myself: it's three o'clock, you're right on time!",
+          ),
+          { ask: ASK_SU, picks: [NO_PICK] },
+        ),
+        wait: BEAT_MS,
+      },
+      onPath(
+        line(
+          "anna-su-right",
+          "Anna",
+          [
+            "Správne! ",
+            PAUSE,
+            "Pri dvoch, troch a štyroch hodinách hovoríme ",
+            mark("sú"),
+            ": ",
+            mark("sú tri hodiny"),
+            ".",
+          ],
+          "Right! With two, three and four o'clock we say sú: sú tri hodiny.",
+        ),
+        { ask: ASK_SU, picks: ["su", NO_PICK] },
+      ),
+      onPath(
+        line(
+          "marek-guest-on-time",
+          "Marek",
+          ["A hosť je tu včas. ", PAUSE, "Nie ako ja ráno."],
+          "And the guest is on time. Not like me this morning.",
+        ),
+        { ask: ASK_SU, picks: ["su", NO_PICK] },
+      ),
+      onPath(
+        line("anna-you-said-it", "Anna", [CHUCKLE, "To si povedal ty."], "You said it."),
+        { ask: ASK_SU, picks: ["su", NO_PICK] },
+      ),
+      onPath(
+        line(
+          "anna-su-wrong",
+          "Anna",
+          [
+            "Nesprávne! ",
+            PAUSE,
+            "Pri dvoch, troch a štyroch hodinách hovoríme ",
+            mark("sú"),
+            ". ",
+            PAUSE,
+            mark("Sú tri hodiny"),
+            ".",
+          ],
+          "Wrong! With two, three and four o'clock we say sú. Sú tri hodiny.",
+        ),
+        { ask: ASK_SU, picks: ["je"] },
+      ),
+      onPath(
+        line(
+          "marek-guest-not-here",
+          "Marek",
+          ["Jaj. ", PAUSE, "Dobre, že hosť tu ešte nie je."],
+          "Oops. Good thing the guest isn't here yet.",
+        ),
+        { ask: ASK_SU, picks: ["je"] },
+      ),
+      onPath(line("anna-lucky", "Anna", [CHUCKLE, "Máš šťastie."], "You're lucky."), {
+        ask: ASK_SU,
+        picks: ["je"],
+      }),
+      {
+        ...line(
+          "anna-second-cafe",
+          "Anna",
+          ["Ideme ďalej. ", PAUSE, "Druhá otázka: kedy sme odišli z kaviarne?"],
+          "Moving on. Second question: when did we leave the café?",
+        ),
+        wait: BEAT_MS,
+      },
+      listenerPicks(
+        line(
+          "marek-which-pol",
+          "Marek",
+          [
+            "Dvanásť tridsať, to si pamätám. ",
+            PAUSE,
+            "Ale ako sa to povie? ",
+            PAUSE,
+            "O pol jednej, alebo o pol dvanástej?",
+          ],
+          "Twelve thirty, that I remember. But how do you say it? O pol jednej, or o pol dvanástej?",
+        ),
+        {
+          prompt: "Čo má Marek povedať?",
+          choices: [
+            { id: "jednej", label: "O pol jednej", english: "When they left the café" },
+            {
+              id: "dvanastej",
+              label: "O pol dvanástej",
+              english: "When they left the café",
+              whyWrong:
+                "**Pol dvanástej** is halfway to twelve: 11:30. Twelve thirty is halfway to one, **o pol jednej**.",
+            },
+          ],
+          answerId: "jednej",
+          judge: "Anna",
+        },
+      ),
+      onPath(
+        line(
+          "marek-jednej-you-say",
+          "Marek",
+          [
+            mark("O pol jednej"),
+            ", hovoríte? ",
+            PAUSE,
+            "Dobre: z kaviarne sme odišli ",
+            mark("o pol jednej"),
+            ".",
+          ],
+          "O pol jednej, you say? OK: we left the café at half past twelve.",
+        ),
+        { ask: ASK_POL, picks: ["jednej"] },
+      ),
+      onPath(
+        line(
+          "marek-dvanastej-you-say",
+          "Marek",
+          [
+            "O pol dvanástej, hovoríte? ",
+            PAUSE,
+            "Dobre: z kaviarne sme odišli o pol dvanástej.",
+          ],
+          "O pol dvanástej, you say? OK: we left the café at half past eleven. (Wrong on purpose.)",
+        ),
+        { ask: ASK_POL, picks: ["dvanastej"] },
+      ),
+      {
+        ...onPath(
+          line(
+            "marek-jednej-myself",
+            "Marek",
+            [
+              "Tak si spomeniem sám: ",
+              PAUSE,
+              "z kaviarne sme odišli ",
+              mark("o pol jednej"),
+              ".",
+            ],
+            "Then I'll remember it myself: we left the café at half past twelve.",
+          ),
+          { ask: ASK_POL, picks: [NO_PICK] },
+        ),
+        wait: BEAT_MS,
+      },
+      onPath(
+        line(
+          "anna-jednej-right",
+          "Anna",
+          ["Správne! ", PAUSE, "Pozeráme sa dopredu: ", mark("pol jednej"), "."],
+          "Right! We look ahead: half past twelve.",
+        ),
+        { ask: ASK_POL, picks: ["jednej", NO_PICK] },
+      ),
+      onPath(
+        line(
+          "marek-made-the-coffee",
+          "Marek",
+          ["Hlavne, že sme stihli kávu."],
+          "The main thing is we made it in time for coffee.",
+        ),
+        { ask: ASK_POL, picks: ["jednej", NO_PICK] },
+      ),
+      onPath(
+        line(
+          "anna-jednej-wrong",
+          "Anna",
+          [
+            "Nesprávne! ",
+            PAUSE,
+            mark("Pol dvanástej"),
+            " je jedenásť tridsať. ",
+            PAUSE,
+            "Vtedy sme ešte pili kávu.",
+          ],
+          "Wrong! Pol dvanástej is eleven thirty. We were still drinking coffee then.",
+        ),
+        { ask: ASK_POL, picks: ["dvanastej"] },
+      ),
+      onPath(
+        line(
+          "marek-wanted-another",
+          "Marek",
+          ["Pravda. ", PAUSE, "A ja som chcel ešte jednu."],
+          "True. And I wanted another one.",
+        ),
+        { ask: ASK_POL, picks: ["dvanastej"] },
+      ),
+      {
+        ...line(
+          "anna-last-tram",
+          "Anna",
+          ["A posledná otázka: ", PAUSE, "kedy nám ráno išla električka?"],
+          "And the last question: when did our tram go this morning?",
+        ),
+        wait: BEAT_MS,
+      },
+      listenerPicks(
+        line(
+          "marek-which-o",
+          "Marek",
+          [
+            "Desať nula nula. ",
+            PAUSE,
+            "Ale slovami",
+            STOP,
+            PAUSE,
+            "o desiatej, alebo o desať hodín?",
+          ],
+          "Ten o'clock, 10:00. But in words… o desiatej, or o desať hodín?",
+        ),
+        {
+          prompt: "Čo má Marek povedať?",
+          choices: [
+            { id: "desiatej", label: "O desiatej", english: "When the tram went" },
+            {
+              id: "desat",
+              label: "O desať hodín",
+              english: "When the tram went",
+              whyWrong:
+                "**O desať hodín** means in ten hours, how long from now. A time on the clock is **o desiatej**.",
+            },
+          ],
+          answerId: "desiatej",
+          judge: "Anna",
+        },
+      ),
+      onPath(
+        line(
+          "marek-desiatej-you-say",
+          "Marek",
+          [
+            mark("O desiatej"),
+            ", hovoríte? ",
+            PAUSE,
+            "Jasné: električka išla ",
+            mark("o desiatej"),
+            ".",
+          ],
+          "O desiatej, you say? Sure: the tram went at ten.",
+        ),
+        { ask: ASK_O, picks: ["desiatej"] },
+      ),
+      onPath(
+        line(
+          "marek-desat-you-say",
+          "Marek",
+          ["O desať hodín, hovoríte? ", PAUSE, "Jasné: električka išla o desať hodín."],
+          "O desať hodín, you say? Sure: the tram went in ten hours. (Wrong on purpose.)",
+        ),
+        { ask: ASK_O, picks: ["desat"] },
+      ),
+      {
+        ...onPath(
+          line(
+            "marek-desiatej-guess",
+            "Marek",
+            ["Tak si tipnem: ", PAUSE, "električka išla ", mark("o desiatej"), "."],
+            "Then I'll take a guess: the tram went at ten.",
+          ),
+          { ask: ASK_O, picks: [NO_PICK] },
+        ),
+        wait: BEAT_MS,
+      },
+      onPath(
+        line(
+          "anna-desiatej-right",
+          "Anna",
+          ["Správne! ", PAUSE, mark("O desiatej"), " je čas na hodinách."],
+          "Right! At ten is a time on the clock.",
+        ),
+        { ask: ASK_O, picks: ["desiatej", NO_PICK] },
+      ),
+      onPath(
+        line(
+          "marek-on-time-with-you",
+          "Marek",
+          ["Na zastávke som bol včas. ", PAUSE, "Lebo som išiel s tebou."],
+          "I was on time at the tram stop. Because I went with you.",
+        ),
+        { ask: ASK_O, picks: ["desiatej", NO_PICK] },
+      ),
+      onPath(
+        line(
+          "anna-desiatej-wrong",
+          "Anna",
+          [
+            "Nesprávne! ",
+            PAUSE,
+            mark("O desať hodín"),
+            " je, ako dlho. ",
+            PAUSE,
+            "To by sme na zastávke stáli do večera!",
+          ],
+          "Wrong! In ten hours is how long. We'd have been standing at the stop till evening!",
+        ),
+        { ask: ASK_O, picks: ["desat"] },
+      ),
+      onPath(
+        line(
+          "marek-rather-at-ten",
+          "Marek",
+          ["Do večera? ", PAUSE, "Tak to radšej ", mark("o desiatej"), "."],
+          "Till evening? Then I'd rather at ten.",
+        ),
+        { ask: ASK_O, picks: ["desat"] },
+      ),
+      ...ending(
+        { score: [3] },
         [
-          "Nesprávne! ",
-          PAUSE,
-          mark("Pol tretej"),
-          " je dve tridsať. Pozeráme sa na tretiu hodinu.",
+          "anna-three-of-three",
+          "Anna",
+          [HAPPY, "Tri z troch! ", PAUSE, "Marek, s pomocníkmi ti to ide."],
+          "Three out of three! Marek, with helpers you're doing fine.",
         ],
-        "Wrong! Pol tretej is two thirty. We look toward the third hour.",
-      ),
-    ),
-    line(
-      "marek-wrong-again",
-      "Marek",
-      [SIGH, "Zase nesprávne? ", PAUSE, "Dve tridsať… dobre."],
-      "Wrong again? Two thirty… OK.",
-    ),
-    line("anna-last-one", "Anna", ["Ešte jedna, posledná."], "One more, the last one."),
-    rightOrWrong(
-      line(
-        "marek-last-sentence",
-        "Marek",
-        ["Hm… ", PAUSE, "Zavolám ti ", mark("o dve hodiny"), "."],
-        "Hmm… I'll call you in two hours.",
-      ),
-      "right",
-    ),
-    afterThinking(
-      line(
-        "anna-o-dve-hodiny-right",
-        "Anna",
         [
-          "Správne! ",
-          PAUSE,
-          mark("O dve hodiny"),
-          ": nie čas, ale ako dlho. ",
-          PAUSE,
-          "Teraz je jedna, zavolám ti ",
-          mark("o dve hodiny"),
-          ", ",
-          mark("o tretej"),
-          ".",
+          "marek-take-them-along",
+          "Marek",
+          ["Tak ich budem brať všade so sebou."],
+          "Then I'll take them everywhere with me.",
         ],
-        "Right! In two hours: not a time, but how long. Now it's one, I'll call you in two hours, at three.",
       ),
-    ),
-    line(
-      "marek-two-and-two",
-      "Marek",
-      ["Dve zo štyroch. ", PAUSE, "Ujde to."],
-      "Two out of four. Not bad.",
-    ),
-    line(
-      "anna-and-you",
-      "Anna",
-      [CHUCKLE, "Ujde to, Marek. ", PAUSE, "A vy? Koľko ste mali správne?"],
-      "Not bad, Marek. And you? How many did you get right?",
-    ),
-    afterThinking(
-      line(
-        "marek-hope-fewer",
-        "Marek",
-        [CHUCKLE, "Dúfam, že menej ako ja."],
-        "I hope fewer than me.",
+      ...ending(
+        { score: [2] },
+        [
+          "anna-two-of-three",
+          "Anna",
+          ["Dve z troch. ", PAUSE, "Skoro výborne."],
+          "Two out of three. Almost excellent.",
+        ],
+        [
+          "marek-almost-on-time",
+          "Marek",
+          [CHUCKLE, "Skoro výborne, skoro včas. ", PAUSE, "To som celý ja."],
+          "Almost excellent, almost on time. That's me all over.",
+        ],
       ),
-    ),
-  ],
+      ...ending(
+        { score: [1] },
+        [
+          "anna-one-of-three",
+          "Anna",
+          ["Jedna z troch. ", PAUSE, "Tvoji pomocníci asi tiež meškali."],
+          "One out of three. Your helpers were probably late too.",
+        ],
+        [
+          "marek-they-heard-it-too",
+          "Marek",
+          [CHUCKLE, "Asi aj oni počuli ", mark("pol desiatej"), "."],
+          "They probably heard half past nine too.",
+        ],
+      ),
+      ...ending(
+        { score: [0] },
+        [
+          "anna-none-of-three",
+          "Anna",
+          ["Nula z troch! ", PAUSE, "Marek, tvoji pomocníci sú presne ako ty."],
+          "Zero out of three! Marek, your helpers are just like you.",
+        ],
+        [
+          "marek-great-people",
+          "Marek",
+          [HAPPY, "Tak to sú skvelí ľudia!"],
+          "Then they're great people!",
+        ],
+      ),
+      ...ending(
+        { unaided: true },
+        [
+          "anna-nobody-helped",
+          "Anna",
+          [HAPPY, "Všetky tri správne. ", PAUSE, "A nikto ti nepomohol!"],
+          "All three right. And nobody helped you!",
+        ],
+        [
+          "marek-words-too",
+          "Marek",
+          ["Vidíš? ", PAUSE, "Aj slová mi idú."],
+          "See? Words work for me too.",
+        ],
+      ),
+    ],
+    HELP_ACTS,
+  ),
   checks: [
     {
-      id: `${PREFIX}check-wrong-sentence`,
-      prompt: "Ktorá veta je podľa Anny nesprávna?",
-      promptEnglish: "Which sentence does Anna call wrong?",
+      id: `${PREFIX}check-su-tri`,
+      gap: "___ tri hodiny, ste tu presne včas!",
+      prompt: "Ako to má Marek povedať?",
+      promptEnglish: "How should Marek say it?",
       choices: [
-        { id: "su-pat", label: "Sú päť hodín." },
+        { id: "su", label: "Sú" },
         {
-          id: "o-tretej",
-          label: "Stretneme sa o tretej.",
-          whyWrong: "Anna says **správne**: **o tretej** is a time on the clock.",
+          id: "je",
+          label: "Je",
+          whyWrong:
+            "**Je** goes with one hour and with five or more: **je jedna hodina**, **je päť hodín**. Three takes **sú**.",
         },
         {
-          id: "o-dve",
-          label: "Zavolám ti o dve hodiny.",
-          whyWrong: "Anna says **správne**: **o dve hodiny** says how long from now.",
+          id: "budu",
+          label: "Budú",
+          whyWrong:
+            "**Budú tri hodiny** means it will be three. Marek says it as the guest comes in, so it is three now: **sú**.",
         },
       ],
-      answerId: "su-pat",
+      answerId: "su",
       feedback: {
-        english: "Five and more: je päť hodín, je desať hodín.",
-        why: "From five up the verb is **je** and the noun is **hodín**: **je päť hodín**.",
+        english: "It's three o'clock, you're right on time!",
+        why: "Two, three and four take **sú** and **hodiny**: **sú tri hodiny**.",
       },
     },
     {
-      id: `${PREFIX}check-pol-tretej`,
-      prompt: "Koľko je pol tretej?",
-      promptEnglish: "What time is pol tretej?",
-      replayLineId: `${PREFIX}anna-pol-tretej-two-thirty`,
+      id: `${PREFIX}check-left-cafe`,
+      prompt: "Kedy odišli z kaviarne?",
+      promptEnglish: "When did they leave the café?",
       choices: [
-        { id: "two-thirty", label: "Dve tridsať." },
+        { id: "pol-jednej", label: "O pol jednej." },
         {
-          id: "three-thirty",
-          label: "Tri tridsať.",
+          id: "pol-dvanastej",
+          label: "O pol dvanástej.",
           whyWrong:
-            "**Tri tridsať** is Marek's sentence, and Anna says **nesprávne**. That would be **pol štvrtej**.",
+            "**O pol dvanástej** is at eleven thirty, when they were still drinking coffee.",
         },
         {
-          id: "three",
-          label: "Tri hodiny.",
+          id: "jednej",
+          label: "O jednej.",
           whyWrong:
-            "**Tri hodiny** is three o'clock. **Pol tretej** is half an hour before it.",
+            "**O jednej** is at one, when they are back in the studio. They left half an hour before.",
         },
       ],
-      answerId: "two-thirty",
+      answerId: "pol-jednej",
       feedback: {
-        english: "Pol tretej is two thirty.",
-        why: "**Pol** names the hour ahead: **pol tretej** is halfway to three, 02:30.",
+        english: "We left the café at half past twelve.",
+        why: "Twelve thirty is **pol jednej**: **pol** looks ahead to the next hour, one.",
+      },
+    },
+    {
+      id: `${PREFIX}check-o-desat-hodin`,
+      prompt: "Čo znamená „o desať hodín“?",
+      promptEnglish: "What does “o desať hodín” mean?",
+      choices: [
+        { id: "in-ten-hours", label: "Desať hodín odteraz." },
+        {
+          id: "at-ten",
+          label: "Presne o desiatej.",
+          whyWrong:
+            "**Presne o desiatej** is at ten on the clock. That is **o desiatej**, the right answer for the tram.",
+        },
+        {
+          id: "ten-minutes",
+          label: "Desať minút odteraz.",
+          whyWrong: "**Desať minút** is ten minutes. **Hodín** are hours.",
+        },
+      ],
+      answerId: "in-ten-hours",
+      feedback: {
+        english: "In ten hours is how long.",
+        why: "**O** + a number of hours says how long from now: **o desať hodín**. A time on the clock is **o desiatej**.",
       },
     },
   ],
 };
 
+/** He lifts his empty mug at the thought of one more coffee and sets it down as Anna wags a hand at him; then they wave goodbye together. */
+const OUTRO_ACTS: Record<string, Cue[]> = {
+  "marek-one-more-coffee": [
+    { do: "take", what: "marek-mug", on: "stihnem" },
+    { do: "raise", what: "marek-mug", on: "kávu" },
+  ],
+  "anna-quarter-past-one": [{ do: "look", to: "hodiny", on: "start" }],
+  "anna-hour-and-three-quarters": [{ do: "facepalm", on: "marek" }],
+  "anna-just-one": [
+    { do: "wag", to: "marek", on: "jednu" },
+    { who: "marek", do: "put", what: "marek-mug", to: "desk", dx: -30, on: "marek" },
+  ],
+  "anna-thanks-bye": [{ do: "wave", on: "ahojte" }],
+  "marek-bye": [{ do: "wave", on: "ahojte" }],
+};
+
 const outro: ListeningChapter = {
   id: `${PREFIX}outro`,
   titleSk: "Záver",
-  title: "In two hours, Marek",
-  lines: [
-    line("marek-thats-all", "Marek", ["To je všetko na dnes."], "That's all for today."),
-    line(
-      "anna-thanks-for-listening",
-      "Anna",
-      ["Ďakujeme, že počúvate. Majte sa pekne!"],
-      "Thank you for listening. Take care!",
-    ),
-    line(
-      "marek-bye-what-time",
-      "Marek",
-      ["Ahojte! ", PAUSE, "Anna, ", mark("koľko je hodín"), "?"],
-      "Bye! Anna, what time is it?",
-    ),
-    line(
-      "anna-exactly-one",
-      "Anna",
-      ["Je presne ", mark("jedna hodina"), ". Prečo?"],
-      "It's exactly one o'clock. Why?",
-    ),
-    line(
-      "marek-guest-in-three-hours",
-      "Marek",
-      ["Hosť príde ", mark("o tretej"), ". ", PAUSE, "To je ", mark("o tri hodiny"), "!"],
-      "The guest comes at three. That's in three hours! (Wrong on purpose.)",
-    ),
-    line(
-      "anna-in-two-hours-marek",
-      "Anna",
-      [SIGH, mark("O dve hodiny"), ", Marek."],
-      "In two hours, Marek.",
-    ),
-  ],
+  title: "An hour and three quarters, Marek",
+  lines: staged(
+    PREFIX,
+    [
+      line(
+        "marek-thats-all-what-time",
+        "Marek",
+        ["To je na dnes všetko. ", PAUSE, "Anna, ", mark("koľko je hodín"), "?"],
+        "That's all for today. Anna, what time is it?",
+      ),
+      line(
+        "anna-quarter-past-one",
+        "Anna",
+        ["Je ", mark("štvrť na dve"), ". Prečo?"],
+        "It's quarter past one. Why?",
+      ),
+      line(
+        "marek-guest-in-three-hours",
+        "Marek",
+        [
+          "Hosť príde ",
+          mark("o tretej"),
+          ". ",
+          PAUSE,
+          "To je ",
+          mark("o tri hodiny"),
+          "!",
+        ],
+        "The guest is coming at three. That's in three hours! (Wrong on purpose.)",
+      ),
+      line(
+        "anna-hour-and-three-quarters",
+        "Anna",
+        [SIGH, mark("O hodinu a trištvrte"), ", Marek."],
+        "In an hour and three quarters, Marek.",
+      ),
+      {
+        ...line(
+          "marek-one-more-coffee",
+          "Marek",
+          [mark("Hodinu a trištvrte"), "? ", PAUSE, "Tak to stihnem ešte jednu kávu!"],
+          "An hour and three quarters? Then I've got time for one more coffee!",
+        ),
+        wait: BEAT_MS,
+      },
+      line(
+        "anna-just-one",
+        "Anna",
+        [CHUCKLE, "Jednu, Marek. ", PAUSE, "A ", mark("o tretej"), " si tu."],
+        "One, Marek. And at three you're here.",
+      ),
+      line(
+        "marek-at-three-on-time",
+        "Marek",
+        [HAPPY, mark("O tretej"), ", nie ", mark("o tri hodiny"), ". A budem tu včas!"],
+        "At three, not in three hours. And I'll be here on time!",
+      ),
+      // His "Som tu včas!" from the morning, an hour late.
+      line(
+        "anna-like-this-morning",
+        "Anna",
+        [CHUCKLE, "Ako dnes ráno?"],
+        "Like this morning?",
+      ),
+      line(
+        "marek-better-than-this-morning",
+        "Marek",
+        [CHUCKLE, "No", STOP, PAUSE, "lepšie ako dnes ráno."],
+        "Well… better than this morning.",
+      ),
+      {
+        ...line(
+          "anna-thanks-bye",
+          "Anna",
+          ["Ďakujeme, že počúvate. ", PAUSE, "Ahojte!"],
+          "Thank you for listening. Bye!",
+        ),
+        wait: 1000,
+      },
+      line("marek-bye", "Marek", ["Ahojte!"], "Bye!"),
+    ],
+    OUTRO_ACTS,
+  ),
   checks: [
     {
       id: `${PREFIX}check-time-at-end`,
       prompt: "Koľko je hodín na konci?",
       promptEnglish: "What time is it at the end?",
-      replayLineId: `${PREFIX}anna-exactly-one`,
+      replayLineId: `${PREFIX}anna-quarter-past-one`,
       choices: [
-        { id: "one", label: "Jedna hodina." },
+        { id: "quarter-past-one", label: "Štvrť na dve." },
         {
-          id: "two",
-          label: "Dve hodiny.",
+          id: "quarter-to-two",
+          label: "Trištvrte na dve.",
           whyWrong:
-            "**Dve hodiny** is two o'clock. Anna says **je presne jedna hodina**.",
+            "**Trištvrte na dve** is quarter to two, 1:45. Anna says **štvrť na dve**, 1:15.",
         },
         {
           id: "three",
           label: "Tri hodiny.",
           whyWrong:
-            "**Tri hodiny** is when the guest comes, **o tretej**. Now it is one.",
+            "**Tri hodiny** is when the guest comes, **o tretej**. Now it is quarter past one.",
         },
       ],
-      answerId: "one",
+      answerId: "quarter-past-one",
       feedback: {
-        english: "It's exactly one o'clock.",
-        why: "One takes **je** and **hodina**: **je jedna hodina**.",
+        english: "It's quarter past one.",
+        why: "**Štvrť na dve** is a quarter of the way to two: 1:15.",
       },
     },
     {
       id: `${PREFIX}check-guest-in-how-long`,
-      prompt: "O koľko hodín príde hosť?",
-      promptEnglish: "In how many hours does the guest come?",
-      replayLineId: `${PREFIX}anna-in-two-hours-marek`,
+      prompt: "Za ako dlho príde hosť?",
+      promptEnglish: "How long until the guest comes?",
+      replayLineId: `${PREFIX}anna-hour-and-three-quarters`,
       choices: [
-        { id: "two-hours", label: "O dve hodiny." },
+        { id: "hour-three-quarters", label: "O hodinu a trištvrte." },
         {
           id: "three-hours",
           label: "O tri hodiny.",
           whyWrong:
-            "**O tri hodiny** is Marek's sum. From one to three is two hours, so Anna sighs: **o dve hodiny**.",
+            "**O tri hodiny** is Marek's sum. From quarter past one to three is an hour and three quarters, so Anna sighs.",
         },
         {
           id: "at-two",
@@ -1121,10 +1760,10 @@ const outro: ListeningChapter = {
             "**O druhej** is at two, a time on the clock. The question asks how long from now.",
         },
       ],
-      answerId: "two-hours",
+      answerId: "hour-three-quarters",
       feedback: {
-        english: "In two hours, Marek.",
-        why: "**O dve hodiny**: **o** + **dve hodiny** says how long from now, and two takes **hodiny**.",
+        english: "In an hour and three quarters, Marek.",
+        why: "**O hodinu a trištvrte**: **o** + how long says how long from now. **O tretej** is the time on the clock.",
       },
     },
   ],
@@ -1132,7 +1771,7 @@ const outro: ListeningChapter = {
 
 export const tellingTimeEpisode: ListeningEpisode = {
   id: "listening/telling-time",
-  cover: { segment: "Na zastávke", atMs: 34000 },
+  cover: { segment: "Na zastávke", atMs: 38500 },
   slug: "telling-time",
   number: 3,
   level: "A1–A2",
@@ -1147,11 +1786,11 @@ export const tellingTimeEpisode: ListeningEpisode = {
   speakers: ["Anna", "Marek", "Waiter"],
   vocabulary: [
     { slovak: "Koľko je hodín?", english: "What time is it?" },
-    { slovak: "pol tretej", english: "half past two" },
     { slovak: "štvrť na tri", english: "quarter past two" },
-    { slovak: "električka", english: "tram" },
-    { slovak: "kaviareň", english: "café" },
-    { slovak: "meškať", english: "to be late" },
+    { slovak: "pol tretej", english: "half past two" },
+    { slovak: "trištvrte na tri", english: "quarter to three" },
+    { slovak: "o tretej", english: "at three" },
+    { slovak: "o tri hodiny", english: "in three hours" },
   ],
-  chapters: [intro, tramStop, cafe, clockLesson, quiz, outro],
+  chapters: [intro, tramStop, cafe, clockLesson, help, outro],
 };

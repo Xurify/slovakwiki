@@ -1,7 +1,7 @@
 <script lang="ts">
-  import type { StickPictureId } from "$lib/stick-figure/pictures";
+  import { clockHands, type StickPictureId } from "$lib/stick-figure/pictures";
 
-  /** A 26×17 flag centred on 0,0. */
+  /** A 26×17 flag or photo centred on 0,0. */
   let { picture }: { picture: StickPictureId } = $props();
 
   type Stripes = { paints: string[]; vertical?: boolean };
@@ -26,6 +26,14 @@
   const W = 26;
   const H = 17;
   const stripes = $derived(STRIPES[picture]);
+  const clock = $derived(clockHands(picture));
+
+  /** A stroke from `from` to `to` out from the clock's middle, `turns` of the way round from twelve. */
+  function hand(turns: number, to: number, from = 0): string {
+    const x = Math.sin(turns * 2 * Math.PI);
+    const y = -Math.cos(turns * 2 * Math.PI);
+    return `M${13 + x * from} ${8.5 + y * from}L${13 + x * to} ${8.5 + y * to}`;
+  }
 </script>
 
 <g transform="translate({-W / 2} {-H / 2})">
@@ -49,6 +57,30 @@
         />
       {/if}
     {/each}
+  {:else if clock}
+    <!-- A clock app's dial, so the hands show the time said; StickFigure draws it large in a bubble of its own. -->
+    <circle cx="13" cy="8.5" r="8.4" class="fill-portrait-ink" />
+    <circle cx="13" cy="8.5" r="7.4" class="fill-white" />
+    {#each [0, 1, 2, 3] as quarter (quarter)}
+      <path
+        d={hand(quarter / 4, 6.6, 5.2)}
+        class="stroke-portrait-ink"
+        stroke-width="0.9"
+      />
+    {/each}
+    <path
+      d={hand(((clock.hour % 12) + clock.minute / 60) / 12, 3.6)}
+      class="stroke-portrait-ink"
+      stroke-width="1.3"
+      stroke-linecap="round"
+    />
+    <path
+      d={hand(clock.minute / 60, 5.8)}
+      class="stroke-portrait-ink"
+      stroke-width="0.8"
+      stroke-linecap="round"
+    />
+    <circle cx="13" cy="8.5" r="0.8" class="fill-portrait-ink" />
   {:else if picture === "computing"}
     <rect width={W} height={H} class="fill-portrait-ink" />
     {#each [0, 1, 2] as dot (dot)}
@@ -71,6 +103,46 @@
       style:transform-box="fill-box"
       style:transform-origin="left"
     />
+  {:else if picture === "photo-man-dog"}
+    <!-- A photo on a phone: a man standing with his big dog on a lawn. -->
+    <rect width={W} height={H} class="fill-scene-sky" />
+    <rect y="12" width={W} height="5" class="fill-scene-leaf" />
+    <circle cx="9" cy="4.2" r="1.9" class="fill-portrait-skin stroke-portrait-ink" stroke-width="0.5" />
+    <path d="M9 6.2v4.6M9 10.8l-1.6 3.4M9 10.8l1.6 3.4M9 7.6l-2 2M9 7.6l2.6 1.6" class="stroke-portrait-ink" stroke-width="0.9" />
+    <path d="M13.4 9.6h7.4q1.4 0 1.4 1.4v1.2h-8.8Z" class="fill-scene-coffee" />
+    <circle cx="21.6" cy="9" r="1.7" class="fill-scene-coffee" />
+    <path d="M14.2 12v2.2M15.8 12v2.2M19.6 12v2.2M21.2 12v2.2M13.4 10l-1.4-1.4" class="stroke-scene-coffee" stroke-width="0.9" />
+  {:else if picture === "photo-house"}
+    <!-- A photo on a phone: a house by trees, a car in front. -->
+    <rect width={W} height={H} class="fill-scene-sky" />
+    <rect y="13" width={W} height="4" class="fill-scene-sand" />
+    <circle cx="4" cy="7" r="3.4" class="fill-scene-leaf" />
+    <circle cx="22.6" cy="7.6" r="3" class="fill-scene-leaf" />
+    <path d="M7 13V7.6l5.5-4.4 5.5 4.4V13Z" class="fill-scene-honey" />
+    <path d="M6 8l6.5-5.4L19 8" class="stroke-scene-red-mid" stroke-width="1.1" fill="none" />
+    <rect x="11.2" y="9.2" width="2.6" height="3.8" class="fill-scene-coffee" />
+    <path d="M14 15.6v-1.8l1.4-1.6h5l1.4 1.6v1.8Z" class="fill-scene-blue" />
+    <circle cx="15.6" cy="15.8" r="0.9" class="fill-portrait-ink" />
+    <circle cx="20.4" cy="15.8" r="0.9" class="fill-portrait-ink" />
+  {:else if picture === "photo-mother-girl"}
+    <!-- A photo on a phone: a woman and a small girl, hand in hand. -->
+    <rect width={W} height={H} class="fill-scene-warm" />
+    <rect y="13.2" width={W} height="3.8" class="fill-scene-leaf" />
+    <!-- Mother -->
+    <circle cx="9.5" cy="4.0" r="1.9" class="fill-portrait-skin stroke-portrait-ink" stroke-width="0.5" />
+    <path d="M7.6 4.0q0-2.8 1.9-2.8t1.9 2.8v3.0h-3.8Z" class="fill-portrait-hair" />
+    <path d="M9.5 5.9v4.6M9.5 10.5l-1.4 3.7M9.5 10.5l1.4 3.7" class="stroke-portrait-ink" stroke-width="0.9" />
+    <path d="M8.2 6.4h2.6v2.2h-2.6Z" class="fill-scene-red-mid" />
+    <path d="M7.8 8.6h3.4l0.8 2.4h-5.0Z" class="fill-scene-red-mid" />
+    <path d="M9.5 7.2l-2.0 2.6M9.5 7.2l3.5 2.8" class="stroke-portrait-ink" stroke-width="0.9" />
+    <!-- Daughter -->
+    <circle cx="16.5" cy="7.2" r="1.4" class="fill-portrait-skin stroke-portrait-ink" stroke-width="0.5" />
+    <path d="M15.1 7.2q0-2.0 1.4-2.0t1.4 2.0v1.2h-2.8Z" class="fill-scene-coffee" />
+    <circle cx="14.8" cy="6.6" r="0.6" class="fill-scene-coffee" />
+    <circle cx="18.2" cy="6.6" r="0.6" class="fill-scene-coffee" />
+    <path d="M16.5 8.6v2.4M16.5 11.0l-1.0 3.2M16.5 11.0l1.0 3.2" class="stroke-portrait-ink" stroke-width="0.8" />
+    <path d="M15.4 9.0h2.2l0.6 2.0h-3.4Z" class="fill-scene-honey" />
+    <path d="M16.5 9.4l-3.5 0.6M16.5 9.4l1.6 2.0" class="stroke-portrait-ink" stroke-width="0.8" />
   {:else if picture === "flag-ca"}
     <rect width={W} height={H} class="fill-white" />
     <rect width="6.5" height={H} class="fill-flag-red" />

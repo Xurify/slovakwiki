@@ -11,7 +11,8 @@ For every screenshot ask:
 3. **Overlaps.** Does any piece cut through or cover another: a post, a sign's letters, a tag, goods on a crate, a figure's spot?
 4. **Scale and stocking.** Are things the right size against the figures and each other? Is a crate full or does it look empty? Does each crate hold one kind of thing, as a stall sells it?
 5. **The frame.** On the phone, is anything a viewer would look at cut off at the edge? Is there a margin?
-6. **Depth.** Does the backdrop sit behind the stalls (houses across a square, not stuck to them)? Does the ground read as one floor?
+6. **Lettering.** On every sign, board and label: is the padding even on all four sides, the line spacing even, nothing crammed against an edge, the title centred over what it heads?
+7. **Depth.** Does the backdrop sit behind the stalls (houses across a square, not stuck to them)? Does the ground read as one floor?
 
 ## Output
 

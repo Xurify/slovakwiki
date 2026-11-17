@@ -1,7 +1,8 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
 
-  import { episodeMinutes, type ListeningEpisode } from "$lib/catalog/listening";
+  import type { ListeningEpisode } from "$lib/catalog/listening";
+  import { episodeRunMinutes } from "$lib/catalog/listening/audio";
   import Lead from "$lib/components/ui/Lead.svelte";
   import PageShell from "$lib/components/ui/PageShell.svelte";
   import TextLink from "$lib/components/ui/TextLink.svelte";
@@ -35,7 +36,7 @@
       <Lead class="mt-2 text-pretty">{episode.promise}</Lead>
 
       <p class="m-0 mt-3 flex flex-wrap items-center gap-x-2 text-sm text-slate-600">
-        <span>{episodeMinutes(episode)} min</span>
+        <span>{episodeRunMinutes(episode)} min</span>
         <span aria-hidden="true">·</span>
         <span>{episode.level}</span>
         <span aria-hidden="true">·</span>

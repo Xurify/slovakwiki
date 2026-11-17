@@ -47,7 +47,12 @@ export function episodeCheckCount(episode: ListeningEpisode): number {
   return episode.chapters.reduce((sum, chapter) => sum + chapter.checks.length, 0);
 }
 
-const WORDS_PER_MINUTE = 90;
+/** The player's gap after a line (LINE_GAP_MS), kept here so the catalog does not load the player. */
+export const HEARD_GAP_MS = 450;
+/** A word of a line with no clip to measure, at the voices' pace. */
+const WORD_MS = 400;
+/** The segment's card and its sting, and the place heard before the first line. */
+const SEGMENT_MS = 2500;
 
 /** One listen through: the lines of a listener who picks every answer right. */
 function heardLines(episode: ListeningEpisode): DialogueTurn[] {
@@ -59,12 +64,26 @@ function heardLines(episode: ListeningEpisode): DialogueTurn[] {
   });
 }
 
-export function episodeMinutes(episode: ListeningEpisode): number {
-  const words = heardLines(episode).reduce(
-    (sum, line) => sum + line.slovak.split(/\s+/).filter(Boolean).length,
-    0,
+/**
+ * About how long one listen through takes, in whole minutes: each
+ * line's clip as `clipMs` measures it (the server has the clips' lengths),
+ * or its words at the voices' pace, with the player's gap after each line
+ * and a beat for each segment's card. Counted at 90 words a minute, the
+ * future-tense episode said 5 min and played for 6.
+ */
+export function episodeMinutes(
+  episode: ListeningEpisode,
+  clipMs?: (line: DialogueTurn) => number | undefined,
+): number {
+  const ms = heardLines(episode).reduce(
+    (sum, line) =>
+      sum +
+      (clipMs?.(line) ?? line.slovak.split(/\s+/).filter(Boolean).length * WORD_MS) +
+      HEARD_GAP_MS,
+    episode.chapters.length * SEGMENT_MS,
   );
-  return Math.max(1, Math.ceil(words / WORDS_PER_MINUTE));
+  // Up, not to the nearest: the walks and waits of a staged segment come on top of its clips.
+  return Math.max(1, Math.ceil(ms / 60_000));
 }
 
 export function episodeForGrammarSlug(slug: string): ListeningEpisode | undefined {

@@ -22,14 +22,15 @@
       const stage = svg.parentElement;
       const hand = stage?.querySelector('[data-leash-end="hand"]');
       const collar = stage?.querySelector('[data-leash-end="collar"]');
-      if (stage && hand && collar) {
-        const box = svg.getBoundingClientRect();
+      const toSvg = svg.getScreenCTM()?.inverse();
+      if (stage && hand && collar && toSvg) {
+        // Through the svg's own matrix: under the camera's zoom, px off the screen put the ends off the hand
+        // and the collar, and the lead ran on past the dog.
         const centre = (end: Element) => {
           const at = end.getBoundingClientRect();
-          return {
-            x: at.left + at.width / 2 - box.left,
-            y: at.top + at.height / 2 - box.top,
-          };
+          return new DOMPoint(at.left + at.width / 2, at.top + at.height / 2).matrixTransform(
+            toSvg,
+          );
         };
         path = leashPath(centre(hand), centre(collar), length);
       } else {

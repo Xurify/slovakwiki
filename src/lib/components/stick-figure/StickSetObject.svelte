@@ -4,6 +4,8 @@
   /** How an object looks right now: what is in it, how hot, how chopped, how thirsty. */
   export interface ObjectLook {
     kind: ObjectKind;
+    /** Another of its kind (ObjectState.look). */
+    look?: "small" | "sheet";
     /** A fruit (apple) with a bite taken out of it. */
     bitten?: boolean;
     fill?: Fill;
@@ -49,6 +51,7 @@
     hang = false,
     heat = 0,
     kind,
+    look,
     on = [],
     open,
     rattle = false,
@@ -78,8 +81,8 @@
   /** Degrees a thirsty stem sags at the soil, bends at its knee, and its leaf hangs on past that. */
   const DROOP = { sag: 10, bend: 95, leaf: 40 };
   /** Watered, the plant lifts over this long, each stem a beat after the one before. */
-  const LIFT_MS = 1500;
-  const STAGGER_MS = 140;
+  const LIFT_MS = 4000;
+  const STAGGER_MS = 200;
   const GREEN = { leaf: ["#6f9e80", "#84ab92"], rib: "#4f7a60", stem: "#5f8c6a" };
   const THIRSTY = { leaf: ["#c9b45e", "#d8c06c"], rib: "#97803f", stem: "#8f9a58" };
 
@@ -354,10 +357,22 @@
       fill="none"
     />
   {:else if kind === "suitcase"}
-    <path d="M-3 -15V-18h6v3" fill="none" stroke-width="1.1" />
-    <rect x="-9" y="-15" width="18" height="14" rx="1.6" class="fill-portrait-vest" />
-    <path d="M-9 -10.6h18" class="stroke-white/40" stroke-width="1" />
-    <path d="M-5.4 -1v1M5.4 -1v1" stroke-width="1.4" />
+    <!-- A wheeled case for a flight, pulled by its handle drawn out: the wheels on the floor. -->
+    <path d="M-4 -29V-47M4 -29V-47" class="stroke-scene-steel-dark" stroke-width="1.3" />
+    <path d="M-5 -47.6h10" class="stroke-portrait-ink" stroke-width="2.2" />
+    <rect
+      x="-9"
+      y="-30"
+      width="18"
+      height="27"
+      rx="2.4"
+      class="fill-portrait-suit stroke-portrait-ink"
+      stroke-width="0.9"
+    />
+    <path d="M-4.5 -28v23M0 -28v23M4.5 -28v23" class="stroke-white/20" stroke-width="0.9" />
+    <path d="M-3 -30.6h6" class="stroke-portrait-ink" stroke-width="1.4" />
+    <circle cx="-5.6" cy="-1.8" r="1.8" class="fill-portrait-ink" />
+    <circle cx="5.6" cy="-1.8" r="1.8" class="fill-portrait-ink" />
   {:else if kind === "phone"}
     {#if flat}
       <rect
@@ -387,6 +402,11 @@
         stroke="none"
       />
     {/if}
+  {:else if kind === "money"}
+    <!-- A ten-euro note, red like the real one, a pale window and a value block so it reads as money and not a card. -->
+    <rect x="-5" y="-6" width="10" height="6" rx="0.4" class="fill-scene-red/70" stroke-width="0.5" />
+    <ellipse cx="1.6" cy="-3" rx="1.7" ry="2" class="fill-white/70" stroke="none" />
+    <path d="M-3.6 -4.4h2.4M-3.6 -3h1.8M-3.6 -1.6h2.4" class="stroke-white/80" stroke-width="0.5" />
   {:else if kind === "keys" && flat}
     <circle cx="-1.6" cy="-0.8" r="1.3" fill="none" stroke-width="0.7" />
     <path d="M-0.4 -0.7H3.2M2.2 -0.7V-0.1" class="stroke-scene-honey" stroke-width="1" />
@@ -542,38 +562,40 @@
     <path d="M-8 -8h16l-2 8.5h-12Z" class="fill-scene-wood" />
     <path d="M-7 -5h14M-6.4 -2h12.8" class="stroke-scene-line/40" stroke-width="0.7" />
   {:else if kind === "plate"}
-    <ellipse cx="0" cy="-1.2" rx="7.5" ry="1.9" class="fill-white" />
-    <ellipse
-      cx="0"
-      cy="-1.5"
-      rx="4.5"
-      ry="0.9"
-      class="stroke-scene-line/30"
-      fill="none"
-      stroke-width="0.5"
-    />
-    <circle cx="-2" cy="-1.5" r="0.45" class="fill-scene-line/60" stroke="none" />
-    <circle cx="1.2" cy="-1.2" r="0.35" class="fill-scene-line/60" stroke="none" />
-    <circle cx="2.6" cy="-1.7" r="0.4" class="fill-scene-line/60" stroke="none" />
+    <!-- Half again as big as a cup's saucer, so it reads at phone size; what the cake left: crumbs and poppy seeds. -->
+    <ellipse cx="0" cy="-1" rx="11.3" ry="2.9" class="fill-white stroke-scene-line/40" stroke-width="0.5" />
+    <ellipse cx="0" cy="-1.4" rx="7" ry="1.5" class="stroke-scene-line/30" fill="none" stroke-width="0.5" />
+    <circle cx="-3.6" cy="-1.5" r="0.75" class="fill-scene-coffee/80" stroke="none" />
+    <circle cx="2" cy="-1.1" r="0.6" class="fill-scene-coffee/80" stroke="none" />
+    <circle cx="4.6" cy="-1.9" r="0.7" class="fill-scene-coffee/80" stroke="none" />
+    <circle cx="-1.2" cy="-2" r="0.5" class="fill-scene-coffee/80" stroke="none" />
+    {#each [[-4.8, -0.9], [-2.4, -1.1], [-0.4, -1.6], [0.9, -0.8], [3.2, -1.5], [5.6, -1.2], [-1.8, -2.1], [1.6, -2.2]] as [x, y] (`${x},${y}`)}
+      <circle cx={x} cy={y} r="0.38" class="fill-scene-line/85" stroke="none" />
+    {/each}
   {:else if kind === "cheese"}
-    <!-- A small oštiepok, as the ones hanging over the stall: spindle-shaped, smoked, stamped round the middle, its cord tied on top. -->
-    <path
-      d="M0 -11C2.6 -10.4 3.4 -7.6 3.4 -5.4C3.4 -2.4 2 -0.6 0 0C-2 -0.6 -3.4 -2.4 -3.4 -5.4C-3.4 -7.6 -2.6 -10.4 0 -11Z"
-      class="fill-scene-onion"
-      stroke-width="0.6"
-    />
-    <path d="M1.2 -10.2C3.2 -8 3.2 -2.6 1 -0.6" class="stroke-scene-coffee/30" stroke-width="1" fill="none" />
-    <path
-      d="M-2.6 -7.2l0.9 1.2 0.9 -1.2 0.9 1.2 0.9 -1.2 0.9 1.2 0.9 -1.2M-2.8 -4.4l0.9 1.2 0.9 -1.2 0.9 1.2 0.9 -1.2 0.9 1.2 0.9 -1.2"
-      class="stroke-scene-coffee/50"
-      stroke-width="0.45"
-      fill="none"
-    />
-    <path d="M-1.2 -10.4l1.2 -1.6 1.2 1.6" class="stroke-scene-coffee/70" stroke-width="0.5" fill="none" />
+    <!-- One of the small wedges from the far end of Lucia's counter, at their size (StickSet.svelte). -->
+    <g transform="scale(1.3)">
+      <path d="M-4.5 0H4.5V-6Z" class="fill-scene-honey stroke-scene-onion" stroke-width="0.4" />
+      <path d="M-4.5 0H4.5V-6Z" class="fill-white/35" stroke="none" />
+      <path d="M4.5 0V-6" class="stroke-scene-onion" stroke-width="1.1" />
+      <circle cx="1.6" cy="-1.6" r="0.8" class="fill-scene-onion/55" stroke="none" />
+      <circle cx="-1.3" cy="-0.8" r="0.5" class="fill-scene-onion/55" stroke="none" />
+      <circle cx="3" cy="-3.6" r="0.55" class="fill-scene-onion/55" stroke="none" />
+    </g>
   {:else if kind === "book"}
     <rect x="-4" y="-11.5" width="9" height="11.5" rx="1" class="fill-scene-honey" />
     <path d="M-2.2 -11.5V0" stroke-width="0.6" />
     <path d="M0 -8.7h3M0 -6.9h2" class="stroke-portrait-bib" stroke-width="0.7" />
+  {:else if kind === "clipboard" && look === "sheet" && flat}
+    <!-- Laid down, a sheet lies flat: stood on its edge it read as a card propped on the desk. -->
+    <path d="M-7 0h12.4l1.6 -1.6h-12.4Z" class="fill-white stroke-portrait-ink" stroke-width="0.5" />
+  {:else if kind === "clipboard" && look === "sheet"}
+    <path d="M-4 -12.5h6.4l1.6 1.6v10.9h-8Z" class="fill-white stroke-portrait-ink" stroke-width="0.6" />
+    <path
+      d="M-2.6 -9.6h5.2M-2.6 -7.4h5.2M-2.6 -5.2h5.2M-2.6 -3h3.4"
+      class="stroke-scene-line/50"
+      stroke-width="0.6"
+    />
   {:else if kind === "clipboard"}
     <rect x="-5" y="-13" width="10" height="13" rx="0.8" class="fill-scene-wood" />
     <rect x="-4" y="-11.5" width="8" height="10" rx="0.4" class="fill-white" />
@@ -583,19 +605,47 @@
       class="stroke-scene-line/40"
       stroke-width="0.6"
     />
+  {:else if kind === "umbrella" && look === "small"}
+    <!-- A folding one, three fifths as long as the big blue one, red with white dots and a straight grip, so "Tvoj dáždnik je naozaj malý" shows. -->
+    <g transform={flat ? "translate(-9 -3.6) rotate(90)" : undefined}>
+      <path d="M0 0V-19" stroke-width="1.4" class="stroke-portrait-ink" />
+      <rect x="-1.5" y="-1" width="3" height="5.4" rx="1.2" class="fill-portrait-ink" />
+      <path d="M-0.8 -19L0 -21.2L0.8 -19Z" class="fill-scene-steel-dark" />
+      <path
+        d="M-1.2 -18.4Q-4.2 -12 -2.4 -3.4H2.4Q4.2 -12 1.2 -18.4Z"
+        class="fill-scene-red stroke-portrait-ink"
+        stroke-width="0.7"
+      />
+      <circle cx="-1" cy="-13.4" r="0.6" class="fill-white" />
+      <circle cx="1.3" cy="-10" r="0.6" class="fill-white" />
+      <circle cx="-1.2" cy="-6.6" r="0.6" class="fill-white" />
+      <path d="M-2.8 -9.2l5.6 1.1" class="stroke-portrait-ink" stroke-width="0.9" />
+    </g>
   {:else if kind === "umbrella"}
     <!-- Put down, a folded umbrella lies on its side, the crook up: stood on end, the crook went through the desk. -->
-    <g transform={flat ? "translate(-9 -3.2) rotate(90)" : undefined}>
-      <path d="M0 0V-18" stroke-width="1.6" class="stroke-scene-edge" />
+    <!-- Half again as long as a hand's span, so it reads as an umbrella and not a bottle: a hooked crook, the furled canopy with its ribs and strap, the tip. -->
+    <g transform={flat ? "translate(-14 -3.6) rotate(90)" : undefined}>
+      <path d="M0 0V-31" stroke-width="1.6" class="stroke-portrait-ink" />
       <path
-        d="M0 0Q0 3 -2.5 3Q-5 3 -5 0.5"
+        d="M0 0Q0 4.2 -3.4 4.2Q-6.6 4.2 -6.6 0.8"
         fill="none"
-        stroke-width="1.4"
-        class="stroke-scene-wood"
+        stroke-width="1.8"
+        class="stroke-scene-coffee"
       />
-      <path d="M-1.5 -18L0 -21L1.5 -18Z" class="fill-scene-edge" />
-      <path d="M-3 -18L-1.5 -3L1.5 -3L3 -18Z" class="fill-scene-sky" />
-      <path d="M-3 -11H3" class="stroke-scene-line" stroke-width="0.8" />
+      <path d="M-1 -31L0 -34.5L1 -31Z" class="fill-scene-steel-dark" />
+      <path
+        d="M-1.2 -30Q-4.4 -19 -2.2 -5H2.2Q4.4 -19 1.2 -30Z"
+        class="fill-scene-blue stroke-portrait-ink"
+        stroke-width="0.7"
+      />
+      <path
+        d="M0 -30Q-2.2 -18 -1 -5M0 -30Q2.2 -18 1 -5"
+        class="stroke-portrait-ink/40"
+        stroke-width="0.5"
+        fill="none"
+      />
+      <path d="M-3.4 -15.4l6.8 1.4" class="stroke-portrait-ink" stroke-width="1" />
+      <circle cx="2.6" cy="-14.2" r="0.7" class="fill-white" />
     </g>
   {/if}
   {#each on as { dx, dy, ...look }, index (index)}

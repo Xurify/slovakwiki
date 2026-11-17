@@ -73,3 +73,38 @@ export function alive(
     shut: Math.max(pose.shut, blinkAt(now, id) * 0.5),
   };
 }
+
+/** A dog at rest does one small thing in each window of this long: cocks its head, sniffs, wags. */
+const DOG_WINDOW_MS = 6000;
+/** How long one of those takes. */
+const DOG_MOVE_MS = 1600;
+/** A wag's swing, raise degrees of the tail (StickDog), and how fast it goes back and forth. */
+const WAG = 24;
+const WAG_MS = 260;
+
+/**
+ * A dog nobody is moving, one small thing at a time on its own rhythm: the
+ * head cocked one way or the other, the nose down to sniff the floor, or a
+ * few wags of the tail. Stood dead still for a minute, a dog read as a cut-out.
+ */
+export function dogIdle(pose: StickPose, now: number, id: string): StickPose {
+  const seed = seedOf(id) ^ 0x5bd1;
+  const at = now + (seed % DOG_WINDOW_MS);
+  const window = Math.floor(at / DOG_WINDOW_MS);
+  const start = 500 + noise(window, seed) * (DOG_WINDOW_MS - DOG_MOVE_MS - 1000);
+  const t = (at - window * DOG_WINDOW_MS - start) / DOG_MOVE_MS;
+  if (t <= 0 || t >= 1) return pose;
+  const amount = Math.sin(Math.PI * t);
+  const kind = Math.floor(noise(window + 7919, seed) * 4);
+  switch (kind) {
+    case 0:
+    case 1:
+      return { ...pose, tilt: pose.tilt + (kind === 0 ? -9 : 9) * amount };
+    case 2:
+      return { ...pose, nod: pose.nod + 5 * amount, tilt: pose.tilt + 16 * amount };
+    default: {
+      const swing = Math.sin(((t * DOG_MOVE_MS) / WAG_MS) * 2 * Math.PI);
+      return { ...pose, rearRaise: pose.rearRaise + WAG * amount * swing };
+    }
+  }
+}

@@ -7,7 +7,16 @@ import { isDark, isFalling, type SceneMood } from "./scene-mood";
 import type { StageSetting } from "./stage-setting";
 
 export type AmbienceLayer =
-  "birds" | "clinks" | "crickets" | "hum" | "murmur" | "rain" | "tram" | "wind";
+  | "birds"
+  | "clinks"
+  | "crickets"
+  | "hum"
+  | "murmur"
+  | "rain"
+  | "roof"
+  | "tram"
+  | "water"
+  | "wind";
 
 export interface Ambience {
   layers: AmbienceLayer[];
@@ -27,8 +36,9 @@ export function ambienceFor(setting: StageSetting, mood: SceneMood): Ambience {
   });
 
   if (outdoors && dark && !isFalling(mood.weather)) layers.push("crickets");
-  // Rain is heard where it is seen: outside, or through a window.
-  if (mood.weather === "rain" && (outdoors || glass)) layers.push("rain");
+  // Rain is heard where it is seen: outside, or through a window. A room with no window still
+  // hears it on the roof and the walls, dull and low, so "vonku prší" in the studio is heard.
+  if (mood.weather === "rain") layers.push(outdoors || glass ? "rain" : "roof");
   if (mood.weather === "snow" && outdoors) layers.push("wind");
   return { dark, indoors: !outdoors, layers: [...new Set(layers)] };
 }
@@ -223,6 +233,52 @@ const LAYERS: Record<AmbienceLayer, (kit: Kit) => void> = {
     patter.connect(filter).connect(gain).connect(kit.out);
     patter.start();
     kit.hold?.(patter);
+  },
+
+  roof(kit) {
+    bed(
+      kit,
+      [
+        { frequency: 120, type: "highpass" },
+        { frequency: 520, type: "lowpass" },
+      ],
+      0.06,
+    );
+    const patter = kit.ctx.createBufferSource();
+    patter.buffer = patterBuffer(kit.ctx, true);
+    patter.loop = true;
+    const filter = kit.ctx.createBiquadFilter();
+    filter.type = "lowpass";
+    filter.frequency.value = 600;
+    const gain = kit.ctx.createGain();
+    gain.gain.value = 0.35;
+    patter.connect(filter).connect(gain).connect(kit.out);
+    patter.start();
+    kit.hold?.(patter);
+  },
+
+  water(kit) {
+    // The river against the embankment: a low wash that swells and falls back every few seconds.
+    const { gain } = bed(
+      kit,
+      [
+        { frequency: 90, type: "highpass" },
+        { frequency: 420, q: 0.6, type: "bandpass" },
+      ],
+      0.05,
+    );
+    kit.every(
+      2.2,
+      4.5,
+      () => {
+        const now = kit.ctx.currentTime;
+        gain.gain.cancelScheduledValues(now);
+        gain.gain.setValueAtTime(gain.gain.value, now);
+        gain.gain.linearRampToValueAtTime(between(0.16, 0.26), now + between(0.5, 0.9));
+        gain.gain.linearRampToValueAtTime(0.05, now + between(1.8, 2.4));
+      },
+      1,
+    );
   },
 
   tram(kit) {

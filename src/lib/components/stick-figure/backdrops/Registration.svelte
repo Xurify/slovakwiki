@@ -1,9 +1,21 @@
 <script lang="ts">
   import { PARTS } from "$lib/stick-figure/backdrop-parts";
+  import { DOORS, HANDLE, doorPoint } from "$lib/stick-figure/door";
   import Room from "./Room.svelte";
   import WallClock from "./WallClock.svelte";
 
-  let { hour }: { hour: number } = $props();
+  /** `open`: how far the door has swung in, from 0 shut to 1 wide open against the wall. */
+  let { hour, open = 0 }: { hour: number; open?: number } = $props();
+
+  const door = DOORS.registration!;
+
+  function on(u: number, v: number): string {
+    const { x, y } = doorPoint(door, open, u, v);
+    return `${x.toFixed(1)} ${y.toFixed(1)}`;
+  }
+  function quad(u0: number, u1: number, v0: number, v1: number): string {
+    return `M${on(u0, v0)}L${on(u1, v0)}L${on(u1, v1)}L${on(u0, v1)}Z`;
+  }
 
   // A phone shows x 180 to 780 of the drawing and a desktop 120 to 840: the door, the
   // waiting corner and the desk stand inside the phone's part, and nothing straddles an edge.
@@ -58,11 +70,20 @@
   Vchod
 </text>
 <rect x="192" y="74" width="64" height="152" class="fill-scene-edge" />
-<rect x="198" y="80" width="52" height="146" class="fill-scene-wood" />
-<rect x="206" y="88" width="36" height="58" rx="1" class="fill-scene-sky" />
-<path d="M212 98l14 -8M212 110l22 -14" class="stroke-white/70" stroke-width="2" />
-<rect x="206" y="156" width="36" height="58" rx="1" class="fill-scene-line/8" />
-<path d="M243 150h-8" class="stroke-scene-steel-dark" stroke-width="2.6" />
+{#if open > 0}
+  <!-- The street beyond the open door. -->
+  <rect x={door.hinge} y={door.top} width={door.edge - door.hinge} height={door.height} class="fill-scene-line/50" />
+{/if}
+<path d={quad(0, 1, 0, 1)} class="fill-scene-wood" />
+<path d={quad(0.154, 0.846, 0.055, 0.452)} class="fill-scene-sky" />
+{#if open < 0.3}
+  <path d="M{on(0.27, 0.123)}L{on(0.54, 0.068)}M{on(0.27, 0.205)}L{on(0.69, 0.11)}" class="stroke-white/70" stroke-width="2" />
+{/if}
+<path d={quad(0.154, 0.846, 0.521, 0.918)} class="fill-scene-line/8" />
+<path
+  d={quad(HANDLE.u - 0.14, HANDLE.u + 0.02, HANDLE.v - 0.009, HANDLE.v + 0.009)}
+  class="fill-scene-steel-dark"
+/>
 
 <rect x="276" y="64" width="122" height="70" rx="2" class="fill-scene-line/10" />
 <rect x="272" y="60" width="122" height="70" rx="2" class="fill-scene-wood" />

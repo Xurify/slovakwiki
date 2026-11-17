@@ -35,7 +35,7 @@ import { lessonExercises } from "../../src/lib/learning/beats";
 import { RAIN_AND_TRAM, WEATHER_TODAY } from "../../src/lib/stick-figure/dev-scenes";
 import { dayTurns } from "../../src/lib/stick-figure/scene-day";
 import { findTurns } from "../../src/lib/stick-figure/scene-sources";
-import { PLACES } from "../../src/lib/stick-figure/places";
+import { PLACES, PROP_THINGS } from "../../src/lib/stick-figure/places";
 import {
   exerciseAnswerTexts,
   exerciseOptionTexts,
@@ -98,6 +98,8 @@ export interface ManifestEntry {
   characterId?: string;
   generatedAt: string;
   kind: AudioKind;
+  /** Integrated loudness of the clip as stored (EBU R128), from loudness.ts or generate.ts. */
+  lufs?: number;
   /** The model that made the clip. Absent on entries older than this field and not matched by backfill-settings.ts. */
   modelId?: string;
   /** ElevenLabs speed setting (1 = natural, 0.88 = study pace). Same note as modelId. */
@@ -289,7 +291,11 @@ export function collectDictionaryAudioTargets(options?: {
   // Things on the stick-figure stage are tapped for their word, and some
   // (torta, kávovar) have no dictionary entry to bring a clip with them.
   if (!options?.slugs) {
-    for (const thing of Object.values(PLACES).flatMap((place) => place.things)) {
+    const props = Object.values(PROP_THINGS).flatMap((thing) => thing ?? []);
+    for (const thing of [
+      ...Object.values(PLACES).flatMap((place) => place.things),
+      ...props,
+    ]) {
       const word = normalizeAudioText(thing.word);
       if (word && !byText.has(word)) byText.set(word, { kind: "lemma", text: word });
     }

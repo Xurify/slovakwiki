@@ -7,9 +7,11 @@ describe("the sound of a place", () => {
     expect(ambienceFor("default", { time: "day", weather: "clear" }).layers).toEqual([
       "birds",
       "wind",
+      "water",
     ]);
     expect(ambienceFor("default", { time: "night", weather: "clear" }).layers).toEqual([
       "wind",
+      "water",
       "crickets",
     ]);
   });
@@ -23,7 +25,7 @@ describe("the sound of a place", () => {
     ).not.toContain("tram");
   });
 
-  it("hears rain outside and through a window, and snow only outside", () => {
+  it("hears rain outside, through a window, or dull on the roof, and snow only outside", () => {
     expect(ambienceFor("cafe", { time: "day", weather: "rain" })).toEqual({
       dark: false,
       indoors: true,
@@ -31,7 +33,11 @@ describe("the sound of a place", () => {
     });
     expect(ambienceFor("classroom", { time: "day", weather: "rain" }).layers).toEqual([
       "hum",
+      "roof",
     ]);
+    expect(ambienceFor("studio", { time: "day", weather: "rain" }).layers).toContain(
+      "roof",
+    );
     expect(ambienceFor("home", { time: "day", weather: "snow" }).layers).toEqual(["hum"]);
     expect(ambienceFor("market", { time: "day", weather: "snow" })).toEqual({
       dark: false,

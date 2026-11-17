@@ -27,6 +27,7 @@
       shop: "Lekáreň",
       emblem: "cross",
       paint: "fill-scene-warm",
+      fasciaY: 172,
     },
     {
       x: 466,
@@ -54,11 +55,19 @@
   ];
 
   /** Roland's fountain stands out on the square, its basin's front edge at `ground`. */
-  // Inside what a phone shows (x 180 to 780), right of the café's sign.
-  const FOUNTAIN = { x: 708, ground: 248, size: 0.62 };
+  // Inside what a phone shows (x 180 to 780), and clear of the café's sign: at 708 the knight stood on its end.
+  const FOUNTAIN = { x: 740, ground: 248, size: 0.56 };
   /** The café's terrace under its awning: a table with a chair either side. */
   const TABLES = [606, 646];
   const BOLLARDS = [258, 308];
+  /** How deep the pavement runs from the houses: past the bin's and the tables' feet, short of the fountain's. */
+  const KERB = 18;
+  /** The pavement's slabs: two rows, the far one shallower, their joints half a slab apart. */
+  const SLAB = { row: 226 + 8, width: 22 };
+  const slabJoints = Array.from({ length: 46 }, (_, index) => {
+    const x = -10 + index * SLAB.width;
+    return `M${x} 226V${SLAB.row}M${x + SLAB.width / 2} ${SLAB.row}V${226 + KERB}`;
+  }).join("");
   /**
    * The gate's clock face: a short thick hour hand and a long thin minute
    * hand, so half past eleven does not read as one straight stroke.
@@ -133,11 +142,17 @@
 <path d="M{clock.x} {clock.y}L{hands.hour.x} {hands.hour.y}" class="stroke-scene-line" stroke-width="2.6" stroke-linecap="round" />
 <circle cx={clock.x} cy={clock.y} r="1.6" class="fill-scene-line" />
 
-<!-- The square: a pavement of slabs along the houses, then cobbles. -->
-<rect x="-10" y="226" width="980" height="84" class="fill-scene-sand" />
-<rect x="-10" y="226" width="980" height="6" class="fill-white/30" />
-<path d="M-10 232H970" class="stroke-scene-line/15" stroke-width="1" />
-<Cobbles from={236} />
+<!--
+  The square: grey granite, a smooth pavement along the houses that the street
+  furniture stands on, a kerb, then setts. The fountain, the bench and the
+  tree stand on the setts, just past the kerb.
+-->
+<rect x="-10" y="226" width="980" height="84" class="fill-scene-steel-light" />
+<rect x="-10" y="226" width="980" height={KERB} class="fill-scene-cool" />
+<path d="M-10 {SLAB.row}H970{slabJoints}" class="stroke-scene-line/10" fill="none" stroke-width="0.8" />
+<rect x="-10" y={226 + KERB - 1.5} width="980" height="1.5" class="fill-white" />
+<rect x="-10" y={226 + KERB} width="980" height="1.5" class="fill-scene-line/20" />
+<Cobbles from={226 + KERB + 1.5} />
 <FloorShade />
 
 <StreetLamp lamp={PARTS.plaza.lamp} />
@@ -148,11 +163,12 @@
   <rect x={x - 3} y="222" width="6" height="14" rx="2.5" class="fill-scene-line/60" />
   <rect x={x - 3} y="225" width="6" height="2" class="fill-white/40" />
 {/each}
-<ellipse cx="216" cy="241" rx="8" ry="2" class="fill-scene-line/15" />
-<path d="M209 224h14l-1.5 17h-11Z" class="fill-scene-line/55" />
-<rect x="208" y="222" width="16" height="3" rx="1" class="fill-scene-line/70" />
+<ellipse cx="200" cy="241" rx="8" ry="2" class="fill-scene-line/15" />
+<path d="M193 224h14l-1.5 17h-11Z" class="fill-scene-line/55" />
+<rect x="192" y="222" width="16" height="3" rx="1" class="fill-scene-line/70" />
 <g class="stroke-scene-line/85" fill="none" stroke-width="1.8">
-  <path d="M148 240V228a6 6 0 0 1 12 0V240" />
+  <!-- The stand's hoop is taller and squarer than a wheel: drawn round and wheel-sized, it read as a third wheel. -->
+  <path d="M146 240V226q0-3 3-3h10q3 0 3 3V240" class="stroke-scene-line/45" stroke-width="1.6" />
   {#each [140] as x (x)}
     <circle cx={x} cy="234" r="6" />
     <circle cx={x + 18} cy="234" r="6" />

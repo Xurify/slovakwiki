@@ -11,6 +11,7 @@ import {
   thingCenter,
   thingNamed,
   thingWithDemonstrative,
+  withDrawn,
 } from "./thing-words";
 
 const all = Object.values(PLACES).flatMap((place) => place.things);
@@ -242,5 +243,25 @@ describe("window glass", () => {
         window.box.y + window.box.height,
       );
     }
+  });
+});
+
+describe("things measured where the set draws them", () => {
+  it("shows each measured copy once, not again at its drawn fallback", () => {
+    const box = (x: number) => ({ x, y: 200, width: 20, height: 20 });
+    const syr = PLACES.market.things.filter(({ id }) => id === "syr");
+    const placed = withDrawn(syr, {
+      "counter-near-cheese": box(700),
+      "counter-far-cheese": box(840),
+    });
+    expect(placed.flatMap(thingBoxes).map(({ x }) => x)).toEqual([700, 840]);
+  });
+
+  it("keeps a drawn copy that nothing on the set measures", () => {
+    const taska = PLACES.home.things.filter(({ id }) => id === "taska");
+    const placed = withDrawn(taska, {
+      "window-bag": { x: 150, y: 250, width: 20, height: 20 },
+    });
+    expect(placed.flatMap(thingBoxes)).toHaveLength(2);
   });
 });

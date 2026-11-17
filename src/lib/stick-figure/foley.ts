@@ -189,6 +189,15 @@ export function playFoley(id: FoleyId): void {
     case "rattle":
       for (const at of [0, 0.12, 0.27, 0.4]) ring([480, 1130], 0.06, 0.12, at);
       break;
+    case "bounce":
+      thump(95, 55, 0.3, 0.16);
+      thump(120, 70, 0.12, 0.1, 0.32);
+      break;
+    case "shutter":
+      // A phone camera's click: a short bright tick, then the shutter's second.
+      air("highpass", 3200, 2600, 0.22, 0.03, 0.002);
+      air("bandpass", 1800, 1200, 0.16, 0.05, 0.002, 0.07);
+      break;
     case "ring":
       // A phone's trill: two notes a third apart, alternating fast.
       for (const [index, at] of [0, 0.06, 0.12, 0.18, 0.24, 0.3, 0.36, 0.42].entries())

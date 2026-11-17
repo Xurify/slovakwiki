@@ -1,11 +1,16 @@
 <script lang="ts">
   import { PARTS } from "$lib/stick-figure/backdrop-parts";
   import { DOORS, HANDLE, doorPoint } from "$lib/stick-figure/door";
+  import { isDark, type SceneMood } from "$lib/stick-figure/scene-mood";
   import Room from "./Room.svelte";
   import WallClock from "./WallClock.svelte";
 
   /** `open`: how far the door has swung in, from 0 shut to 1 wide open against the wall. */
-  let { hour, open = 0 }: { hour: number; open?: number } = $props();
+  let { hour, mood, open = 0 }: { hour: number; mood?: SceneMood; open?: number } =
+    $props();
+
+  const dark = $derived(mood ? isDark(mood.time) : false);
+  const night = $derived(mood?.time === "night");
 
   const door = DOORS.kitchen!;
 
@@ -81,7 +86,9 @@
       class={index === 1 ? "fill-scene-honey" : "fill-scene-blue/60"}
     />
   {/each}
-  <path d="M146 {y - 13}v-3" class="stroke-scene-line/50" stroke-width="0.8" />
+  <!-- Each hangs by a wire hanger from a nail, the wire's ends gripping the rim. -->
+  <path d="M141 {y - 12}L146 {y - 17}L151 {y - 12}" class="stroke-scene-line/45" stroke-width="0.7" fill="none" />
+  <circle cx="146" cy={y - 17} r="1.1" class="fill-scene-line/70" />
 {/each}
 
 <rect x="190" y="40" width="72" height="186" rx="2" class="fill-portrait-bib" />
@@ -153,8 +160,24 @@
 </g>
 <path d="M438 192v34" class="stroke-portrait-bib" stroke-width="3" />
 <rect x="352" y="54" width="104" height="80" class="fill-portrait-bib" />
-<rect x="360" y="62" width="88" height="64" class="fill-scene-sky" />
-<path d="M360 126V108Q380 96 404 104Q426 94 448 104V126Z" class="fill-scene-sage" />
+<rect
+  x="360"
+  y="62"
+  width="88"
+  height="64"
+  class={dark ? (night ? "fill-portrait-suit" : "fill-scene-blue") : "fill-scene-sky"}
+/>
+{#if dark}
+  <!-- At seven in autumn it is already dark out. The stage's pool of light washes the middle of the room, so the glass
+       needs nearly night's paint to read as dusk, not late afternoon. -->
+  <rect x="360" y="62" width="88" height="64" class={night ? "fill-portrait-suit" : "fill-portrait-suit/85"} />
+  <circle cx="429" cy="96" r="1.4" class="fill-white" />
+  <circle cx="381" cy="99" r="0.9" class="fill-white/70" />
+{/if}
+<path
+  d="M360 126V108Q380 96 404 104Q426 94 448 104V126Z"
+  class={dark ? "fill-scene-line/70" : "fill-scene-sage"}
+/>
 <path d="M402 62h4v64h-4Z" class="fill-portrait-bib" />
 <path d="M366 120l18-40h6l-18 40ZM414 120l18-40h4l-18 40Z" class="fill-white/25" />
 <path
@@ -258,18 +281,18 @@
 <circle cx="603.4" cy="181" r="0.9" class="fill-scene-line/50" />
 <circle cx="606.6" cy="181" r="0.9" class="fill-scene-line/50" />
 
-<!-- Her small fridge at the end of the run, past where a phone's stage stops, a radio on top. -->
-<ellipse cx="803" cy="233" rx="21" ry="3" class="fill-scene-line/15" />
-<rect x="784" y="136" width="38" height="94" rx="5" class="fill-white" />
-<rect x="784" y="136" width="38" height="94" rx="5" class="fill-scene-line/5" />
-<path d="M784 164H822" class="stroke-scene-line/30" stroke-width="1.4" />
-<path d="M815 142v14M815 172v26" class="stroke-scene-line/50" stroke-width="2.6" />
-<rect x="792" y="143" width="9" height="7" rx="1.4" class="fill-scene-apple" />
-<circle cx="805" cy="152" r="3" class="fill-scene-honey" />
-<rect x="792" y="168" width="15" height="19" class="fill-white" />
-<path d="M794 174h11M794 178h9M794 182h11" class="stroke-scene-line/30" stroke-width="0.8" />
-<circle cx="799.5" cy="168" r="1.6" class="fill-scene-red" />
-<path d="M786 228h4v3h-4ZM816 228h4v3h-4Z" class="fill-scene-line/40" />
-<rect x="787" y="124" width="32" height="12" rx="2" class="fill-scene-red-mid" />
-<circle cx="795" cy="130" r="3.6" class="fill-scene-line/40" />
-<rect x="803" y="128" width="12" height="3" rx="1" class="fill-white/70" />
+<!-- Her small fridge between the window and the counter run, under the hanging, a radio on top. -->
+<ellipse cx="487" cy="233" rx="21" ry="3" class="fill-scene-line/15" />
+<rect x="468" y="136" width="38" height="94" rx="5" class="fill-white" />
+<rect x="468" y="136" width="38" height="94" rx="5" class="fill-scene-line/5" />
+<path d="M468 164H506" class="stroke-scene-line/30" stroke-width="1.4" />
+<path d="M499 142v14M499 172v26" class="stroke-scene-line/50" stroke-width="2.6" />
+<rect x="476" y="143" width="9" height="7" rx="1.4" class="fill-scene-apple" />
+<circle cx="489" cy="152" r="3" class="fill-scene-honey" />
+<rect x="476" y="168" width="15" height="19" class="fill-white" />
+<path d="M478 174h11M478 178h9M478 182h11" class="stroke-scene-line/30" stroke-width="0.8" />
+<circle cx="483.5" cy="168" r="1.6" class="fill-scene-red" />
+<path d="M470 228h4v3h-4ZM500 228h4v3h-4Z" class="fill-scene-line/40" />
+<rect x="471" y="124" width="32" height="12" rx="2" class="fill-scene-red-mid" />
+<circle cx="479" cy="130" r="3.6" class="fill-scene-line/40" />
+<rect x="487" y="128" width="12" height="3" rx="1" class="fill-white/70" />

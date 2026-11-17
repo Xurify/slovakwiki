@@ -1,5 +1,5 @@
 import type { LessonCharacterId } from "$lib/catalog/lessons/character-ids";
-import type { ObjectKind, SetPlan, World } from "./acts";
+import type { ObjectKind, ObjectState, SetPlan, World } from "./acts";
 import { LOOKS } from "./looks";
 import { GROUND_Y, SEAT_Y, type Point } from "./rig";
 
@@ -12,7 +12,7 @@ import { GROUND_Y, SEAT_Y, type Point } from "./rig";
  * the floor a plant stands on. The `desk` is the studio's, drawn with it.
  * Things on a `rail` hang from its hooks: a ladle, a lid. A rail a few
  * units wide is a single hook on the wall: a towel. A `stand` is a
- * market table under a cloth, set out with a cut cheese wheel and a scale.
+ * market table under a cloth, set out with a cut cheese wheel, wedges and a scale.
  * A `bar` is a café counter with its espresso machine, a till by its card
  * reader and a glass case of pastries at its right end, drawn over whoever
  * works behind it; a `stool` is a bar stool to set in front of it. A
@@ -183,8 +183,8 @@ export const OBJECT_SIZE: Record<
   headphones: { grip: { x: 6, y: 4.5 }, top: 18, width: 18 },
   // Held from underneath in the fingers, the ball over the fist.
   ball: { grip: { x: 0, y: 0 }, top: 8.4, width: 8.4 },
-  // Carried by the handle on its top, hanging beside the leg.
-  suitcase: { grip: { x: 0, y: 17 }, top: 15, width: 18 },
+  // A wheeled case pulled by its drawn-out handle, its wheels down by the feet.
+  suitcase: { grip: { x: 0, y: 47.6 }, top: 30, width: 18 },
   // Held by its handle's loop, the strap hanging down to the clip.
   lead: { grip: { x: 0, y: -3 }, top: 0, width: 5 },
   apple: { grip: { x: 0, y: 0 }, top: 8, width: 8 },
@@ -192,9 +192,12 @@ export const OBJECT_SIZE: Record<
   basket: { grip: { x: 0, y: 12 }, top: 14, width: 16 },
   book: { grip: { x: 0, y: 5 }, top: 11.5, width: 9 },
   clipboard: { grip: { x: 0, y: 6 }, top: 14, width: 10 },
-  umbrella: { grip: { x: 0, y: 6 }, top: 21, width: 6 },
-  cheese: { grip: { x: 0, y: 5 }, top: 11, width: 7 },
-  plate: { grip: { x: 6, y: 1 }, top: 2.4, width: 15 },
+  umbrella: { grip: { x: 0, y: 6 }, top: 34, width: 9 },
+  // A wedge on its side, held round its middle.
+  cheese: { grip: { x: 0, y: 3 }, top: 7.8, width: 11.7 },
+  plate: { grip: { x: 9, y: 1.5 }, top: 3.6, width: 22.6 },
+  // Held by one short edge between finger and thumb, the note standing up out of the fist.
+  money: { grip: { x: 0, y: 0.5 }, top: 6, width: 10 },
   // In the bag piece by the home's window: its opening at the top of the bag.
   stash: { grip: { x: 0, y: 8 }, top: 13, width: 18 },
 };
@@ -371,7 +374,13 @@ export interface StageContext {
   middleOf(name: string): number | undefined;
   /** A chair's middle in cast units. */
   seatX(chair: number): number | undefined;
+  /** The way a dog of the cast faces, which puts its collar and head ahead of its middle. */
+  facingOf?(name: string): 1 | -1 | undefined;
 }
+
+/** A dog's collar and the top of its head, rig units ahead of its middle (StickDog). */
+const DOG_COLLAR_AHEAD = 12.8;
+const DOG_HEAD_AHEAD = 15;
 
 /**
  * A named point of the stage in cast units: an object (its grip, top or
@@ -389,7 +398,7 @@ export function stagePoint(
   if (world && state) {
     if (as === "grip") return objectGrip(world, name, geometry, facing);
     const base = objectBase(world, name, geometry);
-    if (!base) return undefined;
+    if (!base) return heldAt(context, state.where);
     return as === "top" ? { x: base.x, y: base.y - OBJECT_SIZE[state.kind].top } : base;
   }
   const place = set?.places?.[name];
@@ -400,7 +409,11 @@ export function stagePoint(
   if (middle !== undefined) {
     const isDog = Boolean(LOOKS[name as LessonCharacterId]?.dog);
     if (isDog) {
-      return { x: middle, y: as === "top" ? 94 : as === "base" ? 112 : 102 };
+      // Its collar and its head are ahead of its middle, the way it faces: a lead clipped at its middle was out of reach.
+      const ahead =
+        (context.facingOf?.(name) ?? 0) *
+        (as === "top" ? DOG_HEAD_AHEAD : as === "base" ? 0 : DOG_COLLAR_AHEAD);
+      return { x: middle + ahead, y: as === "top" ? 94 : as === "base" ? 112 : 102 };
     }
     return { x: middle, y: as === "top" ? 50 : as === "base" ? 112 : 68 };
   }
@@ -411,6 +424,14 @@ export function stagePoint(
   }
   const at = set && spotAt(set, geometry, name, context.castX);
   return at && { x: at.x, y: 84 };
+}
+
+/** A thing in someone's hand or pocket is pointed at on them, at hand height: it goes where they go. */
+function heldAt(context: StageContext, where: ObjectState["where"]): Point | undefined {
+  const holder =
+    "hand" in where ? where.hand : "pocket" in where ? where.pocket : undefined;
+  const middle = holder ? context.middleOf(holder) : undefined;
+  return middle === undefined ? undefined : { x: middle, y: HANDOVER_Y };
 }
 
 /** Chest high, where two people's hands meet to hand something over: six under the shoulders (66). Ten under, by the worktop, it read as handed at the hip. */

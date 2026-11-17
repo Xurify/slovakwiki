@@ -1,6 +1,11 @@
 import { foldLine, lineWords } from "./slovak-text";
 
 export const STICK_PICTURE_IDS = [
+  "clock-2-00",
+  "clock-2-15",
+  "clock-2-30",
+  "clock-2-45",
+  "clock-5-00",
   "computing",
   "flag-at",
   "flag-ca",
@@ -13,12 +18,20 @@ export const STICK_PICTURE_IDS = [
   "flag-sk",
   "flag-ua",
   "flag-us",
+  "photo-house",
+  "photo-man-dog",
+  "photo-mother-girl",
 ] as const;
 
 export type StickPictureId = (typeof STICK_PICTURE_IDS)[number];
 
 /** What each picture shows, for notes in the lab. */
 export const STICK_PICTURE_NAMES: Record<StickPictureId, string> = {
+  "clock-2-00": "Clock face: two o'clock",
+  "clock-2-15": "Clock face: quarter past two",
+  "clock-2-30": "Clock face: half past two",
+  "clock-2-45": "Clock face: quarter to three",
+  "clock-5-00": "Clock face: five o'clock",
   computing: "Working it out",
   "flag-at": "Austrian flag",
   "flag-ca": "Canadian flag",
@@ -31,6 +44,9 @@ export const STICK_PICTURE_NAMES: Record<StickPictureId, string> = {
   "flag-sk": "Slovak flag",
   "flag-ua": "Ukrainian flag",
   "flag-us": "American flag",
+  "photo-house": "Photo: a house by the trees, a car in front",
+  "photo-man-dog": "Photo: a man with a big dog",
+  "photo-mother-girl": "Photo: a woman with a small girl",
 };
 
 /**
@@ -57,14 +73,25 @@ const PICTURE_STEMS: Array<[string, StickPictureId]> = [
   ["amerik", "flag-us"],
 ];
 
+/** The hands of a clock-face picture, or null for any other picture. */
+export function clockHands(
+  picture: StickPictureId,
+): { hour: number; minute: number } | null {
+  const match = /^clock-(\d+)-(\d+)$/.exec(picture);
+  return match ? { hour: Number(match[1]), minute: Number(match[2]) } : null;
+}
+
 /** Pictures a line calls up, each once, by the index of the word that names it. */
 export function linePictures(
   slovak: string,
 ): Array<{ picture: StickPictureId; word: number }> {
   const found: Array<{ picture: StickPictureId; word: number }> = [];
+  const words = lineWords(slovak);
 
-  lineWords(slovak).forEach((word, index) => {
+  words.forEach((word, index) => {
     const folded = foldLine(word);
+    // The podcast's name is a name, not Slovakia: a flag on it covered the studio's on-air sign.
+    if (folded === "slovak" && foldLine(words[index + 1] ?? "") === "wiki") return;
     const picture = PICTURE_STEMS.find(([stem]) => folded.startsWith(stem))?.[1];
     if (picture && !found.some((cue) => cue.picture === picture)) {
       found.push({ picture, word: index });

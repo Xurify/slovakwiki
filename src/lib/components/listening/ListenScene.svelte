@@ -76,6 +76,8 @@
 
   /** The place is seen and heard this long before the first line of a segment that follows on. */
   const SETTLE_MS = 1400;
+  /** More before the first line where the story has gone somewhere else: the trip there gets a breath. */
+  const MOVED_MS = 1200;
   /** The next segment takes the sound over within this, rather than start it again. */
   const HANDOVER_MS = 1500;
 
@@ -99,13 +101,16 @@
   const direction = $derived(
     directScene(scene.lines, scene.setting, scene.order, scene.carried),
   );
-  const mood = $derived(
-    sceneMood(
-      scene.lines.map((line) => line.slovak),
-      Math.max(at, 0),
-      scene.before,
-    ),
-  );
+  const mood = $derived.by(() => {
+    const said = scene.lines.map((line) => line.slovak);
+    const upTo = Math.max(at, 0);
+    const quiz = new Set(scene.lines.flatMap((line, index) => (line.quiz ? [index] : [])));
+    const told = sceneMood(said, upTo, scene.before, quiz);
+    if (scene.clock === undefined) return told;
+    // The segment's own clock, unless one of its own lines has told a time since.
+    const here = sceneMood(said, upTo, undefined, quiz).hour;
+    return { ...told, hour: here ?? scene.clock };
+  });
 
   $effect(() => {
     if (!follows) return;
@@ -151,7 +156,7 @@
     if (!settled && index === 0) {
       settled = true;
       playSegmentCue();
-      wait = Math.max(wait, SETTLE_MS);
+      wait = Math.max(wait, SETTLE_MS + (scene.moved ? MOVED_MS : 0));
     }
 
     const ring = scene.lines[index]?.ring;
@@ -282,7 +287,12 @@
       transition:slide={{ duration: reducedMotion() ? 0 : 200 }}
     >
       <div
-        class="min-h-[5.4375rem] px-4 py-3 max-[600px]:min-h-[5.125rem] sm:px-5"
+        class={cx(
+          "px-4 py-3 sm:px-5",
+          showEnglish
+            ? "min-h-[9.5rem] max-[600px]:min-h-[8.75rem]"
+            : "min-h-[6.75rem] max-[600px]:min-h-[6.25rem]",
+        )}
         aria-live="polite"
         use:animateResize
       >

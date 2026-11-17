@@ -150,6 +150,38 @@
   }
 </script>
 
+<!--
+  A wedge of cheese lying on its side, its foot at 0: pale yellow, the rind on its thick end, holes in
+  the cut face. Smoked oštiepky in brown read as loaves or pine cones; a yellow wedge with holes reads
+  as cheese at a glance, at phone size too.
+-->
+{#snippet wedge()}
+  <path d="M-4.5 0H4.5V-6Z" class="fill-scene-honey stroke-scene-onion" stroke-width="0.4" />
+  <path d="M-4.5 0H4.5V-6Z" class="fill-white/35" stroke="none" />
+  <path d="M4.5 0V-6" class="stroke-scene-onion" stroke-width="1.1" />
+  <circle cx="1.6" cy="-1.6" r="0.8" class="fill-scene-onion/55" stroke="none" />
+  <circle cx="-1.3" cy="-0.8" r="0.5" class="fill-scene-onion/55" stroke="none" />
+  <circle cx="3" cy="-3.6" r="0.55" class="fill-scene-onion/55" stroke="none" />
+{/snippet}
+
+<!--
+  A whole wheel with a wedge cut from its front, so the pale inside and its holes show; its foot at 0.
+-->
+{#snippet wheel()}
+  <path d="M-11 -9V-3Q-11 0 0 0Q11 0 11 -3V-9Z" class="fill-scene-honey stroke-scene-onion" stroke-width="0.5" />
+  <ellipse cx="0" cy="-9" rx="11" ry="2.8" class="fill-scene-honey stroke-scene-onion" stroke-width="0.5" />
+  <ellipse cx="0" cy="-9" rx="11" ry="2.8" class="fill-white/30" stroke="none" />
+  <!-- The cut: the top's missing slice and the two faces it leaves, paler than the rind. -->
+  <path d="M0 -9L4.2 -6.4L9.2 -7.5Z" class="fill-scene-warm" stroke="none" />
+  <path d="M0 -9L4.2 -6.4V-0.2L0 -2.6Z" class="fill-scene-honey stroke-scene-onion/70" stroke-width="0.4" />
+  <path d="M0 -9L4.2 -6.4V-0.2L0 -2.6Z" class="fill-white/45" stroke="none" />
+  <path d="M4.2 -6.4L9.2 -7.5V-1.4L4.2 -0.2Z" class="fill-scene-honey stroke-scene-onion/70" stroke-width="0.4" />
+  <path d="M4.2 -6.4L9.2 -7.5V-1.4L4.2 -0.2Z" class="fill-white/35" stroke="none" />
+  {#each [[1.4, -5.6, 0.7], [2.8, -2.8, 0.5], [6.4, -4.6, 0.75], [7.6, -2.4, 0.5], [-6, -4.6, 0.6], [-3, -3, 0.45]] as [cx, cy, r] (`${cx},${cy}`)}
+    <circle {cx} {cy} {r} class="fill-scene-onion/55" stroke="none" />
+  {/each}
+{/snippet}
+
 <svg
   class="pointer-events-none absolute inset-0 size-full overflow-visible"
   viewBox="{n(view.x)} {n(view.y)} {n(view.width)} {n(view.height)}"
@@ -292,6 +324,7 @@
           class="fill-scene-edge"
         />
         {#if sink !== undefined}
+          <g data-set-id="{piece.id}-sink">
           <!-- The sink, sunk in the worktop, and its tap curving over it from the back. -->
           <!-- A steel sink: its rim on the worktop, the basin's dark inside, and its front dropping below the edge. -->
           <rect
@@ -342,6 +375,7 @@
               stroke-dasharray="3 1"
             />
           {/if}
+          </g>
         {/if}
         {#if sink !== undefined}
           <!-- An oil bottle between the sink and the board, and a bowl of apples at the counter's free end. -->
@@ -362,13 +396,17 @@
         {/if}
       {:else if piece.kind === "stove"}
         <!-- The cooker hood over it, its duct up to the underside of the wall cupboards. -->
-        <rect x="-6" y={top - 93} width="12" height="31" class="fill-scene-steel-light" />
-        <path
-          d="M-13 {top - 64}H13L22 {top - 52}H-22Z"
-          class="fill-scene-steel"
-        />
-        <rect x="-22" y={top - 52} width="44" height="2.4" class="fill-scene-steel-dark" />
-        <path d="M-4 {top - 58}h8" class="stroke-white/60" stroke-width="1" />
+        <g data-set-id="{piece.id}-hood">
+          <rect x="-6" y={top - 93} width="12" height="31" class="fill-scene-steel-light" />
+          <path
+            d="M-13 {top - 64}H13L22 {top - 52}H-22Z"
+            class="fill-scene-steel"
+          />
+          <rect x="-22" y={top - 52} width="44" height="2.4" class="fill-scene-steel-dark" />
+          <path d="M-4 {top - 58}h8" class="stroke-white/60" stroke-width="1" />
+        </g>
+        <!-- The cooker itself, measured apart from the hood so a tap on the hood is not the stove. -->
+        <g data-set-id="{piece.id}-body">
         <!-- The backguard behind the hob, and the pan supports over the burners. -->
         <rect
           x={-width / 2}
@@ -436,6 +474,7 @@
           stroke-width="0.8"
         />
         <path d="M-4 {GROUND_Y - 4.5}h8" class="stroke-scene-line/50" stroke-width="1.2" />
+        </g>
         {#if lit}
           <!-- The gas, a ring of blue under the pot. -->
           <g class="animate-flicker [transform-box:fill-box] origin-bottom">
@@ -459,17 +498,19 @@
         {/each}
         <path d="M6.4 {top - 0.6}h3.2l0.4 21-1.6 1.4-1.6-1.4Z" class="fill-scene-red-mid" />
         <path d="M6.6 {top + 17}h3M6.6 {top + 19}h3" class="stroke-white/60" stroke-width="0.7" />
-        <path
-          d="M14.6 {top - 0.4}Q17 {top - 1.4} 19.4 {top - 0.4}L23.6 {top + 4}L24.2 {top +
-            24}H9.8L10.4 {top + 4}Z"
-          class="fill-scene-green-mid"
-        />
-        <path
-          d="M17 {top}V{top + 24}M14 {top + 2}L17 {top + 8}L20 {top + 2}"
-          class="stroke-scene-line/40"
-          stroke-width="0.7"
-        />
-        <path d="M11 {top + 15}h4M19 {top + 15}h4" class="stroke-scene-line/30" stroke-width="0.7" />
+        <g data-set-id="{piece.id}-coat">
+          <path
+            d="M14.6 {top - 0.4}Q17 {top - 1.4} 19.4 {top - 0.4}L23.6 {top + 4}L24.2 {top +
+              24}H9.8L10.4 {top + 4}Z"
+            class="fill-scene-green-mid"
+          />
+          <path
+            d="M17 {top}V{top + 24}M14 {top + 2}L17 {top + 8}L20 {top + 2}"
+            class="stroke-scene-line/40"
+            stroke-width="0.7"
+          />
+          <path d="M11 {top + 15}h4M19 {top + 15}h4" class="stroke-scene-line/30" stroke-width="0.7" />
+        </g>
       {:else if piece.kind === "rail" && width <= 6}
         <path d="M-1.6 {top - 2.4}h3.2" class="stroke-scene-line/80" stroke-width="2" />
         <path
@@ -531,62 +572,62 @@
         <path d="M-9 {top - 13}h18l-0.2 1.4h-17.6Z" class="fill-scene-line/15" />
       {:else if piece.kind === "stand"}
         {@const hem = GROUND_Y - 8}
-        <!-- A market table: legs under the hem of a green gingham cloth, so it stands apart from the stall's red one. -->
+        {@const half = width / 2}
+        <!-- The farm stall's selling counter, in the red gingham of the stall's own, over whoever sells behind it. -->
         <path
-          d="M{-width / 2 + 4} {hem}V{GROUND_Y}M{width / 2 - 4} {hem}V{GROUND_Y}"
+          d="M{-half + 5} {hem}V{GROUND_Y}M{half - 5} {hem}V{GROUND_Y}"
           class="stroke-scene-coffee/70"
           stroke-width="2.4"
         />
-        <rect x={-width / 2} y={top} {width} height={hem - top} class="fill-scene-warm" />
-        {#each Array.from({ length: Math.floor(width / 6) }, (_, index) => -width / 2 + index * 6) as x (x)}
-          <rect {x} y={top} width="3" height={hem - top} class="fill-scene-green/15" />
+        <rect x={-half} y={top} {width} height={hem - top} class="fill-scene-warm" />
+        {#each Array.from({ length: Math.floor(width / 6) }, (_, index) => -half + index * 6) as x (x)}
+          <rect {x} y={top} width="3" height={hem - top} class="fill-scene-red/20" />
         {/each}
         {#each Array.from({ length: Math.floor((hem - top) / 6) }, (_, index) => top + 3 + index * 6) as y (y)}
-          <rect x={-width / 2} {y} {width} height="3" class="fill-scene-green/15" />
+          <rect x={-half} {y} {width} height="3" class="fill-scene-red/20" />
         {/each}
-        <path
-          d="M{-width / 2} {hem}H{width / 2}"
-          class="stroke-scene-line/25"
-          stroke-width="0.8"
-        />
-        <rect x={-width / 2 - 1} y={top - 1} width={width + 2} height="3" rx="1" class="fill-scene-wood" />
-        <rect x={-width / 2 - 1} y={top + 1} width={width + 2} height="1" class="fill-scene-coffee/30" />
-        <!-- Her oštiepky stood on end on a board, as they hang over the stall, and a bundle of korbáčiky. -->
-        <rect x="-8" y={top - 2.4} width="22" height="2.4" rx="0.8" class="fill-scene-wood" />
-        <rect x="-8" y={top - 2.4} width="22" height="2.4" rx="0.8" class="fill-scene-coffee/25" />
-        <path d="M-8 {top}h22" class="stroke-scene-line/25" stroke-width="0.8" />
-        {#each [-3, 3, 9] as x (x)}
-          <g transform="translate({x} {top - 2.4})">
-            <path
-              d="M0 -11C2.6 -10.4 3.4 -7.6 3.4 -5.4C3.4 -2.4 2 -0.6 0 0C-2 -0.6 -3.4 -2.4 -3.4 -5.4C-3.4 -7.6 -2.6 -10.4 0 -11Z"
-              class="fill-scene-onion"
-            />
-            <path d="M1.2 -10.2C3.2 -8 3.2 -2.6 1 -0.6" class="stroke-scene-coffee/30" stroke-width="1" fill="none" />
-            <path
-              d="M-2.6 -7.2l0.9 1.2 0.9 -1.2 0.9 1.2 0.9 -1.2 0.9 1.2 0.9 -1.2M-2.8 -4.4l0.9 1.2 0.9 -1.2 0.9 1.2 0.9 -1.2 0.9 1.2 0.9 -1.2"
-              class="stroke-scene-coffee/50"
-              stroke-width="0.45"
-              fill="none"
-            />
-            <path d="M-1.2 -10.4l1.2 -1.6 1.2 1.6" class="stroke-scene-coffee/70" stroke-width="0.5" fill="none" />
+        <path d="M{-half} {hem}H{half}" class="stroke-scene-line/25" stroke-width="0.8" />
+        <rect x={-half - 1} y={top - 1} width={width + 2} height="3" rx="1" class="fill-scene-wood" />
+        <rect x={-half - 1} y={top + 1} width={width + 2} height="1" class="fill-scene-coffee/30" />
+        <!-- Tento syr by the buyer: a big wheel on a board, cut into. -->
+        <g transform="translate({-half + 13} {top - 1})" data-set-id="{piece.id}-near-cheese">
+          <rect x="-12" y="-2" width="24" height="2" rx="0.6" class="fill-scene-wood" />
+          <rect x="-12" y="-2" width="24" height="2" rx="0.6" class="fill-scene-coffee/25" />
+          <g transform="translate(0 -2)">{@render wheel()}</g>
+        </g>
+        <!--
+          Tamten at the far end: small wedges on a board, cheaper; Lucia sells the one in front
+          (the cheese object). The strawberry basket stands between them and the scale.
+        -->
+        <g transform="translate({half - 6.5} {top - 1})" data-set-id="{piece.id}-far-cheese">
+          <rect x="-6.5" y="-2.4" width="13" height="2.4" rx="0.8" class="fill-scene-wood" />
+          <rect x="-6.5" y="-2.4" width="13" height="2.4" rx="0.8" class="fill-scene-coffee/25" />
+          <g transform="translate(0 -2.4) scale(-1.3 1.3)">{@render wedge()}</g>
+        </g>
+        <!-- Their prices on cards pinned to the cloth under them, big enough to read on a phone. -->
+        {#each [{ dx: -half + 13, price: "5 €", end: "near" }, { dx: half - 11, price: "3 €", end: "far" }] as { dx, price, end } (price)}
+          <g transform="translate({dx} {top + 4})" data-set-id="{piece.id}-price-{end}">
+            <rect x="-10.5" y="0" width="21" height="13" rx="1.5" class="fill-white stroke-scene-line/30" stroke-width="0.6" />
+            <circle cx="0" cy="1.6" r="0.9" class="fill-scene-red" />
+            <text
+              x="0"
+              y="10.6"
+              text-anchor="middle"
+              font-size="9.5"
+              font-weight="700"
+              class="fill-scene-line"
+              stroke="none">{price}</text
+            >
           </g>
         {/each}
-        {#each [-1.6, 0, 1.6] as dy (dy)}
-          <path
-            d="M-36 {top - 2 + dy}q1 -1.2 2 0t2 0 2 0 2 0 2 0 2 0"
-            class="stroke-scene-honey"
-            stroke-width="1.3"
-            fill="none"
-          />
-        {/each}
         <!-- A shop scale, big enough to weigh a cheese on. -->
-        <g transform="translate(-10 {top}) scale(1.35) translate(0 {-top})">
-          <path d="M19 {top}h11" class="stroke-scene-line/25" stroke-width="0.8" />
-          <rect x="20" y={top - 9} width="9" height="8" rx="1" class="fill-scene-steel-light" />
-          <circle cx="24.5" cy={top - 5} r="2.6" class="fill-white" />
-          <path d="M24.5 {top - 5}l1.2 -1.6" class="stroke-scene-red" stroke-width="0.6" />
-          <path d="M24.5 {top - 9}v-1.6" class="stroke-scene-steel-dark" stroke-width="1.2" />
-          <rect x="19" y={top - 12} width="11" height="1.6" rx="0.8" class="fill-scene-steel" />
+        <g transform="translate(13 {top}) scale(1.35)" data-set-id="{piece.id}-scale">
+          <path d="M-5.5 0h11" class="stroke-scene-line/25" stroke-width="0.8" />
+          <rect x="-4.5" y="-9" width="9" height="8" rx="1" class="fill-scene-steel-light" />
+          <circle cx="0" cy="-5" r="2.6" class="fill-white" />
+          <path d="M0 -5l1.2 -1.6" class="stroke-scene-red" stroke-width="0.6" />
+          <path d="M0 -9v-1.6" class="stroke-scene-steel-dark" stroke-width="1.2" />
+          <rect x="-5.5" y="-12" width="11" height="1.6" rx="0.8" class="fill-scene-steel" />
         </g>
       {:else if piece.kind === "bar"}
         {@const half = width / 2}
@@ -616,7 +657,7 @@
         {#each [-19, -7] as x (x)}
           <ellipse cx={x} cy={top - 1.3} rx="4.4" ry="0.9" class="fill-white" />
         {/each}
-        <g transform="translate(-13 {top - 1})">
+        <g transform="translate(-13 {top - 1})" data-set-id="{piece.id}-machine">
           <rect x="-11" y="-22" width="22" height="22" rx="1" class="fill-scene-steel-dark" />
           <rect x="-11" y="-22" width="22" height="12" rx="1.5" class="fill-scene-steel" />
           <rect x="-11.5" y="-23.4" width="23" height="1.8" rx="0.9" class="fill-scene-steel-light" />
@@ -699,6 +740,7 @@
         {#each [-1, 1] as side (side)}
           {@const back = side * (width / 2 - 2)}
           {@const front = side * (width / 2 - 20)}
+          <g data-set-id="{piece.id}-chair-{side < 0 ? 'l' : 'r'}">
           <path
             d="M{back} {GROUND_Y - 22}Q{back + side * 2} {GROUND_Y - 36} {back + side * 3} {GROUND_Y - 48}q{-side * 1.4} -2 {-side * 3} 0"
             class="stroke-scene-coffee"
@@ -711,7 +753,9 @@
           />
           <ellipse cx={(back + front) / 2} cy={GROUND_Y - 21.4} rx={Math.abs(back - front) / 2 + 1.4} ry="1.8" class="fill-scene-coffee" />
           <ellipse cx={(back + front) / 2} cy={GROUND_Y - 22.6} rx={Math.abs(back - front) / 2 + 1.4} ry="1.8" class="fill-scene-wood" />
+          </g>
         {/each}
+        <g data-set-id="{piece.id}-top">
         <path d="M-1 {top + 2}h2V{GROUND_Y - 2}h-2Z" class="fill-scene-line/80" />
         <path d="M-9 {GROUND_Y}q9 -5 18 0Z" class="fill-scene-line/80" />
         <ellipse cx="0" cy={top + 1.4} rx="17" ry="2.4" class="fill-scene-edge" />
@@ -725,6 +769,7 @@
         <rect x="-1.4" y={top - 5} width="2.8" height="4.6" rx="1" class="fill-scene-sky" />
         <path d="M0 {top - 5}v-4" class="stroke-scene-leaf" stroke-width="0.6" />
         <circle cx="0" cy={top - 9.4} r="1.5" class="fill-scene-red-mid" />
+        </g>
       {:else if piece.kind === "reception"}
         <!-- Down past the floor line, over the feet of whoever stands behind it. -->
         <ellipse cx="0" cy={GROUND_Y + 4.5} rx={width / 2 + 3} ry="1.8" class="fill-portrait-ink/15" />
@@ -746,7 +791,7 @@
         <text x="0" y={top + 16.4} text-anchor="middle" font-size="3.8" font-weight="700" class="fill-scene-coffee font-sans">
           Recepcia
         </text>
-        <g transform="translate({-width / 2 + 8} {top - 1})">
+        <g transform="translate({-width / 2 + 8} {top - 1})" data-set-id="{piece.id}-bell">
           <rect x="-4" y="-1" width="8" height="1" rx="0.5" class="fill-scene-steel-dark" />
           <path d="M-3.4 -1a3.4 3.4 0 0 1 6.8 0Z" class="fill-scene-honey" />
           <rect x="-0.4" y="-5.6" width="0.8" height="1.4" class="fill-scene-steel-dark" />
@@ -756,7 +801,7 @@
           <path d="M-5 -2.4l1 -1h8l1 1" class="fill-portrait-bib" />
           <path d="M-3 -3.6l7 -1.2" class="stroke-portrait-ink" stroke-width="0.6" />
         </g>
-        <g transform="translate({width / 2 - 16} {top - 1})">
+        <g transform="translate({width / 2 - 16} {top - 1})" data-set-id="{piece.id}-computer">
           <rect x="-4" y="-1" width="8" height="1" rx="0.5" class="fill-portrait-vest" />
           <rect x="-0.8" y="-5" width="1.6" height="4.4" class="fill-portrait-vest" />
           <rect x="-9" y="-17" width="18" height="12.5" rx="1" class="fill-portrait-vest" />
@@ -840,12 +885,13 @@
       >
         <StickSetObject
           kind={state.kind}
+          look={state.look}
           bitten={state.bitten}
           fill={state.fill}
           heat={state.heat}
           cut={state.cut}
           wilt={state.wilt}
-          flat={FLAT.has(state.kind)}
+          flat={FLAT.has(state.kind) || state.look === "sheet"}
           hang={hangs(world, id, geometry)}
           open={state.kind === "pot" ? !lidOn(id) : undefined}
           bits={state.kind === "pot" &&

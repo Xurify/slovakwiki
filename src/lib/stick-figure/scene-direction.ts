@@ -20,6 +20,8 @@ import type { SceneThing } from "./thing-words";
 
 export interface DirectedLine extends StageLine {
   gestures?: StickGestureId[];
+  /** Put to the listener, its verdict, or on one path of their picks: a time it tells is not the time now. */
+  quiz?: boolean;
   /** Loudness track of the clip, encoded (`content/audio/mouth.json`). */
   mouth?: string;
   /** The clip's text, when it marks pauses the line does not show. */
@@ -130,8 +132,9 @@ function intoPhone(lines: readonly StageLine[]): boolean[] {
 }
 
 function actedStaging(staging: LineStaging): LineStaging {
-  const { addressee, audience, facing, reactions } = staging;
-  return { addressee, audience, facing, reactions };
+  const { addressee, arrives, audience, boards, facing, reactions } = staging;
+  // The tram is the street's, not a cue's: it still pulls in when a line says so.
+  return { addressee, arrives, audience, boards, facing, reactions };
 }
 
 export function directScene(

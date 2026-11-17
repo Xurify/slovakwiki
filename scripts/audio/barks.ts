@@ -46,6 +46,41 @@ const BARK_GAIN_DB = -5;
 /** The single bark a quiet "Haf." is made from. */
 const SMALL: [number, number] = [14.69, 15.02];
 
+/**
+ * How a line's leading direction changes the cut, so the same dog does not
+ * bark the same "Haf! Haf!" for a warning, a hello and joy: glad and excited
+ * barks come higher and closer together (a single glad bark is the first of
+ * the two-bark run, another take), a startled one at a stranger deeper and
+ * sharper, a sighed one lower, slower and duller.
+ */
+const MOODS: Record<string, { gap: number; shape: string; single?: [number, number] }> = {
+  excited: {
+    gap: 0.1,
+    shape: "aresample=44100,asetrate=44100*1.1,aresample=44100,atempo=1.08",
+  },
+  happy: {
+    gap: 0.16,
+    shape: "aresample=44100,asetrate=44100*1.06,aresample=44100,atempo=1.04",
+    single: [1.59, 1.92],
+  },
+  surprised: {
+    gap: 0.08,
+    shape:
+      "aresample=44100,asetrate=44100*0.9,aresample=44100,atempo=1.18,highpass=f=180,treble=g=4:f=3000",
+  },
+  sighs: {
+    gap: 0.4,
+    shape:
+      "aresample=44100,asetrate=44100*0.93,aresample=44100,atempo=0.9,lowpass=f=2800,volume=-1dB",
+  },
+};
+
+/** The direction a dog's line opens with (`[excited] Haf! Haf!`), if any. */
+export function barkMood(text: string): string | undefined {
+  const tag = /^\s*\[(\w+)\]/.exec(text)?.[1];
+  return tag && tag in MOODS ? tag : undefined;
+}
+
 export function isRecordedVoice(config: AudioConfig): boolean {
   return config.voiceId.startsWith("recording:");
 }
@@ -93,11 +128,18 @@ export async function barkClip(text: string): Promise<Uint8Array> {
 
   const input = await source();
   const parts = stretches(barks);
+  const mood = MOODS[barkMood(text) ?? ""];
   // A breath of room before and after, so the bark does not start on the cut.
   const filters = parts.map(({ count, full }, index) => {
-    const [start, end] = full ? RUNS[count] : SMALL;
-    const shape = full ? "volume=0dB" : "volume=-8dB,lowpass=f=2400,afade=t=in:d=0.04";
-    return `[0:a]atrim=${start}:${end},asetpts=PTS-STARTPTS,afade=t=in:d=0.015,afade=t=out:st=${(end - start - 0.04).toFixed(3)}:d=0.04,${shape},apad=pad_dur=0.25[p${index}]`;
+    const [start, end] = full
+      ? count === 1 && mood?.single
+        ? mood.single
+        : RUNS[count]
+      : SMALL;
+    // A small bark ends near -24 LUFS, under a full one's -19: at -8 dB the sighed "Haf." was -30.6, lost under the room.
+    const shape = full ? "volume=0dB" : "volume=-4.5dB,lowpass=f=2400,afade=t=in:d=0.04";
+    const moodShape = mood ? `,${mood.shape}` : "";
+    return `[0:a]atrim=${start}:${end},asetpts=PTS-STARTPTS,afade=t=in:d=0.015,afade=t=out:st=${(end - start - 0.04).toFixed(3)}:d=0.04,${shape}${moodShape},apad=pad_dur=${mood?.gap ?? 0.25}[p${index}]`;
   });
   const joined = parts.map((_, index) => `[p${index}]`).join("");
   const graph = [

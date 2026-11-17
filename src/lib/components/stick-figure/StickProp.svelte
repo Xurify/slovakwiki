@@ -146,10 +146,12 @@
       stroke="none"
     />
   {:else if prop === "suitcase"}
-    <!-- Carried low by its handle, like the bag, but stiff and boxy. -->
-    <path d="M-3 4V1h6v3" fill="none" stroke-width="1.1" />
-    <rect x="-9" y="4" width="18" height="14" rx="1.6" class="fill-portrait-vest" />
-    <path d="M-9 8.4h18" class="stroke-white/40" stroke-width="1" />
-    <path d="M-5.4 18v1.4M5.4 18v1.4" stroke-width="1.4" />
+    <!-- A wheeled case pulled by its drawn-out handle, its wheels by the feet. -->
+    <path d="M-4 1V19M4 1V19" class="stroke-scene-steel-dark" stroke-width="1.3" />
+    <path d="M-5 0.4h10" stroke-width="2.2" />
+    <rect x="-9" y="18" width="18" height="27" rx="2.4" class="fill-portrait-suit" stroke-width="0.9" />
+    <path d="M-4.5 20v23M0 20v23M4.5 20v23" class="stroke-white/20" stroke-width="0.9" />
+    <circle cx="-5.6" cy="46.2" r="1.8" class="fill-portrait-ink" />
+    <circle cx="5.6" cy="46.2" r="1.8" class="fill-portrait-ink" />
   {/if}
 </g>

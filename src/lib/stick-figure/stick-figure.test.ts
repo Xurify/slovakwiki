@@ -755,6 +755,13 @@ describe("pictures", () => {
     expect(linePictures("Dobrý deň.")).toEqual([]);
   });
 
+  it("shows no flag on the podcast's name", () => {
+    expect(linePictures("Tu je podcast Slovak Wiki.")).toEqual([]);
+    expect(linePictures("Slovak Wiki je po slovensky.")).toEqual([
+      { picture: "flag-sk", word: 4 },
+    ]);
+  });
+
   it("shows the working-out over the head on a sentence directed to compute", () => {
     const plan = planLine("Hľadám v slovníku. Haf: zvuk psa.", {
       gestures: ["compute"],

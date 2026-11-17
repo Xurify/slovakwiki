@@ -29,6 +29,7 @@
     round = 1,
     sway = STILL,
     headphones = false,
+    grin,
   }: {
     /** On a call: a robot's antenna light blinks while it talks over the line. */
     calling?: boolean;
@@ -43,6 +44,8 @@
     sway?: { x: number; y: number };
     /** Closed-back studio headphones worn over the hair. */
     headphones?: boolean;
+    /** A wide grin, the top teeth showing; `seeds` has poppy seeds stuck on them. */
+    grin?: "teeth" | "seeds";
   } = $props();
 
   const id = $props.id();
@@ -75,6 +78,8 @@
   const browY = $derived(24.8 - Math.max(0, pose.brow) * 2.2);
   const browWorry = $derived(Math.max(0, -pose.brow) * 1.8);
   const mouthOpen = $derived(pose.mouth > 0.06);
+  /** Brows knit (a sigh, a sorry line): the mouth turns down and a robot's eyes slant to concern. */
+  const worried = $derived(pose.brow <= -0.5);
 
   /**
    * A flat upper lip over a jaw curve reads as speech, where an ellipse reads
@@ -307,6 +312,15 @@
   />
   <circle cx={n(25.6 + eyeX)} cy="25.5" r="2.6" class={robot.eyes} />
   <circle cx={n(38.4 + eyeX)} cy="25.5" r="2.6" class={robot.eyes} />
+  {#if worried}
+    <!-- Lids slanting down to the outer corners: concern on a lamp eye. -->
+    <path
+      d="M{n(22.6 + eyeX)} 22.4L{n(28.6 + eyeX)} 22.4L{n(28.6 + eyeX)} 24.2L{n(22.6 + eyeX)} 25.6ZM{n(
+        35.4 + eyeX,
+      )} 22.4L{n(41.4 + eyeX)} 22.4L{n(41.4 + eyeX)} 25.6L{n(35.4 + eyeX)} 24.2Z"
+      class="fill-portrait-ink"
+    />
+  {/if}
   <rect
     x={n(25 + eyeX * 0.5)}
     y="34"
@@ -362,11 +376,27 @@
     class="fill-portrait-ink stroke-portrait-ink"
     stroke-width="1.3"
   />
-  <rect x={21.5 + eyeX} y="23" width="4.8" height="6.8" rx="2.4" class={robot.eyes} />
-  <rect x={37.7 + eyeX} y="23" width="4.8" height="6.8" rx="2.4" class={robot.eyes} />
+  {#if worried}
+    <!-- Concerned: the eyes cut off at a slant, higher at the inner corners, under the brow of the visor. -->
+    <path
+      d="M{21.5 + eyeX} 25.6Q{21.5 + eyeX} 29.8 {23.9 + eyeX} 29.8Q{26.3 + eyeX} 29.8 {26.3 +
+        eyeX} 25.6L{26.3 + eyeX} 23.4Z"
+      class={robot.eyes}
+    />
+    <path
+      d="M{37.7 + eyeX} 23.4L{37.7 + eyeX} 25.6Q{37.7 + eyeX} 29.8 {40.1 + eyeX} 29.8Q{42.5 +
+        eyeX} 29.8 {42.5 + eyeX} 25.6Z"
+      class={robot.eyes}
+    />
+  {:else}
+    <rect x={21.5 + eyeX} y="23" width="4.8" height="6.8" rx="2.4" class={robot.eyes} />
+    <rect x={37.7 + eyeX} y="23" width="4.8" height="6.8" rx="2.4" class={robot.eyes} />
+  {/if}
 
   {#if mouthOpen}
     <path d={mouthPath(32 + eyeX, 33.4)} class={robot.eyes} />
+  {:else if worried}
+    <path d="M{28.5 + eyeX} 35.6q3.5 -2 7 0" class={robot.smile} stroke-width="1.35" />
   {:else}
     <path d="M{28.5 + eyeX} 34q3.5 2.5 7 0" class={robot.smile} stroke-width="1.35" />
   {/if}
@@ -548,7 +578,23 @@
 
   <path d="M{noseX} 31.2v2.6" class="stroke-portrait-ink" stroke-width="1.25" />
 
-  {#if mouthOpen}
+  {#if grin}
+    {@const low = 39.6 + pose.mouth * 2.2}
+    <!-- Flat along the top lip and deep below, the top teeth a white band under it: a curve alone read as a plain smile. -->
+    <path
+      d="M{mouthX - 4.7} 35.3Q{mouthX} 36 {mouthX + 4.7} 35.3Q{mouthX + 3.9} {low} {mouthX} {low}Q{mouthX - 3.9} {low} {mouthX - 4.7} 35.3Z"
+      class="fill-portrait-ink"
+    />
+    <path
+      d="M{mouthX - 3.9} 35.85Q{mouthX} 36.5 {mouthX + 3.9} 35.85L{mouthX + 3.5} 37.5Q{mouthX} 37.95 {mouthX - 3.5} 37.5Z"
+      fill="#fbfaf6"
+    />
+    {#if grin === "seeds"}
+      {#each [-2.4, -0.7, 1.1, 2.5] as dx, index (dx)}
+        <circle cx={mouthX + dx} cy={36.75 + (index % 2) * 0.35} r="0.38" fill="#1c1b29" />
+      {/each}
+    {/if}
+  {:else if mouthOpen}
     <path d={mouthPath(mouthX, 36.2)} class="fill-portrait-ink" />
 
     {#if pose.mouth > 0.5 && pose.round < 0.5}
@@ -560,6 +606,12 @@
         class="fill-scene-red-mid"
       />
     {/if}
+  {:else if worried}
+    <path
+      d="M{mouthX - 3} 37.6q3 -1.6 6 0"
+      class="stroke-portrait-ink"
+      stroke-width="1.4"
+    />
   {:else}
     <path
       d="M{mouthX - 3.4} 36.6q3.4 2.2 6.8 0"
@@ -569,6 +621,7 @@
   {/if}
 
   {#if headphones}
+    <g data-set-id="headphones-on-{characterId}">
     <clipPath id="{id}-behind-face">
       <path
         d="M-40 -40H104V104H-40ZM18.8 29a13.2 15.2 0 1 0 26.4 0a13.2 15.2 0 1 0-26.4 0Z"
@@ -597,5 +650,6 @@
       />
       <circle cx={n(side.x)} cy={phones.cy} r="1.3" class="fill-portrait-ink" />
     {/each}
+    </g>
   {/if}
 {/if}

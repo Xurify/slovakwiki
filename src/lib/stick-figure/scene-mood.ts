@@ -89,19 +89,87 @@ const TOLD_TIMES: ReadonlyArray<[string, number]> = Array.from(
 /**
  * The hour the first line that tells the time now says (`Pol dvanástej.`,
  * `Je sedem hodín.`), on a 12-hour face: a time something happens at
- * (`O dvanástej ide von.`) is not the time now.
+ * (`O dvanástej ide von.`) is not the time now, and neither is a line in
+ * `notNow`, such as a quiz sentence put to the listener and its verdict.
  */
-export function toldHour(lines: readonly string[]): number | undefined {
-  for (const line of lines) {
+export function toldHour(
+  lines: readonly string[],
+  notNow?: ReadonlySet<number>,
+): number | undefined {
+  for (const [index, line] of lines.entries()) {
+    if (notNow?.has(index)) continue;
     const folded = ` ${foldLine(line)} `;
     for (const [said, hour] of TOLD_TIMES) {
       const at = folded.indexOf(` ${said} `);
       if (at < 0) continue;
       const before = folded.slice(0, at).trim().split(" ").at(-1) ?? "";
-      if (!NOT_NOW.has(before)) return hour % 12;
+      if (NOT_NOW.has(before)) continue;
+      const minutes = Number.isInteger(hour)
+        ? minutesAfter(folded.slice(at + said.length + 1))
+        : 0;
+      return (hour % 12) + minutes / 60;
     }
   }
   return undefined;
+}
+
+const UNITS = [
+  "",
+  "jeden",
+  "dve",
+  "tri",
+  "styri",
+  "pat",
+  "sest",
+  "sedem",
+  "osem",
+  "devat",
+];
+const TEENS = [
+  "desat",
+  "jedenast",
+  "dvanast",
+  "trinast",
+  "strnast",
+  "patnast",
+  "sestnast",
+  "sedemnast",
+  "osemnast",
+  "devatnast",
+];
+const TENS: Record<string, number> = {
+  dvadsat: 20,
+  tridsat: 30,
+  styridsat: 40,
+  patdesiat: 50,
+};
+/** Folded number words 1 to 59, as minutes are said: päť, dvadsaťpäť or dvadsať päť. */
+const MINUTE_WORDS = new Map<string, number>([
+  ["jedna", 1],
+  ["jednu", 1],
+  ["dva", 2],
+  ...UNITS.map((word, n): [string, number] => [word, n]).slice(1),
+  ...TEENS.map((word, n): [string, number] => [word, 10 + n]),
+  ...Object.entries(TENS).flatMap(([word, tens]): Array<[string, number]> => [
+    [word, tens],
+    ...UNITS.flatMap((unit, n): Array<[string, number]> =>
+      n === 0
+        ? []
+        : [
+            [`${word}${unit}`, tens + n],
+            [`${word} ${unit}`, tens + n],
+          ],
+    ),
+  ]),
+]);
+
+/** `a päť minút` after a whole hour: Je jedenásť hodín a päť minút is 11:05, not 11. */
+function minutesAfter(rest: string): number {
+  const match = /^a ((?:\S+ )?\S+) minut[ay]?\b/.exec(rest.trim());
+  if (!match) return 0;
+  return (
+    MINUTE_WORDS.get(match[1]!) ?? MINUTE_WORDS.get(match[1]!.split(" ").at(-1)!) ?? 0
+  );
 }
 
 /** A told time with the part of the day after it, on a scene card: Šesť hodín večer. Pol deviatej ráno. */
@@ -142,12 +210,48 @@ const SAID_TIMES: Array<[string, TimeOfDay]> = [
   ["je noc", "night"],
 ];
 
-/** Folded words for the weather: prší, sneží and slnko whole, dážď, sneh and oblak in any case. Sunny is clear with the sun out. */
+/**
+ * Folded words for the weather: prší, sneží and slnko whole, sneh and oblak in
+ * any case. Sunny is clear with the sun out. Dážď and mrak are whole forms,
+ * not stems: "dazd" also starts dáždnik, so a lost umbrella made it rain on
+ * the square, and "mrak" starts mrakodrap.
+ */
 const WEATHER_CUES: Array<[Weather, WordCues]> = [
-  ["rain", { stems: ["dazd"], words: ["prsi", "prsalo", "prsat"] }],
+  [
+    "rain",
+    {
+      stems: ["dazdiv"],
+      words: [
+        "dazd",
+        "dazda",
+        "dazdu",
+        "dazdom",
+        "dazde",
+        "dazdi",
+        "dazdov",
+        "dazdoch",
+        "dazdami",
+        "dazdik",
+        "dazdika",
+        "dazdiku",
+        "prsi",
+        "prsalo",
+        "prsat",
+        "zaprsi",
+        "poprchava",
+        "mrholi",
+      ],
+    },
+  ],
   ["snow", { stems: ["sneh"], words: ["snezi", "snezilo", "snezit"] }],
   ["sunny", { words: ["slnko", "slnecno"] }],
-  ["cloudy", { stems: ["oblak", "mrak"], words: ["oblacno", "zamracene"] }],
+  [
+    "cloudy",
+    {
+      stems: ["oblak"],
+      words: ["mrak", "mraky", "mrakov", "mrakmi", "mrakoch", "oblacno", "zamracene"],
+    },
+  ],
 ];
 
 /**
@@ -165,6 +269,7 @@ export function sceneMood(
   lines: readonly string[],
   upTo = lines.length - 1,
   before?: readonly string[],
+  notNow?: ReadonlySet<number>,
 ): SceneMood {
   const folded = lines.map(foldLine);
   const toldTime = folded
@@ -187,7 +292,7 @@ export function sceneMood(
   const weather = toldWeather ?? beforeWeather ?? "clear";
 
   const over = upTo >= lines.length && isFalling(weather);
-  const hour = toldHour(lines) ?? (before?.length ? toldHour(before) : undefined);
+  const hour = toldHour(lines, notNow) ?? (before?.length ? toldHour(before) : undefined);
   return {
     time,
     weather: over ? "cloudy" : weather,

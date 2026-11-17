@@ -2,13 +2,13 @@ import { writeFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
 import { listeningEpisodes } from "$lib/catalog/listening";
-import { sampleMotion, type Surroundings } from "./act-motions";
+import { motionFor, sampleMotion, type Surroundings } from "./act-motions";
 import { startWorld, type Cue, type World } from "./acts";
 import baseline from "./episode-checks.baseline.json";
 import { checkCues, checkEpisode, type Finding } from "./episode-checks";
 import { PLACES } from "./places";
 import { REST_POSE } from "./pose";
-import { solveRig } from "./rig";
+import { GROUND_Y, solveRig } from "./rig";
 import { intoDeskMic } from "./set-pieces";
 import { stageFrame } from "./stage-frame";
 import { pointedThing } from "./thing-words";
@@ -341,6 +341,108 @@ describe("cues against the set", () => {
       "error point/miss",
     );
   });
+
+  describe("room between people and dogs", () => {
+    const HOME_SET = PLACES.home.set!;
+    const HOME_FRAME = stageFrame(
+      ["marek", "dog"],
+      {},
+      "home",
+      PLACES.home.things,
+      960,
+      480,
+    );
+    const at = (spots: Record<string, string>, ...acts: Cue[][]) => {
+      const { chapter, lines } = segment("marek", ...acts);
+      return rules(
+        checkCues(chapter, lines, HOME_SET, HOME_FRAME, {
+          ...startWorld(HOME_SET.objects),
+          spots,
+        }),
+      );
+    };
+
+    it("flags a dog standing in a standing person's legs, from the start or once someone walks", () => {
+      expect(at({ marek: "rug-mid", dog: "rug-mid" }, [{ do: "nod" }])).toContain(
+        "error space/crowded",
+      );
+      expect(
+        at({ marek: "rug-left", dog: "rug-right" }, [{ do: "go", to: "rug-right" }]),
+      ).toContain("error space/crowded");
+    });
+
+    it("leaves a dog room beside someone who walks over to it", () => {
+      expect(
+        at({ marek: "rug-right", dog: "rug-left" }, [{ do: "go", to: "dog" }]),
+      ).not.toContain("error space/crowded");
+    });
+
+    it("has a dog walk over before it gives what it carries", () => {
+      const ball = {
+        ...startWorld(HOME_SET.objects),
+        spots: { marek: "rug-right", dog: "rug-left" } as World["spots"],
+      };
+      const give = (acts: Cue[]) =>
+        rules(
+          checkCues(
+            segment("marek", acts).chapter,
+            [{ characterId: "dog", act: acts }],
+            {
+              ...HOME_SET,
+              objects: [
+                ...HOME_SET.objects,
+                {
+                  id: "ball",
+                  kind: "ball",
+                  start: { where: { hand: "dog", side: "lead" } },
+                },
+              ],
+            },
+            HOME_FRAME,
+            {
+              ...ball,
+              objects: {
+                ...ball.objects,
+                ball: { kind: "ball", where: { hand: "dog", side: "lead" } },
+              },
+            },
+          ),
+        );
+      expect(give([{ do: "give", what: "ball", to: "marek" }])).toContain(
+        "error space/out-of-reach",
+      );
+      expect(
+        give([
+          { do: "go", to: "marek" },
+          { do: "give", what: "ball", to: "marek" },
+        ]),
+      ).not.toContain("error space/out-of-reach");
+    });
+
+    it("flags a seller pressed against a buyer across the counter", () => {
+      const MARKET = PLACES.market.set!;
+      const frame = stageFrame(
+        ["marek", "lucia"],
+        {},
+        "market",
+        PLACES.market.things,
+        960,
+        480,
+      );
+      const across = (lucia: string) =>
+        rules(
+          checkCues(
+            segment("marek", [{ do: "nod" }]).chapter,
+            segment("marek", [{ do: "nod" }]).lines,
+            MARKET,
+            frame,
+            { ...startWorld(MARKET.objects), spots: { marek: "stall", lucia } },
+          ),
+        );
+      expect(across("counter-near")).toContain("error space/heads");
+      expect(across("counter-far")).not.toContain("error space/heads");
+    });
+  });
 });
 
 // For writers: SLUG=<slug> OUT=<file> bunx vitest run src/lib/stick-figure/episode-checks.test.ts
@@ -356,3 +458,38 @@ it.skipIf(!process.env.SLUG || !process.env.OUT)(
     writeFileSync(process.env.OUT!, `${rows.join("\n")}\n`);
   },
 );
+
+describe("bending down to a dog", () => {
+  /** A dog whose head is `head` rig units in front, facing the mover: its collar there, its middle further off. */
+  const dog = (head: number, squats = false): Surroundings => ({
+    pointOf: (_name, as = "grip") =>
+      as === "top" ? { x: head, y: 88 } : { x: head + 13, y: 102 },
+    meetWith: () => undefined,
+    squats,
+  });
+
+  it("keeps a robot's hips off the floor clipping a lead on, even from a step too far", () => {
+    const world = startWorld([
+      { id: "lead", kind: "lead", start: { where: { hand: "robo", side: "lead" } } },
+    ]);
+    const { motion } = motionFor(
+      { do: "leash", what: "lead", to: "bobik" },
+      "robo",
+      world,
+    );
+    for (const head of [20, 40, 60]) {
+      const { pose } = sampleMotion(motion, 700, REST_POSE, dog(head, true));
+      expect(solveRig(pose).hip.y).toBeLessThanOrEqual(GROUND_Y - 16);
+    }
+  });
+
+  it("points down along a dog's back, not at its head under the hand", () => {
+    const { motion } = motionFor({ do: "point", to: "bobik" }, "anna", startWorld([]));
+    // Standing right over its head, as Anna does after crouching to it.
+    const { pose } = sampleMotion(motion, 1000, REST_POSE, dog(4));
+    const rig = solveRig(pose);
+    const { end } = rig.leadArm;
+    expect(end.x).toBeGreaterThan(4 + 10);
+    expect(end.y - rig.leadShoulder.y).toBeGreaterThan(15);
+  });
+});
