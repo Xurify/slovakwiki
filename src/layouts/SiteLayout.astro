@@ -12,6 +12,8 @@ import handLatinExt from "@fontsource-variable/caveat/files/caveat-latin-ext-wgh
 import "../styles.css";
 
 interface Props {
+  /** Optional utility classes applied to the document body. */
+  bodyClass?: string;
   /** Path-only canonical (no query, no hash). Defaults to current pathname. */
   canonicalPath?: string;
   description?: string;
@@ -26,7 +28,14 @@ interface Props {
   title: string;
 }
 
-const { canonicalPath, description, noindex = false, stage = false, title } = Astro.props;
+const {
+  bodyClass,
+  canonicalPath,
+  description,
+  noindex = false,
+  stage = false,
+  title,
+} = Astro.props;
 const pathname = Astro.url.pathname;
 const query = Astro.url.searchParams.get("q") ?? "";
 const resolvedCanonicalPath = canonicalPath ?? pathname;
@@ -119,7 +128,7 @@ const ogImage = absoluteSiteUrl("/icon-512.png");
     </script>
     <slot name="head" />
   </head>
-  <body>
+  <body class={bodyClass}>
     <div class="relative z-[1] flex min-h-screen min-w-0 flex-col">
       <Header client:load {pathname}>
         <HeaderSearch client:idle slot="search" {pathname} {query} />
