@@ -20,6 +20,7 @@
   let {
     captions = true,
     compact = false,
+    hint,
     scene,
     showEnglish = false,
     thingWords = {},
@@ -28,6 +29,8 @@
     captions?: boolean;
     /** Smaller while the learner reads or answers below it. */
     compact?: boolean;
+    /** In the caption's place before any line is said. */
+    hint?: string;
     scene: Scene;
     showEnglish?: boolean;
     thingWords?: Record<string, { href?: string; src?: string }>;
@@ -135,6 +138,12 @@
     next();
   }
 
+  /** A new chapter: no line from the last one left in the caption. */
+  export function clear(): void {
+    stop();
+    shown = -1;
+  }
+
   export function stop(): void {
     epoch += 1;
     window.clearTimeout(timer);
@@ -216,6 +225,8 @@
           />
         {/key}
         </div>
+      {:else if hint}
+        <p class="m-0 text-slate-600">{hint}</p>
       {/if}
     </div>
   {/if}

@@ -98,6 +98,14 @@
 
   const steps = $derived(lessonSteps(lesson, Boolean(stage)));
   const setting = $derived(storySettingForLesson(lesson.id));
+  const sceneHint = $derived.by(() => {
+    if (viewStep?.kind === "finale") {
+      return "The whole scene from the start. This time you are Alex: it stops at each of your lines.";
+    }
+    return viewIndex === 0
+      ? `${setting.place}. Watch what happens; at the end you play Alex.`
+      : "The scene goes on.";
+  });
   const chapters = $derived(lessonChapters(lesson, steps));
   const step = $derived(steps[stepIndex]);
   const gradeResult = $derived(step ? (answers[step.id] ?? null) : null);
@@ -329,7 +337,7 @@
   /** Into the step on screen: a scene starts on its own once the learner has touched the page. */
   function enter(cheer = false): void {
     window.clearTimeout(startTimer);
-    sceneStage?.stop();
+    sceneStage?.clear();
     canSubmit = false;
     sceneStarted = false;
     sceneDone = false;
@@ -574,6 +582,7 @@
             bind:this={sceneStage}
             captions={played}
             compact={!played}
+            hint={played && !sceneStarted && !reviewing ? sceneHint : undefined}
             scene={stage}
             {showEnglish}
             {thingWords}
@@ -622,17 +631,6 @@
                 >
                   Play it again
                 </button>
-              {:else if !sceneStarted}
-                <p class="m-0 text-slate-600">
-                  {#if viewStep.kind === "finale"}
-                    The whole scene from the start. This time you are Alex: it stops at
-                    each of your lines.
-                  {:else if viewIndex === 0}
-                    {setting.place}. Watch what happens; at the end you play Alex.
-                  {:else}
-                    The scene goes on.
-                  {/if}
-                </p>
               {:else if sceneDone}
                 <button
                   class="mt-2 cursor-pointer border-0 bg-transparent p-0 text-sm font-semibold text-blue-700 underline underline-offset-4 hover:text-blue-900"
