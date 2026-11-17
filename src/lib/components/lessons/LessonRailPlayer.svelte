@@ -644,7 +644,11 @@
         <div
           class={cx(
             "pt-5 sm:pt-6",
-            played ? "mx-auto w-full" : "lg:sticky lg:top-0 lg:pt-10 lg:pb-10",
+            played
+              ? "mx-auto w-full"
+              : viewStep?.kind === "teach"
+                ? "lg:row-start-1 lg:pt-10 lg:pb-0"
+                : "lg:sticky lg:top-0 lg:pt-10 lg:pb-10",
             played &&
               !(viewStep?.kind === "finale" && sceneStarted && !sceneDone) &&
               "lg:max-w-[min(100%,calc((100dvh-22rem)*2))]",
@@ -715,6 +719,7 @@
             </div>
           {:else if viewStep.kind === "teach"}
             <LessonStepTeach
+              beside={Boolean(stage)}
               class={stage
                 ? "pt-5 pb-10 lg:pt-10"
                 : "mx-auto w-full max-w-[640px] px-4 pt-5 pb-10 sm:px-8 sm:pt-6"}
