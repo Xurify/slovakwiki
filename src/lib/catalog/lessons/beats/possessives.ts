@@ -38,8 +38,8 @@ const CATEGORIES: FormTableHeading[] = [
     example: "bratia",
   },
   {
-    english: "Masculine things and animals, feminine, neuter",
-    slovak: "mužský rod (veci, zvieratá), ženský, stredný rod",
+    english: "Every other plural",
+    slovak: "ostatné podstatné mená",
     example: "kľúče, psy, sestry, autá",
   },
 ];

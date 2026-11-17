@@ -101,7 +101,10 @@
     {/if}
   </figure>
 {:else}
-<figure class="m-0">
+<figure
+  class="m-0 sm:w-(--table-width)"
+  style:--table-width="calc(14rem + (100% - 14rem) * {table.columns.length} / {Math.max(slots, table.columns.length)})"
+>
   {#if titled}
   <figcaption class="pb-2">
     <h3 class="m-0 font-sans text-sm font-semibold tracking-normal text-slate-900">
@@ -112,10 +115,7 @@
 
   <div class="overflow-x-auto">
     <!-- Fixed columns, so stacked tables on one step line their forms up. -->
-    <table
-      class="w-full border-collapse text-left text-sm sm:w-(--table-width) sm:table-fixed"
-      style:--table-width="calc(14rem + (100% - 14rem) * {table.columns.length} / {Math.max(slots, table.columns.length)})"
-    >
+    <table class="w-full border-collapse text-left text-sm sm:table-fixed">
       <thead>
         <tr class="border-b border-slate-200">
           <td class="{edgeCellClass} w-56 max-sm:hidden"></td>
@@ -126,7 +126,7 @@
               class={[
                 cellPaddingClass,
                 columnIndex === 0 && "max-sm:pl-0",
-                "min-w-20 pb-2.5 align-bottom text-xs leading-snug font-semibold text-balance text-slate-700",
+                "min-w-20 pb-2.5 align-top text-xs leading-snug font-semibold text-balance text-slate-700",
               ]}
             >
               {@render heading(column, true)}

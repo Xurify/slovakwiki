@@ -608,6 +608,10 @@
         class={cx(
           stage && "mx-auto grid w-full max-w-[1120px] grid-cols-[minmax(0,1fr)] gap-x-12 px-4 sm:px-8",
           stage && !played && "lg:grid-cols-[340px_minmax(0,1fr)] lg:items-start",
+          // The whole scene: Alex's choices beside the stage, so neither has to shrink for the other.
+          stage &&
+            viewStep?.kind === "finale" &&
+            "lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:items-start",
         )}
       >
       {#if stage}
@@ -615,10 +619,7 @@
           class={cx(
             "pt-5 sm:pt-6",
             played ? "mx-auto w-full" : "lg:sticky lg:top-0 lg:pt-10 lg:pb-10",
-            played &&
-              (viewStep?.kind === "finale"
-                ? "lg:max-w-[min(100%,calc((100dvh-34rem)*2))]"
-                : "lg:max-w-[min(100%,calc((100dvh-22rem)*2))]"),
+            played && viewStep?.kind !== "finale" && "lg:max-w-[min(100%,calc((100dvh-22rem)*2))]",
             played && "max-sm:-mx-4 max-sm:w-auto max-sm:pt-[8svh] lg:pt-8",
           )}
         >
@@ -648,7 +649,7 @@
               class={cx(
                 "mx-auto w-full pt-2 pb-10",
                 viewStep.kind === "finale"
-                  ? "lg:max-w-[min(100%,calc((100dvh-34rem)*2))]"
+                  ? "lg:pt-8"
                   : "lg:max-w-[min(100%,calc((100dvh-22rem)*2))]",
               )}
             >

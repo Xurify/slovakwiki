@@ -189,7 +189,7 @@
 <div
   class={cx(
     "mx-auto w-full transition-[max-width] duration-300 ease-out",
-    compact ? "max-w-[280px] sm:max-w-[300px] lg:max-w-none" : "max-w-[960px]",
+    compact && "max-w-[280px] sm:max-w-[300px] lg:max-w-none",
   )}
 >
   <div

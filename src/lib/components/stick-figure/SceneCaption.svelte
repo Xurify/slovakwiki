@@ -99,7 +99,7 @@
                 "underline decoration-slate-400 decoration-dotted underline-offset-4",
                 "transition-colors duration-150 ease-out hover:decoration-blue-600",
                 run.role && markRoleClass(run.role),
-                said && "-mx-0.5 bg-blue-100 px-0.5",
+                said && "bg-blue-100",
               )}
               type="button"
               onclick={() => onthing(thing.id)}
@@ -112,8 +112,7 @@
             class={cx(
               "rounded-sm transition-colors duration-150 ease-out",
               run.role && markRoleClass(run.role),
-              // The light extends past the word without moving it.
-              said && "-mx-0.5 bg-blue-100 px-0.5",
+              said && "bg-blue-100",
             )}>{run.text.slice(glued[index].length)}</span
           >
         {/if}

@@ -182,7 +182,7 @@
     {/if}
 
     <ul
-      class="m-0 grid list-none grid-cols-[repeat(auto-fill,minmax(8.5rem,1fr))] gap-x-6 gap-y-4 p-0"
+      class="m-0 grid list-none grid-cols-[repeat(auto-fill,minmax(8.5rem,1fr))] items-start gap-x-6 gap-y-4 p-0"
     >
       {#each visual.items as item (`${item.slovak}-${item.time.hour}-${item.time.minute}`)}
         <li class="grid justify-items-start gap-1.5 py-2">
@@ -192,7 +192,7 @@
             {item.slovak}
           </strong>
 
-          <span class="text-xs text-slate-500">{item.english}</span>
+          <span class="text-xs text-balance text-slate-500">{item.english}</span>
         </li>
       {/each}
     </ul>

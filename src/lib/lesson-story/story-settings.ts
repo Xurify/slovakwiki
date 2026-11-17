@@ -50,12 +50,12 @@ const byLessonId: Record<string, LessonStorySetting> = {
   },
   "grammar/byt-present": {
     art: "home",
-    place: "Where things are",
+    place: "At the front desk",
     placeSk: "Kde to je",
   },
   "grammar/mat-present": {
     art: "market",
-    place: "What you have",
+    place: "Coffee at the market",
     placeSk: "Čo máš",
   },
   "grammar/possessives": {

@@ -30,7 +30,7 @@ function pairTable(): FormTableVisual {
 
   return {
     type: "form-table",
-    title: "Three ways to make a pair",
+    title: "Pairs by how they are made",
     columns: [IMPERFECTIVE, PERFECTIVE],
     sections: [
       {

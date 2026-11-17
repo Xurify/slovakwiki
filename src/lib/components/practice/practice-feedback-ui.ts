@@ -62,13 +62,13 @@ export function feedbackPanelClass(tone: FeedbackTone): string {
 
 export const feedbackSectionLabelClass = eyebrowClass;
 
-export const missCompareClass = "grid gap-1";
+export const missCompareClass = "grid gap-2";
 
 export const missCompareAttemptRowClass =
-  "grid gap-1 rounded-[calc(var(--control-radius)-2px)] bg-rose-50 px-3.5 py-2.5";
+  "grid gap-1 border-l-2 border-rose-400 py-1 pl-3";
 
 export const missCompareCorrectionRowClass =
-  "grid gap-1 rounded-[calc(var(--control-radius)-2px)] bg-emerald-50 px-3.5 py-2.5";
+  "grid gap-1 border-l-2 border-emerald-500 py-1 pl-3";
 
 export function shouldShowCorrection(
   submitted: boolean,
