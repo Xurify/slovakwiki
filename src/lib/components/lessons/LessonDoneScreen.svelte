@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount, tick } from "svelte";
 
-  import { eyebrowClass, eyebrowMutedClass } from "$lib/components/ui/system-ui";
+  import { eyebrowMutedClass } from "$lib/components/ui/system-ui";
   import TextLink from "$lib/components/ui/TextLink.svelte";
   import LessonBackButton from "$lib/components/lessons/LessonBackButton.svelte";
   import LessonDoneAction from "$lib/components/lessons/LessonDoneAction.svelte";
@@ -98,8 +98,8 @@
 
   const headline = $derived.by(() => {
     if (checkCount === 0) return "Lesson complete";
-    if (perfect) return `All ${checkCount} correct`;
-    return `${correctCount} of ${checkCount} correct`;
+    if (perfect) return `Lesson complete: all ${checkCount} correct`;
+    return `Lesson complete: ${correctCount} of ${checkCount} correct`;
   });
 
   const subline = $derived.by(() => {
@@ -228,25 +228,12 @@
 >
   <div
     class="mx-auto w-full px-4 py-8 sm:px-8 sm:py-10 {wide
-      ? 'max-w-[1120px] *:max-w-[640px]'
+      ? 'max-w-[1120px]'
       : 'max-w-[640px]'}"
   >
     <header class="animate-rise">
-      <p class="{eyebrowClass} inline-flex items-center gap-1.5 text-emerald-700">
-        <svg class="size-3.5" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-          <path
-            d="M3.5 8.5 6.5 11.5 12.5 4.5"
-            stroke="currentColor"
-            stroke-width="2.25"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-        Lesson complete
-      </p>
-
       <h2
-        class="m-0 mt-2 font-serif text-xl tracking-tight text-pretty text-slate-900 sm:text-2xl"
+        class="m-0 font-serif text-xl tracking-tight text-pretty text-slate-900 sm:text-2xl"
       >
         {headline}
       </h2>

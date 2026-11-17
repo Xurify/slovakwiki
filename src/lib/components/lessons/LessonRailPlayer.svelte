@@ -614,7 +614,7 @@
             viewStep?.kind === "finale" &&
             sceneStarted &&
             !sceneDone &&
-            "lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:items-start",
+            "lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] lg:items-start",
         )}
       >
       {#if stage}
@@ -632,7 +632,7 @@
             bind:this={sceneStage}
             captions={played}
             compact={!played}
-            hint={played && !sceneStarted && !reviewing ? sceneHint : undefined}
+            hint={played && !sceneStarted && !starting && !reviewing ? sceneHint : undefined}
             onplay={played && !reviewing && waiting && !sceneDone ? onFooterPrimary : undefined}
             playLabel={waiting ? "Next line" : "Play the scene"}
             onpause={played && sceneStarted && !sceneDone && !waiting && !turn && !pausing
@@ -654,7 +654,7 @@
               class={cx(
                 "mx-auto w-full pt-2 pb-10",
                 viewStep.kind === "finale" && sceneStarted && !sceneDone
-                  ? "lg:pt-8"
+                  ? "lg:pt-7"
                   : "lg:max-w-[min(100%,calc((100dvh-22rem)*2))]",
               )}
             >

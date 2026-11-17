@@ -197,7 +197,11 @@
             {item.slovak}
           </strong>
 
-          <span class="text-xs text-balance text-slate-500">{keepPrepositions(item.english)}</span>
+          <span class="grid text-xs text-slate-500">
+            {#each item.english.split(/\s(?=→)/) as part (part)}
+              <span>{keepPrepositions(part)}</span>
+            {/each}
+          </span>
         </li>
       {/each}
     </ul>

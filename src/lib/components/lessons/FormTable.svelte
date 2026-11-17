@@ -103,7 +103,8 @@
 {:else}
 <figure
   class="m-0 sm:w-(--table-width)"
-  style:--table-width="min(100%, max(calc(14rem + (100% - 14rem) * {table.columns.length} / {Math.max(slots, table.columns.length)}), calc(14rem + {table.columns.length} * 12rem)))"
+  style:--label-width={Math.max(slots, table.columns.length) <= 3 ? "16rem" : "14rem"}
+  style:--table-width="calc(var(--label-width) + (100% - var(--label-width)) * {table.columns.length} / {Math.max(slots, table.columns.length)})"
 >
   {#if titled}
   <figcaption class="pb-2">
@@ -118,7 +119,7 @@
     <table class="w-full border-collapse text-left text-sm sm:table-fixed">
       <thead>
         <tr class="border-b border-slate-200">
-          <td class="{edgeCellClass} w-56 max-sm:hidden"></td>
+          <td class="{edgeCellClass} w-(--label-width) max-sm:hidden"></td>
 
           {#each table.columns as column, columnIndex (column.english)}
             <th
