@@ -21,6 +21,7 @@ export const STICK_PICTURE_IDS = [
   "photo-house",
   "photo-man-dog",
   "photo-mother-girl",
+  "photo-summer",
 ] as const;
 
 export type StickPictureId = (typeof STICK_PICTURE_IDS)[number];
@@ -47,6 +48,8 @@ export const STICK_PICTURE_NAMES: Record<StickPictureId, string> = {
   "photo-house": "Photo: a house by the trees, a car in front",
   "photo-man-dog": "Photo: a man with a big dog",
   "photo-mother-girl": "Photo: a woman with a small girl",
+  "photo-summer":
+    "Photo: a family of four on a lawn, two men at the back, a curly-haired man at the side",
 };
 
 /**

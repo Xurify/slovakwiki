@@ -277,26 +277,31 @@
       lines={scene.lines}
       {mood}
       setting={scene.setting}
+      start={scene.world}
       tall={!compact}
       {thingWords}
     />
 
     {#if !compact && status === "idle" && onstart}
-      <!-- A paused video's poster: the scene dimmed a little, one large play in the middle. -->
+      <!--
+        A video's poster: the whole stage plays it, and the play sits in the corner, since in the
+        middle it covered whoever stood there.
+      -->
       <button
-        class="group absolute inset-0 grid cursor-pointer place-items-center border-0 bg-black/15 transition-colors duration-150 ease-out hover:bg-black/25"
+        class="group absolute inset-0 flex cursor-pointer items-end border-0 bg-linear-to-t from-black/40 via-transparent to-transparent p-3 transition-colors duration-150 ease-out sm:p-5"
         type="button"
         aria-label="Play the scene"
         data-lesson-play
         onclick={onstart}
       >
         <span
-          class="grid size-16 place-items-center rounded-full bg-white/95 text-black shadow-(--shadow-float) transition-transform duration-150 ease-out group-hover:bg-white sm:size-20"
+          class="inline-flex h-11 items-center gap-2 rounded-full bg-white/95 pr-5 pl-4 text-sm font-semibold text-black shadow-(--shadow-float) transition-[background-color,scale] duration-150 ease-out group-hover:bg-white group-active:scale-[0.97] sm:h-12 sm:text-base"
           aria-hidden="true"
         >
-          <svg class="ml-1 size-7 fill-current sm:size-8" viewBox="0 0 24 24">
+          <svg class="size-5 fill-current" viewBox="0 0 24 24">
             <path d="M8 5.5v13l11-6.5z" />
           </svg>
+          Play
         </span>
       </button>
     {/if}

@@ -1774,27 +1774,17 @@ exports[`every scene, directed > lesson grammar/demonstratives 1`] = `
   ],
   "lines": [
     {
-      "held": {
-        "anna": "camera",
-      },
       "line": "anna: Pozri, to sú fotky z leta.",
       "plan": {
         "beats": [
-          "50 show",
+          "50 point",
         ],
         "ms": 2000,
         "sentences": "50-1850",
         "words": "50-478 588-785 785-1027 1027-1455 1455-1455 1455-1850",
       },
-      "props": [
-        "camera",
-      ],
       "staging": {
         "addressee": "alex",
-        "approach": {
-          "characterId": "alex",
-          "toward": -1,
-        },
         "facing": {
           "alex": -1,
           "anna": 1,
@@ -1803,13 +1793,10 @@ exports[`every scene, directed > lesson grammar/demonstratives 1`] = `
       },
     },
     {
-      "held": {
-        "anna": "camera",
-      },
       "line": "alex: Kto je ten muž?",
       "plan": {
         "beats": [
-          "356 point → anna's prop",
+          "50 ask",
         ],
         "ms": 1300,
         "questions": "50-1100",
@@ -1823,21 +1810,17 @@ exports[`every scene, directed > lesson grammar/demonstratives 1`] = `
           "anna": 1,
           "waiter": -1,
         },
-        "looksAt": "anna",
         "reactions": [
           {
-            "at": 0,
+            "at": 0.5,
             "characterId": "anna",
-            "gesture": "show",
+            "gesture": "lean",
             "sentence": 0,
           },
         ],
       },
     },
     {
-      "held": {
-        "anna": "camera",
-      },
       "line": "anna: To je môj brat Tom.",
       "plan": {
         "beats": [
@@ -1865,13 +1848,10 @@ exports[`every scene, directed > lesson grammar/demonstratives 1`] = `
       },
     },
     {
-      "held": {
-        "anna": "camera",
-      },
       "line": "alex: A kto je tá žena?",
       "plan": {
         "beats": [
-          "475 point → anna's prop",
+          "0 ask",
         ],
         "ms": 1800,
         "questions": "0-1400",
@@ -1885,21 +1865,17 @@ exports[`every scene, directed > lesson grammar/demonstratives 1`] = `
           "anna": 1,
           "waiter": -1,
         },
-        "looksAt": "anna",
         "reactions": [
           {
-            "at": 0,
+            "at": 0.5,
             "characterId": "anna",
-            "gesture": "show",
+            "gesture": "lean",
             "sentence": 0,
           },
         ],
       },
     },
     {
-      "held": {
-        "anna": "camera",
-      },
       "line": "anna: To je jeho žena Eva. A tie deti sú ich.",
       "plan": {
         "beats": [
@@ -1928,13 +1904,10 @@ exports[`every scene, directed > lesson grammar/demonstratives 1`] = `
       },
     },
     {
-      "held": {
-        "anna": "camera",
-      },
       "line": "alex: A kto sú tí muži vzadu?",
       "plan": {
         "beats": [
-          "455 point → anna's prop",
+          "0 ask",
         ],
         "ms": 2100,
         "questions": "0-1750",
@@ -1948,21 +1921,17 @@ exports[`every scene, directed > lesson grammar/demonstratives 1`] = `
           "anna": 1,
           "waiter": -1,
         },
-        "looksAt": "anna",
         "reactions": [
           {
-            "at": 0,
+            "at": 0.5,
             "characterId": "anna",
-            "gesture": "show",
+            "gesture": "lean",
             "sentence": 0,
           },
         ],
       },
     },
     {
-      "held": {
-        "anna": "camera",
-      },
       "line": "anna: To sú jeho kolegovia z práce.",
       "plan": {
         "beats": [
@@ -1990,13 +1959,10 @@ exports[`every scene, directed > lesson grammar/demonstratives 1`] = `
       },
     },
     {
-      "held": {
-        "anna": "camera",
-      },
       "line": "alex: A toho muža poznám! Je to Marek?",
       "plan": {
         "beats": [
-          "0 point → anna's prop",
+          "0 stress",
           "1650 ask",
         ],
         "ms": 2650,
@@ -2011,21 +1977,17 @@ exports[`every scene, directed > lesson grammar/demonstratives 1`] = `
           "anna": 1,
           "waiter": -1,
         },
-        "looksAt": "anna",
         "reactions": [
           {
-            "at": 0,
+            "at": 0.5,
             "characterId": "anna",
-            "gesture": "show",
-            "sentence": 0,
+            "gesture": "lean",
+            "sentence": 1,
           },
         ],
       },
     },
     {
-      "held": {
-        "anna": "camera",
-      },
       "line": "anna: Áno, to je Marek. Býva v tom dome vedľa nás.",
       "plan": {
         "beats": [
@@ -2054,9 +2016,6 @@ exports[`every scene, directed > lesson grammar/demonstratives 1`] = `
       },
     },
     {
-      "held": {
-        "anna": "camera",
-      },
       "line": "anna: Ten muž nám často pomáha.",
       "plan": {
         "beats": [
@@ -2076,9 +2035,6 @@ exports[`every scene, directed > lesson grammar/demonstratives 1`] = `
       },
     },
     {
-      "held": {
-        "anna": "camera",
-      },
       "line": "anna: Dnes večer ide s tými kolegami do kina.",
       "plan": {
         "beats": [
@@ -2090,10 +2046,6 @@ exports[`every scene, directed > lesson grammar/demonstratives 1`] = `
       },
       "staging": {
         "addressee": "alex",
-        "enter": {
-          "characterId": "waiter",
-          "from": 1,
-        },
         "facing": {
           "alex": -1,
           "anna": 1,
@@ -2134,7 +2086,7 @@ exports[`every scene, directed > lesson grammar/demonstratives 1`] = `
       "line": "alex: Koľko stojí tento koláč?",
       "plan": {
         "beats": [
-          "625 point → kolac (near)",
+          "50 ask",
         ],
         "ms": 1900,
         "questions": "50-1600",
@@ -2190,7 +2142,6 @@ exports[`every scene, directed > lesson grammar/demonstratives 1`] = `
       "plan": {
         "beats": [
           "50 nod",
-          "855 point → kolac (near)",
         ],
         "ms": 2200,
         "sentences": "50-1950",
@@ -2209,7 +2160,7 @@ exports[`every scene, directed > lesson grammar/demonstratives 1`] = `
       "line": "anna: A ja si dám tamtú tortu.",
       "plan": {
         "beats": [
-          "690 point → torta (far)",
+          "0 tell",
         ],
         "ms": 2050,
         "sentences": "0-1850",
@@ -2228,8 +2179,7 @@ exports[`every scene, directed > lesson grammar/demonstratives 1`] = `
       "line": "waiter: Takže tento koláč a tamtú tortu. Hneď to bude.",
       "plan": {
         "beats": [
-          "296 point → kolac (near)",
-          "1407 point → torta (far)",
+          "50 tell",
           "3150 tell",
         ],
         "ms": 4000,
@@ -2238,7 +2188,6 @@ exports[`every scene, directed > lesson grammar/demonstratives 1`] = `
       },
       "staging": {
         "addressee": "anna",
-        "exit": 1,
         "facing": {
           "alex": 1,
           "anna": 1,
@@ -2652,29 +2601,20 @@ exports[`every scene, directed > lesson grammar/possessives 1`] = `
     },
     {
       "held": {
-        "alex": "phone",
         "anna": "letter",
       },
       "line": "alex: Nikomu. Ale každý týždeň volám svojej mame.",
       "plan": {
         "beats": [
           "0 tell",
-          "950 show",
+          "950 tell",
         ],
         "ms": 3300,
         "sentences": "0-503 950-3100",
         "words": "0-503 950-1242 1242-1622 1622-2029 2029-2410 2410-2781 2781-3100",
       },
-      "props": [
-        undefined,
-        "phone",
-      ],
       "staging": {
         "addressee": "anna",
-        "approach": {
-          "characterId": "anna",
-          "toward": 1,
-        },
         "facing": {
           "alex": -1,
           "anna": 1,
@@ -2692,14 +2632,12 @@ exports[`every scene, directed > lesson grammar/possessives 1`] = `
     },
     {
       "held": {
-        "alex": "phone",
         "anna": "keys",
       },
       "line": "anna: Mimochodom, čie sú tie kľúče? Tvoje?",
       "plan": {
         "beats": [
           "0 show",
-          "1167 point → alex's prop",
           "2400 ask",
         ],
         "ms": 3000,
@@ -2721,13 +2659,12 @@ exports[`every scene, directed > lesson grammar/possessives 1`] = `
           "alex": -1,
           "anna": 1,
         },
-        "looksAt": "alex",
         "reactions": [
           {
-            "at": 0,
+            "at": 0.5,
             "characterId": "alex",
-            "gesture": "show",
-            "sentence": 0,
+            "gesture": "lean",
+            "sentence": 1,
           },
         ],
       },

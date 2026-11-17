@@ -64,7 +64,7 @@ async function openSegment(browser, slug, segment) {
   const page = await ctx.newPage();
   page.on("pageerror", (e) => console.error(`${slug}: page error:`, e.message));
   await page.clock.install();
-  await page.goto(`${args.base}/listening/${slug}`, { waitUntil: "networkidle" });
+  await page.goto(`${args.base}/episodes/${slug}`, { waitUntil: "networkidle" });
   await page.clock.pauseAt((await page.evaluate(() => Date.now())) + 100);
   await page.clock.runFor(1500);
   await page

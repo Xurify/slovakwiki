@@ -23,6 +23,7 @@ import {
   thingNamed,
 } from "$lib/stick-figure/thing-words";
 import { propForSentence } from "$lib/stick-figure/props";
+import { unseenScreens } from "$lib/stick-figure/screens";
 import {
   CueError,
   applyCue,
@@ -188,6 +189,17 @@ export function checkEpisode(episode: ListeningEpisode): Finding[] {
     );
     if (acted) {
       findings.push(...checkCues(chapter, scene.lines, set, frame, scene.world));
+    }
+    for (const { index, message } of unseenScreens(scene.lines, direction, scene.world)) {
+      const turn = chapter.lines[index];
+      findings.push({
+        rule: "screen/unseen",
+        level: "error",
+        chapter: chapter.id,
+        line: turn.id,
+        slovak: turn.slovak,
+        message,
+      });
     }
     const at = (index: number) => {
       const turn = chapter.lines[index];

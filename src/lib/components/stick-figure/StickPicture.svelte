@@ -124,6 +124,36 @@
     <path d="M14 15.6v-1.8l1.4-1.6h5l1.4 1.6v1.8Z" class="fill-scene-blue" />
     <circle cx="15.6" cy="15.8" r="0.9" class="fill-portrait-ink" />
     <circle cx="20.4" cy="15.8" r="0.9" class="fill-portrait-ink" />
+  {:else if picture === "photo-summer"}
+    <!-- A summer photo on a lawn: Tom, Eva and their two children in front, two colleagues at the back, Marek with his curls at the side. -->
+    <rect width={W} height={H} class="fill-scene-sky" />
+    <rect y="12.4" width={W} height="4.6" class="fill-scene-leaf" />
+    <circle cx="24.4" cy="3.2" r="1.9" class="fill-scene-honey" />
+    <!-- At the back, smaller and higher -->
+    {#each [15.4, 18.4] as x (x)}
+      <circle cx={x} cy="3.6" r="1.1" class="fill-portrait-skin stroke-portrait-ink" stroke-width="0.4" />
+      <path d="M{x} 4.7v4.4M{x} 6l-1.2 1.4M{x} 6l1.2 1.4" class="stroke-portrait-ink" stroke-width="0.7" />
+    {/each}
+    <!-- Tom -->
+    <circle cx="3.2" cy="5" r="1.5" class="fill-portrait-skin stroke-portrait-ink" stroke-width="0.5" />
+    <path d="M3.2 6.5v4.6M3.2 11.1l-1.3 3.4M3.2 11.1l1.3 3.4M3.2 7.6l-1.6 2M3.2 7.6l2.4 1.4" class="stroke-portrait-ink" stroke-width="0.9" />
+    <!-- Eva -->
+    <circle cx="7.2" cy="5.2" r="1.5" class="fill-portrait-skin stroke-portrait-ink" stroke-width="0.5" />
+    <path d="M5.7 5.2q0-2.4 1.5-2.4t1.5 2.4v2.4h-3Z" class="fill-portrait-hair" />
+    <path d="M6.2 7h2l0.9 4h-3.8Z" class="fill-scene-red-mid" />
+    <path d="M7.2 11l-1 3.5M7.2 11l1 3.5M7.2 7.6l-1.6 1.6M7.2 7.6l1.8 2" class="stroke-portrait-ink" stroke-width="0.9" />
+    <!-- The children -->
+    {#each [11.4, 13.8] as x (x)}
+      <circle cx={x} cy="8.6" r="1.1" class="fill-portrait-skin stroke-portrait-ink" stroke-width="0.4" />
+      <path d="M{x} 9.7v2.6M{x} 12.3l-0.8 2.2M{x} 12.3l0.8 2.2M{x} 10.4l-1 1M{x} 10.4l1 1" class="stroke-portrait-ink" stroke-width="0.8" />
+    {/each}
+    <!-- Marek -->
+    <circle cx="21.4" cy="5.2" r="1.5" class="fill-portrait-skin stroke-portrait-ink" stroke-width="0.5" />
+    {#each [20.1, 21, 21.9, 22.7] as x (x)}
+      <circle cx={x} cy="3.9" r="0.75" class="fill-portrait-hair" />
+    {/each}
+    <path d="M20.5 7h1.8l0.5 3.8h-2.8Z" class="fill-scene-blue" />
+    <path d="M21.4 10.8l-1.2 3.6M21.4 10.8l1.2 3.6M21.4 7.6l-2 1.8M21.4 7.6l2 1.8" class="stroke-portrait-ink" stroke-width="0.9" />
   {:else if picture === "photo-mother-girl"}
     <!-- A photo on a phone: a woman and a small girl, hand in hand. -->
     <rect width={W} height={H} class="fill-scene-warm" />

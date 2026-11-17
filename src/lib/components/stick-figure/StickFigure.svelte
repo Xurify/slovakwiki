@@ -37,10 +37,10 @@
   // The head is drawn in the 64×64 portrait space of StickHead, which the
   // portraits show as it is; 0.82 brings its 15.2 head radius to the rig's.
   const HEAD_SCALE = 0.82;
-  /** A speech bubble's box round its 26×17 picture: half its width, its top and bottom, and the picture's scale. */
-  const BUBBLE = { half: 22, top: -13, bottom: 12, scale: 1 };
   /** A clock dial drawn twice as large: at a photo's size its hands were a few pixels long on a phone. */
   const BIG_BUBBLE = { half: 20, top: -19, bottom: 18, scale: 2 };
+  /** A speech bubble's box round its 26×17 picture (half its width, its top and bottom, the picture's scale): a photo or flag as large as the dial, so the viewer can match it to the word: at half the size nobody could tell who was in a photo. */
+  const PHOTO_BUBBLE = { half: 28, top: -19, bottom: 18, scale: 2 };
 
   /**
    * Long hair's give, in the head's 64-unit space. Svelte's spring steps
@@ -253,7 +253,7 @@
   }
   /** A rounded bubble with its tail out of the bottom edge. */
   function bubblePath(
-    box: typeof BUBBLE,
+    box: typeof PHOTO_BUBBLE,
     tail: { at: number; tip: { x: number; y: number } },
   ): string {
     const { half, top, bottom } = box;
@@ -720,15 +720,17 @@
   </g>
 
   {#if picture}
-    {@const dial = clockHands(picture) !== undefined}
-    {@const box = dial ? BIG_BUBBLE : BUBBLE}
+    {@const dial = clockHands(picture) !== null}
+    {@const shown = pictureAt === "hand" && Boolean(pictureOver)}
+    {@const box = dial ? BIG_BUBBLE : PHOTO_BUBBLE}
+    {@const between = dial || Math.abs(pictureOver ?? 0) >= 2 * box.half + HEAD_RADIUS}
     {@const over =
-      pictureAt === "hand" && pictureOver
-        ? dial
+      shown && pictureOver
+        ? between
           ? // Between the two at head height: drawn large enough to read on a phone, no room over either head cleared the studio's on-air sign.
             { x: (pictureOver / 2) * side, y: rig.head.y - 4 }
-          : // Over the head of the one it is shown to, a little toward the phone: over the one holding it, it read as their thought.
-            { x: (pictureOver - 6) * side, y: rig.head.y - HEAD_RADIUS - 23 }
+          : // Standing close, there is no room between them: above both heads, midway.
+            { x: (pictureOver / 2) * side, y: rig.head.y - HEAD_RADIUS - box.bottom - 6 }
         : pictureAt === "hand"
           ? // Above the head and out toward whoever it is shown to: over the hand it covered the face, and the studio's mics drew over it.
             { x: (rig.head.x + HEAD_RADIUS + 14) * side, y: rig.head.y - HEAD_RADIUS - 20 }
