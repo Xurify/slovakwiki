@@ -97,8 +97,11 @@
   let turn = $state<Turn | null>(null);
   /** A chapter's lines start on their own after the cheer: Play would start them twice. */
   let starting = $state(false);
-  /** A wrong pick's bubble is still over Alex: another pick waits for it to clear. */
+  /** A wrong pick's bubble is still over Alex: the same pick again waits for it to clear. */
   let slipUntil = 0;
+  let slipped: string | null = null;
+  /** Scene steps whose lines have played through, so coming back to one does not ask for Play again. */
+  const playedSteps = new Set<string>();
   /** Auto-advance is off and the scene waits between lines: this plays the next one. */
   let waiting = $state<(() => void) | null>(null);
   let showEnglish = $state(false);
@@ -264,6 +267,7 @@
 
   /** The first chapter's clips fetched ahead, so the first Play is heard at once. */
   function preloadFirstLines(): void {
+    preloaded.length = 0;
     const first = steps.find((entry) => entry.kind === "scene");
     if (!first || first.kind !== "scene") return;
     for (const line of first.lines) {
@@ -314,12 +318,14 @@
       },
       ondone: () => {
         sceneDone = true;
+        playedSteps.add(current.id);
       },
     });
   }
 
   function pickLine(id: string | null): void {
-    if (!turn?.line.sayChoices || !id || Date.now() < slipUntil) return;
+    if (!turn?.line.sayChoices || !id) return;
+    if (id === slipped && Date.now() < slipUntil) return;
 
     turn.picked = id;
     if (isSayChoiceCorrect(id, turn.line.sayChoices)) {
@@ -338,6 +344,7 @@
     playAnswerSfx("incorrect");
     if (choice?.label) sceneStage?.slip(choice.label);
     slipUntil = Date.now() + SLIP_MS;
+    slipped = id;
     turn.missed =
       choice?.whyWrong?.trim() || "Not that line: pick the reply that matches what you mean.";
   }
@@ -352,7 +359,7 @@
         ? "auto"
         : "smooth",
     });
-    panel?.querySelector<HTMLElement>("[data-answer-option]")?.focus({ preventScroll: true });
+    panel?.querySelector<HTMLElement>("[data-turn-label]")?.focus({ preventScroll: true });
   }
 
   /** How long the one Alex talks with nods at a right pick before Alex says it. */
@@ -377,6 +384,11 @@
     waiting = null;
     starting = false;
     if (cheer) sceneStage?.cheer();
+    if (viewStep && playedSteps.has(viewStep.id)) {
+      sceneStarted = true;
+      sceneDone = true;
+      return;
+    }
     if (activated && played && !reviewing) {
       starting = true;
       startTimer = window.setTimeout(playScene, cheer ? CHEER_MS : 0);
@@ -441,7 +453,7 @@
     if (!step) return;
 
     if (step.kind === "scene" || step.kind === "finale") {
-      if (!sceneStarted) {
+      if (!sceneStarted || starting) {
         activated = true;
         playScene();
         return;
@@ -474,7 +486,7 @@
   const footerLabel = $derived.by(() => {
     if (!step) return "Continue";
     if (step.kind === "scene" || step.kind === "finale") {
-      if (starting) return "Starting…";
+      if (starting) return "Play now";
       if (!sceneStarted) return "Play";
       if (waiting && !sceneDone) return "Next line";
       if (step.kind === "finale") return "Finish";
@@ -488,7 +500,7 @@
 
   const footerEnabled = $derived.by(() => {
     if (!step) return false;
-    if (starting) return false;
+    if (starting) return true;
     if (step.kind === "finale") return !sceneStarted || sceneDone || Boolean(waiting);
     if (step.kind === "scene") return !turn;
     if (step.kind === "teach") return true;
@@ -562,6 +574,7 @@
         activeIndex={stepIndex}
         {backHref}
         chapters={stage ? chapters : undefined}
+        currentDone={Boolean(gradeResult) || (played && sceneDone && !reviewing)}
         closeLabel="Close lesson"
         complete={phase === "done"}
         onselect={phase === "done" ? reopenStep : showStep}
@@ -611,7 +624,7 @@
           class={cx(
             "pt-5 sm:pt-6",
             played ? stageColumn : "lg:sticky lg:top-0 lg:pt-10 lg:pb-10",
-            played && "max-sm:-mx-4 lg:pt-8",
+            played && "max-sm:-mx-4 max-sm:pt-[8svh] lg:pt-8",
           )}
         >
           <LessonStage
@@ -633,7 +646,14 @@
             <div class={cx(stageColumn, "pt-2 pb-8")}>
               {#if turn?.line.sayChoices}
                 <div class="animate-rise" data-turn>
-                  <p class={eyebrowMutedClass} role="status">Your turn: what does Alex say?</p>
+                  <p
+                    class={cx(eyebrowMutedClass, "outline-none")}
+                    role="status"
+                    tabindex="-1"
+                    data-turn-label
+                  >
+                    Your turn: what does Alex say?
+                  </p>
 
                   <ChoiceOptions
                     choices={turn.line.sayChoices.choices}
@@ -737,7 +757,7 @@
         onback={viewIndex > 0 ? goBack : undefined}
         onclick={onFooterPrimary}
         queues
-        quiet={footerLabel === "Skip"}
+        quiet={footerLabel === "Skip" || footerLabel === "Play now"}
         wide={Boolean(stage)}
       />
     {/if}

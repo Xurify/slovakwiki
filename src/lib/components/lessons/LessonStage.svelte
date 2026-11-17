@@ -207,15 +207,16 @@
     {#if onplay}
       <button
         class={cx(
-          "absolute inset-0 m-auto grid size-18 cursor-pointer place-items-center rounded-full border-0",
-          "bg-slate-900/70 text-white shadow-(--shadow-float) transition-colors duration-150 ease-out hover:bg-slate-900/85",
+          // Low on the left, on the floor, so it never covers a face; black, not a slate tint that turns pale in dark mode.
+          "absolute bottom-4 left-4 grid size-14 cursor-pointer place-items-center rounded-full border-0",
+          "bg-black/65 text-white shadow-(--shadow-float) transition-colors duration-150 ease-out hover:bg-black/80",
         )}
         type="button"
         aria-label="Play the scene"
         data-lesson-play
         onclick={onplay}
       >
-        <svg class="ml-1 size-8 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+        <svg class="ml-0.5 size-7 fill-current" viewBox="0 0 24 24" aria-hidden="true">
           <path d="M8 5.5v13l11-6.5z" />
         </svg>
       </button>
@@ -230,7 +231,6 @@
 
     <div class="min-h-[4.5rem] px-1 pt-3 max-sm:px-4">
       {#if caption}
-        <div>
         {#key shown}
           <p
             class={cx(
@@ -255,7 +255,6 @@
             things={direction.things}
           />
         {/key}
-        </div>
       {:else if hint}
         <h2 class="m-0 font-serif text-xl tracking-tight text-pretty text-slate-900 sm:text-2xl">
           {hint.title}

@@ -15,6 +15,7 @@
     activeIndex = 0,
     backHref,
     chapters,
+    currentDone = false,
     backLabel = "Practice",
     closeLabel,
     complete = false,
@@ -37,6 +38,8 @@
      * place of one per step: twenty-odd equal dashes read as a long haul.
      */
     chapters?: readonly LessonChapter[];
+    /** The step at `activeIndex` is finished (answered, or its lines played), so its chapter counts it. */
+    currentDone?: boolean;
     /** Accessible name of the close link; defaults to "Back to {backLabel}". */
     closeLabel?: string;
     complete?: boolean;
@@ -150,7 +153,10 @@
       {#each chapters as chapter, index (chapter.start)}
         {@const done = complete
           ? 1
-          : Math.min(Math.max((activeIndex - chapter.start) / chapter.length, 0), 1)}
+          : Math.min(
+              Math.max((activeIndex - chapter.start + (currentDone ? 1 : 0)) / chapter.length, 0),
+              1,
+            )}
         {@const reached = chapter.start <= activeIndex}
 
         <button

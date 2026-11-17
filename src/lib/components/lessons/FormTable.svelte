@@ -37,6 +37,14 @@
       </h3>
     </figcaption>
 
+    {#if table.columns[0]}
+      <p class="m-0 pb-2 text-sm text-slate-600">
+        {table.columns[0].english}{#if table.columns[0].slovak}:
+          <span class="font-serif text-slate-900" lang="sk">{table.columns[0].slovak}</span
+          >{/if}
+      </p>
+    {/if}
+
     <ul class="m-0 list-none border-y border-slate-200 p-0">
       {#each table.sections.flatMap((section) => section.rows) as row (row.heading.english)}
         <li
