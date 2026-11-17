@@ -102,8 +102,10 @@
   let slipped: string | null = null;
   /** Scene steps whose lines have played through, so coming back to one does not ask for Play again. */
   const playedSteps = new Set<string>();
-  /** Auto-advance is off and the scene waits between lines: this plays the next one. */
+  /** The scene waits between lines (Auto-advance off, or paused): this plays the next one. */
   let waiting = $state<(() => void) | null>(null);
+  /** The learner asked to pause: the scene stops after the line being said. */
+  let pausing = $state(false);
   let showEnglish = $state(false);
 
   const steps = $derived(lessonSteps(lesson, Boolean(stage)));
@@ -131,11 +133,6 @@
   const viewIndex = $derived(reviewIndex ?? stepIndex);
   const viewStep = $derived(steps[viewIndex]);
   const viewResult = $derived(viewStep ? (answers[viewStep.id] ?? null) : null);
-  const chapterTitle = $derived(
-    chapters.find(
-      (chapter) => viewIndex >= chapter.start && viewIndex < chapter.start + chapter.length,
-    )?.title,
-  );
   const practiceSet = $derived(practiceSetForLesson(lesson.id));
   const backHref = $derived(`/lessons/${lesson.track}`);
   const trackTitle = $derived(
@@ -295,9 +292,10 @@
     turn = null;
     waiting = null;
     sceneStage?.run(stageIndexes(lines), {
-      waits: () => getStoryAutoAdvance() === "off",
+      waits: () => pausing || getStoryAutoAdvance() === "off",
       onwait: (goOn) => {
         waiting = goOn;
+        pausing = false;
       },
       // Only the whole scene at the end stops for the learner: a chapter's lines come
       // before what they teach, so a pick there would be a guess. A replay looks back.
@@ -375,6 +373,7 @@
     sceneDone = false;
     turn = null;
     waiting = null;
+    pausing = false;
     starting = false;
     if (cheer) sceneStage?.cheer();
     if (viewStep && playedSteps.has(viewStep.id)) {
@@ -479,7 +478,7 @@
   const footerLabel = $derived.by(() => {
     if (!step) return "Continue";
     if (step.kind === "scene" || step.kind === "finale") {
-      if (starting) return "Play now";
+      if (starting) return "Play";
       if (!sceneStarted) return "Play";
       if (waiting && !sceneDone) return "Next line";
       if (step.kind === "finale") return "Finish";
@@ -572,7 +571,7 @@
         complete={phase === "done"}
         onselect={phase === "done" ? reopenStep : showStep}
         progressLabel="Lesson steps"
-        subtitle={stage && phase === "play" ? chapterTitle : trackTitle}
+        subtitle={stage ? undefined : trackTitle}
         title={lesson.title}
         titleTag="h1"
         total={steps.length}
@@ -625,7 +624,15 @@
             captions={played}
             compact={!played}
             hint={played && !sceneStarted && !reviewing ? sceneHint : undefined}
-            onplay={played && !sceneStarted && !starting ? onFooterPrimary : undefined}
+            onplay={played && !reviewing && ((!sceneStarted && !starting) || (waiting && !sceneDone))
+              ? onFooterPrimary
+              : undefined}
+            playLabel={waiting ? "Next line" : "Play the scene"}
+            onpause={played && sceneStarted && !sceneDone && !waiting && !turn && !pausing
+              ? () => {
+                  pausing = true;
+                }
+              : undefined}
             scene={stage}
             {showEnglish}
             {thingWords}

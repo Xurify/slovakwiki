@@ -62,8 +62,7 @@ export function feedbackPanelClass(tone: FeedbackTone): string {
 
 export const feedbackSectionLabelClass = eyebrowClass;
 
-export const missCompareClass =
-  "grid gap-1 overflow-hidden rounded-(--control-radius) bg-surface p-1 shadow-(--shadow-border)";
+export const missCompareClass = "grid gap-1";
 
 export const missCompareAttemptRowClass =
   "grid gap-1 rounded-[calc(var(--control-radius)-2px)] bg-rose-50 px-3.5 py-2.5";

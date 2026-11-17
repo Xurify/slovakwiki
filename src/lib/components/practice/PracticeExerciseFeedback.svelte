@@ -197,11 +197,11 @@
         </div>
       {/if}
 
-      <!-- Indented to the text in the rows above (the card's 4px and the row's 14px), so the why reads as theirs. -->
+      <!-- Indented to the text in the rows above, so the why reads as theirs. -->
       <div
         class={[
           "grid gap-2 empty:hidden",
-          (attempt || (showCorrection && correction)) && "pl-[1.125rem]",
+          (attempt || (showCorrection && correction)) && "pl-3.5",
         ]}
       >
         {@render whyLine()}

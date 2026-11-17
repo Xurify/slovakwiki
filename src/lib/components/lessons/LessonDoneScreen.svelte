@@ -243,7 +243,7 @@
         {headline}
       </h2>
 
-      <p class="m-0 mt-2 max-w-[56ch] text-sm leading-relaxed text-pretty text-slate-600">
+      <p class="m-0 mt-2 text-sm leading-relaxed text-pretty text-slate-600">
         {subline}
       </p>
     </header>

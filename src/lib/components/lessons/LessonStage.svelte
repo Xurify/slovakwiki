@@ -21,7 +21,9 @@
     captions = true,
     compact = false,
     hint,
+    onpause,
     onplay,
+    playLabel = "Play the scene",
     scene,
     showEnglish = false,
     thingWords = {},
@@ -32,8 +34,11 @@
     compact?: boolean;
     /** In the caption's place before any line is said: the chapter's title and what to do. */
     hint?: { text?: string; title: string };
-    /** A play button over the stage, as on a video, while the lines have not started. */
+    /** Stop after the line being said, as on a video. */
+    onpause?: () => void;
+    /** A play button over the stage, as on a video, while the lines have not started or wait. */
     onplay?: () => void;
+    playLabel?: string;
     scene: Scene;
     showEnglish?: boolean;
     thingWords?: Record<string, { href?: string; src?: string }>;
@@ -224,7 +229,21 @@
           </svg>
         </span>
 
-        <span class="text-sm font-semibold">Play the scene</span>
+        <span class="text-sm font-semibold">{playLabel}</span>
+      </button>
+    {:else if onpause}
+      <button
+        class={cx(
+          "absolute bottom-3 left-4 grid size-11 cursor-pointer place-items-center rounded-full border-0",
+          "bg-black/45 text-white transition-colors duration-150 ease-out hover:bg-black/65",
+        )}
+        type="button"
+        aria-label="Pause after this line"
+        onclick={onpause}
+      >
+        <svg class="size-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 5h4v14H6zM14 5h4v14h-4z" />
+        </svg>
       </button>
     {/if}
   </div>

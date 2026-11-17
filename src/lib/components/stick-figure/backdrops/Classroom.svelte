@@ -9,7 +9,7 @@
   let { board, hour }: { board?: string; hour: number } = $props();
 
   /** The start of the Slovak alphabet, digraphs included. */
-  const LETTERS = ["A", "Á", "Ä", "B", "C", "Č", "D", "Ď", "Dz", "Dž", "E", "É"];
+  const LETTERS = ["A", "Á", "Ä", "B", "C", "Č", "D", "Ď"];
 
   // Caveat runs about 0.42 em a letter; the board has 196 units to write in.
   const boardSize = $derived(board ? Math.min(32, 196 / (board.length * 0.42)) : 32);

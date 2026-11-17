@@ -98,7 +98,7 @@
     {/if}
   </figure>
 {:else}
-<figure class="m-0">
+<figure class={["m-0", table.columns.length <= 2 && "max-w-xl"]}>
   {#if titled}
   <figcaption class="pb-2">
     <h3 class="m-0 font-sans text-sm font-semibold tracking-normal text-slate-900">
@@ -108,10 +108,11 @@
   {/if}
 
   <div class="overflow-x-auto">
-    <table class="w-full border-collapse text-left text-sm">
+    <!-- Fixed columns, so stacked tables on one step line their forms up. -->
+    <table class="w-full table-fixed border-collapse text-left text-sm">
       <thead>
         <tr class="border-b border-slate-200">
-          <td class="{edgeCellClass} w-[1%] max-sm:hidden"></td>
+          <td class="{edgeCellClass} w-56 max-sm:hidden"></td>
 
           {#each table.columns as column, columnIndex (column.english)}
             <th
@@ -171,7 +172,7 @@
             <tr class="border-b border-slate-200/70 last:border-b-0">
               <th
                 scope="row"
-                class="{edgeCellClass} w-[1%] max-w-60 py-2.5 text-xs leading-snug font-semibold text-slate-700 max-sm:hidden sm:min-w-56"
+                class="{edgeCellClass} py-2.5 text-xs leading-snug font-semibold text-slate-700 max-sm:hidden"
               >
                 {@render heading(row.heading)}
               </th>

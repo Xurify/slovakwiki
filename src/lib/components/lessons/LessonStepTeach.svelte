@@ -141,8 +141,7 @@
 
   {#each visuals as visual, index (visual.title)}
     <div class="mt-8">
-      {#if index > 0}
-        <details class="group">
+      <details class="group" open={index === 0}>
           <!-- Set like the title of the table above it, so an open and a closed table read as one kind. -->
           <summary
             class="flex cursor-pointer list-none items-center gap-1.5 text-sm font-semibold text-slate-900 [&::-webkit-details-marker]:hidden"
@@ -162,18 +161,17 @@
             {@render visualBody(visual, false)}
           </div>
         </details>
-      {:else}
-        {@render visualBody(visual)}
-      {/if}
     </div>
   {/each}
 </div>
 
 {#snippet visualBody(visual: LessonVisual, titled = true)}
   {#if visual.type === "clock-grid"}
-    <h3 class={visualHeadingClass}>
-      {visual.title}
-    </h3>
+    {#if titled}
+      <h3 class={visualHeadingClass}>
+        {visual.title}
+      </h3>
+    {/if}
 
     <ul
       class="m-0 grid list-none grid-cols-[repeat(auto-fit,minmax(8.5rem,1fr))] gap-4 p-0"
