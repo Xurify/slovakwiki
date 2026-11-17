@@ -7,12 +7,15 @@
     label,
     onback,
     onclick,
+    queues = false,
     wide = false,
   }: {
     disabled?: boolean;
     label: string;
     onback?: () => void;
     onclick: () => void;
+    /** A press before the page is ready is kept and acted on once it is (see the lesson page's inline script). */
+    queues?: boolean;
     /** As wide as a lesson with its stage beside the steps. */
     wide?: boolean;
   } = $props();
@@ -28,8 +31,16 @@
       <LessonBackButton onclick={onback} />
     {/if}
 
-    <Button variant="accent" class="min-w-36 px-8" type="button" {disabled} {onclick}>
-      {label}
+    <Button
+      variant="accent"
+      class="min-w-36 px-8"
+      type="button"
+      data-lesson-play={queues ? "" : undefined}
+      {disabled}
+      {onclick}
+    >
+      <span class="[html[data-lesson-play-queued]_&]:hidden">{label}</span>
+      <span class="hidden [html[data-lesson-play-queued]_&]:inline">Starting…</span>
     </Button>
   </div>
 </div>

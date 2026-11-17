@@ -172,9 +172,7 @@
 <div
   class={cx(
     "mx-auto w-full transition-[max-width] duration-300 ease-out",
-    compact
-      ? "max-w-[220px] sm:max-w-[300px] lg:max-w-none"
-      : "max-w-[640px] lg:max-w-none",
+    compact ? "max-w-[220px] sm:max-w-[300px] lg:max-w-none" : "max-w-[960px]",
   )}
 >
   <div class="overflow-hidden rounded-(--frame-radius) ring-1 ring-slate-200">
@@ -184,6 +182,7 @@
       lines={scene.lines}
       {mood}
       setting={scene.setting}
+      tall={!compact}
       {thingWords}
     />
   </div>
@@ -191,8 +190,7 @@
   {#if captions && !compact}
     <div class="min-h-[4.5rem] px-1 pt-3" aria-live="polite">
       {#if caption}
-        <!-- A wide screen lists the lines beside the stage instead. -->
-        <div class="lg:hidden">
+        <div>
         {#key shown}
           <p
             class={cx(
@@ -218,9 +216,6 @@
           />
         {/key}
         </div>
-      {:else if scene.intro}
-        <p class="m-0 font-serif text-lg text-slate-900" lang="sk">{scene.intro.slovak}</p>
-        <p class="m-0 mt-0.5 text-sm text-slate-600">{scene.intro.english}</p>
       {/if}
     </div>
   {/if}

@@ -4,8 +4,7 @@
 
   let { table }: { table: FormTableVisual } = $props();
 
-  /** Row headings line up with the card padding (px-4 / sm:px-6). */
-  const edgeCellClass = "pr-2 pl-4 sm:pr-3 sm:pl-6";
+  const edgeCellClass = "pr-2 pl-0 sm:pr-3";
   const cellPaddingClass = "px-2 sm:px-3";
 </script>
 
@@ -29,10 +28,8 @@
   {/if}
 {/snippet}
 
-<figure
-  class="m-0 overflow-hidden rounded-(--frame-radius) bg-surface shadow-(--shadow-border)"
->
-  <figcaption class="px-4 pt-4 pb-3 sm:px-6">
+<figure class="m-0">
+  <figcaption class="pb-2">
     <h3 class="m-0 font-sans text-sm font-semibold tracking-normal text-slate-900">
       <MarkedNote text={table.title} />
     </h3>
@@ -61,11 +58,11 @@
       {#each table.sections as section, sectionIndex (sectionIndex)}
         <tbody>
           {#if section.heading}
-            <tr class="border-b border-slate-200 bg-subtle">
+            <tr class="border-b border-slate-200">
               <th
                 scope="colgroup"
                 colspan={table.columns.length + 1}
-                class="{edgeCellClass} pt-3 pb-1.5 text-xs font-semibold text-slate-700"
+                class="{edgeCellClass} pt-5 pb-1.5 text-xs font-semibold text-slate-700"
               >
                 {section.heading.english}
 
@@ -92,7 +89,7 @@
                   class={[
                     cellPaddingClass,
                     "py-2.5 font-serif text-base whitespace-nowrap text-slate-900",
-                    cellIndex === row.cells.length - 1 && "sm:pr-6",
+                    cellIndex === row.cells.length - 1 && "pr-0",
                   ]}
                   lang="sk"
                 >
@@ -108,7 +105,7 @@
 
   {#if table.note}
     <p
-      class="m-0 border-t border-slate-200 px-4 py-3 text-sm leading-relaxed text-pretty text-slate-600 sm:px-6"
+      class="m-0 border-t border-slate-200 pt-3 text-sm leading-relaxed text-pretty text-slate-600"
     >
       <MarkedNote text={table.note} />
     </p>

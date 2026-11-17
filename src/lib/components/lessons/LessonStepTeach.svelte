@@ -98,14 +98,14 @@
 
   {#if takeaways.length}
     <ul
-      class="m-0 mt-5 grid list-none grid-cols-[auto_minmax(0,1fr)] overflow-hidden rounded-(--frame-radius) bg-surface p-0 ring-1 ring-slate-200 sm:grid-cols-[auto_auto_minmax(0,1fr)]"
+      class="m-0 mt-5 grid list-none grid-cols-[auto_minmax(0,1fr)] border-y border-slate-200 p-0 sm:grid-cols-[auto_auto_minmax(0,1fr)]"
       aria-label={takeaways.length === 1 ? "Key term" : "Key terms"}
     >
       {#each takeaways as phrase (phrase.slovak)}
         {@const src = audioSrcs[phrase.slovak] ?? phrase.audio?.src}
 
         <li
-          class="col-span-full grid grid-cols-subgrid items-center gap-x-3 border-b border-slate-200/70 py-2 pr-4 pl-2 last:border-b-0"
+          class="col-span-full grid grid-cols-subgrid items-center gap-x-3 border-b border-slate-200/70 py-2 last:border-b-0"
         >
           {#if src}
             <AudioButton
@@ -138,7 +138,7 @@
   {/if}
 
   {#each visuals as visual, index (visual.title)}
-    <div class="mt-6">
+    <div class="mt-8">
       {#if index > 0}
         <details class="group">
           <summary

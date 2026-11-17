@@ -167,6 +167,7 @@
   let {
     class: className = "",
     direction,
+    tall = false,
     found = [],
     lines,
     mood = DAYTIME,
@@ -177,6 +178,8 @@
   }: {
     class?: string;
     direction: SceneDirection;
+    /** Up to 480px tall instead of 300px, where the stage is what the page is for. */
+    tall?: boolean;
     /** Things found in a game, ringed in green. */
     found?: readonly string[];
     lines: readonly DirectedLine[];
@@ -2500,7 +2503,8 @@
   <div
     class={cx(
       // Twice as wide as tall up to 300px, so a phone sees most of the place rather than a slice of its middle.
-      "relative aspect-[2/1] max-h-[300px] w-full overflow-hidden",
+      "relative aspect-[2/1] w-full overflow-hidden",
+      tall ? "max-h-[480px]" : "max-h-[300px]",
       className,
     )}
     bind:clientWidth={stageWidth}

@@ -81,11 +81,9 @@ const LESSON_SETTINGS: Record<string, LessonSceneArtId> = {
 /** The lesson's dialogue on the stage, when someone in it is on stage to say it. */
 export function lessonScene(lesson: Lesson): Scene | undefined {
   if (!lesson.scene.some((line) => dialogueSpeakerLabel(line.speaker))) return undefined;
-  const { place, placeSk } = storySettingForLesson(lesson.id);
   return {
     english: lesson.title,
     id: lesson.id,
-    ...(placeSk ? { intro: { english: place, slovak: placeSk } } : {}),
     lines: sceneLines(lesson.scene),
     name: lesson.scene[0]?.slovak ?? lesson.title,
     setting: LESSON_SETTINGS[lesson.id] ?? storySettingForLesson(lesson.id).art,

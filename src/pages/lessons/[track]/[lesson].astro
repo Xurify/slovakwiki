@@ -53,4 +53,19 @@ const { lesson, audio, stage, thingWords, episode } = Astro.props;
       {thingWords}
     />
   </LessonPage>
+
+  <script is:inline>
+    // Play pressed while the player is still loading would do nothing; keep the press for it.
+    document.addEventListener(
+      "click",
+      (event) => {
+        const play =
+          event.target instanceof Element && event.target.closest("[data-lesson-play]");
+        if (play && !play.closest("[data-hydrated]")) {
+          document.documentElement.setAttribute("data-lesson-play-queued", "");
+        }
+      },
+      { capture: true },
+    );
+  </script>
 </SiteLayout>

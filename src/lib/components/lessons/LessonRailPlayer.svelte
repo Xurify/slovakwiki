@@ -43,6 +43,7 @@
     writeLessonResume,
   } from "$lib/lesson-progress/resume";
   import type { Scene } from "$lib/stick-figure/scene-line";
+  import { storySettingForLesson } from "$lib/lesson-story/story-settings";
 
   let {
     episode,
@@ -96,6 +97,7 @@
   let showEnglish = $state(false);
 
   const steps = $derived(lessonSteps(lesson, Boolean(stage)));
+  const setting = $derived(storySettingForLesson(lesson.id));
   const chapters = $derived(lessonChapters(lesson, steps));
   const step = $derived(steps[stepIndex]);
   const gradeResult = $derived(step ? (answers[step.id] ?? null) : null);
@@ -147,6 +149,15 @@
     if (saved) {
       answers = saved.answers;
       stepIndex = saved.at;
+    }
+
+    preloadFirstLines();
+
+    const root = document.documentElement;
+    if (root.hasAttribute("data-lesson-play-queued")) {
+      root.removeAttribute("data-lesson-play-queued");
+      activated = true;
+      playScene();
     }
     showEnglish = getStoryShowEnglish() === "on";
     hydrated = true;
@@ -214,6 +225,17 @@
   function persistLessonComplete(): void {
     if (!hydrated) return;
     persist(markLessonComplete(readPracticeState(localStorage), lesson.id));
+  }
+
+  /** The first lines' clips fetched ahead, so the first Play is heard at once. */
+  function preloadFirstLines(): void {
+    for (const line of lesson.scene.slice(0, 3)) {
+      const src = stage?.lines.find((staged) => staged.id === line.id)?.src;
+      if (!src) continue;
+      const audio = new Audio();
+      audio.preload = "auto";
+      audio.src = src;
+    }
   }
 
   /** Line ids of the lesson's dialogue as indexes into the stage's lines. */
@@ -481,6 +503,7 @@
   bind:this={playerRoot}
   class="fixed inset-0 z-[90] flex flex-col bg-paper"
   role="dialog"
+  data-hydrated={hydrated ? "" : undefined}
   aria-modal="true"
   aria-label={lesson.title}
   tabindex="-1"
@@ -528,14 +551,25 @@
     <div
       class="min-h-0 flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-400 scrollbar-track-transparent"
     >
-      <!-- On a wide screen the stage stands beside the steps, so the cast stays in view. -->
+      <!--
+        While lines play the stage is the thing to watch, as large as the window lets it be.
+        While the learner reads or answers, on a wide screen it stands beside the step.
+      -->
       <div
-        class={stage
-          ? "mx-auto grid w-full max-w-[1120px] gap-x-12 px-4 sm:px-8 lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] lg:items-start"
-          : ""}
+        class={cx(
+          stage && "mx-auto grid w-full max-w-[1120px] gap-x-12 px-4 sm:px-8",
+          stage && !played && "lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] lg:items-start",
+        )}
       >
       {#if stage}
-        <div class="pt-5 sm:pt-6 lg:sticky lg:top-0 lg:pt-10 lg:pb-10">
+        <div
+          class={cx(
+            "pt-5 sm:pt-6",
+            played
+              ? "mx-auto w-full lg:w-[min(960px,calc((100dvh-20rem)*2))] lg:pt-8"
+              : "lg:sticky lg:top-0 lg:pt-10 lg:pb-10",
+          )}
+        >
           <LessonStage
             bind:this={sceneStage}
             captions={played}
@@ -550,45 +584,7 @@
       {#if viewStep}
         {#key viewStep.id}
           {#if viewStep.kind === "scene" || viewStep.kind === "finale"}
-            <div class="pt-2 pb-8 lg:pt-10">
-              <h2
-                class="m-0 mb-3 hidden font-serif text-2xl tracking-tight text-pretty text-slate-900 lg:block"
-              >
-                {viewStep.kind === "finale" ? FINALE_TITLE : viewStep.beat.title}
-              </h2>
-
-              {#if said.length}
-                <ol class="m-0 mb-6 hidden list-none gap-4 p-0 lg:grid" aria-label="Said so far">
-                  {#each said as index, order (index)}
-                    {@const line = lesson.scene[index]}
-                    {#if line}
-                      <li
-                        class={cx(
-                          "flex animate-rise gap-3 transition-opacity duration-150",
-                          order < said.length - 1 && "opacity-55",
-                        )}
-                      >
-                        <LessonCharacterAvatar speaker={line.speaker} size="sm" class="mt-0.5" />
-
-                        <div class="min-w-0">
-                          <p class="m-0 text-xs font-semibold text-slate-500">
-                            {line.speaker === "You" ? "Alex" : line.speaker}
-                          </p>
-
-                          <p class="m-0 font-serif text-lg leading-snug text-slate-900" lang="sk">
-                            <MarkedText text={line.slovak} marks={line.marks} />
-                          </p>
-
-                          {#if showEnglish}
-                            <p class="m-0 mt-0.5 text-sm text-slate-600">{line.english}</p>
-                          {/if}
-                        </div>
-                      </li>
-                    {/if}
-                  {/each}
-                </ol>
-              {/if}
-
+            <div class="mx-auto w-full max-w-[640px] pt-2 pb-8">
               {#if turn?.line.sayChoices}
                 <div class="animate-rise" data-turn>
                   <p class={eyebrowMutedClass} role="status">Your turn: what does Alex say?</p>
@@ -632,7 +628,7 @@
                     The whole scene from the start. This time you are Alex: it stops at
                     each of your lines.
                   {:else if viewIndex === 0}
-                    Watch what happens. At the end you play Alex in this scene.
+                    {setting.place}. Watch what happens; at the end you play Alex.
                   {:else}
                     The scene goes on.
                   {/if}
@@ -713,6 +709,7 @@
         label={footerLabel}
         onback={viewIndex > 0 ? goBack : undefined}
         onclick={onFooterPrimary}
+        queues={played && !sceneStarted}
         wide={Boolean(stage)}
       />
     {/if}
