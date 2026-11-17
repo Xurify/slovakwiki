@@ -595,6 +595,7 @@
       practiceSet={practiceSet ?? null}
       {steps}
       {trackTitle}
+      wide={Boolean(stage)}
     />
   {:else}
     <div
@@ -611,6 +612,8 @@
           // The whole scene: Alex's choices beside the stage, so neither has to shrink for the other.
           stage &&
             viewStep?.kind === "finale" &&
+            sceneStarted &&
+            !sceneDone &&
             "lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:items-start",
         )}
       >
@@ -619,7 +622,9 @@
           class={cx(
             "pt-5 sm:pt-6",
             played ? "mx-auto w-full" : "lg:sticky lg:top-0 lg:pt-10 lg:pb-10",
-            played && viewStep?.kind !== "finale" && "lg:max-w-[min(100%,calc((100dvh-22rem)*2))]",
+            played &&
+              !(viewStep?.kind === "finale" && sceneStarted && !sceneDone) &&
+              "lg:max-w-[min(100%,calc((100dvh-22rem)*2))]",
             played && "max-sm:-mx-4 max-sm:w-auto max-sm:pt-[8svh] lg:pt-8",
           )}
         >
@@ -648,7 +653,7 @@
             <div
               class={cx(
                 "mx-auto w-full pt-2 pb-10",
-                viewStep.kind === "finale"
+                viewStep.kind === "finale" && sceneStarted && !sceneDone
                   ? "lg:pt-8"
                   : "lg:max-w-[min(100%,calc((100dvh-22rem)*2))]",
               )}
@@ -740,6 +745,7 @@
           grade={viewResult.grade}
           why={viewResult.why}
           attempt={viewResult.attempt}
+          attemptLabel={viewResult.attemptLabel}
           correction={viewResult.correction}
           english={viewResult.english}
           revealed={viewResult.revealed}

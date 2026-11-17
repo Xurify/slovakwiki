@@ -59,6 +59,11 @@
 
   const visualHeadingClass = `${eyebrowMutedClass} mb-4`;
 
+  /** Slovak typesetting keeps a one-letter preposition (o, v, s, k, z, a, i, u) off the end of a line. */
+  function keepPrepositions(text: string): string {
+    return text.replace(/(^|\s)([aikosuvz])\s/gi, "$1$2\u00a0");
+  }
+
   const visuals = $derived(teach.visual ? [teach.visual].flat() : []);
   /** The most form columns of any table on the step, at least three, so no lone table stretches. */
   const slots = $derived(
@@ -192,7 +197,7 @@
             {item.slovak}
           </strong>
 
-          <span class="text-xs text-balance text-slate-500">{item.english}</span>
+          <span class="text-xs text-balance text-slate-500">{keepPrepositions(item.english)}</span>
         </li>
       {/each}
     </ul>

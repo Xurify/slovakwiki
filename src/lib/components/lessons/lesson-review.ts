@@ -13,6 +13,8 @@ export type LessonAnswerSnapshot = {
 export type LessonGradeResult = {
   answer?: LessonAnswerSnapshot;
   attempt?: string;
+  /** What the learner did: picked, built or wrote it. */
+  attemptLabel?: string;
   correct: boolean;
   correction?: string;
   english?: string;

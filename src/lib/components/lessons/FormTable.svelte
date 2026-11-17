@@ -103,7 +103,7 @@
 {:else}
 <figure
   class="m-0 sm:w-(--table-width)"
-  style:--table-width="calc(14rem + (100% - 14rem) * {table.columns.length} / {Math.max(slots, table.columns.length)})"
+  style:--table-width="min(100%, max(calc(14rem + (100% - 14rem) * {table.columns.length} / {Math.max(slots, table.columns.length)}), calc(14rem + {table.columns.length} * 12rem)))"
 >
   {#if titled}
   <figcaption class="pb-2">
@@ -178,7 +178,7 @@
             <tr class="border-b border-slate-200/70 last:border-b-0">
               <th
                 scope="row"
-                class="{edgeCellClass} py-2.5 text-xs leading-snug font-semibold text-slate-700 max-sm:hidden"
+                class="{edgeCellClass} py-2.5 align-baseline text-xs leading-snug font-semibold text-slate-700 max-sm:hidden"
               >
                 {@render heading(row.heading)}
               </th>
@@ -187,7 +187,7 @@
                 <td
                   class={[
                     cellPaddingClass,
-                    "py-2.5 font-serif text-base whitespace-nowrap text-slate-900 max-sm:pt-1 max-sm:first-of-type:pl-0",
+                    "py-2.5 align-baseline font-serif text-base whitespace-nowrap text-slate-900 max-sm:pt-1 max-sm:first-of-type:pl-0",
                     cellIndex === row.cells.length - 1 && "pr-0",
                   ]}
                   lang="sk"

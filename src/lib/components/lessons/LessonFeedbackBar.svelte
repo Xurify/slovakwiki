@@ -13,6 +13,7 @@
 
   let {
     attempt,
+    attemptLabel,
     autofocus = true,
     correction,
     english,
@@ -28,6 +29,7 @@
     wide = false,
   }: {
     attempt?: string;
+    attemptLabel?: string;
     autofocus?: boolean;
     correction?: string;
     english?: string;
@@ -79,6 +81,7 @@
       {#if isMiss}
         <PracticeExerciseFeedback
           {attempt}
+          {attemptLabel}
           {correction}
           {english}
           {why}

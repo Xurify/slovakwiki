@@ -26,6 +26,7 @@
     practiceSet,
     steps,
     trackTitle,
+    wide = false,
   }: {
     answers: Record<string, LessonGradeResult>;
     backHref: string;
@@ -36,6 +37,8 @@
     onback: () => void;
     onRestart: () => void;
     practiceSet: PracticeSet | null;
+    /** A lesson with its stage: the screen keeps the player's 1120px edges. */
+    wide?: boolean;
     steps: LessonStep[];
     trackTitle: string;
   } = $props();
@@ -160,6 +163,7 @@
     <div class="sm:pl-6.5">
       <PracticeExerciseFeedback
         attempt={row.result.attempt && !revealed ? row.result.attempt : undefined}
+        attemptLabel={row.result.attemptLabel}
         correction={row.result.correction}
         english={answerGloss(row.result.english, row.exercise.prompt, promptLang)}
         why={row.result.why}
@@ -222,7 +226,11 @@
 <div
   class="min-h-0 flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-400 scrollbar-track-transparent"
 >
-  <div class="mx-auto w-full max-w-[640px] px-4 py-8 sm:px-8 sm:py-10">
+  <div
+    class="mx-auto w-full px-4 py-8 sm:px-8 sm:py-10 {wide
+      ? 'max-w-[1120px] *:max-w-[640px]'
+      : 'max-w-[640px]'}"
+  >
     <header class="animate-rise">
       <p class="{eyebrowClass} inline-flex items-center gap-1.5 text-emerald-700">
         <svg class="size-3.5" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -332,7 +340,11 @@
   bind:this={footerEl}
   class="shrink-0 border-t border-slate-200 bg-paper py-4 sm:py-5"
 >
-  <div class="mx-auto flex max-w-[640px] items-center justify-end gap-2 px-4 sm:px-8">
+  <div
+    class="mx-auto flex items-center justify-end gap-2 px-4 sm:px-8 {wide
+      ? 'max-w-[1120px]'
+      : 'max-w-[640px]'}"
+  >
     <LessonBackButton onclick={onback} />
 
     {#if practiceFirst && practiceHref}
