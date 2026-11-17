@@ -49,6 +49,7 @@
   import { hasPendingStoryAudio, primeStoryAudio } from "$lib/lesson-story/story-audio";
   import {
     clearLessonResume,
+    LESSON_RESUME_PENDING_ATTR,
     readLessonResume,
     writeLessonResume,
   } from "$lib/lesson-progress/resume";
@@ -189,7 +190,7 @@
 
     const root = document.documentElement;
     void tick().then(() => {
-      root.removeAttribute("data-lesson-resume-pending");
+      root.removeAttribute(LESSON_RESUME_PENDING_ATTR);
     });
 
     if (root.hasAttribute("data-lesson-play-queued")) {
@@ -576,16 +577,14 @@
 
 <div
   bind:this={playerRoot}
-  class="fixed inset-0 z-[90] flex flex-col bg-paper outline-none [html[data-lesson-resume-pending]_&]:invisible"
+  class="fixed inset-0 z-[90] flex flex-col bg-paper outline-none"
   role="dialog"
   data-hydrated={hydrated ? "" : undefined}
   aria-modal="true"
   aria-label={lesson.title}
   tabindex="-1"
 >
-  <div
-    class="relative z-30 shrink-0 border-b border-slate-200 bg-paper [html[data-lesson-resume-pending]_&]:visible"
-  >
+  <div class="relative z-30 shrink-0 border-b border-slate-200 bg-paper">
     <div
       class="mx-auto w-full px-4 pt-3 sm:px-8 {stage ? 'max-w-[1120px]' : 'max-w-[640px]'}"
     >
@@ -628,7 +627,10 @@
     />
   {:else}
     <div
-      class="min-h-0 flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-400 scrollbar-track-transparent"
+      class={cx(
+        "min-h-0 flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-400 scrollbar-track-transparent",
+        "[html[data-lesson-resume-pending]_&]:invisible",
+      )}
     >
       <!--
         While lines play the stage is the thing to watch, as large as the window lets it be.

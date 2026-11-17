@@ -49,9 +49,11 @@
   let stageEl: HTMLElement | undefined = $state();
   /** Open beside the player on a wide screen; folded on a phone, where it would push the next steps far down. */
   let segmentsOpen = $state(true);
+  let measured = $state(false);
 
   onMount(() => {
     segmentsOpen = window.matchMedia("(min-width: 640px)").matches;
+    measured = true;
   });
 
   const totalChecks = $derived(episodeCheckCount(episode));
@@ -342,12 +344,13 @@
     </ul>
   </section>
 
-  <details class="group" bind:open={segmentsOpen}>
+  <!-- Until the screen width is known, a phone shows it folded, as onMount will leave it. -->
+  <details class="group" bind:open={segmentsOpen} data-measured={measured ? "" : undefined}>
     <summary
       class="flex min-h-11 cursor-pointer list-none items-center gap-2 text-sm font-semibold text-slate-700 hover:text-slate-900 [&::-webkit-details-marker]:hidden"
     >
       <svg
-        class="size-4 fill-none stroke-current transition-transform duration-150 group-open:rotate-90"
+        class="size-4 fill-none stroke-current transition-transform duration-150 group-open:rotate-90 max-sm:[details:not([data-measured])_&]:rotate-0"
         viewBox="0 0 24 24"
         stroke-width="2.25"
         stroke-linecap="round"
@@ -364,7 +367,10 @@
       </span>
     </summary>
 
-    <ol class="{dataPanelClass} m-0 mt-2 list-none p-0" aria-label="Segments">
+    <ol
+      class="{dataPanelClass} m-0 mt-2 list-none p-0 max-sm:[details:not([data-measured])>&]:hidden"
+      aria-label="Segments"
+    >
       {#each episode.chapters as entry, index (entry.id)}
         {@const score = scores[entry.id]}
         {@const played = score !== undefined || heard[entry.id]}
