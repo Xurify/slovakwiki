@@ -5,6 +5,7 @@ import LessonPage from "$lib/components/lessons/LessonPage.svelte";
 import { lessonAudioSrcs } from "$lib/catalog/lessons/audio";
 import { contentCacheKey } from "$lib/build/cache-key";
 import { lessons } from "$lib/catalog/lessons";
+import { episodePath, listeningEpisodes } from "$lib/catalog/listening";
 import { lessonScene, placeThingWords } from "$lib/stick-figure/scene-sources";
 
 export function getStaticPaths() {
@@ -12,11 +13,15 @@ export function getStaticPaths() {
     // Audio URLs belong in the cache key: regenerating clips changes them without
     // touching lesson text, and incrementalBuild would otherwise keep stale HTML.
     const stage = lessonScene(lesson);
+    const sameTopic = listeningEpisodes.find((episode) => episode.lessonId === lesson.id);
     const props = {
       lesson,
       audio: lessonAudioSrcs(lesson),
       stage,
       thingWords: stage ? placeThingWords(stage.setting) : {},
+      episode: sameTopic
+        ? { href: episodePath(sameTopic), title: sameTopic.titleSk }
+        : undefined,
     };
 
     return {
@@ -27,7 +32,7 @@ export function getStaticPaths() {
   });
 }
 
-const { lesson, audio, stage, thingWords } = Astro.props;
+const { lesson, audio, stage, thingWords, episode } = Astro.props;
 ---
 
 <SiteLayout
@@ -43,6 +48,7 @@ const { lesson, audio, stage, thingWords } = Astro.props;
       keyPhraseAudioSrcs={audio.keyPhrases}
       exerciseOptionAudioSrcs={audio.options}
       sceneAudioSrcs={audio.scene}
+      {episode}
       {stage}
       {thingWords}
     />

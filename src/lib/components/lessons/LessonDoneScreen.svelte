@@ -20,6 +20,7 @@
     answers,
     backHref,
     lesson,
+    episode,
     nextLesson,
     onback,
     onRestart,
@@ -30,6 +31,8 @@
     answers: Record<string, LessonGradeResult>;
     backHref: string;
     lesson: Lesson;
+    /** The podcast episode on the same topic. */
+    episode?: { href: string; title: string };
     nextLesson: Lesson | null;
     onback: () => void;
     onRestart: () => void;
@@ -283,7 +286,7 @@
         </ul>
       </LessonDoneSection>
 
-      {#if lesson.referenceLinks.length > 0}
+      {#if lesson.referenceLinks.length > 0 || episode}
         <section
           class="grid grid-cols-[7.5rem_1fr] items-baseline gap-x-4 max-[560px]:grid-cols-1 max-[560px]:gap-y-1.5"
           aria-labelledby="lesson-deeper-heading"
@@ -296,6 +299,14 @@
                 <TextLink href={link.href}>{link.label}</TextLink>
               </li>
             {/each}
+
+            {#if episode}
+              <li>
+                <TextLink href={episode.href}>
+                  The episode: <span lang="sk">{episode.title}</span>
+                </TextLink>
+              </li>
+            {/if}
           </ul>
         </section>
       {/if}
@@ -303,7 +314,7 @@
       <div
         class={[
           "flex flex-wrap items-baseline gap-x-5 gap-y-2 border-t border-slate-200/80 pt-5",
-          lesson.referenceLinks.length > 0 && "min-[561px]:pl-34",
+          (lesson.referenceLinks.length > 0 || episode) && "min-[561px]:pl-34",
         ]}
       >
         <TextLink onclick={onRestart}>Replay lesson</TextLink>

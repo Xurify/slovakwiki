@@ -33,9 +33,15 @@
     getStoryShowEnglish,
   } from "$lib/lesson-story/prefs";
   import { hasPendingStoryAudio, primeStoryAudio } from "$lib/lesson-story/story-audio";
+  import {
+    clearLessonResume,
+    readLessonResume,
+    writeLessonResume,
+  } from "$lib/lesson-progress/resume";
   import type { Scene } from "$lib/stick-figure/scene-line";
 
   let {
+    episode,
     lesson,
     keyPhraseAudioSrcs = {},
     exerciseOptionAudioSrcs = {},
@@ -43,6 +49,8 @@
     stage,
     thingWords = {},
   }: {
+    /** The podcast episode on the same topic, linked from the end of the lesson. */
+    episode?: { href: string; title: string };
     lesson: Lesson;
     keyPhraseAudioSrcs?: Record<string, string>;
     exerciseOptionAudioSrcs?: Record<string, string>;
@@ -123,6 +131,15 @@
 
   onMount(() => {
     practiceState = readPracticeState(localStorage);
+    const saved = readLessonResume(
+      localStorage,
+      lesson.id,
+      steps.map(({ id }) => id),
+    );
+    if (saved) {
+      answers = saved.answers;
+      stepIndex = saved.at;
+    }
     showEnglish = getStoryShowEnglish() === "on";
     hydrated = true;
 
@@ -208,8 +225,10 @@
     sceneDone = false;
     turn = null;
     sceneStage?.run(stageIndexes(lines), {
-      // A replay looks back: the learner's lines are said without stopping for them.
-      holds: (index) => !reviewing && Boolean(lesson.scene[index]?.sayChoices),
+      // Only the whole scene at the end stops for the learner: a chapter's lines come
+      // before what they teach, so a pick there would be a guess. A replay looks back.
+      holds: (index) =>
+        current.kind === "finale" && !reviewing && Boolean(lesson.scene[index]?.sayChoices),
       onturn: (index, go) => {
         const line = lesson.scene[index];
         if (!line) return go();
@@ -256,18 +275,31 @@
     if (stepIndex >= steps.length - 1) {
       sceneStage?.stop();
       persistLessonComplete();
+      if (hydrated) clearLessonResume(localStorage, lesson.id);
       phase = "done";
       return;
     }
 
     stepIndex += 1;
+    saveResume();
     reviewIndex = null;
     const to = steps[stepIndex];
     if (from?.kind === "check" && to && to.chapter !== from.chapter) sceneStage?.cheer();
     enter();
   }
 
+  /** Coming back to the lesson opens it here. */
+  function saveResume(): void {
+    if (!hydrated) return;
+    writeLessonResume(localStorage, lesson.id, {
+      answers: $state.snapshot(answers),
+      at: stepIndex,
+      stepIds: steps.map(({ id }) => id),
+    });
+  }
+
   function restart(): void {
+    if (hydrated) clearLessonResume(localStorage, lesson.id);
     answers = {};
     reviewIndex = null;
     stepIndex = 0;
@@ -316,6 +348,7 @@
 
   function onGraded(result: LessonGradeResult): void {
     if (step) answers[step.id] = result;
+    saveResume();
     canSubmit = false;
     sceneStage?.react(result.correct ? "nod" : "think");
   }
@@ -423,6 +456,7 @@
     <LessonDoneScreen
       {answers}
       {backHref}
+      {episode}
       {lesson}
       {nextLesson}
       onback={() => reopenStep(stepIndex)}
@@ -495,7 +529,7 @@
                     The whole scene from the start. This time you are Alex: it stops at
                     each of your lines.
                   {:else if viewIndex === 0}
-                    Watch what happens. When it is Alex's turn, you choose Alex's words.
+                    Watch what happens. At the end you play Alex in this scene.
                   {:else}
                     The scene goes on.
                   {/if}
