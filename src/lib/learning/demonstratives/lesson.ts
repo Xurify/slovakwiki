@@ -130,8 +130,7 @@ export const demonstrativesGradedExercises: LessonExercise[] = [
       {
         id: "feminine",
         label: "Kto je tá dievča?",
-        whyWrong:
-          "**Tá** goes with feminine nouns. **Dievča** means a girl, but the noun is neuter.",
+        whyWrong: "**Tá** goes with feminine nouns like **žena** or **taška**.",
       },
       {
         id: "masculine",

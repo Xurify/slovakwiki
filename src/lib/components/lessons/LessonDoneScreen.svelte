@@ -2,7 +2,6 @@
   import { onMount, tick } from "svelte";
 
   import { eyebrowClass, eyebrowMutedClass } from "$lib/components/ui/system-ui";
-  import { dataPanelClass } from "$lib/components/ui/data-list-ui";
   import TextLink from "$lib/components/ui/TextLink.svelte";
   import LessonBackButton from "$lib/components/lessons/LessonBackButton.svelte";
   import LessonDoneAction from "$lib/components/lessons/LessonDoneAction.svelte";
@@ -140,7 +139,7 @@
   {@const revealed = row.result.revealed === true}
   {@const promptLang = row.exercise.promptLang}
 
-  <li class="grid gap-3 border-b border-slate-200/70 px-4 py-4 last:border-b-0 sm:px-5">
+  <li class="grid gap-3 border-b border-slate-200/70 py-4 last:border-b-0">
     <div class="flex items-baseline gap-2.5">
       <span class="w-4 shrink-0 text-xs font-semibold tabular-nums text-slate-400">
         {row.number}
@@ -179,7 +178,7 @@
   {@const missed = beat.total > 0 && beat.correct < beat.total}
 
   <li
-    class="flex items-baseline gap-3 border-b border-slate-200/70 px-4 py-3 last:border-b-0 sm:px-5"
+    class="flex items-baseline gap-3 border-b border-slate-200/70 py-3 last:border-b-0"
   >
     <span
       class={[
@@ -256,7 +255,7 @@
           title="To review"
           count={misses.length}
         >
-          <ol class="{dataPanelClass} m-0 list-none p-0">
+          <ol class="m-0 list-none border-y border-slate-200 p-0">
             {#each misses as row (row.exercise.id)}
               {@render missRow(row)}
             {/each}
@@ -279,7 +278,7 @@
       {/if}
 
       <LessonDoneSection id="lesson-covered-heading" title="What you covered">
-        <ul class="{dataPanelClass} m-0 list-none p-0">
+        <ul class="m-0 list-none border-y border-slate-200 p-0">
           {#each beats as beat (beat.id)}
             {@render beatRow(beat)}
           {/each}
@@ -331,9 +330,9 @@
 
 <div
   bind:this={footerEl}
-  class="shrink-0 border-t border-slate-200 bg-paper px-4 py-4 sm:px-8 sm:py-5"
+  class="shrink-0 border-t border-slate-200 bg-paper py-4 sm:py-5"
 >
-  <div class="mx-auto flex max-w-[640px] items-center justify-end gap-2">
+  <div class="mx-auto flex max-w-[640px] items-center justify-end gap-2 px-4 sm:px-8">
     <LessonBackButton onclick={onback} />
 
     {#if practiceFirst && practiceHref}
