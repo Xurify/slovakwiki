@@ -137,6 +137,18 @@
     status = "idle";
   }
 
+  /**
+   * A jump to a chapter, as a seek on a video: nothing playing, and everyone
+   * where line `index` finds them. Already there (the chapter before just
+   * ended), nobody is moved, so the cheer at its end plays on.
+   */
+  export function seekTo(index: number): void {
+    clear();
+    if (index === last + 1) return;
+    stage?.place(index);
+    last = index - 1;
+  }
+
   export function stop(): void {
     halt();
     stage?.stop();

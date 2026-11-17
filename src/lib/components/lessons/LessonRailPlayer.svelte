@@ -31,7 +31,12 @@
     choiceIndexFromKeyboardEvent,
     isSayChoiceCorrect,
   } from "$lib/learning/exercises";
-  import { FINALE_TITLE, lessonChapters, lessonSteps } from "$lib/learning/lesson-steps";
+  import {
+    FINALE_TITLE,
+    lessonChapters,
+    lessonSteps,
+    type LessonStep,
+  } from "$lib/learning/lesson-steps";
   import LessonCharacterAvatar from "$lib/components/lessons/LessonCharacterAvatar.svelte";
   import MarkedText from "$lib/components/learning/MarkedText.svelte";
   import { cx } from "$lib/ui/classes";
@@ -278,6 +283,13 @@
     });
   }
 
+  /** The stage's lines a scene step plays: its chapter's, or the whole scene at the end. */
+  function sceneLines(entry: LessonStep | undefined): number[] {
+    if (entry?.kind === "scene") return stageIndexes(entry.lines);
+    if (entry?.kind === "finale") return stageIndexes(lesson.scene);
+    return [];
+  }
+
   function startScene(): void {
     activated = true;
     playScene();
@@ -288,11 +300,10 @@
     const current = viewStep;
     if (!current || (current.kind !== "scene" && current.kind !== "finale")) return;
 
-    const lines = current.kind === "scene" ? current.lines : lesson.scene;
     window.clearTimeout(startTimer);
     starting = false;
     turn = null;
-    sceneStage?.run(stageIndexes(lines), {
+    sceneStage?.run(sceneLines(current), {
       waits: () => getStoryAutoAdvance() === "off",
       // Only the whole scene at the end stops for the learner: a chapter's lines come
       // before what they teach, so a pick there would be a guess. A replay looks back.
@@ -363,7 +374,9 @@
   /** Into the step on screen: a scene starts on its own once the learner has touched the page. */
   function enter(cheer = false): void {
     window.clearTimeout(startTimer);
-    sceneStage?.clear();
+    const first = sceneLines(viewStep)[0];
+    if (first === undefined) sceneStage?.clear();
+    else sceneStage?.seekTo(first);
     canSubmit = false;
     turn = null;
     starting = false;
@@ -415,6 +428,19 @@
   function reopenStep(index: number): void {
     phase = "play";
     showStep(index);
+  }
+
+  /**
+   * A press on the bar, like a seek on a video: that part on screen, and its
+   * lines playing from their start, a part heard before too.
+   */
+  async function seek(index: number): Promise<void> {
+    if (phase === "done") phase = "play";
+    showStep(index);
+    await tick();
+    if (!played) return;
+    activated = true;
+    playScene();
   }
 
   function showStep(index: number): void {
@@ -565,7 +591,7 @@
         currentDone={Boolean(gradeResult) || (played && sceneDone && !reviewing)}
         closeLabel="Close lesson"
         complete={phase === "done"}
-        onselect={phase === "done" ? reopenStep : showStep}
+        onselect={seek}
         progressLabel="Lesson steps"
         subtitle={stage ? undefined : trackTitle}
         title={lesson.title}

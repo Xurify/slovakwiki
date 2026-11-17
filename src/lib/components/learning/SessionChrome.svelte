@@ -5,6 +5,7 @@
   import type { AnswerGrade } from "$lib/components/practice/practice-state";
   import type { LessonChapter } from "$lib/learning/lesson-steps";
   import { iconButtonClass, iconButtonToneClass } from "$lib/components/ui/system-ui";
+  import { cx } from "$lib/ui/classes";
 
   /**
    * The strip above a lesson or practice session: close, title and track,
@@ -173,8 +174,12 @@
             )}
         >
           <span class="relative h-1.5 w-full overflow-hidden rounded-full bg-slate-200">
+            <!-- Past the part on screen, what was reached shows paler, as a video bar does ahead of the playhead. -->
             <span
-              class="absolute inset-y-0 left-0 rounded-full bg-blue-600 transition-[width] duration-300 ease-out"
+              class={cx(
+                "absolute inset-y-0 left-0 rounded-full transition-[width,background-color] duration-300 ease-out",
+                !complete && index > chapterAt ? "bg-blue-600/35" : "bg-blue-600",
+              )}
               style:width="{done * 100}%"
             ></span>
           </span>
