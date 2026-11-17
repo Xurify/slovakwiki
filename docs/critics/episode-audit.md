@@ -7,7 +7,7 @@ You audit ONE listening episode of slovak.wiki (Astro + Svelte 5; stick-figure s
 - Work in your own worktree from origin/master with its own `bun install` and dev server port (`bunx astro dev --port <port> --background`).
 - Start a dev server on YOUR port: `bunx astro dev --host 0.0.0.0 --port <port> --background`. Never run `astro dev stop` or `pkill -f`; kill only your own pid at the end. Don't edit src/.
 - Playwright: segments have no title buttons; reach segment N by clicking "Next segment" N times. For frames at chosen moments use the virtual clock as `scripts/stage-review/render-frames.cjs` does. `scripts/critic/` has snap-frames.cjs, contact-sheets.py, motion-strips.py and game-walk.cjs.
-- Judge on the episode page `/listening/<slug>`, at 1280 and 390 wide, light and dark.
+- Judge on the episode page `/episodes/<slug>`, at 1280 and 390 wide, light and dark.
 
 ## Read first
 
