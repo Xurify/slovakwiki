@@ -146,7 +146,8 @@
           <summary
             class="flex cursor-pointer list-none items-center gap-1.5 text-sm font-semibold text-slate-900 [&::-webkit-details-marker]:hidden"
           >
-            <MarkedNote text={visual.title} />
+            <!-- One flex item: the marks inside the title would each take the gap, a space before every comma. -->
+            <span><MarkedNote text={visual.title} /></span>
 
             <svg
               class="size-4 shrink-0 fill-none stroke-current stroke-2 text-slate-500 transition-transform duration-150 ease-out group-open:rotate-180"
