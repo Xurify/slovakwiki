@@ -39,19 +39,21 @@ export function contentTypeForImageFile(file: string): string {
   const ext = path.extname(file).toLowerCase();
   if (ext === ".webp") return "image/webp";
   if (ext === ".png") return "image/png";
-  if (ext === ".gif") return "image/gif";
   if (ext === ".svg") return "image/svg+xml";
   if (ext === ".jpg" || ext === ".jpeg") return "image/jpeg";
   return "application/octet-stream";
 }
 
-/** Filenames present under `static/images/dictionary/`. */
+/** Dictionary uploads use still-image formats, never the old GIF imports. */
+export function isDictionaryImageFile(file: string): boolean {
+  return /\.(webp|png|jpe?g|svg)$/i.test(file);
+}
+
+/** Supported filenames present under `static/images/dictionary/`. */
 export async function listLocalImageFiles(): Promise<string[]> {
   try {
     const names = await readdir(IMAGES_DIR);
-    return names
-      .filter((name) => /\.(webp|png|jpe?g|gif|svg)$/i.test(name))
-      .sort((a, b) => a.localeCompare(b, "en"));
+    return names.filter(isDictionaryImageFile).sort((a, b) => a.localeCompare(b, "en"));
   } catch {
     return [];
   }

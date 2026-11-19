@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
 
+import imageManifest from "../../content/images/manifest.json";
+
 import {
   allowsCommonsAutoPromote,
   allowsWikiPageimage,
@@ -11,13 +13,41 @@ import {
   isBusySceneTitle,
   isEditorialCartoonTitle,
   isRejectedCommonsTitle,
+  isDictionaryImageFile,
   pageimageAcceptable,
   nounCommonsQueries,
   pickTitledCommonsHit,
   prefersCartoonCommons,
   slugMatchesOnly,
   type ImageTarget,
+  type ImageManifest,
 } from "./shared";
+
+describe("dictionary image formats", () => {
+  it("keeps still-image uploads and excludes old GIF imports", () => {
+    const files = [
+      "photo.jpg",
+      "photo.JPEG",
+      "thumb.webp",
+      "diagram.PNG",
+      "drawing.svg",
+      "old.gif",
+      "old.GIF",
+      "notes.txt",
+    ];
+    expect(files.filter(isDictionaryImageFile)).toEqual(files.slice(0, 5));
+  });
+
+  it("keeps GIF references out of the image manifest", () => {
+    const gifs = Object.entries(imageManifest as ImageManifest).filter(
+      ([, entry]) =>
+        /\.gif(?:$|[?#])/i.test(entry.file ?? "") ||
+        /\.gif(?:$|[?#])/i.test(entry.originalUrl ?? "") ||
+        /\.gif(?:$|[?#])/i.test(entry.commonsFile ?? ""),
+    );
+    expect(gifs.map(([slug]) => slug)).toEqual([]);
+  });
+});
 
 function target(
   partial: Partial<ImageTarget> & Pick<ImageTarget, "category" | "gloss">,
