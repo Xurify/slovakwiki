@@ -137,6 +137,9 @@
   "baba": {
     "reject": true
   },
+  "babika": {
+    "commonsFile": "Knitted_rag_doll.jpg"
+  },
   "babka": {
     "commonsFile": "Portrait of a Slovene Peasant Woman.jpg"
   },
@@ -232,6 +235,9 @@
   },
   "buducnost": {
     "reject": true
+  },
+  "bunda": {
+    "commonsFile": "Jacket2-1.jpg"
   },
   "byt-n": {
     "reject": true
@@ -800,6 +806,9 @@
   "golman": {
     "reject": true
   },
+  "gombik": {
+    "commonsFile": "Buttons!.jpg"
+  },
   "gula": {
     "commonsFile": "Glass sphere with bubbles.jpg"
   },
@@ -947,6 +956,9 @@
   "idealny": {
     "reject": true
   },
+  "ihla": {
+    "commonsFile": "A_depiction_of_needle.JPG"
+  },
   "ihrisko": {
     "reject": true
   },
@@ -1043,6 +1055,9 @@
   "jednotlivec": {
     "reject": true
   },
+  "jelen": {
+    "commonsFile": "Cervus_elaphus_Luc_Viatour_3.jpg"
+  },
   "jubileum": {
     "reject": true
   },
@@ -1065,9 +1080,6 @@
     "reject": true
   },
   "kalendar": {
-    "reject": true
-  },
-  "kamarat": {
     "reject": true
   },
   "kamen": {
@@ -1132,6 +1144,9 @@
   },
   "kino": {
     "reject": true
+  },
+  "kladivo": {
+    "commonsFile": "IKEA_hammer_(cropped).jpg"
   },
   "klavir": {
     "commonsFile": "Steinway & Sons upright piano, model K-52 (mahogany finish), manufactured at Steinway's factory in New York City.jpg"
@@ -2291,6 +2306,9 @@
   "pauza": {
     "reject": true
   },
+  "pavuk": {
+    "commonsFile": "Araneus_diadematus_(Clerck,_1757).JPG"
+  },
   "pec": {
     "commonsFile": "Gas stove in Italy.jpg"
   },
@@ -2569,6 +2587,9 @@
   },
   "pondelok": {
     "reject": true
+  },
+  "ponozka": {
+    "commonsFile": "Hand_knitted_socks.jpg"
   },
   "ponuka": {
     "reject": true
@@ -2892,12 +2913,6 @@
     "reject": true
   },
   "prezitie": {
-    "reject": true
-  },
-  "priatel": {
-    "reject": true
-  },
-  "priatelka": {
     "reject": true
   },
   "priatelstvo": {
@@ -3424,6 +3439,9 @@
   },
   "sledovanie": {
     "reject": true
+  },
+  "slivka": {
+    "commonsFile": "Fruits_Prunus_domestica.jpg"
   },
   "slnecny": {
     "reject": true
@@ -4151,6 +4169,9 @@
   "utek": {
     "reject": true
   },
+  "uterak": {
+    "commonsFile": "Zusammengelegte_Handtücher.jpg"
+  },
   "utocnik": {
     "reject": true
   },
@@ -4216,6 +4237,9 @@
   },
   "vedomost": {
     "reject": true
+  },
+  "vedro": {
+    "commonsFile": "5_l_plastový_kbelík.jpg"
   },
   "veduci": {
     "reject": true
