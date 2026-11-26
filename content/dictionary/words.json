@@ -280592,7 +280592,7 @@
   {
     "slug": "vzdalovat",
     "slovak": "vzďaľovať",
-    "english": "to move away",
+    "english": "to move away (vzďaľovať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -282410,7 +282410,7 @@
   {
     "slug": "distancovat",
     "slovak": "dištancovať",
-    "english": "to distance (oneself)",
+    "english": "to distance oneself (dištancovať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -283522,7 +283522,7 @@
   {
     "slug": "zanikat",
     "slovak": "zanikať",
-    "english": "to fade away; to disappear",
+    "english": "to fade away; to cease to exist",
     "category": "Verbs",
     "examples": [
       {
@@ -284369,7 +284369,7 @@
   {
     "slug": "prerobit",
     "slovak": "prerobiť",
-    "english": "to redo",
+    "english": "to redo; to remodel",
     "category": "Verbs",
     "examples": [
       {
@@ -284705,7 +284705,7 @@
   {
     "slug": "vystahovat",
     "slovak": "vysťahovať",
-    "english": "to evict; to move out",
+    "english": "to evict; to move out (vysťahovať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -284763,7 +284763,7 @@
   {
     "slug": "nevolat",
     "slovak": "nevolať",
-    "english": "to not call; to not be named",
+    "english": "to not call; to not be called (nevolať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -285089,7 +285089,7 @@
   {
     "slug": "pretrhnut",
     "slovak": "pretrhnúť",
-    "english": "to tear through; to snap",
+    "english": "to tear (in two); to snap",
     "category": "Verbs",
     "examples": [
       {
@@ -286248,7 +286248,7 @@
   {
     "slug": "prisadnut",
     "slovak": "prisadnúť",
-    "english": "to sit down with, to join",
+    "english": "to sit down with (prisadnúť si)",
     "category": "Verbs",
     "examples": [
       {
@@ -286841,7 +286841,7 @@
   {
     "slug": "zacudovat",
     "slovak": "začudovať",
-    "english": "to surprise",
+    "english": "to be surprised (začudovať sa); to surprise",
     "category": "Verbs",
     "examples": [
       {
@@ -286870,7 +286870,7 @@
   {
     "slug": "podnecovat",
     "slovak": "podnecovať",
-    "english": "to encourage; to stimulate",
+    "english": "to spark; to prompt; to incite",
     "category": "Verbs",
     "examples": [
       {
@@ -288325,7 +288325,7 @@
   {
     "slug": "pochytit",
     "slovak": "pochytiť",
-    "english": "to pick up; to grasp",
+    "english": "to pick up (words, skills)",
     "category": "Verbs",
     "examples": [
       {
@@ -288556,7 +288556,7 @@
   {
     "slug": "rozsvietit",
     "slovak": "rozsvietiť",
-    "english": "to turn on the light",
+    "english": "to turn on the light; to light up (rozsvietiť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -290345,7 +290345,7 @@
   {
     "slug": "netrpiet",
     "slovak": "netrpieť",
-    "english": "to not suffer; to not tolerate",
+    "english": "to not tolerate; to not suffer (from)",
     "category": "Verbs",
     "examples": [
       {
@@ -290888,7 +290888,7 @@
   {
     "slug": "popasovat",
     "slovak": "popasovať",
-    "english": "to wrestle; to grapple (with)",
+    "english": "to wrestle; to cope with (popasovať sa s)",
     "category": "Verbs",
     "examples": [
       {
@@ -291269,7 +291269,7 @@
   {
     "slug": "udat",
     "slovak": "udať",
-    "english": "to inform on; to report",
+    "english": "to inform on; to tell on",
     "category": "Verbs",
     "examples": [
       {
@@ -294432,7 +294432,7 @@
   {
     "slug": "odpocitat",
     "slovak": "odpočítať",
-    "english": "to subtract; to count down",
+    "english": "to count down; to deduct",
     "category": "Verbs",
     "examples": [
       {
@@ -294461,7 +294461,7 @@
   {
     "slug": "nezbavit",
     "slovak": "nezbaviť",
-    "english": "to not get rid of",
+    "english": "to not get rid of (nezbaviť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -294514,7 +294514,7 @@
   {
     "slug": "dozicit",
     "slovak": "dožičiť",
-    "english": "to treat (someone) to; to allow",
+    "english": "to treat (someone) to; to let (someone) have",
     "category": "Verbs",
     "examples": [
       {
@@ -296020,7 +296020,7 @@
   {
     "slug": "vypestovat",
     "slovak": "vypestovať",
-    "english": "to grow",
+    "english": "to grow (plants)",
     "category": "Verbs",
     "examples": [
       {
@@ -296802,7 +296802,7 @@
   {
     "slug": "rozplyvat",
     "slovak": "rozplývať",
-    "english": "to melt away",
+    "english": "to melt away (rozplývať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -297342,7 +297342,7 @@
   {
     "slug": "zenit",
     "slovak": "ženiť",
-    "english": "to get married (of a man)",
+    "english": "to get married (ženiť sa, of a man)",
     "category": "Verbs",
     "examples": [
       {
@@ -297700,7 +297700,7 @@
   {
     "slug": "udomacnit",
     "slovak": "udomácniť",
-    "english": "to settle in",
+    "english": "to settle in (udomácniť sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -298162,7 +298162,7 @@
   {
     "slug": "neucit",
     "slovak": "neučiť",
-    "english": "to not teach; to not learn",
+    "english": "to not learn (neučiť sa); to not teach",
     "category": "Verbs",
     "examples": [
       {
@@ -298720,7 +298720,7 @@
   {
     "slug": "zacervenat",
     "slovak": "začervenať",
-    "english": "to blush",
+    "english": "to blush (začervenať sa)",
     "category": "Verbs",
     "examples": [
       {
@@ -299967,7 +299967,7 @@
   {
     "slug": "operny",
     "slovak": "operný",
-    "english": "opera",
+    "english": "opera (opera singer); operatic",
     "category": "Adjectives",
     "examples": [
       {
@@ -304648,7 +304648,7 @@
   {
     "slug": "maturitny",
     "slovak": "maturitný",
-    "english": "school-leaving exam",
+    "english": "school-leaving (exam); graduation",
     "category": "Adjectives",
     "examples": [
       {
@@ -305426,7 +305426,7 @@
   {
     "slug": "plnohodnotny",
     "slovak": "plnohodnotný",
-    "english": "full; fully fledged",
+    "english": "fully fledged; full (member); wholesome (food)",
     "category": "Adjectives",
     "examples": [
       {
@@ -309026,7 +309026,7 @@
   {
     "slug": "prizemny",
     "slovak": "prízemný",
-    "english": "ground-floor; low-lying",
+    "english": "ground-floor; ground-level",
     "category": "Adjectives",
     "examples": [
       {
@@ -309190,7 +309190,7 @@
   {
     "slug": "dorastenecky",
     "slovak": "dorastenecký",
-    "english": "youth (in sport); junior",
+    "english": "youth (in sport)",
     "category": "Adjectives",
     "examples": [
       {
@@ -310282,7 +310282,7 @@
   {
     "slug": "plasticky",
     "slovak": "plastický",
-    "english": "malleable; three-dimensional",
+    "english": "malleable; plastic (surgery); vivid",
     "category": "Adjectives",
     "examples": [
       {
@@ -312540,7 +312540,7 @@
   {
     "slug": "neodmyslitelny",
     "slovak": "neodmysliteľný",
-    "english": "integral; inseparable",
+    "english": "indispensable; essential (part)",
     "category": "Adjectives",
     "examples": [
       {
@@ -314093,7 +314093,7 @@
   {
     "slug": "advokatsky",
     "slovak": "advokátsky",
-    "english": "lawyer's; legal",
+    "english": "lawyer's; law (firm)",
     "category": "Adjectives",
     "examples": [
       {
@@ -314699,7 +314699,7 @@
   {
     "slug": "pohotovy",
     "slovak": "pohotový",
-    "english": "quick, prompt; quick-witted",
+    "english": "quick; prompt; quick-witted",
     "category": "Adjectives",
     "examples": [
       {
@@ -315160,7 +315160,7 @@
   {
     "slug": "vrazedny",
     "slovak": "vražedný",
-    "english": "murderous; killer (figurative)",
+    "english": "murderous; deadly",
     "category": "Adjectives",
     "examples": [
       {
@@ -318118,7 +318118,7 @@
   {
     "slug": "ozdobny",
     "slovak": "ozdobný",
-    "english": "decorative",
+    "english": "decorative; ornate",
     "category": "Adjectives",
     "examples": [
       {
@@ -318547,7 +318547,7 @@
   {
     "slug": "nepripustny",
     "slovak": "neprípustný",
-    "english": "unacceptable; impermissible",
+    "english": "impermissible; not allowed",
     "category": "Adjectives",
     "examples": [
       {
@@ -319549,7 +319549,7 @@
   {
     "slug": "didakticky",
     "slovak": "didaktický",
-    "english": "educational; teaching",
+    "english": "teaching; didactic",
     "category": "Adjectives",
     "examples": [
       {
@@ -319636,7 +319636,7 @@
   {
     "slug": "velkoplosny",
     "slovak": "veľkoplošný",
-    "english": "large-format; large-screen",
+    "english": "large-format; large-scale",
     "category": "Adjectives",
     "examples": [
       {
@@ -319824,7 +319824,7 @@
   {
     "slug": "hrobovy",
     "slovak": "hrobový",
-    "english": "burial; of a grave",
+    "english": "of a grave; deathly (silence)",
     "category": "Adjectives",
     "examples": [
       {
@@ -324489,7 +324489,7 @@
   {
     "slug": "hlbkovy",
     "slovak": "hĺbkový",
-    "english": "in-depth; deep",
+    "english": "in-depth",
     "category": "Adjectives",
     "examples": [
       {
@@ -335163,7 +335163,7 @@
   {
     "slug": "ucelne",
     "slovak": "účelne",
-    "english": "efficiently",
+    "english": "practically; to good purpose",
     "category": "Adverbs",
     "examples": [
       {
@@ -339958,7 +339958,7 @@
   {
     "slug": "zbezne",
     "slovak": "zbežne",
-    "english": "briefly; in passing",
+    "english": "at a glance; superficially",
     "category": "Adverbs",
     "examples": [
       {
@@ -340341,7 +340341,7 @@
   {
     "slug": "nepekne",
     "slovak": "nepekne",
-    "english": "unkindly; not nicely",
+    "english": "not nicely; rudely",
     "category": "Adverbs",
     "examples": [
       {
@@ -342186,7 +342186,7 @@
   {
     "slug": "samovolne",
     "slovak": "samovoľne",
-    "english": "of its own accord; arbitrarily",
+    "english": "of its own accord; by itself",
     "category": "Adverbs",
     "examples": [
       {
@@ -343109,7 +343109,7 @@
   {
     "slug": "neplanovane",
     "slovak": "neplánovane",
-    "english": "without planning; unexpectedly",
+    "english": "without planning; not as planned",
     "category": "Adverbs",
     "examples": [
       {
@@ -351335,7 +351335,7 @@
   {
     "slug": "roztrpcene",
     "slovak": "roztrpčene",
-    "english": "bitterly",
+    "english": "resentfully; bitterly",
     "category": "Adverbs",
     "examples": [
       {
@@ -353021,7 +353021,7 @@
   {
     "slug": "pochopitelne",
     "slovak": "pochopiteľne",
-    "english": "naturally; understandably",
+    "english": "understandably; of course",
     "category": "Adverbs",
     "examples": [
       {
@@ -353562,7 +353562,7 @@
   {
     "slug": "plynne",
     "slovak": "plynne",
-    "english": "smoothly; fluently",
+    "english": "fluently; smoothly",
     "category": "Adverbs",
     "examples": [
       {
@@ -353817,7 +353817,7 @@
   {
     "slug": "namodro",
     "slovak": "namodro",
-    "english": "blue",
+    "english": "(painted, dyed) blue",
     "category": "Adverbs",
     "examples": [
       {
@@ -354190,5 +354190,440 @@
       }
     ],
     "related": []
+  },
+  {
+    "slug": "hrdit",
+    "slovak": "hrdiť",
+    "english": "to be proud (hrdiť sa)",
+    "category": "Verbs",
+    "examples": [
+      {
+        "slovak": "Mesto sa hrdí bohatou históriou.",
+        "english": "The city prides itself on its rich history.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Rodičia sa hrdia svojou dcérou.",
+        "english": "The parents are proud of their daughter.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Môžeš sa hrdiť tým, čo si dokázal.",
+        "english": "You can be proud of what you achieved.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Vždy sa hrdil svojím remeslom.",
+        "english": "He always took pride in his craft.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "hrdy"
+    ]
+  },
+  {
+    "slug": "liecivo",
+    "slovak": "liečivo",
+    "english": "medication; medicinal product",
+    "category": "Nouns",
+    "gender": "neuter",
+    "examples": [
+      {
+        "slovak": "Toto liečivo rýchlo znižuje horúčku.",
+        "english": "This medication brings fever down fast.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Bez predpisu toto liečivo nekúpite.",
+        "english": "You cannot buy this medication without a prescription.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nové liečivo prešlo všetkými testami.",
+        "english": "The new medication passed all the tests.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Lekár mu odporučil iné liečivo.",
+        "english": "The doctor recommended a different medication to him.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "liek"
+    ]
+  },
+  {
+    "slug": "nadivoko",
+    "slovak": "nadivoko",
+    "english": "in the wild (camping); untamed",
+    "category": "Adverbs",
+    "examples": [
+      {
+        "slovak": "Stanovali sme nadivoko pri jazere.",
+        "english": "We wild-camped by the lake.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Bylinky tam rastú nadivoko.",
+        "english": "Herbs grow wild there.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Pár rokov spolu žili nadivoko.",
+        "english": "They lived together unmarried for a few years.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Niektorí ľudia parkujú nadivoko na trávniku.",
+        "english": "Some people park illegally on the grass.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "divoko"
+    ]
+  },
+  {
+    "slug": "namale",
+    "slovak": "namále",
+    "english": "close call (mať namále)",
+    "category": "Adverbs",
+    "examples": [
+      {
+        "slovak": "Včera som na ceste mal naozaj namále.",
+        "english": "Yesterday I had a real close call on the road.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Náš tím mal v druhom polčase namále.",
+        "english": "Our team had a close call in the second half.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Starý most mal počas povodne namále.",
+        "english": "The old bridge barely held up during the flood.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Chvíľu to vyzeralo, že budeme mať namále.",
+        "english": "For a moment it looked like it would be a close call for us.",
+        "note": "Curated"
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "nevyjadrovat",
+    "slovak": "nevyjadrovať",
+    "english": "to not comment (nevyjadrovať sa); to not express",
+    "category": "Verbs",
+    "examples": [
+      {
+        "slovak": "Nevyjadrujem sa k tomu, kým nemám všetky fakty.",
+        "english": "I won't comment on that until I have all the facts.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nevyjadrovali sa k tomu, len sa usmievali.",
+        "english": "They wouldn't comment on it, they just smiled.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Prečo sa nevyjadruješ k mojej správe?",
+        "english": "Why aren't you responding to my message?",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Zostal som ticho a nevyjadroval som sa.",
+        "english": "I stayed quiet and didn't comment.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "vyjadrovat"
+    ]
+  },
+  {
+    "slug": "nevynechat",
+    "slovak": "nevynechať",
+    "english": "to not skip; to not miss",
+    "category": "Verbs",
+    "examples": [
+      {
+        "slovak": "Nevynechal som ani jeden deň v posilňovni.",
+        "english": "I didn't skip a single day at the gym.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nevynechá žiadnu príležitosť na zábavu.",
+        "english": "He won't miss any chance to have fun.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Túto výstavu určite nevynechám.",
+        "english": "I definitely won't miss this exhibition.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nikdy nevynechá rannú kávu.",
+        "english": "She never skips her morning coffee.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "vynechat"
+    ]
+  },
+  {
+    "slug": "nevytvorit",
+    "slovak": "nevytvoriť",
+    "english": "to not create; to not make",
+    "category": "Verbs",
+    "examples": [
+      {
+        "slovak": "Nevytvorili sme včas správu pre šéfa.",
+        "english": "We didn't finish the report for the boss on time.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Tím nevytvorí nový produkt do leta.",
+        "english": "The team won't create a new product by summer.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Keby si nevytvoril plán, nikam by si sa nedostal.",
+        "english": "If you hadn't made a plan, you wouldn't have gotten anywhere.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Je škoda nevytvoriť priestor pre deti.",
+        "english": "It's a pity not to create space for the children.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "vytvorit"
+    ]
+  },
+  {
+    "slug": "nevyuzivat",
+    "slovak": "nevyužívať",
+    "english": "to not use; to not take advantage of",
+    "category": "Verbs",
+    "examples": [
+      {
+        "slovak": "Veľa ľudí nevyužíva bezplatné kurzy.",
+        "english": "Many people don't use free courses.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Prečo nevyužívaš takú dobrú príležitosť?",
+        "english": "Why aren't you taking advantage of such a good opportunity?",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nevyužívala som ten čas dobre.",
+        "english": "I wasn't using that time well.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Škoda, že túto možnosť vôbec nevyužívajú.",
+        "english": "It's a pity they don't use this option at all.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "vyuzivat",
+      "nevyuzit"
+    ]
+  },
+  {
+    "slug": "odchytat",
+    "slovak": "odchytať",
+    "english": "to keep goal (a whole match)",
+    "category": "Verbs",
+    "examples": [
+      {
+        "slovak": "Brankár odchytal celý zápas bez jedinej chyby.",
+        "english": "The goalkeeper kept goal for the whole match without a single mistake.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V tejto sezóne odchytal už dvadsať zápasov.",
+        "english": "This season he has already played twenty matches in goal.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Mladý brankár odchytá zajtra svoj prvý zápas.",
+        "english": "The young goalkeeper will play his first match in goal tomorrow.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Odchytala skvelý turnaj a pomohla tímu k výhre.",
+        "english": "She had a great tournament in goal and helped the team win.",
+        "note": "Curated"
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "zacas",
+    "slovak": "začas",
+    "english": "for a while; for now",
+    "category": "Adverbs",
+    "examples": [
+      {
+        "slovak": "Zostanem tu začas.",
+        "english": "I'll stay here for a while.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Práca je začas pozastavená.",
+        "english": "The work is paused for now.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Chcem to začas nechať tak.",
+        "english": "I want to leave it like that for now.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Raz začas si zájdeme do divadla.",
+        "english": "Once in a while we go to the theater.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "obcas",
+      "docasne"
+    ]
+  },
+  {
+    "slug": "zachripnuto",
+    "slovak": "zachrípnuto",
+    "english": "hoarsely; in a hoarse voice",
+    "category": "Adverbs",
+    "examples": [
+      {
+        "slovak": "Po celom dni kriku hovorí zachrípnuto.",
+        "english": "After a whole day of shouting, she speaks hoarsely.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Zakričal zachrípnuto: „Pomoc!“",
+        "english": "He shouted hoarsely: \"Help!\"",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Kapitán zachrípnuto vydával rozkazy.",
+        "english": "The captain gave orders hoarsely.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Odpovedala mi zachrípnuto a unavene.",
+        "english": "She answered me hoarsely and wearily.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "chraplavo"
+    ]
+  },
+  {
+    "slug": "zberat",
+    "slovak": "zberať",
+    "english": "to get going (zberať sa); to harvest",
+    "category": "Verbs",
+    "examples": [
+      {
+        "slovak": "Treba sa zberať.",
+        "english": "We should get going.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Už je neskoro, mali by sme sa zberať domov.",
+        "english": "It's already late, we should head home.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Vonku sa zberá na búrku.",
+        "english": "A storm is gathering outside.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na jeseň zberáme jablká zo záhrady.",
+        "english": "In autumn we harvest apples from the garden.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "zbierat"
+    ]
+  },
+  {
+    "slug": "tamdolu",
+    "slovak": "tamdolu",
+    "english": "down there",
+    "category": "Adverbs",
+    "examples": [
+      {
+        "slovak": "Chata stojí tamdolu v doline.",
+        "english": "The cottage stands down there in the valley.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Tamdolu na ulici je pekáreň.",
+        "english": "There is a bakery down there on the street.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Pozri sa tamdolu, tam sú deti.",
+        "english": "Look down there, the children are there.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Tamdolu pri potoku je lavička.",
+        "english": "Down there by the stream there is a bench.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "dolu",
+      "tamhore"
+    ]
+  },
+  {
+    "slug": "tamhore",
+    "slovak": "tamhore",
+    "english": "up there",
+    "category": "Adverbs",
+    "examples": [
+      {
+        "slovak": "Hrad stojí tamhore na kopci.",
+        "english": "The castle stands up there on the hill.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Lietadlo letí tamhore nad oblakmi.",
+        "english": "The plane is flying up there above the clouds.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Hniezdo je tamhore, na vrchole stromu.",
+        "english": "The nest is up there, at the top of the tree.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Tamhore nič nevidím, je tma.",
+        "english": "I can't see anything up there, it's dark.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "hore",
+      "tamdolu"
+    ]
   }
 ]
