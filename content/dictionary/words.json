@@ -193887,6 +193887,43 @@
     ]
   },
   {
+    "slug": "sotva",
+    "slovak": "sotva",
+    "english": "barely; hardly; no sooner",
+    "category": "Adverbs",
+    "examples": [
+      {
+        "slovak": "Sotva počujem, čo hovoríš.",
+        "english": "I can barely hear what you're saying.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Sotva stíham termíny.",
+        "english": "I can barely meet the deadlines.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Sotva sme prišli, začalo pršať.",
+        "english": "We had barely arrived when it started to rain.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Sotva mu niekto uverí.",
+        "english": "Hardly anyone will believe him.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Sotva som ju spoznal.",
+        "english": "I barely recognized her.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "skoro",
+      "hned"
+    ]
+  },
+  {
     "slug": "skoro",
     "slovak": "skoro",
     "english": "almost; soon",
