@@ -66,16 +66,22 @@ function parseArgs(argv: string[]): {
   refreshTatoeba: boolean;
   rejectReport: string;
   report: string;
+  slugsFile: string | null;
 } {
   let perWord = EXAMPLE_STORE_PER_WORD;
   let report = path.join(ROOT, "tmp", "missing-examples.txt");
   let rejectReport = path.join(ROOT, "tmp", "enrich-rejects.tsv");
   let force = false;
   let refreshTatoeba = false;
+  let slugsFile: string | null = null;
 
   for (let index = 0; index < argv.length; index += 1) {
     const arg = argv[index];
     if (arg === "--force") force = true;
+    if (arg === "--slugs-file" && argv[index + 1]) {
+      slugsFile = path.resolve(argv[index + 1]!);
+      index += 1;
+    }
     if (arg === "--refresh-tatoeba") refreshTatoeba = true;
     if (arg === "--per-word" && argv[index + 1]) {
       perWord = Number(argv[index + 1]);
@@ -91,7 +97,7 @@ function parseArgs(argv: string[]): {
     }
   }
 
-  return { perWord, report, rejectReport, force, refreshTatoeba };
+  return { perWord, report, rejectReport, force, refreshTatoeba, slugsFile };
 }
 
 function isVerbCategory(category: string): boolean {
@@ -298,9 +304,13 @@ function hasPatternExamples(examples: Example[]): boolean {
 }
 
 async function main(): Promise<void> {
-  const { perWord, report, rejectReport, force, refreshTatoeba } = parseArgs(
+  const { perWord, report, rejectReport, force, refreshTatoeba, slugsFile } = parseArgs(
     process.argv.slice(2),
   );
+  // --slugs-file limits the run to the listed lemmas (a JSON array of slugs).
+  const onlySlugs = slugsFile
+    ? new Set<string>(JSON.parse(await readFile(slugsFile, "utf8")) as string[])
+    : null;
 
   const slkPath = path.join(TATOEBA_DIR, "slk_sentences.tsv");
   const engPath = path.join(TATOEBA_DIR, "eng_sentences.tsv");
@@ -354,6 +364,7 @@ async function main(): Promise<void> {
   const rejects: { slug: string; reason: RejectReason; detail: string }[] = [];
 
   for (const word of dictionaryWords) {
+    if (onlySlugs && !onlySlugs.has(word.slug)) continue;
     const before = word.examples.length;
 
     // Scrub only crude corpus/unsafe lines; keep curated rows.
