@@ -1,0 +1,2377 @@
+{
+  "corpus": "prim-8.0-public-all",
+  "generatedAt": "2026-11-26T13:03:27.886Z",
+  "partOfSpeech": "particle",
+  "source": "Slovak National Corpus (SNK)",
+  "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2",
+  "entries": [
+    {
+      "rank": 1,
+      "lemma": "aj",
+      "partOfSpeech": "particle",
+      "count": 6722092,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2,
+      "lemma": "už",
+      "partOfSpeech": "particle",
+      "count": 3330247,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 3,
+      "lemma": "nie",
+      "partOfSpeech": "particle",
+      "count": 2582611,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 4,
+      "lemma": "len",
+      "partOfSpeech": "particle",
+      "count": 2477455,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 5,
+      "lemma": "však",
+      "partOfSpeech": "particle",
+      "count": 1995863,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 6,
+      "lemma": "až",
+      "partOfSpeech": "particle",
+      "count": 1655476,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 7,
+      "lemma": "ešte",
+      "partOfSpeech": "particle",
+      "count": 1555591,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 8,
+      "lemma": "ani",
+      "partOfSpeech": "particle",
+      "count": 1415023,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 9,
+      "lemma": "a",
+      "partOfSpeech": "particle",
+      "count": 1332520,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 10,
+      "lemma": "iba",
+      "partOfSpeech": "particle",
+      "count": 1042898,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 11,
+      "lemma": "najmä",
+      "partOfSpeech": "particle",
+      "count": 703381,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 12,
+      "lemma": "napríklad",
+      "partOfSpeech": "particle",
+      "count": 639023,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 13,
+      "lemma": "asi",
+      "partOfSpeech": "particle",
+      "count": 634365,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 14,
+      "lemma": "tiež",
+      "partOfSpeech": "particle",
+      "count": 601868,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 15,
+      "lemma": "práve",
+      "partOfSpeech": "particle",
+      "count": 600132,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 16,
+      "lemma": "tak",
+      "partOfSpeech": "particle",
+      "count": 594818,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 17,
+      "lemma": "takmer",
+      "partOfSpeech": "particle",
+      "count": 539296,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 18,
+      "lemma": "možno",
+      "partOfSpeech": "particle",
+      "count": 510145,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 19,
+      "lemma": "teda",
+      "partOfSpeech": "particle",
+      "count": 495276,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 20,
+      "lemma": "totiž",
+      "partOfSpeech": "particle",
+      "count": 482582,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 21,
+      "lemma": "ale",
+      "partOfSpeech": "particle",
+      "count": 442375,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 22,
+      "lemma": "vôbec",
+      "partOfSpeech": "particle",
+      "count": 367174,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 23,
+      "lemma": "naozaj",
+      "partOfSpeech": "particle",
+      "count": 360540,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 24,
+      "lemma": "dokonca",
+      "partOfSpeech": "particle",
+      "count": 358950,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 25,
+      "lemma": "určite",
+      "partOfSpeech": "particle",
+      "count": 357448,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 26,
+      "lemma": "aspoň",
+      "partOfSpeech": "particle",
+      "count": 327339,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 27,
+      "lemma": "no",
+      "partOfSpeech": "particle",
+      "count": 307465,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 28,
+      "lemma": "áno",
+      "partOfSpeech": "particle",
+      "count": 279658,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 29,
+      "lemma": "i",
+      "partOfSpeech": "particle",
+      "count": 267687,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 30,
+      "lemma": "predovšetkým",
+      "partOfSpeech": "particle",
+      "count": 252330,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 31,
+      "lemma": "vraj",
+      "partOfSpeech": "particle",
+      "count": 247147,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 32,
+      "lemma": "samozrejme",
+      "partOfSpeech": "particle",
+      "count": 245019,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 33,
+      "lemma": "vlastne",
+      "partOfSpeech": "particle",
+      "count": 242775,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 34,
+      "lemma": "predsa",
+      "partOfSpeech": "particle",
+      "count": 240243,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 35,
+      "lemma": "zrejme",
+      "partOfSpeech": "particle",
+      "count": 230464,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 36,
+      "lemma": "približne",
+      "partOfSpeech": "particle",
+      "count": 228004,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 37,
+      "lemma": "navyše",
+      "partOfSpeech": "particle",
+      "count": 221970,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 38,
+      "lemma": "hlavne",
+      "partOfSpeech": "particle",
+      "count": 205860,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 39,
+      "lemma": "vyše",
+      "partOfSpeech": "particle",
+      "count": 197091,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 40,
+      "lemma": "naopak",
+      "partOfSpeech": "particle",
+      "count": 195899,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 41,
+      "lemma": "čo",
+      "partOfSpeech": "particle",
+      "count": 188056,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 42,
+      "lemma": "veď",
+      "partOfSpeech": "particle",
+      "count": 178804,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 43,
+      "lemma": "skôr",
+      "partOfSpeech": "particle",
+      "count": 163962,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 44,
+      "lemma": "jednoducho",
+      "partOfSpeech": "particle",
+      "count": 149682,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 45,
+      "lemma": "celkom",
+      "partOfSpeech": "particle",
+      "count": 149487,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 46,
+      "lemma": "pravdepodobne",
+      "partOfSpeech": "particle",
+      "count": 147674,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 47,
+      "lemma": "prípadne",
+      "partOfSpeech": "particle",
+      "count": 124531,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 48,
+      "lemma": "nech",
+      "partOfSpeech": "particle",
+      "count": 108422,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 49,
+      "lemma": "pomerne",
+      "partOfSpeech": "particle",
+      "count": 100798,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 50,
+      "lemma": "takže",
+      "partOfSpeech": "particle",
+      "count": 99560,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 51,
+      "lemma": "azda",
+      "partOfSpeech": "particle",
+      "count": 94087,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 52,
+      "lemma": "zase",
+      "partOfSpeech": "particle",
+      "count": 90139,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 53,
+      "lemma": "údajne",
+      "partOfSpeech": "particle",
+      "count": 88980,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 54,
+      "lemma": "nuž",
+      "partOfSpeech": "particle",
+      "count": 81552,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 55,
+      "lemma": "iste",
+      "partOfSpeech": "particle",
+      "count": 79169,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 56,
+      "lemma": "taktiež",
+      "partOfSpeech": "particle",
+      "count": 78785,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 57,
+      "lemma": "okolo",
+      "partOfSpeech": "particle",
+      "count": 75370,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 58,
+      "lemma": "najmenej",
+      "partOfSpeech": "particle",
+      "count": 74832,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 59,
+      "lemma": "žiaľ",
+      "partOfSpeech": "particle",
+      "count": 73457,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 60,
+      "lemma": "konečne",
+      "partOfSpeech": "particle",
+      "count": 69110,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 61,
+      "lemma": "skoro",
+      "partOfSpeech": "particle",
+      "count": 65435,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 62,
+      "lemma": "prakticky",
+      "partOfSpeech": "particle",
+      "count": 63189,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 63,
+      "lemma": "veru",
+      "partOfSpeech": "particle",
+      "count": 61836,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 64,
+      "lemma": "takisto",
+      "partOfSpeech": "particle",
+      "count": 59036,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 65,
+      "lemma": "zhruba",
+      "partOfSpeech": "particle",
+      "count": 58896,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 66,
+      "lemma": "doslova",
+      "partOfSpeech": "particle",
+      "count": 58889,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 67,
+      "lemma": "našťastie",
+      "partOfSpeech": "particle",
+      "count": 58824,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 68,
+      "lemma": "priam",
+      "partOfSpeech": "particle",
+      "count": 57079,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 69,
+      "lemma": "vari",
+      "partOfSpeech": "particle",
+      "count": 54767,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 70,
+      "lemma": "zasa",
+      "partOfSpeech": "particle",
+      "count": 54544,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 71,
+      "lemma": "rozhodne",
+      "partOfSpeech": "particle",
+      "count": 52881,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 72,
+      "lemma": "skutočne",
+      "partOfSpeech": "particle",
+      "count": 51257,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 73,
+      "lemma": "hádam",
+      "partOfSpeech": "particle",
+      "count": 50014,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 74,
+      "lemma": "napokon",
+      "partOfSpeech": "particle",
+      "count": 47551,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 75,
+      "lemma": "pravdaže",
+      "partOfSpeech": "particle",
+      "count": 46924,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 76,
+      "lemma": "dobre",
+      "partOfSpeech": "particle",
+      "count": 45789,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 77,
+      "lemma": "lenže",
+      "partOfSpeech": "particle",
+      "count": 45354,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 78,
+      "lemma": "prosím",
+      "partOfSpeech": "particle",
+      "count": 43666,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 79,
+      "lemma": "lebo",
+      "partOfSpeech": "particle",
+      "count": 40805,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 80,
+      "lemma": "mimochodom",
+      "partOfSpeech": "particle",
+      "count": 37631,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 81,
+      "lemma": "pravda",
+      "partOfSpeech": "particle",
+      "count": 37220,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 82,
+      "lemma": "respektíve",
+      "partOfSpeech": "particle",
+      "count": 36271,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 83,
+      "lemma": "akurát",
+      "partOfSpeech": "particle",
+      "count": 36249,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 84,
+      "lemma": "výlučne",
+      "partOfSpeech": "particle",
+      "count": 34100,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 85,
+      "lemma": "jedine",
+      "partOfSpeech": "particle",
+      "count": 33789,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 86,
+      "lemma": "prirodzene",
+      "partOfSpeech": "particle",
+      "count": 31874,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 87,
+      "lemma": "bohužiaľ",
+      "partOfSpeech": "particle",
+      "count": 31118,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 88,
+      "lemma": "sotva",
+      "partOfSpeech": "particle",
+      "count": 30807,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 89,
+      "lemma": "nepochybne",
+      "partOfSpeech": "particle",
+      "count": 29608,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 90,
+      "lemma": "snáď",
+      "partOfSpeech": "particle",
+      "count": 28155,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 91,
+      "lemma": "povedzme",
+      "partOfSpeech": "particle",
+      "count": 27617,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 92,
+      "lemma": "menej",
+      "partOfSpeech": "particle",
+      "count": 26537,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 93,
+      "lemma": "viac",
+      "partOfSpeech": "particle",
+      "count": 24171,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 94,
+      "lemma": "proste",
+      "partOfSpeech": "particle",
+      "count": 24004,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 95,
+      "lemma": "pochopiteľne",
+      "partOfSpeech": "particle",
+      "count": 23929,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 96,
+      "lemma": "skrátka",
+      "partOfSpeech": "particle",
+      "count": 23877,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 97,
+      "lemma": "radšej",
+      "partOfSpeech": "particle",
+      "count": 22411,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 98,
+      "lemma": "zas",
+      "partOfSpeech": "particle",
+      "count": 22357,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 99,
+      "lemma": "či",
+      "partOfSpeech": "particle",
+      "count": 21656,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 100,
+      "lemma": "ozaj",
+      "partOfSpeech": "particle",
+      "count": 21563,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 101,
+      "lemma": "ďalej",
+      "partOfSpeech": "particle",
+      "count": 20677,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 102,
+      "lemma": "prinajmenšom",
+      "partOfSpeech": "particle",
+      "count": 19435,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 103,
+      "lemma": "ba",
+      "partOfSpeech": "particle",
+      "count": 18494,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 104,
+      "lemma": "to",
+      "partOfSpeech": "particle",
+      "count": 17793,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 105,
+      "lemma": "čiže",
+      "partOfSpeech": "particle",
+      "count": 15893,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 106,
+      "lemma": "ledva",
+      "partOfSpeech": "particle",
+      "count": 15770,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 107,
+      "lemma": "takpovediac",
+      "partOfSpeech": "particle",
+      "count": 15071,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 108,
+      "lemma": "trebárs",
+      "partOfSpeech": "particle",
+      "count": 13830,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 109,
+      "lemma": "inak",
+      "partOfSpeech": "particle",
+      "count": 13749,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 110,
+      "lemma": "dosť",
+      "partOfSpeech": "particle",
+      "count": 13707,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 111,
+      "lemma": "zo",
+      "partOfSpeech": "particle",
+      "count": 13418,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 112,
+      "lemma": "istotne",
+      "partOfSpeech": "particle",
+      "count": 12393,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 113,
+      "lemma": "čím",
+      "partOfSpeech": "particle",
+      "count": 12311,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 114,
+      "lemma": "že",
+      "partOfSpeech": "particle",
+      "count": 12180,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 115,
+      "lemma": "zaiste",
+      "partOfSpeech": "particle",
+      "count": 11825,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 116,
+      "lemma": "koncov",
+      "partOfSpeech": "particle",
+      "count": 11814,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 117,
+      "lemma": "bezpochyby",
+      "partOfSpeech": "particle",
+      "count": 11514,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 118,
+      "lemma": "koniec",
+      "partOfSpeech": "particle",
+      "count": 11486,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 119,
+      "lemma": "vcelku",
+      "partOfSpeech": "particle",
+      "count": 11414,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 120,
+      "lemma": "isteže",
+      "partOfSpeech": "particle",
+      "count": 10788,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 121,
+      "lemma": "vskutku",
+      "partOfSpeech": "particle",
+      "count": 10768,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 122,
+      "lemma": "neviem",
+      "partOfSpeech": "particle",
+      "count": 10423,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 123,
+      "lemma": "zvlášť",
+      "partOfSpeech": "particle",
+      "count": 10313,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 124,
+      "lemma": "hneď",
+      "partOfSpeech": "particle",
+      "count": 10108,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 125,
+      "lemma": "náhodou",
+      "partOfSpeech": "particle",
+      "count": 10094,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 126,
+      "lemma": "nebodaj",
+      "partOfSpeech": "particle",
+      "count": 9352,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 127,
+      "lemma": "ibaže",
+      "partOfSpeech": "particle",
+      "count": 9343,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 128,
+      "lemma": "kdeže",
+      "partOfSpeech": "particle",
+      "count": 9311,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 129,
+      "lemma": "vonkoncom",
+      "partOfSpeech": "particle",
+      "count": 9182,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 130,
+      "lemma": "akože",
+      "partOfSpeech": "particle",
+      "count": 9142,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 131,
+      "lemma": "akiste",
+      "partOfSpeech": "particle",
+      "count": 9117,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 132,
+      "lemma": "chvalabohu",
+      "partOfSpeech": "particle",
+      "count": 9002,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 133,
+      "lemma": "temer",
+      "partOfSpeech": "particle",
+      "count": 8609,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 134,
+      "lemma": "bezmála",
+      "partOfSpeech": "particle",
+      "count": 7582,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 135,
+      "lemma": "preto",
+      "partOfSpeech": "particle",
+      "count": 7577,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 136,
+      "lemma": "nakoniec",
+      "partOfSpeech": "particle",
+      "count": 7444,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 137,
+      "lemma": "isto",
+      "partOfSpeech": "particle",
+      "count": 7413,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 138,
+      "lemma": "div",
+      "partOfSpeech": "particle",
+      "count": 7127,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 139,
+      "lemma": "obzvlášť",
+      "partOfSpeech": "particle",
+      "count": 7014,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 140,
+      "lemma": "najviac",
+      "partOfSpeech": "particle",
+      "count": 6870,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 141,
+      "lemma": "naisto",
+      "partOfSpeech": "particle",
+      "count": 6510,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 142,
+      "lemma": "bodaj",
+      "partOfSpeech": "particle",
+      "count": 6318,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 143,
+      "lemma": "najskôr",
+      "partOfSpeech": "particle",
+      "count": 6124,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 144,
+      "lemma": "ešteže",
+      "partOfSpeech": "particle",
+      "count": 6123,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 145,
+      "lemma": "slovom",
+      "partOfSpeech": "particle",
+      "count": 6005,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 146,
+      "lemma": "ostatne",
+      "partOfSpeech": "particle",
+      "count": 5958,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 147,
+      "lemma": "do",
+      "partOfSpeech": "particle",
+      "count": 5841,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 148,
+      "lemma": "naviac",
+      "partOfSpeech": "particle",
+      "count": 5816,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 149,
+      "lemma": "alias",
+      "partOfSpeech": "particle",
+      "count": 5405,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 150,
+      "lemma": "fakt",
+      "partOfSpeech": "particle",
+      "count": 5356,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 151,
+      "lemma": "ak",
+      "partOfSpeech": "particle",
+      "count": 5143,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 152,
+      "lemma": "tobôž",
+      "partOfSpeech": "particle",
+      "count": 5074,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 153,
+      "lemma": "hoci",
+      "partOfSpeech": "particle",
+      "count": 5067,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 154,
+      "lemma": "škoda",
+      "partOfSpeech": "particle",
+      "count": 4929,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 155,
+      "lemma": "správne",
+      "partOfSpeech": "particle",
+      "count": 4920,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 156,
+      "lemma": "výborne",
+      "partOfSpeech": "particle",
+      "count": 4782,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 157,
+      "lemma": "po",
+      "partOfSpeech": "particle",
+      "count": 4747,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 158,
+      "lemma": "nanešťastie",
+      "partOfSpeech": "particle",
+      "count": 4684,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 159,
+      "lemma": "pravdupovediac",
+      "partOfSpeech": "particle",
+      "count": 4572,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 160,
+      "lemma": "napodiv",
+      "partOfSpeech": "particle",
+      "count": 4561,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 161,
+      "lemma": "hej",
+      "partOfSpeech": "particle",
+      "count": 4534,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 162,
+      "lemma": "beztak",
+      "partOfSpeech": "particle",
+      "count": 4495,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 163,
+      "lemma": "čisto",
+      "partOfSpeech": "particle",
+      "count": 4489,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 164,
+      "lemma": "dozaista",
+      "partOfSpeech": "particle",
+      "count": 4207,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 165,
+      "lemma": "ná",
+      "partOfSpeech": "particle",
+      "count": 4070,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 166,
+      "lemma": "možnože",
+      "partOfSpeech": "particle",
+      "count": 3993,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 167,
+      "lemma": "kiež",
+      "partOfSpeech": "particle",
+      "count": 3906,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 168,
+      "lemma": "vážne",
+      "partOfSpeech": "particle",
+      "count": 3892,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 169,
+      "lemma": "čože",
+      "partOfSpeech": "particle",
+      "count": 3668,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 170,
+      "lemma": "nedajbože",
+      "partOfSpeech": "particle",
+      "count": 3639,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 171,
+      "lemma": "prinajmenej",
+      "partOfSpeech": "particle",
+      "count": 3621,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 172,
+      "lemma": "popravde",
+      "partOfSpeech": "particle",
+      "count": 3598,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 173,
+      "lemma": "dovedna",
+      "partOfSpeech": "particle",
+      "count": 3406,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 174,
+      "lemma": "nanajvýš",
+      "partOfSpeech": "particle",
+      "count": 3327,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 175,
+      "lemma": "poprípade",
+      "partOfSpeech": "particle",
+      "count": 3139,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 176,
+      "lemma": "naposledy",
+      "partOfSpeech": "particle",
+      "count": 3085,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 177,
+      "lemma": "potom",
+      "partOfSpeech": "particle",
+      "count": 2855,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 178,
+      "lemma": "jasné",
+      "partOfSpeech": "particle",
+      "count": 2712,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 179,
+      "lemma": "reku",
+      "partOfSpeech": "particle",
+      "count": 2592,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 180,
+      "lemma": "fakticky",
+      "partOfSpeech": "particle",
+      "count": 2376,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 181,
+      "lemma": "ktovie",
+      "partOfSpeech": "particle",
+      "count": 2303,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 182,
+      "lemma": "sa",
+      "partOfSpeech": "particle",
+      "count": 2247,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 183,
+      "lemma": "totižto",
+      "partOfSpeech": "particle",
+      "count": 2191,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 184,
+      "lemma": "žiaľbohu",
+      "partOfSpeech": "particle",
+      "count": 2183,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 185,
+      "lemma": "hm",
+      "partOfSpeech": "particle",
+      "count": 2179,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 186,
+      "lemma": "viacmenej",
+      "partOfSpeech": "particle",
+      "count": 2133,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 187,
+      "lemma": "ergo",
+      "partOfSpeech": "particle",
+      "count": 2108,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 188,
+      "lemma": "horkýže",
+      "partOfSpeech": "particle",
+      "count": 2068,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 189,
+      "lemma": "podistým",
+      "partOfSpeech": "particle",
+      "count": 2038,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 190,
+      "lemma": "kvázi",
+      "partOfSpeech": "particle",
+      "count": 1934,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 191,
+      "lemma": "just",
+      "partOfSpeech": "particle",
+      "count": 1904,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 192,
+      "lemma": "veruže",
+      "partOfSpeech": "particle",
+      "count": 1896,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 193,
+      "lemma": "dokopy",
+      "partOfSpeech": "particle",
+      "count": 1890,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 194,
+      "lemma": "všakže",
+      "partOfSpeech": "particle",
+      "count": 1791,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 195,
+      "lemma": "apropo",
+      "partOfSpeech": "particle",
+      "count": 1717,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 196,
+      "lemma": "vďakabohu",
+      "partOfSpeech": "particle",
+      "count": 1663,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 197,
+      "lemma": "nieže",
+      "partOfSpeech": "particle",
+      "count": 1658,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 198,
+      "lemma": "nevedno",
+      "partOfSpeech": "particle",
+      "count": 1643,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 199,
+      "lemma": "práveže",
+      "partOfSpeech": "particle",
+      "count": 1642,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 200,
+      "lemma": "rovnako",
+      "partOfSpeech": "particle",
+      "count": 1595,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 201,
+      "lemma": "hoc",
+      "partOfSpeech": "particle",
+      "count": 1576,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 202,
+      "lemma": "takrečeno",
+      "partOfSpeech": "particle",
+      "count": 1552,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 203,
+      "lemma": "ver",
+      "partOfSpeech": "particle",
+      "count": 1535,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 204,
+      "lemma": "namojdušu",
+      "partOfSpeech": "particle",
+      "count": 1467,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 205,
+      "lemma": "prinajlepšom",
+      "partOfSpeech": "particle",
+      "count": 1429,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 206,
+      "lemma": "hmmm",
+      "partOfSpeech": "particle",
+      "count": 1376,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 207,
+      "lemma": "prosto",
+      "partOfSpeech": "particle",
+      "count": 1368,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 208,
+      "lemma": "jednako",
+      "partOfSpeech": "particle",
+      "count": 1322,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 209,
+      "lemma": "pomaly",
+      "partOfSpeech": "particle",
+      "count": 1302,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 210,
+      "lemma": "čerta",
+      "partOfSpeech": "particle",
+      "count": 1270,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 211,
+      "lemma": "hovno",
+      "partOfSpeech": "particle",
+      "count": 1253,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 212,
+      "lemma": "prinajhoršom",
+      "partOfSpeech": "particle",
+      "count": 1198,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 213,
+      "lemma": "naskrze",
+      "partOfSpeech": "particle",
+      "count": 1176,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 214,
+      "lemma": "raz",
+      "partOfSpeech": "particle",
+      "count": 1159,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 215,
+      "lemma": "nesporne",
+      "partOfSpeech": "particle",
+      "count": 1114,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 216,
+      "lemma": "tam",
+      "partOfSpeech": "particle",
+      "count": 1100,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 217,
+      "lemma": "eventuálne",
+      "partOfSpeech": "particle",
+      "count": 1085,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 218,
+      "lemma": "namojveru",
+      "partOfSpeech": "particle",
+      "count": 1049,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 219,
+      "lemma": "toť",
+      "partOfSpeech": "particle",
+      "count": 1043,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 220,
+      "lemma": "naveľa",
+      "partOfSpeech": "particle",
+      "count": 1017,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 221,
+      "lemma": "kebyže",
+      "partOfSpeech": "particle",
+      "count": 956,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 222,
+      "lemma": "najradšej",
+      "partOfSpeech": "particle",
+      "count": 921,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 223,
+      "lemma": "aspoňže",
+      "partOfSpeech": "particle",
+      "count": 876,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 224,
+      "lemma": "napočudovanie",
+      "partOfSpeech": "particle",
+      "count": 854,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 225,
+      "lemma": "ovšem",
+      "partOfSpeech": "particle",
+      "count": 826,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 226,
+      "lemma": "božechráň",
+      "partOfSpeech": "particle",
+      "count": 806,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 227,
+      "lemma": "ako",
+      "partOfSpeech": "particle",
+      "count": 788,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 228,
+      "lemma": "pánabeka",
+      "partOfSpeech": "particle",
+      "count": 732,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 229,
+      "lemma": "dobreže",
+      "partOfSpeech": "particle",
+      "count": 696,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 230,
+      "lemma": "bohvie",
+      "partOfSpeech": "particle",
+      "count": 691,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 231,
+      "lemma": "zato",
+      "partOfSpeech": "particle",
+      "count": 678,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 232,
+      "lemma": "ináč",
+      "partOfSpeech": "particle",
+      "count": 672,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 233,
+      "lemma": "bárs",
+      "partOfSpeech": "particle",
+      "count": 666,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 234,
+      "lemma": "očividne",
+      "partOfSpeech": "particle",
+      "count": 651,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 235,
+      "lemma": "naostatok",
+      "partOfSpeech": "particle",
+      "count": 636,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 236,
+      "lemma": "pána",
+      "partOfSpeech": "particle",
+      "count": 629,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 237,
+      "lemma": "zrovna",
+      "partOfSpeech": "particle",
+      "count": 623,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 238,
+      "lemma": "keď",
+      "partOfSpeech": "particle",
+      "count": 598,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 239,
+      "lemma": "dohromady",
+      "partOfSpeech": "particle",
+      "count": 566,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 240,
+      "lemma": "hmm",
+      "partOfSpeech": "particle",
+      "count": 560,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 241,
+      "lemma": "nevyhnutne",
+      "partOfSpeech": "particle",
+      "count": 543,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 242,
+      "lemma": "prepytujem",
+      "partOfSpeech": "particle",
+      "count": 484,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 243,
+      "lemma": "aba",
+      "partOfSpeech": "particle",
+      "count": 472,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 244,
+      "lemma": "servus",
+      "partOfSpeech": "particle",
+      "count": 468,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 245,
+      "lemma": "doslovne",
+      "partOfSpeech": "particle",
+      "count": 453,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 246,
+      "lemma": "všakáno",
+      "partOfSpeech": "particle",
+      "count": 450,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 247,
+      "lemma": "absolútne",
+      "partOfSpeech": "particle",
+      "count": 434,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 248,
+      "lemma": "nabetón",
+      "partOfSpeech": "particle",
+      "count": 429,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 249,
+      "lemma": "figu",
+      "partOfSpeech": "particle",
+      "count": 416,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 250,
+      "lemma": "leda",
+      "partOfSpeech": "particle",
+      "count": 403,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 251,
+      "lemma": "dočista",
+      "partOfSpeech": "particle",
+      "count": 376,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 252,
+      "lemma": "prisámbohu",
+      "partOfSpeech": "particle",
+      "count": 361,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 253,
+      "lemma": "ono",
+      "partOfSpeech": "particle",
+      "count": 334,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 254,
+      "lemma": "prd",
+      "partOfSpeech": "particle",
+      "count": 329,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 255,
+      "lemma": "rád",
+      "partOfSpeech": "particle",
+      "count": 313,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 256,
+      "lemma": "horký",
+      "partOfSpeech": "particle",
+      "count": 313,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 257,
+      "lemma": "nechže",
+      "partOfSpeech": "particle",
+      "count": 311,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 258,
+      "lemma": "priamo",
+      "partOfSpeech": "particle",
+      "count": 298,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 259,
+      "lemma": "jednak",
+      "partOfSpeech": "particle",
+      "count": 275,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 260,
+      "lemma": "ho",
+      "partOfSpeech": "particle",
+      "count": 263,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 261,
+      "lemma": "tu",
+      "partOfSpeech": "particle",
+      "count": 254,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 262,
+      "lemma": "čertvie",
+      "partOfSpeech": "particle",
+      "count": 243,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 263,
+      "lemma": "neúrekom",
+      "partOfSpeech": "particle",
+      "count": 238,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 264,
+      "lemma": "môžbyť",
+      "partOfSpeech": "particle",
+      "count": 236,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 265,
+      "lemma": "facto",
+      "partOfSpeech": "particle",
+      "count": 234,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 266,
+      "lemma": "ťažko",
+      "partOfSpeech": "particle",
+      "count": 230,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 267,
+      "lemma": "naraz",
+      "partOfSpeech": "particle",
+      "count": 198,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 268,
+      "lemma": "aleba",
+      "partOfSpeech": "particle",
+      "count": 198,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 269,
+      "lemma": "ktožehovie",
+      "partOfSpeech": "particle",
+      "count": 194,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 270,
+      "lemma": "zaboha",
+      "partOfSpeech": "particle",
+      "count": 189,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 271,
+      "lemma": "prisámvačku",
+      "partOfSpeech": "particle",
+      "count": 187,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 272,
+      "lemma": "aleže",
+      "partOfSpeech": "particle",
+      "count": 185,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 273,
+      "lemma": "skorej",
+      "partOfSpeech": "particle",
+      "count": 177,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 274,
+      "lemma": "ktohovie",
+      "partOfSpeech": "particle",
+      "count": 172,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 275,
+      "lemma": "výslovne",
+      "partOfSpeech": "particle",
+      "count": 162,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 276,
+      "lemma": "bár",
+      "partOfSpeech": "particle",
+      "count": 160,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 277,
+      "lemma": "sotvaže",
+      "partOfSpeech": "particle",
+      "count": 158,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 278,
+      "lemma": "ehm",
+      "partOfSpeech": "particle",
+      "count": 157,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 279,
+      "lemma": "božeuchovaj",
+      "partOfSpeech": "particle",
+      "count": 156,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 280,
+      "lemma": "cirka",
+      "partOfSpeech": "particle",
+      "count": 154,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 281,
+      "lemma": "verabože",
+      "partOfSpeech": "particle",
+      "count": 149,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 282,
+      "lemma": "bohyňu",
+      "partOfSpeech": "particle",
+      "count": 149,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 283,
+      "lemma": "namojpravdu",
+      "partOfSpeech": "particle",
+      "count": 147,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 284,
+      "lemma": "nedajboh",
+      "partOfSpeech": "particle",
+      "count": 137,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 285,
+      "lemma": "bohuprisám",
+      "partOfSpeech": "particle",
+      "count": 132,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 286,
+      "lemma": "všakver",
+      "partOfSpeech": "particle",
+      "count": 124,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 287,
+      "lemma": "nič",
+      "partOfSpeech": "particle",
+      "count": 122,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 288,
+      "lemma": "pánbohvie",
+      "partOfSpeech": "particle",
+      "count": 118,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 289,
+      "lemma": "dupľom",
+      "partOfSpeech": "particle",
+      "count": 113,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 290,
+      "lemma": "rovno",
+      "partOfSpeech": "particle",
+      "count": 108,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 291,
+      "lemma": "stoj",
+      "partOfSpeech": "particle",
+      "count": 107,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 292,
+      "lemma": "poručeno",
+      "partOfSpeech": "particle",
+      "count": 107,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 293,
+      "lemma": "dajbože",
+      "partOfSpeech": "particle",
+      "count": 106,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 294,
+      "lemma": "circa",
+      "partOfSpeech": "particle",
+      "count": 106,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 295,
+      "lemma": "čojaviem",
+      "partOfSpeech": "particle",
+      "count": 103,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    },
+    {
+      "rank": 296,
+      "lemma": "bohuprisahám",
+      "partOfSpeech": "particle",
+      "count": 101,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2"
+    }
+  ]
+}

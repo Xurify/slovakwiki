@@ -1,0 +1,849 @@
+{
+  "corpus": "prim-8.0-public-all",
+  "generatedAt": "2026-11-26T13:03:27.887Z",
+  "partOfSpeech": "conjunction",
+  "source": "Slovak National Corpus (SNK)",
+  "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2",
+  "entries": [
+    {
+      "rank": 1,
+      "lemma": "a",
+      "partOfSpeech": "conjunction",
+      "count": 31318998,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 2,
+      "lemma": "že",
+      "partOfSpeech": "conjunction",
+      "count": 9979337,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 3,
+      "lemma": "ako",
+      "partOfSpeech": "conjunction",
+      "count": 6359853,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 4,
+      "lemma": "ale",
+      "partOfSpeech": "conjunction",
+      "count": 3797578,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 5,
+      "lemma": "keď",
+      "partOfSpeech": "conjunction",
+      "count": 3259269,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 6,
+      "lemma": "aby",
+      "partOfSpeech": "conjunction",
+      "count": 2662887,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 7,
+      "lemma": "alebo",
+      "partOfSpeech": "conjunction",
+      "count": 2015850,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 8,
+      "lemma": "aj",
+      "partOfSpeech": "conjunction",
+      "count": 1913822,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 9,
+      "lemma": "či",
+      "partOfSpeech": "conjunction",
+      "count": 1885174,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 10,
+      "lemma": "ak",
+      "partOfSpeech": "conjunction",
+      "count": 1734112,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 11,
+      "lemma": "i",
+      "partOfSpeech": "conjunction",
+      "count": 1330548,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 12,
+      "lemma": "no",
+      "partOfSpeech": "conjunction",
+      "count": 823918,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 13,
+      "lemma": "lebo",
+      "partOfSpeech": "conjunction",
+      "count": 714660,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 14,
+      "lemma": "pretože",
+      "partOfSpeech": "conjunction",
+      "count": 614822,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 15,
+      "lemma": "tak",
+      "partOfSpeech": "conjunction",
+      "count": 597345,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 16,
+      "lemma": "však",
+      "partOfSpeech": "conjunction",
+      "count": 582018,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 17,
+      "lemma": "keby",
+      "partOfSpeech": "conjunction",
+      "count": 467415,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 18,
+      "lemma": "hoci",
+      "partOfSpeech": "conjunction",
+      "count": 460728,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 19,
+      "lemma": "ani",
+      "partOfSpeech": "conjunction",
+      "count": 449538,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 20,
+      "lemma": "nielen",
+      "partOfSpeech": "conjunction",
+      "count": 445783,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 21,
+      "lemma": "kým",
+      "partOfSpeech": "conjunction",
+      "count": 407746,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 22,
+      "lemma": "keďže",
+      "partOfSpeech": "conjunction",
+      "count": 354253,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 23,
+      "lemma": "než",
+      "partOfSpeech": "conjunction",
+      "count": 338782,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 24,
+      "lemma": "akoby",
+      "partOfSpeech": "conjunction",
+      "count": 309099,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 25,
+      "lemma": "síce",
+      "partOfSpeech": "conjunction",
+      "count": 297880,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 26,
+      "lemma": "pričom",
+      "partOfSpeech": "conjunction",
+      "count": 263107,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 27,
+      "lemma": "teda",
+      "partOfSpeech": "conjunction",
+      "count": 221666,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 28,
+      "lemma": "takže",
+      "partOfSpeech": "conjunction",
+      "count": 216420,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 29,
+      "lemma": "čo",
+      "partOfSpeech": "conjunction",
+      "count": 214053,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 30,
+      "lemma": "preto",
+      "partOfSpeech": "conjunction",
+      "count": 195410,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 31,
+      "lemma": "pokiaľ",
+      "partOfSpeech": "conjunction",
+      "count": 163775,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 32,
+      "lemma": "to",
+      "partOfSpeech": "conjunction",
+      "count": 149754,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 33,
+      "lemma": "nech",
+      "partOfSpeech": "conjunction",
+      "count": 134326,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 34,
+      "lemma": "avšak",
+      "partOfSpeech": "conjunction",
+      "count": 127788,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 35,
+      "lemma": "veď",
+      "partOfSpeech": "conjunction",
+      "count": 117308,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 36,
+      "lemma": "čím",
+      "partOfSpeech": "conjunction",
+      "count": 96880,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 37,
+      "lemma": "ba",
+      "partOfSpeech": "conjunction",
+      "count": 95873,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 38,
+      "lemma": "až",
+      "partOfSpeech": "conjunction",
+      "count": 94997,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 39,
+      "lemma": "len",
+      "partOfSpeech": "conjunction",
+      "count": 93776,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 40,
+      "lemma": "čiže",
+      "partOfSpeech": "conjunction",
+      "count": 82414,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 41,
+      "lemma": "pritom",
+      "partOfSpeech": "conjunction",
+      "count": 82033,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 42,
+      "lemma": "lenže",
+      "partOfSpeech": "conjunction",
+      "count": 80835,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 43,
+      "lemma": "zatiaľ",
+      "partOfSpeech": "conjunction",
+      "count": 74073,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 44,
+      "lemma": "buď",
+      "partOfSpeech": "conjunction",
+      "count": 70005,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 45,
+      "lemma": "tým",
+      "partOfSpeech": "conjunction",
+      "count": 65921,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 46,
+      "lemma": "nakoľko",
+      "partOfSpeech": "conjunction",
+      "count": 35867,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 47,
+      "lemma": "jednak",
+      "partOfSpeech": "conjunction",
+      "count": 35266,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 48,
+      "lemma": "plus",
+      "partOfSpeech": "conjunction",
+      "count": 29290,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 49,
+      "lemma": "zato",
+      "partOfSpeech": "conjunction",
+      "count": 29200,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 50,
+      "lemma": "predsa",
+      "partOfSpeech": "conjunction",
+      "count": 28434,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 51,
+      "lemma": "nielenže",
+      "partOfSpeech": "conjunction",
+      "count": 26703,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 52,
+      "lemma": "inak",
+      "partOfSpeech": "conjunction",
+      "count": 19757,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 53,
+      "lemma": "žeby",
+      "partOfSpeech": "conjunction",
+      "count": 18011,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 54,
+      "lemma": "sotva",
+      "partOfSpeech": "conjunction",
+      "count": 13312,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 55,
+      "lemma": "ibaže",
+      "partOfSpeech": "conjunction",
+      "count": 12122,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 56,
+      "lemma": "lež",
+      "partOfSpeech": "conjunction",
+      "count": 11851,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 57,
+      "lemma": "iba",
+      "partOfSpeech": "conjunction",
+      "count": 10767,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 58,
+      "lemma": "jednako",
+      "partOfSpeech": "conjunction",
+      "count": 8852,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 59,
+      "lemma": "niežeby",
+      "partOfSpeech": "conjunction",
+      "count": 8357,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 60,
+      "lemma": "pokým",
+      "partOfSpeech": "conjunction",
+      "count": 8223,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 61,
+      "lemma": "verzus",
+      "partOfSpeech": "conjunction",
+      "count": 7965,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 62,
+      "lemma": "bo",
+      "partOfSpeech": "conjunction",
+      "count": 7845,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 63,
+      "lemma": "viac",
+      "partOfSpeech": "conjunction",
+      "count": 7526,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 64,
+      "lemma": "sťa",
+      "partOfSpeech": "conjunction",
+      "count": 7229,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 65,
+      "lemma": "prv",
+      "partOfSpeech": "conjunction",
+      "count": 6603,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 66,
+      "lemma": "akonáhle",
+      "partOfSpeech": "conjunction",
+      "count": 5892,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 67,
+      "lemma": "jak",
+      "partOfSpeech": "conjunction",
+      "count": 5849,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 68,
+      "lemma": "skôr",
+      "partOfSpeech": "conjunction",
+      "count": 5277,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 69,
+      "lemma": "nieto",
+      "partOfSpeech": "conjunction",
+      "count": 4957,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 70,
+      "lemma": "jako",
+      "partOfSpeech": "conjunction",
+      "count": 4759,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 71,
+      "lemma": "mínus",
+      "partOfSpeech": "conjunction",
+      "count": 4224,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 72,
+      "lemma": "namiesto",
+      "partOfSpeech": "conjunction",
+      "count": 3779,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 73,
+      "lemma": "čoby",
+      "partOfSpeech": "conjunction",
+      "count": 3226,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 74,
+      "lemma": "hoc",
+      "partOfSpeech": "conjunction",
+      "count": 2996,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 75,
+      "lemma": "trebárs",
+      "partOfSpeech": "conjunction",
+      "count": 2241,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 76,
+      "lemma": "sťaby",
+      "partOfSpeech": "conjunction",
+      "count": 2162,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 77,
+      "lemma": "kontra",
+      "partOfSpeech": "conjunction",
+      "count": 1760,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 78,
+      "lemma": "versus",
+      "partOfSpeech": "conjunction",
+      "count": 1648,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 79,
+      "lemma": "totiž",
+      "partOfSpeech": "conjunction",
+      "count": 1446,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 80,
+      "lemma": "akože",
+      "partOfSpeech": "conjunction",
+      "count": 1426,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 81,
+      "lemma": "jest",
+      "partOfSpeech": "conjunction",
+      "count": 1422,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 82,
+      "lemma": "takisto",
+      "partOfSpeech": "conjunction",
+      "count": 1137,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 83,
+      "lemma": "zatiaľčo",
+      "partOfSpeech": "conjunction",
+      "count": 1134,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 84,
+      "lemma": "abo",
+      "partOfSpeech": "conjunction",
+      "count": 1010,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 85,
+      "lemma": "najprv",
+      "partOfSpeech": "conjunction",
+      "count": 928,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 86,
+      "lemma": "zakiaľ",
+      "partOfSpeech": "conjunction",
+      "count": 822,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 87,
+      "lemma": "ináč",
+      "partOfSpeech": "conjunction",
+      "count": 796,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 88,
+      "lemma": "nuž",
+      "partOfSpeech": "conjunction",
+      "count": 728,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 89,
+      "lemma": "dokým",
+      "partOfSpeech": "conjunction",
+      "count": 668,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 90,
+      "lemma": "krát",
+      "partOfSpeech": "conjunction",
+      "count": 646,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 91,
+      "lemma": "už",
+      "partOfSpeech": "conjunction",
+      "count": 596,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 92,
+      "lemma": "naproti",
+      "partOfSpeech": "conjunction",
+      "count": 422,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 93,
+      "lemma": "isto",
+      "partOfSpeech": "conjunction",
+      "count": 398,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 94,
+      "lemma": "akže",
+      "partOfSpeech": "conjunction",
+      "count": 362,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 95,
+      "lemma": "totižto",
+      "partOfSpeech": "conjunction",
+      "count": 361,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 96,
+      "lemma": "bárs",
+      "partOfSpeech": "conjunction",
+      "count": 270,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 97,
+      "lemma": "toľko",
+      "partOfSpeech": "conjunction",
+      "count": 257,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 98,
+      "lemma": "bár",
+      "partOfSpeech": "conjunction",
+      "count": 242,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 99,
+      "lemma": "ledaže",
+      "partOfSpeech": "conjunction",
+      "count": 241,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 100,
+      "lemma": "buďto",
+      "partOfSpeech": "conjunction",
+      "count": 223,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 101,
+      "lemma": "leda",
+      "partOfSpeech": "conjunction",
+      "count": 171,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 102,
+      "lemma": "ledva",
+      "partOfSpeech": "conjunction",
+      "count": 166,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 103,
+      "lemma": "inakšie",
+      "partOfSpeech": "conjunction",
+      "count": 159,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 104,
+      "lemma": "náhle",
+      "partOfSpeech": "conjunction",
+      "count": 138,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    },
+    {
+      "rank": 105,
+      "lemma": "hneď",
+      "partOfSpeech": "conjunction",
+      "count": 116,
+      "source": "Slovak National Corpus (SNK)",
+      "sourceUrl": "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2"
+    }
+  ]
+}

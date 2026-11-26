@@ -2,7 +2,10 @@ import { contentCacheKey } from "$lib/build/cache-key";
 import { liveLinkForLemma } from "$lib/catalog/dictionary/live-links";
 import { words } from "$lib/catalog/entries";
 import { loadAllFrequencyLists } from "$lib/catalog/frequency/load";
-import { FREQUENCY_PARTS } from "$lib/catalog/frequency/types";
+import {
+  FREQUENCY_PARTS,
+  isDisplayableFrequencyLemma,
+} from "$lib/catalog/frequency/types";
 
 const INITIAL_LIMIT = 100;
 
@@ -13,7 +16,7 @@ export async function frequencyCommonStaticPaths() {
   return FREQUENCY_PARTS.map((partOfSpeech) => {
     const sourceList = allLists[partOfSpeech];
     const entries = sourceList.entries
-      .filter((entry) => entry.lemma.trim().length > 1)
+      .filter((entry) => isDisplayableFrequencyLemma(entry.lemma, partOfSpeech))
       .map((entry) => ({
         rank: entry.rank,
         lemma: entry.lemma,

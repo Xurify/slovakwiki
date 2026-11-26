@@ -9,6 +9,8 @@ const FREQUENCY_FILES = [
   "nouns.json",
   "adjectives.json",
   "adverbs.json",
+  "particles.json",
+  "conjunctions.json",
 ] as const;
 
 /** Copy committed frequency lists into static/ for client fetch on common-word pages. */

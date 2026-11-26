@@ -39,6 +39,8 @@ const CATEGORY_TO_PART_OF_SPEECH: Record<string, FrequencyPartOfSpeech> = {
   Nouns: "noun",
   Adjectives: "adjective",
   Adverbs: "adverb",
+  Particles: "particle",
+  Conjunctions: "conjunction",
 };
 
 function wordFrequency(word: WordSeed): WordFrequency | undefined {

@@ -16,9 +16,10 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { words } from "../../src/lib/catalog/entries";
-import type {
-  FrequencyListFile,
-  FrequencyPartOfSpeech,
+import {
+  isDisplayableFrequencyLemma,
+  type FrequencyListFile,
+  type FrequencyPartOfSpeech,
 } from "../../src/lib/catalog/frequency/types";
 import { findLiveWordForLemma, lemmaToSlug } from "../../src/lib/catalog/frequency";
 import { FREQUENCY_PUBLISH_BLOCKLIST } from "../../src/lib/catalog/frequency/blocklist";
@@ -60,6 +61,8 @@ const PART_OF_SPEECH_FILES: Record<FrequencyPartOfSpeech, string> = {
   noun: "nouns.json",
   adjective: "adjectives.json",
   adverb: "adverbs.json",
+  particle: "particles.json",
+  conjunction: "conjunctions.json",
 };
 
 const CATEGORY_BY_PART_OF_SPEECH: Record<FrequencyPartOfSpeech, string> = {
@@ -67,6 +70,8 @@ const CATEGORY_BY_PART_OF_SPEECH: Record<FrequencyPartOfSpeech, string> = {
   noun: "Nouns",
   adjective: "Adjectives",
   adverb: "Adverbs",
+  particle: "Particles",
+  conjunction: "Conjunctions",
 };
 
 /** Gloss `category` overrides allowed on publish (themes belong in curated `topics`). */
@@ -75,6 +80,8 @@ const BROWSE_CATEGORY_OVERRIDES = new Set([
   "Nouns",
   "Adjectives",
   "Adverbs",
+  "Particles",
+  "Conjunctions",
   "Places",
   "Phrases",
 ]);
@@ -93,6 +100,8 @@ const PART_OF_SPEECH_SLUG_SUFFIX: Record<FrequencyPartOfSpeech, string> = {
   noun: "n",
   adjective: "a",
   adverb: "adv",
+  particle: "part",
+  conjunction: "conj",
 };
 
 function parseArgs(argv: string[]): { dryRun: boolean; limit: number } {
@@ -208,7 +217,7 @@ async function main(): Promise<void> {
         continue;
       }
 
-      if (entry.lemma.trim().length <= 1) {
+      if (!isDisplayableFrequencyLemma(entry.lemma, partOfSpeech)) {
         skippedLive += 1;
         continue;
       }

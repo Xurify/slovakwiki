@@ -7,20 +7,22 @@ import { loadAllFrequencyLists } from "$lib/catalog/frequency/load";
 import {
   FREQUENCY_PART_OF_SPEECH_LABEL,
   FREQUENCY_PARTS,
+  isDisplayableFrequencyLemma,
 } from "$lib/catalog/frequency/types";
 
 const lists = await loadAllFrequencyLists();
 const parts = FREQUENCY_PARTS.map((partOfSpeech) => ({
   href: `/dictionary/common/${partOfSpeech}`,
   label: FREQUENCY_PART_OF_SPEECH_LABEL[partOfSpeech],
-  count: lists[partOfSpeech].entries.filter((entry) => entry.lemma.trim().length > 1)
-    .length,
+  count: lists[partOfSpeech].entries.filter((entry) =>
+    isDisplayableFrequencyLemma(entry.lemma, partOfSpeech),
+  ).length,
 }));
 ---
 
 <SiteLayout
   title="Most common words — Slovak Wiki"
-  description="The most common Slovak verbs, nouns, adjectives, and adverbs from the Slovak National Corpus."
+  description="The most common Slovak verbs, nouns, adjectives, adverbs, particles, and conjunctions from the Slovak National Corpus."
   canonicalPath="/dictionary/common"
 >
   <main class="py-12 pb-20 max-[600px]:py-8">
@@ -34,7 +36,7 @@ const parts = FREQUENCY_PARTS.map((partOfSpeech) => ({
       <header class="max-w-[640px]">
         <h1>Most common words</h1>
         <Lead>
-          Four lists from the Slovak National Corpus, ranked by how often each word
+          Six lists from the Slovak National Corpus, ranked by how often each word
           appears. Open a list, then a word, for its meaning, examples, and forms.
         </Lead>
       </header>

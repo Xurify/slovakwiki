@@ -1,6 +1,8 @@
 import adjectives from "../../../../content/frequency/adjectives.json";
 import adverbs from "../../../../content/frequency/adverbs.json";
+import conjunctions from "../../../../content/frequency/conjunctions.json";
 import nouns from "../../../../content/frequency/nouns.json";
+import particles from "../../../../content/frequency/particles.json";
 import verbs from "../../../../content/frequency/verbs.json";
 
 import type { FrequencyListFile, FrequencyPartOfSpeech } from "./types";
@@ -10,6 +12,8 @@ const FREQUENCY_LISTS: Record<FrequencyPartOfSpeech, FrequencyListFile> = {
   noun: nouns as FrequencyListFile,
   adjective: adjectives as FrequencyListFile,
   adverb: adverbs as FrequencyListFile,
+  particle: particles as FrequencyListFile,
+  conjunction: conjunctions as FrequencyListFile,
 };
 
 /** Synchronous access for build-time page props. */

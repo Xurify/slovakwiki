@@ -27,6 +27,8 @@ const FILES: Record<FrequencyPartOfSpeech, string> = {
   noun: "nouns.json",
   adjective: "adjectives.json",
   adverb: "adverbs.json",
+  particle: "particles.json",
+  conjunction: "conjunctions.json",
 };
 
 async function main(): Promise<void> {
@@ -58,7 +60,7 @@ async function main(): Promise<void> {
 
   await writeFile(OUTPUT_PATH, `${JSON.stringify(missing, null, 2)}\n`, "utf8");
   console.log(
-    `Missing glosses — verbs: ${counts.verb}, nouns: ${counts.noun}, adjectives: ${counts.adjective}, adverbs: ${counts.adverb}, total: ${missing.length}`,
+    `Missing glosses — verbs: ${counts.verb}, nouns: ${counts.noun}, adjectives: ${counts.adjective}, adverbs: ${counts.adverb}, particles: ${counts.particle}, conjunctions: ${counts.conjunction}, total: ${missing.length}`,
   );
   console.log(`→ ${path.relative(ROOT, OUTPUT_PATH)}`);
 }

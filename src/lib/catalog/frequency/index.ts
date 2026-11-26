@@ -22,12 +22,16 @@ const PART_OF_SPEECH_TO_CATEGORY: Record<FrequencyPartOfSpeech, string> = {
   noun: "Nouns",
   adjective: "Adjectives",
   adverb: "Adverbs",
+  particle: "Particles",
+  conjunction: "Conjunctions",
 };
 
 /**
  * Prefer the frequency part-of-speech category.
  * Nouns may fall back to curated Places (mesto, Bratislava).
- * Do not fall back to Phrases — that mis-links adverbs like slovensky.
+ * Particles and conjunctions may fall back across closed-class buckets and adverbs
+ * (many high-frequency particles/conjunctions share spelling with adverbs or phrases: už, ešte, áno, ako).
+ * Do not fall back to Phrases for open classes — that mis-links adverbs like slovensky.
  */
 function pickForPreferredPartOfSpeech(
   matches: readonly ContentEntry[],
@@ -38,6 +42,22 @@ function pickForPreferredPartOfSpeech(
 
   if (preferredCategory === "Nouns") {
     return matches.find((word) => word.category === "Places");
+  }
+
+  if (preferredCategory === "Particles") {
+    return (
+      matches.find((word) => word.category === "Conjunctions") ??
+      matches.find((word) => word.category === "Adverbs") ??
+      matches.find((word) => word.category === "Phrases")
+    );
+  }
+
+  if (preferredCategory === "Conjunctions") {
+    return (
+      matches.find((word) => word.category === "Particles") ??
+      matches.find((word) => word.category === "Adverbs") ??
+      matches.find((word) => word.category === "Phrases")
+    );
   }
 
   return undefined;

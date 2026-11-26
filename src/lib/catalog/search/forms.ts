@@ -833,6 +833,8 @@ export function searchFormsForLemma(
       forms = nounForms(slovak, category, gender);
       break;
     case "Adverbs":
+    case "Particles":
+    case "Conjunctions":
     case "Phrases":
       // Fixed phrases / function words / adverbs — no productive inflection index.
       forms = [];

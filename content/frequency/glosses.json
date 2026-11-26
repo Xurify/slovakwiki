@@ -29260,5 +29260,495 @@
   },
   "tamhore": {
     "english": "up there"
+  },
+  "i": {
+    "english": "and; even; both ... and (i ..., i ...)"
+  },
+  "najmä": {
+    "english": "especially; mainly; in particular"
+  },
+  "napríklad": {
+    "english": "for example; for instance"
+  },
+  "takmer": {
+    "english": "almost; nearly"
+  },
+  "totiž": {
+    "english": "you see; because; namely"
+  },
+  "keby": {
+    "english": "if (hypothetical); if only; even if (aj keby)"
+  },
+  "nielen": {
+    "english": "not only (nielen ..., ale aj ...)"
+  },
+  "dokonca": {
+    "english": "even"
+  },
+  "aspoň": {
+    "english": "at least"
+  },
+  "akoby": {
+    "english": "as if; as though"
+  },
+  "síce": {
+    "english": "although; admittedly (síce ..., ale ...)"
+  },
+  "predovšetkým": {
+    "english": "above all; primarily; first of all"
+  },
+  "vraj": {
+    "english": "reportedly; supposedly; they say"
+  },
+  "predsa": {
+    "english": "after all; yet; still; nevertheless"
+  },
+  "zrejme": {
+    "english": "apparently; evidently; probably"
+  },
+  "vyše": {
+    "english": "over; more than"
+  },
+  "veď": {
+    "english": "after all; you know; for; why"
+  },
+  "pokiaľ": {
+    "english": "as far as; as long as; if; as for (pokiaľ ide o)"
+  },
+  "prípadne": {
+    "english": "or; or possibly; if need be"
+  },
+  "čím": {
+    "english": "the more ... (čím ..., tým ...)"
+  },
+  "ba": {
+    "english": "even; indeed; what is more (ba aj, ba dokonca)"
+  },
+  "azda": {
+    "english": "perhaps; maybe; surely (in questions)"
+  },
+  "údajne": {
+    "english": "allegedly; reportedly; supposedly"
+  },
+  "najmenej": {
+    "english": "at least; no less than"
+  },
+  "buď": {
+    "english": "either (buď ..., alebo ...)"
+  },
+  "tým": {
+    "english": "the more ... (čím ..., tým ...); all the more"
+  },
+  "veru": {
+    "english": "indeed; truly; really"
+  },
+  "takisto": {
+    "english": "also; likewise; as well"
+  },
+  "našťastie": {
+    "english": "fortunately; luckily"
+  },
+  "priam": {
+    "english": "downright; almost; practically"
+  },
+  "vari": {
+    "english": "perhaps; surely (in questions); maybe"
+  },
+  "hádam": {
+    "english": "perhaps; probably; hopefully; surely (in questions)"
+  },
+  "pravdaže": {
+    "english": "of course; naturally; certainly"
+  },
+  "respektíve": {
+    "english": "or rather; or"
+  },
+  "jednak": {
+    "english": "partly ... partly; both ... and (jednak ..., jednak ...)"
+  },
+  "výlučne": {
+    "english": "exclusively; solely; only"
+  },
+  "jedine": {
+    "english": "only; solely; exclusively"
+  },
+  "bohužiaľ": {
+    "english": "unfortunately; sadly; regrettably"
+  },
+  "nepochybne": {
+    "english": "undoubtedly; doubtless; without a doubt"
+  },
+  "zato": {
+    "english": "on the other hand; however; yet"
+  },
+  "snáď": {
+    "english": "perhaps; maybe; hopefully"
+  },
+  "povedzme": {
+    "english": "say; let's say; for example"
+  },
+  "nielenže": {
+    "english": "not only (nielenže ..., ale aj ...)"
+  },
+  "menej": {
+    "english": "less; fewer"
+  },
+  "radšej": {
+    "english": "rather; preferably; better"
+  },
+  "ozaj": {
+    "english": "really; indeed; by the way"
+  },
+  "inak": {
+    "english": "otherwise; or else; differently"
+  },
+  "prinajmenšom": {
+    "english": "at least; to say the least"
+  },
+  "žeby": {
+    "english": "so that; could it be that",
+    "register": "colloquial"
+  },
+  "ledva": {
+    "english": "barely; hardly; scarcely"
+  },
+  "takpovediac": {
+    "english": "so to speak; as it were"
+  },
+  "trebárs": {
+    "english": "for example; say; even",
+    "register": "colloquial"
+  },
+  "istotne": {
+    "english": "certainly; surely; definitely"
+  },
+  "ibaže": {
+    "english": "except that; only; unless (ibaže by)"
+  },
+  "lež": {
+    "english": "but; yet (literary)"
+  },
+  "zaiste": {
+    "english": "certainly; surely; indeed"
+  },
+  "bezpochyby": {
+    "english": "undoubtedly; without doubt"
+  },
+  "isteže": {
+    "english": "of course; certainly; surely"
+  },
+  "vskutku": {
+    "english": "indeed; truly; in fact"
+  },
+  "nebodaj": {
+    "english": "by any chance; surely not; perhaps"
+  },
+  "kdeže": {
+    "english": "no way; not at all; where on earth"
+  },
+  "vonkoncom": {
+    "english": "not at all; by no means; completely"
+  },
+  "akože": {
+    "english": "like; supposedly; as if; what do you mean",
+    "register": "colloquial"
+  },
+  "akiste": {
+    "english": "probably; surely; presumably"
+  },
+  "chvalabohu": {
+    "english": "thank goodness; thankfully"
+  },
+  "temer": {
+    "english": "almost; nearly"
+  },
+  "niežeby": {
+    "english": "not that"
+  },
+  "verzus": {
+    "english": "versus; against"
+  },
+  "bezmála": {
+    "english": "almost; nearly"
+  },
+  "sťa": {
+    "english": "like; as (literary)"
+  },
+  "najviac": {
+    "english": "at most; no more than"
+  },
+  "naisto": {
+    "english": "for sure; certainly; definitely"
+  },
+  "bodaj": {
+    "english": "if only; may; I wish (bodaj by)"
+  },
+  "ešteže": {
+    "english": "good thing; thankfully; luckily",
+    "register": "colloquial"
+  },
+  "slovom": {
+    "english": "in short; in a word"
+  },
+  "ostatne": {
+    "english": "after all; besides; anyway"
+  },
+  "alias": {
+    "english": "alias; also known as"
+  },
+  "nieto": {
+    "english": "let alone; much less (nieto ešte)"
+  },
+  "nanešťastie": {
+    "english": "unfortunately; sadly"
+  },
+  "napodiv": {
+    "english": "surprisingly; oddly enough"
+  },
+  "beztak": {
+    "english": "anyway; in any case",
+    "register": "colloquial"
+  },
+  "dozaista": {
+    "english": "surely; certainly"
+  },
+  "možnože": {
+    "english": "maybe; perhaps",
+    "register": "colloquial"
+  },
+  "kiež": {
+    "english": "if only; I wish; may (kiež by)"
+  },
+  "namiesto": {
+    "english": "instead of (+ gen.); rather than (namiesto toho, aby)"
+  },
+  "čože": {
+    "english": "what?!; really?; what on earth",
+    "register": "colloquial"
+  },
+  "nedajbože": {
+    "english": "God forbid; heaven forbid; if by any chance"
+  },
+  "prinajmenej": {
+    "english": "at least; at the very least"
+  },
+  "popravde": {
+    "english": "honestly; truthfully; to be honest"
+  },
+  "čoby": {
+    "english": "as; in the capacity of; even if"
+  },
+  "poprípade": {
+    "english": "or possibly; alternatively; if need be"
+  },
+  "hoc": {
+    "english": "although; even though; even if"
+  },
+  "jasné": {
+    "english": "sure; of course; obviously",
+    "register": "colloquial"
+  },
+  "reku": {
+    "english": "I thought; I said to myself; like",
+    "register": "colloquial"
+  },
+  "totižto": {
+    "english": "namely; because; you see",
+    "register": "colloquial"
+  },
+  "žiaľbohu": {
+    "english": "unfortunately; sadly"
+  },
+  "sťaby": {
+    "english": "as if; as though"
+  },
+  "ergo": {
+    "english": "therefore; consequently; ergo"
+  },
+  "horkýže": {
+    "english": "no way; not at all; yeah right",
+    "register": "colloquial"
+  },
+  "podistým": {
+    "english": "surely; most likely; presumably"
+  },
+  "kvázi": {
+    "english": "quasi-; so-called; sort of",
+    "register": "colloquial"
+  },
+  "just": {
+    "english": "out of spite; just to be contrary; deliberately",
+    "register": "colloquial"
+  },
+  "veruže": {
+    "english": "indeed; really; certainly",
+    "register": "colloquial"
+  },
+  "všakže": {
+    "english": "right?; isn't it?; surely"
+  },
+  "kontra": {
+    "english": "versus; against"
+  },
+  "apropo": {
+    "english": "by the way; speaking of which",
+    "register": "colloquial"
+  },
+  "vďakabohu": {
+    "english": "thank goodness; thankfully"
+  },
+  "nieže": {
+    "english": "mind you don't; don't you dare; not that (nieže by)",
+    "register": "colloquial"
+  },
+  "práveže": {
+    "english": "on the contrary; actually; quite the opposite",
+    "register": "colloquial"
+  },
+  "takrečeno": {
+    "english": "so to speak; as it were"
+  },
+  "namojdušu": {
+    "english": "honestly; upon my soul; I swear",
+    "register": "colloquial"
+  },
+  "prinajlepšom": {
+    "english": "at best; in the best case"
+  },
+  "prinajhoršom": {
+    "english": "at worst; if the worst comes to the worst"
+  },
+  "naskrze": {
+    "english": "utterly; completely; thoroughly"
+  },
+  "eventuálne": {
+    "english": "possibly; alternatively; if need be"
+  },
+  "namojveru": {
+    "english": "truly; honestly; indeed",
+    "register": "colloquial"
+  },
+  "toť": {
+    "english": "right here; look here; just recently",
+    "register": "colloquial"
+  },
+  "naveľa": {
+    "english": "finally; at long last; with effort",
+    "register": "colloquial"
+  },
+  "kebyže": {
+    "english": "if only; what if; if",
+    "register": "colloquial"
+  },
+  "najradšej": {
+    "english": "most of all; best of all; preferably"
+  },
+  "aspoňže": {
+    "english": "at least; thank goodness at least",
+    "register": "colloquial"
+  },
+  "napočudovanie": {
+    "english": "surprisingly; remarkably"
+  },
+  "zakiaľ": {
+    "english": "while; as long as; until"
+  },
+  "božechráň": {
+    "english": "God forbid; heaven forbid",
+    "register": "colloquial"
+  },
+  "ináč": {
+    "english": "otherwise; or else",
+    "register": "colloquial"
+  },
+  "dobreže": {
+    "english": "almost; nearly (dobreže ne-)",
+    "register": "colloquial"
+  },
+  "bohvie": {
+    "english": "God knows; who knows; goodness knows",
+    "register": "colloquial"
+  },
+  "dokým": {
+    "english": "until; while; as long as",
+    "register": "colloquial"
+  },
+  "bárs": {
+    "english": "even; say; for all I care",
+    "register": "colloquial"
+  },
+  "naostatok": {
+    "english": "finally; lastly; in the end"
+  },
+  "všakáno": {
+    "english": "right?; isn't that so?",
+    "register": "colloquial"
+  },
+  "nabetón": {
+    "english": "for sure; definitely; without a doubt",
+    "register": "colloquial"
+  },
+  "leda": {
+    "english": "only; at most; unless (leda ak)",
+    "register": "colloquial"
+  },
+  "dočista": {
+    "english": "completely; entirely; utterly",
+    "register": "colloquial"
+  },
+  "akže": {
+    "english": "if; provided that"
+  },
+  "prisámbohu": {
+    "english": "I swear to God; honestly",
+    "register": "colloquial"
+  },
+  "nechže": {
+    "english": "let; may (emphatic)",
+    "register": "colloquial"
+  },
+  "toľko": {
+    "english": "so much; so many; as much (toľko ..., koľko)"
+  },
+  "čertvie": {
+    "english": "the devil knows; who knows",
+    "register": "colloquial"
+  },
+  "ledaže": {
+    "english": "unless; except if"
+  },
+  "môžbyť": {
+    "english": "maybe; perhaps",
+    "register": "colloquial"
+  },
+  "buďto": {
+    "english": "either (buďto ..., alebo)"
+  },
+  "zaboha": {
+    "english": "for the life of me; not for anything (with negation)",
+    "register": "colloquial"
+  },
+  "ktohovie": {
+    "english": "who knows; goodness knows",
+    "register": "colloquial"
+  },
+  "inakšie": {
+    "english": "otherwise; or else",
+    "register": "colloquial"
+  },
+  "sotvaže": {
+    "english": "hardly … when; as soon as; barely"
+  },
+  "božeuchovaj": {
+    "english": "God forbid; heaven forbid",
+    "register": "colloquial"
+  },
+  "cirka": {
+    "english": "approximately; about; roughly",
+    "register": "colloquial"
+  },
+  "dupľom": {
+    "english": "all the more; doubly; twice as much",
+    "register": "colloquial"
   }
 }

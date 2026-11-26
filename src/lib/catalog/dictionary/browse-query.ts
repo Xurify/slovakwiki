@@ -35,6 +35,8 @@ export const BROWSE_CATEGORY_LABELS = [
   "Verbs",
   "Adjectives",
   "Adverbs",
+  "Particles",
+  "Conjunctions",
   "Places",
   "Phrases",
 ] as const;
@@ -47,6 +49,8 @@ export const BROWSE_TOPIC_SLUGS = [
   "verbs",
   "adjectives",
   "adverbs",
+  "particles",
+  "conjunctions",
   "places",
   "phrases",
 ] as const;
@@ -100,6 +104,10 @@ export function categoryForTopic(topic: BrowseTopicSlug): string | null {
       return "Adjectives";
     case "adverbs":
       return "Adverbs";
+    case "particles":
+      return "Particles";
+    case "conjunctions":
+      return "Conjunctions";
     case "places":
       return "Places";
     case "phrases":

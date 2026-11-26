@@ -40,6 +40,8 @@ const WORD_CATEGORY_META_LABELS: Record<string, string> = {
   Verbs: "Verb",
   Adjectives: "Adjective",
   Adverbs: "Adverb",
+  Particles: "Particle",
+  Conjunctions: "Conjunction",
   Places: "Place",
   Phrases: "Phrase",
   Numbers: "Number",
