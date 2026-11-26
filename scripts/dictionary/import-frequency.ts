@@ -1,6 +1,6 @@
 /**
- * Import SNK frequency lists: noun top-3000 and verb top-2000 from full count dumps,
- * adjective/adverb top-1000 from the existing HTML lists.
+ * Import SNK frequency lists: noun, verb, adjective and adverb top-3000 from the
+ * full SNK lemma-frequency dumps (tmp/snk caches them after the first download).
  *
  * Pivot: swap `fetchSnkFrequency` for a Tatoeba-rank importer later; keep
  * FrequencyListFile / FrequencyEntry shapes stable for UI + drafts.
@@ -24,7 +24,6 @@ import { referenceSources } from "../../src/lib/catalog/data-sources/catalog";
 import {
   isLikelyProperNoun,
   parseSnkCountLemmaDump,
-  parseSnkLemmaTable,
   PROPER_NOUN_ALLOWLIST,
   selectFrequencyHead,
 } from "../../src/lib/catalog/frequency/snk";
@@ -40,12 +39,17 @@ const SNK_VERB_CACHE = path.join(
   SNK_CACHE_DIR,
   "prim-8.0-public-all-V-lemma-frequency.bz2",
 );
+const SNK_ADJECTIVE_CACHE = path.join(
+  SNK_CACHE_DIR,
+  "prim-8.0-public-all-A-lemma-frequency.bz2",
+);
+const SNK_ADVERB_CACHE = path.join(
+  SNK_CACHE_DIR,
+  "prim-8.0-public-all-D-lemma-frequency.bz2",
+);
 const execFileAsync = promisify(execFile);
 const require = createRequire(import.meta.url);
 const Bunzip = require("seek-bzip") as { decode(input: Buffer): Buffer };
-
-const SNK_INDEX =
-  "https://korpus.sk/korpusy-a-databazy/korpusy-snk/prim-8-0/top-1000-korpusu-prim-8-0/top-1000-korpusu-prim-8-0-public-all/";
 
 const SNK_CORPUS = "prim-8.0-public-all";
 const SNK_SOURCE_NAME = "Slovak National Corpus (SNK)";
@@ -53,34 +57,31 @@ const SNK_NOUN_DUMP =
   "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-S-lemma-frequency.bz2";
 const SNK_VERB_DUMP =
   "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-V-lemma-frequency.bz2";
+const SNK_ADJECTIVE_DUMP =
+  "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-A-lemma-frequency.bz2";
+const SNK_ADVERB_DUMP =
+  "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-D-lemma-frequency.bz2";
 const DEFAULT_NOUN_LIMIT = 3000;
-const DEFAULT_VERB_LIMIT = 2000;
+const DEFAULT_VERB_LIMIT = 3000;
+const DEFAULT_ADJECTIVE_LIMIT = 3000;
+const DEFAULT_ADVERB_LIMIT = 3000;
 
-const PART_OF_SPEECH_PATHS: Record<
-  FrequencyPartOfSpeech,
-  { file: string; path: string }
-> = {
-  verb: {
-    file: "verbs.json",
-    path: "prim-8-0-public-all-verbums-top-1000-lemmas/",
-  },
-  noun: {
-    file: "nouns.json",
-    path: "prim-8-0-public-all-substantives-top-1000-lemmas/",
-  },
-  adjective: {
-    file: "adjectives.json",
-    path: "prim-8-0-public-all-adjectives-top-1000-lemmas/",
-  },
-  adverb: {
-    file: "adverbs.json",
-    path: "prim-8-0-public-all-adverbs-top-1000-lemmas/",
-  },
+const PART_OF_SPEECH_FILES: Record<FrequencyPartOfSpeech, string> = {
+  verb: "verbs.json",
+  noun: "nouns.json",
+  adjective: "adjectives.json",
+  adverb: "adverbs.json",
 };
 
 async function fetchSnkFrequency(
   partOfSpeech: FrequencyPartOfSpeech,
-  options: { nounLimit: number; verbLimit: number; force: boolean },
+  options: {
+    nounLimit: number;
+    verbLimit: number;
+    adjectiveLimit: number;
+    adverbLimit: number;
+    force: boolean;
+  },
 ): Promise<FrequencyListFile> {
   if (partOfSpeech === "noun") {
     const compressed = await getLemmaDump(
@@ -142,23 +143,31 @@ async function fetchSnkFrequency(
     };
   }
 
-  const config = PART_OF_SPEECH_PATHS[partOfSpeech];
-  const sourceUrl = `${SNK_INDEX}${config.path}`;
-  const response = await fetch(sourceUrl);
+  const isAdjective = partOfSpeech === "adjective";
+  const cachePath = isAdjective ? SNK_ADJECTIVE_CACHE : SNK_ADVERB_CACHE;
+  const sourceUrl = isAdjective ? SNK_ADJECTIVE_DUMP : SNK_ADVERB_DUMP;
+  const limit = isAdjective ? options.adjectiveLimit : options.adverbLimit;
+  const compressed = await getLemmaDump(
+    cachePath,
+    sourceUrl,
+    options.force,
+    partOfSpeech,
+  );
+  const dump = Bunzip.decode(compressed).toString("utf8");
+  const parsed = parseSnkCountLemmaDump(dump, partOfSpeech, sourceUrl);
+  // Lowercase lemmas only: capitalised dump lines are names or stray tags such as "Ano".
+  const entries = selectFrequencyHead(
+    parsed.filter(
+      (entry) =>
+        entry.lemma.trim().length > 1 &&
+        entry.lemma === entry.lemma.toLocaleLowerCase("sk"),
+    ),
+    limit,
+  );
 
-  if (!response.ok) {
+  if (entries.length < limit) {
     throw new Error(
-      `Failed to fetch ${sourceUrl}: ${response.status} ${response.statusText}`,
-    );
-  }
-
-  const html = await response.text();
-  const parsed = parseSnkLemmaTable(html, partOfSpeech, sourceUrl);
-  const entries = parsed.filter((entry) => entry.lemma.trim().length > 1);
-
-  if (entries.length < 100) {
-    throw new Error(
-      `Expected ~1000 lemmas for ${partOfSpeech}, got ${entries.length} from ${sourceUrl}`,
+      `Expected ${limit} ${partOfSpeech} lemmas, got ${entries.length} from ${sourceUrl}`,
     );
   }
 
@@ -257,6 +266,16 @@ async function main(): Promise<void> {
     verbLimitIndex >= 0 && args[verbLimitIndex + 1]
       ? Number(args[verbLimitIndex + 1])
       : DEFAULT_VERB_LIMIT;
+  const adjectiveLimitIndex = args.indexOf("--adjective-limit");
+  const adjectiveLimit =
+    adjectiveLimitIndex >= 0 && args[adjectiveLimitIndex + 1]
+      ? Number(args[adjectiveLimitIndex + 1])
+      : DEFAULT_ADJECTIVE_LIMIT;
+  const adverbLimitIndex = args.indexOf("--adverb-limit");
+  const adverbLimit =
+    adverbLimitIndex >= 0 && args[adverbLimitIndex + 1]
+      ? Number(args[adverbLimitIndex + 1])
+      : DEFAULT_ADVERB_LIMIT;
   const force = args.includes("--force");
 
   if (!Number.isInteger(nounLimit) || nounLimit < 1) {
@@ -265,17 +284,31 @@ async function main(): Promise<void> {
   if (!Number.isInteger(verbLimit) || verbLimit < 1) {
     throw new Error(`--verb-limit must be a positive integer; got ${verbLimit}`);
   }
+  if (!Number.isInteger(adjectiveLimit) || adjectiveLimit < 1) {
+    throw new Error(
+      `--adjective-limit must be a positive integer; got ${adjectiveLimit}`,
+    );
+  }
+  if (!Number.isInteger(adverbLimit) || adverbLimit < 1) {
+    throw new Error(`--adverb-limit must be a positive integer; got ${adverbLimit}`);
+  }
 
   await mkdir(OUT_DIR, { recursive: true });
 
   const lists = {} as Record<FrequencyPartOfSpeech, FrequencyListFile>;
 
   for (const partOfSpeech of Object.keys(
-    PART_OF_SPEECH_PATHS,
+    PART_OF_SPEECH_FILES,
   ) as FrequencyPartOfSpeech[]) {
-    const list = await fetchSnkFrequency(partOfSpeech, { nounLimit, verbLimit, force });
+    const list = await fetchSnkFrequency(partOfSpeech, {
+      nounLimit,
+      verbLimit,
+      adjectiveLimit,
+      adverbLimit,
+      force,
+    });
     lists[partOfSpeech] = list;
-    const outPath = path.join(OUT_DIR, PART_OF_SPEECH_PATHS[partOfSpeech].file);
+    const outPath = path.join(OUT_DIR, PART_OF_SPEECH_FILES[partOfSpeech]);
     await writeFile(outPath, `${JSON.stringify(list, null, 2)}\n`, "utf8");
     console.log(
       `Wrote ${list.entries.length} ${partOfSpeech} lemmas → ${path.relative(ROOT, outPath)}`,

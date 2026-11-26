@@ -175,6 +175,8 @@ function buildDictionaryIndex(): Map<string, DictionaryForm> {
     ];
     for (const form of forms) {
       const key = lower(form);
+      // Read as a verb only after sa or si (REFLEXIVE_VERB_FORMS); alone, the noun wins.
+      if (wordClass === "verb" && REFLEXIVE_VERB_FORMS.has(key)) continue;
       if (better(candidate, index.get(key))) index.set(key, candidate);
     }
     slugForms.set(entry.slug, { entry: candidate, forms: new Set(forms.map(lower)) });
