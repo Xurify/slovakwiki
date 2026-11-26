@@ -7,7 +7,7 @@ Grouped by job. Run content tooling with `bun scripts/<path>` from the repo root
 ## Happy path
 
 ```
-bun scripts/dictionary/import-frequency.ts       # SNK noun top-3000 + verb top-2000 dumps + adjective/adverb top-1000 HTML → frequency JSON
+bun scripts/dictionary/import-frequency.ts       # SNK noun/verb/adjective/adverb top-3000 + particle (T) & conjunction (O) dumps → frequency JSON
 bun scripts/dictionary/report-missing-glosses.ts # report frequency lemmas needing English glosses
 bun scripts/dictionary/publish-frequency.ts      # glosses → content/dictionary/words.json
 bun scripts/dictionary/import-wiktionary.ts      # wty sk→en → pronouns, conjunctions, prepositions, particles, numerals

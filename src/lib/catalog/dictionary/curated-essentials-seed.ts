@@ -95,7 +95,7 @@ export const curatedEssentialsSeed: WordSeed[] = [
     slug: "ci",
     slovak: "či",
     english: "whether; if (yes/no question)",
-    category: "Phrases",
+    category: "Conjunctions",
     topics: ["Questions"],
     examples: [
       { slovak: "Neviem, či príde.", english: "I don't know whether he will come." },
@@ -523,7 +523,7 @@ export const curatedEssentialsSeed: WordSeed[] = [
     slug: "a",
     slovak: "a",
     english: "and",
-    category: "Phrases",
+    category: "Conjunctions",
     topics: ["Essentials"],
     examples: [
       { slovak: "Chlieb a maslo.", english: "Bread and butter." },
@@ -540,7 +540,7 @@ export const curatedEssentialsSeed: WordSeed[] = [
     slug: "ale",
     slovak: "ale",
     english: "but",
-    category: "Phrases",
+    category: "Conjunctions",
     topics: ["Essentials"],
     examples: [
       { slovak: "Chcem ísť, ale prší.", english: "I want to go, but it is raining." },
@@ -560,7 +560,7 @@ export const curatedEssentialsSeed: WordSeed[] = [
     slug: "alebo",
     slovak: "alebo",
     english: "or",
-    category: "Phrases",
+    category: "Conjunctions",
     topics: ["Essentials"],
     examples: [
       { slovak: "Čaj alebo káva?", english: "Tea or coffee?" },
@@ -577,7 +577,7 @@ export const curatedEssentialsSeed: WordSeed[] = [
     slug: "ze",
     slovak: "že",
     english: "that (conjunction)",
-    category: "Phrases",
+    category: "Conjunctions",
     topics: ["Essentials"],
     examples: [
       { slovak: "Hovorí, že príde.", english: "He says that he will come." },
@@ -591,7 +591,7 @@ export const curatedEssentialsSeed: WordSeed[] = [
     slug: "ked",
     slovak: "keď",
     english: "when (conjunction); if",
-    category: "Phrases",
+    category: "Conjunctions",
     topics: ["Essentials"],
     examples: [
       { slovak: "Keď prídeš, zavolaj.", english: "When you arrive, call." },
@@ -614,7 +614,7 @@ export const curatedEssentialsSeed: WordSeed[] = [
     slug: "pretoze",
     slovak: "pretože",
     english: "because",
-    category: "Phrases",
+    category: "Conjunctions",
     topics: ["Essentials"],
     examples: [
       {
@@ -640,7 +640,7 @@ export const curatedEssentialsSeed: WordSeed[] = [
     slug: "lebo",
     slovak: "lebo",
     english: "because",
-    category: "Phrases",
+    category: "Conjunctions",
     topics: ["Essentials"],
     examples: [
       {
@@ -663,7 +663,7 @@ export const curatedEssentialsSeed: WordSeed[] = [
     slug: "cize",
     slovak: "čiže",
     english: "that is; in other words; so",
-    category: "Phrases",
+    category: "Conjunctions",
     topics: ["Conversation"],
     examples: [
       {
@@ -881,7 +881,7 @@ export const curatedEssentialsSeed: WordSeed[] = [
     slug: "len",
     slovak: "len",
     english: "only; just",
-    category: "Phrases",
+    category: "Particles",
     topics: ["Essentials"],
     examples: [
       { slovak: "Len jednu kávu, prosím.", english: "Just one coffee, please." },
@@ -895,7 +895,7 @@ export const curatedEssentialsSeed: WordSeed[] = [
     slug: "tiez",
     slovak: "tiež",
     english: "also; too",
-    category: "Phrases",
+    category: "Particles",
     topics: ["Essentials"],
     examples: [
       { slovak: "Ja tiež.", english: "Me too." },
@@ -1086,7 +1086,7 @@ export const curatedEssentialsSeed: WordSeed[] = [
     slug: "tak",
     slovak: "tak",
     english: "so; like that",
-    category: "Phrases",
+    category: "Particles",
     topics: ["Conversation"],
     examples: [
       { slovak: "Bolo to tak.", english: "It was like that." },
@@ -1100,7 +1100,7 @@ export const curatedEssentialsSeed: WordSeed[] = [
     slug: "no",
     slovak: "no",
     english: "well; so",
-    category: "Phrases",
+    category: "Particles",
     topics: ["Conversation"],
     examples: [
       { slovak: "No, dobre.", english: "Well, okay." },
@@ -1173,7 +1173,7 @@ export const curatedEssentialsSeed: WordSeed[] = [
     slug: "nech",
     slovak: "nech",
     english: "let; may",
-    category: "Phrases",
+    category: "Particles",
     topics: ["Conversation"],
     examples: [
       { slovak: "Nech to urobí.", english: "Let him do it." },
@@ -1187,7 +1187,7 @@ export const curatedEssentialsSeed: WordSeed[] = [
     slug: "nez",
     slovak: "než",
     english: "than",
-    category: "Phrases",
+    category: "Conjunctions",
     topics: ["Conversation"],
     examples: [
       { slovak: "Je starší než ja.", english: "He's older than me." },
@@ -1227,7 +1227,7 @@ export const curatedEssentialsSeed: WordSeed[] = [
     slug: "samozrejme",
     slovak: "samozrejme",
     english: "of course",
-    category: "Phrases",
+    category: "Particles",
     topics: ["Conversation"],
     examples: [
       { slovak: "Samozrejme, môžeš prísť.", english: "Of course you can come." },
@@ -1241,7 +1241,7 @@ export const curatedEssentialsSeed: WordSeed[] = [
     slug: "vlastne",
     slovak: "vlastne",
     english: "actually; in fact",
-    category: "Phrases",
+    category: "Particles",
     topics: ["Conversation"],
     examples: [
       { slovak: "Vlastne máš pravdu.", english: "Actually, you're right." },
@@ -1272,7 +1272,7 @@ export const curatedEssentialsSeed: WordSeed[] = [
     slug: "nuz",
     slovak: "nuž",
     english: "well; so",
-    category: "Phrases",
+    category: "Particles",
     topics: ["Conversation"],
     examples: [
       { slovak: "Nuž, uvidíme.", english: "Well, we'll see." },

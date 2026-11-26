@@ -29,4 +29,18 @@ describe("dictionary common links", () => {
     expect(dictionaryPathForLiveLink(link!)).toBe("/dictionary/malo#adverb");
     expect(resolveLiveLinkFromIndex("malo-adv", "adverb", map)).toBeUndefined();
   });
+
+  it("resolves particles and conjunctions including shared adverb/phrase lemmas", () => {
+    const map = buildLiveLinksFromIndex(buildDictionaryIndexSidecar());
+
+    expect(liveLinkForLemma("a", words, "conjunction")?.slug).toBe("a");
+    expect(liveLinkForLemma("aj", words, "particle")?.slug).toBe("aj");
+    expect(liveLinkForLemma("už", words, "particle")?.slug).toBe("uz");
+    expect(liveLinkForLemma("áno", words, "particle")?.slug).toBe("ano");
+
+    expect(resolveLiveLinkFromIndex("a", "conjunction", map)?.slug).toBe("a");
+    expect(resolveLiveLinkFromIndex("aj", "particle", map)?.slug).toBe("aj");
+    expect(resolveLiveLinkFromIndex("už", "particle", map)?.slug).toBe("uz");
+    expect(resolveLiveLinkFromIndex("ako", "conjunction", map)?.slug).toBe("ako");
+  });
 });

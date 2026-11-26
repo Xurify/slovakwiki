@@ -68,7 +68,7 @@ export const referenceSources: ReferenceSource[] = [
     group: "corpus",
     name: "Slovak National Corpus (SNK) frequency lists",
     usedFor:
-      "Top-3000 noun and top-2000 verb lemmas from the full SNK count dumps, plus top-1000 adjective and adverb lemmas from the SNK HTML lists, used on /dictionary/common and frequency publish.",
+      "Top-3000 noun, verb, adjective and adverb lemmas plus particle (T) and conjunction (O) lemmas from the full SNK count dumps, used on /dictionary/common and frequency publish.",
     links: [
       {
         href: "https://korpus.sk/en/frequency-lists-of-lemmata-word-forms-and-parts-of-speech-from-the-publicly-available-snc-corpora/",
@@ -79,24 +79,24 @@ export const referenceSources: ReferenceSource[] = [
         label: "Full noun lemma frequency dump (BZ2)",
       },
       {
-        href: "https://korpus.sk/korpusy-a-databazy/korpusy-snk/prim-8-0/top-1000-korpusu-prim-8-0/top-1000-korpusu-prim-8-0-public-all/",
-        label: "prim-8.0-public-all top 1000 index",
-      },
-      {
         href: "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-V-lemma-frequency.bz2",
         label: "Full verb lemma frequency dump (BZ2)",
       },
       {
-        href: "https://korpus.sk/korpusy-a-databazy/korpusy-snk/prim-8-0/top-1000-korpusu-prim-8-0/top-1000-korpusu-prim-8-0-public-all/prim-8-0-public-all-substantives-top-1000-lemmas/",
-        label: "Top 1000 noun lemmas",
+        href: "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-A-lemma-frequency.bz2",
+        label: "Full adjective lemma frequency dump (BZ2)",
       },
       {
-        href: "https://korpus.sk/korpusy-a-databazy/korpusy-snk/prim-8-0/top-1000-korpusu-prim-8-0/top-1000-korpusu-prim-8-0-public-all/prim-8-0-public-all-adjectives-top-1000-lemmas/",
-        label: "Top 1000 adjective lemmas",
+        href: "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-D-lemma-frequency.bz2",
+        label: "Full adverb lemma frequency dump (BZ2)",
       },
       {
-        href: "https://korpus.sk/korpusy-a-databazy/korpusy-snk/prim-8-0/top-1000-korpusu-prim-8-0/top-1000-korpusu-prim-8-0-public-all/prim-8-0-public-all-adverbs-top-1000-lemmas/",
-        label: "Top 1000 adverb lemmas",
+        href: "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2",
+        label: "Full particle lemma frequency dump (BZ2)",
+      },
+      {
+        href: "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2",
+        label: "Full conjunction lemma frequency dump (BZ2)",
       },
     ],
   },
@@ -105,7 +105,7 @@ export const referenceSources: ReferenceSource[] = [
     group: "dictionary",
     name: "Wiktionary (English), via Kaikki and wty",
     usedFor:
-      "English meanings for common pronouns, conjunctions, prepositions, particles, numerals and interjections, which the SNK part-of-speech lists do not cover.",
+      "English meanings for common pronouns, prepositions, numerals, interjections, and early closed-class entries not yet covered by the SNK dumps.",
     license: "CC BY-SA 3.0 (Wiktionary), CC BY-SA (Kaikki extract)",
     links: [
       {

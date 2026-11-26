@@ -4,7 +4,10 @@ import {
   resolveLiveLinkFromIndex,
 } from "$lib/catalog/dictionary/live-links";
 import type { DictionaryIndexSidecarEntry } from "$lib/catalog/dictionary/browse";
-import type { FrequencyPartOfSpeech } from "$lib/catalog/frequency/types";
+import {
+  isDisplayableFrequencyLemma,
+  type FrequencyPartOfSpeech,
+} from "$lib/catalog/frequency/types";
 import { fetchDictionaryIndex } from "$lib/catalog/dictionary/browse-query";
 
 export interface CompactFrequencyEntry {
@@ -27,8 +30,17 @@ export const dictionaryCommonState = $state({
   liveByLemma: {} as Record<string, LiveLink>,
 });
 
+const FREQUENCY_FILE_BY_PART: Record<FrequencyPartOfSpeech, string> = {
+  noun: "nouns",
+  verb: "verbs",
+  adjective: "adjectives",
+  adverb: "adverbs",
+  particle: "particles",
+  conjunction: "conjunctions",
+};
+
 function frequencyUrl(partOfSpeech: FrequencyPartOfSpeech): string {
-  return `/frequency/${partOfSpeech === "noun" ? "nouns" : partOfSpeech === "verb" ? "verbs" : partOfSpeech === "adjective" ? "adjectives" : "adverbs"}.json`;
+  return `/frequency/${FREQUENCY_FILE_BY_PART[partOfSpeech]}.json`;
 }
 
 function normalize(value: string): string {
@@ -96,8 +108,8 @@ export async function ensureDictionaryCommonLoaded(): Promise<void> {
       entries: CompactFrequencyEntry[];
     };
 
-    const entries = frequencyData.entries.filter(
-      (entry) => entry.lemma.trim().length > 1,
+    const entries = frequencyData.entries.filter((entry) =>
+      isDisplayableFrequencyLemma(entry.lemma, dictionaryCommonState.partOfSpeech),
     );
     dictionaryCommonState.entries = entries;
 

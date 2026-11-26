@@ -19,4 +19,42 @@ export const FREQUENCY_PUBLISH_BLOCKLIST = new Set([
   "naviac",
   // Archaic for "always"; as "everything" it is Czech (Slovak všetko).
   "vše",
+  // SNK particle/conjunction fragments, inflected forms, vulgarities, non-standard Czechisms, or duplicate Latin spellings.
+  "koncov",
+  "neviem",
+  "facto",
+  "jest",
+  "ho",
+  "ono",
+  "ver",
+  "ná",
+  "hm",
+  "hmm",
+  "hmmm",
+  "ehm",
+  "hovno",
+  "prd",
+  "čerta",
+  "figu",
+  "pána",
+  "pánabeka",
+  "bohyňu",
+  "div",
+  // Non-standard Czechism; standard Slovak uses pravdaže, samozrejme, or avšak.
+  "ovšem",
+  // PSP standard spelling is hyphenated viac-menej and two-word zatiaľ čo.
+  "viacmenej",
+  "zatiaľčo",
+  // Duplicate Latin spellings of codified Slovak verzus and cirka.
+  "versus",
+  "circa",
+  // Dialectal/non-standard forms of lebo, alebo, ako, bárs, skôr.
+  "bo",
+  "abo",
+  "jak",
+  "jako",
+  "aba",
+  "bár",
+  "skorej",
+  "prepytujem",
 ]);

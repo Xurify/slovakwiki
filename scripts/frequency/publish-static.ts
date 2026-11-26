@@ -1,7 +1,14 @@
 import { copyFile, mkdir } from "node:fs/promises";
 import path from "node:path";
 
-const files = ["verbs.json", "nouns.json", "adjectives.json", "adverbs.json"] as const;
+const files = [
+  "verbs.json",
+  "nouns.json",
+  "adjectives.json",
+  "adverbs.json",
+  "particles.json",
+  "conjunctions.json",
+] as const;
 const sourceDir = path.join(process.cwd(), "content", "frequency");
 const targetDir = path.join(process.cwd(), "static", "frequency");
 

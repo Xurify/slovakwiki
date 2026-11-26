@@ -193908,7 +193908,7 @@
     "slug": "sotva",
     "slovak": "sotva",
     "english": "barely; hardly; no sooner",
-    "category": "Adverbs",
+    "category": "Particles",
     "examples": [
       {
         "slovak": "Sotva počujem, čo hovoríš.",
@@ -193937,6 +193937,7 @@
       }
     ],
     "related": [
+      "ledva",
       "skoro",
       "hned"
     ]
@@ -270833,7 +270834,7 @@
     "slug": "aj",
     "slovak": "aj",
     "english": "also, too",
-    "category": "Phrases",
+    "category": "Particles",
     "examples": [
       {
         "slovak": "Aj ja dúfam.",
@@ -270890,7 +270891,7 @@
     "slug": "ani",
     "slovak": "ani",
     "english": "not even, nor",
-    "category": "Phrases",
+    "category": "Particles",
     "examples": [
       {
         "slovak": "Ani myslieť!",
@@ -271004,7 +271005,7 @@
     "slug": "aby",
     "slovak": "aby",
     "english": "so that",
-    "category": "Phrases",
+    "category": "Conjunctions",
     "examples": [
       {
         "slovak": "Chcem, aby prišiel.",
@@ -271061,7 +271062,7 @@
     "slug": "vsak",
     "slovak": "však",
     "english": "however; isn't it? (tag question)",
-    "category": "Phrases",
+    "category": "Particles",
     "examples": [
       {
         "slovak": "Pekné, však?",
@@ -271118,7 +271119,7 @@
     "slug": "teda",
     "slovak": "teda",
     "english": "so, then",
-    "category": "Phrases",
+    "category": "Particles",
     "examples": [
       {
         "slovak": "Myslíme, teda sme.",
@@ -271169,7 +271170,7 @@
     "slug": "preto",
     "slovak": "preto",
     "english": "therefore",
-    "category": "Phrases",
+    "category": "Conjunctions",
     "examples": [
       {
         "slovak": "Preto sa nahneval.",
@@ -271226,7 +271227,7 @@
     "slug": "iba",
     "slovak": "iba",
     "english": "only",
-    "category": "Phrases",
+    "category": "Particles",
     "examples": [
       {
         "slovak": "Iba sa pozerám.",
@@ -271283,7 +271284,7 @@
     "slug": "az",
     "slovak": "až",
     "english": "until, not until; all the way to; (not) that",
-    "category": "Phrases",
+    "category": "Particles",
     "examples": [
       {
         "slovak": "Až taká hladná nie som.",
@@ -271486,7 +271487,7 @@
     "slug": "ak",
     "slovak": "ak",
     "english": "if",
-    "category": "Phrases",
+    "category": "Conjunctions",
     "origin": "wiktionary",
     "examples": [
       {
@@ -271602,7 +271603,7 @@
     "slug": "takze",
     "slovak": "takže",
     "english": "so; therefore",
-    "category": "Phrases",
+    "category": "Conjunctions",
     "origin": "wiktionary",
     "examples": [
       {
@@ -271892,7 +271893,7 @@
     "slug": "kym",
     "slovak": "kým",
     "english": "while; until",
-    "category": "Phrases",
+    "category": "Conjunctions",
     "origin": "wiktionary",
     "examples": [
       {
@@ -273032,7 +273033,7 @@
     "slug": "kedze",
     "slovak": "keďže",
     "english": "since; because",
-    "category": "Phrases",
+    "category": "Conjunctions",
     "origin": "wiktionary",
     "examples": [
       {
@@ -273219,7 +273220,7 @@
     "slug": "hoci",
     "slovak": "hoci",
     "english": "although",
-    "category": "Phrases",
+    "category": "Conjunctions",
     "origin": "wiktionary",
     "examples": [
       {
@@ -273307,7 +273308,7 @@
     "slug": "taktiez",
     "slovak": "taktiež",
     "english": "also; likewise",
-    "category": "Phrases",
+    "category": "Particles",
     "origin": "wiktionary",
     "examples": [
       {
@@ -273405,7 +273406,7 @@
     "slug": "avsak",
     "slovak": "avšak",
     "english": "however; but",
-    "category": "Phrases",
+    "category": "Conjunctions",
     "origin": "wiktionary",
     "examples": [
       {
@@ -273435,7 +273436,7 @@
     "slug": "akonahle",
     "slovak": "akonáhle",
     "english": "as soon as",
-    "category": "Phrases",
+    "category": "Conjunctions",
     "origin": "wiktionary",
     "examples": [
       {
@@ -273581,7 +273582,7 @@
     "slug": "pokym",
     "slovak": "pokým",
     "english": "while; until",
-    "category": "Phrases",
+    "category": "Conjunctions",
     "origin": "wiktionary",
     "examples": [
       {
@@ -273682,7 +273683,7 @@
     "slug": "lenze",
     "slovak": "lenže",
     "english": "but",
-    "category": "Phrases",
+    "category": "Conjunctions",
     "origin": "wiktionary",
     "examples": [
       {
@@ -274183,7 +274184,7 @@
     "slug": "pricom",
     "slovak": "pričom",
     "english": "while; whereas",
-    "category": "Phrases",
+    "category": "Conjunctions",
     "origin": "wiktionary",
     "examples": [
       {
@@ -274443,7 +274444,7 @@
     "slug": "nakolko",
     "slovak": "nakoľko",
     "english": "as, since, because",
-    "category": "Phrases",
+    "category": "Conjunctions",
     "origin": "wiktionary",
     "register": "colloquial",
     "examples": [
@@ -274504,7 +274505,7 @@
     "slug": "pravdupovediac",
     "slovak": "pravdupovediac",
     "english": "truth be told, to be honest, actually",
-    "category": "Phrases",
+    "category": "Particles",
     "origin": "wiktionary",
     "examples": [
       {
@@ -275368,7 +275369,7 @@
     "slug": "jednako",
     "slovak": "jednako",
     "english": "nevertheless, yet, still; after all, nonetheless, all the same",
-    "category": "Phrases",
+    "category": "Conjunctions",
     "origin": "wiktionary",
     "examples": [
       {
@@ -275490,7 +275491,7 @@
     "slug": "toboz",
     "slovak": "tobôž",
     "english": "let alone",
-    "category": "Phrases",
+    "category": "Particles",
     "origin": "wiktionary",
     "examples": [
       {
@@ -354625,5 +354626,4779 @@
       "hore",
       "tamdolu"
     ]
+  },
+  {
+    "slug": "i",
+    "slovak": "i",
+    "english": "and; even; both ... and (i ..., i ...)",
+    "category": "Conjunctions",
+    "examples": [
+      {
+        "slovak": "Na výlet išli deti i starí rodičia.",
+        "english": "Both the children and the grandparents went on the trip.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Poznáme sa i z práce, i zo športového klubu.",
+        "english": "We know each other both from work and from the sports club.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "I keď bolo zamračené, voda v jazere bola teplá.",
+        "english": "Even though it was cloudy, the water in the lake was warm.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Dokázal vyriešiť i tú najťažšiu úlohu bez pomoci.",
+        "english": "He managed to solve even the hardest task without help.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "a",
+      "aj"
+    ]
+  },
+  {
+    "slug": "najma",
+    "slovak": "najmä",
+    "english": "especially; mainly; in particular",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "V lete cestujú turisti najmä do Vysokých Tatier.",
+        "english": "In summer, tourists travel mainly to the High Tatras.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Tento kurz je určený najmä pre úplných začiatočníkov.",
+        "english": "This course is intended especially for complete beginners.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Bolela ju hlava, najmä po dlhom dni pri počítači.",
+        "english": "Her head hurt, especially after a long day at the computer.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Oceňujem najmä tvoju trpezlivosť a pokojný prístup.",
+        "english": "I especially appreciate your patience and calm approach.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "predovsetkym",
+      "hlavne"
+    ]
+  },
+  {
+    "slug": "napriklad",
+    "slovak": "napríklad",
+    "english": "for example; for instance",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "V pekárni majú rôzne koláče, napríklad makový a tvarohový.",
+        "english": "The bakery has various cakes, for example poppy-seed and curd.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Môžeme sa stretnúť cez víkend, napríklad v sobotu ráno.",
+        "english": "We can meet over the weekend, for instance on Saturday morning.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Niektoré mestá, napríklad Trnava a Nitra, majú bohatú históriu.",
+        "english": "Some cities, such as Trnava and Nitra, have a rich history.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Napríklad minulý týždeň sme celú trasu prešli pešo.",
+        "english": "Last week, for example, we walked the whole route on foot.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "trebars",
+      "povedzme"
+    ]
+  },
+  {
+    "slug": "takmer",
+    "slovak": "takmer",
+    "english": "almost; nearly",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Ráno som takmer zmeškal prvý rýchlik do Košíc.",
+        "english": "In the morning I almost missed the first express train to Košice.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V kine nezostalo takmer žiadne voľné miesto.",
+        "english": "There was hardly a single free seat left in the cinema.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na stavbe nového mosta pracovali takmer dva roky.",
+        "english": "They worked on building the new bridge for nearly two years.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Cestou zo školy sme takmer zmokli v náhlom daždi.",
+        "english": "On the way home from school we nearly got soaked in a sudden rain.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "temer",
+      "bezmala"
+    ]
+  },
+  {
+    "slug": "totiz",
+    "slovak": "totiž",
+    "english": "you see; because; namely",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Nemohla prísť na večeru, mala totiž vysokú horúčku.",
+        "english": "She could not come to dinner, as she had a high fever.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Tento autobus totiž v nedeľu vôbec nejazdí.",
+        "english": "You see, this bus does not run on Sundays at all.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Rýchlo sme sa vrátili, zabudli sme totiž zamknúť garáž.",
+        "english": "We went back quickly because we had forgotten to lock the garage.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V knižnici bolo ticho, čitatelia sa totiž pripravovali na skúšky.",
+        "english": "It was quiet in the library, as readers were preparing for exams.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "totizto",
+      "lebo"
+    ]
+  },
+  {
+    "slug": "keby",
+    "slovak": "keby",
+    "english": "if (hypothetical); if only; even if (aj keby)",
+    "category": "Conjunctions",
+    "examples": [
+      {
+        "slovak": "Keby som mal viac času, naučil by som sa hrať na klavíri.",
+        "english": "If I had more time, I would learn to play the piano.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Keby dnes nepršalo, išli by sme na bicykloch k rieke.",
+        "english": "If it were not raining today, we would cycle to the river.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Aj keby vlak meškal pol hodiny, stihneme prípoj.",
+        "english": "Even if the train is half an hour late, we will make the connection.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Keby si mi zavolala skôr, stihol by som prísť po teba.",
+        "english": "If you had called me earlier, I would have had time to pick you up.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "kebyze",
+      "ak"
+    ]
+  },
+  {
+    "slug": "nielen",
+    "slovak": "nielen",
+    "english": "not only (nielen ..., ale aj ...)",
+    "category": "Conjunctions",
+    "examples": [
+      {
+        "slovak": "Mária hovorí nielen po slovensky, ale aj po nemecky.",
+        "english": "Mária speaks not only Slovak, but also German.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nový park slúži nielen deťom, ale aj bežcom a cyklistom.",
+        "english": "The new park serves not only children, but also runners and cyclists.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Kniha bola nielen napínavá, ale aj veľmi poučná.",
+        "english": "The book was not only gripping, but also very instructive.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na dovolenke si oddýchli nielen od práce, ale aj od ruchu mesta.",
+        "english": "On holiday they rested not only from work, but also from city noise.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "nielenze"
+    ]
+  },
+  {
+    "slug": "dokonca",
+    "slovak": "dokonca",
+    "english": "even",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Na oslavu prišiel dokonca aj strýko zo zahraničia.",
+        "english": "Even our uncle from abroad came to the celebration.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Po búrke v horách dokonca napadol čerstvý sneh.",
+        "english": "After the storm, fresh snow even fell in the mountains.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Stihol uvariť večeru a dokonca upratal celú kuchyňu.",
+        "english": "He managed to cook dinner and even tidied the whole kitchen.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Niektoré vstupenky boli dokonca lacnejšie než minulý rok.",
+        "english": "Some tickets were even cheaper than last year.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "ba",
+      "aj"
+    ]
+  },
+  {
+    "slug": "aspon",
+    "slovak": "aspoň",
+    "english": "at least",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Príď sa na nás pozrieť aspoň na chvíľu.",
+        "english": "Come visit us at least for a moment.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Každý deň sa snažím prejsť pešo aspoň päť kilometrov.",
+        "english": "Every day I try to walk at least five kilometers.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Mohol si mi aspoň napísať správu, že meškáš.",
+        "english": "You could at least have sent me a message that you were late.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Počasie nebolo ideálne, ale aspoň nepršalo.",
+        "english": "The weather was not ideal, but at least it did not rain.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "asponze",
+      "prinajmensom",
+      "najmenej"
+    ]
+  },
+  {
+    "slug": "akoby",
+    "slovak": "akoby",
+    "english": "as if; as though",
+    "category": "Conjunctions",
+    "examples": [
+      {
+        "slovak": "Pozeral na mňa, akoby ma videl prvýkrát v živote.",
+        "english": "He looked at me as if he were seeing me for the first time in his life.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V izbe bolo chladno, akoby nikto celý deň nekúril.",
+        "english": "It was chilly in the room, as though no one had heated it all day.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Odpovedala tak pokojne, akoby sa vôbec nič nestalo.",
+        "english": "She answered so calmly, as if nothing had happened at all.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Zrazu sa obloha vyjasnila, akoby mraky zmizli zázrakom.",
+        "english": "Suddenly the sky cleared, as though the clouds vanished by magic.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "ako",
+      "staby"
+    ]
+  },
+  {
+    "slug": "sice",
+    "slovak": "síce",
+    "english": "although; admittedly (síce ..., ale ...)",
+    "category": "Conjunctions",
+    "examples": [
+      {
+        "slovak": "Hotel bol síce jednoduchý, ale čistý a tichý.",
+        "english": "Although the hotel was simple, it was clean and quiet.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Síce sme vyrazili skoro, no na diaľnici bola dlhá kolóna.",
+        "english": "We set off early, yet there was a long traffic jam on the motorway.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Ponuka znela síce lákavo, lenže termín nám nevyhovoval.",
+        "english": "The offer sounded tempting, except the date did not suit us.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Káva bola síce trochu slabšia, ale koláč chutil výborne.",
+        "english": "The coffee was admittedly a bit weak, but the cake tasted great.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "ale",
+      "hoci"
+    ]
+  },
+  {
+    "slug": "predovsetkym",
+    "slovak": "predovšetkým",
+    "english": "above all; primarily; first of all",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Pri výbere bytu nám záležalo predovšetkým na dobrom svetle.",
+        "english": "When choosing an apartment, good light mattered to us above all.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Chcem sa poďakovať predovšetkým kolegom za veľkú pomoc.",
+        "english": "I want to thank my colleagues above all for their great help.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na dlhú túru si zbaľte predovšetkým pevnú obuv a dostatok vody.",
+        "english": "For a long hike, pack sturdy footwear and enough water first of all.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Film zaujal divákov predovšetkým silným príbehom a hudbou.",
+        "english": "The film won viewers over primarily with its strong story and music.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "najma",
+      "hlavne"
+    ]
+  },
+  {
+    "slug": "vraj",
+    "slovak": "vraj",
+    "english": "reportedly; supposedly; they say",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Na budúci mesiac vraj otvoria na námestí novú kaviareň.",
+        "english": "They say a new café will open on the square next month.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Tento rok bude vraj mierna zima.",
+        "english": "They say the winter will be mild this year.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Ten starý dom pri lese je vraj na predaj.",
+        "english": "That old house by the woods is reportedly for sale.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Vraj sa už presťahovali do nového bytu v Žiline.",
+        "english": "Reportedly they have already moved into a new apartment in Žilina.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "udajne"
+    ]
+  },
+  {
+    "slug": "predsa",
+    "slovak": "predsa",
+    "english": "after all; yet; still; nevertheless",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Nemôžeš odísť bez kabáta, vonku predsa mrzne.",
+        "english": "You cannot leave without a coat, it is freezing outside after all.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Dlho váhala, ale nakoniec predsa prijala tú ponuku.",
+        "english": "She hesitated for a long time, yet in the end she accepted the offer.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Dohodli sme sa predsa, že sa stretneme pred divadlom.",
+        "english": "We agreed, after all, that we would meet in front of the theater.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Hoci bola unavená, predsa len tú kapitolu dočítala.",
+        "english": "Although she was tired, she still finished reading the chapter.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "ved",
+      "vsak"
+    ]
+  },
+  {
+    "slug": "zrejme",
+    "slovak": "zrejme",
+    "english": "apparently; evidently; probably",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Svetlá v byte nesvietia, takže už zrejme spia.",
+        "english": "The lights in the apartment are off, so they are probably asleep.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "List sa zrejme stratil niekde na pošte.",
+        "english": "The letter apparently got lost somewhere at the post office.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Podľa tmavých mrakov bude zrejme čoskoro pršať.",
+        "english": "Judging by the dark clouds, it will probably rain soon.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na schôdzu neprišiel, zrejme si pomýlil dátum.",
+        "english": "He did not come to the meeting, he evidently mixed up the date.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "akiste",
+      "pravdepodobne"
+    ]
+  },
+  {
+    "slug": "vyse",
+    "slovak": "vyše",
+    "english": "over; more than",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "V tejto firme pracuje vyše dvanásť rokov.",
+        "english": "He has been working at this company for over twelve years.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na mestský maratón sa prihlásilo vyše tisíc bežcov.",
+        "english": "More than a thousand runners signed up for the city marathon.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Čakali sme na vyšetrenie vyše pol hodiny.",
+        "english": "We waited over half an hour for the examination.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Oprava starého auta ich stála vyše päťsto eur.",
+        "english": "Repairing the old car cost them more than five hundred euros.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "najmenej",
+      "najviac"
+    ]
+  },
+  {
+    "slug": "ved",
+    "slovak": "veď",
+    "english": "after all; you know; for; why",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Neboj sa toho testu, veď si sa poctivo pripravoval.",
+        "english": "Do not worry about the test, you prepared thoroughly after all.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Veď som ti kľúče položil priamo na kuchynský stôl!",
+        "english": "Why, I put the keys right on the kitchen table for you!",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Naber si ešte polievky, veď jej zostalo dosť.",
+        "english": "Help yourself to more soup, there is plenty left.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Prečo sa hneváš? Veď to bolo len nedorozumenie.",
+        "english": "Why are you angry? It was only a misunderstanding, you know.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "predsa",
+      "vsak"
+    ]
+  },
+  {
+    "slug": "pokial",
+    "slovak": "pokiaľ",
+    "english": "as far as; as long as; if; as for (pokiaľ ide o)",
+    "category": "Conjunctions",
+    "examples": [
+      {
+        "slovak": "Pokiaľ viem, kníhkupectvo je v sobotu otvorené do obeda.",
+        "english": "As far as I know, the bookshop is open until noon on Saturday.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Pokiaľ bude cesta zjazdná, dorazíme na chatu pred zotmením.",
+        "english": "As long as the road is passable, we will reach the cabin before dark.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Pokiaľ máš zajtra čas, príď k nám na obed.",
+        "english": "If you have time tomorrow, come over to our place for lunch.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Pokiaľ ide o rozpočet, ešte musíme schváliť poslednú položku.",
+        "english": "As for the budget, we still need to approve the last item.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "zakial",
+      "dokym",
+      "kym"
+    ]
+  },
+  {
+    "slug": "pripadne",
+    "slovak": "prípadne",
+    "english": "or; or possibly; if need be",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Ak nebudem dvíhať telefón, pošli mi správu, prípadne e-mail.",
+        "english": "If I do not answer the phone, send me a text or an email.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Do šalátu môžeš pridať vlašské orechy, prípadne tekvicové semienka.",
+        "english": "You can add walnuts to the salad, or pumpkin seeds if you prefer.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Stretneme sa u mňa, prípadne môžeme zájsť do bistra na rohu.",
+        "english": "Let's meet at my place, or else we can go to the bistro on the corner.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Skontroluj ešte raz dátumy, prípadne oprav drobné preklepy.",
+        "english": "Check the dates once more, and fix any minor typos if needed.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "popripade",
+      "eventualne",
+      "respektive"
+    ]
+  },
+  {
+    "slug": "cim",
+    "slovak": "čím",
+    "english": "the more ... (čím ..., tým ...)",
+    "category": "Conjunctions",
+    "examples": [
+      {
+        "slovak": "Čím skôr vyrazíme z mesta, tým menej áut bude na ceste.",
+        "english": "The earlier we leave the city, the fewer cars will be on the road.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Čím viac človek číta po slovensky, tým prirodzenejšie tvorí vety.",
+        "english": "The more one reads in Slovak, the more naturally one forms sentences.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Čím vyššie sme stúpali do hôr, tým chladnejší vietor fúkal.",
+        "english": "The higher we climbed into the mountains, the colder the wind blew.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Čím jednoduchší je návod, tým rýchlejšie ho pochopí každý.",
+        "english": "The simpler the instructions are, the faster everyone understands them.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "tym"
+    ]
+  },
+  {
+    "slug": "ba",
+    "slovak": "ba",
+    "english": "even; indeed; what is more (ba aj, ba dokonca)",
+    "category": "Conjunctions",
+    "examples": [
+      {
+        "slovak": "Bol unavený, ba až vyčerpaný po celodennej ceste.",
+        "english": "He was tired, even exhausted, after the all-day journey.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Pomohol nám s balením, ba dokonca vybavil aj dodávku.",
+        "english": "He helped us pack, and even arranged a van.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nevyhýbal sa kritike, ba naopak, pozorne ju počúval.",
+        "english": "He did not shy away from criticism, on the contrary, he listened closely.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V zime tam býva ticho, ba niekedy nestretneš ani živú dušu.",
+        "english": "In winter it is quiet there, indeed sometimes you do not meet a soul.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "dokonca",
+      "aj"
+    ]
+  },
+  {
+    "slug": "azda",
+    "slovak": "azda",
+    "english": "perhaps; maybe; surely (in questions)",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Azda sa cez víkend konečne vyčasí a vyjde slnko.",
+        "english": "Perhaps the weather will finally clear up over the weekend and the sun will come out.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Azda si nezabudol pas doma na poličke?",
+        "english": "Surely you did not forget your passport at home on the shelf?",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V záhrade nazbierali azda desať kíl zrelých sliviek.",
+        "english": "They picked perhaps ten kilos of ripe plums in the garden.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Azda by bolo rozumné najprv sa poradiť s lekárom.",
+        "english": "Maybe it would be wise to consult a doctor first.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "vari",
+      "hadam",
+      "snad"
+    ]
+  },
+  {
+    "slug": "udajne",
+    "slovak": "údajne",
+    "english": "allegedly; reportedly; supposedly",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Starý hrad nad dedinou údajne ukrýva podzemné chodby.",
+        "english": "The old castle above the village supposedly hides underground passages.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Miestne múzeum údajne na jar prejde veľkou rekonštrukciou.",
+        "english": "The local museum will reportedly undergo a major renovation in spring.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nový riaditeľ má údajne dlhoročné skúsenosti zo zahraničia.",
+        "english": "The new director reportedly has many years of experience abroad.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V tejto pekárni pečú údajne najlepší kváskový chlieb v kraji.",
+        "english": "This bakery allegedly bakes the best sourdough bread in the region.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "vraj"
+    ]
+  },
+  {
+    "slug": "najmenej",
+    "slovak": "najmenej",
+    "english": "at least; no less than",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Cesta autom do Košíc trvá najmenej štyri hodiny.",
+        "english": "The drive to Košice takes at least four hours.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na charitatívnom koncerte vystúpilo najmenej dvadsať hudobníkov.",
+        "english": "At least twenty musicians performed at the charity concert.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Pred pečením nechajte cesto kysnúť najmenej hodinu.",
+        "english": "Let the dough rise for at least an hour before baking.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Skúšal som im volať najmenej trikrát, ale nikto nedvíhal.",
+        "english": "I tried calling them at least three times, but nobody picked up.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "aspon",
+      "asponze",
+      "prinajmensom",
+      "vyse"
+    ]
+  },
+  {
+    "slug": "bud",
+    "slovak": "buď",
+    "english": "either (buď ..., alebo ...)",
+    "category": "Conjunctions",
+    "examples": [
+      {
+        "slovak": "Môžeme buď ísť rýchlikom, alebo si požičať auto.",
+        "english": "We can either take the express train or rent a car.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Buď prídeš načas, alebo začneme poradu bez teba.",
+        "english": "Either you arrive on time, or we will start the meeting without you.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Zajtra upečiem buď jablkovú štrúdľu, alebo čerešňovú bublaninu.",
+        "english": "Tomorrow I will bake either apple strudel or cherry sponge cake.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Kľúče sú buď v predsieni na vešiaku, alebo v mojom batohu.",
+        "english": "The keys are either on the hallway hook or in my backpack.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "budto",
+      "alebo"
+    ]
+  },
+  {
+    "slug": "tym",
+    "slovak": "tým",
+    "english": "the more ... (čím ..., tým ...); all the more",
+    "category": "Conjunctions",
+    "examples": [
+      {
+        "slovak": "Čím dôkladnejšie sa pripravíš, tým pokojnejší budeš na pohovore.",
+        "english": "The more thoroughly you prepare, the calmer you will be at the interview.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Čím častejšie ten recept varím, tým lepšie mi chutí.",
+        "english": "The more often I cook that recipe, the better it tastes to me.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Čím menší kufor si zbalíš, tým ľahšie sa ti bude cestovať.",
+        "english": "The smaller the suitcase you pack, the easier it will be to travel.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Čím dlhšie sme čakali na autobus, tým viac sa stmievalo.",
+        "english": "The longer we waited for the bus, the darker it grew.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "cim"
+    ]
+  },
+  {
+    "slug": "veru",
+    "slovak": "veru",
+    "english": "indeed; truly; really",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Dnes vonku veru poriadne fúka studený severák.",
+        "english": "A cold north wind is really blowing hard outside today.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Veru, také dobré halušky som už dávno nejedol.",
+        "english": "Indeed, I have not eaten such good halušky in a long time.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na taký prudký výstup by som si veru netrúfol.",
+        "english": "I truly would not dare attempt such a steep climb.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Veru sme sa pri sťahovaní nábytku poriadne zapotili.",
+        "english": "We really broke a sweat moving the furniture.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "veruze",
+      "vskutku"
+    ]
+  },
+  {
+    "slug": "takisto",
+    "slovak": "takisto",
+    "english": "also; likewise; as well",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Zuzana študuje architektúru a jej brat takisto.",
+        "english": "Zuzana studies architecture, and her brother does too.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V balíku boli teplé rukavice a takisto vlnený šál.",
+        "english": "In the package there were warm gloves and likewise a wool scarf.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Takisto by sme mali skontrolovať tlak v pneumatikách.",
+        "english": "We should also check the tire pressure.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nové pravidlá platia pre zamestnancov a takisto pre brigádnikov.",
+        "english": "The new rules apply to employees and to part-time workers as well.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "tiez",
+      "taktiez"
+    ]
+  },
+  {
+    "slug": "nastastie",
+    "slovak": "našťastie",
+    "english": "fortunately; luckily",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Cesta bola namrznutá, ale našťastie sa nikomu nič nestalo.",
+        "english": "The road was icy, but fortunately nobody was hurt.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Našťastie som si ráno pribalil do batohu aj pršiplášť.",
+        "english": "Luckily I also packed a raincoat in my backpack this morning.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Vlak mal dvadsaťminútové meškanie, no prípoj našťastie počkal.",
+        "english": "The train was twenty minutes late, yet the connection luckily waited.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Peňaženku našťastie našiel poctivý nálezca a vrátil ju.",
+        "english": "Fortunately an honest finder found the wallet and returned it.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "chvalabohu",
+      "vdakabohu",
+      "esteze"
+    ]
+  },
+  {
+    "slug": "priam",
+    "slovak": "priam",
+    "english": "downright; almost; practically",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Výhľad z vrcholu na zasnežené doliny bol priam rozprávkový.",
+        "english": "The view from the summit over the snowy valleys was almost like a fairy tale.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V sále pred začiatkom koncertu vládlo priam slávnostné ticho.",
+        "english": "An almost solemn silence reigned in the hall before the concert began.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Po celodennom pochode nám teplá polievka priam zachránila večer.",
+        "english": "After an all-day hike, hot soup downright saved our evening.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Jeho odvaha v tej náročnej chvíli bola priam obdivuhodná.",
+        "english": "His courage in that difficult moment was downright admirable.",
+        "note": "Curated"
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "vari",
+    "slovak": "vari",
+    "english": "perhaps; surely (in questions); maybe",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Vari si naozaj prešiel celú tú trasu sám?",
+        "english": "Did you really walk that entire trail alone?",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Vari sa ešte stihneme zastaviť na krátku kávu pred odchodom.",
+        "english": "Perhaps we will still have time to stop for a quick coffee before leaving.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V starej skrini našli vari päťdesiat zažltnutých pohľadníc.",
+        "english": "In the old wardrobe they found maybe fifty yellowed postcards.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Vari mi nechceš povedať, že ten list stratili?",
+        "english": "Surely you are not telling me they lost that letter?",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "azda",
+      "hadam",
+      "snad"
+    ]
+  },
+  {
+    "slug": "hadam",
+    "slovak": "hádam",
+    "english": "perhaps; probably; hopefully; surely (in questions)",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Hádam do večera prestane pršať a vyjdeme von.",
+        "english": "Hopefully it will stop raining by evening and we can go out.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Hádam si nechcel odísť bez rozlúčky?",
+        "english": "Surely you did not mean to leave without saying goodbye?",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Oprava práčky bude trvať hádam len jeden deň.",
+        "english": "Repairing the washing machine will probably take just one day.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "S novým plánom bude hádam súhlasiť celý tím.",
+        "english": "The whole team will probably agree with the new plan.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "azda",
+      "vari",
+      "snad"
+    ]
+  },
+  {
+    "slug": "pravdaze",
+    "slovak": "pravdaže",
+    "english": "of course; naturally; certainly",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Pravdaže ti pomôžem vyniesť tie ťažké krabice po schodoch.",
+        "english": "Of course I will help you carry those heavy boxes up the stairs.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Môžem si na chvíľu požičať tvoje pero? Pravdaže, nech sa páči.",
+        "english": "May I borrow your pen for a moment? Of course, here you go.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Pravdaže sme nezabudli na babičkine meniny.",
+        "english": "Naturally we did not forget Grandma's name day.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "S návrhom súhlasím, pravdaže až po doplnení všetkých údajov.",
+        "english": "I agree with the proposal, of course once all the data are added.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "isteze",
+      "samozrejme",
+      "jasne-part"
+    ]
+  },
+  {
+    "slug": "respektive",
+    "slovak": "respektíve",
+    "english": "or rather; or",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Stretneme sa v stredu, respektíve vo štvrtok popoludní.",
+        "english": "We will meet on Wednesday, or rather on Thursday afternoon.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Kurz je pre mierne pokročilých, respektíve pre úroveň B1.",
+        "english": "The course is for lower-intermediate learners, or rather level B1.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Vstupné stojí päť eur, respektíve tri eurá pre študentov a seniorov.",
+        "english": "Admission costs five euros, or three euros for students and seniors.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Zmluvu treba podpísať dnes, respektíve najneskôr zajtra do obeda.",
+        "english": "The contract must be signed today, or by tomorrow noon at the latest.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "pripadne",
+      "popripade",
+      "eventualne"
+    ]
+  },
+  {
+    "slug": "jednak",
+    "slovak": "jednak",
+    "english": "partly ... partly; both ... and (jednak ..., jednak ...)",
+    "category": "Conjunctions",
+    "examples": [
+      {
+        "slovak": "Ponuku odmietol jednak pre nízky plat, jednak pre dlhé dochádzanie.",
+        "english": "He declined the offer both for the low pay and for the long commute.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Byt nám vyhovuje jednak polohou pri parku, jednak tichým dvorom.",
+        "english": "The apartment suits us both for its park location and its quiet courtyard.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Kniha osloví jednak mladých čitateľov, jednak milovníkov histórie.",
+        "english": "The book will appeal both to young readers and to history lovers.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Projekt sa zdržal jednak pre chýbajúci materiál, jednak pre chorobu.",
+        "english": "The project was delayed partly due to missing materials and partly due to illness.",
+        "note": "Curated"
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "vylucne",
+    "slovak": "výlučne",
+    "english": "exclusively; solely; only",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "V tejto reštaurácii varia výlučne z čerstvých miestnych surovín.",
+        "english": "In this restaurant they cook exclusively with fresh local ingredients.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Parkovisko pred budovou je určené výlučne pre obyvateľov domu.",
+        "english": "The parking lot in front of the building is solely for residents.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Konečné rozhodnutie závisí výlučne od výsledkov merania.",
+        "english": "The final decision depends solely on the measurement results.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na dlhé cesty nosí výlučne pohodlné športové topánky.",
+        "english": "For long trips she wears exclusively comfortable athletic shoes.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "jedine",
+      "len",
+      "iba"
+    ]
+  },
+  {
+    "slug": "jedine",
+    "slovak": "jedine",
+    "english": "only; solely; exclusively",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Tento starý zámok otvoríš jedine originálnym kľúčom.",
+        "english": "You can open this old lock only with the original key.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V horách sa spoľahni jedine na overenú turistickú mapu.",
+        "english": "In the mountains, rely solely on a verified hiking map.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Pomôcť nám teraz môže jedine rýchla a úprimná dohoda.",
+        "english": "Only a quick and honest agreement can help us now.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Jedine ty vieš, kde sme v lete schovali stan.",
+        "english": "Only you know where we stored the tent in the summer.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "vylucne",
+      "len",
+      "iba"
+    ]
+  },
+  {
+    "slug": "bohuzial",
+    "slovak": "bohužiaľ",
+    "english": "unfortunately; sadly; regrettably",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Bohužiaľ sú už všetky lístky na dnešné predstavenie vypredané.",
+        "english": "Unfortunately all tickets for tonight's performance are already sold out.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Veľmi som chcel prísť, ale bohužiaľ som musel zostať v práci.",
+        "english": "I really wanted to come, but sadly I had to stay at work.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Poškodený súbor sa už bohužiaľ nepodarilo obnoviť.",
+        "english": "Regrettably, the damaged file could no longer be recovered.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Dnes je múzeum bohužiaľ zatvorené pre technickú prestávku.",
+        "english": "Unfortunately the museum is closed today for maintenance.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "zialbohu",
+      "nanestastie"
+    ]
+  },
+  {
+    "slug": "nepochybne",
+    "slovak": "nepochybne",
+    "english": "undoubtedly; doubtless; without a doubt",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Toto je nepochybne jedna z najkrajších vyhliadok na Liptove.",
+        "english": "This is undoubtedly one of the finest viewpoints in Liptov.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Pravidelný pohyb má nepochybne pozitívny vplyv na spánok.",
+        "english": "Regular exercise undoubtedly has a positive effect on sleep.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nepochybne si zaslúži uznanie za všetku prácu na projekte.",
+        "english": "Without a doubt she deserves recognition for all her work on the project.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nová linka nepochybne uľahčí každodenné cestovanie do centra.",
+        "english": "The new route will doubtless make daily commuting downtown easier.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "bezpochyby",
+      "istotne",
+      "zaiste",
+      "dozaista"
+    ]
+  },
+  {
+    "slug": "zato",
+    "slovak": "zato",
+    "english": "on the other hand; however; yet",
+    "category": "Conjunctions",
+    "examples": [
+      {
+        "slovak": "Chata je malá, zato útulná a teplá aj uprostred zimy.",
+        "english": "The cabin is small, yet cozy and warm even in midwinter.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Vysoké Tatry boli v hmle, zato v doline svietilo slnko.",
+        "english": "The High Tatras were in fog, on the other hand, the sun shone in the valley.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nemá ešte dlhú prax, zato pracuje presne a spoľahlivo.",
+        "english": "He does not have long experience yet, however he works accurately and reliably.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Jablká z našej záhrady sú menšie, zato oveľa sladšie než z obchodu.",
+        "english": "The apples from our garden are smaller, yet much sweeter than store-bought ones.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "ale",
+      "avsak"
+    ]
+  },
+  {
+    "slug": "snad",
+    "slovak": "snáď",
+    "english": "perhaps; maybe; hopefully",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Snáď sa ešte pred odchodom stihneme stretnúť na kávu.",
+        "english": "Hopefully we can still meet for coffee before you leave.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Do zajtra mu snáď klesne teplota a bude sa cítiť lepšie.",
+        "english": "By tomorrow his fever will hopefully drop and he will feel better.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Snáď si nezabudol vypnúť sporák pred odchodom z bytu?",
+        "english": "Surely you did not forget to turn off the stove before leaving the flat?",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Balík snáď dorazí skôr, než sa začnú sviatky.",
+        "english": "Perhaps the parcel will arrive before the holidays begin.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "azda",
+      "vari",
+      "hadam"
+    ]
+  },
+  {
+    "slug": "povedzme",
+    "slovak": "povedzme",
+    "english": "say; let's say; for example",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Môžeme sa stretnúť neskôr popoludní, povedzme okolo štvrtej.",
+        "english": "We can meet later in the afternoon, say around four o'clock.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Povedzme, že prijmeš tú prácu a presťahuješ sa do Bratislavy.",
+        "english": "Let's say you accept the job and move to Bratislava.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Potrebujeme menšiu miestnosť, povedzme pre pätnásť až dvadsať ľudí.",
+        "english": "We need a smaller room, say for fifteen to twenty people.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na takúto opravu si odlož, povedzme, sto eur do rezervy.",
+        "english": "For a repair like that, set aside, say, a hundred euros as a reserve.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "napriklad",
+      "trebars"
+    ]
+  },
+  {
+    "slug": "nielenze",
+    "slovak": "nielenže",
+    "english": "not only (nielenže ..., ale aj ...)",
+    "category": "Conjunctions",
+    "examples": [
+      {
+        "slovak": "Nielenže prišiel načas, ale doniesol aj čerstvé pečivo.",
+        "english": "Not only did he arrive on time, he also brought fresh pastries.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nielenže hovorí plynule po anglicky, ale ovláda aj francúzštinu.",
+        "english": "Not only does she speak fluent English, she also knows French.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nielenže v noci napadol sneh, ale ráno ešte aj primrzlo.",
+        "english": "Not only did it snow overnight, it also froze in the morning.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nielenže opravil pokazený zámok, ale naolejoval aj pánty dverí.",
+        "english": "Not only did he fix the broken lock, he also oiled the door hinges.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "nielen"
+    ]
+  },
+  {
+    "slug": "menej",
+    "slovak": "menej",
+    "english": "less; fewer",
+    "category": "Adverbs",
+    "examples": [
+      {
+        "slovak": "Prechádzka lesom bola dnes oveľa menej náročná než včera.",
+        "english": "The walk through the forest was much less demanding today than yesterday.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Cesta novým tunelom trvá menej ako štvrť hodiny.",
+        "english": "The drive through the new tunnel takes less than a quarter of an hour.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Od jesene chodíme na kúpalisko menej často než v lete.",
+        "english": "Since autumn we go to the swimming pool less often than in summer.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V peňaženke mi zostalo menej než desať eur v hotovosti.",
+        "english": "I have less than ten euros in cash left in my wallet.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "najmenej",
+      "najviac",
+      "tolko"
+    ]
+  },
+  {
+    "slug": "radsej",
+    "slovak": "radšej",
+    "english": "rather; preferably; better",
+    "category": "Adverbs",
+    "examples": [
+      {
+        "slovak": "Vonku začína pršať, radšej si zober dáždnik.",
+        "english": "It is starting to rain outside, you had better take an umbrella.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Radšej ostanem doma a v pokoji si prečítam knihu.",
+        "english": "I would rather stay home and read a book in peace.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Do centra choď radšej električkou, lebo sa tam ťažko parkuje.",
+        "english": "Better take the tram downtown, because parking is hard there.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Radšej mu napíš ešte dnes, aby s tým rátal.",
+        "english": "You had better write to him today so he can plan for it.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "najradsej"
+    ]
+  },
+  {
+    "slug": "ozaj",
+    "slovak": "ozaj",
+    "english": "really; indeed; by the way",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Ozaj, nezabudol si vyzdvihnúť zásielku zo schránky?",
+        "english": "By the way, did you remember to pick up the parcel from the mailbox?",
+        "note": "Curated"
+      },
+      {
+        "slovak": "To bol ozaj príjemný večer v dobrej spoločnosti.",
+        "english": "That was a truly pleasant evening in good company.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Ozaj chceš predať staré auto ešte pred zimou?",
+        "english": "Do you really want to sell the old car before winter?",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Polievka z čerstvej zeleniny sa dnes ozaj vydarila.",
+        "english": "The fresh vegetable soup really turned out well today.",
+        "note": "Curated"
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "inak",
+    "slovak": "inak",
+    "english": "otherwise; or else; differently",
+    "category": "Conjunctions",
+    "examples": [
+      {
+        "slovak": "Ponáhľaj sa, inak zmeškáš posledný večerný autobus.",
+        "english": "Hurry up, otherwise you will miss the last evening bus.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Zober si teplý sveter, inak ti večer pri ohni bude zima.",
+        "english": "Take a warm sweater, or else you will be cold by the fire tonight.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Zálohuj si dôležité dokumenty, inak o ne môžeš ľahko prísť.",
+        "english": "Back up your important documents, otherwise you could easily lose them.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Povedz jej pravdu hneď, inak sa celá vec zbytočne skomplikuje.",
+        "english": "Tell her the truth right away, or else the whole matter will get needlessly complicated.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "inac",
+      "inaksie"
+    ]
+  },
+  {
+    "slug": "prinajmensom",
+    "slovak": "prinajmenšom",
+    "english": "at least; to say the least",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Takéto náhle rozhodnutie pôsobí prinajmenšom zvláštne.",
+        "english": "Such a sudden decision seems strange, to say the least.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na dôkladnú prípravu prednášky potrebuješ prinajmenšom týždeň.",
+        "english": "You need at least a week to prepare the lecture thoroughly.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Odhadujem, že oprava strechy potrvá prinajmenšom tri dni.",
+        "english": "I estimate the roof repair will take at least three days.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Jeho dlhé mlčanie bolo prinajmenšom nečakané.",
+        "english": "His long silence was unexpected, at the very least.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "aspon",
+      "asponze",
+      "najmenej",
+      "prinajmenej"
+    ]
+  },
+  {
+    "slug": "zeby",
+    "slovak": "žeby",
+    "english": "so that; could it be that",
+    "category": "Conjunctions",
+    "register": "colloquial",
+    "examples": [
+      {
+        "slovak": "Zavreli bránu, žeby pes nevybehol na rušnú cestu.",
+        "english": "They closed the gate so the dog would not run onto the busy road.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Žeby sa už konečne oteplilo?",
+        "english": "Could it finally be getting warmer?",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Vzal si baterku, žeby v tmavej pivnici dobre videl.",
+        "english": "He took a flashlight so he could see well in the dark cellar.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Žeby už všetci hostia odišli domov?",
+        "english": "Could all the guests have already gone home?",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "nieze",
+      "niezeby"
+    ]
+  },
+  {
+    "slug": "ledva",
+    "slovak": "ledva",
+    "english": "barely; hardly; scarcely",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Ráno som ledva stihol nastúpiť do vlaku pred odchodom.",
+        "english": "In the morning I barely managed to board the train before departure.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V starej chate bolo ráno ledva osem stupňov.",
+        "english": "In the old cabin it was barely eight degrees in the morning.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Po dlhej túre sa ledva držal na nohách.",
+        "english": "After the long hike he could hardly stay on his feet.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Hovorila tak potichu, že ju v poslednom rade ledva počuli.",
+        "english": "She spoke so softly that they could scarcely hear her in the back row.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "sotva",
+      "sotvaze"
+    ]
+  },
+  {
+    "slug": "takpovediac",
+    "slovak": "takpovediac",
+    "english": "so to speak; as it were",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Celý projekt sme postavili takpovediac na zelenej lúke.",
+        "english": "We built the entire project from scratch, so to speak.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Náš starý pes je takpovediac členom rodiny.",
+        "english": "Our old dog is a member of the family, so to speak.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Po rokoch v cudzine je teraz takpovediac doma na dvoch miestach.",
+        "english": "After years abroad, she is now at home in two places, as it were.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nový riaditeľ prevzal firmu takpovediac v hodine dvanástej.",
+        "english": "The new director took over the company at the eleventh hour, so to speak.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "takreceno"
+    ]
+  },
+  {
+    "slug": "trebars",
+    "slovak": "trebárs",
+    "english": "for example; say; even",
+    "category": "Particles",
+    "register": "colloquial",
+    "examples": [
+      {
+        "slovak": "Môžeme ísť v sobotu trebárs do Trnavy na dobrú kávu.",
+        "english": "We could go to Trnava on Saturday, say, for a good coffee.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Zavolaj mu trebárs hneď teraz, kým ešte sedí v kancelárii.",
+        "english": "Call him right now, for instance, while he is still in the office.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na túru si zbaľ niečo ľahké, trebárs jablko a orechy.",
+        "english": "Pack something light for the hike, an apple and nuts, for example.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Kúpime jej niečo pekné, trebárs teplý šál alebo knihu.",
+        "english": "We will buy her something nice, say a warm scarf or a book.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "napriklad",
+      "povedzme"
+    ]
+  },
+  {
+    "slug": "istotne",
+    "slovak": "istotne",
+    "english": "certainly; surely; definitely",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Po takej dlhej ceste si istotne zaslúžiš poriadny oddych.",
+        "english": "After such a long journey, you certainly deserve a proper rest.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V tom novom antikvariáte istotne nájdeš staré mapy Tatier.",
+        "english": "You will surely find old maps of the Tatras in that new secondhand bookshop.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Toto riešenie istotne pomôže znížiť náklady na vykurovanie.",
+        "english": "This solution will definitely help lower heating costs.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Zuzana si istotne pamätá, kde sme minulé leto parkovali.",
+        "english": "Zuzana surely remembers where we parked last summer.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "nepochybne",
+      "bezpochyby",
+      "zaiste",
+      "dozaista"
+    ]
+  },
+  {
+    "slug": "ibaze",
+    "slovak": "ibaže",
+    "english": "except that; only; unless (ibaže by)",
+    "category": "Conjunctions",
+    "examples": [
+      {
+        "slovak": "Plán znie skvele, ibaže nikto z nás nemá cez víkend voľno.",
+        "english": "The plan sounds great, except that none of us is free over the weekend.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Byt má nádherný výhľad, ibaže leží priamo nad rušnou cestou.",
+        "english": "The flat has a wonderful view, only it sits right above a busy road.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Chcela kúpiť lístky na koncert, ibaže všetky boli vypredané.",
+        "english": "She wanted to buy tickets for the concert, except that they were all sold out.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V piatok vyrazíme ráno, ibaže by predpoveď hlásila búrku.",
+        "english": "On Friday we will set off in the morning, unless the forecast predicts a storm.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "lenze",
+      "ledaze"
+    ]
+  },
+  {
+    "slug": "lez",
+    "slovak": "lež",
+    "english": "but; yet (literary)",
+    "category": "Conjunctions",
+    "examples": [
+      {
+        "slovak": "Dlho hľadali stratený rukopis, lež archív nevydal žiadnu stopu.",
+        "english": "They searched long for the lost manuscript, yet the archive yielded no trace.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Vietor ustal ešte pred súmrakom, lež chlad zostal v doline až do rána.",
+        "english": "The wind died down before dusk, yet the chill lingered in the valley until morning.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Sľuboval rýchlu zmenu pravidiel, lež skutočnosť zostala rovnaká.",
+        "english": "He promised a swift change of the rules, however reality remained the same.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Cesta cez hrebeň vyzerá krátka, lež výstup preverí každé koleno.",
+        "english": "The path across the ridge looks short, yet the climb tests every knee.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "ale",
+      "avsak"
+    ]
+  },
+  {
+    "slug": "zaiste",
+    "slovak": "zaiste",
+    "english": "certainly; surely; indeed",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Každý čitateľ zaiste ocení prehľadné poznámky na konci kapitoly.",
+        "english": "Every reader will certainly appreciate the clear notes at the end of the chapter.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Zaiste máte pravdu, no overme si ešte dátum v zmluve.",
+        "english": "You are certainly right, though let us still verify the date in the contract.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Takáto skúsenosť ti zaiste dodá istotu pri ďalšom pohovore.",
+        "english": "Such experience will surely give you confidence at your next interview.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Horská chata bola v nedeľu zaiste plná turistov z celého kraja.",
+        "english": "The mountain hut was surely full of hikers from the whole region on Sunday.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "nepochybne",
+      "bezpochyby",
+      "istotne",
+      "dozaista"
+    ]
+  },
+  {
+    "slug": "bezpochyby",
+    "slovak": "bezpochyby",
+    "english": "undoubtedly; without doubt",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Spišský hrad patrí bezpochyby medzi najznámejšie pamiatky na Slovensku.",
+        "english": "Spiš Castle is undoubtedly among the best-known monuments in Slovakia.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Jej nový román je bezpochyby najvyzretejším dielom doterajšej tvorby.",
+        "english": "Her new novel is without doubt the most mature work of her career so far.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Pravidelný spánok bezpochyby ovplyvňuje sústredenie počas celého dňa.",
+        "english": "Regular sleep undoubtedly affects concentration throughout the day.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Tento krok bol bezpochyby riskantný, no priniesol želaný výsledok.",
+        "english": "This step was undoubtedly risky, yet it brought the desired result.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "nepochybne",
+      "istotne",
+      "zaiste",
+      "dozaista"
+    ]
+  },
+  {
+    "slug": "isteze",
+    "slovak": "isteže",
+    "english": "of course; certainly; surely",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Isteže vám pomôžem vyniesť ten ťažký kufor po schodoch.",
+        "english": "Of course I will help you carry that heavy suitcase up the stairs.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Pamätáš si na nášho učiteľa zemepisu? Isteže, mal skvelé príbehy.",
+        "english": "Do you remember our geography teacher? Of course, he had great stories.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Isteže existujú aj lacnejšie možnosti, ale kvalita tu zaváži najviac.",
+        "english": "Certainly there are cheaper options too, but quality matters most here.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Môžeme to prebrať zajtra dopoludnia? Isteže, o desiatej mám voľno.",
+        "english": "Can we go over it tomorrow morning? Certainly, I am free at ten.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "pravdaze",
+      "samozrejme",
+      "jasne-part"
+    ]
+  },
+  {
+    "slug": "vskutku",
+    "slovak": "vskutku",
+    "english": "indeed; truly; in fact",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Večerný pohľad na osvetlenú Banskú Štiavnicu bol vskutku pôsobivý.",
+        "english": "The evening view of illuminated Banská Štiavnica was truly impressive.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Vskutku nevídaný úspech potešil celý orchester aj dirigenta.",
+        "english": "The truly unprecedented success delighted the whole orchestra and the conductor.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Pripraviť takúto výstavu v krátkom čase bola vskutku náročná úloha.",
+        "english": "Preparing such an exhibition in a short time was indeed a demanding task.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Jej odpoveď znela vskutku pokojne, hoci atmosféra v sále hustla.",
+        "english": "Her reply sounded truly calm, although the atmosphere in the hall was growing tense.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "veru",
+      "veruze"
+    ]
+  },
+  {
+    "slug": "nebodaj",
+    "slovak": "nebodaj",
+    "english": "by any chance; surely not; perhaps",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Nebodaj si zabudol pas doma na stole pred odletom?",
+        "english": "Did you by any chance leave your passport at home on the table before the flight?",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Zvoní telefón o polnoci, nebodaj sa niečo stalo na ceste?",
+        "english": "The phone is ringing at midnight, could something have happened on the road?",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Chceš ísť na bicykli v tomto lejaku, nebodaj si sa zbláznil?",
+        "english": "You want to ride a bike in this downpour, have you gone mad or something?",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nechcela mu volať neskoro, aby ho nebodaj nezobudila.",
+        "english": "She did not want to call him late, lest she wake him up.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "nedajboze",
+      "bozechran",
+      "bozeuchovaj"
+    ]
+  },
+  {
+    "slug": "kdeze",
+    "slovak": "kdeže",
+    "english": "no way; not at all; where on earth",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Už si stihol prečítať celú knihu? Kdeže, som len na druhej kapitole!",
+        "english": "Have you managed to read the whole book already? Not at all, I am only on chapter two!",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Kdeže by sa v decembri dali nazbierať čerstvé jahody zo záhrady!",
+        "english": "Where on earth could you pick fresh garden strawberries in December!",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Myslel si, že ma dážď odradí? Kdeže, vzal som si pevnú bundu.",
+        "english": "Did you think the rain would put me off? No way, I brought a sturdy jacket.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Kdeže sú tie časy, keď sme celé leto trávili u starých rodičov!",
+        "english": "Where have those times gone, when we spent the whole summer at our grandparents' place!",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "coze",
+      "akoze",
+      "horkyze"
+    ]
+  },
+  {
+    "slug": "vonkoncom",
+    "slovak": "vonkoncom",
+    "english": "not at all; by no means; completely",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Jeho vysvetlenie mi vonkoncom nedávalo zmysel.",
+        "english": "His explanation made no sense to me at all.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "O tej náhlej zmene programu sme vonkoncom netušili.",
+        "english": "We had no idea at all about that sudden change of program.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na takúto dlhú opravu mosta obec vonkoncom nemá peniaze.",
+        "english": "The municipality has no money at all for such a long bridge repair.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Výsledok testu dopadol vonkoncom inak, než všetci čakali.",
+        "english": "The test result turned out completely differently from what everyone expected.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "vobec",
+      "naskrze",
+      "docista"
+    ]
+  },
+  {
+    "slug": "akoze",
+    "slovak": "akože",
+    "english": "like; supposedly; as if; what do you mean",
+    "category": "Particles",
+    "register": "colloquial",
+    "examples": [
+      {
+        "slovak": "Akože nejdeš s nami, veď si to sľúbil ešte minulý týždeň!",
+        "english": "What do you mean you are not coming with us, you promised last week!",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Tváril sa akože vážne, ale v očiach mu hral tichý smiech.",
+        "english": "He put on a supposedly serious face, but quiet laughter danced in his eyes.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Podľa návodu to malo byť akože jednoduché, no trvalo nám to dve hodiny.",
+        "english": "According to the manual it was supposedly simple, yet it took us two hours.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Akože čo mám teraz robiť, keď posledný autobus práve ušiel?",
+        "english": "Like, what am I supposed to do now that the last bus just left?",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "kdeze",
+      "coze",
+      "horkyze"
+    ]
+  },
+  {
+    "slug": "akiste",
+    "slovak": "akiste",
+    "english": "probably; surely; presumably",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Starý mlyn pri potoku akiste kedysi živil celú dedinu.",
+        "english": "The old mill by the stream probably once fed the whole village.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Zmeškala ranný spoj, tak akiste dorazí až nasledujúcim vlakom.",
+        "english": "She missed the morning connection, so she will presumably arrive on the next train.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V liste akiste zabudol uviesť presné číslo bytu.",
+        "english": "He probably forgot to include the exact flat number in the letter.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Cestou cez les si akiste všimneš staré kamenné medzníky.",
+        "english": "Walking through the forest, you will surely notice the old stone boundary markers.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "zrejme",
+      "pravdepodobne"
+    ]
+  },
+  {
+    "slug": "chvalabohu",
+    "slovak": "chvalabohu",
+    "english": "thank goodness; thankfully",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Chvalabohu, búrka prešla okolo a v záhrade nič nepolámala.",
+        "english": "Thank goodness, the storm passed by and did not break anything in the garden.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Horúčka mu do rána chvalabohu klesla pod tridsaťsedem stupňov.",
+        "english": "Thankfully, his fever dropped below thirty-seven degrees by morning.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Kľúče od auta sa chvalabohu našli vo vrecku zimného kabáta.",
+        "english": "Thankfully, the car keys turned up in the pocket of the winter coat.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Všetci cestujúci vystúpili z pokazeného vlaku chvalabohu bez zranení.",
+        "english": "All passengers got off the broken-down train without injuries, thank goodness.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "nastastie",
+      "vdakabohu",
+      "esteze"
+    ]
+  },
+  {
+    "slug": "temer",
+    "slovak": "temer",
+    "english": "almost; nearly",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Obnova historickej radnice trvala temer štyri roky.",
+        "english": "The restoration of the historic town hall lasted nearly four years.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na vrchole kopca nefúkal temer žiadny vietor.",
+        "english": "At the top of the hill there was almost no wind blowing.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Hladina rieky v auguste klesla temer na polovicu.",
+        "english": "In August, the river level dropped to nearly half.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Pred záverečnou bola knižnica už temer prázdna.",
+        "english": "Just before closing time, the library was already almost empty.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "takmer",
+      "bezmala"
+    ]
+  },
+  {
+    "slug": "niezeby",
+    "slovak": "niežeby",
+    "english": "not that",
+    "category": "Conjunctions",
+    "examples": [
+      {
+        "slovak": "Niežeby som nemal rád zimu, ale dlhé tmavé večery ma unavujú.",
+        "english": "Not that I dislike winter, but the long dark evenings tire me out.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Niežeby film nemal silné momenty, no záver pôsobil unáhlene.",
+        "english": "Not that the film lacked strong moments, though the ending felt rushed.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Niežeby sme na stretnutie zabudli, len nám meškal prípoj.",
+        "english": "Not that we forgot about the meeting, our connection was just late.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Niežeby si potreboval drahú výbavu, stačí dobrá obuv do hôr.",
+        "english": "Not that you need expensive gear, good mountain footwear is enough.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "nieze",
+      "zeby"
+    ]
+  },
+  {
+    "slug": "verzus",
+    "slovak": "verzus",
+    "english": "versus; against",
+    "category": "Conjunctions",
+    "examples": [
+      {
+        "slovak": "Témou večernej diskusie bolo mesto verzus vidiek.",
+        "english": "The topic of the evening debate was city versus countryside.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V nedeľnom finále uvidíme súboj Slovan verzus Trnava.",
+        "english": "In Sunday's final we will see a match of Slovan versus Trnava.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Článok rozoberá otázku kvalita verzus cena pri výbere bicykla.",
+        "english": "The article examines the question of quality versus price when choosing a bike.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Práca z domu verzus kancelária ostáva častou témou medzi kolegami.",
+        "english": "Working from home versus the office remains a frequent topic among colleagues.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "kontra"
+    ]
+  },
+  {
+    "slug": "bezmala",
+    "slovak": "bezmála",
+    "english": "almost; nearly",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Stavba nového mosta stála bezmála dvadsať miliónov eur.",
+        "english": "Building the new bridge cost nearly twenty million euros.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na dobročinný beh sa prihlásilo bezmála tisíc účastníkov.",
+        "english": "Nearly a thousand participants signed up for the charity run.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Čakali sme na výsledky prijímacích skúšok bezmála dva týždne.",
+        "english": "We waited almost two weeks for the entrance exam results.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Dedo pracoval v tej istej dielni bezmála štyridsať rokov.",
+        "english": "Grandpa worked in the same workshop for nearly forty years.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "takmer",
+      "temer"
+    ]
+  },
+  {
+    "slug": "sta",
+    "slovak": "sťa",
+    "english": "like; as (literary)",
+    "category": "Conjunctions",
+    "examples": [
+      {
+        "slovak": "Hladina jazera bola za úsvitu pokojná sťa zrkadlo.",
+        "english": "At dawn, the surface of the lake was as calm as a mirror.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Starý dub stál uprostred lúky sťa tichý strážca údolia.",
+        "english": "The old oak stood in the middle of the meadow like a silent guardian of the valley.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Prvé jarné kvety svietili v suchej tráve sťa malé hviezdy.",
+        "english": "The first spring flowers shone in the dry grass like little stars.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Jeho hlas sa rozliehal prázdnou sieňou sťa ozvena z dávnych čias.",
+        "english": "His voice echoed through the empty hall like an echo from distant times.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "staby",
+      "ako"
+    ]
+  },
+  {
+    "slug": "najviac",
+    "slovak": "najviac",
+    "english": "at most; no more than",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Oprava kávovaru potrvá najviac tri pracovné dni.",
+        "english": "Repairing the coffee maker will take at most three working days.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Do výťahu môžu nastúpiť najviac štyria ľudia naraz.",
+        "english": "At most four people may enter the lift at once.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Z našej ulice na stanicu je to pešo najviac desať minút.",
+        "english": "From our street to the station it is at most ten minutes on foot.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na jeden poukaz si môžete kúpiť najviac dva lístky.",
+        "english": "You can buy no more than two tickets per voucher.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "vyse",
+      "najmenej",
+      "menej",
+      "tolko"
+    ]
+  },
+  {
+    "slug": "naisto",
+    "slovak": "naisto",
+    "english": "for sure; certainly; definitely",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Ešte neviem naisto, či prídem už vo štvrtok večer.",
+        "english": "I do not know for sure yet whether I will arrive on Thursday evening.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Naisto viem, že zmluvu podpíšeme v pondelok.",
+        "english": "I know for sure that we will sign the contract on Monday.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "S tým lístkom sa naisto dostaneš aj do galérie na poschodí.",
+        "english": "With that ticket you will definitely get into the upstairs gallery as well.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "O takom čase bude pekáreň na rohu už naisto zatvorená.",
+        "english": "At this hour, the bakery on the corner will certainly be closed already.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "nabeton"
+    ]
+  },
+  {
+    "slug": "bodaj",
+    "slovak": "bodaj",
+    "english": "if only; may; I wish (bodaj by)",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Bodaj by sa počasie cez víkend konečne umúdrilo!",
+        "english": "If only the weather would finally settle down over the weekend!",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Bodaj by ti skúška z dejepisu vyšla na prvý pokus.",
+        "english": "May your history exam go well on the first try.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Bodaj by bolo takých spoľahlivých remeselníkov viac!",
+        "english": "If only there were more reliable craftspeople like that!",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Bodaj by si mal pravdu a vlak prišiel načas.",
+        "english": "I hope you are right and the train arrives on time.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "kiez",
+      "nechze"
+    ]
+  },
+  {
+    "slug": "esteze",
+    "slovak": "ešteže",
+    "english": "good thing; thankfully; luckily",
+    "category": "Particles",
+    "register": "colloquial",
+    "examples": [
+      {
+        "slovak": "Ešteže sme si ráno pribalili dáždniky, hneď po obede sa spustil lejak.",
+        "english": "Good thing we packed umbrellas in the morning, a downpour started right after lunch.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Ešteže máš poruke náhradné kľúče od pivnice.",
+        "english": "Luckily you have the spare cellar keys on hand.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Meškali sme dvadsať minút, ešteže na nás sprievodca počkal.",
+        "english": "We were twenty minutes late, thankfully the guide waited for us.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Ešteže som ten dokument pred vypnutím počítača uložil.",
+        "english": "Good thing I saved that document before turning off the computer.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "nastastie",
+      "chvalabohu",
+      "vdakabohu"
+    ]
+  },
+  {
+    "slug": "slovom",
+    "slovak": "slovom",
+    "english": "in short; in a word",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Výborné jedlo, milá obsluha, slovom, reštaurácia na úrovni.",
+        "english": "Great food, kind service, in short, a top-notch restaurant.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Bolo to, slovom, nezabudnuteľné leto.",
+        "english": "It was, in a word, an unforgettable summer.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Slovom, nikto z prítomných s týmto návrhom nesúhlasil.",
+        "english": "In a word, none of those present agreed with this proposal.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Chladno, hmla a klzký chodník, slovom, typický novembrový deň.",
+        "english": "Cold, fog, and a slippery pavement, in short, a typical November day.",
+        "note": "Curated"
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "ostatne",
+    "slovak": "ostatne",
+    "english": "after all; besides; anyway",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Neprekvapilo ma to, ostatne, niečo podobné sa dalo čakať.",
+        "english": "It did not surprise me. After all, something similar was to be expected.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Ostatne, každý sa môže rozhodnúť podľa vlastného uváženia.",
+        "english": "Besides, everyone can decide according to their own judgment.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Veľa toho nenahovoril, ostatne, nikdy nebol typ na dlhé prejavy.",
+        "english": "He did not say much. Then again, he was never the type for long speeches.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Ten návrh má zmysel, ostatne, podporili ho aj odborníci z fakulty.",
+        "english": "That proposal makes sense. After all, experts from the faculty supported it too.",
+        "note": "Curated"
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "alias",
+    "slovak": "alias",
+    "english": "alias; also known as",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Vystupoval pod umeleckým menom Peter Nový, alias Pán Ticho.",
+        "english": "He performed under the stage name Peter Nový, alias Mr. Silence.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Náš sused Jozef, alias Jožo, opraví každý starý bicykel.",
+        "english": "Our neighbor Jozef, also known as Jožo, can fix any old bicycle.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Zelené zlato, alias tekvicový olej, dodá šalátu výraznú chuť.",
+        "english": "Green gold, also known as pumpkin seed oil, gives the salad a bold flavor.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V knihe sa objavuje spisovateľ Martin Kukučín, alias Matej Bencúr.",
+        "english": "The book features the writer Martin Kukučín, alias Matej Bencúr.",
+        "note": "Curated"
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "nieto",
+    "slovak": "nieto",
+    "english": "let alone; much less (nieto ešte)",
+    "category": "Conjunctions",
+    "examples": [
+      {
+        "slovak": "Nemá čas na obyčajnú prechádzku, nieto ešte na celý víkend v horách.",
+        "english": "She has no time for a simple walk, let alone a whole weekend in the mountains.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nezvládol ani úvodné cvičenie, nieto aby napísal záverečnú prácu.",
+        "english": "He could not even handle the introductory exercise, let alone write the final thesis.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V tej tme nebolo vidieť ani chodník, nieto ešte smerové tabule.",
+        "english": "In that darkness you could not even see the trail, much less the signposts.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nevie po anglicky ani pozdraviť, nieto ešte viesť rozhovor.",
+        "english": "He cannot even say hello in English, let alone hold a conversation.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "toboz"
+    ]
+  },
+  {
+    "slug": "nanestastie",
+    "slovak": "nanešťastie",
+    "english": "unfortunately; sadly",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Nanešťastie sme k pokladni prišli päť minút po zatvorení.",
+        "english": "Unfortunately, we reached the ticket office five minutes after closing.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Predpoveď sľubovala slnko, nanešťastie však celé popoludnie pršalo.",
+        "english": "The forecast promised sun, but unfortunately it rained all afternoon.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Múzeum bolo nanešťastie zatvorené pre technickú prestávku.",
+        "english": "The museum was unfortunately closed for technical maintenance.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nanešťastie sa nepodarilo zachovať pôvodnú drevenú strechu.",
+        "english": "Sadly, it was not possible to preserve the original wooden roof.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "bohuzial",
+      "zialbohu"
+    ]
+  },
+  {
+    "slug": "napodiv",
+    "slovak": "napodiv",
+    "english": "surprisingly; oddly enough",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Cesta cez horský priechod bola v januári napodiv úplne suchá.",
+        "english": "The road over the mountain pass was surprisingly completely dry in January.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Napodiv nikto v sále nenamietal proti skoršiemu začiatku schôdze.",
+        "english": "Oddly enough, no one in the hall objected to starting the meeting earlier.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Starý budík po desiatich rokoch v zásuvke napodiv stále funguje.",
+        "english": "After ten years in a drawer, the old alarm clock surprisingly still works.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na pondelkové ráno bol v električke napodiv príjemný pokoj.",
+        "english": "For a Monday morning, it was surprisingly peaceful on the tram.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "napocudovanie"
+    ]
+  },
+  {
+    "slug": "beztak",
+    "slovak": "beztak",
+    "english": "anyway; in any case",
+    "category": "Particles",
+    "register": "colloquial",
+    "examples": [
+      {
+        "slovak": "Nemusíš sa ponáhľať, stretnutie sa beztak začne až o pol tretej.",
+        "english": "You do not need to rush, the meeting will not start until half past two anyway.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Vezmi si tú staršiu bundu, na chate sa beztak zašpiníš.",
+        "english": "Take the older jacket, you will get dirty at the cottage anyway.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Chcel som tam ešte zavolať, ale po šiestej tam už beztak nikto nebude.",
+        "english": "I still wanted to call there, but nobody will be there after six anyway.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Beztak sme plánovali zastaviť sa v Poprade na obed.",
+        "english": "We were planning to stop in Poprad for lunch anyway.",
+        "note": "Curated"
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "dozaista",
+    "slovak": "dozaista",
+    "english": "surely; certainly",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Pri takomto nasadení dozaista dosiahneš výborný výsledok.",
+        "english": "With this kind of dedication, you will surely achieve a great result.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Táto melódia ti dozaista pripomenie detstvo na dedine.",
+        "english": "This melody will certainly remind you of childhood in the village.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Dozaista sa ešte stretneme na jesennej konferencii v Nitre.",
+        "english": "We will surely meet again at the autumn conference in Nitra.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Kniha má pútavý dej, takže ťa dozaista zaujme od prvej strany.",
+        "english": "The book has an engaging plot, so it will certainly hook you from page one.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "nepochybne",
+      "bezpochyby",
+      "istotne",
+      "zaiste"
+    ]
+  },
+  {
+    "slug": "moznoze",
+    "slovak": "možnože",
+    "english": "maybe; perhaps",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Možnože sa ešte stihneme zastaviť na trhu pred zotmením.",
+        "english": "Maybe we will still have time to stop by the market before dark.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nepoznám ho osobne, ale možnože sme sa kedysi stretli na festivale.",
+        "english": "I do not know him personally, but perhaps we once met at a festival.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Možnože by stačilo vymeniť tesnenie a kohútik prestane kvapkať.",
+        "english": "Perhaps replacing the washer would be enough and the tap will stop dripping.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V záhrade je ticho, možnože susedia odišli na celý týždeň preč.",
+        "english": "It is quiet in the garden, maybe the neighbors went away for the whole week.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "mozbyt",
+      "mozno"
+    ],
+    "register": "colloquial"
+  },
+  {
+    "slug": "kiez",
+    "slovak": "kiež",
+    "english": "if only; I wish; may (kiež by)",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Kiež by už konečne napadol čerstvý sneh na zjazdovky!",
+        "english": "If only fresh snow would finally fall on the ski slopes!",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Kiež ti nový začiatok v inom meste prinesie veľa radosti.",
+        "english": "May your new beginning in another city bring you much joy.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Kiež by sme vtedy mali viac trpezlivosti a lepšie si to premysleli.",
+        "english": "I wish we had had more patience back then and thought it through better.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Kiež by sa takýto pokojný večer zopakoval častejšie.",
+        "english": "If only a peaceful evening like this would happen more often.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "bodaj",
+      "nechze"
+    ]
+  },
+  {
+    "slug": "namiesto",
+    "slovak": "namiesto",
+    "english": "instead of (+ gen.); rather than (namiesto toho, aby)",
+    "category": "Conjunctions",
+    "examples": [
+      {
+        "slovak": "Namiesto toho, aby sa sťažoval, hneď navrhol praktické riešenie.",
+        "english": "Instead of complaining, he immediately suggested a practical solution.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Dnes som si dal bylinkový čaj namiesto popoludňajšej kávy.",
+        "english": "Today I had herbal tea instead of an afternoon coffee.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Namiesto toho, aby sme išli autom, vybrali sme sa vlakom.",
+        "english": "Rather than going by car, we set off by train.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na stretnutie prišla zástupkyňa namiesto chorého vedúceho.",
+        "english": "The deputy came to the meeting instead of the sick manager.",
+        "note": "Curated"
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "coze",
+    "slovak": "čože",
+    "english": "what?!; really?; what on earth",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Čože, ty sa naozaj sťahuješ do Košíc už na jeseň?",
+        "english": "What, you are really moving to Košice already this autumn?",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Lístky zdraželi na dvojnásobok. Čože? To snáď nemyslia vážne!",
+        "english": "Tickets doubled in price. What?! Surely they cannot be serious!",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Čože sa to deje na námestí, že počuť dychovú hudbu?",
+        "english": "What on earth is going on in the square that we can hear brass music?",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Čože by som sa hneval, veď každý sa občas pomýli.",
+        "english": "Why on earth would I be angry? Everyone makes mistakes sometimes.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "kdeze",
+      "akoze",
+      "horkyze"
+    ],
+    "register": "colloquial"
+  },
+  {
+    "slug": "nedajboze",
+    "slovak": "nedajbože",
+    "english": "God forbid; heaven forbid; if by any chance",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Vezmi si do auta deku, keby sme nedajbože uviazli v zápche.",
+        "english": "Take a blanket in the car in case we, heaven forbid, get stuck in traffic.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Keby sa nedajbože zhoršilo počasie, vrátime sa späť na chatu.",
+        "english": "If, God forbid, the weather gets worse, we will head back to the hut.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Zapíš si heslo, keby si ho nedajbože zabudol.",
+        "english": "Write down the password in case, God forbid, you forget it.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Chodník je po mraze klzký, dávaj pozor, aby si nedajbože nespadol.",
+        "english": "The pavement is slippery after the frost, watch out so you do not fall, God forbid.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "nebodaj",
+      "bozechran",
+      "bozeuchovaj"
+    ]
+  },
+  {
+    "slug": "prinajmenej",
+    "slovak": "prinajmenej",
+    "english": "at least; at the very least",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Cesta na letisko potrvá v špičke prinajmenej štyridsať minút.",
+        "english": "The trip to the airport will take at least forty minutes in rush hour.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Takéto rozhodnutie vyžaduje prinajmenej krátku poradu celého tímu.",
+        "english": "Such a decision requires at the very least a short meeting of the whole team.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V knižnici som strávil prinajmenej tri hodiny hľadaním zdrojov.",
+        "english": "I spent at least three hours in the library searching for sources.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Mal by si mu prinajmenej zavolať a vysvetliť, prečo si neprišiel.",
+        "english": "You should at least call him and explain why you did not come.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "prinajmensom"
+    ]
+  },
+  {
+    "slug": "popravde",
+    "slovak": "popravde",
+    "english": "honestly; truthfully; to be honest",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Popravde som nečakal, že sa lístky vypredajú za desať minút.",
+        "english": "Honestly, I did not expect the tickets to sell out in ten minutes.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Páčil sa ti ten nový seriál? Popravde, po prvej časti ma nebavil.",
+        "english": "Did you like that new series? To be honest, it bored me after the first episode.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Popravde povedané, radšej sa najem doma než v drahom podniku.",
+        "english": "Honestly speaking, I would rather eat at home than at an expensive restaurant.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Ani som si popravde nevšimla, že už prešla celá hodina.",
+        "english": "To be honest, I did not even notice that a whole hour had already passed.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "pravdupovediac",
+      "vlastne"
+    ]
+  },
+  {
+    "slug": "coby",
+    "slovak": "čoby",
+    "english": "as; in the capacity of; even if",
+    "category": "Conjunctions",
+    "examples": [
+      {
+        "slovak": "Na festivale pôsobil čoby tlmočník pre zahraničných hostí.",
+        "english": "At the festival, he worked as an interpreter for foreign guests.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Získala cenné kontakty čoby dobrovoľníčka v miestnom múzeu.",
+        "english": "She gained valuable contacts as a volunteer at the local museum.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Vystúpil na konferencii čoby zástupca mladej generácie architektov.",
+        "english": "He spoke at the conference in the capacity of a representative of young architects.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Pôjdem sa s ním rozlúčiť, čoby som mal stáť v daždi celú hodinu.",
+        "english": "I will go say goodbye to him, even if I have to stand in the rain for an hour.",
+        "note": "Curated"
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "popripade",
+    "slovak": "poprípade",
+    "english": "or possibly; alternatively; if need be",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Môžeme sa stretnúť v stredu poobede, poprípade až vo štvrtok ráno.",
+        "english": "We can meet on Wednesday afternoon, or possibly not until Thursday morning.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Pošli mi tie podklady e-mailom, poprípade ich prines vytlačené.",
+        "english": "Send me those documents by email, or alternatively bring them printed out.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Do polievky pridaj čerstvý kôpor, poprípade sušený majorán.",
+        "english": "Add fresh dill to the soup, or dried marjoram if needed.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Ak sa nedovoláš mne, skús zavolať kolegovi, poprípade na recepciu.",
+        "english": "If you cannot reach me, try calling my colleague, or failing that, reception.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "pripadne",
+      "eventualne",
+      "respektive"
+    ]
+  },
+  {
+    "slug": "hoc",
+    "slovak": "hoc",
+    "english": "although; even though; even if",
+    "category": "Conjunctions",
+    "examples": [
+      {
+        "slovak": "Hoc bola zima tuhá, rybník pri dedine zamrzol len pri brehoch.",
+        "english": "Although the winter was harsh, the pond by the village froze only near the banks.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Vybrali sa na túru skoro ráno, hoc nad hrebeňom viseli ťažké mraky.",
+        "english": "They set out on the hike early in the morning, even though heavy clouds hung over the ridge.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Hoc nepoznal nikoho z hostí, rýchlo zapadol do priateľskej debaty.",
+        "english": "Although he knew none of the guests, he quickly joined the friendly conversation.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Pomôže každému susedovi, hoc sám má práce vyše hlavy.",
+        "english": "He helps every neighbor, even though he has more than enough work himself.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "hoci",
+      "bars"
+    ]
+  },
+  {
+    "slug": "jasne-part",
+    "slovak": "jasné",
+    "english": "sure; of course; obviously",
+    "category": "Particles",
+    "register": "colloquial",
+    "examples": [
+      {
+        "slovak": "Jasné, môžeme sa stretnúť hneď po práci pri stanici.",
+        "english": "Sure, we can meet right after work by the station.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Zastavíš sa večer na čaj? Jasné, prinesiem aj koláč!",
+        "english": "Will you stop by for tea tonight? Of course, I will bring cake too!",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Jasné, že som nezabudol na sľúbenú knihu, mám ju v batohu.",
+        "english": "Of course I did not forget the book I promised, I have it in my backpack.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Zvládneš to poslať do piatej? Jasné, o chvíľu to bude hotové.",
+        "english": "Can you manage to send it by five? Sure, it will be ready in a moment.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "pravdaze",
+      "isteze",
+      "samozrejme",
+      "jasne"
+    ]
+  },
+  {
+    "slug": "reku",
+    "slovak": "reku",
+    "english": "I thought; I said to myself; like",
+    "category": "Particles",
+    "register": "colloquial",
+    "examples": [
+      {
+        "slovak": "Pozrel som z okna, reku, dnes z toho výletu asi nič nebude.",
+        "english": "I looked out the window and thought, nothing will probably come of that trip today.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Zastavil som sa pri nej, reku, spýtam sa, ako sa má celá rodina.",
+        "english": "I stopped to see her, thinking I would ask how the whole family is doing.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Otvorím chladničku, reku, niečo rýchle zjem, a tam len jogurt.",
+        "english": "I open the fridge, thinking I will grab a quick bite, and there is only yogurt.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Zavolal som mu ráno, reku, radšej si overím čas odchodu.",
+        "english": "I called him in the morning, thinking I had better double-check the departure time.",
+        "note": "Curated"
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "totizto",
+    "slovak": "totižto",
+    "english": "namely; because; you see",
+    "category": "Particles",
+    "register": "colloquial",
+    "examples": [
+      {
+        "slovak": "Nemohli sme vojsť dnu, brána bola totižto zamknutá už od šiestej.",
+        "english": "We could not go inside because the gate had already been locked since six.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Musel som sa vrátiť domov, zabudol som totižto kľúče od kancelárie.",
+        "english": "I had to go back home, you see, I forgot the office keys.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Tento vlak nestojí v každej obci, ide totižto ako zrýchlený spoj.",
+        "english": "This train does not stop at every village, as it runs as an express service.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Kúpil som dva chleby, zajtra sú totižto obchody zatvorené.",
+        "english": "I bought two loaves of bread because the shops are closed tomorrow.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "totiz",
+      "lebo"
+    ]
+  },
+  {
+    "slug": "zialbohu",
+    "slovak": "žiaľbohu",
+    "english": "unfortunately; sadly",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Žiaľbohu, na dnešný večerný koncert už nezostali žiadne lístky.",
+        "english": "Unfortunately, there are no tickets left for tonight's concert.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Starú lipu na námestí museli žiaľbohu po víchrici spíliť.",
+        "english": "Sadly, they had to cut down the old linden tree in the square after the gale.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na tú oslavu sa žiaľbohu nedostanem, lebo mám nočnú službu.",
+        "english": "Unfortunately, I will not make it to that party because I have a night shift.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Žiaľbohu sme tú chybu v tlači odhalili až po vytlačení knihy.",
+        "english": "Sadly, we discovered that misprint only after the book was printed.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "bohuzial",
+      "nanestastie"
+    ]
+  },
+  {
+    "slug": "staby",
+    "slovak": "sťaby",
+    "english": "as if; as though",
+    "category": "Conjunctions",
+    "examples": [
+      {
+        "slovak": "Pozrel na mňa chladno, sťaby ma videl prvý raz v živote.",
+        "english": "He looked at me coldly, as if he were seeing me for the first time in his life.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Zrazu všetko utíchlo, sťaby sa nad dedinou zastavil čas.",
+        "english": "Suddenly everything fell silent, as though time had stood still over the village.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Rozprával o Paríži s takou istotou, sťaby tam prežil celý život.",
+        "english": "He spoke about Paris with such certainty, as if he had lived there his whole life.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Horské štíty v hmle mizli a zas sa vynárali, sťaby plávali v oblakoch.",
+        "english": "The mountain peaks vanished and reappeared in the mist, as though floating in the clouds.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "akoby",
+      "ako",
+      "sta"
+    ]
+  },
+  {
+    "slug": "ergo",
+    "slovak": "ergo",
+    "english": "therefore; consequently; ergo",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Platba neprešla včas, ergo systém objednávku automaticky zrušil.",
+        "english": "The payment did not go through on time, therefore the system automatically canceled the order.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Zmluva neobsahuje podpis, ergo nemá právnu platnosť.",
+        "english": "The contract lacks a signature, consequently it has no legal validity.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V zime sú dni krátke, ergo na túru treba vyraziť hneď za svitania.",
+        "english": "In winter the days are short, therefore one must set out on a hike right at dawn.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Všetky miesta sú obsadené, ergo prihlasovanie do kurzu musíme uzavrieť.",
+        "english": "All spots are taken, consequently we have to close course registration.",
+        "note": "Curated"
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "horkyze",
+    "slovak": "horkýže",
+    "english": "no way; not at all; yeah right",
+    "category": "Particles",
+    "register": "colloquial",
+    "examples": [
+      {
+        "slovak": "Vraj je tam všetko lacné? Horkýže lacné, ceny vystrelili hore!",
+        "english": "They say everything is cheap there? Yeah right, prices have skyrocketed!",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Myslel si, že mu uverím každé slovo? Horkýže, hneď som vedel, koľká bije.",
+        "english": "Did he think I would believe his every word? No way, I knew right away what was up.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Vraj celý víkend oddychovala? Horkýže oddychovala, maľovala celú chodbu!",
+        "english": "They say she rested all weekend? Yeah right, she was painting the whole hallway!",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Sľúbil, že príde načas? Horkýže príde, zas bude meškať pol hodiny.",
+        "english": "He promised to arrive on time? No way will he make it, he will be half an hour late again.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "kdeze",
+      "coze",
+      "akoze"
+    ]
+  },
+  {
+    "slug": "podistym",
+    "slovak": "podistým",
+    "english": "surely; most likely; presumably",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Keď nezdvíha telefón, podistým ešte sedí na dlhej porade.",
+        "english": "Since she is not answering the phone, she is most likely still in a long meeting.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V dome sa už nesvieti, domáci podistým dávno spia.",
+        "english": "There are no lights on in the house anymore, the hosts are surely fast asleep.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Podistým si zabudol kľúče v práci, lebo v taške vôbec nie sú.",
+        "english": "Presumably you left your keys at work, because they are not in the bag at all.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Po takom prudkom ochladení napadne v horách podistým aj sneh.",
+        "english": "After such a sharp drop in temperature, snow will most likely fall in the mountains too.",
+        "note": "Curated"
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "kvazi",
+    "slovak": "kvázi",
+    "english": "quasi-; so-called; sort of",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Predstavili nám kvázi riešenie, ktoré problém iba oddialilo.",
+        "english": "They presented us with a so-called solution that only delayed the problem.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Ten článok bol iba kvázi odborný, nemal ani jediný zdroj.",
+        "english": "That article was only sort of expert. It did not have a single source.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Bývalý riaditeľ zostal vo firme ako kvázi poradca.",
+        "english": "The former director stayed at the company as a sort of advisor.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Išlo len o kvázi súťaž, pretože víťaz bol vopred jasný.",
+        "english": "It was just a mock competition, because the winner was clear in advance.",
+        "note": "Curated"
+      }
+    ],
+    "related": [],
+    "register": "colloquial"
+  },
+  {
+    "slug": "just",
+    "slovak": "just",
+    "english": "out of spite; just to be contrary; deliberately",
+    "category": "Particles",
+    "register": "colloquial",
+    "examples": [
+      {
+        "slovak": "Prosil som ho, nech počká, ale on just odišiel skôr.",
+        "english": "I asked him to wait, but he left early out of spite.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Vonku husto prší, no malý Lukáš chce ísť just na ihrisko.",
+        "english": "It is raining heavily outside, yet little Lukáš insists on going to the playground.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nechcela mu požičať knihu, tak si just kúpil vlastnú.",
+        "english": "She did not want to lend him the book, so he bought his own out of spite.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Povedal som mu, nech to nerobí, a on to just urobil.",
+        "english": "I told him not to do it, and he did it anyway out of spite.",
+        "note": "Curated"
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "veruze",
+    "slovak": "veruže",
+    "english": "indeed; really; certainly",
+    "category": "Particles",
+    "register": "colloquial",
+    "examples": [
+      {
+        "slovak": "Dnes je vonku veruže poriadna zima.",
+        "english": "It is indeed freezing cold outside today.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na ten výlet do Tatier veruže nikdy nezabudneme.",
+        "english": "We will truly never forget that trip to the Tatras.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Veruže máš pravdu, mali sme vyraziť oveľa skôr.",
+        "english": "You are certainly right, we should have set off much earlier.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Takú dobrú kapustnicu som veruže dávno nejedla.",
+        "english": "I really have not eaten such good sauerkraut soup in a long time.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "veru",
+      "vskutku"
+    ]
+  },
+  {
+    "slug": "vsakze",
+    "slovak": "všakže",
+    "english": "right?; isn't it?; surely",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Zajtra prídeš na oslavu, všakže?",
+        "english": "You are coming to the party tomorrow, right?",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Tento koláč piekla babka, všakže?",
+        "english": "Grandma baked this cake, didn't she?",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Všakže si nezabudol zamknúť vchodové dvere?",
+        "english": "Surely you did not forget to lock the front door?",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Bol to naozaj vydarený koncert, všakže?",
+        "english": "It was a really great concert, wasn't it?",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "vsak",
+      "vsakano"
+    ]
+  },
+  {
+    "slug": "kontra",
+    "slovak": "kontra",
+    "english": "versus; against",
+    "category": "Conjunctions",
+    "examples": [
+      {
+        "slovak": "Večer nás čaká napínavý zápas Slovensko kontra Česko.",
+        "english": "Tonight an exciting Slovakia versus Czechia match awaits us.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V relácii rozoberali tému práca z domu kontra kancelária.",
+        "english": "On the show they discussed remote work versus the office.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Diskusia na tému mesto kontra vidiek bola veľmi živá.",
+        "english": "The debate on city versus countryside was very lively.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Vo finále to bude domáci tím kontra minuloročný majster.",
+        "english": "In the final it will be the home team versus last year's champion.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "verzus"
+    ]
+  },
+  {
+    "slug": "apropo",
+    "slovak": "apropo",
+    "english": "by the way; speaking of which",
+    "category": "Particles",
+    "register": "colloquial",
+    "examples": [
+      {
+        "slovak": "Apropo, už si videl ten nový slovenský film?",
+        "english": "By the way, have you seen that new Slovak film yet?",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Apropo, kedy vlastne odchádza náš ranný autobus?",
+        "english": "Speaking of which, when does our morning bus actually leave?",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Hovoríš o horách? Apropo, kedy ideme na Kriváň?",
+        "english": "You are talking about the mountains? Speaking of which, when are we going up Kriváň?",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Apropo, podarilo sa ti už zohnať lístky na vlak?",
+        "english": "By the way, did you already manage to get train tickets?",
+        "note": "Curated"
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "vdakabohu",
+    "slovak": "vďakabohu",
+    "english": "thank goodness; thankfully",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Vďakabohu sa pri tej nehode nikto nezranil.",
+        "english": "Thankfully, nobody was injured in that accident.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Búrka sa vďakabohu vyhnula našej dedine.",
+        "english": "Thank goodness the storm bypassed our village.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Kľúče som vďakabohu našla hneď pod lavičkou.",
+        "english": "Thank goodness I found the keys right under the bench.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Vďakabohu už máš všetky skúšky úspešne za sebou.",
+        "english": "Thankfully you already have all your exams successfully behind you.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "nastastie",
+      "chvalabohu",
+      "esteze"
+    ]
+  },
+  {
+    "slug": "nieze",
+    "slovak": "nieže",
+    "english": "mind you don't; don't you dare; not that (nieže by)",
+    "category": "Particles",
+    "register": "colloquial",
+    "examples": [
+      {
+        "slovak": "Nieže zas zabudneš zamknúť pivnicu!",
+        "english": "Mind you don't forget to lock the cellar again!",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nieže by som nechcel pomôcť, ale dnes naozaj nemám čas.",
+        "english": "Not that I would not want to help, but today I really have no time.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nieže povieš mame o tom prekvapení pred nedeľou!",
+        "english": "Don't you dare tell Mom about that surprise before Sunday!",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nieže tam budeš čakať v daždi bez dáždnika.",
+        "english": "Don't go waiting there in the rain without an umbrella.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "niezeby",
+      "zeby"
+    ]
+  },
+  {
+    "slug": "praveze",
+    "slovak": "práveže",
+    "english": "on the contrary; actually; quite the opposite",
+    "category": "Particles",
+    "register": "colloquial",
+    "examples": [
+      {
+        "slovak": "Nebolo mi zima, práveže som sa v tej bunde zapotil.",
+        "english": "I was not cold, on the contrary, I broke a sweat in that jacket.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Práveže ma tá prednáška príjemne prekvapila.",
+        "english": "Actually, that lecture pleasantly surprised me.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Neprekáža mi hluk z ulice, práveže pri ňom rýchlo zaspím.",
+        "english": "Street noise does not bother me, in fact, I fall asleep quickly to it.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Vôbec sa nehnevala, práveže sa nad tým schuti zasmiala.",
+        "english": "She was not angry at all, quite the opposite, she laughed heartily at it.",
+        "note": "Curated"
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "takreceno",
+    "slovak": "takrečeno",
+    "english": "so to speak; as it were",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Stihli sme ten vlak takrečeno v poslednej sekunde.",
+        "english": "We caught that train at the very last second, so to speak.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Po rokoch v cudzine začínal doma takrečeno od nuly.",
+        "english": "After years abroad, he was starting at home from scratch, as it were.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Z malého nápadu vznikol takrečeno rodinný podnik.",
+        "english": "Out of a small idea grew a family business, so to speak.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Celý projekt stál takrečeno na jedinom dobrovoľníkovi.",
+        "english": "The whole project rested on a single volunteer, as it were.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "takpovediac"
+    ]
+  },
+  {
+    "slug": "namojdusu",
+    "slovak": "namojdušu",
+    "english": "honestly; upon my soul; I swear",
+    "category": "Particles",
+    "register": "colloquial",
+    "examples": [
+      {
+        "slovak": "Namojdušu, ten koláč som dnes naozaj nezjedol.",
+        "english": "Honestly, I really did not eat that cake today.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Namojdušu ti hovorím, že som o tom nič nevedela.",
+        "english": "I swear to you, I knew nothing about it.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Taký krásny západ slnka som namojdušu ešte nevidel.",
+        "english": "Upon my soul, I have never seen such a beautiful sunset.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Namojdušu neviem, kam som odložil okuliare.",
+        "english": "Honestly, I have no idea where I put my glasses.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "namojveru",
+      "prisambohu"
+    ]
+  },
+  {
+    "slug": "prinajlepsom",
+    "slovak": "prinajlepšom",
+    "english": "at best; in the best case",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Do Košíc dorazíme prinajlepšom okolo polnoci.",
+        "english": "We will reach Košice around midnight at best.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Celý test vyzeral prinajlepšom priemerne.",
+        "english": "The whole test looked average at best.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Oprava strechy potrvá prinajlepšom dva týždne.",
+        "english": "The roof repair will take two weeks at best.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Za tento výkon môžeme čakať prinajlepšom tretie miesto.",
+        "english": "For this performance, we can expect third place at best.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "prinajhorsom"
+    ]
+  },
+  {
+    "slug": "prinajhorsom",
+    "slovak": "prinajhoršom",
+    "english": "at worst; if the worst comes to the worst",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Prinajhoršom prespíme jednu noc u tety v Žiline.",
+        "english": "At worst, we will spend one night at my aunt's in Žilina.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Ak zmeškáme prípoj, prinajhoršom pôjdeme ďalším vlakom.",
+        "english": "If we miss the connection, at worst we will take the next train.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Skús im zavolať, prinajhoršom povedia nie.",
+        "english": "Try calling them, at worst they will say no.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Prinajhoršom odložíme sťahovanie na budúci mesiac.",
+        "english": "If the worst comes to the worst, we will postpone the move to next month.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "prinajlepsom"
+    ]
+  },
+  {
+    "slug": "naskrze",
+    "slovak": "naskrze",
+    "english": "utterly; completely; thoroughly",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Jeho návrh sa ukázal ako naskrze nepraktický.",
+        "english": "His proposal turned out to be utterly impractical.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Takéto tvrdenie je naskrze nespravodlivé voči celému tímu.",
+        "english": "Such a claim is completely unfair toward the entire team.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Správa priniesla naskrze odlišný pohľad na celú kauzu.",
+        "english": "The report brought a thoroughly different view of the whole affair.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Naskrze odmietam myšlienku, že sa nedá nič zlepšiť.",
+        "english": "I utterly reject the idea that nothing can be improved.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "vonkoncom",
+      "vobec",
+      "docista"
+    ]
+  },
+  {
+    "slug": "eventualne",
+    "slovak": "eventuálne",
+    "english": "possibly; alternatively; if need be",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Môžeme sa stretnúť v stredu, eventuálne vo štvrtok popoludní.",
+        "english": "We can meet on Wednesday, or alternatively on Thursday afternoon.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na výlet si vezmi pršiplášť, eventuálne náhradné ponožky.",
+        "english": "Take a raincoat on the trip, and possibly spare socks.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Balík nechajte na vrátnici, eventuálne u susedov vedľa.",
+        "english": "Leave the parcel at the reception desk, or if need be with the neighbors next door.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Dokument pošlite poštou, eventuálne ho prineste osobne.",
+        "english": "Send the document by mail, or alternatively bring it in person.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "pripadne",
+      "popripade",
+      "respektive"
+    ]
+  },
+  {
+    "slug": "namojveru",
+    "slovak": "namojveru",
+    "english": "truly; honestly; indeed",
+    "category": "Particles",
+    "register": "colloquial",
+    "examples": [
+      {
+        "slovak": "Namojveru, takú teplú jeseň si ani starí ľudia nepamätajú.",
+        "english": "Truly, not even old people remember such a warm autumn.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "To dieťa je namojveru šikovnejšie, než sme čakali.",
+        "english": "That child is honestly more clever than we expected.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Namojveru som si myslel, že ten obchod už dávno zavreli.",
+        "english": "Honestly, I thought they had closed that shop a long time ago.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Bez tvojej rady by sme to namojveru nezvládli.",
+        "english": "Without your advice, we truly would not have managed it.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "namojdusu",
+      "prisambohu"
+    ]
+  },
+  {
+    "slug": "tot",
+    "slovak": "toť",
+    "english": "right here; look here; just recently",
+    "category": "Particles",
+    "register": "colloquial",
+    "examples": [
+      {
+        "slovak": "Toť za rohom otvorili novú pekáreň s kváskovým chlebom.",
+        "english": "Right here around the corner, they opened a new bakery with sourdough bread.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Ešte toť nedávno tu stála stará drevená stodola.",
+        "english": "Just recently an old wooden barn still stood here.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Pozri, toť na stole ležia tvoje kľúče.",
+        "english": "Look, your keys are right here on the table.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Toť pri potoku sme ako deti vždy zbierali maliny.",
+        "english": "Right down by the stream we always used to pick raspberries as children.",
+        "note": "Curated"
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "navela",
+    "slovak": "naveľa",
+    "english": "finally; at long last; with effort",
+    "category": "Particles",
+    "register": "colloquial",
+    "examples": [
+      {
+        "slovak": "Po dvoch hodinách čakania sa naveľa otvorili dvere ambulancie.",
+        "english": "After two hours of waiting, the doctor's office door finally opened.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Naveľa priznal, že zabudol poslať prihlášku včas.",
+        "english": "At long last he admitted that he had forgotten to send the application on time.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Hľadali sme ten chodník celé dopoludnie, až sme ho naveľa našli.",
+        "english": "We searched for that trail all morning until we finally found it.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Starý motor niekoľkokrát zakašľal a naveľa naskočil.",
+        "english": "The old engine coughed a few times and finally started.",
+        "note": "Curated"
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "kebyze",
+    "slovak": "kebyže",
+    "english": "if only; what if; if",
+    "category": "Conjunctions",
+    "register": "colloquial",
+    "examples": [
+      {
+        "slovak": "Kebyže už konečne vyjde slnko!",
+        "english": "If only the sun would finally come out!",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Kebyže som o tom vedel skôr, vôbec by som tam nešiel.",
+        "english": "If I had known about it sooner, I would not have gone there at all.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Kebyže si radšej sadneš a na chvíľu si oddýchneš!",
+        "english": "If only you would sit down and rest for a while!",
+        "note": "Curated"
+      },
+      {
+        "slovak": "A kebyže zajtra vyrazíme o hodinu skôr?",
+        "english": "And what if we set off an hour earlier tomorrow?",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "keby",
+      "ak"
+    ]
+  },
+  {
+    "slug": "najradsej",
+    "slovak": "najradšej",
+    "english": "most of all; best of all; preferably",
+    "category": "Adverbs",
+    "examples": [
+      {
+        "slovak": "Po náročnom dni by som najradšej zaliezol pod deku.",
+        "english": "After a tough day, what I would like most is to crawl under a blanket.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na dovolenku chodíme najradšej koncom leta k moru.",
+        "english": "We like best to go on holiday to the sea at the end of summer.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Kávu pijem najradšej bez cukru a s trochou mlieka.",
+        "english": "I like drinking coffee best without sugar and with a bit of milk.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Najradšej by celú tú poradu zrušila a išla domov.",
+        "english": "More than anything, she would like to cancel the whole meeting and go home.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "radsej"
+    ]
+  },
+  {
+    "slug": "asponze",
+    "slovak": "aspoňže",
+    "english": "at least; thank goodness at least",
+    "category": "Particles",
+    "register": "colloquial",
+    "examples": [
+      {
+        "slovak": "Aspoňže dnes nefúka ten studený vietor.",
+        "english": "At least that cold wind is not blowing today.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nestihli sme prvý vlak, ale aspoňže ďalší ide o dvadsať minút.",
+        "english": "We missed the first train, but at least the next one leaves in twenty minutes.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Aspoňže si mi napísal správu, že si v poriadku dorazil.",
+        "english": "Thank goodness you at least sent me a message that you arrived safely.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Výlet nám prekazil dážď, aspoňže sme stihli navštíviť hrad.",
+        "english": "Rain ruined our trip, though at least we managed to visit the castle.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "aspon",
+      "prinajmensom",
+      "najmenej"
+    ]
+  },
+  {
+    "slug": "napocudovanie",
+    "slovak": "napočudovanie",
+    "english": "surprisingly; remarkably",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Vlak do Bratislavy prišiel napočudovanie presne načas.",
+        "english": "Surprisingly, the train to Bratislava arrived exactly on time.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Napočudovanie sa všetky deti pri stole správali ticho.",
+        "english": "Surprisingly, all the children behaved quietly at the table.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nový telefón mi napočudovanie vydržal bez nabíjania tri dni.",
+        "english": "Surprisingly, my new phone lasted three days without charging.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Skúška z matematiky dopadla napočudovanie veľmi dobre.",
+        "english": "The math exam turned out remarkably well.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "napodiv"
+    ]
+  },
+  {
+    "slug": "zakial",
+    "slovak": "zakiaľ",
+    "english": "while; as long as; until",
+    "category": "Conjunctions",
+    "examples": [
+      {
+        "slovak": "Zakiaľ varím večeru, môžeš prestrieť stôl.",
+        "english": "While I cook dinner, you can set the table.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Počkám pred stanicou, zakiaľ si kúpiš lístok.",
+        "english": "I will wait in front of the station until you buy a ticket.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Zakiaľ je vonku svetlo, mali by sme pokosiť trávnik.",
+        "english": "As long as it is light outside, we should mow the lawn.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Deti sa hrali na dvore, zakiaľ rodičia opravovali plot.",
+        "english": "The children played in the yard while the parents repaired the fence.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "pokial",
+      "dokym",
+      "kym"
+    ]
+  },
+  {
+    "slug": "bozechran",
+    "slovak": "božechráň",
+    "english": "God forbid; heaven forbid",
+    "category": "Particles",
+    "register": "colloquial",
+    "examples": [
+      {
+        "slovak": "Božechráň, aby niekto z nás zaspal na ranný let!",
+        "english": "God forbid any of us should oversleep for the morning flight!",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Ak sa božechráň stratíš, okamžite mi zavolaj.",
+        "english": "If, heaven forbid, you get lost, call me immediately.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nechcem ťa strašiť, ale čo ak sa božechráň pokazí auto?",
+        "english": "I do not want to scare you, but what if, God forbid, the car breaks down?",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Božechráň zabudnúť doma pas pri ceste na letisko!",
+        "english": "Heaven forbid forgetting your passport at home on the way to the airport!",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "nebodaj",
+      "nedajboze",
+      "bozeuchovaj"
+    ]
+  },
+  {
+    "slug": "inac",
+    "slovak": "ináč",
+    "english": "otherwise; or else",
+    "category": "Conjunctions",
+    "examples": [
+      {
+        "slovak": "Ponáhľaj sa, ináč zmeškáme posledný rýchlik.",
+        "english": "Hurry up, otherwise we will miss the last express train.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Zapíš si to číslo, ináč naň do večera zabudneš.",
+        "english": "Write down that number, or else you will forget it by evening.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Musíme odísť pred piatou, ináč uviazneme v zápche.",
+        "english": "We have to leave before five, otherwise we will get stuck in traffic.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Vypnite sporák včas, ináč sa polievka pripáli.",
+        "english": "Turn off the stove in time, or else the soup will burn.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "inak",
+      "inaksie"
+    ],
+    "register": "colloquial"
+  },
+  {
+    "slug": "dobreze",
+    "slovak": "dobreže",
+    "english": "almost; nearly (dobreže ne-)",
+    "category": "Particles",
+    "register": "colloquial",
+    "examples": [
+      {
+        "slovak": "Na zľadovatenom chodníku som dobreže nespadol.",
+        "english": "I nearly fell on the icy sidewalk.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Keď zbadala ten darček, dobreže sa nerozplakala od radosti.",
+        "english": "When she saw that gift, she almost burst into tears of joy.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Dobreže sme nezmeškali odchod autobusu do Banskej Bystrice.",
+        "english": "We almost missed the departure of the bus to Banská Bystrica.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Pri tej správe mu dobreže nevypadla šálka z ruky.",
+        "english": "At that news, the cup almost slipped out of his hand.",
+        "note": "Curated"
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "bohvie",
+    "slovak": "bohvie",
+    "english": "God knows; who knows; goodness knows",
+    "category": "Particles",
+    "register": "colloquial",
+    "examples": [
+      {
+        "slovak": "Bohvie, kedy dnes prestane pršať.",
+        "english": "God knows when it will stop raining today.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Bohvie, či vôbec dostali náš list včas.",
+        "english": "Who knows whether they even received our letter on time.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Odišiel z oslavy bez rozlúčky a bohvie, prečo bol taký mĺkvy.",
+        "english": "He left the party without saying goodbye, and goodness knows why he was so quiet.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Bohvie, kde teraz pracuje náš bývalý spolužiak.",
+        "english": "Who knows where our former classmate works now.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "ktohovie",
+      "certvie"
+    ]
+  },
+  {
+    "slug": "dokym",
+    "slovak": "dokým",
+    "english": "until; while; as long as",
+    "category": "Conjunctions",
+    "register": "colloquial",
+    "examples": [
+      {
+        "slovak": "Zostanem pri tebe, dokým nepríde lekár.",
+        "english": "I will stay with you until the doctor arrives.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Dokým sa voda varí, môžeme nakrájať zeleninu.",
+        "english": "While the water is boiling, we can chop the vegetables.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nechodím von bez čiapky, dokým trvajú ranné mrazy.",
+        "english": "I do not go outside without a hat as long as the morning frosts last.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Musíš počkať v čakárni, dokým ťa sestra nezavolá dnu.",
+        "english": "You have to wait in the waiting room until the nurse calls you inside.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "pokial",
+      "zakial",
+      "kym"
+    ]
+  },
+  {
+    "slug": "bars",
+    "slovak": "bárs",
+    "english": "even; say; for all I care",
+    "category": "Particles",
+    "register": "colloquial",
+    "examples": [
+      {
+        "slovak": "Môžeme vyraziť bárs aj zajtra ráno.",
+        "english": "We can set off even tomorrow morning.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Prines na piknik niečo malé, bárs len jabĺčka.",
+        "english": "Bring something small to the picnic, even just some apples.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Zavolaj mi bárs o polnoci, ak budeš potrebovať odvoz.",
+        "english": "Call me even at midnight if you need a ride.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Zostal by som tu bárs celý týždeň.",
+        "english": "I would happily stay here for a whole week.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "hoc",
+      "hoci"
+    ]
+  },
+  {
+    "slug": "naostatok",
+    "slovak": "naostatok",
+    "english": "finally; lastly; in the end",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Naostatok sme poďakovali všetkým dobrovoľníkom za ich prácu.",
+        "english": "Finally, we thanked all the volunteers for their work.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Skúsil niekoľko povolaní a naostatok sa vrátil k učiteľstvu.",
+        "english": "He tried several professions and in the end returned to teaching.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Naostatok treba pripomenúť, že prihlášky prijímame do piatka.",
+        "english": "Lastly, it should be noted that we accept applications until Friday.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Po dlhej debate naostatok súhlasili s pôvodným návrhom.",
+        "english": "After a long debate, they finally agreed to the original proposal.",
+        "note": "Curated"
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "vsakano",
+    "slovak": "všakáno",
+    "english": "right?; isn't that so?",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Všakáno, v tej uličke kedysi bývalo malé kníhkupectvo?",
+        "english": "Isn't that so, there used to be a small bookshop on that street?",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Pán profesor si ešte pamätá náš ročník, všakáno?",
+        "english": "Professor, you still remember our graduating class, don't you?",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Každý človek potrebuje občas trochu pokoja, všakáno?",
+        "english": "Every person needs a bit of peace now and then, right?",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Všakáno, na tomto mieste sme sa stretli po prvý raz?",
+        "english": "Isn't that right, this is the place where we met for the first time?",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "vsak",
+      "vsakze"
+    ],
+    "register": "colloquial"
+  },
+  {
+    "slug": "nabeton",
+    "slovak": "nabetón",
+    "english": "for sure; definitely; without a doubt",
+    "category": "Particles",
+    "register": "colloquial",
+    "examples": [
+      {
+        "slovak": "Ten lístok som nabetón vložil do vrecka kabáta.",
+        "english": "I definitely put that ticket into my coat pocket.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Zajtra bude nabetón horúco, tak si vezmi vodu.",
+        "english": "Tomorrow it will be hot for sure, so take some water.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Viem nabetón, že obchod zatvárajú až o ôsmej.",
+        "english": "I know for sure that they do not close the shop until eight.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Ak vyrazíme o siedmej, nabetón stihneme začiatok predstavenia.",
+        "english": "If we leave at seven, we will definitely make the start of the performance.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "naisto"
+    ]
+  },
+  {
+    "slug": "leda",
+    "slovak": "leda",
+    "english": "only; at most; unless (leda ak)",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "V tomto starom dome býva leda zopár nájomníkov.",
+        "english": "Only a handful of tenants live in this old house.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V zime tam vyjdeš leda s poriadnymi zimnými pneumatikami.",
+        "english": "In winter you can get up there only with proper winter tires.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Dnes už nepríde, leda ak by stihol posledný autobus.",
+        "english": "He will not come today, unless he catches the last bus.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Z celého prejavu si pamätám leda poslednú vetu.",
+        "english": "Out of the whole speech, I remember only the last sentence.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "ledaze"
+    ],
+    "register": "colloquial"
+  },
+  {
+    "slug": "docista",
+    "slovak": "dočista",
+    "english": "completely; entirely; utterly",
+    "category": "Particles",
+    "examples": [
+      {
+        "slovak": "Po dlhom týždni v práci som dočista vyčerpaný.",
+        "english": "After a long week at work, I am completely exhausted.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na tvoje narodeniny som v tom zhone dočista zabudla.",
+        "english": "In that rush, I completely forgot about your birthday.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Starý chodník v lese dočista zarástol žihľavou.",
+        "english": "The old path in the forest became completely overgrown with nettles.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Chlieb v zásuvke dočista stvrdol, musíme kúpiť čerstvý.",
+        "english": "The bread in the drawer went completely hard, we need to buy a fresh loaf.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "vonkoncom",
+      "vobec",
+      "naskrze"
+    ],
+    "register": "colloquial"
+  },
+  {
+    "slug": "akze",
+    "slovak": "akže",
+    "english": "if; provided that",
+    "category": "Conjunctions",
+    "examples": [
+      {
+        "slovak": "Akže sa počasie nezlepší, výstup na vrchol radšej odložíme.",
+        "english": "If the weather does not improve, we will postpone the climb to the summit.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Prídem ti pomôcť s maľovaním, akže nebude treba ísť do práce.",
+        "english": "I will come help you paint, provided that I do not have to go to work.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Akže máš ešte nejaké otázky, pokojne sa ozvi po hodine.",
+        "english": "If you still have any questions, feel free to speak up after class.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Knihu ti rada požičiam, akže mi ju vrátiš do konca mesiaca.",
+        "english": "I will gladly lend you the book, provided you return it to me by the end of the month.",
+        "note": "Curated"
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "prisambohu",
+    "slovak": "prisámbohu",
+    "english": "I swear to God; honestly",
+    "category": "Particles",
+    "register": "colloquial",
+    "examples": [
+      {
+        "slovak": "Prisámbohu, tú správu som videl až dnes ráno.",
+        "english": "I swear to God, I only saw that message this morning.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Prisámbohu ti neklamem, bolo to presne tak.",
+        "english": "Honestly, I am not lying to you, it happened just like that.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Ak ten vlak zas bude meškať, prisámbohu pôjdem pešo.",
+        "english": "If that train is late again, I swear to God I will go on foot.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Taký tichý deň v kancelárii sme tu prisámbohu dávno nemali.",
+        "english": "Honestly, we have not had such a quiet day in the office in a long time.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "namojdusu",
+      "namojveru"
+    ]
+  },
+  {
+    "slug": "nechze",
+    "slovak": "nechže",
+    "english": "let; may (emphatic)",
+    "category": "Particles",
+    "register": "colloquial",
+    "examples": [
+      {
+        "slovak": "Nechže sa vám v novom byte dobre býva!",
+        "english": "May you live happily in your new apartment!",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nechže už konečne príde jar a teplé dni.",
+        "english": "Let spring and warm days finally arrive.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nechže si to vyskúša sám, keď nám neverí.",
+        "english": "Let him try it himself if he does not believe us.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nechže im tá radosť vydrží čo najdlhšie.",
+        "english": "May that joy last them as long as possible.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "bodaj",
+      "kiez"
+    ]
+  },
+  {
+    "slug": "tolko",
+    "slovak": "toľko",
+    "english": "so much; so many; as much (toľko ..., koľko)",
+    "category": "Phrases",
+    "examples": [
+      {
+        "slovak": "Vezmi si na rozmyslenie toľko času, koľko potrebuješ.",
+        "english": "Take as much time to think it over as you need.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Mali sme toľko práce, že sme nestihli ani obed.",
+        "english": "We had so much work that we did not even make lunch.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na jeseň narástlo toľko jabĺk, že sme ich rozdali susedom.",
+        "english": "So many apples grew in autumn that we gave them away to the neighbors.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Odložili si toľko peňazí, aby mohli zrekonštruovať kuchyňu.",
+        "english": "They set aside enough money to be able to renovate the kitchen.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "menej",
+      "najmenej",
+      "najviac"
+    ]
+  },
+  {
+    "slug": "certvie",
+    "slovak": "čertvie",
+    "english": "the devil knows; who knows",
+    "category": "Particles",
+    "register": "colloquial",
+    "examples": [
+      {
+        "slovak": "Čertvie, prečo dnes nikto nezdvíha telefón.",
+        "english": "The devil knows why nobody is answering the phone today.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Čertvie, kde sa ten náš kocúr zase túla.",
+        "english": "Who knows where that tomcat of ours is wandering again.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Sľubovali skoré otvorenie, ale čertvie, kedy to naozaj dokončia.",
+        "english": "They promised an early opening, but who knows when they will actually finish it.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Čertvie, či sa do večera vyčasí.",
+        "english": "The devil knows whether it will clear up by evening.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "bohvie",
+      "ktohovie"
+    ]
+  },
+  {
+    "slug": "ledaze",
+    "slovak": "ledaže",
+    "english": "unless; except if",
+    "category": "Conjunctions",
+    "examples": [
+      {
+        "slovak": "V nedeľu pôjdeme na túru, ledaže by pršalo.",
+        "english": "We will go on a hike on Sunday, unless it rains.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Lístky sú už vypredané, ledaže niekto vráti svoju rezerváciu.",
+        "english": "The tickets are already sold out, unless someone returns their reservation.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Zajtra zostanem v kancelárii, ledaže ma pošlú za klientom.",
+        "english": "Tomorrow I will stay in the office, unless they send me to see a client.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nikto o tom pláne nevie, ledaže sa niekto preriekol.",
+        "english": "Nobody knows about that plan, unless someone let it slip.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "ibaze",
+      "lenze",
+      "leda"
+    ]
+  },
+  {
+    "slug": "mozbyt",
+    "slovak": "môžbyť",
+    "english": "maybe; perhaps",
+    "category": "Particles",
+    "register": "colloquial",
+    "examples": [
+      {
+        "slovak": "Môžbyť sa cez víkend zastavíme u starých rodičov.",
+        "english": "Maybe we will stop by our grandparents' place over the weekend.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Ten list môžbyť ešte leží na pošte.",
+        "english": "That letter is perhaps still sitting at the post office.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Môžbyť mal vtedy pravdu, len sme ho nepočúvali.",
+        "english": "Perhaps he was right back then, we just were not listening to him.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Zajtra môžbyť napadne prvý tohtoročný sneh.",
+        "english": "Maybe this year's first snow will fall tomorrow.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "moznoze",
+      "mozno"
+    ]
+  },
+  {
+    "slug": "budto",
+    "slovak": "buďto",
+    "english": "either (buďto ..., alebo)",
+    "category": "Conjunctions",
+    "examples": [
+      {
+        "slovak": "Buďto odídeme hneď teraz, alebo nestihneme začiatok filmu.",
+        "english": "Either we leave right now, or we will miss the start of the film.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na obed si môžeme dať buďto polievku, alebo čerstvý šalát.",
+        "english": "For lunch we can have either soup or a fresh salad.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Buďto mi tie kľúče požičiaš, alebo budem čakať pred bránou.",
+        "english": "Either you lend me those keys, or I will wait in front of the gate.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Cez leto pôjdeme buďto do hôr, alebo k jazeru.",
+        "english": "In the summer we will go either to the mountains or to the lake.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "bud",
+      "alebo"
+    ]
+  },
+  {
+    "slug": "zaboha",
+    "slovak": "zaboha",
+    "english": "for the life of me; not for anything (with negation)",
+    "category": "Particles",
+    "register": "colloquial",
+    "examples": [
+      {
+        "slovak": "Zaboha si neviem spomenúť na meno toho herca.",
+        "english": "For the life of me, I cannot remember that actor's name.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Tie staré dvere na šope sa zaboha nedali otvoriť.",
+        "english": "That old shed door would not open for anything.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Náš pes zaboha nechcel nastúpiť do auta.",
+        "english": "Our dog refused to get into the car no matter what.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Zaboha nepochopím, prečo si tú vetu škrtol.",
+        "english": "I will never understand for the life of me why you crossed out that sentence.",
+        "note": "Curated"
+      }
+    ],
+    "related": []
+  },
+  {
+    "slug": "ktohovie",
+    "slovak": "ktohovie",
+    "english": "who knows; goodness knows",
+    "category": "Particles",
+    "register": "colloquial",
+    "examples": [
+      {
+        "slovak": "Ktohovie, či sa ešte niekedy vráti do rodného mesta.",
+        "english": "Who knows whether he will ever return to his hometown.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Ktohovie, koľko rokov má tá stará lipa na námestí.",
+        "english": "Goodness knows how old that old linden tree in the square is.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Ktohovie, ako by to dopadlo bez včasného zásahu hasičov.",
+        "english": "Who knows how it would have turned out without the firefighters' timely response.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Hovorili o skorom otvorení mosta, ale ktohovie, kedy to bude.",
+        "english": "They talked about opening the bridge soon, but who knows when that will be.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "bohvie",
+      "certvie"
+    ]
+  },
+  {
+    "slug": "inaksie",
+    "slovak": "inakšie",
+    "english": "otherwise; or else",
+    "category": "Conjunctions",
+    "examples": [
+      {
+        "slovak": "Skontroluj všetky prílohy, inakšie žiadosť neprejde.",
+        "english": "Check all the attachments, otherwise the application will not go through.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Bylinky treba pravidelne polievať, inakšie v horúčave uschnú.",
+        "english": "The herbs need to be watered regularly, or else they will dry out in the heat.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Dohodnime si termín už teraz, inakšie sa do leta nestretneme.",
+        "english": "Let's agree on a date right now, otherwise we will not meet before summer.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nechaj cesto hodinu kysnúť, inakšie koláč nebude nadýchaný.",
+        "english": "Let the dough rise for an hour, or else the cake will not be fluffy.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "inak",
+      "inac"
+    ],
+    "register": "colloquial"
+  },
+  {
+    "slug": "sotvaze",
+    "slovak": "sotvaže",
+    "english": "hardly … when; as soon as; barely",
+    "category": "Conjunctions",
+    "examples": [
+      {
+        "slovak": "Sotvaže sme vyšli z domu, začalo pršať.",
+        "english": "We had hardly left the house when it started to rain.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "V takej hmle bolo sotvaže vidieť na desať metrov.",
+        "english": "In such fog you could scarcely see ten meters ahead.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Pri tom hluku z ulice ho bolo sotvaže počuť.",
+        "english": "With that noise from the street, he could hardly be heard.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Sotvaže zazvonil budík, deti už stáli pri dverách.",
+        "english": "As soon as the alarm clock rang, the children were already standing at the door.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "ledva",
+      "sotva"
+    ]
+  },
+  {
+    "slug": "bozeuchovaj",
+    "slovak": "božeuchovaj",
+    "english": "God forbid; heaven forbid",
+    "category": "Particles",
+    "register": "colloquial",
+    "examples": [
+      {
+        "slovak": "Božeuchovaj, aby si išiel v takom daždi bez bundy!",
+        "english": "Heaven forbid you should go out in such rain without a jacket!",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Keby sa božeuchovaj niečo stalo, hneď zavolajte susedovi.",
+        "english": "If, God forbid, anything should happen, call the neighbor right away.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Božeuchovaj nechať zapnutú žehličku pred odchodom z bytu!",
+        "english": "Heaven forbid leaving the iron plugged in before leaving the apartment!",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Nechcem maľovať čerta na stenu, ale čo ak sa božeuchovaj zraní?",
+        "english": "I do not want to jinx it, but what if, God forbid, he gets injured?",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "nebodaj",
+      "nedajboze",
+      "bozechran"
+    ]
+  },
+  {
+    "slug": "cirka",
+    "slovak": "cirka",
+    "english": "approximately; about; roughly",
+    "category": "Particles",
+    "register": "colloquial",
+    "examples": [
+      {
+        "slovak": "Cesta autom do Trenčína nám trvala cirka dve hodiny.",
+        "english": "The car trip to Trenčín took us about two hours.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Na obecnú slávnosť prišlo cirka tristo ľudí.",
+        "english": "Roughly three hundred people came to the village festival.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Oprava bicykla bude stáť cirka štyridsať eur.",
+        "english": "Repairing the bicycle will cost approximately forty euros.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Vrátime sa z prechádzky cirka o šiestej večer.",
+        "english": "We will return from the walk at about six in the evening.",
+        "note": "Curated"
+      }
+    ],
+    "related": [
+      "priblizne"
+    ]
+  },
+  {
+    "slug": "duplom",
+    "slovak": "dupľom",
+    "english": "all the more; doubly; twice as much",
+    "category": "Particles",
+    "register": "colloquial",
+    "examples": [
+      {
+        "slovak": "Na jar treba jazdiť opatrne a po daždi dupľom.",
+        "english": "In spring you need to drive carefully, and after rain all the more so.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Ak to platí pre deti, pre dospelých to platí dupľom.",
+        "english": "If that goes for children, it goes double for adults.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Ceny potravín stúpli a v centre mesta to platí dupľom.",
+        "english": "Food prices have risen, and in the city center that goes double.",
+        "note": "Curated"
+      },
+      {
+        "slovak": "Keď sa vonku zotmie, na neosvetlenej ceste dávaj pozor dupľom.",
+        "english": "When it gets dark outside, be doubly careful on an unlit road.",
+        "note": "Curated"
+      }
+    ],
+    "related": []
   }
 ]

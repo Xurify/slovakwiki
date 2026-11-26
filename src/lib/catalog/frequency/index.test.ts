@@ -141,6 +141,20 @@ describe("SNK frequency import", () => {
     ]);
   });
 
+  it("keeps single-letter lemmas in conjunction and particle count dumps", () => {
+    const entries = parseSnkCountLemmaDump(
+      "31318998 a\n1330548 i\n9979337 že\n",
+      "conjunction",
+      "https://example.com/conjunctions.bz2",
+    );
+
+    expect(entries.map((entry) => [entry.rank, entry.lemma])).toEqual([
+      [1, "a"],
+      [2, "že"],
+      [3, "i"],
+    ]);
+  });
+
   it("filters likely proper nouns while keeping the allowlist", () => {
     expect(isLikelyProperNoun("Bratislava")).toBe(true);
     expect(isLikelyProperNoun("USA")).toBe(false);

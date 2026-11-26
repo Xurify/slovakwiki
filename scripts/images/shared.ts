@@ -155,6 +155,8 @@ export function normalizePartOfSpeechFilter(
   if (key === "verb" || key === "verbs") return "Verbs";
   if (key === "adjective" || key === "adjectives" || key === "adj") return "Adjectives";
   if (key === "adverb" || key === "adverbs") return "Adverbs";
+  if (key === "particle" || key === "particles") return "Particles";
+  if (key === "conjunction" || key === "conjunctions") return "Conjunctions";
   // Allow exact category match (Places, Food, …)
   return partOfSpeech.trim();
 }
@@ -536,6 +538,8 @@ export function existingImageNeedsUpgrade(
     target.category === "Adjectives" ||
     target.category === "Verbs" ||
     target.category === "Adverbs" ||
+    target.category === "Particles" ||
+    target.category === "Conjunctions" ||
     target.category === "Phrases"
   );
 }

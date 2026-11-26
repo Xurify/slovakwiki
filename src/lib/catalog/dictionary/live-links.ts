@@ -15,6 +15,8 @@ const PART_TO_CATEGORY: Record<FrequencyPartOfSpeech, string> = {
   noun: "Nouns",
   adjective: "Adjectives",
   adverb: "Adverbs",
+  particle: "Particles",
+  conjunction: "Conjunctions",
 };
 
 export function dictionaryPathForLiveLink(live: DictionaryLiveLink): string {
@@ -70,6 +72,16 @@ export function resolveLiveLinkFromIndex(
   if (direct) return direct;
   if (partOfSpeech === "noun") {
     return map[`${lemma}|Places`];
+  }
+  if (partOfSpeech === "particle") {
+    return (
+      map[`${lemma}|Conjunctions`] ?? map[`${lemma}|Adverbs`] ?? map[`${lemma}|Phrases`]
+    );
+  }
+  if (partOfSpeech === "conjunction") {
+    return (
+      map[`${lemma}|Particles`] ?? map[`${lemma}|Adverbs`] ?? map[`${lemma}|Phrases`]
+    );
   }
   return undefined;
 }

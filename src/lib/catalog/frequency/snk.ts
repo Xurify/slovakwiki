@@ -1,4 +1,8 @@
-import type { FrequencyEntry, FrequencyPartOfSpeech } from "./types";
+import {
+  isDisplayableFrequencyLemma,
+  type FrequencyEntry,
+  type FrequencyPartOfSpeech,
+} from "./types";
 
 const SNK_SOURCE_NAME = "Slovak National Corpus (SNK)";
 
@@ -82,7 +86,9 @@ export function parseSnkCountLemmaDump(
 
     const count = Number(match[1]);
     const lemma = match[2] ?? "";
-    if (!Number.isFinite(count) || lemma.length <= 1) continue;
+    if (!Number.isFinite(count) || !isDisplayableFrequencyLemma(lemma, partOfSpeech)) {
+      continue;
+    }
 
     entries.push({
       rank: 0,

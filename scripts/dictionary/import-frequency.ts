@@ -47,6 +47,14 @@ const SNK_ADVERB_CACHE = path.join(
   SNK_CACHE_DIR,
   "prim-8.0-public-all-D-lemma-frequency.bz2",
 );
+const SNK_PARTICLE_CACHE = path.join(
+  SNK_CACHE_DIR,
+  "prim-8.0-public-all-T-lemma-frequency.bz2",
+);
+const SNK_CONJUNCTION_CACHE = path.join(
+  SNK_CACHE_DIR,
+  "prim-8.0-public-all-O-lemma-frequency.bz2",
+);
 const execFileAsync = promisify(execFile);
 const require = createRequire(import.meta.url);
 const Bunzip = require("seek-bzip") as { decode(input: Buffer): Buffer };
@@ -61,16 +69,24 @@ const SNK_ADJECTIVE_DUMP =
   "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-A-lemma-frequency.bz2";
 const SNK_ADVERB_DUMP =
   "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-D-lemma-frequency.bz2";
+const SNK_PARTICLE_DUMP =
+  "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-T-lemma-frequency.bz2";
+const SNK_CONJUNCTION_DUMP =
+  "https://korpus.juls.savba.sk/files/prim-8.0/tag/prim-8.0-public-all-O-lemma-frequency.bz2";
 const DEFAULT_NOUN_LIMIT = 3000;
 const DEFAULT_VERB_LIMIT = 3000;
 const DEFAULT_ADJECTIVE_LIMIT = 3000;
 const DEFAULT_ADVERB_LIMIT = 3000;
+const CLOSED_CLASS_MIN_COUNT = 100;
+const SLOVAK_LOWERCASE_WORD = /^[a-záäčďéíĺľňóôŕšťúýž]+$/u;
 
 const PART_OF_SPEECH_FILES: Record<FrequencyPartOfSpeech, string> = {
   verb: "verbs.json",
   noun: "nouns.json",
   adjective: "adjectives.json",
   adverb: "adverbs.json",
+  particle: "particles.json",
+  conjunction: "conjunctions.json",
 };
 
 async function fetchSnkFrequency(
@@ -139,6 +155,36 @@ async function fetchSnkFrequency(
       partOfSpeech,
       source: SNK_SOURCE_NAME,
       sourceUrl: SNK_VERB_DUMP,
+      entries,
+    };
+  }
+
+  if (partOfSpeech === "particle" || partOfSpeech === "conjunction") {
+    const isParticle = partOfSpeech === "particle";
+    const cachePath = isParticle ? SNK_PARTICLE_CACHE : SNK_CONJUNCTION_CACHE;
+    const sourceUrl = isParticle ? SNK_PARTICLE_DUMP : SNK_CONJUNCTION_DUMP;
+    const compressed = await getLemmaDump(
+      cachePath,
+      sourceUrl,
+      options.force,
+      partOfSpeech,
+    );
+    const dump = Bunzip.decode(compressed).toString("utf8");
+    const parsed = parseSnkCountLemmaDump(dump, partOfSpeech, sourceUrl);
+    // Keep real 1-letter closed-class lemmas (a, i) while dropping stray foreign characters (à) and rare tail noise.
+    const filtered = parsed.filter(
+      (entry) =>
+        (entry.count ?? 0) >= CLOSED_CLASS_MIN_COUNT &&
+        SLOVAK_LOWERCASE_WORD.test(entry.lemma),
+    );
+    const entries = selectFrequencyHead(filtered, filtered.length);
+
+    return {
+      corpus: SNK_CORPUS,
+      generatedAt: new Date().toISOString(),
+      partOfSpeech,
+      source: SNK_SOURCE_NAME,
+      sourceUrl,
       entries,
     };
   }

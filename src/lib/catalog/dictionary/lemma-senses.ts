@@ -1,13 +1,22 @@
 import { lemmaToSlug } from "../frequency";
 import type { ContentEntry } from "../types";
 
-const CATEGORY_ORDER = ["Verbs", "Nouns", "Adjectives", "Adverbs"] as const;
+const CATEGORY_ORDER = [
+  "Verbs",
+  "Nouns",
+  "Adjectives",
+  "Adverbs",
+  "Particles",
+  "Conjunctions",
+] as const;
 
 const CATEGORY_SECTION_ID: Record<string, string> = {
   Verbs: "verb",
   Nouns: "noun",
   Adjectives: "adjective",
   Adverbs: "adverb",
+  Particles: "particle",
+  Conjunctions: "conjunction",
 };
 
 /** Anchor id for a part-of-speech section on a multi-sense lemma page. */
@@ -97,7 +106,7 @@ export function canonicalWordSlug(
   const bareHit = group.find((word) => word.slug === bare);
   if (bareHit) return bareHit.slug;
 
-  const unsuffixed = group.find((word) => !/-(?:v|n|a|adv)$/.test(word.slug));
+  const unsuffixed = group.find((word) => !/-(?:v|n|a|adv|part|conj)$/.test(word.slug));
   return unsuffixed?.slug ?? group[0]!.slug;
 }
 

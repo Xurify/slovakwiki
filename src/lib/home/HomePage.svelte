@@ -266,7 +266,7 @@
               title="The words you will meet first"
               id="common-heading"
               href="/dictionary/common"
-              description="Ranked by how often they appear in the Slovak National Corpus. Each list runs to the top thousand or more."
+              description="Ranked by how often they appear in the Slovak National Corpus."
             >
               {#snippet aside()}
                 <a
@@ -278,7 +278,7 @@
               {/snippet}
             </SectionHead>
 
-            <div class="mt-4 grid grid-cols-4 gap-x-6 gap-y-6 max-[800px]:grid-cols-2">
+            <div class="mt-4 grid grid-cols-3 gap-x-6 gap-y-6 max-[800px]:grid-cols-2">
               {#each commonGroups as group (group.partOfSpeech)}
                 <section>
                   <Eyebrow compact tone="muted">{group.label}</Eyebrow>
